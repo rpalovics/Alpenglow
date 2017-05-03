@@ -1,0 +1,77 @@
+#ifndef MEMORY_RANKING_LOGGER_H
+#define MEMORY_RANKING_LOGGER_H
+
+#include "online_recommender/OnlineRecommender.h"
+#include "ranking/Ranking.h"
+#include "loggers/Logger.h"
+#include <vector>
+#include <fstream>
+
+struct RankingLog{
+  double time;
+  int rank;
+  double prediction;
+  int user;
+  int item;
+  double score;
+  int location_id;
+};
+
+struct RankingLogs{
+  int topK;
+  vector<RankingLog> logs;
+};
+
+struct MemoryRankingLoggerParameters{
+  double min_time;
+  string out_file="";
+};
+
+class MemoryRankingLogger : public Logger{
+  public:
+    MemoryRankingLogger(MemoryRankingLoggerParameters* params){
+      min_time_=params->min_time;
+
+      if(params->out_file != ""){
+        ofs.open(params->out_file.c_str());
+      }
+    }
+    ~MemoryRankingLogger(){}
+    void set_recommender(OnlineRecommender* recommender){ recommender_ = recommender; }
+    void set_rank_computer(RankComputer* rank_computer){ rank_computer_ = rank_computer; }
+    void set_ranking_logs(RankingLogs* logs){
+      logs_=logs;
+    }
+    void run(RecDat* rec_dat){
+      if(rec_dat->time >= min_time_ && rec_dat->eval==1){
+        RankingLog log;
+        log.time = rec_dat->time;
+        log.rank = rank_computer_->get_rank(rec_dat);
+        log.prediction = recommender_->prediction(rec_dat);
+        log.user = rec_dat->user;
+        log.item = rec_dat->item;
+        log.score = rec_dat->score;
+        log.location_id = rec_dat->location.location_id;
+        logs_->logs.push_back(log);
+
+        if(ofs.is_open()){
+          ofs 
+            << (int) rec_dat->time << " "
+            << log.rank << " "
+            << log.prediction << " "
+            << rec_dat->user << " "
+            << rec_dat->item << " "
+            << rec_dat->score << " "
+            << rec_dat->id << endl;
+        }
+      }
+    }
+  private:
+    ofstream ofs;
+    RankingLogs* logs_;
+    double min_time_;
+    OnlineRecommender* recommender_;
+    RankComputer* rank_computer_;
+};
+
+#endif

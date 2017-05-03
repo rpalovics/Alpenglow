@@ -1,0 +1,35 @@
+struct OnlineDataUpdaterParameters{
+  %TypeHeaderCode
+  #include "online_data_updater/OnlineDataUpdater.h"
+  %End
+  SpMatrix * trainMatrix;
+  std::vector <int> * items;
+  std::vector <int> * users;
+  TopPopContainer * pop; 
+  PopContainer* popContainer;
+};
+
+class OnlineDataUpdater : public Updater{
+  %TypeHeaderCode
+  #include "online_data_updater/OnlineDataUpdater.h"
+  %End
+  public:
+    OnlineDataUpdater(OnlineDataUpdaterParameters * parameters);
+    void setParameters(OnlineDataUpdaterParameters * parameters);
+    OnlineDataUpdater();
+    void set_train_matrix(SpMatrix* train_matrix /Transfer/);
+    void set_popularity_sorted_container(TopPopContainer* popularity_sorted_container /Transfer/);
+    void set_popularity_container(PopContainer* popularity_container /Transfer/);
+    void set_items(std::vector<int>* items /Transfer/);
+    void set_items(VectorInt);
+    %MethodCode
+        sipCpp->set_items(&(a0->vec));
+    %End
+    void set_users(std::vector<int>* users /Transfer/);
+    void set_users(VectorInt);
+    %MethodCode
+        sipCpp->set_users(&(a0->vec));
+    %End
+    ~OnlineDataUpdater();
+    void update(RecDat* rec_dat);
+};
