@@ -5,7 +5,7 @@
 - Anaconda + python3 environment
 
 ### Installation:
-- `cd alpenglow`
+- `cd Alpenglow`
 - `conda install libgcc`
 - `pip install .`
 
