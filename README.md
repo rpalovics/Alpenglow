@@ -2,17 +2,17 @@
 (name might change because of conflict)
 
 ### Requirements:
-	- Anaconda + python3 environment
+- Anaconda + python3 environment
 
 ### Installation:
-	- `cd alpenglow`
-	- `conda install libgcc`
-	- `pip install .`
+- `cd alpenglow`
+- `conda install libgcc`
+- `pip install .`
 
 ### Development:
-	- For faster recompilation, use `export CC="ccache cc"`
-	- To enable compilation on 4 threads for example, use `echo 4 > .parallel`
-	- Reinstall modified version using `pip install --upgrade --force-reinstall --no-deps .`
+- For faster recompilation, use `export CC="ccache cc"`
+- To enable compilation on 4 threads for example, use `echo 4 > .parallel`
+- Reinstall modified version using `pip install --upgrade --force-reinstall --no-deps .`
 
 ### Example usage:
 ```python
