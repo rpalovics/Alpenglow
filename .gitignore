@@ -1,0 +1,9 @@
+build
+.scon*
+config.log
+python/pyrecsys/__pycache__
+python/pyrecsys/cpp/__pycache__
+python/.ipynb_checkpoints
+python/.cache
+.cache
+.parallel

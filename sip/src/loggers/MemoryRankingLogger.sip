@@ -1,0 +1,41 @@
+struct RankingLog{
+  %TypeHeaderCode
+  #include "cpp/MemoryRankingLogger.h"
+  %End
+  double time;
+  int rank;
+  double prediction;
+  int user;
+  int item;
+  double score;
+  int location_id;
+};
+
+struct RankingLogs{
+  %TypeHeaderCode
+  #include "cpp/MemoryRankingLogger.h"
+  %End
+  int topK;
+  std::vector<RankingLog> logs;
+};
+
+struct MemoryRankingLoggerParameters{
+  %TypeHeaderCode
+  #include "cpp/MemoryRankingLogger.h"
+  %End
+  double min_time;
+  std::string out_file;
+};
+
+class MemoryRankingLogger : public Logger /NoDefaultCtors/{
+  %TypeHeaderCode
+  #include "cpp/MemoryRankingLogger.h"
+  %End
+  public:
+    MemoryRankingLogger(MemoryRankingLoggerParameters* params);
+    ~MemoryRankingLogger();
+    void set_recommender(OnlineRecommender* recommender);
+    void set_rank_computer(RankComputer* rank_computer);
+    void set_ranking_logs(RankingLogs* logs);
+    void run(RecDat* rec_dat);
+};
