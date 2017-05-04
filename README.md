@@ -1,5 +1,4 @@
 # Alpenglow
-(name might change because of conflict)
 
 ### Requirements:
 - Anaconda + python3 environment
