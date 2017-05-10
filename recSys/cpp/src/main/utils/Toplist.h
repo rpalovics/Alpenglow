@@ -12,7 +12,6 @@ template<typename T,bool (*F)(T,T)>
 class Toplist{
   public:
     Toplist(int max_length){
-      cerr << "YES, it's me." << endl;
       max_length_=max_length;
       heap_ = new priority_queue<T,vector<T>,comparator_type >(F);
     }
