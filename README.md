@@ -14,6 +14,8 @@
 - Reinstall modified version using `pip install --upgrade --force-reinstall --no-deps .`
 
 ### Example usage:
+- Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset
+
 ```python
 import alpenglow as ag
 import alpenglow.experiments.FactorModelExperiment
@@ -23,10 +25,10 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 data = pd.read_csv(
-    "/mnt/idms/recSys/data/30M_lastfm/recoded_online_id_artist_first_filtered",
-    sep=' ',
-    header=None,
-    names=['time', 'user', 'item', 'id', 'score', 'eval'],
+    "/path/to/sample_dataset",
+    sep=',',
+    header=0,
+    names=['time', 'user', 'item'],
     nrows=1000000
 )
 factorModelExperiment = FactorModelExperiment(
