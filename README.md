@@ -24,13 +24,8 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-data = pd.read_csv(
-    "/path/to/sample_dataset",
-    sep=',',
-    header=0,
-    names=['time', 'user', 'item'],
-    nrows=1000000
-)
+data = pd.read_csv("/path/to/sample_dataset")
+
 factorModelExperiment = FactorModelExperiment(
     topK=100,
     seed=254938879,
