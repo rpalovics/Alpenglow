@@ -18,7 +18,7 @@
 
 ```python
 import alpenglow as ag
-import alpenglow.experiments.FactorModelExperiment
+from alpenglow.experiments import FactorModelExperiment
 import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
