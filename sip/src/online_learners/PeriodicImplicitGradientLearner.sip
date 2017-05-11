@@ -14,8 +14,8 @@ class PeriodicImplicitGradientLearner : public PeriodicLearner /Abstract/ {
   %End
   public:
     PeriodicImplicitGradientLearner(PeriodicImplicitGradientLearnerParameters* params);
-    void set_negative_sample_generator(NegativeSampleGenerator* negative_sample_generator /Transfer/);
-    void set_gradient_computer(GradientComputer* gradient_computer /Transfer/);
-    void add_iteration_logger(Logger* logger /Transfer/);
+    void set_negative_sample_generator(NegativeSampleGenerator* negative_sample_generator);
+    void set_gradient_computer(GradientComputer* gradient_computer);
+    void add_iteration_logger(Logger* logger);
     bool self_test();
 };

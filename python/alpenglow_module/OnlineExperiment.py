@@ -1,5 +1,6 @@
 from .Getter import Getter as rs
 from .DataframeIterator import DataframeIterator
+from .ParameterSearch import DependentParameter
 import pandas as pd
 import sip
 
@@ -7,23 +8,32 @@ import sip
 class OnlineExperiment:
     def __init__(self, **parameters):
         self.parameters = parameters
+        self.givenParameters = set(self.parameters.keys())
+        self.usedParameters = set(['seed'])
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
 
+    def checkUnusedParameters(self):
+        unused = self.givenParameters - self.usedParameters
+        if(len(unused) != 0):
+            raise TypeError("Unused parameters: "+", ".join(unused))
+
     def setParameter(self, name, value):
         self.parameters[name] = value
+        self.givenParameters |= set([name])
 
     def parameterDefaults(self, **defaults):
         for k in defaults:
-            try:
-                defaults[k] = self.parameters[k]
-            except KeyError as e:
-                pass
+            defaults[k] = self.parameterDefault(k, defaults[k])
         return defaults
 
     def parameterDefault(self, name, value):
+        self.usedParameters |= set([name])
         if name in self.parameters:
-            return self.parameters[name]
+            if isinstance(self.parameters[name], DependentParameter):
+                return self.parameters[name].eval(self.parameters)
+            else:
+                return self.parameters[name]
         else:
             return value
 
@@ -131,6 +141,8 @@ class OnlineExperiment:
         createdObjects = rs.getAndClean()
         for i in createdObjects:
             rs.runSelfTest(i)
+
+        self.checkUnusedParameters()
 
         print("running experiment...") if self.verbose else None
         online_experiment.run()

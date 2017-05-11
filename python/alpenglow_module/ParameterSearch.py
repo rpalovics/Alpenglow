@@ -3,6 +3,15 @@ import copy
 import pandas as pd
 
 
+class DependentParameter:
+    def __init__(self, formatString, parameterNames=None):
+        self.formatString = formatString
+        self.parameterNames = parameterNames
+
+    def eval(self, parameters):
+        return self.formatString % tuple([parameters[n] for n in self.parameterNames])
+
+
 class ParameterSearch:
     def __init__(self, model, Score):
         self.model = model
@@ -10,7 +19,14 @@ class ParameterSearch:
         self.parameterValues = []
         self.parameterNames = []
 
+    def _getNonDependantParameterNames(self):
+        return [k for (k, v) in zip(self.parameterNames, self.parameterValues) if not (len(v) == 1 and isinstance(v[0], DependentParameter))]
+
     def setParameterValues(self, parameterName, parameterValues):
+        if(isinstance(parameterValues, DependentParameter)):
+            if(parameterValues.parameterNames is None):
+                parameterValues.parameterNames = self._getNonDependantParameterNames()
+            parameterValues = [parameterValues]
         self.parameterValues.append(parameterValues)
         self.parameterNames.append(parameterName)
 
@@ -31,12 +47,12 @@ class ParameterSearch:
 
     def _mapper(self, parameterTuple):
         (parameters, runParameters) = parameterTuple
-        currentParameterValues = [parameters[k] for k in self.parameterNames]
+        currentParameterValues = [parameters[k] for k in self._getNonDependantParameterNames()]
         result = self._runSingle(self.model, self.Score, parameters, runParameters)
         return (*currentParameterValues, result)
 
     def _toDataFrame(self, results):
-        return pd.DataFrame.from_records(results, columns=(*self.parameterNames, self.Score.__name__))
+        return pd.DataFrame.from_records(results, columns=(*self._getNonDependantParameterNames(), self.Score.__name__))
 
     def run(self, *runParameters, **runKwParameters):
         self.results = []

@@ -27,12 +27,12 @@ class FactorModelFilter : public ModelFilter{
     void run(RecDat* rd);
     std::vector<std::pair<int,double>>* get_global_users();
     std::vector<std::pair<int,double>>* get_global_items();
-    void setItems(std::vector<int>* items /Transfer/);
+    void setItems(std::vector<int>* items);
     void setItems(VectorInt);
     %MethodCode
         sipCpp->setItems(&(a0->vec));
     %End
-    void setUsers(std::vector<int>* users /Transfer/);
+    void setUsers(std::vector<int>* users);
     void setUsers(VectorInt);
     %MethodCode
         sipCpp->setUsers(&(a0->vec));
