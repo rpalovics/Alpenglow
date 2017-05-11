@@ -7,6 +7,6 @@ class ProceedingLogger : public Logger{
     virtual ~ProceedingLogger();
     virtual void run(RecDat* recDat);
     virtual void init();
-    void set_data_iterator(RecommenderDataIterator* recommender_data_iterator /Transfer/);
+    void set_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool self_test();
 };

@@ -11,10 +11,10 @@ class OnlineExperiment{
   public:
     OnlineExperiment(OnlineExperimentParameters * parameters);
     ~OnlineExperiment();
-    void add_logger(Logger* logger /Transfer/);
-    void set_online_data_updater(OnlineDataUpdater* updater /Transfer/);
-    void set_online_recommender(OnlineRecommender* recommender /Transfer/);
-    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator /Transfer/);
+    void add_logger(Logger* logger);
+    void set_online_data_updater(OnlineDataUpdater* updater);
+    void set_online_recommender(OnlineRecommender* recommender);
+    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool selfTest();
-    void run() throw (PythonKeyboardInterruptException);
+    void run() throw (PythonKeyboardInterruptException) /ReleaseGIL/;
 };

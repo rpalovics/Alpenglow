@@ -47,7 +47,7 @@ class RecommenderData{
     RecommenderData(RecommenderDataParameters* params);
     ~RecommenderData();
     void readFromFile(std::string fileName, std::string type);
-    void setRecDats(std::vector <RecDat> recData /Transfer/);
+    void setRecDats(std::vector <RecDat> recData);
     RecDat* get(int idx);
     int size();
     SpMatrix* matrix();

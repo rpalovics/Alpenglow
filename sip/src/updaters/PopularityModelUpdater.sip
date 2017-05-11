@@ -5,7 +5,7 @@ class PopularityModelUpdater : ModelSimpleUpdater{
   %End
   public:
     PopularityModelUpdater();
-    void setModel(PopularityModel * model_ /Transfer/);
+    void setModel(PopularityModel * model_);
     virtual void update(RecDat * recDat);
     bool selfTest();
 };

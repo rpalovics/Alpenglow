@@ -12,7 +12,7 @@ class RankingLogger : public Logger /NoDefaultCtors/{
   public:
     RankingLogger(RankingLoggerParameters* params);
     ~RankingLogger();
-    void set_recommender(OnlineRecommender* recommender /Transfer/);
-    void set_rank_computer(RankComputer* rank_computer /Transfer/);
+    void set_recommender(OnlineRecommender* recommender);
+    void set_rank_computer(RankComputer* rank_computer);
     void run(RecDat* rec_dat);
 };

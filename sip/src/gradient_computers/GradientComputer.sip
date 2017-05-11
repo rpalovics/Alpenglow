@@ -5,13 +5,13 @@ class GradientComputer /Abstract/{
   public:
     GradientComputer();
     virtual ~GradientComputer();
-    void set_model(Model* model_ /Transfer/);
-    virtual void set_up(std::vector<RecDat>* trainData /Transfer/) = 0;
+    void set_model(Model* model_);
+    virtual void set_up(std::vector<RecDat>* trainData) = 0;
     // virtual vector<pair<RecDat*,double> >* get_next_gradient() = 0;
     virtual bool has_next() = 0;
 
-    void setModel(Model* model_ /Transfer/);
-    void setUp(std::vector<RecDat>* trainData /Transfer/);
+    void setModel(Model* model_);
+    void setUp(std::vector<RecDat>* trainData);
     bool hasNext();
     // std::vector<std::pair<RecDat*,double> >* getNextGradient();
 };
@@ -21,12 +21,12 @@ class GradientComputerPointWise : public GradientComputer{
   #include "gradient_computers/GradientComputer.h"
   %End
   public:
-    GradientComputerPointWise(ObjectivePointWise * _objective /Transfer/);
+    GradientComputerPointWise(ObjectivePointWise * _objective);
     GradientComputerPointWise();
-    void set_objective(ObjectivePointWise* _objective /Transfer/);
+    void set_objective(ObjectivePointWise* _objective);
     ~GradientComputerPointWise();
     virtual double get_gradient(RecDat* recDat);
-    void set_up(std::vector<RecDat>* trainData_ /Transfer/);
+    void set_up(std::vector<RecDat>* trainData_);
     // vector<pair<RecDat*,double> > * get_next_gradient();
     bool has_next();
 };
@@ -36,9 +36,9 @@ class GradientComputerImplicitPairWise : public GradientComputer{
   #include "gradient_computers/GradientComputer.h"
   %End
   public:
-    GradientComputerImplicitPairWise(ObjectivePairWise * _objective /Transfer/);
+    GradientComputerImplicitPairWise(ObjectivePairWise * _objective);
     ~GradientComputerImplicitPairWise();
-    void set_up(std::vector<RecDat>* trainData_ /Transfer/);
+    void set_up(std::vector<RecDat>* trainData_);
     // vector<pair<RecDat*,double> > * get_next_gradient();
     bool has_next();
 };
@@ -48,9 +48,9 @@ class GradientComputerListWise : public GradientComputer{
   #include "gradient_computers/GradientComputer.h"
   %End
   public:
-    GradientComputerListWise(ObjectiveListWise * _objective /Transfer/);
+    GradientComputerListWise(ObjectiveListWise * _objective);
     ~GradientComputerListWise();
-    void set_up(std::vector<RecDat>* trainData_ /Transfer/);
+    void set_up(std::vector<RecDat>* trainData_);
     // vector<pair<RecDat*,double> > * get_next_gradient();
     bool has_next();
 };

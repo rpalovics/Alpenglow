@@ -21,7 +21,7 @@ class PeriodicLearner : public OnlineLearner {
     PeriodicLearner(PeriodicLearnerParameters* params);
     virtual ~PeriodicLearner();
     void learn(RecDat* rec_dat);
-    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data /Transfer/);
+    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data);
     void init();
     bool self_test();
 };
