@@ -12,10 +12,10 @@ class RankComputer{
   public:
     RankComputer(RankComputerParameters * parameters);
     ~RankComputer();
-    void set_recommender(OnlineRecommender* recommender /Transfer/);
-    void set_train_matrix(SpMatrix* train_matrix /Transfer/);
-    void set_top_pop_container(TopPopContainer* popularity_sorted_container /Transfer/);
-    void set_model_filter(ModelFilter* model_filter /Transfer/);
+    void set_recommender(OnlineRecommender* recommender);
+    void set_train_matrix(SpMatrix* train_matrix);
+    void set_top_pop_container(TopPopContainer* popularity_sorted_container);
+    void set_model_filter(ModelFilter* model_filter);
     bool selfTest();
     int get_rank(RecDat*);
 };

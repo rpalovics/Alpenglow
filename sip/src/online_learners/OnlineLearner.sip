@@ -6,15 +6,15 @@ class OnlineLearner {
     OnlineLearner();
     virtual ~OnlineLearner();
     virtual void learn(RecDat* rec_dat)=0;
-    void add_simple_updater(ModelSimpleUpdater* model_updater /Transfer/);
-    void add_gradient_updater(ModelGradientUpdater* model_updater /Transfer/);
-    void add_multi_updater(ModelMultiUpdater* model_updater /Transfer/);
-    void set_model(Model* model /Transfer/);
+    void add_simple_updater(ModelSimpleUpdater* model_updater);
+    void add_gradient_updater(ModelGradientUpdater* model_updater);
+    void add_multi_updater(ModelMultiUpdater* model_updater);
+    void set_model(Model* model);
     bool self_test();
 
     //DEPRECATED
-    void addSimpleUpdater(ModelSimpleUpdater* model_updater /Transfer/);
-    void addGradientUpdater(ModelGradientUpdater* model_updater /Transfer/);
-    void setModel(Model* model /Transfer/);
+    void addSimpleUpdater(ModelSimpleUpdater* model_updater);
+    void addGradientUpdater(ModelGradientUpdater* model_updater);
+    void setModel(Model* model);
     bool selfTest();
 };

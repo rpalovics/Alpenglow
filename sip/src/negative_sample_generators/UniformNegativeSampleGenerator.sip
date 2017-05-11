@@ -13,8 +13,8 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator{
     %End
   public:
     UniformNegativeSampleGenerator(UniformNegativeSampleGeneratorParameters* params);
-    void setTrainMatrix(SpMatrix* trainMatrix_ /Transfer/);
-    void setItems(std::vector<int>* items_ /Transfer/);
+    void setTrainMatrix(SpMatrix* trainMatrix_);
+    void setItems(std::vector<int>* items_);
     void setItems(VectorInt);
     %MethodCode
         sipCpp->setItems(&(a0->vec));

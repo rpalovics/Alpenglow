@@ -4,6 +4,6 @@ class PopularityTimeFrameModelUpdater : public ModelSimpleUpdater {
   #include "updaters/PopularityTimeFrameModelUpdater.h"
   %End
   public:
-    void setModel(PopularityTimeFrameModel * model_ /Transfer/);
+    void setModel(PopularityTimeFrameModel * model_);
     void update(RecDat * recDat);
 };

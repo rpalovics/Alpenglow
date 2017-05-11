@@ -5,8 +5,8 @@ class OnlineRecommender{
   public:
     OnlineRecommender();
     ~OnlineRecommender();
-    void set_model(Model* model /Transfer/);
-    void set_learner(OnlineLearner* learner /Transfer/);
+    void set_model(Model* model);
+    void set_learner(OnlineLearner* learner);
     void learn(RecDat * recDat);
     double prediction(RecDat * recDat);
     bool selfTest();
