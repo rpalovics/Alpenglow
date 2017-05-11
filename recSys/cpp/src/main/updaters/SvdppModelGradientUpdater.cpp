@@ -24,18 +24,18 @@
 
 void SvdppModelGradientUpdater::beginning_of_updating_cycle(RecDat* rec_dat){
   if(cumulative_item_updates_){
-    Util::zeroOutVector(&cumulated_histvector_updates_);
+    Util::zero_out_vector(&cumulated_histvector_updates_);
   }
 }
 void SvdppModelGradientUpdater::update(RecDat* rec_dat, double gradient){ 
   if(model_->use_sigmoid_){
     double pred = model_->prediction(rec_dat);
-    gradient = gradient * Util::sigmoidDerivativeFunction(pred);
+    gradient = gradient * Util::sigmoid_derivative_function(pred);
   }
   update_user_factors(rec_dat,gradient);
   vector<double>* item_vector = model_->item_factors_.get(rec_dat->item);
   if(cumulative_item_updates_){
-    Util::sumUpdateWith(&cumulated_histvector_updates_,item_vector,gradient);
+    Util::sum_update_with(&cumulated_histvector_updates_,item_vector,gradient);
   } else {
     update_history_item_factors(rec_dat,gradient,item_vector);
     model_->invalidate_user_factor_ = true;

@@ -7,9 +7,9 @@
 
 #include "ObjectiveSigmoidMSE.h"
 
-double ObjectiveSigmoidMSE::getGradient(RecPred * recPred) {
-  return (recPred->prediction - recPred->score) *
-      util.logisticFunction(recPred->prediction);
+double ObjectiveSigmoidMSE::getGradient(RecPred* rec_pred) {
+  return (rec_pred->prediction - rec_pred->score) *
+      Util::logistic_function(rec_pred->prediction);
 }
 
 

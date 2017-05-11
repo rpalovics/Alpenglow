@@ -20,7 +20,7 @@ void AsymmetricFactorModel::clear(){
       history_item_factors_.init(item);
     }
   }
-  Util::zeroOutVector(&cached_user_factor_);
+  Util::zero_out_vector(&cached_user_factor_);
   cached_weights_.clear();
   cached_norm_=1;
   last_user_=-1;
@@ -50,9 +50,9 @@ double AsymmetricFactorModel::prediction(RecDat* rec_dat){
   //    cerr << "Item vector was NULL." << endl;
   //  }
   //} //DEBUG
-  double val = Util::scalarProduct(&cached_user_factor_,item_factors_.get(rec_dat->item));
+  double val = Util::scalar_product(&cached_user_factor_,item_factors_.get(rec_dat->item));
   if(use_sigmoid_)
-    return Util::sigmoidFunction(val);
+    return Util::sigmoid_function(val);
   else return val;
 }
 
@@ -62,9 +62,9 @@ void AsymmetricFactorModel::compute_user_factor(RecDat * rec_dat){
   if(user_history!=NULL && user_history->size()!=0){ //TODO should not happen that uh size == 0
     double norm = compute_norm(user_history->size());
     cached_user_factor_ = compute_histvector_sum(rec_dat,user_history); 
-    Util::multiplyVector(norm,&cached_user_factor_);
+    Util::multiply_vector(norm,&cached_user_factor_);
   } else {
-    Util::zeroOutVector(&cached_user_factor_);
+    Util::zero_out_vector(&cached_user_factor_);
   }
 }
 bool AsymmetricFactorModel::cache_is_valid(RecDat* rec_dat){

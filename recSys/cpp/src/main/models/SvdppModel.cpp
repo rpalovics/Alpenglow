@@ -40,9 +40,9 @@ void SvdppModel::add(RecDat *rec_dat){
 
 double SvdppModel::prediction(RecDat *rec_dat){
   compute_user_factor(rec_dat);
-  double val = Util::scalarProduct(&cached_user_factor_,item_factors_.get(rec_dat->item));
+  double val = Util::scalar_product(&cached_user_factor_,item_factors_.get(rec_dat->item));
   if(use_sigmoid_)
-    return Util::sigmoidFunction(val);
+    return Util::sigmoid_function(val);
   else return val;
 }
 
@@ -52,9 +52,9 @@ void SvdppModel::compute_user_factor(RecDat* rec_dat){
   if(user_history!=NULL && user_history->size()!=0){ //TODO assert: should not happen that uh size == 0
     cached_user_factor_ = compute_histvector_sum(rec_dat,user_history); 
     double norm = compute_norm(user_history->size());
-    Util::multiplyVector(norm*history_weight_,&cached_user_factor_);
+    Util::multiply_vector(norm*history_weight_,&cached_user_factor_);
   } else {
-    Util::zeroOutVector(&cached_user_factor_);
+    Util::zero_out_vector(&cached_user_factor_);
   }
   vector<double>* user_vector=user_factors_.get(rec_dat->user);
   Util::sum_update_with(&cached_user_factor_,user_vector,user_vector_weight_);
@@ -124,7 +124,7 @@ void SvdppModel::read(ifstream& file){
 //  double avg=0;
 //  vector<int> userIndices = user_factors_.getNonnullIndices();
 //  for(std::vector<int>::iterator it = userIndices.begin() ; it != userIndices.end(); ++it)
-//    avg+=Util::scalarProduct(user_factors_.get(*it),user_factors_.get(*it));
+//    avg+=Util::scalar_product(user_factors_.get(*it),user_factors_.get(*it));
 //  if(userIndices.size()>0) avg=avg/double(userIndices.size());
 //  return avg;
 //}
@@ -134,7 +134,7 @@ void SvdppModel::read(ifstream& file){
 //  double avg=0;
 //  vector<int> itemIndices = item_factors_.getNonnullIndices();
 //  for(std::vector<int>::iterator it = itemIndices.begin() ; it != itemIndices.end(); ++it)
-//    avg+=Util::scalarProduct(item_factors_.get(*it),item_factors_.get(*it));
+//    avg+=Util::scalar_product(item_factors_.get(*it),item_factors_.get(*it));
 //  if(itemIndices.size()>0) avg=avg/double(itemIndices.size());
 //  return avg;
 //}

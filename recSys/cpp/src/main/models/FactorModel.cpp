@@ -56,7 +56,7 @@ double FactorModel::prediction(RecDat *rec_dat){
   }
   double prediction = scalar_product+user_bias_val+item_bias_val;
   if(use_sigmoid_){
-    prediction=Util::sigmoidFunction(prediction);
+    prediction=Util::sigmoid_function(prediction);
   }
   return prediction;
 }
@@ -64,7 +64,7 @@ double FactorModel::prediction(RecDat *rec_dat){
 double FactorModel::similarity(int item1, int item2){
   vector<double>* item1_vector = item_factors_.get(item1);
   vector<double>* item2_vector = item_factors_.get(item2);
-  return Util::scalarProduct(item1_vector, item2_vector)/(Util::norm(item1_vector)*Util::norm(item2_vector));
+  return Util::scalar_product(item1_vector, item2_vector)/(Util::norm(item1_vector)*Util::norm(item2_vector));
 }
 
 double FactorModel::compute_user_bias(RecDat *rec_dat){
@@ -80,7 +80,7 @@ double FactorModel::compute_item_bias(RecDat *rec_dat){
 }
 
 double FactorModel::compute_product(RecDat *rec_dat){
-  return Util::scalarProduct(user_factors_.get(rec_dat->user),item_factors_.get(rec_dat->item));
+  return Util::scalar_product(user_factors_.get(rec_dat->user),item_factors_.get(rec_dat->item));
 }
 
 void FactorModel::write(ofstream& file){
@@ -100,7 +100,7 @@ void FactorModel::read(ifstream& file){
 //  double avg=0;
 //  vector<int> userIndices = user_factors_.getNonnullIndices();
 //  for(std::vector<int>::iterator it = userIndices.begin() ; it != userIndices.end(); ++it)
-//    avg+=Util::scalarProduct(user_factors_.get(*it),user_factors_.get(*it));
+//    avg+=Util::scalar_product(user_factors_.get(*it),user_factors_.get(*it));
 //  if(userIndices.size()>0) avg=avg/double(userIndices.size());
 //  return avg;
 //}
@@ -110,7 +110,7 @@ void FactorModel::read(ifstream& file){
 //  double avg=0;
 //  vector<int> itemIndices = item_factors_.getNonnullIndices();
 //  for(std::vector<int>::iterator it = itemIndices.begin() ; it != itemIndices.end(); ++it)
-//    avg+=Util::scalarProduct(item_factors_.get(*it),item_factors_.get(*it));
+//    avg+=Util::scalar_product(item_factors_.get(*it),item_factors_.get(*it));
 //  if(itemIndices.size()>0) avg=avg/double(itemIndices.size());
 //  return avg;
 //}

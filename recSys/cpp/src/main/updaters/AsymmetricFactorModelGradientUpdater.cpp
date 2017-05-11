@@ -5,7 +5,7 @@ void AsymmetricFactorModelGradientUpdater::beginning_of_updating_cycle(RecDat* r
   //avg_mse_=0; //DEBUG
   //n_of_s_=0; //DEBUG
   if(cumulative_item_updates_){
-    Util::zeroOutVector(&cumulated_histvector_updates_);
+    Util::zero_out_vector(&cumulated_histvector_updates_);
   }
 }
 void AsymmetricFactorModelGradientUpdater::update(RecDat* rec_dat, double gradient){ 
@@ -15,11 +15,11 @@ void AsymmetricFactorModelGradientUpdater::update(RecDat* rec_dat, double gradie
   //n_of_s_++; //DEBUG
   if(model_->use_sigmoid_){
     double pred = model_->prediction(rec_dat);
-    gradient = gradient * Util::sigmoidDerivativeFunction(pred);
+    gradient = gradient * Util::sigmoid_derivative_function(pred);
   }
   vector<double>* item_vector = model_->item_factors_.get(rec_dat->item);
   if(cumulative_item_updates_){
-    Util::sumUpdateWith(&cumulated_histvector_updates_,item_vector,gradient);
+    Util::sum_update_with(&cumulated_histvector_updates_,item_vector,gradient);
   } else {
     update_history_item_factors(rec_dat,gradient,item_vector);
     model_->invalidate_user_factor_ = true;

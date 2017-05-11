@@ -75,18 +75,6 @@ public:
   static double logistic_function(double x) {
     return x * (1.0 - x);
   }
-
-  //DEPRECATED functions
-  static double scalarProduct(vector<double>* user_factor, vector<double>* item_factor){ return scalar_product(user_factor, item_factor); } //DEPRECATED
-  static void sumUpdateWith(vector<double>* update_factor, vector<double>* other_factor, double coef1, double coef2){ sum_update_with(update_factor,other_factor,coef1,coef2); } //DEPRECATED
-  static void sumUpdateWith(vector<double>* update_factor, vector<double>* other_factor, double coef){ sum_update_with(update_factor,other_factor,coef); } //DEPRECATED
-  static void sumUpdateWith(vector<double>* update_factor, vector<double>* other_factor){ sum_update_with(update_factor,other_factor); } //DEPRECATED
-  static void multiplyVector(double c, vector<double>* v){ multiply_vector(c,v); } //DEPRECATED
-  static void zeroOutVector(vector<double>* v){ zero_out_vector(v); } //DEPRECATED
-  static double computeGamma(double x, double y, double tau){ return compute_gamma(x,y,tau); } //DEPRECATED
-  static double sigmoidFunction(double x) { return sigmoid_function(x); } //DEPRECATED
-  static double sigmoidDerivativeFunction(double x) { return sigmoid_derivative_function(x); } //DEPRECATED
-  static double logisticFunction(double x) { return logistic_function(x); } //DEPRECATED
 };
 
 #endif /* UTIL_H_ */

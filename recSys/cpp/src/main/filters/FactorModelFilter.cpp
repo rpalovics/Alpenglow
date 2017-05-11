@@ -82,7 +82,7 @@ void FactorModelFilter::computeSigmoids(){
 }
 void FactorModelFilter::computeSigmoid(vector<pair<int,double> >* bounds){
   for(uint ii=0;ii<bounds->size();ii++){
-    bounds->at(ii).second=Util::sigmoidFunction(bounds->at(ii).second);
+    bounds->at(ii).second=Util::sigmoid_function(bounds->at(ii).second);
   }
   
 }

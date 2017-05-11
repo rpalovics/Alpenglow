@@ -3,7 +3,7 @@
 void PosNegFactorModelGradientUpdater::update(RecDat* rec_dat, double gradient){
   if(model_->use_sigmoid_){
     double pred = model_->prediction(rec_dat);
-    gradient *= Util::sigmoidDerivativeFunction(pred);
+    gradient *= Util::sigmoid_derivative_function(pred);
   }
   update_biases(rec_dat,gradient);
   update_factors(rec_dat,gradient); 
