@@ -1,5 +1,6 @@
 from .Getter import Getter as rs
 from .DataframeIterator import DataframeIterator
+from .ParameterSearch import DependentParameter
 import pandas as pd
 import sip
 
@@ -15,15 +16,15 @@ class OnlineExperiment:
 
     def parameterDefaults(self, **defaults):
         for k in defaults:
-            try:
-                defaults[k] = self.parameters[k]
-            except KeyError as e:
-                pass
+            defaults[k] = self.parameterDefault(k, defaults[k])
         return defaults
 
     def parameterDefault(self, name, value):
         if name in self.parameters:
-            return self.parameters[name]
+            if isinstance(self.parameters[name], DependentParameter):
+                return self.parameters[name].eval(self.parameters)
+            else:
+                return self.parameters[name]
         else:
             return value
 
