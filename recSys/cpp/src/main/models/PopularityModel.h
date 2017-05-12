@@ -10,17 +10,14 @@ using namespace std;
 
 class PopularityModel : public Model {
   public:
-    PopularityModel(){ maxitem = 0;}
+    PopularityModel(){ maxitem_ = 0;}
     ~PopularityModel(){}
-    void add(RecDat * recDat);
-    double prediction(RecDat * recDat);
+    void add(RecDat* rec_dat);
+    double prediction(RecDat* rec_dat);
   private:
-    PopContainer items;
-    int maxitem;
+    PopContainer items_;
+    int maxitem_;
     friend class PopularityModelUpdater;
-    FRIEND_TEST(TestPopularityModel, modelsize);
-    FRIEND_TEST(TestPopularityModel, update);
-    FRIEND_TEST(TestPopularityModel, learn);
 };
 
 #endif

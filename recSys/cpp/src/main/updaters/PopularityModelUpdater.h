@@ -11,17 +11,19 @@ using namespace std;
 class PopularityModelUpdater : public ModelSimpleUpdater {
   public:
     PopularityModelUpdater(){
-      model = NULL;
+      model_ = NULL;
     }
-    void setModel(PopularityModel * model_){model = model_;};
-    virtual void update(RecDat * recDat);
-    bool selfTest(){
-      bool OK = ModelSimpleUpdater::selfTest();
-      if(model==NULL){ OK=false; }
-      return OK;
+    void set_model(PopularityModel* model){model_ = model;}
+    virtual void update(RecDat* rec_dat);
+    bool self_test(){
+      bool ok = ModelSimpleUpdater::self_test();
+      if(model_==NULL){ ok=false; }
+      return ok;
     }
+    bool selfTest(){ return self_test(); } //DEPRECATED
+    void setModel(PopularityModel* model){set_model(model);} //DEPRECATED
   private:
-    PopularityModel * model;
+    PopularityModel* model_;
 };
 
 
