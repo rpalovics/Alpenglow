@@ -26,15 +26,16 @@ import matplotlib.pyplot as plt
 
 data = pd.read_csv("/path/to/sample_dataset")
 
-factorModelExperiment = FactorModelExperiment(
+factor_model_experiment = FactorModelExperiment(
     topK=100,
     seed=254938879,
     dimension=10,
-    learningRate=0.14,
-    negativeRate=100
+    learning_rate=0.14,
+    negative_rate=100
 )
-facRankings = factorModelExperiment.run(data, verbose=True)
-facResults = ag.NdcgScore(facRankings)
-facResults.timeFrame(60 * 60 * 24).plot()
+fac_rankings = factor_model_experiment.run(data, verbose=True)
+fac_results = ag.NdcgScore(fac_rankings)
+fac_results.time_frame(60 * 60 * 24).plot()
 plt.savefig("factor.png")
+lt.savefig("factor.png")
 ```

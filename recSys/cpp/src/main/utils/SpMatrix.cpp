@@ -7,7 +7,7 @@ void SpMatrix::clear(){
   matrix.clear();
 }
 
-void SpMatrix::readFromFile(string dataFile){
+void SpMatrix::read_from_file(string dataFile){
   ifstream ifs (dataFile.c_str());
   int rowID,colID;
   double value;
@@ -64,7 +64,7 @@ MatrixRow * SpMatrix::get(int rowID){
   else return NULL;
 }
 
-int SpMatrix::rowSize(int rowID){
+int SpMatrix::row_size(int rowID){
   if(size()>rowID){
     MatrixRow * row =get(rowID);
     if(row!=NULL) return (int) row->size();
@@ -73,7 +73,7 @@ int SpMatrix::rowSize(int rowID){
   else return 0;
 }
 
-void SpMatrix::writeIntoFile(string fileName){
+void SpMatrix::write_into_file(string fileName){
   ofstream ofs(fileName.c_str());
   for(int rowID=0; rowID<size(); rowID++){
     MatrixRow * row = get(rowID);
@@ -95,7 +95,7 @@ void SpMatrix::erase(int rowID, int colID){
   }
 }
 
-bool SpMatrix::hasValue(int rowID,int colID){
+bool SpMatrix::has_value(int rowID,int colID){
   MatrixRow * row =  get(rowID);
   if(row==NULL) return false;
   else if (row->find(colID)==row->end()) return false;

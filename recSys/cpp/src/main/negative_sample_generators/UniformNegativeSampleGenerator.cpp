@@ -1,25 +1,13 @@
 #include "UniformNegativeSampleGenerator.h"
 
-void UniformNegativeSampleGenerator::setParameters(UniformNegativeSampleGeneratorParameters* parameters){
-  items = NULL;
-  trainMatrix = NULL;
-  negativeRate = parameters->negativeRate; 
-  initializeAll=parameters->initializeAll;
-  if(initializeAll){
-    maxItem=parameters->maxItem;
-    items=new vector<int>(maxItem+1);
-    for(int i=0;i<items->size();i++){items->at(i)=i;}
-  }
-}
-
-vector<int>* UniformNegativeSampleGenerator::generate(RecDat * recDat){
-  if(!filterRepeats){
+vector<int>* UniformNegativeSampleGenerator::generate(RecDat* rec_dat){
+  if(!filter_repeats_){
     int learnt = 0;
     samples.clear();
-    int userActivity = trainMatrix->rowSize(recDat->user);
-    while(learnt < negativeRate && learnt<(int)items->size()-userActivity-1){
-      int item = items->at((int)(rand()/(RAND_MAX+1.0)*(items->size())));
-      if(!trainMatrix->hasValue(recDat->user,item) && item!=recDat->item){
+    int user_activity = train_matrix_->row_size(rec_dat->user);
+    while(learnt < negative_rate_ && learnt<(int)items_->size()-user_activity-1){
+      int item = items_->at((int)(rand()/(RAND_MAX+1.0)*(items_->size())));
+      if(!train_matrix_->has_value(rec_dat->user,item) && item!=rec_dat->item){
         learnt++;
         samples.push_back(item);
       }
@@ -27,17 +15,17 @@ vector<int>* UniformNegativeSampleGenerator::generate(RecDat * recDat){
     return &samples;
   } else {
     int number_of_generated = 0;
-    int available = items->size();
+    int available = items_->size();
     samples.clear();
-    while(number_of_generated < negativeRate && available>0){
+    while(number_of_generated < negative_rate_ && available>0){
       int idx = ((int)(rand()/(RAND_MAX+1.0)*available));
-      int item = items->at(idx);
-      if(!trainMatrix->hasValue(recDat->user,item) && item!=recDat->item){
+      int item = items_->at(idx);
+      if(!train_matrix_->has_value(rec_dat->user,item) && item!=rec_dat->item){
         number_of_generated++;
         samples.push_back(item);
       }
-      items->at(idx)=items->at(available-1);
-      items->at(available-1) = item;
+      items_->at(idx)=items_->at(available-1);
+      items_->at(available-1) = item;
       available--;
     }  
     return &samples;

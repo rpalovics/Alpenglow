@@ -25,10 +25,7 @@ class SpMatrix{
   public:
     SpMatrix(){clear();};
     ~SpMatrix(){}; 
-    void readFromFile(string fileName);
-    void writeIntoFile(string fileName);
     int size();
-    int rowSize(int rowID);
     void resize(int rowID);
     void insert(int rowID, int colID, double value);
     void update(int rowID, int colID , double value);
@@ -36,8 +33,17 @@ class SpMatrix{
     void erase(int rowID, int colID);
     double get(int rowID, int colID);
     MatrixRow * get(int rowID);
-    bool hasValue(int rowID,int colID);
     void clear();
+    void read_from_file(string fileName);
+    void write_into_file(string fileName);
+    int row_size(int rowID);
+    bool has_value(int rowID,int colID);
+
+    //DEPRECATED
+    void readFromFile(string fileName){ read_from_file(fileName); }
+    void writeIntoFile(string fileName){ write_into_file(fileName); }
+    int rowSize(int rowID){ return row_size(rowID); }
+    bool hasValue(int rowID,int colID){ return has_value(rowID,colID); }
   private:    
     vector < MatrixRow * >  matrix;
 };

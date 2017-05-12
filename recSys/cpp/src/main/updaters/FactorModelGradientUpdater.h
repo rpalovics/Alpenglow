@@ -21,6 +21,9 @@ struct FactorModelGradientUpdaterParameters{
     turn_off_user_bias_updates=false;turn_off_item_bias_updates=false;
     learning_rate=-1;regularization_rate=-1;
     learning_rate_bias=-1;regularization_rate_bias=-1;
+    //DEPRECATED
+    learningRate=-1;regularizationRate=-1;
+    learningRateBias=-1;regularizationRateBias=-1;
   }
 };
 

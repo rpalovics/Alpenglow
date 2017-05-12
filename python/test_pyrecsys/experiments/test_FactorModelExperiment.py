@@ -16,8 +16,8 @@ class TestFactorModelExperiment:
             topK = 100, 
             seed=254938879,
             dimension=10,
-            learningRate=0.05,
-            negativeRate=3
+            learning_rate=0.05,
+            negative_rate=3
         )
         facRankings = factorModelExperiment.run(data, verbose=True)
         assert facRankings.topK == 100
