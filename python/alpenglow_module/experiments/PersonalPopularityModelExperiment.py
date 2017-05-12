@@ -18,7 +18,7 @@ class PersonalPopularityModelExperiment(prs.OnlineExperiment):
 
         model = rs.PersonalPopularityModel()
         updater = rs.PersonalPopularityModelUpdater()
-        updater.setModel(model)
+        updater.set_model(model)
         learner = rs.SimpleLearner()
         learner.add_simple_updater(updater)
         learner.set_model(model)

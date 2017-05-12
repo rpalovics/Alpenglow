@@ -18,17 +18,17 @@ class PeriodicPopularityModelExperiment(prs.OnlineExperiment):
 
         model = rs.PopularityModel()
         updater = rs.PopularityModelUpdater()
-        updater.setModel(model)
+        updater.set_model(model)
 
-        simpleLearner = rs.SimpleLearner()
-        simpleLearner.add_simple_updater(updater)
-        simpleLearner.set_model(model)
+        simple_learner = rs.SimpleLearner()
+        simple_learner.add_simple_updater(updater)
+        simple_learner.set_model(model)
 
         learner = rs.LearnerPeriodicDelayedWrapper(**self.parameterDefaults(
             period=86400,
             delay=86400
         ))
-        learner.set_wrapped_learner(simpleLearner)
+        learner.set_wrapped_learner(simple_learner)
 
         model = model
         learner = learner

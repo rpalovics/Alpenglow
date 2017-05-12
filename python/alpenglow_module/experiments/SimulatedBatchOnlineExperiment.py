@@ -12,17 +12,17 @@ class SimulatedBatchOnlineExperiment(prs.OnlineExperiment):
         config['loggers'] = [proceeding_logger] if self.verbose else []
 
         model = rs.FactorModel(**self.parameterDefaults(
-            beginMin=-0.01,
-            beginMax=0.01,
+            begin_min=-0.01,
+            begin_max=0.01,
             dimension=10,
-            initializeAll=False,
+            initialize_all=False,
         ))
 
         updater = rs.FactorModelGradientUpdater(**self.parameterDefaults(
-            learningRate=0.05,
-            regularizationRate=0.0
+            learning_rate=0.05,
+            regularization_rate=0.0
         ))
-        updater.setModel(model)
+        updater.set_model(model)
 
         batch_learner = rs.OfflineImplicitGradientLearner(**self.parameterDefaults(
             number_of_iterations=3,
@@ -49,18 +49,18 @@ class SimulatedBatchOnlineExperiment(prs.OnlineExperiment):
         learner.addLearner(batch_learner)
         learner.addLearner(online_learner)
 
-        negativeSampleGenerator = rs.UniformNegativeSampleGenerator(**self.parameterDefaults(
-            negativeRate=100,
-            initializeAll=False,
+        negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameterDefaults(
+            negative_rate=100,
+            initialize_all=False,
         ))
-        negativeSampleGenerator.setTrainMatrix(elems['trainMatrix'])
-        negativeSampleGenerator.setItems(elems['items'])
-        online_learner.set_negative_sample_generator(negativeSampleGenerator)
+        negative_sample_generator.set_train_matrix(elems['trainMatrix'])
+        negative_sample_generator.set_items(elems['items'])
+        online_learner.set_negative_sample_generator(negative_sample_generator)
 
-        pointWise = rs.ObjectiveMSE()
-        gradientComputer = rs.GradientComputerPointWise(pointWise)
-        gradientComputer.set_model(model)
-        online_learner.set_gradient_computer(gradientComputer)
+        point_wise = rs.ObjectiveMSE()
+        gradient_computer = rs.GradientComputerPointWise(point_wise)
+        gradient_computer.set_model(model)
+        online_learner.set_gradient_computer(gradient_computer)
         
         return {
             'config': config,

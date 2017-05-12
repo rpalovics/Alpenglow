@@ -8,17 +8,17 @@ import unittest
 class TestParameterSearch(unittest.TestCase):
     def test__getConfigurations(self):
         c = prs.ParameterSearch(None, None)
-        c.setParameterValues('negativeRate', [1,2,3])
-        c.setParameterValues('learningRate', [0.05, 0.1])
+        c.setParameterValues('negative_rate', [1,2,3])
+        c.setParameterValues('learning_rate', [0.05, 0.1])
 
         params = c._getConfigurations()
         self.assertCountEqual(params, [
-            {'negativeRate':1,'learningRate':0.05},
-            {'negativeRate':1,'learningRate':0.1},
-            {'negativeRate':2,'learningRate':0.05},
-            {'negativeRate':2,'learningRate':0.1},
-            {'negativeRate':3,'learningRate':0.05},
-            {'negativeRate':3,'learningRate':0.1},
+            {'negative_rate':1,'learning_rate':0.05},
+            {'negative_rate':1,'learning_rate':0.1},
+            {'negative_rate':2,'learning_rate':0.05},
+            {'negative_rate':2,'learning_rate':0.1},
+            {'negative_rate':3,'learning_rate':0.05},
+            {'negative_rate':3,'learning_rate':0.1},
         ])
 
     def test_runOneConfig(self):

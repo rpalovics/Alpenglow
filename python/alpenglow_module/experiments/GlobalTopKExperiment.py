@@ -16,36 +16,36 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
         config['loggers'] = [proceeding_logger] if self.verbose else []
 
         model = rs.FactorModel(**self.parameterDefaults(
-            beginMin=-0.01,
-            beginMax=0.01,
+            begin_min=-0.01,
+            begin_max=0.01,
             dimension=10,
-            initializeAll=False,
+            initialize_all=False,
         ))
 
         updater = rs.FactorModelGradientUpdater(**self.parameterDefaults(
-            learningRate=0.05,
-            regularizationRate=0.0
+            learning_rate=0.05,
+            regularization_rate=0.0
         ))
-        updater.setModel(model)
+        updater.set_model(model)
 
         learner = rs.ImplicitGradientLearner()
         learner.set_train_matrix(elems['trainMatrix'])
         learner.add_gradient_updater(updater)
         learner.set_model(model)
 
-        negativeSampleGenerator = rs.UniformNegativeSampleGenerator(**self.parameterDefaults(
-            negativeRate=0.0,
-            initializeAll=False,
+        negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameterDefaults(
+            negative_rate=0.0,
+            initialize_all=False,
             seed=0,
         ))
-        negativeSampleGenerator.setTrainMatrix(elems['trainMatrix'])
-        negativeSampleGenerator.setItems(elems['items'])
-        learner.set_negative_sample_generator(negativeSampleGenerator)
+        negative_sample_generator.set_train_matrix(elems['trainMatrix'])
+        negative_sample_generator.set_items(elems['items'])
+        learner.set_negative_sample_generator(negative_sample_generator)
 
         pointWise = rs.ObjectiveMSE()
-        gradientComputer = rs.GradientComputerPointWise(pointWise)
-        gradientComputer.set_model(model)
-        learner.set_gradient_computer(gradientComputer)
+        gradient_computer = rs.GradientComputerPointWise(pointWise)
+        gradient_computer.set_model(model)
+        learner.set_gradient_computer(gradient_computer)
 
         fmfilter = rs.FactorModelFilter()
         fmfilter.setModel(model)

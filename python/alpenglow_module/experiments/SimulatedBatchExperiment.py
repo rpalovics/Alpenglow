@@ -9,17 +9,17 @@ class SimulatedBatchExperiment(prs.OnlineExperiment):
         )
 
         model = rs.FactorModel(**self.parameterDefaults(
-            beginMin=-0.01,
-            beginMax=0.01,
+            begin_min=-0.01,
+            begin_max=0.01,
             dimension=10,
-            initializeAll=False,
+            initialize_all=False,
         ))
 
         updater = rs.FactorModelGradientUpdater(**self.parameterDefaults(
-            learningRate=0.05,
-            regularizationRate=0.0
+            learning_rate=0.05,
+            regularization_rate=0.0
         ))
-        updater.setModel(model)
+        updater.set_model(model)
 
         learner = rs.OfflineImplicitGradientLearner(**self.parameterDefaults(
             number_of_iterations=3,
@@ -36,18 +36,18 @@ class SimulatedBatchExperiment(prs.OnlineExperiment):
         learner.set_recommender_data_iterator(elems['randomAccessIterator'])
         learner.add_gradient_updater(updater)
 
-        negativeSampleGenerator = rs.UniformNegativeSampleGenerator(**self.parameterDefaults(
-            negativeRate=3,
-            initializeAll=False,
+        negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameterDefaults(
+            negative_rate=3,
+            initialize_all=False,
         ))
-        negativeSampleGenerator.setTrainMatrix(elems['trainMatrix'])
-        negativeSampleGenerator.setItems(elems['items'])
-        learner.set_negative_sample_generator(negativeSampleGenerator)
+        negative_sample_generator.setTrainMatrix(elems['trainMatrix'])
+        negative_sample_generator.setItems(elems['items'])
+        learner.set_negative_sample_generator(negative_sample_generator)
 
-        pointWise = rs.ObjectiveMSE()
-        gradientComputer = rs.GradientComputerPointWise(pointWise)
-        gradientComputer.set_model(model)
-        learner.set_gradient_computer(gradientComputer)
+        point_wise = rs.ObjectiveMSE()
+        gradient_computer = rs.GradientComputerPointWise(point_wise)
+        gradient_computer.set_model(model)
+        learner.set_gradient_computer(gradient_computer)
         learner.init()
 
         return {
