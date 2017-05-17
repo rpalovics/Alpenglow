@@ -33,9 +33,9 @@ double Distribution::getBinValue(DistIterator distIt){
   else return 0;
 }
 
-void Distribution::readFromFile(string fileName, int colNum, int actCol){
+void Distribution::readFromFile(string file_name, int colNum, int actCol){
   ifstream ifs;
-  ifs.open(fileName.c_str());
+  ifs.open(file_name.c_str());
   string value;
   int ii=0;
   while(ifs>>value){ 
@@ -88,8 +88,8 @@ void Distribution:: setBinningType(string _binningType){
   cerr << "type: " << binningType << endl;
 }
 
-void Distribution::writeIntoFile(string fileName){
-  ofstream ofs(fileName.c_str());
+void Distribution::writeIntoFile(string file_name){
+  ofstream ofs(file_name.c_str());
   double cdf=0;
   for(DistIterator distIt = binnedData.begin(); distIt!=binnedData.end(); distIt++){
     double prob=getProbability(distIt);
@@ -146,9 +146,9 @@ void Averaging::writeIntoFile(string out_file){
 }
 
 
-void Averaging::readFromFile(string fileName){
+void Averaging::readFromFile(string file_name){
   ifstream ifs;
-  ifs.open(fileName.c_str());
+  ifs.open(file_name.c_str());
   double x,y;
   while(ifs>>x>>y){ 
       int binKey=getBinKey(x);
@@ -156,8 +156,8 @@ void Averaging::readFromFile(string fileName){
   }
 }
 
-void Averaging::readFromFile(string fileName, int colNum, int actColX, int actColY){
-  ifstream ifs(fileName.c_str());
+void Averaging::readFromFile(string file_name, int colNum, int actColX, int actColY){
+  ifstream ifs(file_name.c_str());
   string value;
   int ii=0;
   int binKey;

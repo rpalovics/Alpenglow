@@ -72,7 +72,7 @@ class RecommenderData{
   public:
     RecommenderData(){recMatrix.clear();max_time=0;};
     RecommenderData(RecommenderDataParameters* params){
-      fileName = params->file_name;
+      file_name = params->file_name;
       type = params->type;
     }
     ~RecommenderData(){};
@@ -88,7 +88,7 @@ class RecommenderData{
     void setMaxTime(double _max_time){ max_time = _max_time; }
     RecDats* getRecData(){ return &recData; }
     void init(){
-      readFromFile(fileName, type);
+      readFromFile(file_name, type);
     }
     void set_attribute_container(InlineAttributeReader* attribute_container){
       attribute_container_ = attribute_container;
@@ -99,7 +99,7 @@ class RecommenderData{
     vector<int> items_;
     vector<int> users_;
     double max_time;
-    string fileName;
+    string file_name;
     string type;
     InlineAttributeReader* attribute_container_;
 };

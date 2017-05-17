@@ -27,7 +27,7 @@ class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
       startCombinationLearningTime = params->startCombinationLearningTime;
     }
     ~CombinedDoubleLayerModelGradientUpdater(){};
-    void setModel(CombinedModel* model_){
+    void set_model(CombinedModel* model_){
       model = model_;
     }
     void update(RecDat * recDat, double gradient);

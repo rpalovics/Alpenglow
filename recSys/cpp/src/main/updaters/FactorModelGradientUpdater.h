@@ -59,11 +59,6 @@ class FactorModelGradientUpdater : public ModelGradientUpdater{
       if(model_!=NULL and (model_->use_item_bias_ or model_->use_user_bias_) and regularization_rate_bias_<0){ ok=false; cerr << "FactorModelGradientUpdater::regularization_rate_bias_<0." << endl; }
       return ok;
     }
-    //DEPRECATED
-    void setModel(FactorModel* model){
-      cerr << "FactorModelGradientUpdater::setModel is DEPRECATED, use google code." << endl;
-      set_model(model);
-    }
   private:
     //parameters
     const double learning_rate_;

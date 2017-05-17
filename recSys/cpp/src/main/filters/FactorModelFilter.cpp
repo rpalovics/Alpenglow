@@ -1,13 +1,13 @@
 #include "FactorModelFilter.h"
 
 
-void FactorModelFilter::setModel(FactorModel * _model){
+void FactorModelFilter::set_model(FactorModel * _model){
   model = _model;
   userFactorFilter->setFactors(&model->user_factors_,&model->item_factors_);
   itemFactorFilter->setFactors(&model->item_factors_,&model->user_factors_);
 }
 
-void FactorModelFilter::setUsers(vector<int>* _users){
+void FactorModelFilter::set_users(vector<int>* _users){
   users = _users;
   if(items!=NULL){
     userFactorFilter->setEntities(users,items);
@@ -15,7 +15,7 @@ void FactorModelFilter::setUsers(vector<int>* _users){
   }
 }
 
-void FactorModelFilter::setItems(vector<int>* _items){
+void FactorModelFilter::set_items(vector<int>* _items){
   items = _items;
   if(users!=NULL){
     userFactorFilter->setEntities(users,items);

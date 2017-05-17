@@ -4,7 +4,7 @@ class PersonalPopularityModelUpdater : public PopularityModelUpdater {
   %End
   public:
     PersonalPopularityModelUpdater();
-    void setModel(PersonalPopularityModel * model_);
+    void set_model(PersonalPopularityModel * model_);
     virtual void update(RecDat * recDat);
     bool selfTest();
 };

@@ -17,10 +17,6 @@ class GradientComputer{
     virtual bool has_next() = 0;
 
     //DEPRECATED
-    void setModel(Model* model_){
-      cerr << "GradientComputer::setModel is DEPRECATED, use google code." << endl;
-      set_model(model_);
-    }
     void setUp(vector<RecDat>* trainData){ set_up(trainData); }//TODO google_code_temporal
     bool hasNext(){ return has_next(); }//TODO google_code_temporal
     vector<pair<RecDat*,double> >* getNextGradient(){ return get_next_gradient(); }//TODO google_code_temporal

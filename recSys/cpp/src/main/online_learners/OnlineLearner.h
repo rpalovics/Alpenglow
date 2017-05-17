@@ -33,10 +33,6 @@ class OnlineLearner {
       cerr << "OnlineLearner:addGradientUpdater is DEPRECATED, use google code." << endl;
       add_gradient_updater(model_updater);
     }
-    void setModel(Model* model){
-      cerr << "OnlineLearner:setModel is DEPRECATED, use google code." << endl;
-      set_model(model);
-    }
     bool selfTest(){ return self_test(); } //TODO google_code_temporal
   protected:
     vector<ModelSimpleUpdater*> model_simple_updaters_;

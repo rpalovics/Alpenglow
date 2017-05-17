@@ -75,9 +75,9 @@ class FactorModelFilter : public ModelFilter{
    void run(RecDat* rd);
    vector<pair<int,double>>* get_global_users(){return &userUpperBounds;}
    vector<pair<int,double>>* get_global_items(){return &itemUpperBounds;}
-   void setUsers(vector<int>* _users);
-   void setItems(vector<int>* _items);
-   void setModel(FactorModel * _model);
+   void set_users(vector<int>* _users);
+   void set_items(vector<int>* _items);
+   void set_model(FactorModel * _model);
  private:
    void computeBiases();
    void computeBias(vector<pair<int,double> >* bounds, Bias& biases, vector<int>* entities, vector<pair<int,double> >* otherBounds);

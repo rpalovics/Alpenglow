@@ -8,8 +8,8 @@ class SpMatrix{
   public:
     SpMatrix();
     ~SpMatrix();
-    void readFromFile(std::string fileName);
-    void writeIntoFile(std::string fileName);
+    void readFromFile(std::string file_name);
+    void writeIntoFile(std::string file_name);
     int size();
     int rowSize(int rowID);
     void resize(int rowID);

@@ -13,8 +13,8 @@ class PersonalPopularityModelUpdater : public PopularityModelUpdater {
     PersonalPopularityModelUpdater(){
       model = NULL;
     }
-    void setModel(PersonalPopularityModel * model_){
-      PopularityModelUpdater::setModel(model_);
+    void set_model(PersonalPopularityModel * model_){
+      PopularityModelUpdater::set_model(model_);
       model = model_;
     };
     virtual void update(RecDat * recDat);

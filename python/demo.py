@@ -16,7 +16,7 @@ data = pd.read_csv(
 popularityModelExperiment = alpenglow.experiments.PopularityModelExperiment(top_k=100, seed=254938879)
 popRankings = popularityModelExperiment.run(data, verbose=True)
 popResults = ag.NdcgScore(popRankings)
-popResults.timeFrame(60 * 60 * 24).plot()
+popResults.time_frame(60 * 60 * 24).plot()
 plt.savefig("popularity.png")
 
 factorModelExperiment = alpenglow.experiments.FactorModelExperiment(
@@ -28,13 +28,13 @@ factorModelExperiment = alpenglow.experiments.FactorModelExperiment(
 )
 facRankings = factorModelExperiment.run(data, verbose=True)
 facResults = ag.NdcgScore(facRankings)
-facResults.timeFrame(60 * 60 * 24).plot()
+facResults.time_frame(60 * 60 * 24).plot()
 plt.savefig("factor.png")
 
 
 pd.concat([
-    popResults.timeFrame(60 * 60 * 24).rename(columns={'ndcg': 'popularity'}),
-    facResults.timeFrame(60 * 60 * 24).rename(columns={'ndcg': 'factor'})
+    popResults.time_frame(60 * 60 * 24).rename(columns={'ndcg': 'popularity'}),
+    facResults.time_frame(60 * 60 * 24).rename(columns={'ndcg': 'factor'})
 ], axis=1).plot()
 plt.savefig("popvsfac.png")
 

@@ -73,8 +73,8 @@ int SpMatrix::row_size(int rowID){
   else return 0;
 }
 
-void SpMatrix::write_into_file(string fileName){
-  ofstream ofs(fileName.c_str());
+void SpMatrix::write_into_file(string file_name){
+  ofstream ofs(file_name.c_str());
   for(int rowID=0; rowID<size(); rowID++){
     MatrixRow * row = get(rowID);
     if(row!=NULL){

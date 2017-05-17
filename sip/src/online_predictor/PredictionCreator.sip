@@ -13,8 +13,8 @@ class PredictionCreator{
     PredictionCreator(PredictionCreatorParameters * params);
     virtual ~PredictionCreator();
     virtual std::vector<RecDat>* run(RecDat * recDat)=0; 
-    void setModel(Model* model_);
-    void setFilter(ModelFilter* filter_);
+    void set_model(Model* model_);
+    void set_filter(ModelFilter* filter_);
     void setTrainMatrix(SpMatrix *train_matrix_);
     virtual bool selfTest();
 };

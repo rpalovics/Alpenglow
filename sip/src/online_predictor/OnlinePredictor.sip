@@ -3,8 +3,8 @@ struct OnlinePredictorParameters{
   #include "online_predictor/OnlinePredictor.h"
   %End
   double min_time;
-  double timeFrame;
-  std::string fileName;
+  double time_frame;
+  std::string file_name;
 };
 
 
@@ -17,6 +17,6 @@ class OnlinePredictor : public Logger /NoDefaultCtors/{
     ~OnlinePredictor();
     void run(RecDat * recDat);
     void setParameters(OnlinePredictorParameters* params);
-    void setPredictionCreator(PredictionCreator* predictionCreator_);
+    void set_prediction_creator(PredictionCreator* predictionCreator_);
     bool selfTest();
 };

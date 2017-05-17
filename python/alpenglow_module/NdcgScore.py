@@ -14,16 +14,16 @@ class NdcgScore:
             ndcgs.append((l.time, ndcg))
         self.scores = pd.DataFrame.from_records(ndcgs, columns=('time', 'ndcg')).set_index('time')
 
-    def time_frame(self, timeFrame):
-        if timeFrame is None:
+    def time_frame(self, time_frame):
+        if time_frame is None:
             return self.scores
         else:
             self.scores.reset_index(inplace=True)
-            dfm = self.scores.groupby(self.scores['time'] // timeFrame).agg({'time': 'first', 'ndcg': 'mean'})
+            dfm = self.scores.groupby(self.scores['time'] // time_frame).agg({'time': 'first', 'ndcg': 'mean'})
             return dfm.set_index('time')
 
-    def timeFrame(self, timeFrame):
-      return self.time_frame(timeFrame)
+    def time_frame(self, time_frame):
+      return self.time_frame(time_frame)
 
     def cumulative(self):
         return self.scores.mean().values[0]

@@ -34,14 +34,14 @@ class SpMatrix{
     double get(int rowID, int colID);
     MatrixRow * get(int rowID);
     void clear();
-    void read_from_file(string fileName);
-    void write_into_file(string fileName);
+    void read_from_file(string file_name);
+    void write_into_file(string file_name);
     int row_size(int rowID);
     bool has_value(int rowID,int colID);
 
     //DEPRECATED
-    void readFromFile(string fileName){ read_from_file(fileName); }
-    void writeIntoFile(string fileName){ write_into_file(fileName); }
+    void readFromFile(string file_name){ read_from_file(file_name); }
+    void writeIntoFile(string file_name){ write_into_file(file_name); }
     int rowSize(int rowID){ return row_size(rowID); }
     bool hasValue(int rowID,int colID){ return has_value(rowID,colID); }
   private:    

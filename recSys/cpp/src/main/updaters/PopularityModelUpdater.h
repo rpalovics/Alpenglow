@@ -21,7 +21,6 @@ class PopularityModelUpdater : public ModelSimpleUpdater {
       return ok;
     }
     bool selfTest(){ return self_test(); } //DEPRECATED
-    void setModel(PopularityModel* model){set_model(model);} //DEPRECATED
   private:
     PopularityModel* model_;
 };

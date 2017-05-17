@@ -25,7 +25,7 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
     void setTrainMatrix(SpMatrix* train_matrix_){
       train_matrix=train_matrix_;
     }
-    void setItems(vector<int>* items_){
+    void set_items(vector<int>* items_){
       if(!initializeAll) items=items_;
     }
     vector <int> * generate(RecDat * recDat);

@@ -9,5 +9,4 @@ class PopularityModelUpdater : ModelSimpleUpdater{
     bool self_test();
     virtual void update(RecDat* rec_dat);
     bool selfTest();
-    void setModel(PopularityModel* model);
 };

@@ -11,7 +11,7 @@ using namespace std;
 
 class PopularityTimeFrameModelUpdater : public ModelSimpleUpdater {
   public:
-    void setModel(PopularityTimeFrameModel * model_){model = model_;};
+    void set_model(PopularityTimeFrameModel * model_){model = model_;};
     void update(RecDat * recDat);
   private:
     PopularityTimeFrameModel * model;

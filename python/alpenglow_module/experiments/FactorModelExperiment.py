@@ -33,19 +33,19 @@ class FactorModelExperiment(prs.OnlineExperiment):
         learner.add_gradient_updater(updater)
         learner.set_model(model)
 
-        negativeSampleGenerator = rs.UniformNegativeSampleGenerator(**self.parameterDefaults(
+        negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameterDefaults(
             negative_rate=0.0,
             initialize_all=False,
             seed=0,
         ))
-        negativeSampleGenerator.set_train_matrix(elems['train_matrix'])
-        negativeSampleGenerator.set_items(elems['items'])
-        learner.set_negative_sample_generator(negativeSampleGenerator)
+        negative_sample_generator.set_train_matrix(elems['train_matrix'])
+        negative_sample_generator.set_items(elems['items'])
+        learner.set_negative_sample_generator(negative_sample_generator)
 
-        pointWise = rs.ObjectiveMSE()
-        gradientComputer = rs.GradientComputerPointWise(pointWise)
-        gradientComputer.set_model(model)
-        learner.set_gradient_computer(gradientComputer)
+        point_wise = rs.ObjectiveMSE()
+        gradient_computer = rs.GradientComputerPointWise(point_wise)
+        gradient_computer.set_model(model)
+        learner.set_gradient_computer(gradient_computer)
 
         return {
             'config': config,

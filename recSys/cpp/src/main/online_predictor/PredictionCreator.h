@@ -25,8 +25,8 @@ class PredictionCreator{
    }
    virtual ~PredictionCreator(){}
    virtual vector<RecDat>* run(RecDat* rec_dat)=0; 
-   void setModel(Model* model){model_=model;}; //TODO google code
-   void setFilter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
+   void set_model(Model* model){model_=model;}; //TODO google code
+   void set_filter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
    void setTrainMatrix(SpMatrix *train_matrix){train_matrix_ = train_matrix; }
    bool self_test(){
      bool OK = true;

@@ -5,8 +5,8 @@
 #include "PredictionCreator.h"
 
 struct OnlinePredictorParameters{
-  double min_time, timeFrame;
-  string fileName;
+  double min_time, time_frame;
+  string file_name;
 };
 
 
@@ -16,7 +16,7 @@ class OnlinePredictor : public Logger{
    ~OnlinePredictor(){};
    void run(RecDat * recDat);
    void setParameters(OnlinePredictorParameters* params);
-   void setPredictionCreator(PredictionCreator* predictionCreator_){predictionCreator = predictionCreator_;}
+   void set_prediction_creator(PredictionCreator* predictionCreator_){predictionCreator = predictionCreator_;}
    bool selfTest(){
      bool OK = true;
      if(predictionCreator==NULL){ OK=false; }
@@ -25,7 +25,7 @@ class OnlinePredictor : public Logger{
  private:
    bool doPredict(RecDat * recDat);
    PredictionCreator * predictionCreator;
-   double min_time, timeFrame;
+   double min_time, time_frame;
    int actualTimeFrame, pastTimeFrame;
    ofstream  ofs;
    FRIEND_TEST(TestOnlinePredictor, test);

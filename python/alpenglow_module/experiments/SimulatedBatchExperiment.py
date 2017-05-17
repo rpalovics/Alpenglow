@@ -41,7 +41,7 @@ class SimulatedBatchExperiment(prs.OnlineExperiment):
             initialize_all=False,
         ))
         negative_sample_generator.setTrainMatrix(elems['train_matrix'])
-        negative_sample_generator.setItems(elems['items'])
+        negative_sample_generator.set_items(elems['items'])
         learner.set_negative_sample_generator(negative_sample_generator)
 
         point_wise = rs.ObjectiveMSE()

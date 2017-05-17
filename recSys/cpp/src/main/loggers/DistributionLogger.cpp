@@ -1,12 +1,12 @@
 #include "DistributionLogger.h"
 
-//void DistributionLogger::setModel(Model* model_){
+//void DistributionLogger::set_model(Model* model_){
 //  this->model=model_;
 //}
 //
 //DistributionLogger::~DistributionLogger(){
 //  // ofstream myfile;
-//  // myfile.open(fileName);
+//  // myfile.open(file_name);
 //  // myfile << "vege van" << endl;  
 //  // RecDat* example = new RecDat();
 //  // example->user=1;
@@ -30,7 +30,7 @@
 //    compUsers.insert(*it);
 //  }
 //  ofstream myfile;
-//  myfile.open (fileName);
+//  myfile.open (file_name);
 //  for(auto u : compUsers){
 //    float sum=0;
 //    RecDat query;
@@ -62,6 +62,6 @@
 //}
 //
 //void DistributionLogger::setParameters(DistributionLoggerParameters * parameters){
-//  fileName=parameters->fileName;
+//  file_name=parameters->file_name;
 //	userNumber=parameters->userNumber;
 //}

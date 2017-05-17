@@ -2,8 +2,8 @@
 
 void OnlinePredictor::setParameters(OnlinePredictorParameters * params){
   min_time = params->min_time;
-  timeFrame = params->timeFrame;
-  ofs.open(params->fileName.c_str());
+  time_frame = params->time_frame;
+  ofs.open(params->file_name.c_str());
   pastTimeFrame = 0;
   actualTimeFrame = 0;
   predictionCreator=NULL;
@@ -22,7 +22,7 @@ void OnlinePredictor::run(RecDat * recDat){
 
 bool OnlinePredictor::doPredict(RecDat * recDat){
   double actualTime = recDat->time;
-  actualTimeFrame = (int)(actualTime - min_time)/(timeFrame);
+  actualTimeFrame = (int)(actualTime - min_time)/(time_frame);
   if(actualTime > min_time && actualTimeFrame !=pastTimeFrame){
     pastTimeFrame = actualTimeFrame;
     return true;

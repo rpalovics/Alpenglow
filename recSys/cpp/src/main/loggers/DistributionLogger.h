@@ -63,7 +63,7 @@ class DistributionLogger : public Logger{
     	this->seenItems.insert(recDat->item);
     	this->seenUsers.insert(recDat->user);
     }
-    virtual void setModel(Model* model_){
+    virtual void set_model(Model* model_){
       this->model=model_;
     }
   protected:

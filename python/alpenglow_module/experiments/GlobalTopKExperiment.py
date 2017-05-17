@@ -48,23 +48,23 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
         learner.set_gradient_computer(gradient_computer)
 
         fmfilter = rs.FactorModelFilter()
-        fmfilter.setModel(model)
-        fmfilter.setUsers(elems['users'])
-        fmfilter.setItems(elems['items'])
+        fmfilter.set_model(model)
+        fmfilter.set_users(elems['users'])
+        fmfilter.set_items(elems['items'])
 
         prediction_creator = rs.PredictionCreatorGlobal(**self.parameterDefaults(
             top_k=10000,
             # initialThreshold=1000,
             lookback=0
         ))
-        prediction_creator.setModel(model)
-        prediction_creator.setFilter(fmfilter)
+        prediction_creator.set_model(model)
+        prediction_creator.set_filter(fmfilter)
         online_predictor = rs.OnlinePredictor(**self.parameterDefaults(
             min_time=0,
-            timeFrame=86400,
-            fileName=""
+            time_frame=86400,
+            file_name=""
         ))
-        online_predictor.setPredictionCreator(prediction_creator)
+        online_predictor.set_prediction_creator(prediction_creator)
 
         config['loggers'].append(online_predictor)
 

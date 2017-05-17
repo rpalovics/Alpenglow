@@ -22,7 +22,7 @@ class PopularityTimeFrameModel : public Model {
   private:
     vector<int> items;
     int maxitem;
-    list<RecDat*> timeFrameData;
+    list<RecDat*> time_frame_data;
     double tau;
     friend class PopularityTimeFrameModelUpdater;
     FRIEND_TEST(TestPopularityTimeFrameModel, modelsize);

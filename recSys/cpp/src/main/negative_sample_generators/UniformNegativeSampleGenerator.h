@@ -43,7 +43,6 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator{
     };
     void setTrainMatrix(SpMatrix* train_matrix){ set_train_matrix(train_matrix); } //DEPRECATED
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_=train_matrix; }
-    void setItems(vector<int>* items){ set_items(items); }
     void set_items(vector<int>* items){ if(!initialize_all_) items_=items; }
     vector<int>* generate(RecDat* rec_dat);
     bool selfTest(){ return self_test(); } //DEPRECATED

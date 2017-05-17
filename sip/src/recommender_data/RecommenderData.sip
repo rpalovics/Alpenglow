@@ -46,7 +46,7 @@ class RecommenderData{
     RecommenderData();
     RecommenderData(RecommenderDataParameters* params);
     ~RecommenderData();
-    void readFromFile(std::string fileName, std::string type);
+    void readFromFile(std::string file_name, std::string type);
     void setRecDats(std::vector <RecDat> recData);
     RecDat* get(int idx);
     int size();

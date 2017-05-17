@@ -10,7 +10,6 @@ class GradientComputer /Abstract/{
     // virtual vector<pair<RecDat*,double> >* get_next_gradient() = 0;
     virtual bool has_next() = 0;
 
-    void setModel(Model* model_);
     void setUp(std::vector<RecDat>* trainData);
     bool hasNext();
     // std::vector<std::pair<RecDat*,double> >* getNextGradient();

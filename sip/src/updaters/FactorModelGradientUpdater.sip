@@ -27,5 +27,4 @@ class FactorModelGradientUpdater : public ModelGradientUpdater{
     virtual void update(RecDat *rec_dat, double gradient);
     void set_model(FactorModel* model);
     bool self_test();
-    void setModel(FactorModel* model);
 };
