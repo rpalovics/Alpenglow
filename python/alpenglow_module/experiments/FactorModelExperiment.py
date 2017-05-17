@@ -5,12 +5,12 @@ import alpenglow as prs
 class FactorModelExperiment(prs.OnlineExperiment):
     def config(self, elems):
         proceeding_logger = rs.ProceedingLogger()
-        proceeding_logger.set_data_iterator(elems['randomAccessIterator'])
+        proceeding_logger.set_data_iterator(elems['recommender_data_iterator'])
         config = self.parameterDefaults(
-            topK=100,
-            minTime=0,
+            top_k=100,
+            min_time=0,
             seed=0,
-            outFile=None,
+            out_file=None,
             filters=[],
         )
         config['loggers'] = [proceeding_logger] if self.verbose else []
@@ -29,7 +29,7 @@ class FactorModelExperiment(prs.OnlineExperiment):
         updater.set_model(model)
 
         learner = rs.ImplicitGradientLearner()
-        learner.set_train_matrix(elems['trainMatrix'])
+        learner.set_train_matrix(elems['train_matrix'])
         learner.add_gradient_updater(updater)
         learner.set_model(model)
 
@@ -38,7 +38,7 @@ class FactorModelExperiment(prs.OnlineExperiment):
             initialize_all=False,
             seed=0,
         ))
-        negativeSampleGenerator.set_train_matrix(elems['trainMatrix'])
+        negativeSampleGenerator.set_train_matrix(elems['train_matrix'])
         negativeSampleGenerator.set_items(elems['items'])
         learner.set_negative_sample_generator(negativeSampleGenerator)
 

@@ -56,8 +56,8 @@ bool RankComputer::itemlist_next(RecDat* fake_rec_dat){
 //void TopListCreator::setParameters(TopListCreatorParameters * parameters){
 //  recommender = parameters->recommender;
 //  items = parameters->items;
-//  trainMatrix = parameters->trainMatrix;
-//  topK = parameters->topK;
+//  train_matrix = parameters->train_matrix;
+//  top_k = parameters->top_k;
 //}
 //
 //RecMap *  TopListCreator::getTopRecommendation(RecDat * recDat){
@@ -73,7 +73,7 @@ bool RankComputer::itemlist_next(RecDat* fake_rec_dat){
 //  RecDat _recDat = *recDat;
 //  for(uint ii=0; ii<items->size(); ii++){
 //    int item = (*items)[ii];
-//    if(trainMatrix->get(recDat->user,item)<1) {
+//    if(train_matrix->get(recDat->user,item)<1) {
 //      _recDat.item = item;
 //      double score=recommender->prediction(&_recDat);
 //      if(score != 0) rec.push_back(make_pair(item,score));
@@ -82,19 +82,19 @@ bool RankComputer::itemlist_next(RecDat* fake_rec_dat){
 //}
 //
 //void TopListCreator::sortTopK(){
-//  if((int)rec.size() > topK) partial_sort (rec.begin(), rec.begin()+topK, rec.end(),sortPairDescendingBySecond<int>);
+//  if((int)rec.size() > top_k) partial_sort (rec.begin(), rec.begin()+top_k, rec.end(),sortPairDescendingBySecond<int>);
 //  else sort(rec.begin(),rec.end(),sortPairDescendingBySecond<int>);
 //}
 //
 //void TopListCreator::normTopK(){
-// for(uint ii=0 ; (ii<rec.size() && ii<(uint)topK); ii++ ){
+// for(uint ii=0 ; (ii<rec.size() && ii<(uint)top_k); ii++ ){
 //  rec[ii].second=1/(double)(ii+1); 
 // } 
 //}
 //
 //void TopListCreator::createTopKMap(){
 //  RecVector :: iterator ir = rec.end();
-//  if((int)rec.size()>topK) ir = rec.begin()+topK;
+//  if((int)rec.size()>top_k) ir = rec.begin()+top_k;
 //  recMap.clear();
 //  copy(rec.begin(), ir,inserter(recMap, recMap.begin()));
 //  rec.clear(); 

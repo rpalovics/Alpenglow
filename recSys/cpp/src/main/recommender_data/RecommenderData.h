@@ -70,7 +70,7 @@ struct RecommenderDataParameters{
 };
 class RecommenderData{
   public:
-    RecommenderData(){recMatrix.clear();maxTime=0;};
+    RecommenderData(){recMatrix.clear();max_time=0;};
     RecommenderData(RecommenderDataParameters* params){
       fileName = params->file_name;
       type = params->type;
@@ -85,7 +85,7 @@ class RecommenderData{
     SpMatrix* matrix();
     vector<int>* items();
     vector<int>* users();
-    void setMaxTime(double _maxTime){ maxTime = _maxTime; }
+    void setMaxTime(double _max_time){ max_time = _max_time; }
     RecDats* getRecData(){ return &recData; }
     void init(){
       readFromFile(fileName, type);
@@ -98,7 +98,7 @@ class RecommenderData{
     SpMatrix recMatrix;
     vector<int> items_;
     vector<int> users_;
-    double maxTime;
+    double max_time;
     string fileName;
     string type;
     InlineAttributeReader* attribute_container_;

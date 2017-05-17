@@ -2,7 +2,7 @@
 
 void GlobalPositiveAndNegativeSampleGenerator::setParameters(GlobalPositiveAndNegativeSampleGeneratorParameters * parameters){
   items = NULL;
-  trainMatrix = NULL;
+  train_matrix = NULL;
   positiveRate = parameters->positiveRate;
   negativeRate = parameters->negativeRate;
   initializeAll=parameters->initializeAll;
@@ -43,10 +43,10 @@ void GlobalPositiveAndNegativeSampleGenerator::generate_positive(RecDat * recDat
 vector <int> * GlobalPositiveAndNegativeSampleGenerator::generate(RecDat * recDat){
   int learnt = 0;
   samples.clear();
-  int userActivity = trainMatrix->rowSize(recDat->user);
+  int userActivity = train_matrix->rowSize(recDat->user);
   while(learnt < negativeRate && learnt<(int)items->size()-userActivity-1){
     int item = items->at((int)(rand()/(RAND_MAX+1.0)*(items->size())));
-    if(!trainMatrix->hasValue(recDat->user,item) && item!=recDat->item){ 
+    if(!train_matrix->hasValue(recDat->user,item) && item!=recDat->item){ 
       samples.push_back(item);
       learnt++;    
     }

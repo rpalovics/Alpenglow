@@ -2,7 +2,7 @@ struct OnlinePredictorParameters{
   %TypeHeaderCode
   #include "online_predictor/OnlinePredictor.h"
   %End
-  double minTime;
+  double min_time;
   double timeFrame;
   std::string fileName;
 };

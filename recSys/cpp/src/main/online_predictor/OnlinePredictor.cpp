@@ -1,7 +1,7 @@
 #include "OnlinePredictor.h"
 
 void OnlinePredictor::setParameters(OnlinePredictorParameters * params){
-  minTime = params->minTime;
+  min_time = params->min_time;
   timeFrame = params->timeFrame;
   ofs.open(params->fileName.c_str());
   pastTimeFrame = 0;
@@ -22,8 +22,8 @@ void OnlinePredictor::run(RecDat * recDat){
 
 bool OnlinePredictor::doPredict(RecDat * recDat){
   double actualTime = recDat->time;
-  actualTimeFrame = (int)(actualTime - minTime)/(timeFrame);
-  if(actualTime > minTime && actualTimeFrame !=pastTimeFrame){
+  actualTimeFrame = (int)(actualTime - min_time)/(timeFrame);
+  if(actualTime > min_time && actualTimeFrame !=pastTimeFrame){
     pastTimeFrame = actualTimeFrame;
     return true;
   }

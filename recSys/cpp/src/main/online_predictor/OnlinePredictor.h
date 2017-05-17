@@ -5,7 +5,7 @@
 #include "PredictionCreator.h"
 
 struct OnlinePredictorParameters{
-  double minTime, timeFrame;
+  double min_time, timeFrame;
   string fileName;
 };
 
@@ -25,7 +25,7 @@ class OnlinePredictor : public Logger{
  private:
    bool doPredict(RecDat * recDat);
    PredictionCreator * predictionCreator;
-   double minTime, timeFrame;
+   double min_time, timeFrame;
    int actualTimeFrame, pastTimeFrame;
    ofstream  ofs;
    FRIEND_TEST(TestOnlinePredictor, test);

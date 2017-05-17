@@ -65,12 +65,12 @@ void MaxHeap::bubbleUp(int index){
 void MaxHeap::insert(Tweet* tweet)
 {
     int length = _vector.size();
-    if(length < topK or getMax()->distance > tweet->distance){
+    if(length < top_k or getMax()->distance > tweet->distance){
       _vector.push_back(tweet);
       bubbleUp(length);
     }
     length = _vector.size();
-    if(length > topK) deleteMax();
+    if(length > top_k) deleteMax();
 }
 
 Tweet* MaxHeap::getMax(){

@@ -13,15 +13,15 @@ class TestThreadedParameterSearch(unittest.TestCase):
             names=['time','user','item','score','eval']
         )
         model = alpenglow.experiments.PopularityModelExperiment(
-            topK = 100,
+            top_k = 100,
             seed = 254938879
         )
         c = prs.ParameterSearch(model, prs.NdcgScore)
-        c.setParameterValues('topK', [100,50])
+        c.setParameterValues('top_k', [100,50])
         c.setParameterValues('seed', [254938879, 0])
 
         d = prs.ThreadedParameterSearch(model, prs.NdcgScore)
-        d.setParameterValues('topK', [100,50])
+        d.setParameterValues('top_k', [100,50])
         d.setParameterValues('seed', [254938879, 0])
         
         r1 = c.run(data)

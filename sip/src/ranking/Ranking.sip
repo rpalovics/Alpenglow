@@ -2,7 +2,7 @@ struct RankComputerParameters{
   %TypeHeaderCode
   #include "ranking/Ranking.h"
   %End
-  int topK;
+  int top_k;
   int random_seed;
 };
 class RankComputer{
@@ -27,8 +27,8 @@ class RankComputer{
 //   %End
 //   OnlineRecommender * recommender;
 //   std::vector<int> * items;
-//   SpMatrix * trainMatrix;
-//   int topK;
+//   SpMatrix * train_matrix;
+//   int top_k;
 // };
 
 // class TopListCreator{

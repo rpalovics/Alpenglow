@@ -75,7 +75,7 @@ class TransitionModelLogger : public Logger{
       double actual_prediction = model_->prediction(rec_dat);
       int first_score = (filtered_sorted_frequency_list.size()==0?0:filtered_sorted_frequency_list[0].second); //TODO ez most freq, nem score
       int second_score = (filtered_sorted_frequency_list.size()<2?0:filtered_sorted_frequency_list[1].second); //TODO ez most freq, nem score
-      int last_score = (filtered_sorted_frequency_list.size()<101?0:filtered_sorted_frequency_list[99].second); //TODO topK szerint kene, 100 bele van egetve
+      int last_score = (filtered_sorted_frequency_list.size()<101?0:filtered_sorted_frequency_list[99].second); //TODO top_k szerint kene, 100 bele van egetve
       timeline_file_ << (int)rec_dat->time << " " << rec_dat->eval << " " << rec_dat->id << " " << item << " " << toplist_length << " " << from_pop << " " << to_pop << " " << actual_prediction << " " << first_score << " " << second_score << " " << last_score << endl;
     }
     vector<pair<int,int>> compute_toplist(map<int,int>* actual_frequency_map, RecDat* rec_dat){

@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 data = pd.read_csv("/path/to/sample_dataset")
 
 factor_model_experiment = FactorModelExperiment(
-    topK=100,
+    top_k=100,
     seed=254938879,
     dimension=10,
     learning_rate=0.14,

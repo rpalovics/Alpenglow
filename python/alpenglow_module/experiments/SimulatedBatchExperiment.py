@@ -4,8 +4,8 @@ import alpenglow as prs
 class SimulatedBatchExperiment(prs.OnlineExperiment):
     def config(self, elems):
         config = self.parameterDefaults(
-            topK= 100,
-            minTime= 0
+            top_k= 100,
+            min_time= 0
         )
 
         model = rs.FactorModel(**self.parameterDefaults(
@@ -33,14 +33,14 @@ class SimulatedBatchExperiment(prs.OnlineExperiment):
             base_in_file_name=""
         ))
         learner.set_model(model)
-        learner.set_recommender_data_iterator(elems['randomAccessIterator'])
+        learner.set_recommender_data_iterator(elems['recommender_data_iterator'])
         learner.add_gradient_updater(updater)
 
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameterDefaults(
             negative_rate=3,
             initialize_all=False,
         ))
-        negative_sample_generator.setTrainMatrix(elems['trainMatrix'])
+        negative_sample_generator.setTrainMatrix(elems['train_matrix'])
         negative_sample_generator.setItems(elems['items'])
         learner.set_negative_sample_generator(negative_sample_generator)
 

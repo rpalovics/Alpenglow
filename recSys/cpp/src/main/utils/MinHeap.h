@@ -14,7 +14,7 @@ class MinHeap{
 public:
   //MinHeap(double* array, int length);
   //MinHeap(const vector<double>& vector);
-  MinHeap(int _topK){topK = _topK;};
+  MinHeap(int _top_k){top_k = _top_k;};
 
   void insert(RecDat recDat);
   RecDat getMin();
@@ -27,7 +27,7 @@ private:
   void bubbleDown(int index);
   void bubbleUp(int index);
   void heapify();
-  int topK;
+  int top_k;
 };
 
 #endif

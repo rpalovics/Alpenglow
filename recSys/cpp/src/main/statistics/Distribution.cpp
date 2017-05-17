@@ -130,8 +130,8 @@ double Averaging::getAverage(AvgIterator avgIt){
   return avgIt->second.counts/(double)avgIt->second.num;
 }
 
-void Averaging::writeIntoFile(string outFile){
-  ofstream ofs(outFile.c_str());
+void Averaging::writeIntoFile(string out_file){
+  ofstream ofs(out_file.c_str());
   double sum=0, num=0, s=0;
   for(DistIterator distIt = binnedData.begin(); distIt!=binnedData.end(); distIt++){
     double avg=getAverage(distIt);

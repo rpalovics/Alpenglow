@@ -10,21 +10,17 @@
 #include <numeric> 
 #include "../utils/Random.h"
 struct RankComputerParameters{
-  int top_k; //TODO jinjactor
+  int top_k;
   int random_seed;
   RankComputerParameters(){
     top_k = -1;
     random_seed = -1;
-    //deprecated
-    topK = -1;
   }
-  //deprecated
-  int topK;
 };
 class RankComputer{
   public:
     RankComputer(RankComputerParameters* parameters){
-      top_k_=(parameters->top_k==-1?parameters->topK:parameters->top_k);
+      top_k_=(parameters->top_k==-1?parameters->top_k:parameters->top_k);
       random_.set(parameters->random_seed);
       recommender_=NULL;
       train_matrix_=NULL;
@@ -38,7 +34,7 @@ class RankComputer{
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_ = train_matrix; }
     void set_top_pop_container(TopPopContainer* popularity_sorted_container){ popularity_sorted_container_ = popularity_sorted_container; }
     void set_model_filter(ModelFilter* model_filter){ model_filter_ = model_filter; }
-    bool self_test(){ //TODO jinjactor
+    bool self_test(){
       bool ok=true;
       if(top_k_<0){ok=false;cerr<<"RankComputer::top_k is not set properly." << endl;}
       if(recommender_==NULL){ok=false;cerr<<"RankComputer::recommender_ is not set." << endl;}
@@ -67,8 +63,8 @@ class RankComputer{
 //struct TopListCreatorParameters{
 //  OnlineRecommender * recommender;
 //  vector <int> * items;
-//  SpMatrix * trainMatrix;
-//  int topK;
+//  SpMatrix * train_matrix;
+//  int top_k;
 //};
 //
 //class TopListCreator{
@@ -86,10 +82,10 @@ class RankComputer{
 //    void recommend(RecDat * recDat);
 //    OnlineRecommender * recommender;
 //    vector <int> * items;
-//    SpMatrix * trainMatrix;
+//    SpMatrix * train_matrix;
 //    RecVector  rec;
 //    RecMap recMap;
-//    int topK;
+//    int top_k;
 //};
 
 #endif

@@ -18,7 +18,7 @@ struct RankingLog{
 };
 
 struct RankingLogs{
-  int topK;
+  int top_k;
   vector<RankingLog> logs;
 };
 

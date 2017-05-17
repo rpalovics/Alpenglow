@@ -22,8 +22,8 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
       setParameters(parameters);
     };
     void setParameters (UniformPositiveAndNegativeSampleGeneratorParameters * parameters);
-    void setTrainMatrix(SpMatrix* trainMatrix_){
-      trainMatrix=trainMatrix_;
+    void setTrainMatrix(SpMatrix* train_matrix_){
+      train_matrix=train_matrix_;
     }
     void setItems(vector<int>* items_){
       if(!initializeAll) items=items_;
@@ -46,9 +46,9 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
         ok = false;
         cerr << "UniformPositiveAndNegativeSampleGeneratorParameters::items is not set." << endl;
       }
-      if(trainMatrix == NULL){
+      if(train_matrix == NULL){
         ok = false;
-        cerr << "UniformPositiveAndNegativeSampleGeneratorParameters::trainMatrix is not set." << endl;
+        cerr << "UniformPositiveAndNegativeSampleGeneratorParameters::train_matrix is not set." << endl;
       }
       if(distribution_ != "uniform" and distribution_ != "linear" and distribution_ != "geometric"){
         ok = false;
@@ -66,7 +66,7 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
     vector <int> * items;
     vector <int> user_positive_samples, user_positive_relevances;
     vector <int> item_positive_samples, item_positive_relevances;
-    SpMatrix * trainMatrix;
+    SpMatrix * train_matrix;
     vector<vector<int>*> item_histories_, user_histories_;
     double positiveRate,negativeRate;
     bool initializeAll;

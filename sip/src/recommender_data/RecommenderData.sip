@@ -65,7 +65,7 @@ class RecommenderData{
         a0->vec = *(sipCpp->users());
     %End
 
-    void setMaxTime(double _maxTime);
+    void setMaxTime(double _max_time);
     std::vector <RecDat>* getRecData();
     void init();
     void set_attribute_container(InlineAttributeReader* attribute_container);

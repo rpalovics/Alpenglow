@@ -37,34 +37,34 @@ class OnlineExperiment:
         else:
             return value
 
-    def run(self, data, experimentType=None, columns={}, verbose=True, minTime=0, maxTime=0, outFile=None):
+    def run(self, data, experimentType=None, columns={}, verbose=True, min_time=0, max_time=0, out_file=None):
         rs.collect()
         self.verbose = verbose
 
         print("reading data...") if self.verbose else None
 
         if not isinstance(data, str):
-            randomAccessIterator = DataframeIterator(data, columns=columns)
+            recommender_data_iterator = DataframeIterator(data, columns=columns)
         else:
             recommenderData = rs.RecommenderData(
                 file_name=data,
                 type=experimentType
             )
-            recommenderData.setMaxTime(maxTime)
-            randomAccessIterator = rs.ShuffleIterator(seed=self.parameters["seed"])
-            randomAccessIterator.set_recommender_data(recommenderData)
+            recommenderData.setMaxTime(max_time)
+            recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
+            recommender_data_iterator.set_recommender_data(recommenderData)
             recommenderData.init()
 
-        randomAccessIterator.init()
+        recommender_data_iterator.init()
         print("data reading finished") if self.verbose else None
 
-        trainMatrix = rs.SpMatrix()
+        train_matrix = rs.SpMatrix()
         users = rs.VectorInt([])
         items = rs.VectorInt([])
 
         elems = {
-            'randomAccessIterator': randomAccessIterator,
-            'trainMatrix': trainMatrix,
+            'recommender_data_iterator': recommender_data_iterator,
+            'train_matrix': train_matrix,
             'users': users,
             'items': items,
         }
@@ -73,9 +73,9 @@ class OnlineExperiment:
         self.learner = configdict['learner']
         self.model = configdict['model']
 
-        topK = config['topK']
-        if 'minTime' in config:
-            minTime = config['minTime']
+        top_k = config['top_k']
+        if 'min_time' in config:
+            min_time = config['min_time']
         seed = self.parameters["seed"]
 
         topPopContainer = rs.TopPopContainer()
@@ -89,7 +89,7 @@ class OnlineExperiment:
         onlineRecommender.set_learner(learner)
 
         onlineDataUpdater = rs.OnlineDataUpdater(
-            trainMatrix=trainMatrix,
+            train_matrix=train_matrix,
             items=[],
             users=[],
             pop=topPopContainer,
@@ -98,9 +98,9 @@ class OnlineExperiment:
         onlineDataUpdater.set_items(items)
         onlineDataUpdater.set_users(users)
 
-        rank_computer = rs.RankComputer(topK=topK, random_seed=43211234)
+        rank_computer = rs.RankComputer(top_k=top_k, random_seed=43211234)
 
-        rank_computer.set_train_matrix(trainMatrix)
+        rank_computer.set_train_matrix(train_matrix)
         rank_computer.set_recommender(onlineRecommender)
         rank_computer.set_top_pop_container(topPopContainer)
 
@@ -112,7 +112,7 @@ class OnlineExperiment:
         online_experiment = rs.OnlineExperiment(seed=seed)
 
         online_experiment.set_online_recommender(onlineRecommender)
-        online_experiment.set_recommender_data_iterator(randomAccessIterator)
+        online_experiment.set_recommender_data_iterator(recommender_data_iterator)
         online_experiment.set_online_data_updater(onlineDataUpdater)
 
         # string attribute_container_name = getPot("set_attribute_container", "");
@@ -131,7 +131,7 @@ class OnlineExperiment:
         interrupt_logger = rs.InterruptLogger()
         online_experiment.add_logger(interrupt_logger)
 
-        ranking_logger = self.get_ranking_logger(topK, minTime, self.parameterDefault('outFile',outFile))
+        ranking_logger = self.get_ranking_logger(top_k, min_time, self.parameterDefault('out_file',out_file))
         ranking_logger.set_recommender(onlineRecommender)
         ranking_logger.set_rank_computer(rank_computer)
         ranking_logger.init()
@@ -149,14 +149,14 @@ class OnlineExperiment:
         results = self.finished()
         return results
 
-    def get_ranking_logger(self, topK, minTime, outFile):
-        if outFile is None:
-            outFile = ""
+    def get_ranking_logger(self, top_k, min_time, out_file):
+        if out_file is None:
+            out_file = ""
         else:
-            print("logging to file " + outFile) if self.verbose else None
+            print("logging to file " + out_file) if self.verbose else None
         self.ranking_logs = rs.RankingLogs()
-        self.ranking_logs.topK = topK
-        self.ranking_logger = rs.MemoryRankingLogger(min_time=minTime, out_file=outFile)
+        self.ranking_logs.top_k = top_k
+        self.ranking_logger = rs.MemoryRankingLogger(min_time=min_time, out_file=out_file)
         self.ranking_logger.set_ranking_logs(self.ranking_logs)
         return self.ranking_logger
 

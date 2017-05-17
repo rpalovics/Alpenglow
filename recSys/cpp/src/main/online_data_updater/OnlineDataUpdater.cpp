@@ -1,7 +1,7 @@
 #include "OnlineDataUpdater.h"
 
 void OnlineDataUpdater::setParameters(OnlineDataUpdaterParameters* parameters){
-  train_matrix_ = parameters->trainMatrix;
+  train_matrix_ = parameters->train_matrix;
   items_ = parameters->items;
   users_ = parameters->users;
   popularity_sorted_container_ = parameters->pop;

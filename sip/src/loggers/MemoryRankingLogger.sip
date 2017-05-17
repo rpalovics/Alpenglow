@@ -15,7 +15,7 @@ struct RankingLogs{
   %TypeHeaderCode
   #include "cpp/MemoryRankingLogger.h"
   %End
-  int topK;
+  int top_k;
   std::vector<RankingLog> logs;
 };
 

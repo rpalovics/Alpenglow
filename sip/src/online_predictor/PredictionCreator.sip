@@ -2,7 +2,7 @@ struct PredictionCreatorParameters{
   %TypeHeaderCode
   #include "online_predictor/PredictionCreator.h"
   %End
-  int topK;
+  int top_k;
   int lookback;
 };
 class PredictionCreator{
@@ -15,7 +15,7 @@ class PredictionCreator{
     virtual std::vector<RecDat>* run(RecDat * recDat)=0; 
     void setModel(Model* model_);
     void setFilter(ModelFilter* filter_);
-    void setTrainMatrix(SpMatrix *trainMatrix_);
+    void setTrainMatrix(SpMatrix *train_matrix_);
     virtual bool selfTest();
 };
 

@@ -4,10 +4,10 @@ import alpenglow as prs
 class SimulatedBatchOnlineExperiment(prs.OnlineExperiment):
     def config(self, elems):
         proceeding_logger = rs.ProceedingLogger()
-        proceeding_logger.set_data_iterator(elems['randomAccessIterator'])
+        proceeding_logger.set_data_iterator(elems['recommender_data_iterator'])
         config = self.parameterDefaults(
-            topK= 100,
-            minTime= 0
+            top_k= 100,
+            min_time= 0
         )
         config['loggers'] = [proceeding_logger] if self.verbose else []
 
@@ -36,12 +36,12 @@ class SimulatedBatchOnlineExperiment(prs.OnlineExperiment):
             base_in_file_name=""
         ))
         batch_learner.set_model(model)
-        batch_learner.set_recommender_data_iterator(elems['randomAccessIterator'])
+        batch_learner.set_recommender_data_iterator(elems['recommender_data_iterator'])
         batch_learner.add_gradient_updater(updater)
 
 
         online_learner = rs.ImplicitGradientLearner()
-        online_learner.set_train_matrix(elems['trainMatrix'])
+        online_learner.set_train_matrix(elems['train_matrix'])
         online_learner.add_gradient_updater(updater)
         online_learner.set_model(model)
 
@@ -53,7 +53,7 @@ class SimulatedBatchOnlineExperiment(prs.OnlineExperiment):
             negative_rate=100,
             initialize_all=False,
         ))
-        negative_sample_generator.set_train_matrix(elems['trainMatrix'])
+        negative_sample_generator.set_train_matrix(elems['train_matrix'])
         negative_sample_generator.set_items(elems['items'])
         online_learner.set_negative_sample_generator(negative_sample_generator)
 

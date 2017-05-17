@@ -4,7 +4,7 @@ import math
 
 class NdcgScore:
     def __init__(self, rankings):
-        treshold = rankings.topK
+        treshold = rankings.top_k
         logs = rankings.logs
         ndcgs = []
         for l in logs:

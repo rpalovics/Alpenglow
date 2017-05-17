@@ -5,13 +5,13 @@ import alpenglow as prs
 class PeriodicPopularityModelExperiment(prs.OnlineExperiment):
     def config(self, elems):
         proceeding_logger = rs.ProceedingLogger()
-        proceeding_logger.set_data_iterator(elems['randomAccessIterator'])
+        proceeding_logger.set_data_iterator(elems['recommender_data_iterator'])
 
         config = self.parameterDefaults(
-            topK=100,
-            minTime=0,
+            top_k=100,
+            min_time=0,
             seed=0,
-            outFile=None,
+            out_file=None,
             filters=[],
         )
         config['loggers'] = [proceeding_logger] if self.verbose else []

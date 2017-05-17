@@ -13,18 +13,18 @@ data = pd.read_csv(
     nrows=1000000
 )
 
-popularityModelExperiment = alpenglow.experiments.PopularityModelExperiment(topK=100, seed=254938879)
+popularityModelExperiment = alpenglow.experiments.PopularityModelExperiment(top_k=100, seed=254938879)
 popRankings = popularityModelExperiment.run(data, verbose=True)
 popResults = ag.NdcgScore(popRankings)
 popResults.timeFrame(60 * 60 * 24).plot()
 plt.savefig("popularity.png")
 
 factorModelExperiment = alpenglow.experiments.FactorModelExperiment(
-    topK=100,
+    top_k=100,
     seed=254938879,
     dimension=10,
-    learningRate=0.14,
-    negativeRate=100
+    learning_rate=0.14,
+    negative_rate=100
 )
 facRankings = factorModelExperiment.run(data, verbose=True)
 facResults = ag.NdcgScore(facRankings)

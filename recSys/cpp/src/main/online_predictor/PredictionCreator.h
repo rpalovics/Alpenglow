@@ -11,13 +11,13 @@
 using namespace std;
 
 struct PredictionCreatorParameters{
-  int topK; //TODO top_k
+  int top_k; //TODO top_k
   int lookback;
 };
 class PredictionCreator{
  public:
    PredictionCreator(PredictionCreatorParameters* params){
-     top_k_ = params->topK; //TODO const
+     top_k_ = params->top_k; //TODO const
      lookback_ = params->lookback;
      model_ = NULL;
      filter_ = NULL;
@@ -44,7 +44,7 @@ class PredictionCreator{
      }
      if(lookback_==1 and train_matrix_==NULL){
        OK = false;
-       cerr << "Not set: trainMatrix of PredictionCreator." << endl;
+       cerr << "Not set: train_matrix of PredictionCreator." << endl;
      }
      return OK;
    }
@@ -65,7 +65,7 @@ struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
 class PredictionCreatorGlobal: public PredictionCreator{
   public:
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params):PredictionCreator(params){
-      min_heap_ = new MinHeap(params->topK); //TODO use utils/Toplist
+      min_heap_ = new MinHeap(params->top_k); //TODO use utils/Toplist
       initial_threshold_ = (uint)params->initialThreshold;
     };
     virtual ~PredictionCreatorGlobal(){ delete min_heap_; }
@@ -102,7 +102,7 @@ struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParamet
 class PredictionCreatorPersonalized: public PredictionCreator{
   public:
     PredictionCreatorPersonalized(PredictionCreatorParameters * params):PredictionCreator(params){
-      min_heap_ = new MinHeap(params->topK); //TODO use utils/Toplist
+      min_heap_ = new MinHeap(params->top_k); //TODO use utils/Toplist
     };
     vector<RecDat>* run(RecDat* rec_dat);
     bool self_test(){ return PredictionCreator::self_test(); }

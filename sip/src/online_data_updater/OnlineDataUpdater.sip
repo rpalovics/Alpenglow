@@ -2,7 +2,7 @@ struct OnlineDataUpdaterParameters{
   %TypeHeaderCode
   #include "online_data_updater/OnlineDataUpdater.h"
   %End
-  SpMatrix * trainMatrix;
+  SpMatrix * train_matrix;
   std::vector <int> * items;
   std::vector <int> * users;
   TopPopContainer * pop; 

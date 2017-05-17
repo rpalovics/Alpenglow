@@ -18,7 +18,7 @@ class PersonalPopularityModel : public PopularityModel {
     double prediction(RecDat * recDat);
   private:
     double getUserBestItemScore(int user);
-    SpMatrix trainMatrix_;
+    SpMatrix train_matrix_;
     map<int, int> userBestItems_;
 
     friend class PersonalPopularityModelUpdater;

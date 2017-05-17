@@ -65,7 +65,7 @@ class Averaging : public Distribution{
     void readFromFile(string fileName, int colNum, int actColX, int actColY);
     double getAverage(double value);
     double getAverage(AvgIterator avgIt);
-    void writeIntoFile(string outFile); 
+    void writeIntoFile(string out_file); 
 };
 
 #endif

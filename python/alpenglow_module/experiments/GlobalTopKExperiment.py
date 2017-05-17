@@ -5,12 +5,12 @@ import alpenglow as prs
 class GlobalTopKExperiment(prs.OnlineExperiment):
     def config(self, elems):
         proceeding_logger = rs.ProceedingLogger()
-        proceeding_logger.set_data_iterator(elems['randomAccessIterator'])
+        proceeding_logger.set_data_iterator(elems['recommender_data_iterator'])
         config = self.parameterDefaults(
-            topK=100,
-            minTime=0,
+            top_k=100,
+            min_time=0,
             seed=0,
-            outFile=None,
+            out_file=None,
             filters=[],
         )
         config['loggers'] = [proceeding_logger] if self.verbose else []
@@ -29,7 +29,7 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
         updater.set_model(model)
 
         learner = rs.ImplicitGradientLearner()
-        learner.set_train_matrix(elems['trainMatrix'])
+        learner.set_train_matrix(elems['train_matrix'])
         learner.add_gradient_updater(updater)
         learner.set_model(model)
 
@@ -38,7 +38,7 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
             initialize_all=False,
             seed=0,
         ))
-        negative_sample_generator.set_train_matrix(elems['trainMatrix'])
+        negative_sample_generator.set_train_matrix(elems['train_matrix'])
         negative_sample_generator.set_items(elems['items'])
         learner.set_negative_sample_generator(negative_sample_generator)
 
@@ -53,14 +53,14 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
         fmfilter.setItems(elems['items'])
 
         prediction_creator = rs.PredictionCreatorGlobal(**self.parameterDefaults(
-            topK=10000,
+            top_k=10000,
             # initialThreshold=1000,
             lookback=0
         ))
         prediction_creator.setModel(model)
         prediction_creator.setFilter(fmfilter)
         online_predictor = rs.OnlinePredictor(**self.parameterDefaults(
-            minTime=0,
+            min_time=0,
             timeFrame=86400,
             fileName=""
         ))

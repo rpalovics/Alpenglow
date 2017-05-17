@@ -15,7 +15,7 @@
 using namespace std;
 
 struct OnlineDataUpdaterParameters{
-    SpMatrix * trainMatrix;
+    SpMatrix * train_matrix;
     vector <int> * items;
     vector <int> * users;
     TopPopContainer * pop; 

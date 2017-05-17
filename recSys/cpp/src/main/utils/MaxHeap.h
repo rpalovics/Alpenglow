@@ -14,7 +14,7 @@ class MaxHeap{
 public:
   //MaxHeap(double* array, int length);
   //MaxHeap(const vector<double>& vector);
-  MaxHeap(int _topK){topK = _topK;};
+  MaxHeap(int _top_k){top_k = _top_k;};
 
   void insert(Tweet* tweet);
   Tweet* getMax();
@@ -27,7 +27,7 @@ private:
   void bubbleDown(int index);
   void bubbleUp(int index);
   void heapify();
-  int topK;
+  int top_k;
 };
 
 #endif

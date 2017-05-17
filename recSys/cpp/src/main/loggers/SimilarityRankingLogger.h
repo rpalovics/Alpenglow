@@ -8,7 +8,7 @@
 
 struct SimilarityRankingLoggerParameters{
   int magic_user;
-  int topK;
+  int top_k;
   string file_name; 
 };
 
@@ -16,7 +16,7 @@ class SimilarityRankingLogger : public Logger{
   public:
     SimilarityRankingLogger(SimilarityRankingLoggerParameters* params){
       magic_user_ = params->magic_user;
-      top_k_ = params->topK;
+      top_k_ = params->top_k;
       file_name_ = params->file_name;
       output_file_.open(file_name_.c_str());
       model_ = NULL;

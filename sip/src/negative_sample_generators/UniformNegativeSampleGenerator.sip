@@ -24,7 +24,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator{
         sipCpp->set_items(&(a0->vec));
     %End
     bool self_test();
-    void setTrainMatrix(SpMatrix* trainMatrix_);
+    void setTrainMatrix(SpMatrix* train_matrix_);
     void setItems(std::vector<int>* items_);
     void setItems(VectorInt);
     %MethodCode
