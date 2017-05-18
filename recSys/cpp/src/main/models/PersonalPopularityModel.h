@@ -14,10 +14,10 @@ class PersonalPopularityModel : public PopularityModel {
   public:
     PersonalPopularityModel(){}
     ~PersonalPopularityModel(){}
-    void add(RecDat * recDat);
-    double prediction(RecDat * recDat);
+    void add(RecDat * rec_dat);
+    double prediction(RecDat * rec_dat);
   private:
-    double getUserBestItemScore(int user);
+    double get_userBestItemScore(int user);
     SpMatrix train_matrix_;
     map<int, int> userBestItems_;
 

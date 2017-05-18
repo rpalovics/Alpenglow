@@ -1,6 +1,6 @@
 #include "ObjectiveMSE.h"
 
-double ObjectiveMSE::getGradient(RecPred * recPred){
-  //cerr << "getGradient " << recPred->prediction << " " << recPred->score << endl;
-  return  recPred->prediction - recPred->score;
+double ObjectiveMSE::get_gradient(RecPred * rec_pred){
+  //cerr << "get_gradient " << rec_pred->prediction << " " << rec_pred->score << endl;
+  return  rec_pred->prediction - rec_pred->score;
 }

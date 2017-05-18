@@ -20,7 +20,7 @@ class RandomIterator{
     RecDat* next(){
       return shuffled_data_[counter_++];
     };
-    bool hasNext(){
+    bool has_next(){
       return counter_ < shuffled_data_.size();
     };
     void init(){

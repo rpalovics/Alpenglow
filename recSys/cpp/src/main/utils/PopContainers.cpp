@@ -48,7 +48,7 @@ pair <int,double> TopPopContainer::get(int idx){
    return p;
 }
 
-pair <int,double> TopPopContainer::getNormed(int idx){
+pair <int,double> TopPopContainer::get_normed(int idx){
    changed=false;
    pair <int,double> p;
    if(idx<(int)names.size()){
@@ -61,7 +61,7 @@ pair <int,double> TopPopContainer::getNormed(int idx){
    return p;
 }
 
-map <int,double> * TopPopContainer::getRecommendation(int num){
+map <int,double> * TopPopContainer::get_recommendation(int num){
   changed=false;
   map <int,double> * rec = new map <int,double>;
   if(num>(int)names.size()) num=names.size();

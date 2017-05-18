@@ -76,25 +76,24 @@ class RecommenderData{
       type = params->type;
     }
     ~RecommenderData(){};
-    void readFromFile(string file_name, string type){ read_from_file(file_name, type); }
     void read_from_file(string file_name, string type);
     void read_from_file_core(istream& ifs, string type);
-    void setRecDats(RecDats recData){ this->recData = recData; }
-    RecDat* get(int idx){return &(recData[idx]);}
-    int size(){return recData.size();}
+    void set_rec_dats(RecDats rec_data){ this->rec_data = rec_data; }
+    RecDat* get(int idx){return &(rec_data[idx]);}
+    int size(){return rec_data.size();}
     SpMatrix* matrix();
     vector<int>* items();
     vector<int>* users();
-    void setMaxTime(double _max_time){ max_time = _max_time; }
-    RecDats* getRecData(){ return &recData; }
+    void set_max_time(double _max_time){ max_time = _max_time; }
+    RecDats* get_rec_data(){ return &rec_data; }
     void init(){
-      readFromFile(file_name, type);
+      read_from_file(file_name, type);
     }
     void set_attribute_container(InlineAttributeReader* attribute_container){
       attribute_container_ = attribute_container;
     }
   private:
-    RecDats recData;
+    RecDats rec_data;
     SpMatrix recMatrix;
     vector<int> items_;
     vector<int> users_;

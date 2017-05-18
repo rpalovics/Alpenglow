@@ -1,6 +1,6 @@
 /*
  * RecommenderDataIterator.h
- * RecommenderData should be accessed through iterator. An iterator object can shuffle order of recDats, but if the data is iterated repeatedly, the iterator must give recDats in the same order.
+ * RecommenderData should be accessed through iterator. An iterator object can shuffle order of rec_dats, but if the data is iterated repeatedly, the iterator must give rec_dats in the same order.
  */
 
 #ifndef RECOMMENDERDATAITERATOR_H_

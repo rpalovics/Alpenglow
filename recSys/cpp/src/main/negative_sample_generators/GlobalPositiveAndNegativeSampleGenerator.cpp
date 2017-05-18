@@ -21,7 +21,7 @@ void GlobalPositiveAndNegativeSampleGenerator::set_parameters(GlobalPositiveAndN
 }
 
 
-void GlobalPositiveAndNegativeSampleGenerator::generate_positive(RecDat * recDat){
+void GlobalPositiveAndNegativeSampleGenerator::generate_positive(RecDat * rec_dat){
   int history_size = history.size();
   if(history_size>0){
     double p = positiveRate;
@@ -40,13 +40,13 @@ void GlobalPositiveAndNegativeSampleGenerator::generate_positive(RecDat * recDat
 }
 
 
-vector <int> * GlobalPositiveAndNegativeSampleGenerator::generate(RecDat * recDat){
+vector <int> * GlobalPositiveAndNegativeSampleGenerator::generate(RecDat * rec_dat){
   int learnt = 0;
   samples.clear();
-  int userActivity = train_matrix->rowSize(recDat->user);
+  int userActivity = train_matrix->row_size(rec_dat->user);
   while(learnt < negativeRate && learnt<(int)items->size()-userActivity-1){
     int item = items->at((int)(rand()/(RAND_MAX+1.0)*(items->size())));
-    if(!train_matrix->hasValue(recDat->user,item) && item!=recDat->item){ 
+    if(!train_matrix->has_value(rec_dat->user,item) && item!=rec_dat->item){ 
       samples.push_back(item);
       learnt++;    
     }

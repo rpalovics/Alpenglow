@@ -32,48 +32,48 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
     id = 0;
     while (ifs >> t >> user >> item >> score >> eval) {
       if (t>=max_time && max_time>0) break;
-      RecDat recDat;
-      recDat.user = user;
-      recDat.item = item;
-      recDat.time = t;
-      recDat.id = id;
-      recDat.score = score;
-      recDat.location.location_id = 0;
-      recDat.eval=eval;
-      recData.push_back(recDat); 
+      RecDat rec_dat;
+      rec_dat.user = user;
+      rec_dat.item = item;
+      rec_dat.time = t;
+      rec_dat.id = id;
+      rec_dat.score = score;
+      rec_dat.location.location_id = 0;
+      rec_dat.eval=eval;
+      rec_data.push_back(rec_dat); 
     }
   }
   if (type == "online_id") {
     while (ifs >> t >> user >> item >> id >> score >> eval) {
       if (t>=max_time && max_time>0) break;
-      RecDat recDat;
-      recDat.user = user;
-      recDat.item = item;
-      recDat.time = t;
-      recDat.id = id;
-      recDat.score = score;
-      recDat.eval=eval;
-      recDat.location.location_id = 0;
-      recData.push_back(recDat); 
+      RecDat rec_dat;
+      rec_dat.user = user;
+      rec_dat.item = item;
+      rec_dat.time = t;
+      rec_dat.id = id;
+      rec_dat.score = score;
+      rec_dat.eval=eval;
+      rec_dat.location.location_id = 0;
+      rec_data.push_back(rec_dat); 
     }
   }
   if (type == "online_attribute") {
     id = 0;
     while (ifs >> t >> user >> item >> score >> eval) {
       if (t>=max_time && max_time>0) break;
-      RecDat recDat;
-      recDat.user = user;
-      recDat.item = item;
-      recDat.time = t;
-      recDat.score = score;
-      recDat.eval=eval;
-      recDat.id = id;
-      recDat.location.location_id = 0;
+      RecDat rec_dat;
+      rec_dat.user = user;
+      rec_dat.item = item;
+      rec_dat.time = t;
+      rec_dat.score = score;
+      rec_dat.eval=eval;
+      rec_dat.id = id;
+      rec_dat.location.location_id = 0;
       ifs.ignore(1, ' ');
       if(ifs.eof()) break;
       string attribute_string;
       getline(ifs, attribute_string);
-      recData.push_back(recDat); 
+      rec_data.push_back(rec_dat); 
       attribute_container_->read_attribute(id, attribute_string);
       id++;
     }
@@ -81,29 +81,29 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
   else if (type == "offline") {
     id = 0;
     while (ifs >> user >> item >> score) {
-      RecDat recDat;
-      recDat.user = user;
-      recDat.item = item;
-      recDat.time = 0;
-      recDat.score = score;
-      recDat.eval=1;
-      recDat.id = id;
-      recDat.location.location_id = 0;
-      recData.push_back(recDat);
+      RecDat rec_dat;
+      rec_dat.user = user;
+      rec_dat.item = item;
+      rec_dat.time = 0;
+      rec_dat.score = score;
+      rec_dat.eval=1;
+      rec_dat.id = id;
+      rec_dat.location.location_id = 0;
+      rec_data.push_back(rec_dat);
     }
   }
   else if (type == "offlineTimestamp") {
     id = 0;
     while (ifs >> t >> user >> item >> score) {
-      RecDat recDat;
-      recDat.user = user;
-      recDat.item = item;
-      recDat.time = t;
-      recDat.score = score;
-      recDat.eval=1;
-      recDat.id = id;
-      recDat.location.location_id = 0;
-      recData.push_back(recDat);
+      RecDat rec_dat;
+      rec_dat.user = user;
+      rec_dat.item = item;
+      rec_dat.time = t;
+      rec_dat.score = score;
+      rec_dat.eval=1;
+      rec_dat.id = id;
+      rec_dat.location.location_id = 0;
+      rec_data.push_back(rec_dat);
     }
   }
   else if ( type  == "location") {
@@ -121,7 +121,7 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.eval = eval;
       rec_dat.id = id;
       rec_dat.score = score;
-      recData.push_back(rec_dat);
+      rec_data.push_back(rec_dat);
     }
   }
   else if ( type == "location_xyz") {
@@ -129,45 +129,45 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
     std::cout << "reading, type location_xyz" << std::endl;
     while (ifs >> t >> user >> item >> score >> eval >> location >> x >> y >> z) {
       if (t>=max_time && max_time>0) break;
-      RecDat recDat;
-      recDat.user = user;
-      recDat.item = item;
-      recDat.time = t;
-      recDat.eval = eval;
-      recDat.id = id;
-      recDat.score = score;
-      recDat.location.location_id = location;
-      recDat.location.x = x;
-      recDat.location.y = y;
-      recDat.location.z = z;
-      recData.push_back(recDat);
+      RecDat rec_dat;
+      rec_dat.user = user;
+      rec_dat.item = item;
+      rec_dat.time = t;
+      rec_dat.eval = eval;
+      rec_dat.id = id;
+      rec_dat.score = score;
+      rec_dat.location.location_id = location;
+      rec_dat.location.x = x;
+      rec_dat.location.y = y;
+      rec_dat.location.z = z;
+      rec_data.push_back(rec_dat);
     }
   }
   if (type == "category") {
     id = 0;
     while (ifs >> t >> user >> item >> score >> eval >> category ) {
       if (t>=max_time && max_time>0) break;
-      RecDat recDat;
-      recDat.user = user;
-      recDat.item = item;
-      recDat.time = t;
-      recDat.score = score;
-      recDat.eval=eval;
-      recDat.id = id;
-      recDat.category = category;
-      recDat.location.location_id = 0;
-      recData.push_back(recDat); 
+      RecDat rec_dat;
+      rec_dat.user = user;
+      rec_dat.item = item;
+      rec_dat.time = t;
+      rec_dat.score = score;
+      rec_dat.eval=eval;
+      rec_dat.id = id;
+      rec_dat.category = category;
+      rec_dat.location.location_id = 0;
+      rec_data.push_back(rec_dat); 
     }
   }
-  cerr << "read OK, size: " << recData.size() << endl;
+  cerr << "read OK, size: " << rec_data.size() << endl;
 }
 
 SpMatrix* RecommenderData::matrix() {
   if(recMatrix.size()==0){
     recMatrix.clear();
-    for (uint jj=0; jj<recData.size(); jj++) {
-      RecDat recDat = recData[jj];
-      recMatrix.update(recDat.user,recDat.item,recDat.score);
+    for (uint jj=0; jj<rec_data.size(); jj++) {
+      RecDat rec_dat = rec_data[jj];
+      recMatrix.update(rec_dat.user,rec_dat.item,rec_dat.score);
     }
   }
   return &recMatrix;
@@ -176,8 +176,8 @@ SpMatrix* RecommenderData::matrix() {
 vector<int>* RecommenderData::items(){
   if(items_.size()==0){
     vector<bool> item_map;
-    for(uint ii=0; ii<recData.size(); ii++){
-      int item = recData[ii].item;
+    for(uint ii=0; ii<rec_data.size(); ii++){
+      int item = rec_data[ii].item;
       if((int)item_map.size()<=item) item_map.resize(item+1,false);
       if(!item_map[item]){
         item_map[item]=true;
@@ -191,8 +191,8 @@ vector<int>* RecommenderData::items(){
 vector<int>* RecommenderData::users(){
   if(users_.size()==0){
     vector<bool> user_map;
-    for(uint ii=0; ii<recData.size(); ii++){
-      int user = recData[ii].user;
+    for(uint ii=0; ii<rec_data.size(); ii++){
+      int user = rec_data[ii].user;
       if((int)user_map.size()<=user) user_map.resize(user+1,false);
       if(!user_map[user]){
         user_map[user]=true;

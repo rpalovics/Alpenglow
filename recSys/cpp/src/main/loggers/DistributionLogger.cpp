@@ -56,9 +56,9 @@
 //  myfile.close();
 //}
 //
-//void DistributionLogger::run(RecDat* recDat){
-//	this->seenItems.insert(recDat->item);
-//	this->seenUsers.insert(recDat->user);
+//void DistributionLogger::run(RecDat* rec_dat){
+//	this->seenItems.insert(rec_dat->item);
+//	this->seenUsers.insert(rec_dat->user);
 //}
 //
 //void DistributionLogger::set_parameters(DistributionLoggerParameters * parameters){

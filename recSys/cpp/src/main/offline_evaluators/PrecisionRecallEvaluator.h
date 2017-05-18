@@ -21,7 +21,7 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
   public:
     PrecisionRecallEvaluator(PrecisionRecallEvaluatorParameters* params){
       cutoff_ = params->cutoff;
-      test_data_.readFromFile(params->test_file_name, params->test_file_type);
+      test_data_.read_from_file(params->test_file_name, params->test_file_type);
       time_ = params->time;
       model_ = NULL;
       train_data_ = NULL;

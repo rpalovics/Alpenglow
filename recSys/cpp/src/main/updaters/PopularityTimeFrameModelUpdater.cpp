@@ -1,10 +1,10 @@
 #include "PopularityTimeFrameModelUpdater.h"
 
 
-void PopularityTimeFrameModelUpdater::update(RecDat * recDat){
-  model -> time_frame_data.push_back(recDat);
-  int item = recDat -> item;
-  double time = recDat -> time;
+void PopularityTimeFrameModelUpdater::update(RecDat * rec_dat){
+  model -> time_frame_data.push_back(rec_dat);
+  int item = rec_dat -> item;
+  double time = rec_dat -> time;
   model -> items[item]++;
   if (model-> maxitem < model -> items[item]) model -> maxitem = model -> items[item];
   list<RecDat*>::iterator timeIt; 

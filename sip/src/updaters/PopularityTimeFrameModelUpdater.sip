@@ -5,5 +5,5 @@ class PopularityTimeFrameModelUpdater : public ModelSimpleUpdater {
   %End
   public:
     void set_model(PopularityTimeFrameModel * model_);
-    void update(RecDat * recDat);
+    void update(RecDat * rec_dat);
 };

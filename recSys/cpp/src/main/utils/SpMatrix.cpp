@@ -9,38 +9,38 @@ void SpMatrix::clear(){
 
 void SpMatrix::read_from_file(string dataFile){
   ifstream ifs (dataFile.c_str());
-  int rowID,colID;
+  int row_id,col_id;
   double value;
-  while(ifs >> rowID >> colID >> value) insert(rowID,colID,value);
+  while(ifs >> row_id >> col_id >> value) insert(row_id,col_id,value);
   cerr << "read from " << dataFile << " is done, size: " << size() << endl;
 }
 
-void SpMatrix::insert(int rowID, int colID, double value){
-  resize(rowID);
-  MatrixRow * row=get(rowID);
-  row->insert(make_pair(colID,value));
+void SpMatrix::insert(int row_id, int col_id, double value){
+  resize(row_id);
+  MatrixRow * row=get(row_id);
+  row->insert(make_pair(col_id,value));
 }
 
-void SpMatrix::update(int rowID,int colID, double value){
-  resize(rowID);
-  MatrixRow * row=get(rowID);
-  MatrixRow :: iterator it=row->find(colID);
+void SpMatrix::update(int row_id,int col_id, double value){
+  resize(row_id);
+  MatrixRow * row=get(row_id);
+  MatrixRow :: iterator it=row->find(col_id);
   if(it!=row->end()) it->second=value;
-  else row->insert(make_pair(colID,value));
+  else row->insert(make_pair(col_id,value));
 }
 
-void SpMatrix::increase(int rowID,int colID, double value){
-  resize(rowID);
-  MatrixRow * row = get(rowID);
-  MatrixRow :: iterator it = row->find(colID);
+void SpMatrix::increase(int row_id,int col_id, double value){
+  resize(row_id);
+  MatrixRow * row = get(row_id);
+  MatrixRow :: iterator it = row->find(col_id);
   if(it!=row->end()) it->second+=value;
-  else row->insert(make_pair(colID,value));
+  else row->insert(make_pair(col_id,value));
 }
 
-void SpMatrix::resize(int rowID){
-  if(size()<=rowID) matrix.resize(rowID+1,NULL);
-  if(matrix[rowID]==NULL){
-    matrix[rowID]= new MatrixRow;
+void SpMatrix::resize(int row_id){
+  if(size()<=row_id) matrix.resize(row_id+1,NULL);
+  if(matrix[row_id]==NULL){
+    matrix[row_id]= new MatrixRow;
   }
 }
 
@@ -48,10 +48,10 @@ int SpMatrix::size(){
   return (int) matrix.size();
 }
 
-double SpMatrix::get(int rowID, int colID){
-  MatrixRow * row = get(rowID);
+double SpMatrix::get(int row_id, int col_id){
+  MatrixRow * row = get(row_id);
   if(row!=NULL){
-    RowIterator ri = row->find(colID);
+    RowIterator ri = row->find(col_id);
     if(ri!=row->end()) return ri->second;
     else return 0;
   }
@@ -59,14 +59,14 @@ double SpMatrix::get(int rowID, int colID){
 }
 
 
-MatrixRow * SpMatrix::get(int rowID){
-  if(size()>rowID) return matrix[rowID];
+MatrixRow * SpMatrix::get(int row_id){
+  if(size()>row_id) return matrix[row_id];
   else return NULL;
 }
 
-int SpMatrix::row_size(int rowID){
-  if(size()>rowID){
-    MatrixRow * row =get(rowID);
+int SpMatrix::row_size(int row_id){
+  if(size()>row_id){
+    MatrixRow * row =get(row_id);
     if(row!=NULL) return (int) row->size();
     else return 0;
   }  
@@ -75,30 +75,30 @@ int SpMatrix::row_size(int rowID){
 
 void SpMatrix::write_into_file(string file_name){
   ofstream ofs(file_name.c_str());
-  for(int rowID=0; rowID<size(); rowID++){
-    MatrixRow * row = get(rowID);
+  for(int row_id=0; row_id<size(); row_id++){
+    MatrixRow * row = get(row_id);
     if(row!=NULL){
       for(RowIterator ri = row->begin(); ri!=row->end(); ri++){
-        int colID=ri->first;
+        int col_id=ri->first;
         double value=ri->second;
-        ofs << rowID << " " << colID << " " << value << endl;
+        ofs << row_id << " " << col_id << " " << value << endl;
       }
     }
   }
 }
 
-void SpMatrix::erase(int rowID, int colID){
-  MatrixRow * row = get(rowID);
+void SpMatrix::erase(int row_id, int col_id){
+  MatrixRow * row = get(row_id);
   if(row!=NULL){
-    RowIterator ri = row->find(colID);
+    RowIterator ri = row->find(col_id);
     if(ri!=row->end()) row->erase(ri);    
   }
 }
 
-bool SpMatrix::has_value(int rowID,int colID){
-  MatrixRow * row =  get(rowID);
+bool SpMatrix::has_value(int row_id,int col_id){
+  MatrixRow * row =  get(row_id);
   if(row==NULL) return false;
-  else if (row->find(colID)==row->end()) return false;
+  else if (row->find(col_id)==row->end()) return false;
   else return true;
 }
 

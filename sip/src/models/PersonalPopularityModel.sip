@@ -5,6 +5,6 @@ class PersonalPopularityModel : public PopularityModel {
   public:
     PersonalPopularityModel();
     ~PersonalPopularityModel();
-    void add(RecDat * recDat);
-    double prediction(RecDat * recDat);
+    void add(RecDat * rec_dat);
+    double prediction(RecDat * rec_dat);
 };

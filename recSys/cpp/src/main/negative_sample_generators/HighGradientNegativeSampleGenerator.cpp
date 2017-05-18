@@ -28,7 +28,7 @@ void HighGradientNegativeSampleGenerator::generate_all(){
   while(learnt<full_negative_rate_ && available>0){
     int idx = random_(available); //idx = rand%available;
     int item = items_->at(idx);
-    if(!train_matrix_->hasValue(user_,item_) && item!=item_){
+    if(!train_matrix_->has_value(user_,item_) && item!=item_){
       learnt++;
       positive_sample_.item = item;
       double prediction = model_->prediction(&positive_sample_);

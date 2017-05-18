@@ -14,7 +14,7 @@ class ModelGradientUpdater: public ModelUpdater {
   #include "updaters/ModelUpdater.h"
   %End
   public:
-    virtual void update(RecDat * recDat, double gradient)=0;
+    virtual void update(RecDat * rec_dat, double gradient)=0;
     virtual void beginning_of_updating_cycle(RecDat*);
     virtual void end_of_updating_cycle(RecDat*);
     bool self_test();
@@ -25,7 +25,7 @@ class ModelSimpleUpdater: public ModelUpdater {
   #include "updaters/ModelUpdater.h"
   %End
   public:
-    virtual void update(RecDat * recDat) = 0;
+    virtual void update(RecDat * rec_dat) = 0;
     bool self_test();
 };
 

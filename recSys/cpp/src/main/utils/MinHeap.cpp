@@ -62,11 +62,11 @@ void MinHeap::bubbleUp(int index){
     }
 }
 
-void MinHeap::insert(RecDat recDat)
+void MinHeap::insert(RecDat rec_dat)
 {
     int length = _vector.size();
-    if(length < top_k or getMin().score < recDat.score){
-      _vector.push_back(recDat);
+    if(length < top_k or getMin().score < rec_dat.score){
+      _vector.push_back(rec_dat);
       bubbleUp(length);
     }
     length = _vector.size();

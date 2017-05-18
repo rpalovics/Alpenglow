@@ -9,8 +9,8 @@ int GroupUpdater::update_gradient_updaters(RecDat* rec_dat, GradientComputer* gr
     ModelGradientUpdater* updater = gradient_updaters->at(i);
     updater->beginning_of_updating_cycle(rec_dat);
   }
-  while(gradient_computer->hasNext()){
-    vector<pair<RecDat*,double> >* gradients = gradient_computer->getNextGradient();
+  while(gradient_computer->has_next()){
+    vector<pair<RecDat*,double> >* gradients = gradient_computer->get_next_gradient();
     cost+=gradients->size();
     //update gradient updaters
     for(uint i=0; i<gradient_updaters->size(); i++){

@@ -6,13 +6,9 @@ class GradientComputer /Abstract/{
     GradientComputer();
     virtual ~GradientComputer();
     void set_model(Model* model_);
-    virtual void set_up(std::vector<RecDat>* trainData) = 0;
+    virtual void set_up(std::vector<RecDat>* train_data) = 0;
     // virtual vector<pair<RecDat*,double> >* get_next_gradient() = 0;
     virtual bool has_next() = 0;
-
-    void setUp(std::vector<RecDat>* trainData);
-    bool hasNext();
-    // std::vector<std::pair<RecDat*,double> >* getNextGradient();
 };
 
 class GradientComputerPointWise : public GradientComputer{
@@ -24,8 +20,8 @@ class GradientComputerPointWise : public GradientComputer{
     GradientComputerPointWise();
     void set_objective(ObjectivePointWise* _objective);
     ~GradientComputerPointWise();
-    virtual double get_gradient(RecDat* recDat);
-    void set_up(std::vector<RecDat>* trainData_);
+    virtual double get_gradient(RecDat* rec_dat);
+    void set_up(std::vector<RecDat>* train_data_);
     // vector<pair<RecDat*,double> > * get_next_gradient();
     bool has_next();
 };
@@ -37,7 +33,7 @@ class GradientComputerImplicitPairWise : public GradientComputer{
   public:
     GradientComputerImplicitPairWise(ObjectivePairWise * _objective);
     ~GradientComputerImplicitPairWise();
-    void set_up(std::vector<RecDat>* trainData_);
+    void set_up(std::vector<RecDat>* train_data_);
     // vector<pair<RecDat*,double> > * get_next_gradient();
     bool has_next();
 };
@@ -49,7 +45,7 @@ class GradientComputerListWise : public GradientComputer{
   public:
     GradientComputerListWise(ObjectiveListWise * _objective);
     ~GradientComputerListWise();
-    void set_up(std::vector<RecDat>* trainData_);
+    void set_up(std::vector<RecDat>* train_data_);
     // vector<pair<RecDat*,double> > * get_next_gradient();
     bool has_next();
 };

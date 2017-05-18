@@ -26,8 +26,8 @@ class CombinedModel : public Model {
       globalWeights.clear();
       globalWeights.resize(modelNum,1/(double)modelNum);
     }
-    double prediction(RecDat* recDat);
-    void add(RecDat* recDat);
+    double prediction(RecDat* rec_dat);
+    void add(RecDat* rec_dat);
   private:
     vector <Model*>  models;
     vector <vector<double>*> userWeights;

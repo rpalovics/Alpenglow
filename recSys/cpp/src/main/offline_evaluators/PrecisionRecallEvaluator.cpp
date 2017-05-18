@@ -5,7 +5,7 @@
 //  double precision_sum = 0;
 //  double recall_sum = 0;
 //  model_filter_->run(0);
-//  train_items_ = model_filter_-> getItems();
+//  train_items_ = model_filter_-> get_items();
 //  for(uint i=0;i<users->size();i++){
 //    int user = users->at(i);
 //    int true_positive = compute_true_positive(user);

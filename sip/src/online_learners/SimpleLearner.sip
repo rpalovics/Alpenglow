@@ -3,6 +3,6 @@ class SimpleLearner : public OnlineLearner {
   #include "online_learners/SimpleLearner.h"
   %End
   public:
-    virtual void learn(RecDat* recDat);
+    virtual void learn(RecDat* rec_dat);
     bool self_test();
 };

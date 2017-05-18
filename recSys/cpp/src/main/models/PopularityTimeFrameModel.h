@@ -17,8 +17,8 @@ class PopularityTimeFrameModel : public Model {
       maxitem = 0;
     }
     ~PopularityTimeFrameModel(){}
-    void add(RecDat * recDat);
-    double prediction(RecDat * recDat);
+    void add(RecDat * rec_dat);
+    double prediction(RecDat * rec_dat);
   private:
     vector<int> items;
     int maxitem;

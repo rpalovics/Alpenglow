@@ -12,18 +12,14 @@ class GradientComputer{
     GradientComputer(){};
     virtual ~GradientComputer(){};
     void set_model(Model* model_){model=model_;}
-    virtual void set_up(vector<RecDat>* trainData) = 0;
+    virtual void set_up(vector<RecDat>* train_data) = 0;
     virtual vector<pair<RecDat*,double> >* get_next_gradient() = 0;
     virtual bool has_next() = 0;
 
-    //DEPRECATED
-    void setUp(vector<RecDat>* trainData){ set_up(trainData); }//TODO google_code_temporal
-    bool hasNext(){ return has_next(); }//TODO google_code_temporal
-    vector<pair<RecDat*,double> >* getNextGradient(){ return get_next_gradient(); }//TODO google_code_temporal
   protected: 
     Model* model;
     vector<pair<RecDat*,double> > gradientVector;
-    vector<RecDat>* trainData;
+    vector<RecDat>* train_data;
 };
 
 class GradientComputerPointWise : public GradientComputer{
@@ -36,16 +32,16 @@ class GradientComputerPointWise : public GradientComputer{
       objective = _objective;
     }
     ~GradientComputerPointWise(){};
-    virtual double get_gradient(RecDat* recDat);
-    void set_up(vector<RecDat>* trainData_){
-      trainData = trainData_;
-      trainDataIt = trainData->begin();
+    virtual double get_gradient(RecDat* rec_dat);
+    void set_up(vector<RecDat>* train_data_){
+      train_data = train_data_;
+      train_dataIt = train_data->begin();
     }
     vector<pair<RecDat*,double> > * get_next_gradient();
-    bool has_next(){return (trainDataIt!=trainData->end());}
+    bool has_next(){return (train_dataIt!=train_data->end());}
   protected:
     ObjectivePointWise * objective;
-    vector<RecDat>::iterator trainDataIt;
+    vector<RecDat>::iterator train_dataIt;
 
 };
 
@@ -55,17 +51,17 @@ class GradientComputerImplicitPairWise : public GradientComputer{
       objective = _objective;
     };
     ~GradientComputerImplicitPairWise(){};
-    void set_up(vector<RecDat>* trainData_){
-      trainData=trainData_;
-      trainDataIt = trainData->begin();
-      positiveData = &(*trainDataIt);
-      trainDataIt++;
+    void set_up(vector<RecDat>* train_data_){
+      train_data=train_data_;
+      train_dataIt = train_data->begin();
+      positiveData = &(*train_dataIt);
+      train_dataIt++;
     }
     vector<pair<RecDat*,double> > * get_next_gradient();
-    bool has_next(){return (trainDataIt!=trainData->end());}
+    bool has_next(){return (train_dataIt!=train_data->end());}
   protected:
     ObjectivePairWise * objective;
-    vector<RecDat>::iterator trainDataIt;
+    vector<RecDat>::iterator train_dataIt;
     RecDat* positiveData;
 };
 
@@ -73,18 +69,18 @@ class GradientComputerListWise : public GradientComputer{
   public:
     GradientComputerListWise(ObjectiveListWise * _objective){
       objective = _objective;
-      hasNext_ = false;
+      has_next_ = false;
     };
     ~GradientComputerListWise(){};
-    void set_up(vector<RecDat>* trainData_){
-      trainData = trainData_;
-      hasNext_=true;
+    void set_up(vector<RecDat>* train_data_){
+      train_data = train_data_;
+      has_next_=true;
     }
     vector<pair<RecDat*,double> > * get_next_gradient();
-    bool has_next(){return hasNext_;}
+    bool has_next(){return has_next_;}
   protected:
     ObjectiveListWise * objective;
-    bool hasNext_;
+    bool has_next_;
 };
 
 #endif

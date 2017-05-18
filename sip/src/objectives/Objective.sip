@@ -4,7 +4,7 @@ class ObjectivePointWise{
   %End
   public:
     ObjectivePointWise();
-    virtual double getGradient(RecPred * recPred) = 0;
+    virtual double get_gradient(RecPred * rec_pred) = 0;
 };
 
 class ObjectivePairWise /Abstract/{
@@ -13,7 +13,7 @@ class ObjectivePairWise /Abstract/{
   %End
   public:
     ObjectivePairWise(); 
-    // virtual std::pair<double,double> getGradient(RecPred * recPred1, RecPred* recPred2)=0;
+    // virtual std::pair<double,double> get_gradient(RecPred * rec_pred1, RecPred* rec_pred2)=0;
 };
 
 class ObjectiveListWise{
@@ -22,5 +22,5 @@ class ObjectiveListWise{
   %End
   public:
     ObjectiveListWise();
-    virtual std::vector <double>  getGradient(std::vector <RecPred> * predictions)=0;
+    virtual std::vector <double>  get_gradient(std::vector <RecPred> * predictions)=0;
 };

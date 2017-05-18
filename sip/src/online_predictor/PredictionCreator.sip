@@ -12,10 +12,10 @@ class PredictionCreator{
   public:
     PredictionCreator(PredictionCreatorParameters * params);
     virtual ~PredictionCreator();
-    virtual std::vector<RecDat>* run(RecDat * recDat)=0; 
+    virtual std::vector<RecDat>* run(RecDat * rec_dat)=0; 
     void set_model(Model* model_);
     void set_filter(ModelFilter* filter_);
-    void setTrainMatrix(SpMatrix *train_matrix_);
+    void set_train_matrix(SpMatrix *train_matrix_);
     virtual bool self_test();
 };
 
@@ -23,7 +23,7 @@ struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
   %TypeHeaderCode
   #include "online_predictor/PredictionCreator.h"
   %End
-  int initialThreshold;
+  int initial_threshold;
 };
 
 class PredictionCreatorGlobal: public PredictionCreator{
@@ -33,7 +33,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
   public:
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params);
     virtual ~PredictionCreatorGlobal();
-    std::vector<RecDat>* run(RecDat* recDat);
+    std::vector<RecDat>* run(RecDat* rec_dat);
     bool self_test();
 };
 
@@ -49,6 +49,6 @@ class PredictionCreatorPersonalized: public PredictionCreator{
   public:
     PredictionCreatorPersonalized(PredictionCreatorParameters * params);
     virtual ~PredictionCreatorPersonalized();
-    std::vector<RecDat>* run(RecDat * recDat);
+    std::vector<RecDat>* run(RecDat * rec_dat);
     bool self_test();
 };

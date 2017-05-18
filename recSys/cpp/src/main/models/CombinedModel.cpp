@@ -1,9 +1,9 @@
 #include "CombinedModel.h"
 
-void CombinedModel::add(RecDat* recDat){
-  int user = recDat->user;
+void CombinedModel::add(RecDat* rec_dat){
+  int user = rec_dat->user;
   for(uint ii=0; ii<models.size(); ii++){
-    (models)[ii]->add(recDat);
+    (models)[ii]->add(rec_dat);
   }
   if(useUserWeights){
     if((int)userWeights.size()<=user) userWeights.resize(user+1,NULL);
@@ -14,10 +14,10 @@ void CombinedModel::add(RecDat* recDat){
   }
 }
 
-double CombinedModel::prediction(RecDat* recDat){
+double CombinedModel::prediction(RecDat* rec_dat){
   //logging
   if (logFrequency!=0 and logCounter % logFrequency == 0){
-    *logFileStream << recDat->time << " " ;
+    *logFileStream << rec_dat->time << " " ;
     for(uint i = 0; i<globalWeights.size(); i++){
       *logFileStream << globalWeights[i] << " " ;
     }
@@ -25,19 +25,19 @@ double CombinedModel::prediction(RecDat* recDat){
   }
   logCounter++;
   //prediction
-  int user = recDat->user; 
+  int user = rec_dat->user; 
   double prediction = 0;
   if(useUserWeights and (int)userWeights.size()>user){
     vector <double> * userWeight = userWeights[user];
     if (userWeight!=NULL){
       for(uint ii=0; ii<userWeight->size(); ii++){
-        prediction+=models[ii]->prediction(recDat)*(userWeight->at(ii)+globalWeights[ii]);
+        prediction+=models[ii]->prediction(rec_dat)*(userWeight->at(ii)+globalWeights[ii]);
       }
     }
   }
   if(!useUserWeights){
     for(uint ii=0; ii<globalWeights.size(); ii++){
-      prediction+=models[ii]->prediction(recDat)*globalWeights[ii];
+      prediction+=models[ii]->prediction(rec_dat)*globalWeights[ii];
     }
   }
   return prediction;

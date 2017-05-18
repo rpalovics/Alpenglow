@@ -45,7 +45,7 @@ bool RankComputer::itemlist_next(RecDat* fake_rec_dat){
     if(itemlist_!=NULL){
       item = itemlist_->at(itemlist_index_).first;
     } else {
-      item = popularity_sorted_container_->getItem(itemlist_index_);
+      item = popularity_sorted_container_->get_item(itemlist_index_);
     }
     itemlist_index_++;
   } while (train_matrix_->get(fake_rec_dat->user,item)>=1 or item==itemlist_positive_item_);
@@ -60,22 +60,22 @@ bool RankComputer::itemlist_next(RecDat* fake_rec_dat){
 //  top_k = parameters->top_k;
 //}
 //
-//RecMap *  TopListCreator::getTopRecommendation(RecDat * recDat){
-//  recommend(recDat);
+//RecMap *  TopListCreator::get_top_recommendation(RecDat * rec_dat){
+//  recommend(rec_dat);
 //  sortTopK();
 //  normTopK();
 //  createTopKMap();
 //  return &recMap;
 //}
 //
-//void TopListCreator::recommend(RecDat * recDat){
+//void TopListCreator::recommend(RecDat * rec_dat){
 //  rec.clear();
-//  RecDat _recDat = *recDat;
+//  RecDat _rec_dat = *rec_dat;
 //  for(uint ii=0; ii<items->size(); ii++){
 //    int item = (*items)[ii];
-//    if(train_matrix->get(recDat->user,item)<1) {
-//      _recDat.item = item;
-//      double score=recommender->prediction(&_recDat);
+//    if(train_matrix->get(rec_dat->user,item)<1) {
+//      _rec_dat.item = item;
+//      double score=recommender->prediction(&_rec_dat);
 //      if(score != 0) rec.push_back(make_pair(item,score));
 //    }
 //  }

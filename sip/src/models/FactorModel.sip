@@ -11,12 +11,6 @@ struct FactorModelParameters{
   bool initialize_all;
   int max_item;
   int max_user;
-  double beginMin;
-  double beginMax;
-  bool initializeAll;
-  bool useSigmoid;
-  int maxItem;
-  int maxUser;
   FactorModelParameters();
 };
 
@@ -36,9 +30,4 @@ class FactorModel : public Model, public SimilarityModel {
     void set_item_recency(Recency *recency);
     void init();
     bool self_test();
-
-    void setUserRecency(Recency *recency);
-    void setItemRecency(Recency *recency);
-    void setUserBias(Bias *bias);
-    void setItemBias(Bias * bias);
 };

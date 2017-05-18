@@ -13,7 +13,7 @@ class ProceedingLogger : public Logger{
       recommender_data_iterator_=NULL;
     }
     virtual ~ProceedingLogger(){}
-    virtual void run(RecDat* recDat){
+    virtual void run(RecDat* rec_dat){
       int counter = recommender_data_iterator_->get_counter();
       if(counter % frequency_ == 0){
         cerr << setprecision(4) << (double)counter/(double)size_ * 100 <<"\%-";

@@ -5,5 +5,5 @@ class ObjectiveMSE : public ObjectivePointWise{
   public:
     ObjectiveMSE();
     ~ObjectiveMSE();
-    double getGradient (RecPred  * recPred);
+    double get_gradient (RecPred  * rec_pred);
 };

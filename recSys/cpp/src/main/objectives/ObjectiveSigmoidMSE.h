@@ -13,7 +13,7 @@
 
 class ObjectiveSigmoidMSE : public ObjectivePointWise {
 public:
-  double getGradient(RecPred * recPred);
+  double get_gradient(RecPred * rec_pred);
   virtual ~ObjectiveSigmoidMSE() {}
 private:
   Util util;

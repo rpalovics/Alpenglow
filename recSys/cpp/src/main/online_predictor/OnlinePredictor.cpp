@@ -9,10 +9,10 @@ void OnlinePredictor::set_parameters(OnlinePredictorParameters * params){
   predictionCreator=NULL;
 }
 
-void OnlinePredictor::run(RecDat * recDat){
-  if(doPredict(recDat)){
+void OnlinePredictor::run(RecDat * rec_dat){
+  if(doPredict(rec_dat)){
     cerr << "OnlinePredictor::predict computes prediction." << endl;
-    vector<RecDat>* topPredictions = predictionCreator->run(recDat);
+    vector<RecDat>* topPredictions = predictionCreator->run(rec_dat);
     for(uint ii=0; ii<topPredictions->size(); ii++){
       ofs << actualTimeFrame << " " << topPredictions->at(ii).user << " " << topPredictions->at(ii).item << " " << topPredictions->at(ii).score << endl; 
     } 
@@ -20,8 +20,8 @@ void OnlinePredictor::run(RecDat * recDat){
   }
 }
 
-bool OnlinePredictor::doPredict(RecDat * recDat){
-  double actualTime = recDat->time;
+bool OnlinePredictor::doPredict(RecDat * rec_dat){
+  double actualTime = rec_dat->time;
   actualTimeFrame = (int)(actualTime - min_time)/(time_frame);
   if(actualTime > min_time && actualTimeFrame !=pastTimeFrame){
     pastTimeFrame = actualTimeFrame;

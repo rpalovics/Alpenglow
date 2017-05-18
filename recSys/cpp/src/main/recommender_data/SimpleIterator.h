@@ -2,7 +2,7 @@
 #define SIMPLEITERATOR_H_
 /*
  * SimpleIterator.h
- * Order of recDats is the same as order of them in the scrobble file (no shuffling).
+ * Order of rec_dats is the same as order of them in the scrobble file (no shuffling).
  */
 
 #include "RecommenderDataIterator.h"

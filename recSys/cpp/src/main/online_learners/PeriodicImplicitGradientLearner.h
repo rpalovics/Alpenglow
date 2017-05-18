@@ -49,7 +49,7 @@ class PeriodicImplicitGradientLearner : public PeriodicLearner {
     NegativeSampleGenerator* negative_sample_generator_;
     GradientComputer* gradient_computer_;
     vector<Logger*> iteration_loggers_;
-    int next_add_counter_; //index of next recDat sample we have to add() to model
+    int next_add_counter_; //index of next rec_dat sample we have to add() to model
     int number_of_iterations_;
     bool turn_off_random_shuffling_;
     bool learn_model_; //deprecated

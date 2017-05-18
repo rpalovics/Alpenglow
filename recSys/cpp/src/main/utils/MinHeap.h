@@ -16,7 +16,7 @@ public:
   //MinHeap(const vector<double>& vector);
   MinHeap(int _top_k){top_k = _top_k;};
 
-  void insert(RecDat recDat);
+  void insert(RecDat rec_dat);
   RecDat getMin();
   void deleteMin();
   int size(){ return _vector.size(); }

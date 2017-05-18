@@ -39,5 +39,5 @@ class RankComputer{
 //    TopListCreator(TopListCreatorParameters * parameters);
 //     ~TopListCreator();
 //     void set_parameters(TopListCreatorParameters * parameters);
-//     // std::map<int,double > *  getTopRecommendation(RecDat * recDat);
+//     // std::map<int,double > *  get_top_recommendation(RecDat * rec_dat);
 // };

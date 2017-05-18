@@ -14,7 +14,7 @@ class OnlinePredictor : public Logger{
  public:
    OnlinePredictor(OnlinePredictorParameters * params){set_parameters(params);};
    ~OnlinePredictor(){};
-   void run(RecDat * recDat);
+   void run(RecDat * rec_dat);
    void set_parameters(OnlinePredictorParameters* params);
    void set_prediction_creator(PredictionCreator* predictionCreator_){predictionCreator = predictionCreator_;}
    bool self_test(){
@@ -23,7 +23,7 @@ class OnlinePredictor : public Logger{
      return OK;
    }
  private:
-   bool doPredict(RecDat * recDat);
+   bool doPredict(RecDat * rec_dat);
    PredictionCreator * predictionCreator;
    double min_time, time_frame;
    int actualTimeFrame, pastTimeFrame;

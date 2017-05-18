@@ -1,21 +1,3 @@
-// class FactorFilter{
-//   %TypeHeaderCode
-//   #include "filters/FactorModelFilter.h"
-//   %End
-//   public:
-//     FactorFilter();
-//     ~FactorFilter();
-//     void setFactors(Factors * _factors, Factors * _otherFactors);
-//     void setEntities(std::vector <int> * _entities, std::vector <int> * _otherEntities);
-//     void setUpperVector(std::vector<pair<int,double> >* upperBounds_);
-//     bool self_test();
-//     void computeBoundVectors();
-//     void computeBounds();
-//     void run();
-//     std::vector<double>* getUpper();
-//     std::vector<double>* getLower(); 
-// };
-
 class FactorModelFilter : public ModelFilter{
   %TypeHeaderCode
   #include "filters/FactorModelFilter.h"

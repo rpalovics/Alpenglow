@@ -40,7 +40,7 @@ class SimulatedBatchExperiment(prs.OnlineExperiment):
             negative_rate=3,
             initialize_all=False,
         ))
-        negative_sample_generator.setTrainMatrix(elems['train_matrix'])
+        negative_sample_generator.set_train_matrix(elems['train_matrix'])
         negative_sample_generator.set_items(elems['items'])
         learner.set_negative_sample_generator(negative_sample_generator)
 

@@ -46,8 +46,8 @@ class RecommenderData{
     RecommenderData();
     RecommenderData(RecommenderDataParameters* params);
     ~RecommenderData();
-    void readFromFile(std::string file_name, std::string type);
-    void setRecDats(std::vector <RecDat> recData);
+    void read_from_file(std::string file_name, std::string type);
+    void set_rec_dats(std::vector <RecDat> rec_data);
     RecDat* get(int idx);
     int size();
     SpMatrix* matrix();
@@ -55,18 +55,18 @@ class RecommenderData{
     std::vector<int>* users();
 
 
-    void getItemsInto(VectorInt*);
+    void get_itemsInto(VectorInt*);
     %MethodCode
         a0->vec = *(sipCpp->items());
     %End
 
-    void getUsersInto(VectorInt*);
+    void get_usersInto(VectorInt*);
     %MethodCode
         a0->vec = *(sipCpp->users());
     %End
 
-    void setMaxTime(double _max_time);
-    std::vector <RecDat>* getRecData();
+    void set_max_time(double _max_time);
+    std::vector <RecDat>* get_rec_data();
     void init();
     void set_attribute_container(InlineAttributeReader* attribute_container);
 };

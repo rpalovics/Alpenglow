@@ -12,7 +12,7 @@ using namespace std;
 class PopularityTimeFrameModelUpdater : public ModelSimpleUpdater {
   public:
     void set_model(PopularityTimeFrameModel * model_){model = model_;};
-    void update(RecDat * recDat);
+    void update(RecDat * rec_dat);
   private:
     PopularityTimeFrameModel * model;
 };

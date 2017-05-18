@@ -11,6 +11,6 @@ class PopularityTimeFrameModel : public Model /NoDefaultCtors/{
   public:
     PopularityTimeFrameModel(PopularityTimeFrameModelParameters* params);
     ~PopularityTimeFrameModel();
-    void add(RecDat * recDat);
-    double prediction(RecDat * recDat);
+    void add(RecDat * rec_dat);
+    double prediction(RecDat * rec_dat);
 };

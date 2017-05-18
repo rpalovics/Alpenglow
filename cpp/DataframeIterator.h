@@ -11,8 +11,8 @@ public:
   DataframeIterator(){
     counter_ = 0;
   }
-  void add_recdat(RecDat &recDat){
-    recdats_.push_back(new RecDat(recDat));
+  void add_recdat(RecDat &rec_dat){
+    recdats_.push_back(new RecDat(rec_dat));
   }
   virtual bool has_next() const {
     return counter_ < recdats_.size(); 

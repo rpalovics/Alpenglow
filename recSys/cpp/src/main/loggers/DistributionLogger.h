@@ -59,9 +59,9 @@ class DistributionLogger : public Logger{
       }
       myfile.close();
     }
-    virtual void run(RecDat* recDat){
-    	this->seenItems.insert(recDat->item);
-    	this->seenUsers.insert(recDat->user);
+    virtual void run(RecDat* rec_dat){
+    	this->seenItems.insert(rec_dat->item);
+    	this->seenUsers.insert(rec_dat->user);
     }
     virtual void set_model(Model* model_){
       this->model=model_;

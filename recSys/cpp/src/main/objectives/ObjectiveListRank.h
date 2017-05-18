@@ -10,7 +10,7 @@ class ObjectiveListRank : public ObjectiveListWise{
   public:
     ObjectiveListRank(){};
     ~ObjectiveListRank(){};
-    vector <double> getGradient(vector <RecPred> * _predictions);
+    vector <double> get_gradient(vector <RecPred> * _predictions);
   private:
     void clear();
     void computeNorms();

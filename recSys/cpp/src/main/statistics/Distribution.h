@@ -37,8 +37,8 @@ class Distribution {
       cerr << "resolution: " << resolution << endl;
     }
     ~Distribution(){};
-    void readFromFile(string file_name, int colNum, int actCol);
-    void writeIntoFile(string file_name);
+    void read_from_file(string file_name, int colNum, int actCol);
+    void write_into_file(string file_name);
     int getBinKey(double value);
     double getBinValue(DistIterator distIt);
     double getBinLength(DistIterator distIt);
@@ -61,11 +61,11 @@ class Distribution {
 class Averaging : public Distribution{
   public:
     Averaging():Distribution(){};
-    void readFromFile(string file_name);
-    void readFromFile(string file_name, int colNum, int actColX, int actColY);
+    void read_from_file(string file_name);
+    void read_from_file(string file_name, int colNum, int actColX, int actColY);
     double getAverage(double value);
     double getAverage(AvgIterator avgIt);
-    void writeIntoFile(string out_file); 
+    void write_into_file(string out_file); 
 };
 
 #endif

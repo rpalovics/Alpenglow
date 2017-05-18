@@ -20,10 +20,10 @@ class GlobalPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator 
       set_parameters(parameters);
     };
     void set_parameters (GlobalPositiveAndNegativeSampleGeneratorParameters * parameters);
-    void setTrainMatrix(SpMatrix* train_matrix_){train_matrix=train_matrix_;}
+    void set_train_matrix(SpMatrix* train_matrix_){train_matrix=train_matrix_;}
     void set_items(vector<int>* items_){ if(!initializeAll) items=items_;}
-    vector <int> * generate(RecDat * recDat);
-    void generate_positive(RecDat * recDat);
+    vector <int> * generate(RecDat * rec_dat);
+    void generate_positive(RecDat * rec_dat);
     vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample);
     void update(RecDat* rec_dat);
   protected:

@@ -24,7 +24,7 @@ class ObjectiveBPR : public ObjectivePairWise{
   public:
     ObjectiveBPR(){};  
     ~ObjectiveBPR(){};  
-    pair <double,double> getGradient(RecPred * recPred1, RecPred* recPred2);
+    pair <double,double> get_gradient(RecPred * rec_pred1, RecPred* rec_pred2);
   protected:
 };
 

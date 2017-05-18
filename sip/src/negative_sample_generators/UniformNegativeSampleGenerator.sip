@@ -21,5 +21,5 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator{
         sipCpp->set_items(&(a0->vec));
     %End
     bool self_test();
-    //vector<int>* generate(RecDat * recDat);
+    //vector<int>* generate(RecDat * rec_dat);
 };

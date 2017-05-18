@@ -5,7 +5,7 @@ class Logger{
   public:
     Logger();
     virtual ~Logger();
-    virtual void run(RecDat* recDat)=0;
+    virtual void run(RecDat* rec_dat)=0;
     virtual void init();
     bool self_test();
 };

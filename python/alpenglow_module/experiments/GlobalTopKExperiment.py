@@ -54,7 +54,7 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
 
         prediction_creator = rs.PredictionCreatorGlobal(**self.parameter_defaults(
             top_k=10000,
-            # initialThreshold=1000,
+            # initial_threshold=1000,
             lookback=0
         ))
         prediction_creator.set_model(model)

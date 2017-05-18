@@ -20,7 +20,6 @@ void OnlineExperiment::run() {
     recommender_->learn(rec_dat);
     online_data_updater_->update(rec_dat);
   }
-  recommender_->writeParameters();
   for (uint i = 0; i < end_loggers_.size(); i++) {
     end_loggers_[i]->run(NULL);
   }

@@ -59,10 +59,10 @@ class SvdppModel : public Model {
     //double userFactorMean();
     //double itemFactorMean();
     //void toCallOutside(RecDat*, int, std::vector<double>*);
-    //double computeProduct(RecDat * recDat);
+    //double computeProduct(RecDat * rec_dat);
     //double get_history_weight(int num);
-    //double computeUserBias(RecDat * recDat);
-    //double computeItemBias(RecDat * recDat);
+    //double computeUserBias(RecDat * rec_dat);
+    //double computeItemBias(RecDat * rec_dat);
     virtual ~SvdppModel(){}
     bool self_test(){
       bool ok=Model::self_test();

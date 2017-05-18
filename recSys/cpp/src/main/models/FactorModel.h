@@ -140,9 +140,9 @@ class FactorModel : public Model, public SimilarityModel {
     //double userFactorMean();
     //double itemFactorMean();
     void set_parameters(FactorModelParameters * parameters);
-    double compute_product(RecDat * recDat);
-    double compute_user_bias(RecDat * recDat);
-    double compute_item_bias(RecDat * recDat);
+    double compute_product(RecDat * rec_dat);
+    double compute_user_bias(RecDat * rec_dat);
+    double compute_item_bias(RecDat * rec_dat);
 
     //friends
     friend class FactorModelGradientUpdater;

@@ -26,24 +26,18 @@ class SpMatrix{
     SpMatrix(){clear();};
     ~SpMatrix(){}; 
     int size();
-    void resize(int rowID);
-    void insert(int rowID, int colID, double value);
-    void update(int rowID, int colID , double value);
-    void increase(int rowID, int colID, double value);
-    void erase(int rowID, int colID);
-    double get(int rowID, int colID);
-    MatrixRow * get(int rowID);
+    void resize(int row_id);
+    void insert(int row_id, int col_id, double value);
+    void update(int row_id, int col_id , double value);
+    void increase(int row_id, int col_id, double value);
+    void erase(int row_id, int col_id);
+    double get(int row_id, int col_id);
+    MatrixRow * get(int row_id);
     void clear();
     void read_from_file(string file_name);
     void write_into_file(string file_name);
-    int row_size(int rowID);
-    bool has_value(int rowID,int colID);
-
-    //DEPRECATED
-    void readFromFile(string file_name){ read_from_file(file_name); }
-    void writeIntoFile(string file_name){ write_into_file(file_name); }
-    int rowSize(int rowID){ return row_size(rowID); }
-    bool hasValue(int rowID,int colID){ return has_value(rowID,colID); }
+    int row_size(int row_id);
+    bool has_value(int row_id,int col_id);
   private:    
     vector < MatrixRow * >  matrix;
 };

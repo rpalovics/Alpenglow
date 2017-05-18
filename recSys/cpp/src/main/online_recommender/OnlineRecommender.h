@@ -33,16 +33,14 @@ class OnlineRecommender{
     ~OnlineRecommender(){}
     void set_model(Model* model){model_ = model;}
     void set_learner(OnlineLearner* learner){learner_ = learner;}
-    void learn(RecDat* recDat);
-    double prediction(RecDat* recDat);
+    void learn(RecDat* rec_dat);
+    double prediction(RecDat* rec_dat);
     bool self_test(){
       bool ok=true;
       if(model_==NULL){ok=false;cerr<<"OnlineRecommender::model_ is not set." << endl;}
       if(learner_==NULL){ok=false;cerr<<"OnlineRecommender::learner_ is not set." << endl;}
       return ok;
     }
-    //void logParameters(RecDat * recDat){model->logParameters(recDat);}; //deprecated unused function, use Logger instead
-    void writeParameters(){model_->writeParameters();};
   protected:
     Model* model_;
     OnlineLearner* learner_;

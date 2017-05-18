@@ -27,7 +27,7 @@ class PredictionCreator{
    virtual vector<RecDat>* run(RecDat* rec_dat)=0; 
    void set_model(Model* model){model_=model;}; //TODO google code
    void set_filter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
-   void setTrainMatrix(SpMatrix *train_matrix){train_matrix_ = train_matrix; }
+   void set_train_matrix(SpMatrix *train_matrix){train_matrix_ = train_matrix; }
    bool self_test(){
      bool OK = true;
      if(model_==NULL){
@@ -58,14 +58,14 @@ class PredictionCreator{
 };
 
 struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
-  int initialThreshold; //TODO initial_threshold
+  int initial_threshold; //TODO initial_threshold
 };
 
 class PredictionCreatorGlobal: public PredictionCreator{
   public:
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params):PredictionCreator(params){
       min_heap_ = new MinHeap(params->top_k); //TODO use utils/Toplist
-      initial_threshold_ = (uint)params->initialThreshold;
+      initial_threshold_ = (uint)params->initial_threshold;
     };
     virtual ~PredictionCreatorGlobal(){ delete min_heap_; }
     vector<RecDat>* run(RecDat* rec_dat);
@@ -73,7 +73,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
       bool OK = PredictionCreator::self_test(); 
       if(initial_threshold_ < 0){
         OK = false;
-        cerr << "Invalid value initialThreshold=" << initial_threshold_ << " is set in PredictionCreatorGlobal." << endl;
+        cerr << "Invalid value initial_threshold=" << initial_threshold_ << " is set in PredictionCreatorGlobal." << endl;
       }
       return OK;
     }
@@ -81,12 +81,12 @@ class PredictionCreatorGlobal: public PredictionCreator{
   private:
     MinHeap* min_heap_;
     uint initial_threshold_;
-    //void process_row(vector<pair<int,double> >* sortedEntitiesA,uint startIndexA,int indexB,RecDat* recDat,uint threshold);
-    //void process_column(vector<pair<int,double> >* sortedEntitiesA,uint startIndexA,int indexB,RecDat* recDat,uint threshold);
+    //void process_row(vector<pair<int,double> >* sortedEntitiesA,uint startIndexA,int indexB,RecDat* rec_dat,uint threshold);
+    //void process_column(vector<pair<int,double> >* sortedEntitiesA,uint startIndexA,int indexB,RecDat* rec_dat,uint threshold);
 
 
-    void process_line(vector<pair<int,double> >* sortedAs,uint beginAIndex, uint endAIndex, int* _recDat_a, RecDat* _recDat);
-    void process_rectangle(vector<pair<int,double> >* sortedUsers, vector<pair<int,double> >* sortedItems, uint beginUserIndex, uint beginItemIndex, uint endUserIndex, uint endItemIndex, RecDat* _recDat);
+    void process_line(vector<pair<int,double> >* sortedAs,uint beginAIndex, uint endAIndex, int* _rec_dat_a, RecDat* _rec_dat);
+    void process_rectangle(vector<pair<int,double> >* sortedUsers, vector<pair<int,double> >* sortedItems, uint beginUserIndex, uint beginItemIndex, uint endUserIndex, uint endItemIndex, RecDat* _rec_dat);
     FRIEND_TEST(TestPredictionCreatorGlobal, global);
     FRIEND_TEST(TestPredictionCreatorGlobal, global2);
     FRIEND_TEST(TestPredictionCreatorGlobal, processLine);

@@ -18,7 +18,7 @@ class CombinedDoubleLayerLearner : public OnlineLearner{
     } 
     void add_learner(OnlineLearner* learner){learners_.push_back(learner);}
     void set_meta_learner(OnlineLearner* learner){combination_learner_ = learner;}
-    void learn(RecDat* recDat) override;
+    void learn(RecDat* rec_dat) override;
     bool self_test(){
       bool ok = OnlineLearner::self_test();
       if(learners_.size()==0){ cerr << "W ARNING: CombinedDoubleLayerLearner::learners_ is empty." << endl; }

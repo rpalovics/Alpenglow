@@ -21,12 +21,12 @@ class TopPopContainer{
     ~TopPopContainer();
     void increase( int item);
     void reduce(int item);
-    // std::map <int,double> * getRecommendation(int num);
+    // std::map <int,double> * get_recommendation(int num);
     // std::pair<int,double> get(int idx);
-    // std::pair<int,double> getNormed(int idx);
-    int getItem(int idx);
-    int getIndex(int item);
+    // std::pair<int,double> get_normed(int idx);
+    int get_item(int idx);
+    int get_index(int item);
     int size();
-    void setThreshold(int num);
-    bool hasChanged();
+    void set_threshold(int num);
+    bool has_changed();
 };

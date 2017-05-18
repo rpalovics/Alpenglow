@@ -30,7 +30,7 @@ class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
     void set_model(CombinedModel* model_){
       model = model_;
     }
-    void update(RecDat * recDat, double gradient);
+    void update(RecDat * rec_dat, double gradient);
   private:
     CombinedModel * model;
     double learningRate, regularizationRate, globalLearningRate, globalRegularizationRate;

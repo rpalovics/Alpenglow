@@ -9,7 +9,6 @@ class Model{
     Model() {}
     virtual void add(RecDat* rec_dat) = 0;
     virtual double prediction(RecDat* rec_dat) = 0;
-    virtual void writeParameters(){};
     virtual void write(ofstream& file) { throw exception(); }
     virtual void read(ifstream& file) { throw exception(); }
     virtual void clear(){ throw exception(); }

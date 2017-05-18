@@ -6,6 +6,6 @@ class CombinedDoubleLayerLearner : public OnlineLearner{
     CombinedDoubleLayerLearner(); 
     void add_learner(OnlineLearner* learner);
     void set_meta_learner(OnlineLearner* learner);
-    void learn(RecDat* recDat);
+    void learn(RecDat* rec_dat);
     bool self_test();
 };

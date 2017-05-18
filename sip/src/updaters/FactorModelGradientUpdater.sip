@@ -10,10 +10,6 @@ struct FactorModelGradientUpdaterParameters{
   double regularization_rate;
   double learning_rate_bias;
   double regularization_rate_bias;
-  double learningRate;
-  double regularizationRate;
-  double learningRateBias;
-  double regularizationRateBias;
   FactorModelGradientUpdaterParameters();
 };
 

@@ -69,7 +69,7 @@ class HighGradientNegativeSampleGenerator : public NegativeSampleGenerator {
     void set_items(vector<int>* items){
       if(!initialize_all_) items_=items;
     }
-    vector<int>* generate(RecDat* recDat);
+    vector<int>* generate(RecDat* rec_dat);
   private:
     //config parameters
     int negative_rate_;

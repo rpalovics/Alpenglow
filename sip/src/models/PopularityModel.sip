@@ -5,6 +5,6 @@ class PopularityModel : Model{
   public:
     PopularityModel();
     ~PopularityModel();
-    void add(RecDat * recDat);
-    double prediction(RecDat * recDat);
+    void add(RecDat * rec_dat);
+    double prediction(RecDat * rec_dat);
 };

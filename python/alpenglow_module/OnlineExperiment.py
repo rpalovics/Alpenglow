@@ -50,7 +50,7 @@ class OnlineExperiment:
                 file_name=data,
                 type=experimentType
             )
-            recommender_data.setMaxTime(max_time)
+            recommender_data.set_max_time(max_time)
             recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
             recommender_data_iterator.set_recommender_data(recommender_data)
             recommender_data.init()

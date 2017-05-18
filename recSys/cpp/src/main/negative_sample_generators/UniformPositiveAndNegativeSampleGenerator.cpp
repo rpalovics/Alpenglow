@@ -30,12 +30,12 @@ void UniformPositiveAndNegativeSampleGenerator::set_parameters(UniformPositiveAn
 }
 
 
-vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecDat * recDat, string type){
+vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecDat * rec_dat, string type){
   vector <int> * history = NULL;
-  if(type == "item" and item_histories_.size() > recDat->item and item_histories_[recDat->item]!= NULL)
-    history = item_histories_[recDat->item];
-  if(type == "user" and user_histories_.size() > recDat->user and user_histories_[recDat->user]!= NULL)
-    history = user_histories_[recDat->user];
+  if(type == "item" and item_histories_.size() > rec_dat->item and item_histories_[rec_dat->item]!= NULL)
+    history = item_histories_[rec_dat->item];
+  if(type == "user" and user_histories_.size() > rec_dat->user and user_histories_[rec_dat->user]!= NULL)
+    history = user_histories_[rec_dat->user];
   if(history != NULL){
     int history_size = history->size();
     if(sample_){
@@ -82,13 +82,13 @@ vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecD
 }
 
 
-vector <int> * UniformPositiveAndNegativeSampleGenerator::generate(RecDat * recDat){
+vector <int> * UniformPositiveAndNegativeSampleGenerator::generate(RecDat * rec_dat){
   int learnt = 0;
   samples.clear();
-  int userActivity = train_matrix->rowSize(recDat->user);
+  int userActivity = train_matrix->row_size(rec_dat->user);
   while(learnt < negativeRate && learnt<(int)items->size()-userActivity-1){
     int item = items->at((int)(rand()/(RAND_MAX+1.0)*(items->size())));
-    if(!train_matrix->hasValue(recDat->user,item) && item!=recDat->item){ 
+    if(!train_matrix->has_value(rec_dat->user,item) && item!=rec_dat->item){ 
       samples.push_back(item);
       learnt++;    
     }

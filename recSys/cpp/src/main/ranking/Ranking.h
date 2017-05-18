@@ -73,12 +73,12 @@ class RankComputer{
 //    };
 //    ~TopListCreator(){};
 //    void set_parameters(TopListCreatorParameters * parameters);
-//    RecMap *  getTopRecommendation(RecDat * recDat);
+//    RecMap *  get_top_recommendation(RecDat * rec_dat);
 //  protected:
 //    void sortTopK();
 //    void normTopK();
 //    void createTopKMap();
-//    void recommend(RecDat * recDat);
+//    void recommend(RecDat * rec_dat);
 //    OnlineRecommender * recommender;
 //    vector <int> * items;
 //    SpMatrix * train_matrix;

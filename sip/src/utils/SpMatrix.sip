@@ -8,17 +8,17 @@ class SpMatrix{
   public:
     SpMatrix();
     ~SpMatrix();
-    void readFromFile(std::string file_name);
-    void writeIntoFile(std::string file_name);
+    void read_from_file(std::string file_name);
+    void write_into_file(std::string file_name);
     int size();
-    int rowSize(int rowID);
-    void resize(int rowID);
-    void insert(int rowID, int colID, double value);
-    void update(int rowID, int colID , double value);
-    void increase(int rowID, int colID, double value);
-    void erase(int rowID, int colID);
-    double get(int rowID, int colID);
-    // std::map<int,double> * get(int rowID);
-    bool hasValue(int rowID,int colID);
+    int row_size(int row_id);
+    void resize(int row_id);
+    void insert(int row_id, int col_id, double value);
+    void update(int row_id, int col_id , double value);
+    void increase(int row_id, int col_id, double value);
+    void erase(int row_id, int col_id);
+    double get(int row_id, int col_id);
+    // std::map<int,double> * get(int row_id);
+    bool has_value(int row_id,int col_id);
     void clear();
 };
