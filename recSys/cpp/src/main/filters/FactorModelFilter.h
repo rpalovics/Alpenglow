@@ -20,7 +20,7 @@ class FactorFilter{
     ~FactorFilter(){};
     void setFactors(Factors * _factors, Factors * _otherFactors);
     void setEntities(vector <int> * _entities, vector <int> * _otherEntities);
-    void set_upperVector(vector<pair<int,double> >* upperBounds_){upperBounds=upperBounds_;}
+    void set_upper_vector(vector<pair<int,double> >* upperBounds_){upperBounds=upperBounds_;}
     bool self_test(){
       bool OK = true;
       if(factors==NULL){ OK=false; }
@@ -51,9 +51,9 @@ class FactorModelFilter : public ModelFilter{
  public:
    FactorModelFilter(){
      userFactorFilter = new FactorFilter;
-     userFactorFilter->set_upperVector(&userUpperBounds);
+     userFactorFilter->set_upper_vector(&userUpperBounds);
      itemFactorFilter = new FactorFilter;
-     itemFactorFilter->set_upperVector(&itemUpperBounds);
+     itemFactorFilter->set_upper_vector(&itemUpperBounds);
      model = NULL;
      users = NULL;
      items = NULL;

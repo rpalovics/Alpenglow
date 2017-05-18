@@ -19,13 +19,13 @@ class PopularityNegativeSampleGenerator: public NegativeSampleGenerator{
     vector<int>* generate(RecDat* rec_dat);
     void setPopContainer(PopContainer* pop_container_){pop_container = pop_container_;}
     void set_train_matrix(SpMatrix* train_matrix_){train_matrix=train_matrix_;}
-    void setRecommenderDataIterator(RecommenderDataIterator* recommender_dataIterator_){recommender_dataIterator=recommender_dataIterator_;}
+    void setRecommenderDataIterator(RecommenderDataIterator* recommender_data_iterator_){recommender_data_iterator=recommender_data_iterator_;}
     void set_items(vector<int>* items_){items=items_;}
   private:
     PopContainer *pop_container;
     vector<int>* items;
     SpMatrix* train_matrix;
-    RecommenderDataIterator* recommender_dataIterator;
+    RecommenderDataIterator* recommender_data_iterator;
     Random random;
     int negativeRate;
 };

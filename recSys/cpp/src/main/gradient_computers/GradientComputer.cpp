@@ -2,8 +2,8 @@
 
 vector<pair<RecDat*,double> >* GradientComputerPointWise::get_next_gradient(){
   //get next sample
-  RecDat* rec_dat = &(*train_dataIt);
-  train_dataIt++;
+  RecDat* rec_dat = &(*train_data_it);
+  train_data_it++;
   double gradient = get_gradient(rec_dat);
   //gradientVector
   gradientVector.clear();
@@ -23,8 +23,8 @@ double GradientComputerPointWise::get_gradient(RecDat* rec_dat){
 
 vector<pair<RecDat*,double> >* GradientComputerImplicitPairWise::get_next_gradient(){
   //get next negative sample
-  RecDat* negativeData = &(*train_dataIt);
-  train_dataIt++;
+  RecDat* negativeData = &(*train_data_it);
+  train_data_it++;
   //compute predictions
   RecPred positivePred;
   positivePred.prediction = model->prediction(positiveData);

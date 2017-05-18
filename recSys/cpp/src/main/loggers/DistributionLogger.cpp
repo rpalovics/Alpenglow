@@ -23,7 +23,7 @@
 //  std::minstd_rand gen(rd());
 //  std::uniform_int_distribution<> dis(0, seenUsers.size()-1);
 //
-//  while(compUsers.size() < userNumber){
+//  while(compUsers.size() < user_number){
 //    auto it = this->seenUsers.begin();
 //    int rOffset = dis(gen);
 //    advance(it,rOffset);
@@ -63,5 +63,5 @@
 //
 //void DistributionLogger::set_parameters(DistributionLoggerParameters * parameters){
 //  file_name=parameters->file_name;
-//	userNumber=parameters->userNumber;
+//	user_number=parameters->user_number;
 //}
