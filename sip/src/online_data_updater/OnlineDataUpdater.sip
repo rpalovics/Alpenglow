@@ -6,7 +6,7 @@ struct OnlineDataUpdaterParameters{
   std::vector <int> * items;
   std::vector <int> * users;
   TopPopContainer * pop; 
-  PopContainer* popContainer;
+  PopContainer* pop_container;
 };
 
 class OnlineDataUpdater : public Updater{

@@ -13,7 +13,7 @@ class OnlineExperiment:
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
 
-    def checkUnused_parameters(self):
+    def check_unused_parameters(self):
         unused = self.given_parameters - self.used_parameters
         if(len(unused) != 0):
             raise TypeError("Unused parameters: "+", ".join(unused))
@@ -46,14 +46,14 @@ class OnlineExperiment:
         if not isinstance(data, str):
             recommender_data_iterator = DataframeIterator(data, columns=columns)
         else:
-            recommenderData = rs.RecommenderData(
+            recommender_data = rs.RecommenderData(
                 file_name=data,
                 type=experimentType
             )
-            recommenderData.setMaxTime(max_time)
+            recommender_data.setMaxTime(max_time)
             recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
-            recommender_data_iterator.set_recommender_data(recommenderData)
-            recommenderData.init()
+            recommender_data_iterator.set_recommender_data(recommender_data)
+            recommender_data.init()
 
         recommender_data_iterator.init()
         print("data reading finished") if self.verbose else None
@@ -78,31 +78,31 @@ class OnlineExperiment:
             min_time = config['min_time']
         seed = self.parameters["seed"]
 
-        topPopContainer = rs.TopPopContainer()
-        popContainer = rs.PopContainer()
-        onlineRecommender = rs.OnlineRecommender()
+        sorted_pop_container = rs.TopPopContainer()
+        pop_container = rs.PopContainer()
+        online_recommender = rs.OnlineRecommender()
 
         model = self.model
         learner = self.learner
 
-        onlineRecommender.set_model(model)
-        onlineRecommender.set_learner(learner)
+        online_recommender.set_model(model)
+        online_recommender.set_learner(learner)
 
-        onlineDataUpdater = rs.OnlineDataUpdater(
+        online_data_updater = rs.OnlineDataUpdater(
             train_matrix=train_matrix,
             items=[],
             users=[],
-            pop=topPopContainer,
-            popContainer=popContainer
+            pop=sorted_pop_container,
+            pop_container=pop_container
         )
-        onlineDataUpdater.set_items(items)
-        onlineDataUpdater.set_users(users)
+        online_data_updater.set_items(items)
+        online_data_updater.set_users(users)
 
         rank_computer = rs.RankComputer(top_k=top_k, random_seed=43211234)
 
         rank_computer.set_train_matrix(train_matrix)
-        rank_computer.set_recommender(onlineRecommender)
-        rank_computer.set_top_pop_container(topPopContainer)
+        rank_computer.set_recommender(online_recommender)
+        rank_computer.set_top_pop_container(sorted_pop_container)
 
         if 'filters' in config:
             filters = config['filters']
@@ -111,15 +111,15 @@ class OnlineExperiment:
 
         online_experiment = rs.OnlineExperiment(seed=seed)
 
-        online_experiment.set_online_recommender(onlineRecommender)
+        online_experiment.set_online_recommender(online_recommender)
         online_experiment.set_recommender_data_iterator(recommender_data_iterator)
-        online_experiment.set_online_data_updater(onlineDataUpdater)
+        online_experiment.set_online_data_updater(online_data_updater)
 
         # string attribute_container_name = getPot("set_attribute_container", "");
         # if(attribute_container_name.length()==0) cerr << "WARNING: no attribute container was set into RecommenderData." << endl;
         # else {
         #   InlineAttributeReader* attribute_container = jinja.get<InlineAttributeReader>(attribute_container_name);
-        #   recommenderData->set_attribute_container(attribute_container);
+        #   recommender_data->set_attribute_container(attribute_container);
         # }
 
         if 'loggers' in config:
@@ -132,17 +132,17 @@ class OnlineExperiment:
         online_experiment.add_logger(interrupt_logger)
 
         ranking_logger = self.get_ranking_logger(top_k, min_time, self.parameter_default('out_file',out_file))
-        ranking_logger.set_recommender(onlineRecommender)
+        ranking_logger.set_recommender(online_recommender)
         ranking_logger.set_rank_computer(rank_computer)
         ranking_logger.init()
 
         online_experiment.add_logger(ranking_logger)
 
-        createdObjects = rs.get_and_clean()
-        for i in createdObjects:
+        created_objects = rs.get_and_clean()
+        for i in created_objects:
             rs.run_self_test(i)
 
-        self.checkUnused_parameters()
+        self.check_unused_parameters()
 
         print("running experiment...") if self.verbose else None
         online_experiment.run()

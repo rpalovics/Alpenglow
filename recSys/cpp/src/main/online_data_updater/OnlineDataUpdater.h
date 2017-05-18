@@ -19,7 +19,7 @@ struct OnlineDataUpdaterParameters{
     vector <int> * items;
     vector <int> * users;
     TopPopContainer * pop; 
-    PopContainer* popContainer;
+    PopContainer* pop_container;
 };
 
 class OnlineDataUpdater : public Updater{

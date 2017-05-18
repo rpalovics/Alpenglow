@@ -5,7 +5,7 @@ void OnlineDataUpdater::set_parameters(OnlineDataUpdaterParameters* parameters){
   items_ = parameters->items;
   users_ = parameters->users;
   popularity_sorted_container_ = parameters->pop;
-  popularity_container_ = parameters->popContainer;
+  popularity_container_ = parameters->pop_container;
 }
 
 void OnlineDataUpdater::update(RecDat* rec_dat){

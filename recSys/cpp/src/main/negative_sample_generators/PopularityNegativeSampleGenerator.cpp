@@ -10,7 +10,7 @@ vector<int> * PopularityNegativeSampleGenerator::generate(RecDat* recDat){
   //get sum of popularity distribution
   int sumOfPopularity = 0;
   for(int i=0;i<items->size();i++){
-    int popularity = popContainer->get(items->at(i));
+    int popularity = pop_container->get(items->at(i));
     sumOfPopularity+=popularity;
   }
   //remove positive items from availability map
@@ -18,7 +18,7 @@ vector<int> * PopularityNegativeSampleGenerator::generate(RecDat* recDat){
   for(RowIterator it = userActivity->begin();it!=userActivity->end();it++){
     int positiveItem = it->first;
     unavailableItemsMap[positiveItem]=true;
-    sumOfPopularity-= popContainer->get(positiveItem);
+    sumOfPopularity-= pop_container->get(positiveItem);
   }
   //generate negative samples
   int numOfChosen = 0;
@@ -31,10 +31,10 @@ vector<int> * PopularityNegativeSampleGenerator::generate(RecDat* recDat){
     while (buffer < randIndex){ //when buffer is equal or larger, we found our sample
       itemIndex++;
       item = items->at(itemIndex);
-      if(!unavailableItemsMap[item]) buffer+=popContainer->get(item);
+      if(!unavailableItemsMap[item]) buffer+=pop_container->get(item);
     }
     samples.push_back(item);
-    sumOfPopularity-=popContainer->get(item);
+    sumOfPopularity-=pop_container->get(item);
     unavailableItemsMap[item]=true;
   }
   return &samples;
