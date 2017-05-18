@@ -1,6 +1,6 @@
 #include "OnlinePredictor.h"
 
-void OnlinePredictor::setParameters(OnlinePredictorParameters * params){
+void OnlinePredictor::set_parameters(OnlinePredictorParameters * params){
   min_time = params->min_time;
   time_frame = params->time_frame;
   ofs.open(params->file_name.c_str());

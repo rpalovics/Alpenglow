@@ -39,7 +39,7 @@ pd.concat([
 plt.savefig("popvsfac.png")
 
 param = ag.ThreadedParameterSearch(factorModelExperiment, ag.NdcgScore, threads=5)
-param.setParameterValues("learningRate", [0.09, 0.11, 0.14, 0.17, 0.2])
+param.set_parameterValues("learningRate", [0.09, 0.11, 0.14, 0.17, 0.2])
 results = param.run(data, verbose=True)
 results.set_index('learningRate').plot()
 plt.savefig("factor_lr.png")

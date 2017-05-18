@@ -15,7 +15,7 @@ class OnlineDataUpdater : public Updater{
   %End
   public:
     OnlineDataUpdater(OnlineDataUpdaterParameters * parameters);
-    void setParameters(OnlineDataUpdaterParameters * parameters);
+    void set_parameters(OnlineDataUpdaterParameters * parameters);
     OnlineDataUpdater();
     void set_train_matrix(SpMatrix* train_matrix);
     void set_popularity_sorted_container(TopPopContainer* popularity_sorted_container);

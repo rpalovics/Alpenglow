@@ -17,9 +17,9 @@ struct GlobalPositiveAndNegativeSampleGeneratorParameters{
 class GlobalPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator {
   public: 
     GlobalPositiveAndNegativeSampleGenerator(GlobalPositiveAndNegativeSampleGeneratorParameters * parameters){
-      setParameters(parameters);
+      set_parameters(parameters);
     };
-    void setParameters (GlobalPositiveAndNegativeSampleGeneratorParameters * parameters);
+    void set_parameters (GlobalPositiveAndNegativeSampleGeneratorParameters * parameters);
     void setTrainMatrix(SpMatrix* train_matrix_){train_matrix=train_matrix_;}
     void set_items(vector<int>* items_){ if(!initializeAll) items=items_;}
     vector <int> * generate(RecDat * recDat);

@@ -1,6 +1,6 @@
 #include "GlobalPositiveAndNegativeSampleGenerator.h"
 
-void GlobalPositiveAndNegativeSampleGenerator::setParameters(GlobalPositiveAndNegativeSampleGeneratorParameters * parameters){
+void GlobalPositiveAndNegativeSampleGenerator::set_parameters(GlobalPositiveAndNegativeSampleGeneratorParameters * parameters){
   items = NULL;
   train_matrix = NULL;
   positiveRate = parameters->positiveRate;

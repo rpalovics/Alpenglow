@@ -22,7 +22,7 @@ class ParameterSearch:
     def _getNonDependantParameterNames(self):
         return [k for (k, v) in zip(self.parameterNames, self.parameterValues) if not (len(v) == 1 and isinstance(v[0], DependentParameter))]
 
-    def setParameterValues(self, parameterName, parameterValues):
+    def set_parameterValues(self, parameterName, parameterValues):
         if(isinstance(parameterValues, DependentParameter)):
             if(parameterValues.parameterNames is None):
                 parameterValues.parameterNames = self._getNonDependantParameterNames()
@@ -39,7 +39,7 @@ class ParameterSearch:
     def _runSingle(self, model, Score, parameters, runParameters):
         model = copy.copy(model)
         for k in parameters:
-            model.setParameter(k, parameters[k])
+            model.set_parameter(k, parameters[k])
         scores = model.run(*runParameters[0], **runParameters[1])
         score = Score(scores)
         result = score.evaluate()

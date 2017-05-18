@@ -61,7 +61,7 @@
 //	this->seenUsers.insert(recDat->user);
 //}
 //
-//void DistributionLogger::setParameters(DistributionLoggerParameters * parameters){
+//void DistributionLogger::set_parameters(DistributionLoggerParameters * parameters){
 //  file_name=parameters->file_name;
 //	userNumber=parameters->userNumber;
 //}

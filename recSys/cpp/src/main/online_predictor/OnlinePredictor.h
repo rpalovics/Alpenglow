@@ -12,10 +12,10 @@ struct OnlinePredictorParameters{
 
 class OnlinePredictor : public Logger{
  public:
-   OnlinePredictor(OnlinePredictorParameters * params){setParameters(params);};
+   OnlinePredictor(OnlinePredictorParameters * params){set_parameters(params);};
    ~OnlinePredictor(){};
    void run(RecDat * recDat);
-   void setParameters(OnlinePredictorParameters* params);
+   void set_parameters(OnlinePredictorParameters* params);
    void set_prediction_creator(PredictionCreator* predictionCreator_){predictionCreator = predictionCreator_;}
    bool self_test(){
      bool OK = true;

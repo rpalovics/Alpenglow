@@ -8,8 +8,8 @@ import unittest
 class TestParameterSearch(unittest.TestCase):
     def test__getConfigurations(self):
         c = prs.ParameterSearch(None, None)
-        c.setParameterValues('negative_rate', [1,2,3])
-        c.setParameterValues('learning_rate', [0.05, 0.1])
+        c.set_parameterValues('negative_rate', [1,2,3])
+        c.set_parameterValues('learning_rate', [0.05, 0.1])
 
         params = c._getConfigurations()
         self.assertCountEqual(params, [
@@ -51,8 +51,8 @@ class TestParameterSearch(unittest.TestCase):
             seed = 254938879
         )
         c = prs.ParameterSearch(model, prs.NdcgScore)
-        c.setParameterValues('top_k', [100,50])
-        c.setParameterValues('seed', [254938879, 0])
+        c.set_parameterValues('top_k', [100,50])
+        c.set_parameterValues('seed', [254938879, 0])
         r = c.run(data)
         assert len(r) == 4        
 

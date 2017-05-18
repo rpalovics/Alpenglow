@@ -69,10 +69,10 @@ class RankComputer{
 //class TopListCreator{
 //  public:
 //   TopListCreator(TopListCreatorParameters * parameters){
-//      setParameters(parameters);
+//      set_parameters(parameters);
 //    };
 //    ~TopListCreator(){};
-//    void setParameters(TopListCreatorParameters * parameters);
+//    void set_parameters(TopListCreatorParameters * parameters);
 //    RecMap *  getTopRecommendation(RecDat * recDat);
 //  protected:
 //    void sortTopK();

@@ -1,6 +1,6 @@
 #include "UniformPositiveAndNegativeSampleGenerator.h"
 
-void UniformPositiveAndNegativeSampleGenerator::setParameters(UniformPositiveAndNegativeSampleGeneratorParameters * parameters){
+void UniformPositiveAndNegativeSampleGenerator::set_parameters(UniformPositiveAndNegativeSampleGeneratorParameters * parameters){
   items = NULL;
   train_matrix = NULL;
   positiveRate = parameters->positiveRate;

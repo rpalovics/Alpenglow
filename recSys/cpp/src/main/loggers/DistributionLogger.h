@@ -18,7 +18,7 @@ class DistributionLogger : public Logger{
   public:
     DistributionLogger(){}
     DistributionLogger(DistributionLoggerParameters *parameters){
-      setParameters(parameters);
+      set_parameters(parameters);
     }
     virtual ~DistributionLogger(){
       set<int> compUsers;
@@ -67,7 +67,7 @@ class DistributionLogger : public Logger{
       this->model=model_;
     }
   protected:
-    void setParameters(DistributionLoggerParameters * parameters){
+    void set_parameters(DistributionLoggerParameters * parameters){
       file_name_=parameters->file_name;
       user_number_=parameters->user_number;
       if(user_number_==-1){

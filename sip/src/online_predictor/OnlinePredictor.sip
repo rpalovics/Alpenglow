@@ -16,7 +16,7 @@ class OnlinePredictor : public Logger /NoDefaultCtors/{
     OnlinePredictor(OnlinePredictorParameters * params);
     ~OnlinePredictor();
     void run(RecDat * recDat);
-    void setParameters(OnlinePredictorParameters* params);
+    void set_parameters(OnlinePredictorParameters* params);
     void set_prediction_creator(PredictionCreator* predictionCreator_);
     bool self_test();
 };

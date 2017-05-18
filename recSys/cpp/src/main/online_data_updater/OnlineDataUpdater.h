@@ -25,9 +25,9 @@ struct OnlineDataUpdaterParameters{
 class OnlineDataUpdater : public Updater{
   public:
     OnlineDataUpdater(OnlineDataUpdaterParameters * parameters){
-      setParameters(parameters);
+      set_parameters(parameters);
     }
-    void setParameters(OnlineDataUpdaterParameters * parameters);
+    void set_parameters(OnlineDataUpdaterParameters * parameters);
     OnlineDataUpdater(){
       train_matrix_ = NULL;
       popularity_sorted_container_ = NULL;

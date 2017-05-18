@@ -1,6 +1,6 @@
 #include "OnlineDataUpdater.h"
 
-void OnlineDataUpdater::setParameters(OnlineDataUpdaterParameters* parameters){
+void OnlineDataUpdater::set_parameters(OnlineDataUpdaterParameters* parameters){
   train_matrix_ = parameters->train_matrix;
   items_ = parameters->items;
   users_ = parameters->users;

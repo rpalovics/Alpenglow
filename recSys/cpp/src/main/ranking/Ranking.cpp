@@ -53,7 +53,7 @@ bool RankComputer::itemlist_next(RecDat* fake_rec_dat){
   return true;
 }
 
-//void TopListCreator::setParameters(TopListCreatorParameters * parameters){
+//void TopListCreator::set_parameters(TopListCreatorParameters * parameters){
 //  recommender = parameters->recommender;
 //  items = parameters->items;
 //  train_matrix = parameters->train_matrix;

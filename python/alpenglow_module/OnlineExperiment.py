@@ -8,27 +8,27 @@ import sip
 class OnlineExperiment:
     def __init__(self, **parameters):
         self.parameters = parameters
-        self.givenParameters = set(self.parameters.keys())
-        self.usedParameters = set(['seed'])
+        self.given_parameters = set(self.parameters.keys())
+        self.used_parameters = set(['seed'])
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
 
-    def checkUnusedParameters(self):
-        unused = self.givenParameters - self.usedParameters
+    def checkUnused_parameters(self):
+        unused = self.given_parameters - self.used_parameters
         if(len(unused) != 0):
             raise TypeError("Unused parameters: "+", ".join(unused))
 
-    def setParameter(self, name, value):
+    def set_parameter(self, name, value):
         self.parameters[name] = value
-        self.givenParameters |= set([name])
+        self.given_parameters |= set([name])
 
     def parameter_defaults(self, **defaults):
         for k in defaults:
-            defaults[k] = self.parameterDefault(k, defaults[k])
+            defaults[k] = self.parameter_default(k, defaults[k])
         return defaults
 
-    def parameterDefault(self, name, value):
-        self.usedParameters |= set([name])
+    def parameter_default(self, name, value):
+        self.used_parameters |= set([name])
         if name in self.parameters:
             if isinstance(self.parameters[name], DependentParameter):
                 return self.parameters[name].eval(self.parameters)
@@ -131,7 +131,7 @@ class OnlineExperiment:
         interrupt_logger = rs.InterruptLogger()
         online_experiment.add_logger(interrupt_logger)
 
-        ranking_logger = self.get_ranking_logger(top_k, min_time, self.parameterDefault('out_file',out_file))
+        ranking_logger = self.get_ranking_logger(top_k, min_time, self.parameter_default('out_file',out_file))
         ranking_logger.set_recommender(onlineRecommender)
         ranking_logger.set_rank_computer(rank_computer)
         ranking_logger.init()
@@ -142,7 +142,7 @@ class OnlineExperiment:
         for i in createdObjects:
             rs.run_self_test(i)
 
-        self.checkUnusedParameters()
+        self.checkUnused_parameters()
 
         print("running experiment...") if self.verbose else None
         online_experiment.run()

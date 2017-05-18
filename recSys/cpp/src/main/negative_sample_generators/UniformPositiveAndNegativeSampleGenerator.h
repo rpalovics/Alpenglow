@@ -19,9 +19,9 @@ struct UniformPositiveAndNegativeSampleGeneratorParameters{
 class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator, public ModelSimpleUpdater {
   public: 
     UniformPositiveAndNegativeSampleGenerator(UniformPositiveAndNegativeSampleGeneratorParameters * parameters){
-      setParameters(parameters);
+      set_parameters(parameters);
     };
-    void setParameters (UniformPositiveAndNegativeSampleGeneratorParameters * parameters);
+    void set_parameters (UniformPositiveAndNegativeSampleGeneratorParameters * parameters);
     void setTrainMatrix(SpMatrix* train_matrix_){
       train_matrix=train_matrix_;
     }
