@@ -22,7 +22,7 @@ class OnlineExperiment:
         self.parameters[name] = value
         self.givenParameters |= set([name])
 
-    def parameterDefaults(self, **defaults):
+    def parameter_defaults(self, **defaults):
         for k in defaults:
             defaults[k] = self.parameterDefault(k, defaults[k])
         return defaults

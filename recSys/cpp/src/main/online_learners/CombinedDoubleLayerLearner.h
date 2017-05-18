@@ -26,9 +26,6 @@ class CombinedDoubleLayerLearner : public OnlineLearner{
       if(model_gradient_updaters_.size()!=0){ cerr << "W ARNING: CombinedDoubleLayerLearner::model_gradient_updaters_ should be empty as they are not called by the learner." << endl; }
       return ok;
     }
-    //DEPRECATED
-    void addLearner(OnlineLearner* learner){cerr << "CombinedDoubleLayerLearner::addLearner is DEPRECATED, use google code." << endl; add_learner(learner);}
-    void setMetaLearner(OnlineLearner* learner){cerr << "CombinedDoubleLayerLearner::setMetaLearner is DEPRECATED, use google code." << endl;set_meta_learner(learner);}
   private:
     OnlineLearner* combination_learner_;
     vector<OnlineLearner*> learners_;
