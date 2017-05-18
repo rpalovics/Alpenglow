@@ -19,7 +19,7 @@ class PersonalPopularityModel : public PopularityModel {
   private:
     double get_user_best_item_score(int user);
     SpMatrix train_matrix_;
-    map<int, int> userBestItems_;
+    map<int, int> user_best_items_;
 
     friend class PersonalPopularityModelUpdater;
     FRIEND_TEST(TestPersonalPopularityModel, update);

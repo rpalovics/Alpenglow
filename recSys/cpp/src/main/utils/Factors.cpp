@@ -15,12 +15,12 @@ void Factors::resize(int idx){
   }
 }
 
-void Factors::setZero(int idx){
+void Factors::set_zero(int idx){
   if(factors[idx]!=NULL) delete factors[idx];
   factors[idx]=new vector <double> (dimension,0);
 }
 
-void Factors::setRand(int idx){
+void Factors::set_rand(int idx){
   if(factors[idx]!=NULL) delete factors[idx];
   factors[idx] = new vector <double> (dimension,0);
   for(int ii=0; ii<dimension; ii++){
@@ -30,21 +30,21 @@ void Factors::setRand(int idx){
 void Factors::init(int idx){
   resize(idx);
   if(factors[idx]==NULL){
-    setRand(idx);
+    set_rand(idx);
   } 
 }
 
-void Factors::initZero(int idx){
+void Factors::init_zero(int idx){
   resize(idx);
   if(factors[idx]==NULL){
-    setZero(idx);
+    set_zero(idx);
   }
 }
 
-void Factors::initRand(int idx){
+void Factors::init_rand(int idx){
   resize(idx);
   if(factors[idx]==NULL){
-    setRand(idx);
+    set_rand(idx);
   }
 }
 
@@ -57,7 +57,7 @@ vector <double> *  Factors::get(int idx){
 
 void Factors::set(int idx, vector <double> * value){
   resize(idx);
-  setZero(idx);
+  set_zero(idx);
   (*factors[idx])=*value;
 }
 
@@ -83,7 +83,7 @@ void Factors::set(int idx, int dim, double val){
   (*factors[idx])[dim]=val;
 }
 
-int Factors::getSize() {
+int Factors::get_size() {
   return factors.size();
 }
 
@@ -137,7 +137,7 @@ void Factors::clear(){
   factors.resize(0);
 }
 
-vector <int> Factors::getNonnullIndices() {
+vector <int> Factors::get_nonnull_indices() {
   vector <int> indices;
   for (size_t ii = 0; ii < factors.size(); ++ii){
     if (factors[ii] != NULL) {
@@ -147,10 +147,10 @@ vector <int> Factors::getNonnullIndices() {
   return indices;
 }
 
-void Factors::allToZero() {
+void Factors::all_to_zero() {
   for (size_t ii = 0; ii < factors.size(); ++ii){
     if (factors[ii] != NULL) {
-      setZero(ii);
+      set_zero(ii);
     }
   }
 }

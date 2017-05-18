@@ -32,17 +32,10 @@ struct FactorModelParameters{
   bool use_item_bias, use_user_bias;
   bool initialize_all;
   int max_item, max_user;
-  //DEPRECATED
-  double beginMin, beginMax;
-  bool initializeAll, useSigmoid;
-  int maxItem, maxUser;
   FactorModelParameters(){ //setting all to jinjactor default value
     dimension=-1;begin_min=-1;begin_max=-1;
     use_sigmoid=false;use_item_bias=false;use_user_bias=false;
     initialize_all=false;max_item=-1;max_user=-1;
-    //DEPRECATED
-    beginMin=-1;beginMax=-1;useSigmoid=false;
-    initializeAll=false;maxItem=-1;maxUser=-1;
   }
 };
 
@@ -50,26 +43,18 @@ class FactorModel : public Model, public SimilarityModel {
   public:
     FactorModel(FactorModelParameters *parameters):
       dimension_(parameters->dimension),
-      begin_min_(parameters->begin_min!=-1?parameters->begin_min:parameters->beginMin),
-      begin_max_(parameters->begin_max!=-1?parameters->begin_max:parameters->beginMax),
-      use_sigmoid_(parameters->use_sigmoid or parameters->useSigmoid),
-      initialize_all_(parameters->initialize_all or parameters->initializeAll),
-      max_user_(parameters->max_user!=-1?parameters->max_user:parameters->maxUser),
-      max_item_(parameters->max_item!=-1?parameters->max_item:parameters->maxItem),
+      begin_min_(parameters->begin_min),
+      begin_max_(parameters->begin_max),
+      use_sigmoid_(parameters->use_sigmoid),
+      initialize_all_(parameters->initialize_all),
+      max_user_(parameters->max_user),
+      max_item_(parameters->max_item),
       use_item_bias_(parameters->use_item_bias),
       use_user_bias_(parameters->use_user_bias)
     {
-      if(parameters->beginMin!=-1 or
-          parameters->beginMax!=-1 or
-          parameters->useSigmoid!=false or
-          parameters->initializeAll!=false or
-          parameters->maxItem!=-1 or
-          parameters->maxUser!=-1){
-        cerr << "FactorModel's CamelCase parameters are DEPRECATED, use google code." << endl;
-      }
       set_parameters(parameters);
     };
-    //~FactorModel() { delete userFactors; delete itemFactors; }
+    //~FactorModel() { delete user_factors; delete item_factors; }
     void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
     double similarity(int item1, int item2) override;
@@ -95,30 +80,6 @@ class FactorModel : public Model, public SimilarityModel {
       }
       return ok;
     }
-
-    //DEPRECATED
-    void setUserRecency(Recency *recency){
-      cerr << "FactorModel::setUserRecency is DEPRECATED, use google code." << endl;
-      set_user_recency(recency);
-    }
-    void setItemRecency(Recency *recency){
-      cerr << "FactorModel::setItemRecency is DEPRECATED, use google code." << endl;
-      set_item_recency(recency);
-    }
-    void setUserBias(Bias *bias){
-      cerr << "FactorModel::setUserBias is DEPRECATED in favor of use_user_bias parameter." << endl;
-      use_user_bias_ = true;
-      if(initialize_all_){
-        for(int user=0;user<=max_user_;user++) user_bias_.init(user);
-      }
-    }
-    void setItemBias(Bias * bias){
-      cerr << "FactorModel::setItemBias is DEPRECATED in favor of use_item_bias parameter." << endl;
-      use_item_bias_ = true;
-      if(initialize_all_){
-        for(int item=0;item<=max_item_;item++) item_bias_.init(item);
-      }
-    }
   protected:
     //parameters
     const int dimension_;
@@ -128,8 +89,8 @@ class FactorModel : public Model, public SimilarityModel {
     const bool initialize_all_;
     const int max_user_;
     const int max_item_;
-    bool use_item_bias_; //DEPRECATED, shoud be const
-    bool use_user_bias_; //DEPRECATED, should be const
+    const bool use_item_bias_;
+    const bool use_user_bias_;
 
     //state
     Factors user_factors_, item_factors_;
@@ -137,8 +98,8 @@ class FactorModel : public Model, public SimilarityModel {
     Recency *user_recency_, *item_recency_;
 
     //other
-    //double userFactorMean();
-    //double itemFactorMean();
+    //double user_factor_mean();
+    //double item_factor_mean();
     void set_parameters(FactorModelParameters * parameters);
     double compute_product(RecDat * rec_dat);
     double compute_user_bias(RecDat * rec_dat);
@@ -152,11 +113,11 @@ class FactorModel : public Model, public SimilarityModel {
     friend class FactorToAMFAdapter;
     FRIEND_TEST(TestFactorModel, test);
     FRIEND_TEST(TestFactorModel, similarity);
-    FRIEND_TEST(TestFactorModelFilter, testBasic);
-    FRIEND_TEST(TestFactorModelFilter, testRecency);
-    FRIEND_TEST(TestFactorModelFilter, testBias);
-    FRIEND_TEST(TestFactorModelFilter, testSigmoid);
-    FRIEND_TEST(TestFactorModelFilter, testAll);
+    FRIEND_TEST(TestFactorModelFilter, test_basic);
+    FRIEND_TEST(TestFactorModelFilter, test_recency);
+    FRIEND_TEST(TestFactorModelFilter, test_bias);
+    FRIEND_TEST(TestFactorModelFilter, test_sigmoid);
+    FRIEND_TEST(TestFactorModelFilter, test_all);
 };
 
 #endif

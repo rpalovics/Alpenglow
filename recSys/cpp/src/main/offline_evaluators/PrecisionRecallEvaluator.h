@@ -36,9 +36,9 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
   vector<int>* users = test_data_.users();
   double precision_sum = 0;
   double recall_sum = 0;
-  RecDat zeroTimeRd;
-  zeroTimeRd.time = 0;
-  model_filter_->run(&zeroTimeRd);
+  RecDat zero_time_rd;
+  zero_time_rd.time = 0;
+  model_filter_->run(&zero_time_rd);
   train_items_ = model_filter_-> get_global_items();
   for(uint i=0;i<users->size();i++){
     int user = users->at(i);
@@ -93,7 +93,7 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
   MinHeap top_list(cutoff_);
   for(uint i=0;i<train_items_->size();i++){
     pair<int, double> value = train_items_->at(i);
-    if(top_list.size()==cutoff_ and value.second < top_list.getMin().score){
+    if(top_list.size()==cutoff_ and value.second < top_list.get_min().score){
       break;
     }
     rec_dat.item = value.first;
@@ -103,8 +103,8 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
   }
   int true_positive = 0;
   map<int, double>* positive = test_data_.matrix()->get(user);
-  for(;top_list.size()>0;top_list.deleteMin()){
-    rec_dat = top_list.getMin();
+  for(;top_list.size()>0;top_list.delete_min()){
+    rec_dat = top_list.get_min();
     map<int, double>::iterator it = positive->find(rec_dat.item);
     if(it!=positive->end()) true_positive++;
   } 

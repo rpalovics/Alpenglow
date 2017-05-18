@@ -8,23 +8,23 @@
 using namespace std;
 
 struct CombinedDoubleLayerModelGradientUpdaterParameters{
-  double learningRate;
-  double regularizationRate;
-  double globalLearningRate;
-  double globalRegularizationRate;
-  bool alwaysLearn;
-  double startCombinationLearningTime;
+  double learning_rate;
+  double regularization_rate;
+  double global_learning_rate;
+  double global_regularization_rate;
+  bool always_learn;
+  double start_combination_learning_time;
 };
 class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
   public:
     CombinedDoubleLayerModelGradientUpdater(CombinedDoubleLayerModelGradientUpdaterParameters* params){
-      learningRate = params->learningRate;
-      regularizationRate = params->regularizationRate;
-      globalRegularizationRate = params->globalRegularizationRate;
-      globalLearningRate = params->globalLearningRate;
-      alwaysLearn = params->alwaysLearn;
+      learning_rate = params->learning_rate;
+      regularization_rate = params->regularization_rate;
+      global_regularization_rate = params->global_regularization_rate;
+      global_learning_rate = params->global_learning_rate;
+      always_learn = params->always_learn;
       model = NULL;
-      startCombinationLearningTime = params->startCombinationLearningTime;
+      start_combination_learning_time = params->start_combination_learning_time;
     }
     ~CombinedDoubleLayerModelGradientUpdater(){};
     void set_model(CombinedModel* model_){
@@ -33,9 +33,9 @@ class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
     void update(RecDat * rec_dat, double gradient);
   private:
     CombinedModel * model;
-    double learningRate, regularizationRate, globalLearningRate, globalRegularizationRate;
-    bool alwaysLearn;
-    double startCombinationLearningTime;
+    double learning_rate, regularization_rate, global_learning_rate, global_regularization_rate;
+    bool always_learn;
+    double start_combination_learning_time;
 };
 
 #endif

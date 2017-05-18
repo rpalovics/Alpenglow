@@ -42,8 +42,8 @@ class TopPopContainer{
     void set_threshold(int num){threshold=num;};
     bool has_changed(){return changed;}
   private:
-    void swapUp(int item);
-    void swapDown(int item);
+    void swap_up(int item);
+    void swap_down(int item);
     void swap(int idx1, int idx2, vector <int> * vec);
     void squeeze(int item);
     vector <int> idxs;

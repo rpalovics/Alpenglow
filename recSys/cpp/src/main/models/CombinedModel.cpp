@@ -5,39 +5,39 @@ void CombinedModel::add(RecDat* rec_dat){
   for(uint ii=0; ii<models.size(); ii++){
     (models)[ii]->add(rec_dat);
   }
-  if(useUserWeights){
-    if((int)userWeights.size()<=user) userWeights.resize(user+1,NULL);
-    if(userWeights[user] == NULL){
-      int modelNum = models.size();
-      userWeights[user] = new vector<double>(modelNum,0);
+  if(use_user_weights){
+    if((int)user_weights.size()<=user) user_weights.resize(user+1,NULL);
+    if(user_weights[user] == NULL){
+      int model_num = models.size();
+      user_weights[user] = new vector<double>(model_num,0);
     }
   }
 }
 
 double CombinedModel::prediction(RecDat* rec_dat){
   //logging
-  if (logFrequency!=0 and logCounter % logFrequency == 0){
-    *logFileStream << rec_dat->time << " " ;
-    for(uint i = 0; i<globalWeights.size(); i++){
-      *logFileStream << globalWeights[i] << " " ;
+  if (log_frequency!=0 and log_counter % log_frequency == 0){
+    *log_file_stream << rec_dat->time << " " ;
+    for(uint i = 0; i<global_weights.size(); i++){
+      *log_file_stream << global_weights[i] << " " ;
     }
-    *logFileStream << endl;
+    *log_file_stream << endl;
   }
-  logCounter++;
+  log_counter++;
   //prediction
   int user = rec_dat->user; 
   double prediction = 0;
-  if(useUserWeights and (int)userWeights.size()>user){
-    vector <double> * userWeight = userWeights[user];
-    if (userWeight!=NULL){
-      for(uint ii=0; ii<userWeight->size(); ii++){
-        prediction+=models[ii]->prediction(rec_dat)*(userWeight->at(ii)+globalWeights[ii]);
+  if(use_user_weights and (int)user_weights.size()>user){
+    vector <double> * user_weight = user_weights[user];
+    if (user_weight!=NULL){
+      for(uint ii=0; ii<user_weight->size(); ii++){
+        prediction+=models[ii]->prediction(rec_dat)*(user_weight->at(ii)+global_weights[ii]);
       }
     }
   }
-  if(!useUserWeights){
-    for(uint ii=0; ii<globalWeights.size(); ii++){
-      prediction+=models[ii]->prediction(rec_dat)*globalWeights[ii];
+  if(!use_user_weights){
+    for(uint ii=0; ii<global_weights.size(); ii++){
+      prediction+=models[ii]->prediction(rec_dat)*global_weights[ii];
     }
   }
   return prediction;

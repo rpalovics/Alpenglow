@@ -18,7 +18,7 @@ class GradientComputer{
 
   protected: 
     Model* model;
-    vector<pair<RecDat*,double> > gradientVector;
+    vector<pair<RecDat*,double> > gradient_vector;
     vector<RecDat>* train_data;
 };
 
@@ -54,7 +54,7 @@ class GradientComputerImplicitPairWise : public GradientComputer{
     void set_up(vector<RecDat>* train_data_){
       train_data=train_data_;
       train_data_it = train_data->begin();
-      positiveData = &(*train_data_it);
+      positive_data = &(*train_data_it);
       train_data_it++;
     }
     vector<pair<RecDat*,double> > * get_next_gradient();
@@ -62,7 +62,7 @@ class GradientComputerImplicitPairWise : public GradientComputer{
   protected:
     ObjectivePairWise * objective;
     vector<RecDat>::iterator train_data_it;
-    RecDat* positiveData;
+    RecDat* positive_data;
 };
 
 class GradientComputerListWise : public GradientComputer{

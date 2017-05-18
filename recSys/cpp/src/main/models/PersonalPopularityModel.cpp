@@ -1,8 +1,8 @@
 #include "PersonalPopularityModel.h"
 
 double PersonalPopularityModel::get_user_best_item_score(int user){
-  auto item = userBestItems_.find(user);
-  if(item == userBestItems_.end()){
+  auto item = user_best_items_.find(user);
+  if(item == user_best_items_.end()){
     return 0;
   } else {
     return train_matrix_.get(user, item->second);
@@ -17,8 +17,8 @@ void PersonalPopularityModel::add(RecDat * rec_dat){
 }
 
 double PersonalPopularityModel::prediction(RecDat * rec_dat){
-  double itemScore = train_matrix_.get(rec_dat->user, rec_dat->item);
-  double bestScore = get_user_best_item_score(rec_dat->user);
-  double popModelPrediction = PopularityModel::prediction(rec_dat);
-  return log(itemScore+popModelPrediction+1)/log(bestScore+2);
+  double item_score = train_matrix_.get(rec_dat->user, rec_dat->item);
+  double best_score = get_user_best_item_score(rec_dat->user);
+  double pop_model_prediction = PopularityModel::prediction(rec_dat);
+  return log(item_score+pop_model_prediction+1)/log(best_score+2);
 }

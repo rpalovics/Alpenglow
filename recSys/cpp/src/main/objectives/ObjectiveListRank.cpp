@@ -3,31 +3,31 @@
 vector <double> ObjectiveListRank::get_gradient(vector <RecPred> * _predictions){
   predictions = _predictions;
   clear();
-  computeGradients();
+  compute_gradients();
   return gradients;
 }
 
-void ObjectiveListRank::computeGradients(){
+void ObjectiveListRank::compute_gradients(){
   int idx = 0;
   for (vector<RecPred>::iterator it = predictions->begin(); it != predictions->end(); it++) {
-    double predictionExp = exp(sigmoid(it->prediction));
-    double scoreExp =  exp(it->score);
-    predictionsExp[idx] = predictionExp;
-    scoresExp[idx] = scoreExp;
-    predictionNorm += predictionExp;
-    scoreNorm += scoreExp;
+    double prediction_exp = exp(sigmoid(it->prediction));
+    double score_exp =  exp(it->score);
+    predictions_exp[idx] = prediction_exp;
+    scores_exp[idx] = score_exp;
+    prediction_norm += prediction_exp;
+    score_norm += score_exp;
     idx++;
   }
   for(uint ii=0; ii<gradients.size(); ii++){
-    gradients[ii] = ( predictionsExp[ii]/(double)predictionNorm - scoresExp[ii]/(double)scoreNorm )* sigmoidDer((*predictions)[ii].prediction);
+    gradients[ii] = ( predictions_exp[ii]/(double)prediction_norm - scores_exp[ii]/(double)score_norm )* sigmoid_der((*predictions)[ii].prediction);
   }
 }
 
 void ObjectiveListRank::clear(){
-  predictionsExp.clear(); scoresExp.clear(); gradients.clear();
-  predictionsExp.resize(predictions->size());
-  scoresExp.resize(predictions->size());
+  predictions_exp.clear(); scores_exp.clear(); gradients.clear();
+  predictions_exp.resize(predictions->size());
+  scores_exp.resize(predictions->size());
   gradients.resize(predictions->size());
-  predictionNorm = 0;
-  scoreNorm = 0;
+  prediction_norm = 0;
+  score_norm = 0;
 }

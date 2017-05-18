@@ -14,7 +14,7 @@ struct PeriodicImplicitGradientLearnerParameters : PeriodicLearnerParameters{
   int number_of_iterations; //number of training cycles
   bool turn_off_random_shuffling;
   int seed; //random seed of shuffling
-  bool learn; //deprecated
+  bool learn;
 };
 class PeriodicImplicitGradientLearner : public PeriodicLearner {
   public:
@@ -44,7 +44,6 @@ class PeriodicImplicitGradientLearner : public PeriodicLearner {
       }
       return ok;
     }
-    //DEPRECATED
   protected:
     NegativeSampleGenerator* negative_sample_generator_;
     GradientComputer* gradient_computer_;
@@ -52,7 +51,7 @@ class PeriodicImplicitGradientLearner : public PeriodicLearner {
     int next_add_counter_; //index of next rec_dat sample we have to add() to model
     int number_of_iterations_;
     bool turn_off_random_shuffling_;
-    bool learn_model_; //deprecated
+    bool learn_model_;
     int seed_;
     Random random_;
   private:

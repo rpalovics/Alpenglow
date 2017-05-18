@@ -29,13 +29,13 @@ void TopPopContainer::increase(int item){
     idxs[item]=popularities.size()-1;
   } else{
     popularities[idxs[item]]++;
-    swapUp(item);
+    swap_up(item);
   } 
 }
 
 void TopPopContainer::reduce(int item){
   popularities[idxs[item]]--;
-  swapDown(item);
+  swap_down(item);
 }
 
 pair <int,double> TopPopContainer::get(int idx){
@@ -72,7 +72,7 @@ map <int,double> * TopPopContainer::get_recommendation(int num){
 }
 
 
-void TopPopContainer::swapUp(int item){
+void TopPopContainer::swap_up(int item){
   while(idxs[item]!=0 && popularities[idxs[item]]>popularities[idxs[item]-1]){
     int idx=idxs[item];
     swap(idx,idx-1,&names);
@@ -82,7 +82,7 @@ void TopPopContainer::swapUp(int item){
   }
 }
 
-void TopPopContainer::swapDown(int item){
+void TopPopContainer::swap_down(int item){
   while(idxs[item]!=(int)popularities.size()-1 && popularities[idxs[item]+1]>popularities[idxs[item]]){  
     int idx=idxs[item];
     swap(idx,idx+1,&names);

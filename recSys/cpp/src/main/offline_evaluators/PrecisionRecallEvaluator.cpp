@@ -27,7 +27,7 @@
 //  MinHeap top_list(cutoff_);
 //  for(int i=0;i<train_items_->size();i++){
 //    pair<int, double> value = train_items_->at(i);
-//    if(top_list.size()==cutoff_ and value.second < top_list.getMin().score){
+//    if(top_list.size()==cutoff_ and value.second < top_list.get_min().score){
 //      break;
 //    }
 //    rec_dat.item = value.first;
@@ -37,8 +37,8 @@
 //  }
 //  int true_positive = 0;
 //  map<int, double>* positive = test_data_.matrix()->get(user);
-//  for(;top_list.size()>0;top_list.deleteMin()){
-//    rec_dat = top_list.getMin();
+//  for(;top_list.size()>0;top_list.delete_min()){
+//    rec_dat = top_list.get_min();
 //    map<int, double>::iterator it = positive->find(rec_dat.item);
 //    if(it!=positive->end()) true_positive++;
 //  } 

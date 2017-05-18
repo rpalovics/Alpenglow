@@ -7,12 +7,12 @@ void SpMatrix::clear(){
   matrix.clear();
 }
 
-void SpMatrix::read_from_file(string dataFile){
-  ifstream ifs (dataFile.c_str());
+void SpMatrix::read_from_file(string data_file){
+  ifstream ifs (data_file.c_str());
   int row_id,col_id;
   double value;
   while(ifs >> row_id >> col_id >> value) insert(row_id,col_id,value);
-  cerr << "read from " << dataFile << " is done, size: " << size() << endl;
+  cerr << "read from " << data_file << " is done, size: " << size() << endl;
 }
 
 void SpMatrix::insert(int row_id, int col_id, double value){

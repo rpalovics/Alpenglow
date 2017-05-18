@@ -96,21 +96,21 @@ void FactorModel::read(ifstream& file){
 }
 
 
-//double FactorModel::userFactorMean() {
+//double FactorModel::user_factor_mean() {
 //  double avg=0;
-//  vector<int> userIndices = user_factors_.getNonnullIndices();
-//  for(std::vector<int>::iterator it = userIndices.begin() ; it != userIndices.end(); ++it)
+//  vector<int> user_indices = user_factors_.get_nonnull_indices();
+//  for(std::vector<int>::iterator it = user_indices.begin() ; it != user_indices.end(); ++it)
 //    avg+=Util::scalar_product(user_factors_.get(*it),user_factors_.get(*it));
-//  if(userIndices.size()>0) avg=avg/double(userIndices.size());
+//  if(user_indices.size()>0) avg=avg/double(user_indices.size());
 //  return avg;
 //}
 //
 //
-//double FactorModel::itemFactorMean() {
+//double FactorModel::item_factor_mean() {
 //  double avg=0;
-//  vector<int> itemIndices = item_factors_.getNonnullIndices();
-//  for(std::vector<int>::iterator it = itemIndices.begin() ; it != itemIndices.end(); ++it)
+//  vector<int> item_indices = item_factors_.get_nonnull_indices();
+//  for(std::vector<int>::iterator it = item_indices.begin() ; it != item_indices.end(); ++it)
 //    avg+=Util::scalar_product(item_factors_.get(*it),item_factors_.get(*it));
-//  if(itemIndices.size()>0) avg=avg/double(itemIndices.size());
+//  if(item_indices.size()>0) avg=avg/double(item_indices.size());
 //  return avg;
 //}

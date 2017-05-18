@@ -56,13 +56,13 @@ class SvdppModel : public Model {
     void write(ofstream& file) override;
     void read(ifstream& file) override;
     void clear() override;
-    //double userFactorMean();
-    //double itemFactorMean();
-    //void toCallOutside(RecDat*, int, std::vector<double>*);
-    //double computeProduct(RecDat * rec_dat);
+    //double user_factor_mean();
+    //double item_factor_mean();
+    //void to_call_outside(RecDat*, int, std::vector<double>*);
+    //double compute_product(RecDat * rec_dat);
     //double get_history_weight(int num);
-    //double computeUserBias(RecDat * rec_dat);
-    //double computeItemBias(RecDat * rec_dat);
+    //double compute_user_bias(RecDat * rec_dat);
+    //double compute_item_bias(RecDat * rec_dat);
     virtual ~SvdppModel(){}
     bool self_test(){
       bool ok=Model::self_test();
@@ -96,7 +96,7 @@ class SvdppModel : public Model {
     const double history_weight_;
     const string norm_type_;
     const double gamma_;
-    FactorsParameters factorsParameters;
+    FactorsParameters factors_parameters;
 
     //state
     Factors user_factors_, item_factors_, history_item_factors_;
@@ -125,8 +125,8 @@ class SvdppModel : public Model {
     //friend class TestSvdppModel;
     //FRIEND_TEST(TestSvdppModel, test);
     //FRIEND_TEST(TestSvdppModel, similarity);
-    //FRIEND_TEST(TestSvdppModelFilter, testBasic);
-    //FRIEND_TEST(TestSvdppModelFilter, testAll);
+    //FRIEND_TEST(TestSvdppModelFilter, test_basic);
+    //FRIEND_TEST(TestSvdppModelFilter, test_all);
 };
 
 #endif

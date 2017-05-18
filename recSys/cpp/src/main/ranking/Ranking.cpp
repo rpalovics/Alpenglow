@@ -62,10 +62,10 @@ bool RankComputer::itemlist_next(RecDat* fake_rec_dat){
 //
 //RecMap *  TopListCreator::get_top_recommendation(RecDat * rec_dat){
 //  recommend(rec_dat);
-//  sortTopK();
-//  normTopK();
-//  createTopKMap();
-//  return &recMap;
+//  sort_top_k();
+//  norm_top_k();
+//  create_top_k_map();
+//  return &rec_map;
 //}
 //
 //void TopListCreator::recommend(RecDat * rec_dat){
@@ -81,22 +81,22 @@ bool RankComputer::itemlist_next(RecDat* fake_rec_dat){
 //  }
 //}
 //
-//void TopListCreator::sortTopK(){
-//  if((int)rec.size() > top_k) partial_sort (rec.begin(), rec.begin()+top_k, rec.end(),sortPairDescendingBySecond<int>);
-//  else sort(rec.begin(),rec.end(),sortPairDescendingBySecond<int>);
+//void TopListCreator::sort_top_k(){
+//  if((int)rec.size() > top_k) partial_sort (rec.begin(), rec.begin()+top_k, rec.end(),sort_pair_descending_by_second<int>);
+//  else sort(rec.begin(),rec.end(),sort_pair_descending_by_second<int>);
 //}
 //
-//void TopListCreator::normTopK(){
+//void TopListCreator::norm_top_k(){
 // for(uint ii=0 ; (ii<rec.size() && ii<(uint)top_k); ii++ ){
 //  rec[ii].second=1/(double)(ii+1); 
 // } 
 //}
 //
-//void TopListCreator::createTopKMap(){
+//void TopListCreator::create_top_k_map(){
 //  RecVector :: iterator ir = rec.end();
 //  if((int)rec.size()>top_k) ir = rec.begin()+top_k;
-//  recMap.clear();
-//  copy(rec.begin(), ir,inserter(recMap, recMap.begin()));
+//  rec_map.clear();
+//  copy(rec.begin(), ir,inserter(rec_map, rec_map.begin()));
 //  rec.clear(); 
 //}
 

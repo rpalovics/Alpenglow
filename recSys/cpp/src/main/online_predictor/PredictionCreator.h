@@ -81,17 +81,17 @@ class PredictionCreatorGlobal: public PredictionCreator{
   private:
     MinHeap* min_heap_;
     uint initial_threshold_;
-    //void process_row(vector<pair<int,double> >* sortedEntitiesA,uint startIndexA,int indexB,RecDat* rec_dat,uint threshold);
-    //void process_column(vector<pair<int,double> >* sortedEntitiesA,uint startIndexA,int indexB,RecDat* rec_dat,uint threshold);
+    //void process_row(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
+    //void process_column(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
 
 
-    void process_line(vector<pair<int,double> >* sortedAs,uint beginAIndex, uint endAIndex, int* _rec_dat_a, RecDat* _rec_dat);
-    void process_rectangle(vector<pair<int,double> >* sortedUsers, vector<pair<int,double> >* sortedItems, uint beginUserIndex, uint beginItemIndex, uint endUserIndex, uint endItemIndex, RecDat* _rec_dat);
+    void process_line(vector<pair<int,double> >* sorted_as,uint begin_a_index, uint end_a_index, int* _rec_dat_a, RecDat* _rec_dat);
+    void process_rectangle(vector<pair<int,double> >* sorted_users, vector<pair<int,double> >* sorted_items, uint begin_user_index, uint begin_item_index, uint end_user_index, uint end_item_index, RecDat* _rec_dat);
     FRIEND_TEST(TestPredictionCreatorGlobal, global);
     FRIEND_TEST(TestPredictionCreatorGlobal, global2);
-    FRIEND_TEST(TestPredictionCreatorGlobal, processLine);
-    FRIEND_TEST(TestPredictionCreatorGlobal, processLine2);
-    FRIEND_TEST(TestPredictionCreatorGlobal, processSquare);
+    FRIEND_TEST(TestPredictionCreatorGlobal, process_line);
+    FRIEND_TEST(TestPredictionCreatorGlobal, process_line2);
+    FRIEND_TEST(TestPredictionCreatorGlobal, process_square);
     FRIEND_TEST(TestPredictionCreatorGlobal, lookback);
 };
 

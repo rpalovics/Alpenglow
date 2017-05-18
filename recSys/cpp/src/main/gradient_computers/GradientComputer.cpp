@@ -5,10 +5,10 @@ vector<pair<RecDat*,double> >* GradientComputerPointWise::get_next_gradient(){
   RecDat* rec_dat = &(*train_data_it);
   train_data_it++;
   double gradient = get_gradient(rec_dat);
-  //gradientVector
-  gradientVector.clear();
-  gradientVector.push_back(make_pair(rec_dat,gradient));
-  return &gradientVector;
+  //gradient_vector
+  gradient_vector.clear();
+  gradient_vector.push_back(make_pair(rec_dat,gradient));
+  return &gradient_vector;
 }
 
 double GradientComputerPointWise::get_gradient(RecDat* rec_dat){
@@ -23,22 +23,22 @@ double GradientComputerPointWise::get_gradient(RecDat* rec_dat){
 
 vector<pair<RecDat*,double> >* GradientComputerImplicitPairWise::get_next_gradient(){
   //get next negative sample
-  RecDat* negativeData = &(*train_data_it);
+  RecDat* negative_data = &(*train_data_it);
   train_data_it++;
   //compute predictions
-  RecPred positivePred;
-  positivePred.prediction = model->prediction(positiveData);
-  positivePred.score = positiveData->score;
-  RecPred negativePred;
-  negativePred.prediction = model->prediction(negativeData);
-  negativePred.score = negativeData->score;
+  RecPred positive_pred;
+  positive_pred.prediction = model->prediction(positive_data);
+  positive_pred.score = positive_data->score;
+  RecPred negative_pred;
+  negative_pred.prediction = model->prediction(negative_data);
+  negative_pred.score = negative_data->score;
   //compute gradient
-  pair<double,double> gradientPair = objective->get_gradient(&positivePred, &negativePred);
-  //gradientVector
-  gradientVector.clear();
-  gradientVector.push_back(make_pair(positiveData,gradientPair.first));
-  gradientVector.push_back(make_pair(negativeData,gradientPair.second));
-  return &gradientVector;
+  pair<double,double> gradient_pair = objective->get_gradient(&positive_pred, &negative_pred);
+  //gradient_vector
+  gradient_vector.clear();
+  gradient_vector.push_back(make_pair(positive_data,gradient_pair.first));
+  gradient_vector.push_back(make_pair(negative_data,gradient_pair.second));
+  return &gradient_vector;
 }
 
 vector<pair<RecDat*,double> >* GradientComputerListWise::get_next_gradient(){
@@ -53,13 +53,13 @@ vector<pair<RecDat*,double> >* GradientComputerListWise::get_next_gradient(){
   //compute gradients
   vector<double> gradients;
   gradients = objective->get_gradient(&predictions);
-  //gradientVector
-  gradientVector.clear();
-  gradientVector.resize(train_data->size());
+  //gradient_vector
+  gradient_vector.clear();
+  gradient_vector.resize(train_data->size());
   for(uint i=0; i<train_data->size(); i++){
-    gradientVector[i].first = &(train_data->at(i));
-    gradientVector[i].second = gradients[i];
+    gradient_vector[i].first = &(train_data->at(i));
+    gradient_vector[i].second = gradients[i];
   }
-  return &gradientVector;
+  return &gradient_vector;
 }
 

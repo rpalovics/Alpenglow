@@ -75,15 +75,15 @@ class RankComputer{
 //    void set_parameters(TopListCreatorParameters * parameters);
 //    RecMap *  get_top_recommendation(RecDat * rec_dat);
 //  protected:
-//    void sortTopK();
-//    void normTopK();
-//    void createTopKMap();
+//    void sort_top_k();
+//    void norm_top_k();
+//    void create_top_k_map();
 //    void recommend(RecDat * rec_dat);
 //    OnlineRecommender * recommender;
 //    vector <int> * items;
 //    SpMatrix * train_matrix;
 //    RecVector  rec;
-//    RecMap recMap;
+//    RecMap rec_map;
 //    int top_k;
 //};
 

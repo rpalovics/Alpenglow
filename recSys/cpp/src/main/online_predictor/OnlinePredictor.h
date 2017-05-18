@@ -16,17 +16,17 @@ class OnlinePredictor : public Logger{
    ~OnlinePredictor(){};
    void run(RecDat * rec_dat);
    void set_parameters(OnlinePredictorParameters* params);
-   void set_prediction_creator(PredictionCreator* predictionCreator_){predictionCreator = predictionCreator_;}
+   void set_prediction_creator(PredictionCreator* prediction_creator_){prediction_creator = prediction_creator_;}
    bool self_test(){
      bool OK = true;
-     if(predictionCreator==NULL){ OK=false; }
+     if(prediction_creator==NULL){ OK=false; }
      return OK;
    }
  private:
-   bool doPredict(RecDat * rec_dat);
-   PredictionCreator * predictionCreator;
+   bool do_predict(RecDat * rec_dat);
+   PredictionCreator * prediction_creator;
    double min_time, time_frame;
-   int actualTimeFrame, pastTimeFrame;
+   int actual_time_frame, past_time_frame;
    ofstream  ofs;
    FRIEND_TEST(TestOnlinePredictor, test);
 };

@@ -3,17 +3,17 @@
 void UniformPositiveAndNegativeSampleGenerator::set_parameters(UniformPositiveAndNegativeSampleGeneratorParameters * parameters){
   items = NULL;
   train_matrix = NULL;
-  positiveRate = parameters->positiveRate;
-  negativeRate = parameters->negativeRate;
-  initializeAll=parameters->initializeAll;
+  positive_rate = parameters->positive_rate;
+  negative_rate = parameters->negative_rate;
+  initialize_all=parameters->initialize_all;
   decay = parameters->decay;
   generate_user_ = parameters->generate_user;
   generate_item_ = parameters->generate_item;
   sample_ = parameters->sample;
   sample_num_type_ = parameters->sample_num_type;
-  if(initializeAll){
-    maxItem=parameters->maxItem;
-    items=new vector<int>(maxItem+1);
+  if(initialize_all){
+    max_item=parameters->max_item;
+    items=new vector<int>(max_item+1);
     for(int i=0;i<items->size();i++){items->at(i)=i;}
   }
   distribution_ = parameters->distribution;
@@ -39,7 +39,7 @@ vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecD
   if(history != NULL){
     int history_size = history->size();
     if(sample_){
-      double p = getPositiveRate(history_size);
+      double p = get_positive_rate(history_size);
       int num = (int) p;
       if(rand()/(RAND_MAX+(double)1) < p-(int)p) num++;
       for(uint ii=0; ii < num; ii++){ 
@@ -85,8 +85,8 @@ vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecD
 vector <int> * UniformPositiveAndNegativeSampleGenerator::generate(RecDat * rec_dat){
   int learnt = 0;
   samples.clear();
-  int userActivity = train_matrix->row_size(rec_dat->user);
-  while(learnt < negativeRate && learnt<(int)items->size()-userActivity-1){
+  int user_activity = train_matrix->row_size(rec_dat->user);
+  while(learnt < negative_rate && learnt<(int)items->size()-user_activity-1){
     int item = items->at((int)(rand()/(RAND_MAX+1.0)*(items->size())));
     if(!train_matrix->has_value(rec_dat->user,item) && item!=rec_dat->item){ 
       samples.push_back(item);

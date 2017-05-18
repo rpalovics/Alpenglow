@@ -23,37 +23,37 @@ typedef map < int , Bin > :: iterator AvgIterator;
 
 class Distribution {
   protected: 
-    map <int,Bin> binnedData;
+    map <int,Bin> binned_data;
     double resolution;
-    string binningType;
-    double sumCounts;
+    string binning_type;
+    double sum_counts;
   public:
-    Distribution(){sumCounts=0;};
-    Distribution(double _resolution, string _binningType){
-      sumCounts=0;
+    Distribution(){sum_counts=0;};
+    Distribution(double _resolution, string _binning_type){
+      sum_counts=0;
       resolution=_resolution;
-      binningType=_binningType;
-      cerr << "type: " << binningType << endl;
+      binning_type=_binning_type;
+      cerr << "type: " << binning_type << endl;
       cerr << "resolution: " << resolution << endl;
     }
     ~Distribution(){};
-    void read_from_file(string file_name, int colNum, int actCol);
+    void read_from_file(string file_name, int col_num, int act_col);
     void write_into_file(string file_name);
-    int getBinKey(double value);
-    double getBinValue(DistIterator distIt);
-    double getBinLength(DistIterator distIt);
-    double getProbability(DistIterator distIt);
-    double getCounts(DistIterator distIt){return distIt->second.counts;};
-    void increaseBin(int binKey);
-    void increaseBin(int binKey, double num);
-    void insert(double value){increaseBin(getBinKey(value));};
-    void insert(double value, int num){increaseBin(getBinKey(value),num);};
-    void setResolution(double _resolution);
-    void setBinningType(string _binningType);
-    DistIterator begin(){return binnedData.begin();};
-    DistIterator end(){return binnedData.end();};
-    int size(){return (int)binnedData.size();};
-    double getProbability(double value);
+    int get_bin_key(double value);
+    double get_bin_value(DistIterator dist_it);
+    double get_bin_length(DistIterator dist_it);
+    double get_probability(DistIterator dist_it);
+    double get_counts(DistIterator dist_it){return dist_it->second.counts;};
+    void increase_bin(int bin_key);
+    void increase_bin(int bin_key, double num);
+    void insert(double value){increase_bin(get_bin_key(value));};
+    void insert(double value, int num){increase_bin(get_bin_key(value),num);};
+    void set_resolution(double _resolution);
+    void set_binning_type(string _binning_type);
+    DistIterator begin(){return binned_data.begin();};
+    DistIterator end(){return binned_data.end();};
+    int size(){return (int)binned_data.size();};
+    double get_probability(double value);
     
 
 };
@@ -62,9 +62,9 @@ class Averaging : public Distribution{
   public:
     Averaging():Distribution(){};
     void read_from_file(string file_name);
-    void read_from_file(string file_name, int colNum, int actColX, int actColY);
-    double getAverage(double value);
-    double getAverage(AvgIterator avgIt);
+    void read_from_file(string file_name, int col_num, int act_col_x, int act_col_y);
+    double get_average(double value);
+    double get_average(AvgIterator avg_it);
     void write_into_file(string out_file); 
 };
 

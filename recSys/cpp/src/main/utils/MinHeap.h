@@ -17,15 +17,15 @@ public:
   MinHeap(int _top_k){top_k = _top_k;};
 
   void insert(RecDat rec_dat);
-  RecDat getMin();
-  void deleteMin();
+  RecDat get_min();
+  void delete_min();
   int size(){ return _vector.size(); }
   void show(){for(uint ii=0;ii<_vector.size(); ii++){cerr << _vector[ii].score << " " ;}cerr << endl;};
   void clear(){ _vector.clear(); }
 private:
   vector<RecDat> _vector;
-  void bubbleDown(int index);
-  void bubbleUp(int index);
+  void bubble_down(int index);
+  void bubble_up(int index);
   void heapify();
   int top_k;
 };

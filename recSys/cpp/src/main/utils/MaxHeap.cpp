@@ -17,26 +17,26 @@ MaxHeap::MaxHeap(const vector<double>& vector) : _vector(vector){
 void MaxHeap::heapify(){
   int length = _vector.size();
   for(int i=length-1; i>=0; --i){
-    bubbleDown(i);
+    bubble_down(i);
   }
 }
 
-void MaxHeap::bubbleDown(int index){
+void MaxHeap::bubble_down(int index){
     int length = _vector.size();
-    int leftChildIndex = 2*index + 1;
-    int rightChildIndex = 2*index + 2;
+    int left_child_index = 2*index + 1;
+    int right_child_index = 2*index + 2;
 
-    if(leftChildIndex >= length)
+    if(left_child_index >= length)
         return; //index is a leaf
 
     int MaxIndex = index;
 
-    if(_vector[index]->distance < _vector[leftChildIndex]->distance){
-        MaxIndex = leftChildIndex;
+    if(_vector[index]->distance < _vector[left_child_index]->distance){
+        MaxIndex = left_child_index;
     }
     
-    if((rightChildIndex < length) && (_vector[MaxIndex]->distance < _vector[rightChildIndex]->distance)){
-        MaxIndex = rightChildIndex;
+    if((right_child_index < length) && (_vector[MaxIndex]->distance < _vector[right_child_index]->distance)){
+        MaxIndex = right_child_index;
     }
 
     if(MaxIndex != index){
@@ -44,36 +44,36 @@ void MaxHeap::bubbleDown(int index){
         Tweet* temp = _vector[index];
         _vector[index] = _vector[MaxIndex];
         _vector[MaxIndex] = temp;
-        bubbleDown(MaxIndex);
+        bubble_down(MaxIndex);
     }
 }
 
-void MaxHeap::bubbleUp(int index){
+void MaxHeap::bubble_up(int index){
     if(index == 0)
         return;
 
-    int parentIndex = (index-1)/2;
+    int parent_index = (index-1)/2;
 
-    if(_vector[parentIndex]->distance < _vector[index]->distance){
-        Tweet* temp = _vector[parentIndex];
-        _vector[parentIndex] = _vector[index];
+    if(_vector[parent_index]->distance < _vector[index]->distance){
+        Tweet* temp = _vector[parent_index];
+        _vector[parent_index] = _vector[index];
         _vector[index] = temp;
-        bubbleUp(parentIndex);
+        bubble_up(parent_index);
     }
 }
 
 void MaxHeap::insert(Tweet* tweet)
 {
     int length = _vector.size();
-    if(length < top_k or getMax()->distance > tweet->distance){
+    if(length < top_k or get_max()->distance > tweet->distance){
       _vector.push_back(tweet);
-      bubbleUp(length);
+      bubble_up(length);
     }
     length = _vector.size();
-    if(length > top_k) deleteMax();
+    if(length > top_k) delete_max();
 }
 
-Tweet* MaxHeap::getMax(){
+Tweet* MaxHeap::get_max(){
   //if(_vector.size()>0){
     return _vector[0];
   //} else {
@@ -81,7 +81,7 @@ Tweet* MaxHeap::getMax(){
   //}
 }
     
-void MaxHeap::deleteMax(){
+void MaxHeap::delete_max(){
     int length = _vector.size();
 
     if(length == 0){
@@ -91,5 +91,5 @@ void MaxHeap::deleteMax(){
     _vector[0] = _vector[length-1];
     _vector.pop_back();
 
-    bubbleDown(0);
+    bubble_down(0);
 }

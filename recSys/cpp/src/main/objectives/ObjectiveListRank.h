@@ -13,16 +13,16 @@ class ObjectiveListRank : public ObjectiveListWise{
     vector <double> get_gradient(vector <RecPred> * _predictions);
   private:
     void clear();
-    void computeNorms();
-    void computeGradients();
+    void compute_norms();
+    void compute_gradients();
     double sigmoid(double x) {
       return 1.0 / (1.0 + exp(-x));
     };
-    double sigmoidDer(double x) {
+    double sigmoid_der(double x) {
       return sigmoid(x) * ( 1 - sigmoid(x));
     };
-    double predictionNorm, scoreNorm;
+    double prediction_norm, score_norm;
     vector <RecPred> * predictions;
-    vector <double> gradients, predictionsExp, scoresExp;
+    vector <double> gradients, predictions_exp, scores_exp;
 };
 #endif

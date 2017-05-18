@@ -36,31 +36,28 @@ class Factors{
     }
     void set_parameters(FactorsParameters parameters);
     void init(int idx);
-    void initZero(int idx);
-    void initRand(int idx);
+    void init_zero(int idx);
+    void init_rand(int idx);
     vector<double>* get(int idx); 
     void set(int idx, vector<double>* value);
-    void setZero(int idx); 
-    void setRand(int idx); 
+    void set_zero(int idx); 
+    void set_rand(int idx); 
     void set(int idx, int dim, double val); 
-    void allToZero();
+    void all_to_zero();
     void add(int idx, vector<double>* value);
     void add(int idx, vector<double>* value, double coef);
     void add(int idx, int dim, double val);
     //void print(int idx);
     inline void lin_combine(int idx, double weight, vector<double>* other);
-    inline void linCombine(int idx, double weight, vector<double>* other){
-      lin_combine(idx,weight,other);
-    }
     //inline void lin_combine(int idx, double weight, double val);
     //inline void lin_combine(int idx, double weight);
     void resize(int idx);
-    int getSize();
+    int get_size();
     void write(ofstream& file);
     void read(ifstream& file);
     void clear();
     size_t get_dimension(){return dimension;}
-    vector <int> getNonnullIndices();
+    vector <int> get_nonnull_indices();
   private:
     vector <vector<double>*> factors;
     double begin_min, begin_max;
@@ -75,7 +72,7 @@ void Factors::lin_combine(int idx, double weight, vector<double>* other){
   }
 }
 
-//void Factors::linCombine(int idx, double weight){
+//void Factors::lin_combine(int idx, double weight){
 //  for(int ii=0; ii<dimension; ii++){
 //    //(*factors[idx])[ii]=(*factors[idx])[ii]+weight*val;
 //    (*factors[idx])[ii] += weight;

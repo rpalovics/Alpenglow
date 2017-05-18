@@ -10,7 +10,7 @@
 //ha matrixban taroljuk, ugy konnyu, de nem lesz idoben rendezett
 //lehet SimpleUpdater leszarmazott, ekkor be lehet settelni ot magat a learnerbe
 //session-kezeles: be lehet irni az updaterbe, vagy lehet kivulrol hivogatni a delete fuggvenyeket
-//policy lesz, ha modelSimpleUpdater lesz: ha valahova be van settelve (jinjactor), akkor ot is mint simpleupdatert be kell settelni. Ha lokalisan hozodik letre, akkor a szulo gondoskodik a frissitesrol.
+//policy lesz, ha model_simple_updater lesz: ha valahova be van settelve (jinjactor), akkor ot is mint simpleupdatert be kell settelni. Ha lokalisan hozodik letre, akkor a szulo gondoskodik a frissitesrol.
 //most azert nem az, mert a modelsimpleupdater nem const recdatot var parameterul, pedig azt is varhatna
 //altalanositasi lehetoseg: type parameter, ami lehet user, item, label, legutobbi esetben labelcontainer alapjan megy az update; user pedig mindenutt entity
 

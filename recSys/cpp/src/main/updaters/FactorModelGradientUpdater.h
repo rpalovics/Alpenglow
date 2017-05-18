@@ -13,17 +13,11 @@ struct FactorModelGradientUpdaterParameters{
   bool turn_off_item_bias_updates;
   double learning_rate, regularization_rate;
   double learning_rate_bias, regularization_rate_bias;
-  //DEPRECATED
-  double learningRate, regularizationRate;
-  double learningRateBias, regularizationRateBias;
   FactorModelGradientUpdaterParameters(){ //setting all to jinjactor default value
     turn_off_user_factor_updates=false;turn_off_item_factor_updates=false;
     turn_off_user_bias_updates=false;turn_off_item_bias_updates=false;
     learning_rate=-1;regularization_rate=-1;
     learning_rate_bias=-1;regularization_rate_bias=-1;
-    //DEPRECATED
-    learningRate=-1;regularizationRate=-1;
-    learningRateBias=-1;regularizationRateBias=-1;
   }
 };
 
@@ -34,18 +28,12 @@ class FactorModelGradientUpdater : public ModelGradientUpdater{
       turn_off_item_factor_updates_(parameters->turn_off_item_factor_updates),
       turn_off_user_bias_updates_(parameters->turn_off_user_bias_updates),
       turn_off_item_bias_updates_(parameters->turn_off_item_bias_updates),
-      learning_rate_(parameters->learning_rate!=-1?parameters->learning_rate:parameters->learningRate),
-      learning_rate_bias_(parameters->learning_rate_bias!=-1?parameters->learning_rate_bias:parameters->learningRateBias),
-      regularization_rate_(parameters->regularization_rate!=-1?parameters->regularization_rate:(parameters->regularizationRate!=-1?parameters->regularizationRate:0)),//should not set to -1 even if missing
-      regularization_rate_bias_(parameters->regularization_rate_bias!=-1?parameters->regularization_rate_bias:(parameters->regularizationRateBias!=-1?parameters->regularizationRateBias:0))
+      learning_rate_(parameters->learning_rate),
+      learning_rate_bias_(parameters->learning_rate_bias),
+      regularization_rate_(parameters->regularization_rate),//should not set to -1 even if missing
+      regularization_rate_bias_(parameters->regularization_rate_bias)
     {
       model_ = NULL;
-      if(parameters->learningRate!=-1 or
-          parameters->regularizationRate!=-1 or
-          parameters->learningRateBias!=-1 or
-          parameters->regularizationRateBias!=-1){
-        cerr << "FactorModelGradientUpdater's CamelCase parameters are DEPRECATED, use google code." << endl;
-      }
     }
     ~FactorModelGradientUpdater(){};
     virtual void update(RecDat *rec_dat, double gradient) override;

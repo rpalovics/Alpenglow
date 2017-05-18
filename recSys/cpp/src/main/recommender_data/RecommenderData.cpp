@@ -163,14 +163,14 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
 }
 
 SpMatrix* RecommenderData::matrix() {
-  if(recMatrix.size()==0){
-    recMatrix.clear();
+  if(rec_matrix.size()==0){
+    rec_matrix.clear();
     for (uint jj=0; jj<rec_data.size(); jj++) {
       RecDat rec_dat = rec_data[jj];
-      recMatrix.update(rec_dat.user,rec_dat.item,rec_dat.score);
+      rec_matrix.update(rec_dat.user,rec_dat.item,rec_dat.score);
     }
   }
-  return &recMatrix;
+  return &rec_matrix;
 }
 
 vector<int>* RecommenderData::items(){

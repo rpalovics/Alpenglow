@@ -12,60 +12,60 @@ class FactorFilter{
   public:
     FactorFilter(){
       factors = NULL;
-      otherFactors = NULL;
+      other_factors = NULL;
       entities = NULL;
-      otherEntities = NULL;
-      upperBounds = NULL;
+      other_entities = NULL;
+      upper_bounds = NULL;
     };
     ~FactorFilter(){};
-    void setFactors(Factors * _factors, Factors * _otherFactors);
-    void setEntities(vector <int> * _entities, vector <int> * _otherEntities);
-    void set_upper_vector(vector<pair<int,double> >* upperBounds_){upperBounds=upperBounds_;}
+    void set_factors(Factors * _factors, Factors * _other_factors);
+    void set_entities(vector <int> * _entities, vector <int> * _other_entities);
+    void set_upper_vector(vector<pair<int,double> >* upper_bounds_){upper_bounds=upper_bounds_;}
     bool self_test(){
       bool OK = true;
       if(factors==NULL){ OK=false; }
-      if(otherFactors==NULL){ OK=false; }
+      if(other_factors==NULL){ OK=false; }
       if(entities==NULL){ OK=false; }
-      if(otherEntities==NULL){ OK=false; }
-      if(upperBounds==NULL){ OK=false; }
+      if(other_entities==NULL){ OK=false; }
+      if(upper_bounds==NULL){ OK=false; }
       if(!OK){cerr << "FactorFilter is not OK." << endl; }
       return OK;
     }
-    void computeBoundVectors();
-    void computeBounds();
+    void compute_bound_vectors();
+    void compute_bounds();
     void run();
-    vector<double>* getUpper(){return &upper; }
-    vector<double>* getLower(){return &lower; }
+    vector<double>* get_upper(){return &upper; }
+    vector<double>* get_lower(){return &lower; }
   private:
-    void initBounds(vector <double> * factor);
-    void analyzeBounds(vector <double> * factor);
-    void computeUpperBounds();
-    void computeUpperBound(int entity);
-    Factors * factors, * otherFactors;
+    void init_bounds(vector <double> * factor);
+    void analyze_bounds(vector <double> * factor);
+    void compute_upper_bounds();
+    void compute_upper_bound(int entity);
+    Factors * factors, * other_factors;
     vector <double> upper, lower;
-    vector <int> * entities, * otherEntities;
-    vector < pair <int, double> >* upperBounds;   
+    vector <int> * entities, * other_entities;
+    vector < pair <int, double> >* upper_bounds;   
 };
 
 class FactorModelFilter : public ModelFilter{
  public:
    FactorModelFilter(){
-     userFactorFilter = new FactorFilter;
-     userFactorFilter->set_upper_vector(&userUpperBounds);
-     itemFactorFilter = new FactorFilter;
-     itemFactorFilter->set_upper_vector(&itemUpperBounds);
+     user_factor_filter = new FactorFilter;
+     user_factor_filter->set_upper_vector(&user_upper_bounds);
+     item_factor_filter = new FactorFilter;
+     item_factor_filter->set_upper_vector(&item_upper_bounds);
      model = NULL;
      users = NULL;
      items = NULL;
    };
    ~FactorModelFilter(){
-     delete userFactorFilter;
-     delete itemFactorFilter;
+     delete user_factor_filter;
+     delete item_factor_filter;
    };
     bool self_test(){
       bool OK = ModelFilter::self_test();
-      if(!userFactorFilter->self_test()){ OK=false; }
-      if(!itemFactorFilter->self_test()){ OK=false; }
+      if(!user_factor_filter->self_test()){ OK=false; }
+      if(!item_factor_filter->self_test()){ OK=false; }
       if(model==NULL){ OK=false; }
       if(users==NULL){ OK=false; }
       if(items==NULL){ OK=false; }
@@ -73,23 +73,23 @@ class FactorModelFilter : public ModelFilter{
     }
    void run(double time);
    void run(RecDat* rd);
-   vector<pair<int,double>>* get_global_users(){return &userUpperBounds;}
-   vector<pair<int,double>>* get_global_items(){return &itemUpperBounds;}
+   vector<pair<int,double>>* get_global_users(){return &user_upper_bounds;}
+   vector<pair<int,double>>* get_global_items(){return &item_upper_bounds;}
    void set_users(vector<int>* _users);
    void set_items(vector<int>* _items);
    void set_model(FactorModel * _model);
  private:
-   void computeBiases();
-   void computeBias(vector<pair<int,double> >* bounds, Bias& biases, vector<int>* entities, vector<pair<int,double> >* otherBounds);
-   void computeRecencies(double time);
-   void computeRecency(vector<pair<int,double> >*, Recency*, double);
-   void computeSigmoids();
-   void computeSigmoid(vector<pair<int,double> >*);
+   void compute_biases();
+   void compute_bias(vector<pair<int,double> >* bounds, Bias& biases, vector<int>* entities, vector<pair<int,double> >* other_bounds);
+   void compute_recencies(double time);
+   void compute_recency(vector<pair<int,double> >*, Recency*, double);
+   void compute_sigmoids();
+   void compute_sigmoid(vector<pair<int,double> >*);
    FactorModel* model;
    vector<int>* users, *items;
-   FactorFilter* userFactorFilter, *itemFactorFilter;
-    vector<pair<int,double>> userUpperBounds;   
-    vector<pair<int,double>> itemUpperBounds;   
+   FactorFilter* user_factor_filter, *item_factor_filter;
+    vector<pair<int,double>> user_upper_bounds;   
+    vector<pair<int,double>> item_upper_bounds;   
 };
 
 

@@ -30,11 +30,11 @@ void FactorModelGradientUpdater::update_factors(RecDat* rec_dat, double gradient
   vector<double> tmp_user_factor = *model_->user_factors_.get(rec_dat->user);
   vector<double> tmp_item_factor = *model_->item_factors_.get(rec_dat->item);
   if(!turn_off_user_factor_updates_){
-    model_->user_factors_.linCombine(rec_dat->user,-gradient*learning_rate_, &tmp_item_factor); //update
-    model_->user_factors_.linCombine(rec_dat->user,-regularization_rate_*learning_rate_, &tmp_user_factor); //reg
+    model_->user_factors_.lin_combine(rec_dat->user,-gradient*learning_rate_, &tmp_item_factor); //update
+    model_->user_factors_.lin_combine(rec_dat->user,-regularization_rate_*learning_rate_, &tmp_user_factor); //reg
   }
   if(!turn_off_item_factor_updates_){
-    model_->item_factors_.linCombine(rec_dat->item,-gradient*learning_rate_, &tmp_user_factor); //update
-    model_->item_factors_.linCombine(rec_dat->item,-regularization_rate_*learning_rate_, &tmp_item_factor); //reg
+    model_->item_factors_.lin_combine(rec_dat->item,-gradient*learning_rate_, &tmp_user_factor); //update
+    model_->item_factors_.lin_combine(rec_dat->item,-regularization_rate_*learning_rate_, &tmp_item_factor); //reg
   }
 }

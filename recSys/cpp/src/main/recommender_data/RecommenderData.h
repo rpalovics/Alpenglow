@@ -70,7 +70,7 @@ struct RecommenderDataParameters{
 };
 class RecommenderData{
   public:
-    RecommenderData(){recMatrix.clear();max_time=0;};
+    RecommenderData(){rec_matrix.clear();max_time=0;};
     RecommenderData(RecommenderDataParameters* params){
       file_name = params->file_name;
       type = params->type;
@@ -94,7 +94,7 @@ class RecommenderData{
     }
   private:
     RecDats rec_data;
-    SpMatrix recMatrix;
+    SpMatrix rec_matrix;
     vector<int> items_;
     vector<int> users_;
     double max_time;
