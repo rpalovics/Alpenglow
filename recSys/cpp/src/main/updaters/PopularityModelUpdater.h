@@ -20,7 +20,6 @@ class PopularityModelUpdater : public ModelSimpleUpdater {
       if(model_==NULL){ ok=false; }
       return ok;
     }
-    bool selfTest(){ return self_test(); } //DEPRECATED
   private:
     PopularityModel* model_;
 };

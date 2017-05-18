@@ -4,5 +4,5 @@ class Updater{
   %End
   public:
     virtual void update(RecDat* rec_dat)=0;
-    bool selfTest();
+    bool self_test();
 };

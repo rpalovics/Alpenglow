@@ -5,5 +5,5 @@ class InlineAttributeReader{
   public:
     virtual void read_attribute(int id, std::string line)=0;
     virtual ~InlineAttributeReader();
-    bool selfTest();
+    bool self_test();
 };

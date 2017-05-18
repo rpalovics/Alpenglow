@@ -24,16 +24,6 @@ class OnlineLearner {
     virtual void set_model(Model* model){model_=model;}
     bool self_test(){ return true; }
 
-    //DEPRECATED
-    void addSimpleUpdater(ModelSimpleUpdater* model_updater){
-      cerr << "OnlineLearner:addSimpleUpdater is DEPRECATED, use google code." << endl;
-      add_simple_updater(model_updater);
-    }
-    void addGradientUpdater(ModelGradientUpdater* model_updater){
-      cerr << "OnlineLearner:addGradientUpdater is DEPRECATED, use google code." << endl;
-      add_gradient_updater(model_updater);
-    }
-    bool selfTest(){ return self_test(); } //TODO google_code_temporal
   protected:
     vector<ModelSimpleUpdater*> model_simple_updaters_;
     vector<ModelGradientUpdater*> model_gradient_updaters_;

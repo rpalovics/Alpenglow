@@ -28,19 +28,13 @@ class MetaGetter(type):
         self.collect_ = True
         self.items = []
 
-    def getAndClean(self):
+    def get_and_clean(self):
         items = self.items
         self.collect_ = False
         self.items = []
         return items
 
-    def runSelfTest(self, i):
-        try:
-            if not i.selfTest():
-                raise AssertionError("Selftest failed for " + i.__repr__())
-        except Exception as e:
-            if not isinstance(e, AttributeError):
-                raise e
+    def run_self_test(self, i):
         try:
             if not i.self_test():
                 raise AssertionError("Selftest failed for " + i.__repr__())

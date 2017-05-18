@@ -35,7 +35,7 @@ class OnlineRecommender{
     void set_learner(OnlineLearner* learner){learner_ = learner;}
     void learn(RecDat* recDat);
     double prediction(RecDat* recDat);
-    bool selfTest(){
+    bool self_test(){
       bool ok=true;
       if(model_==NULL){ok=false;cerr<<"OnlineRecommender::model_ is not set." << endl;}
       if(learner_==NULL){ok=false;cerr<<"OnlineRecommender::learner_ is not set." << endl;}

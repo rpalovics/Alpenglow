@@ -16,7 +16,7 @@ class PredictionCreator{
     void set_model(Model* model_);
     void set_filter(ModelFilter* filter_);
     void setTrainMatrix(SpMatrix *train_matrix_);
-    virtual bool selfTest();
+    virtual bool self_test();
 };
 
 struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
@@ -34,7 +34,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params);
     virtual ~PredictionCreatorGlobal();
     std::vector<RecDat>* run(RecDat* recDat);
-    bool selfTest();
+    bool self_test();
 };
 
 struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParameters{
@@ -50,5 +50,5 @@ class PredictionCreatorPersonalized: public PredictionCreator{
     PredictionCreatorPersonalized(PredictionCreatorParameters * params);
     virtual ~PredictionCreatorPersonalized();
     std::vector<RecDat>* run(RecDat * recDat);
-    bool selfTest();
+    bool self_test();
 };

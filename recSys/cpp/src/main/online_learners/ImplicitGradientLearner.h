@@ -50,11 +50,6 @@ class ImplicitGradientLearner : public OnlineLearner{
       }
       return ok;
     }
-  // DEPRECATED functions, kept for backward pot config file compatibility
-    void setTrainMatrix(SpMatrix* train_matrix){set_train_matrix(train_matrix); cerr << "ImplicitGradientLearner:setTrainMatrix is DEPRECATED, use google code." << endl; }
-    void setGradientComputer(GradientComputer* gradient_computer){set_gradient_computer(gradient_computer); cerr << "ImplicitGradientLearner:setGradientComputer is DEPRECATED, use google code." << endl; }
-    void setNegativeSampleGenerator(NegativeSampleGenerator* negative_sample_generator){ set_negative_sample_generator(negative_sample_generator); cerr << "ImplicitGradientLearner:setNegativeSampleGenerator is DEPRECATED, use google code." << endl; }
-    bool selfTest(){ return self_test(); }
   protected:
     SpMatrix* train_matrix_;
     GradientComputer* gradient_computer_;

@@ -15,6 +15,6 @@ class OnlineExperiment{
     void set_online_data_updater(OnlineDataUpdater* updater);
     void set_online_recommender(OnlineRecommender* recommender);
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
-    bool selfTest();
+    bool self_test();
     void run() throw (PythonKeyboardInterruptException) /ReleaseGIL/;
 };

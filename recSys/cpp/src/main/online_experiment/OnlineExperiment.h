@@ -45,7 +45,7 @@ class OnlineExperiment{
     void set_online_data_updater(OnlineDataUpdater* updater){online_data_updater_ = updater; }
     void set_online_recommender(OnlineRecommender* recommender){recommender_ = recommender; }
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){ recommender_data_iterator_ = recommender_data_iterator; }
-    bool selfTest(){
+    bool self_test(){
       bool ok = true;
       if(recommender_data_iterator_ == NULL){
         ok = false;

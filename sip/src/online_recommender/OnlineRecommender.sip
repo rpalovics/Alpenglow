@@ -9,6 +9,6 @@ class OnlineRecommender{
     void set_learner(OnlineLearner* learner);
     void learn(RecDat * recDat);
     double prediction(RecDat * recDat);
-    bool selfTest();
+    bool self_test();
     void writeParameters();
 };

@@ -40,8 +40,8 @@ class EvaluationLogger : public Logger{
       double error = compute_avg_error_on_timeframe(rec_dat);
       write_avg_error_into_file(rec_dat, error);
     }
-    bool selfTest(){
-      bool ok = Logger::selfTest();
+    bool self_test(){
+      bool ok = Logger::self_test();
       //TODO tests:
       //output file is ok
       //mode is in iteration, timeframe, write out meanings

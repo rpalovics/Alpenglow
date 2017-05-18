@@ -16,7 +16,7 @@ class RankComputer{
     void set_train_matrix(SpMatrix* train_matrix);
     void set_top_pop_container(TopPopContainer* popularity_sorted_container);
     void set_model_filter(ModelFilter* model_filter);
-    bool selfTest();
+    bool self_test();
     int get_rank(RecDat*);
 };
 

@@ -14,7 +14,7 @@ class InlineAttributeReader{
   public:
     virtual void read_attribute(int id, string line)=0; //reads attribute that belongs to id
     virtual ~InlineAttributeReader(){}
-    bool selfTest(){ return true; }
+    bool self_test(){ return true; }
 };
 
 template<typename Attribute>
@@ -23,8 +23,8 @@ class AttributeContainer : public InlineAttributeReader{ //abstract interface
     virtual Attribute get_attribute(int id)=0; //returns attribute value belonging to id
     virtual Attribute* get_attribute_ptr(int id)=0; //returns pinter to attribute value belonging to id
     virtual ~AttributeContainer(){}
-    bool selfTest(){
-      bool ok = InlineAttributeReader::selfTest();
+    bool self_test(){
+      bool ok = InlineAttributeReader::self_test();
       return ok;
     }
 };
@@ -55,8 +55,8 @@ class GeneralAttributeContainer : public AttributeContainer<Attribute>{
       if((int)storage_.size()<=id) return &default_attribute;
       else return &storage_[id];
     }
-    bool selfTest(){
-      bool ok = AttributeContainer<Attribute>::selfTest();
+    bool self_test(){
+      bool ok = AttributeContainer<Attribute>::self_test();
       return ok;
     }
   private:

@@ -138,9 +138,9 @@ class OnlineExperiment:
 
         online_experiment.add_logger(ranking_logger)
 
-        createdObjects = rs.getAndClean()
+        createdObjects = rs.get_and_clean()
         for i in createdObjects:
-            rs.runSelfTest(i)
+            rs.run_self_test(i)
 
         self.checkUnusedParameters()
 

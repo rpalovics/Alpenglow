@@ -48,7 +48,6 @@ class PredictionCreator{
      }
      return OK;
    }
-   bool selfTest(){ return self_test(); } //deprecated
  protected:
    vector<RecDat> top_predictions_;
    Model* model_;
@@ -70,7 +69,6 @@ class PredictionCreatorGlobal: public PredictionCreator{
     };
     virtual ~PredictionCreatorGlobal(){ delete min_heap_; }
     vector<RecDat>* run(RecDat* rec_dat);
-    bool selfTest(){ return self_test(); }
     bool self_test(){
       bool OK = PredictionCreator::self_test(); 
       if(initial_threshold_ < 0){

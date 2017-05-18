@@ -9,7 +9,7 @@ class DataframeIterator(rs.DataframeIterator):
         self.position = 0
         self.df = df
 
-    def _getDefValarray(self, name, deftype=None):
+    def _get_def_valarray(self, name, deftype=None):
         if(name in self.columns):
             return self.df[self.columns[name]].values
 
@@ -25,22 +25,22 @@ class DataframeIterator(rs.DataframeIterator):
                 raise ValueError('Nonexistent column ' + name)
 
     def init(self):
-        users = self._getDefValarray('user')
-        items = self._getDefValarray('item')
-        ids = self._getDefValarray('id', 'arange')
-        scores = self._getDefValarray('score', 'ones')
-        times = self._getDefValarray('time', 'arange')
-        evals = self._getDefValarray('eval', 'ones')
-        categories = self._getDefValarray('category', 'ones')
+        users = self._get_def_valarray('user')
+        items = self._get_def_valarray('item')
+        ids = self._get_def_valarray('id', 'arange')
+        scores = self._get_def_valarray('score', 'ones')
+        times = self._get_def_valarray('time', 'arange')
+        evals = self._get_def_valarray('eval', 'ones')
+        categories = self._get_def_valarray('category', 'ones')
 
         indexes = np.arange(len(self.df))
-        for (i_, user_, item_, id_, score_, time_, eval_, category_) in zip(indexes, users, items, ids, scores, times, evals, categories):
+        for (_i, _user, _item, _id, _score, _time, _eval, _category) in zip(indexes, users, items, ids, scores, times, evals, categories):
             rd = rs.RecDat()
-            rd.user = user_
-            rd.item = item_
-            rd.id = id_
-            rd.score = score_
-            rd.time = time_
-            rd.eval = eval_
-            rd.category = category_
+            rd.user = _user
+            rd.item = _item
+            rd.id = _id
+            rd.score = _score
+            rd.time = _time
+            rd.eval = _eval
+            rd.category = _category
             self.add_recdat(rd)

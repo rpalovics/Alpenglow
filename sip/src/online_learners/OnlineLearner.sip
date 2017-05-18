@@ -11,9 +11,4 @@ class OnlineLearner {
     void add_multi_updater(ModelMultiUpdater* model_updater);
     void set_model(Model* model);
     bool self_test();
-
-    //DEPRECATED
-    void addSimpleUpdater(ModelSimpleUpdater* model_updater);
-    void addGradientUpdater(ModelGradientUpdater* model_updater);
-    bool selfTest();
 };

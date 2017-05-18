@@ -32,8 +32,8 @@ class HighGradientNegativeSampleGenerator : public NegativeSampleGenerator {
         max_item_=0;
       }
     }
-    bool selfTest(){
-      bool ok=NegativeSampleGenerator::selfTest();
+    bool self_test(){
+      bool ok=NegativeSampleGenerator::self_test();
       if(negative_rate_==-1){
         ok=false;
         cerr << "error: HighGradientNegativeSampleGenerator::negative_rate==-1" << endl;

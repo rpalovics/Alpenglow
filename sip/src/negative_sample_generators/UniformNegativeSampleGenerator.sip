@@ -2,9 +2,6 @@ struct UniformNegativeSampleGeneratorParameters{
     %TypeHeaderCode
     #include "negative_sample_generators/UniformNegativeSampleGenerator.h"
     %End
-    double negativeRate; 
-    bool initializeAll;
-    int maxItem;
     double negative_rate; 
     bool initialize_all;
     int max_item;
@@ -24,7 +21,5 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator{
         sipCpp->set_items(&(a0->vec));
     %End
     bool self_test();
-    void setTrainMatrix(SpMatrix* train_matrix_);
     //vector<int>* generate(RecDat * recDat);
-    bool selfTest();
 };

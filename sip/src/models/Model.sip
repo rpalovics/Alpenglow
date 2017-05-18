@@ -11,7 +11,6 @@ class Model{
     // virtual void read(std::ifstream& file);
     virtual void clear();
     virtual ~Model();
-    bool selfTest();
     bool self_test();
 };
 

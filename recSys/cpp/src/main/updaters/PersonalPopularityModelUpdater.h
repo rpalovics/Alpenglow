@@ -18,8 +18,8 @@ class PersonalPopularityModelUpdater : public PopularityModelUpdater {
       model = model_;
     };
     virtual void update(RecDat * recDat);
-    bool selfTest(){
-      bool OK = PopularityModelUpdater::selfTest();
+    bool self_test(){
+      bool OK = PopularityModelUpdater::self_test();
       if(model==NULL){ OK=false; }
       return OK;
     }

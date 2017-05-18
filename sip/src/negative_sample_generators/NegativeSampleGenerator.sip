@@ -6,5 +6,5 @@ class NegativeSampleGenerator /Abstract/ {
     NegativeSampleGenerator();
     virtual ~NegativeSampleGenerator();
     //virtual vector<RecDat>* get_implicit_train_data(RecDat* positive_sample);
-    bool selfTest();
+    bool self_test();
 };

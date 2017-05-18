@@ -6,7 +6,6 @@ class ModelUpdater {
     virtual double objective(RecDat*);
     virtual ~ModelUpdater();
     bool self_test();
-    bool selfTest();
 };
 
 
@@ -19,7 +18,6 @@ class ModelGradientUpdater: public ModelUpdater {
     virtual void beginning_of_updating_cycle(RecDat*);
     virtual void end_of_updating_cycle(RecDat*);
     bool self_test();
-    bool selfTest();
 };
 
 class ModelSimpleUpdater: public ModelUpdater {
@@ -29,7 +27,6 @@ class ModelSimpleUpdater: public ModelUpdater {
   public:
     virtual void update(RecDat * recDat) = 0;
     bool self_test();
-    bool selfTest();
 };
 
 class ModelMultiUpdater: public ModelUpdater {

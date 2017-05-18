@@ -31,6 +31,6 @@ bool AvailabilityFilter::active(RecDat* r){
 	return available != available_items_set_.end();
 }
 
-void AvailabilityFilter::addAvailability(double time, int id, int duration){
+void AvailabilityFilter::add_availability(double time, int id, int duration){
 	availabilites_.push(tuple<double, int, int>(time, id, duration));
 }

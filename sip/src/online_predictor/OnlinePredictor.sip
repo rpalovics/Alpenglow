@@ -18,5 +18,5 @@ class OnlinePredictor : public Logger /NoDefaultCtors/{
     void run(RecDat * recDat);
     void setParameters(OnlinePredictorParameters* params);
     void set_prediction_creator(PredictionCreator* predictionCreator_);
-    bool selfTest();
+    bool self_test();
 };

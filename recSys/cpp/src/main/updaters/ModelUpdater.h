@@ -10,7 +10,6 @@ public:
   virtual double objective(RecDat*) {return 0.0;}
   virtual ~ModelUpdater() {}
   bool self_test(){ return true; }
-  bool selfTest(){ return self_test(); }
 };
 
 
@@ -23,9 +22,6 @@ class ModelGradientUpdater: public ModelUpdater {
       bool OK = ModelUpdater::self_test();
       return OK;
     }
-    bool selfTest(){
-      return self_test();
-    }
 };
 
 class ModelSimpleUpdater: public ModelUpdater {
@@ -36,9 +32,6 @@ class ModelSimpleUpdater: public ModelUpdater {
     bool self_test(){
       bool OK = ModelUpdater::self_test();
       return OK;
-    }
-    bool selfTest(){
-      return self_test();
     }
 };
 

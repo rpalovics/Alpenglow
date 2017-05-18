@@ -15,5 +15,5 @@ class AvailabilityFilter : ModelFilter {
     virtual bool active(RecDat*);
     virtual ~AvailabilityFilter();
     bool self_test();
-    virtual void addAvailability(double time, int id, int duration);
+    virtual void add_availability(double time, int id, int duration);
 };

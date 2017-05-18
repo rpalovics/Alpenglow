@@ -43,7 +43,6 @@ class RankComputer{
       return ok;
     }
     int get_rank(RecDat*);
-    bool selfTest(){ return self_test(); } //deprecated
   protected:
     void itemlist_init(RecDat* rec_dat);
     bool itemlist_next(RecDat* rec_dat);

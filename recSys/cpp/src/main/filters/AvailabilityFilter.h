@@ -26,7 +26,7 @@ public:
     bool OK = true;
     return OK;
   }
-  virtual void addAvailability(double time, int id, int duration);
+  virtual void add_availability(double time, int id, int duration);
 protected:
   priority_queue<tuple<double, int, int>, vector<tuple<double, int, int>>, greater<tuple<double,int,int>>> availabilites_;
   priority_queue<pair<double, int>, vector<pair<double, int>>, greater<pair<double,int>>> availability_ends_;

@@ -24,7 +24,7 @@ class NegativeSampleGenerator{
     virtual ~NegativeSampleGenerator(){};
     virtual vector<int>* generate(RecDat* recDat)=0; //deprecated, should not be called from other classes
     virtual vector<RecDat>* get_implicit_train_data(RecDat* positive_sample);
-    bool selfTest(){
+    bool self_test(){
       return true;
     }
   protected:

@@ -92,8 +92,8 @@ class SimilarityRankingLogger : public Logger{
     void set_model(SimilarityModel* model){ model_ = model;} 
     void set_session_container(AttributeContainer<int>* session_container){session_container_ = session_container; }
     void set_items(vector<int>* items){ items_ = items;} 
-    bool selfTest(){
-      bool ok = Logger::selfTest();
+    bool self_test(){
+      bool ok = Logger::self_test();
       if(top_k_ < 0){
         ok = false;
         cerr << "SimilarityRankingLogger::top_k is negative." << endl;
