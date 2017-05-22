@@ -3,10 +3,10 @@
 
 #include <iostream>
 #include <gtest/gtest_prod.h>
-#include "Model.h"
-#include "../utils/UserHistory.h"
-#include "../filters/ModelFilter.h"
-#include "../recommender_data/macros.h"
+#include "../Model.h"
+#include "../../utils/UserHistory.h"
+#include "../../filters/ModelFilter.h"
+#include "../../recommender_data/macros.h"
 
 struct NearestNeighborModelParameters {
   double gamma;

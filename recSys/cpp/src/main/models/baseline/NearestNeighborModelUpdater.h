@@ -2,9 +2,9 @@
 #define NEAREST_NEIGHBOR_MODEL_UPDATER
 
 #include <iostream>
-#include "../recommender_data/macros.h"
-#include "ModelUpdater.h"
-#include "../models/NearestNeighborModel.h"
+#include "../../recommender_data/macros.h"
+#include "../ModelUpdater.h"
+#include "NearestNeighborModel.h"
 
 struct NearestNeighborModelUpdaterParameters {
   int compute_similarity_period;
