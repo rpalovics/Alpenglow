@@ -1,9 +1,9 @@
 #ifndef POPULARITY_TIMEFRAME_MODEL
 #define POPULARITY_TIMEFRAME_MODEL
 
-#include "Model.h"
 #include <list>
 #include <vector>
+#include "../Model.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;

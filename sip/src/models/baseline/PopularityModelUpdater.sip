@@ -1,7 +1,7 @@
 
 class PopularityModelUpdater : ModelSimpleUpdater{
   %TypeHeaderCode
-  #include "models/PopularityModelUpdater.h"
+  #include "models/baseline/PopularityModelUpdater.h"
   %End
   public:
     PopularityModelUpdater();

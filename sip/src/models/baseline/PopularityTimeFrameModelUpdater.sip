@@ -1,7 +1,7 @@
 
 class PopularityTimeFrameModelUpdater : public ModelSimpleUpdater {
   %TypeHeaderCode
-  #include "models/PopularityTimeFrameModelUpdater.h"
+  #include "models/baseline/PopularityTimeFrameModelUpdater.h"
   %End
   public:
     void set_model(PopularityTimeFrameModel * model_);

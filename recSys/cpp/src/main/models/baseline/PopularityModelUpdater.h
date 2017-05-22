@@ -1,9 +1,9 @@
 #ifndef POPULARITY_UPDATER
 #define POPULARITY_UPDATER
 
-#include "ModelUpdater.h"
-#include "../models/PopularityModel.h"
 #include <vector>
+#include "../ModelUpdater.h"
+#include "PopularityModel.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;

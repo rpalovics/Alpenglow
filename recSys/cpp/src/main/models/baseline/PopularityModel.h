@@ -1,10 +1,10 @@
 #ifndef POPULARITY_MODEL
 #define POPULARITY_MODEL
 
-#include "Model.h"
 #include <vector>
+#include "../Model.h"
+#include "../../utils/PopContainers.h"
 #include <gtest/gtest_prod.h>
-#include "../utils/PopContainers.h"
 
 using namespace std;
 

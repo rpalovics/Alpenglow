@@ -1,10 +1,10 @@
 #ifndef POPULARITY_TIMEFRAME_UPDATER
 #define POPULARITY_TIMEFRAME_UPDATER
 
-#include "ModelUpdater.h"
-#include "../models/PopularityTimeFrameModel.h"
 #include <list>
 #include <vector>
+#include "../ModelUpdater.h"
+#include "PopularityTimeFrameModel.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;

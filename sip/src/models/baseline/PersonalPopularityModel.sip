@@ -1,6 +1,6 @@
 class PersonalPopularityModel : public PopularityModel {
   %TypeHeaderCode
-  #include "models/PersonalPopularityModel.h"
+  #include "models/baseline/PersonalPopularityModel.h"
   %End
   public:
     PersonalPopularityModel();

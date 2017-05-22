@@ -1,6 +1,6 @@
 class PopularityModel : Model{
   %TypeHeaderCode
-  #include "models/PopularityModel.h"
+  #include "models/baseline/PopularityModel.h"
   %End
   public:
     PopularityModel();

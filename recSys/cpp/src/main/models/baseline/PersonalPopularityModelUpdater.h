@@ -2,7 +2,7 @@
 #define PERSONAL_POPULATITY_UPDATER
 
 #include "PopularityModelUpdater.h"
-#include "../models/PersonalPopularityModel.h"
+#include "PersonalPopularityModel.h"
 #include <vector>
 #include <gtest/gtest_prod.h>
 

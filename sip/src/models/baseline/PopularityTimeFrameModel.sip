@@ -1,12 +1,12 @@
 struct PopularityTimeFrameModelParameters{
   %TypeHeaderCode
-  #include "models/PopularityTimeFrameModel.h"
+  #include "models/baseline/PopularityTimeFrameModel.h"
   %End
   double tau;
 };
 class PopularityTimeFrameModel : public Model /NoDefaultCtors/{
   %TypeHeaderCode
-  #include "models/PopularityModel.h"
+  #include "models/baseline/PopularityModel.h"
   %End
   public:
     PopularityTimeFrameModel(PopularityTimeFrameModelParameters* params);

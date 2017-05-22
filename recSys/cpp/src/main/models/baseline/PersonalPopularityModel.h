@@ -1,12 +1,12 @@
 #ifndef PERSONAL_POPULARITY_MODEL
 #define PERSONAL_POPULARITY_MODEL
 
-#include "PopularityModel.h"
 #include <vector>
 #include <map>
+#include "PopularityModel.h"
+#include "../../utils/PopContainers.h"
+#include "../../recommender_data/RecommenderData.h"
 #include <gtest/gtest_prod.h>
-#include "../utils/PopContainers.h"
-#include "../recommender_data/RecommenderData.h"
 
 using namespace std;
 
