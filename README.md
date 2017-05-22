@@ -12,6 +12,7 @@
 - For faster recompilation, use `export CC="ccache cc"`
 - To enable compilation on 4 threads for example, use `echo 4 > .parallel`
 - Reinstall modified version using `pip install --upgrade --force-reinstall --no-deps .`
+- To build and use in the current folder, use `pip install --upgrade --force-reinstall --no-deps -e .` and `export PYTHONPATH="$(pwd)/python:$PYTHONPATH"`
 
 ### Example usage:
 - Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset

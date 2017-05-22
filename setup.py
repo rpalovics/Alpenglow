@@ -129,8 +129,8 @@ setup(
         'alpenglow.experiments'
     ],
     package_dir={
-        'alpenglow': 'python/alpenglow_module',
-        'alpenglow.experiments': 'python/alpenglow_module/experiments',
+        'alpenglow': 'python/alpenglow',
+        'alpenglow.experiments': 'python/alpenglow/experiments',
     },
     cmdclass={
         'build_ext': custom_build_ext

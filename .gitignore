@@ -1,9 +1,12 @@
 build
 .scon*
 config.log
-python/pyrecsys/__pycache__
-python/pyrecsys/cpp/__pycache__
+python/alpenglow/__pycache__
+python/alpenglow/cpp/__pycache__
 python/.ipynb_checkpoints
 python/.cache
 .cache
 .parallel
+alpenglow.egg-info
+build
+python/alpenglow/cpp.*.so
