@@ -2,8 +2,8 @@
 #define DOUBLE_LAYER_MODELUPDATER
 
 #include <vector>
-#include "ModelUpdater.h"
-#include "../models/CombinedModel.h"
+#include "../ModelUpdater.h"
+#include "CombinedModel.h"
 
 using namespace std;
 

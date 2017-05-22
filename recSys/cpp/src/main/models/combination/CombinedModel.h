@@ -2,7 +2,7 @@
 #define COMBINED_MODEL
 
 #include <vector>
-#include "Model.h"
+#include "../Model.h"
 
 using namespace std;
 
