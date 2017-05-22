@@ -3,7 +3,7 @@
 #include<exception>
 
 #include "../recommender_data/RecommenderData.h"
-#include "../updaters/ModelUpdater.h"
+#include "../models/ModelUpdater.h"
 
 //kerdes: ha egy user ugyanazt tobbszor hallgatja, akkor a torteneteben is tobbszor szerepel
 //szamitasigenyes megoldani, hogy az idoben renezett listaban csak az idoben legfrissebb minta szerepeljen

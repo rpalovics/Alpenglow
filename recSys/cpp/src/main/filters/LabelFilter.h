@@ -3,7 +3,7 @@
 
 #include "ModelFilter.h"
 #include "../utils/LabelContainer.h"
-#include "../updaters/ModelUpdater.h"
+#include "../models/ModelUpdater.h"
 #include <gtest/gtest_prod.h>
 
 struct LabelFilterParameters{

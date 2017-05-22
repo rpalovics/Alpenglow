@@ -3,7 +3,7 @@
 
 #include <gtest/gtest_prod.h>
 #include "../utils/Random.h"
-#include "../updaters/ModelUpdater.h"
+#include "../models/ModelUpdater.h"
 #include "NegativeSampleGenerator.h"
 
 struct UniformPositiveAndNegativeSampleGeneratorParameters{ 

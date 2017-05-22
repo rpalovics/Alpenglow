@@ -1,6 +1,6 @@
 class ModelUpdater {
   %TypeHeaderCode
-  #include "updaters/ModelUpdater.h"
+  #include "models/ModelUpdater.h"
   %End
   public:
     virtual double objective(RecDat*);
@@ -11,7 +11,7 @@ class ModelUpdater {
 
 class ModelGradientUpdater: public ModelUpdater {
   %TypeHeaderCode
-  #include "updaters/ModelUpdater.h"
+  #include "models/ModelUpdater.h"
   %End
   public:
     virtual void update(RecDat * rec_dat, double gradient)=0;
@@ -22,7 +22,7 @@ class ModelGradientUpdater: public ModelUpdater {
 
 class ModelSimpleUpdater: public ModelUpdater {
   %TypeHeaderCode
-  #include "updaters/ModelUpdater.h"
+  #include "models/ModelUpdater.h"
   %End
   public:
     virtual void update(RecDat * rec_dat) = 0;
@@ -31,7 +31,7 @@ class ModelSimpleUpdater: public ModelUpdater {
 
 class ModelMultiUpdater: public ModelUpdater {
   %TypeHeaderCode
-  #include "updaters/ModelUpdater.h"
+  #include "models/ModelUpdater.h"
   %End
   public:
     virtual void update(std::vector<RecDat>* rec_dats) = 0;

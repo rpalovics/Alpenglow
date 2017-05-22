@@ -1,6 +1,6 @@
 struct FactorModelGradientUpdaterParameters{
   %TypeHeaderCode
-  #include "updaters/FactorModelGradientUpdater.h"
+  #include "models/FactorModelGradientUpdater.h"
   %End
   bool turn_off_user_factor_updates;
   bool turn_off_item_factor_updates;
@@ -15,7 +15,7 @@ struct FactorModelGradientUpdaterParameters{
 
 class FactorModelGradientUpdater : public ModelGradientUpdater{
   %TypeHeaderCode
-  #include "updaters/FactorModelGradientUpdater.h"
+  #include "models/FactorModelGradientUpdater.h"
   %End
   public:
     FactorModelGradientUpdater(FactorModelGradientUpdaterParameters* parameters);
