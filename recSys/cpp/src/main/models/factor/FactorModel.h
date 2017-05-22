@@ -1,25 +1,13 @@
 #ifndef FACTOR_MODEL
 #define FACTOR_MODEL
 
-//#include <stdlib.h>
-//#include <stdio.h>
-//#include <iostream>
-//#include <string>
-//#include <fstream>
-//#include <sstream>
-//#include <math.h>
-//#include <vector>
-//#include <set>
-//#include <map>
-//#include <utility>
-
 #include <tr1/unordered_map>
-#include "../utils/Factors.h"
-#include "../utils/Util.h"
-#include "../utils/Bias.h"
-#include "../utils/Recency.h"
-#include "Model.h"
-#include "SimilarityModel.h"
+#include "../../utils/Factors.h"
+#include "../../utils/Util.h"
+#include "../../utils/Bias.h"
+#include "../../utils/Recency.h"
+#include "../Model.h"
+#include "../SimilarityModel.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;

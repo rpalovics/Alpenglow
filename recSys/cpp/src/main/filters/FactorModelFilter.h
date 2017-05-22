@@ -3,7 +3,7 @@
 
 #include <algorithm>
 #include "ModelFilter.h"
-#include "../models/FactorModel.h"
+#include "../models/factor/FactorModel.h"
 #include "../utils/Factors.h"
 #include "../utils/SortPairDescendingBySecond.h"
 

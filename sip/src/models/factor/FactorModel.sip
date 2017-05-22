@@ -1,6 +1,6 @@
 struct FactorModelParameters{
   %TypeHeaderCode
-  #include "models/FactorModel.h"
+  #include "models/factor/FactorModel.h"
   %End
   int dimension;
   double begin_min;
@@ -16,7 +16,7 @@ struct FactorModelParameters{
 
 class FactorModel : public Model, public SimilarityModel {
   %TypeHeaderCode
-  #include "models/FactorModel.h"
+  #include "models/factor/FactorModel.h"
   %End
   public:
     FactorModel(FactorModelParameters *parameters);

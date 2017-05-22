@@ -1,8 +1,8 @@
 #ifndef FACTOR_MODEL_GRADIENT_UPDATER
 #define FACTOR_MODEL_GRADIENT_UPDATER
 
-#include "ModelUpdater.h"
-#include "../models/FactorModel.h"
+#include "../ModelUpdater.h"
+#include "FactorModel.h"
 
 using namespace std;
 

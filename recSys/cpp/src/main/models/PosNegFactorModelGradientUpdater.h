@@ -2,7 +2,7 @@
 #define POSNEG_FACTOR_MODEL_GRADIENT_UPDATER
 
 #include "ModelUpdater.h"
-#include "../models/FactorModel.h"
+#include "../models/factor/FactorModel.h"
 
 using namespace std;
 
