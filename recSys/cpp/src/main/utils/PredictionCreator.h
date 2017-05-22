@@ -11,7 +11,7 @@
 using namespace std;
 
 struct PredictionCreatorParameters{
-  int top_k; //TODO top_k
+  int top_k;
   int lookback;
 };
 class PredictionCreator{

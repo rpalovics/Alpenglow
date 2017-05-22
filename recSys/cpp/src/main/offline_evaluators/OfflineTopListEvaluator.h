@@ -2,7 +2,7 @@
 #define OFFLINE_TOPLIST_EVALUATOR
 #include <gtest/gtest_prod.h>
 #include "OfflineEvaluator.h"
-#include "../online_predictor/PredictionCreator.h"
+#include "../utils/PredictionCreator.h"
 //TODO rename global toplist evaluator
 
 struct OfflineTopListEvaluatorParameters{

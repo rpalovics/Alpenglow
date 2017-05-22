@@ -32,8 +32,8 @@
 %Include src/online_learners/LearnerPeriodicDelayedWrapper.sip
 %Include src/online_learners/CombinedDoubleLayerLearner.sip
 %Include src/online_learners/PeriodicSamplingLearner.sip
-%Include src/online_predictor/OnlinePredictor.sip
-%Include src/online_predictor/PredictionCreator.sip
+%Include src/loggers/OnlinePredictor.sip
+%Include src/utils/PredictionCreator.sip
 %Include src/gradient_computers/GradientComputer.sip
 %Include src/objectives/Objective.sip
 %Include src/objectives/ObjectiveMSE.sip

@@ -4,7 +4,7 @@
 #include "../offline_evaluators/OfflineEvaluator.h"
 #include "../recommender_data/macros.h"
 #include "../recommender_data/RecommenderData.h"
-#include "../online_predictor/PredictionCreator.h"
+#include "../utils/PredictionCreator.h"
 
 using namespace std;
 struct OfflineRankingEvaluatorParameters{ //TODO jinjactor

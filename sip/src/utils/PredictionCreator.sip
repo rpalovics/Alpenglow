@@ -1,13 +1,13 @@
 struct PredictionCreatorParameters{
   %TypeHeaderCode
-  #include "online_predictor/PredictionCreator.h"
+  #include "utils/PredictionCreator.h"
   %End
   int top_k;
   int lookback;
 };
 class PredictionCreator{
   %TypeHeaderCode
-  #include "online_predictor/PredictionCreator.h"
+  #include "utils/PredictionCreator.h"
   %End
   public:
     PredictionCreator(PredictionCreatorParameters * params);
@@ -21,14 +21,14 @@ class PredictionCreator{
 
 struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
   %TypeHeaderCode
-  #include "online_predictor/PredictionCreator.h"
+  #include "utils/PredictionCreator.h"
   %End
   int initial_threshold;
 };
 
 class PredictionCreatorGlobal: public PredictionCreator{
   %TypeHeaderCode
-  #include "online_predictor/PredictionCreator.h"
+  #include "utils/PredictionCreator.h"
   %End
   public:
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params);
@@ -39,12 +39,12 @@ class PredictionCreatorGlobal: public PredictionCreator{
 
 struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParameters{
   %TypeHeaderCode
-  #include "online_predictor/PredictionCreator.h"
+  #include "utils/PredictionCreator.h"
   %End
 };
 class PredictionCreatorPersonalized: public PredictionCreator{
   %TypeHeaderCode
-  #include "online_predictor/PredictionCreator.h"
+  #include "utils/PredictionCreator.h"
   %End
   public:
     PredictionCreatorPersonalized(PredictionCreatorParameters * params);

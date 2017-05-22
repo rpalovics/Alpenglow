@@ -1,6 +1,6 @@
 struct OnlinePredictorParameters{
   %TypeHeaderCode
-  #include "online_predictor/OnlinePredictor.h"
+  #include "loggers/OnlinePredictor.h"
   %End
   double min_time;
   double time_frame;
@@ -10,12 +10,12 @@ struct OnlinePredictorParameters{
 
 class OnlinePredictor : public Logger /NoDefaultCtors/{
   %TypeHeaderCode
-  #include "online_predictor/OnlinePredictor.h"
+  #include "loggers/OnlinePredictor.h"
   %End
   public:
-    OnlinePredictor(OnlinePredictorParameters * params);
+    OnlinePredictor(OnlinePredictorParameters* params);
     ~OnlinePredictor();
-    void run(RecDat * rec_dat);
+    void run(RecDat* rec_dat);
     void set_parameters(OnlinePredictorParameters* params);
     void set_prediction_creator(PredictionCreator* prediction_creator);
     bool self_test();
