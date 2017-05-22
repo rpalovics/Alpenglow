@@ -1,8 +1,8 @@
 #ifndef A_FACTOR_MODEL_UPDATER
 #define A_FACTOR_MODEL_UPDATER
 
-#include "ModelUpdater.h"
-#include "../models/AsymmetricFactorModel.h"
+#include "../ModelUpdater.h"
+#include "AsymmetricFactorModel.h"
 
 class AsymmetricFactorModelUpdater : public ModelSimpleUpdater{
   public:

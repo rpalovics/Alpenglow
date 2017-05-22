@@ -2,8 +2,8 @@
 #define A_FACTOR_MODEL_GRADIENT_UPDATER
 
 #include <iomanip>
-#include "ModelUpdater.h"
-#include "../models/AsymmetricFactorModel.h"
+#include "../ModelUpdater.h"
+#include "AsymmetricFactorModel.h"
 
 using namespace std;
 
