@@ -1,6 +1,6 @@
 struct TransitionProbabilityModelUpdaterParameters{
   %TypeHeaderCode
-  #include "models/TransitionProbabilityModelUpdater.h"
+  #include "models/baseline/TransitionProbabilityModelUpdater.h"
   %End
   bool filter_freq_updates;
   std::string mode;
@@ -11,7 +11,7 @@ struct TransitionProbabilityModelUpdaterParameters{
 
 class TransitionProbabilityModelUpdater: public ModelSimpleUpdater{
   %TypeHeaderCode
-  #include "models/TransitionProbabilityModelUpdater.h"
+  #include "models/baseline/TransitionProbabilityModelUpdater.h"
   %End
   public:
     TransitionProbabilityModelUpdater(TransitionProbabilityModelUpdaterParameters* params);

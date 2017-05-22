@@ -1,9 +1,9 @@
 #ifndef TRANSITION_PROBABILITY_MODEL_UPDATER
 #define TRANSITION_PROBABILITY_MODEL_UPDATER
 
-#include "ModelUpdater.h"
-#include "../models/TransitionProbabilityModel.h"
-#include "../utils/LabelContainer.h"
+#include "../ModelUpdater.h"
+#include "TransitionProbabilityModel.h"
+#include "../../utils/LabelContainer.h"
 
 struct TransitionProbabilityModelUpdaterParameters{
   bool filter_freq_updates;

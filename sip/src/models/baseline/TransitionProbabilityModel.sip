@@ -1,6 +1,6 @@
 class TransitionProbabilityModel: public Model, public ModelFilter{
   %TypeHeaderCode
-  #include "models/TransitionProbabilityModel.h"
+  #include "models/baseline/TransitionProbabilityModel.h"
   %End
   public:
     void add(RecDat* rec_dat);

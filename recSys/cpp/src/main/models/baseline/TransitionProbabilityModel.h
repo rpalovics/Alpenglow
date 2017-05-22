@@ -1,9 +1,9 @@
 #ifndef TRANSITION_PROBABILITY_MODEL
 #define TRANSITION_PROBABILITY_MODEL
 
-#include "Model.h"
-#include "../filters/ModelFilter.h"
-#include "../utils/SpMatrix.h"
+#include "../Model.h"
+#include "../../filters/ModelFilter.h"
+#include "../../utils/SpMatrix.h"
 #include <gtest/gtest_prod.h>
 
 class TransitionProbabilityModel: public Model, public ModelFilter{

@@ -16,13 +16,13 @@
 %Include src/models/baseline/PopularityTimeFrameModel.sip
 %Include src/models/SimilarityModel.sip
 %Include src/models/factor/FactorModel.sip
-%Include src/models/TransitionProbabilityModel.sip
+%Include src/models/baseline/TransitionProbabilityModel.sip
 %Include src/models/ModelUpdater.sip
 %Include src/models/baseline/PopularityModelUpdater.sip
 %Include src/models/baseline/PersonalPopularityModelUpdater.sip
 %Include src/models/baseline/PopularityTimeFrameModelUpdater.sip
 %Include src/models/factor/FactorModelGradientUpdater.sip
-%Include src/models/TransitionProbabilityModelUpdater.sip
+%Include src/models/baseline/TransitionProbabilityModelUpdater.sip
 %Include src/online_learners/OnlineLearner.sip
 %Include src/online_learners/SimpleLearner.sip
 %Include src/online_learners/ImplicitGradientLearner.sip
