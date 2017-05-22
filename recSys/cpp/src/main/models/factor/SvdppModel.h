@@ -2,10 +2,10 @@
 #define SVDMODEL
 
 #include <tr1/unordered_map>
-#include "../utils/Factors.h"
-#include "../utils/Util.h"
-#include "../utils/UserHistory.h"
-#include "Model.h"
+#include "../../utils/Factors.h"
+#include "../../utils/Util.h"
+#include "../../utils/UserHistory.h"
+#include "../Model.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;

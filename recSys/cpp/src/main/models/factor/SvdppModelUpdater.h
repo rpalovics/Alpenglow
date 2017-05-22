@@ -1,8 +1,8 @@
 #ifndef SVD_MODEL_UPDATER
 #define SVD_MODEL_UPDATER
 
-#include "ModelUpdater.h"
-#include "../models/SvdppModel.h"
+#include "../ModelUpdater.h"
+#include "SvdppModel.h"
 
 class SvdppModelUpdater : public ModelSimpleUpdater{
   public:
