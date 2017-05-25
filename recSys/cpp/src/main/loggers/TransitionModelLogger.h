@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <numeric>
 #include "Logger.h"
-#include "../models/TransitionProbabilityModel.h"
+#include "../models/baseline/TransitionProbabilityModel.h"
 #include "../utils/PopContainers.h"
 using namespace std;
 

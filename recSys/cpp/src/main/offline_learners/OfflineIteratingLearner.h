@@ -15,7 +15,7 @@
 #include "../utils/SpMatrix.h"
 #include "OfflineLearner.cpp"
 #include "../models/Model.h"
-#include "../updaters/ModelUpdater.h"
+#include "../models/ModelUpdater.h"
 #include "../recommender_data/RecommenderData.h"
 #include "../recommender_data/RandomIterator.h"
 #include "../gradient_computers/GradientComputer.h"

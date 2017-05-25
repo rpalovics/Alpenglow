@@ -1,6 +1,6 @@
 class SimilarityModel{
   %TypeHeaderCode
-  #include "models/FactorModel.h"
+  #include "models/factor/FactorModel.h"
   %End
   public:
     SimilarityModel();

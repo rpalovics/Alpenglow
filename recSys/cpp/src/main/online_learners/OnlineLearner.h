@@ -3,8 +3,8 @@
 
 
 #include "../models/Model.h"
-#include "../updaters/ModelUpdater.h"
-#include "../updaters/GroupUpdater.h"
+#include "../models/ModelUpdater.h"
+#include "../models/GroupUpdater.h"
 
 
 class OnlineLearner {
