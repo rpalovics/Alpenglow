@@ -1,5 +1,7 @@
 %Module alpenglow.cpp
 
+%DefaultDocstringFormat "deindented"
+
 %Include std/string.sip
 %Include std/vector.sip
 %Include std/map.sip
