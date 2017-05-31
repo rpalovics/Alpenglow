@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include "ModelFilter.h"
+#include "../general_interfaces/Observer.h"
 #include "../models/factor/FactorModel.h"
 #include "../utils/Factors.h"
 #include "../utils/SortPairDescendingBySecond.h"
@@ -47,7 +48,7 @@ class FactorFilter{
     vector < pair <int, double> >* upper_bounds;   
 };
 
-class FactorModelFilter : public ModelFilter{
+class FactorModelFilter : public ModelFilter, public Observer{
  public:
    FactorModelFilter(){
      user_factor_filter = new FactorFilter;
@@ -73,11 +74,11 @@ class FactorModelFilter : public ModelFilter{
     }
    void run(double time);
    void run(RecDat* rd);
-   vector<pair<int,double>>* get_global_users(){return &user_upper_bounds;}
-   vector<pair<int,double>>* get_global_items(){return &item_upper_bounds;}
+   vector<pair<int,double>>* get_global_users();
+   vector<pair<int,double>>* get_global_items();
    void set_users(vector<int>* _users);
    void set_items(vector<int>* _items);
-   void set_model(FactorModel * _model);
+   void set_model(FactorModel* _model);
  private:
    void compute_biases();
    void compute_bias(vector<pair<int,double> >* bounds, Bias& biases, vector<int>* entities, vector<pair<int,double> >* other_bounds);
@@ -88,8 +89,8 @@ class FactorModelFilter : public ModelFilter{
    FactorModel* model;
    vector<int>* users, *items;
    FactorFilter* user_factor_filter, *item_factor_filter;
-    vector<pair<int,double>> user_upper_bounds;   
-    vector<pair<int,double>> item_upper_bounds;   
+   vector<pair<int,double>> user_upper_bounds;   
+   vector<pair<int,double>> item_upper_bounds;   
 };
 
 

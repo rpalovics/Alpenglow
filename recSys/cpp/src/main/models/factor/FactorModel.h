@@ -8,6 +8,7 @@
 #include "../../utils/Recency.h"
 #include "../Model.h"
 #include "../SimilarityModel.h"
+#include "../../general_interfaces/Observable.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;
@@ -27,7 +28,7 @@ struct FactorModelParameters{
   }
 };
 
-class FactorModel : public Model, public SimilarityModel {
+class FactorModel : public Model, public SimilarityModel, public Observable {
   public:
     FactorModel(FactorModelParameters *parameters):
       dimension_(parameters->dimension),

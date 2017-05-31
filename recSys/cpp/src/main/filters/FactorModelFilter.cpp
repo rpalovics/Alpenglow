@@ -1,8 +1,9 @@
 #include "FactorModelFilter.h"
 
 
-void FactorModelFilter::set_model(FactorModel * _model){
+void FactorModelFilter::set_model(FactorModel* _model){
   model = _model;
+  model->attach(this);
   user_factor_filter->set_factors(&model->user_factors_,&model->item_factors_);
   item_factor_filter->set_factors(&model->item_factors_,&model->user_factors_);
 }
@@ -33,6 +34,16 @@ void FactorModelFilter::run(double time){
   compute_sigmoids();
   sort(user_upper_bounds.begin(),user_upper_bounds.end(),sort_pair_descending_by_second<int>);
   sort(item_upper_bounds.begin(),item_upper_bounds.end(),sort_pair_descending_by_second<int>);
+}
+vector<pair<int,double>>* FactorModelFilter::get_global_users(){
+  if (notified()) run(0.0); //TODO run: correct timestamp
+  delete_notification();
+  return &user_upper_bounds;
+}
+vector<pair<int,double>>* FactorModelFilter::get_global_items(){
+  if (notified()) run(0.0); //TODO run: correct timestamp
+  delete_notification();
+  return &item_upper_bounds;
 }
 
 void FactorModelFilter::compute_biases(){
