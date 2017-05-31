@@ -7,7 +7,7 @@ void FactorModelGradientUpdater::update(RecDat* rec_dat, double gradient){
   }
   update_biases(rec_dat,gradient);
   update_factors(rec_dat,gradient); 
-  model_->notify_observers();
+  model_->observable_.notify_observers();
 }
 
 void FactorModelGradientUpdater::update_biases(RecDat* rec_dat, double gradient){

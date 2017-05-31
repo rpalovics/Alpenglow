@@ -28,7 +28,7 @@ struct FactorModelParameters{
   }
 };
 
-class FactorModel : public Model, public SimilarityModel, public Observable {
+class FactorModel : public Model, public SimilarityModel {
   public:
     FactorModel(FactorModelParameters *parameters):
       dimension_(parameters->dimension),
@@ -85,6 +85,9 @@ class FactorModel : public Model, public SimilarityModel, public Observable {
     Factors user_factors_, item_factors_;
     Bias user_bias_, item_bias_;
     Recency *user_recency_, *item_recency_;
+
+    //components
+    Observable observable_;
 
     //other
     //double user_factor_mean();

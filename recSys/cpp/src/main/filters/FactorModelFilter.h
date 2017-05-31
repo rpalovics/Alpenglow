@@ -48,7 +48,7 @@ class FactorFilter{
     vector < pair <int, double> >* upper_bounds;   
 };
 
-class FactorModelFilter : public ModelFilter, public Observer{
+class FactorModelFilter : public ModelFilter{
  public:
    FactorModelFilter(){
      user_factor_filter = new FactorFilter;
@@ -89,6 +89,7 @@ class FactorModelFilter : public ModelFilter, public Observer{
    FactorModel* model;
    vector<int>* users, *items;
    FactorFilter* user_factor_filter, *item_factor_filter;
+   Observer observer_;
    vector<pair<int,double>> user_upper_bounds;   
    vector<pair<int,double>> item_upper_bounds;   
 };
