@@ -5,24 +5,28 @@
 #include "../utils/SpMatrix.h"
 #include "../recommender_data/RecommenderDataIterator.h"
 #include "../utils/PopContainers.h"
+#include "../utils/Random.h"
 struct ExperimentEnvironmentParameters{
   int top_k;
   int min_time;
   int max_time;
   bool eval_first;
   bool initialize_all;
+  int random_seed;
   RecommenderDataIterator* recommender_data_iterator;
 };
 
 class ExperimentEnvironment{
   public:
-    ExperimentEnvironment(ExperimentEnvironmentParameters* params){
+    ExperimentEnvironment(); //TODO shoud be parameterized
+    void set_parameters(ExperimentEnvironmentParameters* params){
       top_k_ = params->top_k;
       min_time_ = params->min_time;
       max_time_ = params->max_time;
       eval_first_ = params->eval_first;
       initialize_all_ = params->initialize_all;
       recommender_data_iterator_ = params->recommender_data_iterator;
+      random_.set(params->random_seed);
     }
 
     //global parameters
@@ -31,10 +35,11 @@ class ExperimentEnvironment{
     int get_max_time(); //TODO const
     bool get_eval_first(); //TODO const
 
-    //dataset
+    //common objects
     RecommenderDataIterator* get_recommender_data_iterator(); //TODO const
+    Random* get_random();
 
-    //common containers
+    //common statistics
     vector<int>* get_items(); //TODO const
     vector<int>* get_users(); //TODO const
     SpMatrix* get_train_matrix(); //TODO const
@@ -55,6 +60,7 @@ class ExperimentEnvironment{
     SpMatrix train_matrix_;
     PopContainer popularity_conatiner_;
     TopPopContainer popularity_sorted_conatiner_;
+    Random random_;
 };
 
 

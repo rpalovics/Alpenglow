@@ -1,32 +1,11 @@
 #ifndef ONLINE_EXPERIMENT
 #define ONLINE_EXPERIMENT
 
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <math.h>
-#include <vector>
-#include <map>
-#include <utility>
-#include <algorithm>
-#include <cmath>
-#include <limits>
-
-#include "../utils/SpMatrix.h"
-#include "../online_learners/OnlineLearner.h"
-#include "../models/Model.h"
-#include "../ranking/Ranking.h"
-#include "../recommender_data/RecommenderData.h"
 #include "../recommender_data/RecommenderDataIterator.h"
-#include "../recommender_data/ShuffleIterator.h"
 #include "../online_recommender/OnlineRecommender.h"
 #include "../online_data_updater/OnlineDataUpdater.h"
-#include "../utils/Util.h"
 #include "../loggers/Logger.h"
+#include "ExperimentEnvironment.h"
 
 struct OnlineExperimentParameters{
     int seed;
@@ -64,7 +43,8 @@ class OnlineExperiment{
       return ok;
     }
     void run();
-  protected:
+  private:
+    ExperimentEnvironment experiment_environment_;
     RecommenderDataIterator* recommender_data_iterator_;
     OnlineRecommender* recommender_;
     OnlineDataUpdater* online_data_updater_;
