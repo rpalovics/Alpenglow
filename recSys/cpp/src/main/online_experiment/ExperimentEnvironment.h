@@ -33,18 +33,22 @@ class ExperimentEnvironment{
     int get_top_k(); //TODO const
     int get_min_time(); //TODO const
     int get_max_time(); //TODO const
-    bool get_eval_first(); //TODO const
+    bool is_eval_first(); //TODO const
 
     //common objects
     RecommenderDataIterator* get_recommender_data_iterator(); //TODO const
     Random* get_random();
 
     //common statistics
+    bool is_item_new_for_user(); //TODO const
     vector<int>* get_items(); //TODO const
     vector<int>* get_users(); //TODO const
     SpMatrix* get_train_matrix(); //TODO const
     PopContainer* get_popularity_container(); //TODO const
     TopPopContainer* get_popularity_sorted_container(); //TODO const
+
+    //update
+    void update(RecDat* rec_dat);
 
   private:
     int top_k_;
@@ -55,6 +59,7 @@ class ExperimentEnvironment{
 
     RecommenderDataIterator* recommender_data_iterator_;
 
+    bool item_new_for_user;
     vector<int> items_;
     vector<int> users_;
     SpMatrix train_matrix_;
