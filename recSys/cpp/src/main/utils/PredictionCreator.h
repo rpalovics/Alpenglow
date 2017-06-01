@@ -7,6 +7,7 @@
 #include "../utils/MinHeap.h"
 #include "../models/Model.h"
 #include "../filters/ModelFilter.h"
+#include "../general_interfaces/INeedExperimentEnvironment.h"
 
 using namespace std;
 
@@ -14,20 +15,25 @@ struct PredictionCreatorParameters{
   int top_k;
   int lookback;
 };
-class PredictionCreator{
+class PredictionCreator : public INeedExperimentEnvironment{
  public:
    PredictionCreator(PredictionCreatorParameters* params){
-     top_k_ = params->top_k; //TODO const
+     top_k_ = params->top_k;
      lookback_ = params->lookback;
+     train_matrix_ = NULL;
      model_ = NULL;
      filter_ = NULL;
-     train_matrix_ = NULL;
    }
    virtual ~PredictionCreator(){}
    virtual vector<RecDat>* run(RecDat* rec_dat)=0; 
-   void set_model(Model* model){model_=model;}; //TODO google code
+   void set_model(Model* model){model_=model;}
    void set_filter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
    void set_train_matrix(SpMatrix *train_matrix){train_matrix_ = train_matrix; }
+   void init(){
+     if(train_matrix_ == NULL) train_matrix_=experiment_environment_->get_train_matrix();
+     if(top_k_ == -1) top_k_=experiment_environment_->get_top_k();
+     if(lookback_ == -1) lookback_=experiment_environment_->is_lookback();
+   }
    bool self_test(){
      bool OK = true;
      if(model_==NULL){
@@ -49,6 +55,7 @@ class PredictionCreator{
      return OK;
    }
  protected:
+   ExperimentEnvironment* experiment_environment_;
    vector<RecDat> top_predictions_;
    Model* model_;
    ModelFilter* filter_;
