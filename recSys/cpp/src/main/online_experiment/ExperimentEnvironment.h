@@ -10,6 +10,7 @@ struct ExperimentEnvironmentParameters{
   int min_time;
   int max_time;
   bool eval_first;
+  bool initialize_all;
   RecommenderDataIterator* recommender_data_iterator;
 };
 
@@ -20,6 +21,7 @@ class ExperimentEnvironment{
       min_time_ = params->min_time;
       max_time_ = params->max_time;
       eval_first_ = params->eval_first;
+      initialize_all_ = params->initialize_all;
       recommender_data_iterator_ = params->recommender_data_iterator;
     }
 
@@ -44,6 +46,7 @@ class ExperimentEnvironment{
     int min_time_;
     int max_time_;
     bool eval_first_;
+    bool initialize_all_;
 
     RecommenderDataIterator* recommender_data_iterator_;
 
