@@ -29,14 +29,12 @@
 #include "../loggers/Logger.h"
 
 struct OnlineExperimentParameters{
-    //double min_time, max_time;
     int seed;
 };
 
 class OnlineExperiment{
   public:
     OnlineExperiment(OnlineExperimentParameters * parameters){
-      //set_parameters(parameters);
       srand(parameters->seed);
     };
     ~OnlineExperiment(){};
@@ -60,8 +58,8 @@ class OnlineExperiment{
         cerr << "OnlineExperiment::online_data_updater_ is not set." << endl;
       }
       if(loggers_.size() == 0){
-        ok = false;
-        cerr << "OnlineExperiment::loggers_ is empty." << endl;
+        //ok = false; //That's not a fatal error.
+        cerr << "WARNING: OnlineExperiment::loggers_ is empty." << endl;
       }
       return ok;
     }
@@ -72,8 +70,6 @@ class OnlineExperiment{
     OnlineDataUpdater* online_data_updater_;
     vector<Logger*> loggers_;
     vector<Logger*> end_loggers_;
-    //double min_time_, max_time_;
-    //void set_parameters(OnlineExperimentParameters * parameters);
 };
 
 #endif
