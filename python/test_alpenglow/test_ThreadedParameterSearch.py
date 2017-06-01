@@ -4,26 +4,27 @@ import pandas as pd
 import math
 import unittest
 
+
 class TestThreadedParameterSearch(unittest.TestCase):
     def test_runMultiple(self):
         data = pd.read_csv(
-            "/mnt/idms/recSys/examples/sample_data/online/online_lastfm_10000", 
-            sep=' ', 
-            header=None, 
-            names=['time','user','item','score','eval']
+            "python/test_alpenglow/test_data_4",
+            sep=' ',
+            header=None,
+            names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
         model = alpenglow.experiments.PopularityModelExperiment(
-            top_k = 100,
-            seed = 254938879
+            top_k=100,
+            seed=254938879
         )
         c = prs.ParameterSearch(model, prs.NdcgScore)
-        c.set_parameterValues('top_k', [100,50])
+        c.set_parameterValues('top_k', [100, 50])
         c.set_parameterValues('seed', [254938879, 0])
 
         d = prs.ThreadedParameterSearch(model, prs.NdcgScore)
-        d.set_parameterValues('top_k', [100,50])
+        d.set_parameterValues('top_k', [100, 50])
         d.set_parameterValues('seed', [254938879, 0])
-        
+
         r1 = c.run(data)
         r2 = d.run(data)
         assert r1.equals(r2)
