@@ -5,7 +5,7 @@ struct PredictionCreatorParameters{
   int top_k;
   int lookback;
 };
-class PredictionCreator{
+class PredictionCreator : public INeedExperimentEnvironment {
   %TypeHeaderCode
   #include "utils/PredictionCreator.h"
   %End
