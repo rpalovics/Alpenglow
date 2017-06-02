@@ -29,7 +29,7 @@ class PredictionCreator : public INeedExperimentEnvironment{
    void set_model(Model* model){model_=model;}
    void set_filter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
    void set_train_matrix(SpMatrix *train_matrix){train_matrix_ = train_matrix; }
-   void set_experiment_environment(ExperimentEnvironment* experiment_environment){experiment_environment_=experiment_environment; }
+   void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; }
    void init(){
      if(train_matrix_ == NULL) train_matrix_=experiment_environment_->get_train_matrix();
      if(top_k_ == -1) top_k_=experiment_environment_->get_top_k();
