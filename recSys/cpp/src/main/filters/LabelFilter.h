@@ -16,12 +16,12 @@ class LabelFilter : public ModelFilter, public ModelSimpleUpdater {
       label_file_name_ = params->label_file_name;
       ifstream file(label_file_name_);
       label_container_.read_from_file(file);
-      temp = NULL;
+      temp_ = NULL;
     }
-    void update(RecDat* rec_dat);
+    void update(RecDat* rec_dat) override;
     void run(RecDat* rec_dat){ update(rec_dat); }
-    vector<pair<int,double>>* get_personalized_items(int user);
-    virtual bool active(RecDat*);
+    vector<pair<int,double>>* get_personalized_items(int user) override;
+    virtual bool active(RecDat*) override;
     bool self_test(){
       bool OK = ModelFilter::self_test();
       return OK;
@@ -33,7 +33,7 @@ class LabelFilter : public ModelFilter, public ModelSimpleUpdater {
 
     //state
     vector<LABEL> last_labels_; //indexed by the user
-    RecDat* temp;
+    RecDat* temp_;
 
     //xxx
     vector<pair<int,double>> item_filter_;

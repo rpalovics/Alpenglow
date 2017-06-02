@@ -9,10 +9,10 @@
 
 class AvailabilityFilter : ModelFilter {
 public:
-  virtual void run(RecDat* rec_dat);
-  virtual vector<pair<int,double>>* get_global_items();
-  virtual vector<pair<int,double>>* get_global_users();
-  virtual bool active(RecDat*);
+  virtual void run(RecDat* rec_dat) override;
+  virtual vector<pair<int,double>>* get_global_items() override;
+  virtual vector<pair<int,double>>* get_global_users() override;
+  virtual bool active(RecDat*) override;
   virtual ~AvailabilityFilter(){}
   bool self_test(){
     bool OK = ModelFilter::self_test();

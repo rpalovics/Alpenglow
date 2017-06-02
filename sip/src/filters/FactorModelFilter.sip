@@ -1,4 +1,4 @@
-class FactorModelFilter : public ModelFilter{
+class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment{
   %TypeHeaderCode
   #include "filters/FactorModelFilter.h"
   %End
@@ -9,6 +9,7 @@ class FactorModelFilter : public ModelFilter{
     void run(RecDat* rd);
     std::vector<std::pair<int,double>>* get_global_users();
     std::vector<std::pair<int,double>>* get_global_items();
+    void set_experiment_environment(ExperimentEnvironment*);
     void set_items(std::vector<int>* items);
     void set_items(VectorInt);
     %MethodCode
