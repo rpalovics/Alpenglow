@@ -1,9 +1,10 @@
-class RecommenderDataIterator {
+class RecommenderDataIterator : public Initializable {
   %TypeHeaderCode
   #include "recommender_data/RecommenderDataIterator.h"
   %End
   public:
     void set_recommender_data(RecommenderData* data);
+    virtual bool init();
     virtual bool has_next() const;
     virtual RecDat* next() = 0;
     virtual int get_counter() const;

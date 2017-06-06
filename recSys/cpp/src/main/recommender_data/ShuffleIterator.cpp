@@ -19,7 +19,10 @@ RecDat* ShuffleIterator::get_future(int index) const {
  return shuffled_data_[index];
 }
 
-void ShuffleIterator::init(){ 
+bool ShuffleIterator::init(){
+  if(!recommender_data_->is_initialized()){
+    return false;
+  }
   counter_ = 0;
   //initialize shuffled data
   Random random(seed_);
@@ -35,6 +38,7 @@ void ShuffleIterator::init(){
     } else same_time_counter++;
   }
   random_shuffle(shuffled_data_.end()-same_time_counter,shuffled_data_.end(),random); 
+  return true;
 }
 
 double ShuffleIterator::get_following_timestamp() const {

@@ -25,7 +25,7 @@ class ShuffleIterator : public RecommenderDataIterator {
     ShuffleIterator(ShuffleIteratorParameters* params){
       seed_ = params->seed;
     }
-    void init();
+    bool init();
     RecDat* next();
     RecDat* get(int index) const override;
     RecDat* get_future(int index) const override;

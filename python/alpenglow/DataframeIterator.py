@@ -9,22 +9,6 @@ class DataframeIterator(rs.DataframeIterator):
         self.position = 0
         self.df = df
 
-    def _get_def_valarray(self, name, deftype=None):
-        if(name in self.columns):
-            return self.df[self.columns[name]].values
-
-        if(name in self.df.columns and self.columns == {}):
-            return self.df[name].values
-
-        else:
-            if(deftype == 'arange'):
-                return np.arange(len(self.df))
-            elif(deftype == 'ones'):
-                return np.ones(len(self.df))
-            else:
-                raise ValueError('Nonexistent column ' + name)
-
-    def init(self):
         users = self._get_def_valarray('user')
         items = self._get_def_valarray('item')
         ids = self._get_def_valarray('id', 'arange')
@@ -44,3 +28,19 @@ class DataframeIterator(rs.DataframeIterator):
             rd.eval = _eval
             rd.category = _category
             self.add_recdat(rd)
+        super(rs.DataframeIterator, self).initialize()
+
+    def _get_def_valarray(self, name, deftype=None):
+        if(name in self.columns):
+            return self.df[self.columns[name]].values
+
+        if(name in self.df.columns and self.columns == {}):
+            return self.df[name].values
+
+        else:
+            if(deftype == 'arange'):
+                return np.arange(len(self.df))
+            elif(deftype == 'ones'):
+                return np.ones(len(self.df))
+            else:
+                raise ValueError('Nonexistent column ' + name)

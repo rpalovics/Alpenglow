@@ -6,7 +6,7 @@ class ProceedingLogger : public Logger{
     ProceedingLogger();
     virtual ~ProceedingLogger();
     virtual void run(RecDat* rec_dat);
-    virtual void init();
+    virtual bool init();
     void set_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool self_test();
 };

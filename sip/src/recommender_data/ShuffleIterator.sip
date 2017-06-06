@@ -11,8 +11,9 @@ class ShuffleIterator : public RecommenderDataIterator {
   %End
   public:
     ShuffleIterator(RecommenderData* data, int seed);
+    
     ShuffleIterator(ShuffleIteratorParameters* params);
-    void init();
+    bool init();
     RecDat* next();
     RecDat* get(int index) const;
     RecDat* get_future(int index) const;

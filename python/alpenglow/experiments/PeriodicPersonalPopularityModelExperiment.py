@@ -4,17 +4,14 @@ import alpenglow as prs
 
 class PeriodicPersonalPopularityModelExperiment(prs.OnlineExperiment):
     def config(self, elems):
-        proceeding_logger = rs.ProceedingLogger()
-        proceeding_logger.set_data_iterator(elems['recommender_data_iterator'])
-
         config = self.parameter_defaults(
             top_k=100,
             min_time=0,
             seed=0,
             out_file=None,
             filters=[],
+            loggers=[],
         )
-        config['loggers'] = [proceeding_logger] if self.verbose else []
 
         model = rs.PersonalPopularityModel()
         updater = rs.PersonalPopularityModelUpdater()

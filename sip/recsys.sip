@@ -7,6 +7,7 @@
 %Include std/map.sip
 %Include std/pair.sip
 
+%Include src/interfaces/Initializable.sip
 %Include src/recommender_data/RecommenderData.sip
 %Include src/recommender_data/RecommenderDataIterator.sip
 %Include src/recommender_data/AttributeContainer.sip
