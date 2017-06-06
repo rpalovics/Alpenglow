@@ -21,10 +21,7 @@ class NdcgScore:
             self.scores.reset_index(inplace=True)
             dfm = self.scores.groupby(self.scores['time'] // time_frame).agg({'time': 'first', 'ndcg': 'mean'})
             return dfm.set_index('time')
-
-    def time_frame(self, time_frame):
-      return self.time_frame(time_frame)
-
+            
     def cumulative(self):
         return self.scores.mean().values[0]
 
