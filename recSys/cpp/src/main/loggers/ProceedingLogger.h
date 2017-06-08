@@ -22,7 +22,7 @@ class ProceedingLogger : public Logger{
         cerr << "OK" << endl;
       }
     }
-    virtual void init(){
+    void init(){
       size_=recommender_data_iterator_->size();
       frequency_=size_/100+1;
     }

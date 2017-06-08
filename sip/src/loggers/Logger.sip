@@ -6,6 +6,5 @@ class Logger{
     Logger();
     virtual ~Logger();
     virtual void run(RecDat* rec_dat)=0;
-    virtual void init();
     bool self_test();
 };
