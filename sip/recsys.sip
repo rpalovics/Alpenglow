@@ -41,7 +41,6 @@
 %Include src/negative_sample_generators/NegativeSampleGenerator.sip
 %Include src/negative_sample_generators/UniformNegativeSampleGenerator.sip
 %Include src/loggers/Logger.sip
-%Include src/loggers/RankingLogger.sip
 %Include src/loggers/ProceedingLogger.sip
 %Include src/loggers/InterruptLogger.sip
 %Include src/loggers/MemoryRankingLogger.sip
