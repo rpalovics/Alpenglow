@@ -5,7 +5,8 @@ class SimulatedBatchExperiment(prs.OnlineExperiment):
     def config(self, elems):
         config = self.parameter_defaults(
             top_k= 100,
-            min_time= 0
+            min_time= 0,
+            loggers=[],
         )
 
         model = rs.FactorModel(**self.parameter_defaults(
@@ -48,7 +49,6 @@ class SimulatedBatchExperiment(prs.OnlineExperiment):
         gradient_computer = rs.GradientComputerPointWise(point_wise)
         gradient_computer.set_model(model)
         learner.set_gradient_computer(gradient_computer)
-        learner.init()
 
         return {
             'config': config,

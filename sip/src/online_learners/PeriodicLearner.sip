@@ -13,7 +13,7 @@ struct PeriodicLearnerParameters{
   int samplenum_in_periods;
 };
 
-class PeriodicLearner : public OnlineLearner {
+class PeriodicLearner : public OnlineLearner, public Initializable {
   %TypeHeaderCode
   #include "online_learners/PeriodicLearner.h"
   %End
@@ -22,6 +22,6 @@ class PeriodicLearner : public OnlineLearner {
     virtual ~PeriodicLearner();
     void learn(RecDat* rec_dat);
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data);
-    void init();
+    bool init();
     bool self_test();
 };

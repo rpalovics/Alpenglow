@@ -22,9 +22,14 @@ class ProceedingLogger : public Logger{
         cerr << "OK" << endl;
       }
     }
-    virtual void init(){
+    virtual bool init(){
+      if(!recommender_data_iterator_->is_initialized()){
+        cout << "cant init " << endl;
+        return false;
+      }
       size_=recommender_data_iterator_->size();
       frequency_=size_/100+1;
+      return true;
     }
     void set_data_iterator(RecommenderDataIterator* recommender_data_iterator){recommender_data_iterator_ = recommender_data_iterator; }
     bool self_test(){

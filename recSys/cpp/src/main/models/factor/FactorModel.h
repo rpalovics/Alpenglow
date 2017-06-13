@@ -27,7 +27,7 @@ struct FactorModelParameters{
   }
 };
 
-class FactorModel : public Model, public SimilarityModel {
+class FactorModel : public Model, public SimilarityModel, public Initializable {
   public:
     FactorModel(FactorModelParameters *parameters):
       dimension_(parameters->dimension),
@@ -51,7 +51,7 @@ class FactorModel : public Model, public SimilarityModel {
     void clear() override;
     void set_user_recency(Recency *recency){user_recency_ = recency;}
     void set_item_recency(Recency *recency){item_recency_ = recency;}
-    void init(){ clear(); }
+    bool init(){ clear(); return true;}
     bool self_test(){ //Ezek egyike sem feltetlen hiba, esetleg kevesbe szigoruva kene tenni.
       bool ok = Model::self_test() and SimilarityModel::self_test();
       if(initialize_all_ and (max_user_==-1 or max_item_==-1)){

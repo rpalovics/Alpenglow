@@ -53,9 +53,7 @@ class OnlineExperiment:
             recommender_data.set_max_time(max_time)
             recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
             recommender_data_iterator.set_recommender_data(recommender_data)
-            recommender_data.init()
 
-        recommender_data_iterator.init()
         print("data reading finished") if self.verbose else None
 
         train_matrix = rs.SpMatrix()
@@ -126,21 +124,27 @@ class OnlineExperiment:
             loggers = config['loggers']
             for l in loggers:
                 online_experiment.add_logger(l)
-                l.init()
 
         interrupt_logger = rs.InterruptLogger()
         online_experiment.add_logger(interrupt_logger)
 
+        if(verbose):
+            proceeding_logger = rs.ProceedingLogger()
+            proceeding_logger.set_data_iterator(recommender_data_iterator)
+            online_experiment.add_logger(proceeding_logger)
+
         ranking_logger = self.get_ranking_logger(top_k, min_time, self.parameter_default('out_file',out_file))
         ranking_logger.set_recommender(online_recommender)
         ranking_logger.set_rank_computer(rank_computer)
-        ranking_logger.init()
 
         online_experiment.add_logger(ranking_logger)
 
         created_objects = rs.get_and_clean()
         for i in created_objects:
             rs.run_self_test(i)
+
+        rs.initialize_all(created_objects)
+
 
         self.check_unused_parameters()
 

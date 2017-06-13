@@ -1,10 +1,11 @@
 #include "PeriodicLearner.h"
 
-void PeriodicLearner::init(){
+bool PeriodicLearner::init(){
   cerr << "PeriodicLearner::init is called." << endl;
   clear_model(NULL);
   read_model(NULL);
   period_num_=1;
+  return true;
 }
 
 void PeriodicLearner::learn(RecDat* rec_dat){

@@ -1,4 +1,4 @@
-class Logger{
+class Logger : public Initializable{
   %TypeHeaderCode
   #include "loggers/Logger.h"
   %End
@@ -6,6 +6,6 @@ class Logger{
     Logger();
     virtual ~Logger();
     virtual void run(RecDat* rec_dat)=0;
-    virtual void init();
+    virtual bool init();
     bool self_test();
 };

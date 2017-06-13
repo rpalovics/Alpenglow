@@ -14,7 +14,7 @@ struct FactorModelParameters{
   FactorModelParameters();
 };
 
-class FactorModel : public Model, public SimilarityModel {
+class FactorModel : public Model, public SimilarityModel, public Initializable {
   %TypeHeaderCode
   #include "models/factor/FactorModel.h"
   %End
@@ -28,6 +28,6 @@ class FactorModel : public Model, public SimilarityModel {
     void clear();
     void set_user_recency(Recency *recency);
     void set_item_recency(Recency *recency);
-    void init();
+    bool init();
     bool self_test();
 };

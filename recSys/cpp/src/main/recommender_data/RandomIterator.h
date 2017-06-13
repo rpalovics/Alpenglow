@@ -3,7 +3,7 @@
 #include "RecommenderData.h"
 #include "../utils/Random.h"
 
-class RandomIterator{
+class RandomIterator : public Initializable{
   public:
     RandomIterator(RecommenderData* recommender_data, int seed){
       shuffled_data_.resize(recommender_data->size());
@@ -23,8 +23,9 @@ class RandomIterator{
     bool has_next(){
       return counter_ < shuffled_data_.size();
     };
-    void init(){
+    bool init(){
       counter_ = 0;
+      return true;
     };
   private:
     Random random_;

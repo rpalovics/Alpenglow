@@ -38,7 +38,7 @@ struct RecPred{
   double prediction;
 };
 
-class RecommenderData{
+class RecommenderData : public Initializable{
   %TypeHeaderCode
   #include "recommender_data/RecommenderData.h"
   %End
@@ -67,6 +67,6 @@ class RecommenderData{
 
     void set_max_time(double _max_time);
     std::vector <RecDat>* get_rec_data();
-    void init();
+    bool init();
     void set_attribute_container(InlineAttributeReader* attribute_container);
 };

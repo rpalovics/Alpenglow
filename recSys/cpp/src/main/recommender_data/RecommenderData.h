@@ -16,6 +16,7 @@
 #include <limits>
 #include "../utils/SpMatrix.h"
 #include "AttributeContainer.h"
+#include "../interfaces/Initializable.h"
 
 using namespace std;
 
@@ -68,7 +69,7 @@ struct RecommenderDataParameters{
   string file_name;
   string type;
 };
-class RecommenderData{
+class RecommenderData : public Initializable{
   public:
     RecommenderData(){rec_matrix.clear();max_time=0;};
     RecommenderData(RecommenderDataParameters* params){
@@ -86,8 +87,9 @@ class RecommenderData{
     vector<int>* users();
     void set_max_time(double _max_time){ max_time = _max_time; }
     RecDats* get_rec_data(){ return &rec_data; }
-    void init(){
+    bool init(){
       read_from_file(file_name, type);
+      return true;
     }
     void set_attribute_container(InlineAttributeReader* attribute_container){
       attribute_container_ = attribute_container;

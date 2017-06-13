@@ -42,6 +42,15 @@ class MetaGetter(type):
             if not isinstance(e, AttributeError):
                 raise e
 
+    def initialize_all(self, objects):
+        objects = [o for o in objects if isinstance(o, pr.Initializable)]
+        i = 0
+        while i < 10 and objects != []:
+            objects = [o for o in objects if not o.initialize()]
+            i += 1
+        if i == 10 and objects != []:
+            raise RuntimeError("Could not initialize objects: " + ",".join([str(o) for o in objects]))
+
 
 class Getter(object, metaclass=MetaGetter):
     pass
