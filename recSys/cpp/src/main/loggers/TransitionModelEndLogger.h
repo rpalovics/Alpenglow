@@ -17,7 +17,7 @@ struct TransitionModelEndLoggerParameters{
     max_length=-1;
   }
 };
-class TransitionModelEndLogger : public Logger, public INeedExperimentEnvironment{
+class TransitionModelEndLogger : public Logger, public INeedExperimentEnvironment, public Initializable{
   public:
     TransitionModelEndLogger(TransitionModelEndLoggerParameters* params){
       model_=NULL;
@@ -55,8 +55,9 @@ class TransitionModelEndLogger : public Logger, public INeedExperimentEnvironmen
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_pop_container(PopContainer* pop_container){ pop_container_ = pop_container; }
     void set_model(TransitionProbabilityModel* model){ model_ = model; }
-    void init(){
+    bool init() override{
       if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
+      return true;
     }
     bool self_test(){
       bool OK = Logger::self_test();

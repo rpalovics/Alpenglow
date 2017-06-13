@@ -5,7 +5,7 @@
 #include "../general_interfaces/INeedExperimentEnvironment.h"
 
 ///Assuption: vectors users_ and items_ never get shorter
-class DummyModelFilter : ModelFilter, INeedExperimentEnvironment {
+class DummyModelFilter : ModelFilter, INeedExperimentEnvironment, Initializable {
   public:
     DummyModelFilter(){
       last_users_size_ = -1;
@@ -19,7 +19,7 @@ class DummyModelFilter : ModelFilter, INeedExperimentEnvironment {
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_users(vector<int>* users){ users_ = users; }
     void set_items(vector<int>* items){ items_ = items; }
-    void init(){
+    virtual bool init() override {
       if(items_==NULL) items_=experiment_environment_->get_items();
       if(users_==NULL) users_=experiment_environment_->get_users();
     }

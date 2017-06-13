@@ -19,7 +19,7 @@ struct EvaluationLoggerParameters{
   string mode;
   string error_type;
 };
-class EvaluationLogger : public Logger, public INeedExperimentEnvironment{
+class EvaluationLogger : public Logger, public INeedExperimentEnvironment, public Initializable{
   public:
     EvaluationLogger(EvaluationLoggerParameters* params){
       file_name_ = params->file_name;
@@ -30,7 +30,6 @@ class EvaluationLogger : public Logger, public INeedExperimentEnvironment{
       model_ = NULL;
       recommender_data_iterator_ = NULL;
     }
-    //void init(){}
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
       recommender_data_iterator_ = recommender_data_iterator;
     }
@@ -42,10 +41,11 @@ class EvaluationLogger : public Logger, public INeedExperimentEnvironment{
       double error = compute_avg_error_on_timeframe(rec_dat);
       write_avg_error_into_file(rec_dat, error);
     }
-    void init(){
+    bool init() override{
       if(recommender_data_iterator_==NULL){
         recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator();
       }
+      return true;
     }
     bool self_test(){
       bool ok = Logger::self_test();

@@ -47,7 +47,7 @@ class FactorFilter{
     vector<pair<int,double>>* upper_bounds_;   
 };
 
-class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment{
+class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment, public Initializable {
  public:
    FactorModelFilter(){
      user_factor_filter_.set_upper_vector(&user_upper_bounds_);
@@ -58,7 +58,7 @@ class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment{
    };
    ~FactorModelFilter(){
    };
-   void init(){
+   bool init() override {
      if(items_==NULL) items_=experiment_environment_->get_items();
      if(users_==NULL) users_=experiment_environment_->get_users();
    }

@@ -20,7 +20,7 @@ struct TransitionModelLoggerParameters{
     period_length=-1;
   }
 };
-class TransitionModelLogger : public Logger, public INeedExperimentEnvironment{
+class TransitionModelLogger : public Logger, public INeedExperimentEnvironment, public Initializable{
   public:
     TransitionModelLogger(TransitionModelLoggerParameters* params):
       period_length_(params->period_length)
@@ -46,7 +46,7 @@ class TransitionModelLogger : public Logger, public INeedExperimentEnvironment{
     void set_pop_container(PopContainer* pop_container){ pop_container_ = pop_container; }
     void set_model(TransitionProbabilityModel* model){ model_ = model; }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_ = train_matrix; }
-    void init(){
+    bool init() override{
       if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
       if (train_matrix_==NULL) train_matrix_=experiment_environment_->get_train_matrix();
     }
