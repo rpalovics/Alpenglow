@@ -44,7 +44,7 @@ class ExperimentEnvironment{
     vector<int>* get_items(); //TODO const
     vector<int>* get_users(); //TODO const
     SpMatrix* get_train_matrix(){ return &train_matrix_; } //TODO const
-    PopContainer* get_popularity_container(); //TODO const
+    PopContainer* get_popularity_container(){ return &popularity_conatiner_; } //TODO const
     TopPopContainer* get_popularity_sorted_container(); //TODO const
 
     //update

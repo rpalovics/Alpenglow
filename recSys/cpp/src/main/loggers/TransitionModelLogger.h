@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <numeric>
 #include "Logger.h"
+#include "../general_interfaces/INeedExperimentEnvironment.h"
 #include "../models/baseline/TransitionProbabilityModel.h"
 #include "../utils/PopContainers.h"
 using namespace std;
@@ -19,7 +20,7 @@ struct TransitionModelLoggerParameters{
     period_length=-1;
   }
 };
-class TransitionModelLogger : public Logger{
+class TransitionModelLogger : public Logger, public INeedExperimentEnvironment{
   public:
     TransitionModelLogger(TransitionModelLoggerParameters* params):
       period_length_(params->period_length)
@@ -41,9 +42,14 @@ class TransitionModelLogger : public Logger{
       }
       write_eval_statistics(rec_dat);
     }
+    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_pop_container(PopContainer* pop_container){ pop_container_ = pop_container; }
     void set_model(TransitionProbabilityModel* model){ model_ = model; }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_ = train_matrix; }
+    void init(){
+      if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
+      if (train_matrix_==NULL) train_matrix_=experiment_environment_->get_train_matrix();
+    }
     bool self_test(){
       bool OK = Logger::self_test();
       if(model_==NULL){ OK=false; cerr << "TransitionModelLogger::model is not set." << endl; }
@@ -60,6 +66,7 @@ class TransitionModelLogger : public Logger{
     int last_period_num_;
     //other
     ofstream timeline_file_;
+    ExperimentEnvironment* experiment_environment_;
     TransitionProbabilityModel* model_;
     PopContainer* pop_container_;
     SpMatrix* train_matrix_;
