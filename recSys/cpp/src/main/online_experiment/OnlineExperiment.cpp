@@ -7,6 +7,7 @@ void OnlineExperiment::run() {
     for (uint i = 0; i < loggers_.size(); i++) {
       loggers_[i]->run(rec_dat);
     }
+    experiment_environment_.update(rec_dat);
     recommender_->learn(rec_dat);
     online_data_updater_->update(rec_dat);
   }

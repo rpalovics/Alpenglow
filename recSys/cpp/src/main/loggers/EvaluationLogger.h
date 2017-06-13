@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
+#include "../general_interfaces/INeedExperimentEnvironment.h"
 #include "../models/Model.h"
 #include "Logger.h"
 #include "../recommender_data/RecommenderDataIterator.h"
@@ -18,7 +19,7 @@ struct EvaluationLoggerParameters{
   string mode;
   string error_type;
 };
-class EvaluationLogger : public Logger{
+class EvaluationLogger : public Logger, public INeedExperimentEnvironment{
   public:
     EvaluationLogger(EvaluationLoggerParameters* params){
       file_name_ = params->file_name;
@@ -33,6 +34,7 @@ class EvaluationLogger : public Logger{
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
       recommender_data_iterator_ = recommender_data_iterator;
     }
+    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_model(Model* model){
       model_ = model;
     }
@@ -40,14 +42,19 @@ class EvaluationLogger : public Logger{
       double error = compute_avg_error_on_timeframe(rec_dat);
       write_avg_error_into_file(rec_dat, error);
     }
+    void init(){
+      if(recommender_data_iterator_==NULL){
+        recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator();
+      }
+    }
     bool self_test(){
       bool ok = Logger::self_test();
+      if(recommender_data_iterator_==NULL) ok=false;
+      if(model_==NULL) ok=false;
       //TODO tests:
       //output file is ok
       //mode is in iteration, timeframe, write out meanings
       //error type is in mse, ndcg, write out meanings
-      //model is set
-      //recommenderdataiterator is set
       return ok;
     }
   private:
@@ -62,6 +69,7 @@ class EvaluationLogger : public Logger{
     //state
     int end_of_timeframe_;
     int beginning_of_timeframe_;
+    ExperimentEnvironment* experiment_environment_;
     double compute_avg_error_on_timeframe(RecDat* rec_dat){
       int direction = (timeframe_>0) ? 1 : -1;
       int index = recommender_data_iterator_->get_counter(); //TODO docs: cant evaluate far future...

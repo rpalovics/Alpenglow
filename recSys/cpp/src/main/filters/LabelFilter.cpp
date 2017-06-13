@@ -22,9 +22,9 @@ vector<pair<int,double>>* LabelFilter::get_personalized_items(int user){
 
 void LabelFilter::update(RecDat* rec_dat){
   //called too early, delaying
-  if(temp!=NULL){
-    LABEL label = label_container_.get_label(temp->item);
-    last_labels_[temp->user]=label;
+  if(temp_!=NULL){
+    LABEL label = label_container_.get_label(temp_->item);
+    last_labels_[temp_->user]=label;
   }
-  temp = rec_dat;
+  temp_ = rec_dat;
 }

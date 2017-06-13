@@ -1,8 +1,6 @@
 #ifndef AVAILABILITY_FILTER_H
 #define AVAILABILITY_FILTER_H
 
-#include "../recommender_data/RecommenderData.h"
-#include "../models/Model.h"
 #include "ModelFilter.h"
 #include <queue>
 #include <set>
@@ -11,22 +9,16 @@
 
 class AvailabilityFilter : ModelFilter {
 public:
-  virtual void run(RecDat* rec_dat);
-  virtual vector<pair<int,double>>* get_global_items();
-  virtual vector<pair<int,double>>* get_global_users();
-  virtual vector<pair<int,double>>* get_personalized_items(int user){
-    return get_global_items();
-  }
-  virtual vector<pair<int,double>>* get_personalized_users(int item){
-    return get_global_users();
-  }
-  virtual bool active(RecDat*);
+  virtual void run(RecDat* rec_dat) override;
+  virtual vector<pair<int,double>>* get_global_items() override;
+  virtual vector<pair<int,double>>* get_global_users() override;
+  virtual bool active(RecDat*) override;
   virtual ~AvailabilityFilter(){}
   bool self_test(){
-    bool OK = true;
+    bool OK = ModelFilter::self_test();
     return OK;
   }
-  virtual void add_availability(double time, int id, int duration);
+  void add_availability(double time, int id, int duration);
 protected:
   priority_queue<tuple<double, int, int>, vector<tuple<double, int, int>>, greater<tuple<double,int,int>>> availabilites_;
   priority_queue<pair<double, int>, vector<pair<double, int>>, greater<pair<double,int>>> availability_ends_;

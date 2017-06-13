@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "Logger.h"
 #include "../models/baseline/TransitionProbabilityModel.h"
+#include "../general_interfaces/INeedExperimentEnvironment.h"
 #include "../utils/PopContainers.h"
 using namespace std;
 
@@ -16,7 +17,7 @@ struct TransitionModelEndLoggerParameters{
     max_length=-1;
   }
 };
-class TransitionModelEndLogger : public Logger{
+class TransitionModelEndLogger : public Logger, public INeedExperimentEnvironment{
   public:
     TransitionModelEndLogger(TransitionModelEndLoggerParameters* params){
       model_=NULL;
@@ -51,8 +52,12 @@ class TransitionModelEndLogger : public Logger{
         ofs << endl;
       }
     }
+    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_pop_container(PopContainer* pop_container){ pop_container_ = pop_container; }
     void set_model(TransitionProbabilityModel* model){ model_ = model; }
+    void init(){
+      if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
+    }
     bool self_test(){
       bool OK = Logger::self_test();
       if(model_==NULL){ OK=false; cerr << "TransitionModelEndLogger::model is not set." << endl; }
@@ -60,6 +65,7 @@ class TransitionModelEndLogger : public Logger{
       return OK;
     }
   private:
+    ExperimentEnvironment* experiment_environment_;
     TransitionProbabilityModel* model_;
     PopContainer* pop_container_;
     string log_file_name_;

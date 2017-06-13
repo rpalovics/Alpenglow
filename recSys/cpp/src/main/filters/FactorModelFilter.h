@@ -1,83 +1,85 @@
-#ifndef FACTORMODELFILTER
-#define FACTORMODELFILTER
+#ifndef FACTORmodel_FILTER
+#define FACTORmodel_FILTER
 
 #include <algorithm>
 #include "ModelFilter.h"
 #include "../models/factor/FactorModel.h"
 #include "../utils/Factors.h"
-#include "../utils/SortPairDescendingBySecond.h"
+#include "../general_interfaces/INeedExperimentEnvironment.h"
 
 
 class FactorFilter{
   public:
     FactorFilter(){
-      factors = NULL;
-      other_factors = NULL;
-      entities = NULL;
-      other_entities = NULL;
-      upper_bounds = NULL;
+      factors_ = NULL;
+      other_factors_ = NULL;
+      entities_ = NULL;
+      other_entities_ = NULL;
+      upper_bounds_ = NULL;
     };
     ~FactorFilter(){};
-    void set_factors(Factors * _factors, Factors * _other_factors);
-    void set_entities(vector <int> * _entities, vector <int> * _other_entities);
-    void set_upper_vector(vector<pair<int,double> >* upper_bounds_){upper_bounds=upper_bounds_;}
+    void set_factors(Factors* factors, Factors* other_factors);
+    void set_entities(vector<int>* entities, vector<int>* other_entities);
+    void set_upper_vector(vector<pair<int,double>>* upper_bounds){upper_bounds_=upper_bounds;}
     bool self_test(){
       bool OK = true;
-      if(factors==NULL){ OK=false; }
-      if(other_factors==NULL){ OK=false; }
-      if(entities==NULL){ OK=false; }
-      if(other_entities==NULL){ OK=false; }
-      if(upper_bounds==NULL){ OK=false; }
+      if(factors_==NULL){ OK=false; }
+      if(other_factors_==NULL){ OK=false; }
+      if(entities_==NULL){ OK=false; }
+      if(other_entities_==NULL){ OK=false; }
+      if(upper_bounds_==NULL){ OK=false; }
       if(!OK){cerr << "FactorFilter is not OK." << endl; }
       return OK;
     }
     void compute_bound_vectors();
     void compute_bounds();
     void run();
-    vector<double>* get_upper(){return &upper; }
-    vector<double>* get_lower(){return &lower; }
+    vector<double>* get_upper(){return &upper_; }
+    vector<double>* get_lower(){return &lower_; }
   private:
-    void init_bounds(vector <double> * factor);
-    void analyze_bounds(vector <double> * factor);
+    void init_bounds(vector<double>* factor);
+    void analyze_bounds(vector<double>* factor);
     void compute_upper_bounds();
     void compute_upper_bound(int entity);
-    Factors * factors, * other_factors;
-    vector <double> upper, lower;
-    vector <int> * entities, * other_entities;
-    vector < pair <int, double> >* upper_bounds;   
+    Factors *factors_, *other_factors_;
+    vector<double> upper_, lower_;
+    vector<int> *entities_, *other_entities_;
+    vector<pair<int,double>>* upper_bounds_;   
 };
 
-class FactorModelFilter : public ModelFilter{
+class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment{
  public:
    FactorModelFilter(){
-     user_factor_filter = new FactorFilter;
-     user_factor_filter->set_upper_vector(&user_upper_bounds);
-     item_factor_filter = new FactorFilter;
-     item_factor_filter->set_upper_vector(&item_upper_bounds);
-     model = NULL;
-     users = NULL;
-     items = NULL;
+     user_factor_filter_.set_upper_vector(&user_upper_bounds_);
+     item_factor_filter_.set_upper_vector(&item_upper_bounds_);
+     model_ = NULL;
+     users_ = NULL;
+     items_ = NULL;
    };
    ~FactorModelFilter(){
-     delete user_factor_filter;
-     delete item_factor_filter;
    };
-    bool self_test(){
+   void init(){
+     if(items_==NULL) items_=experiment_environment_->get_items();
+     if(users_==NULL) users_=experiment_environment_->get_users();
+   }
+   bool self_test(){
       bool OK = ModelFilter::self_test();
-      if(!user_factor_filter->self_test()){ OK=false; }
-      if(!item_factor_filter->self_test()){ OK=false; }
-      if(model==NULL){ OK=false; }
-      if(users==NULL){ OK=false; }
-      if(items==NULL){ OK=false; }
+      if(!user_factor_filter_.self_test()){ OK=false; }
+      if(!item_factor_filter_.self_test()){ OK=false; }
+      if(model_==NULL){ OK=false; }
+      if(users_==NULL){ OK=false; }
+      if(items_==NULL){ OK=false; }
+      if(!OK) cerr << "FactorModelFilter is not OK." << endl;
       return OK;
     }
    void run(double time);
    void run(RecDat* rd);
-   vector<pair<int,double>>* get_global_users(){return &user_upper_bounds;}
-   vector<pair<int,double>>* get_global_items(){return &item_upper_bounds;}
-   void set_users(vector<int>* _users);
-   void set_items(vector<int>* _items);
-   void set_model(FactorModel * _model);
+   vector<pair<int,double>>* get_global_users(){return &user_upper_bounds_;}
+   vector<pair<int,double>>* get_global_items(){return &item_upper_bounds_;}
+   void set_users(vector<int>* users);
+   void set_items(vector<int>* items);
+   void set_model(FactorModel* model);
+   void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; }
  private:
    void compute_biases();
    void compute_bias(vector<pair<int,double> >* bounds, Bias& biases, vector<int>* entities, vector<pair<int,double> >* other_bounds);
@@ -85,11 +87,12 @@ class FactorModelFilter : public ModelFilter{
    void compute_recency(vector<pair<int,double> >*, Recency*, double);
    void compute_sigmoids();
    void compute_sigmoid(vector<pair<int,double> >*);
-   FactorModel* model;
-   vector<int>* users, *items;
-   FactorFilter* user_factor_filter, *item_factor_filter;
-    vector<pair<int,double>> user_upper_bounds;   
-    vector<pair<int,double>> item_upper_bounds;   
+   FactorModel* model_;
+   vector<int>* users_, *items_;
+   ExperimentEnvironment* experiment_environment_;
+   FactorFilter user_factor_filter_, item_factor_filter_;
+   vector<pair<int,double>> user_upper_bounds_;   
+   vector<pair<int,double>> item_upper_bounds_;   
 };
 
 
