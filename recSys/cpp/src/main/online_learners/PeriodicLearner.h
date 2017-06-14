@@ -5,7 +5,7 @@
 #include <gtest/gtest_prod.h>
 #include "OnlineLearner.h"
 #include "../recommender_data/RecommenderDataIterator.h"
-#include "../interfaces/Initializable.h"
+#include "../general_interfaces/Initializable.h"
 
 struct PeriodicLearnerParameters{
   int period_length;

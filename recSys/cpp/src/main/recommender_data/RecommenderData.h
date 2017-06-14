@@ -16,7 +16,7 @@
 #include <limits>
 #include "../utils/SpMatrix.h"
 #include "AttributeContainer.h"
-#include "../interfaces/Initializable.h"
+#include "../general_interfaces/Initializable.h"
 
 using namespace std;
 

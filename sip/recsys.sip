@@ -7,7 +7,6 @@
 %Include std/map.sip
 %Include std/pair.sip
 
-%Include src/interfaces/Initializable.sip
 %Include src/recommender_data/RecommenderData.sip
 %Include src/recommender_data/RecommenderDataIterator.sip
 %Include src/recommender_data/AttributeContainer.sip
@@ -35,6 +34,7 @@
 %Include src/online_learners/LearnerPeriodicDelayedWrapper.sip
 %Include src/online_learners/CombinedDoubleLayerLearner.sip
 %Include src/online_learners/PeriodicSamplingLearner.sip
+%Include src/general_interfaces/Initializable.sip
 %Include src/general_interfaces/INeedExperimentEnvironment.sip
 %Include src/gradient_computers/GradientComputer.sip
 %Include src/objectives/Objective.sip

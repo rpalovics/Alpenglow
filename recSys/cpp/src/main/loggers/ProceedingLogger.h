@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include "../recommender_data/RecommenderDataIterator.h"
-#include "../interfaces/Initializable.h"
+#include "../general_interfaces/Initializable.h"
 #include "../general_interfaces/INeedExperimentEnvironment.h"
 #include "Logger.h"
 using namespace std;
