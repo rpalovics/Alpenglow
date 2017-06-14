@@ -46,7 +46,8 @@ class SimulatedBatchExperiment(prs.OnlineExperiment):
         learner.set_negative_sample_generator(negative_sample_generator)
 
         point_wise = rs.ObjectiveMSE()
-        gradient_computer = rs.GradientComputerPointWise(point_wise)
+        gradient_computer = rs.GradientComputerPointWise()
+        gradient_computer.set_objective(point_wise)
         gradient_computer.set_model(model)
         learner.set_gradient_computer(gradient_computer)
 

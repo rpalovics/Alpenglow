@@ -41,7 +41,8 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
         learner.set_negative_sample_generator(negative_sample_generator)
 
         pointWise = rs.ObjectiveMSE()
-        gradient_computer = rs.GradientComputerPointWise(pointWise)
+        gradient_computer = rs.GradientComputerPointWise()
+        gradient_computer.set_objective(pointWise)
         gradient_computer.set_model(model)
         learner.set_gradient_computer(gradient_computer)
 

@@ -16,10 +16,9 @@ class GradientComputerPointWise : public GradientComputer{
   #include "gradient_computers/GradientComputer.h"
   %End
   public:
-    GradientComputerPointWise(ObjectivePointWise * _objective);
+    //GradientComputerPointWise(ObjectivePointWise * _objective);
     GradientComputerPointWise();
     void set_objective(ObjectivePointWise* _objective);
-    ~GradientComputerPointWise();
     virtual double get_gradient(RecDat* rec_dat);
     void set_up(std::vector<RecDat>* train_data_);
     // vector<pair<RecDat*,double> > * get_next_gradient();
@@ -31,8 +30,8 @@ class GradientComputerImplicitPairWise : public GradientComputer{
   #include "gradient_computers/GradientComputer.h"
   %End
   public:
-    GradientComputerImplicitPairWise(ObjectivePairWise * _objective);
-    ~GradientComputerImplicitPairWise();
+    GradientComputerImplicitPairWise();
+    void set_objective(ObjectivePairWise * _objective);
     void set_up(std::vector<RecDat>* train_data_);
     // vector<pair<RecDat*,double> > * get_next_gradient();
     bool has_next();
@@ -43,8 +42,8 @@ class GradientComputerListWise : public GradientComputer{
   #include "gradient_computers/GradientComputer.h"
   %End
   public:
-    GradientComputerListWise(ObjectiveListWise * _objective);
-    ~GradientComputerListWise();
+    GradientComputerListWise();
+    void set_objective(ObjectiveListWise * _objective);
     void set_up(std::vector<RecDat>* train_data_);
     // vector<pair<RecDat*,double> > * get_next_gradient();
     bool has_next();
