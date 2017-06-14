@@ -23,9 +23,7 @@ void FactorModelFilter::set_items(vector<int>* items){
   }
 }
 void FactorModelFilter::run(RecDat* rd){
-  run(rd->time);
-}
-void FactorModelFilter::run(double time){ 
+  double time=rd->time;
   user_factor_filter_.run();
   item_factor_filter_.run();
   compute_biases();

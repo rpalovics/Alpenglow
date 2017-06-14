@@ -22,10 +22,6 @@ vector<pair<int,double>>* AvailabilityFilter::get_global_items(){
   return &available_items_;
 }
 
-vector<pair<int,double>>* AvailabilityFilter::get_global_users(){
-  return NULL;
-}
-
 bool AvailabilityFilter::active(RecDat* r){
   auto available = available_items_set_.find(make_pair(r->item, -1));
   return available != available_items_set_.end();

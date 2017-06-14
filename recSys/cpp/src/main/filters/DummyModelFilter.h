@@ -3,6 +3,7 @@
 
 #include "ModelFilter.h"
 #include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/Initializable.h"
 
 ///Assuption: vectors users_ and items_ never get shorter
 class DummyModelFilter : ModelFilter, INeedExperimentEnvironment, Initializable {
@@ -13,13 +14,13 @@ class DummyModelFilter : ModelFilter, INeedExperimentEnvironment, Initializable 
       items_ = NULL;
       users_ = NULL;
     }
-    virtual void run(RecDat* rec_dat) override;
-    virtual vector<pair<int,double> >* get_global_users() override;
-    virtual vector<pair<int,double> >* get_global_items() override;
+    void run(RecDat* rec_dat) override;
+    vector<pair<int,double> >* get_global_users() override;
+    vector<pair<int,double> >* get_global_items() override;
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_users(vector<int>* users){ users_ = users; }
     void set_items(vector<int>* items){ items_ = items; }
-    virtual bool init() override {
+    bool init() override {
       if(items_==NULL) items_=experiment_environment_->get_items();
       if(users_==NULL) users_=experiment_environment_->get_users();
     }

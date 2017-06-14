@@ -6,6 +6,7 @@
 #include "../models/factor/FactorModel.h"
 #include "../utils/Factors.h"
 #include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/Initializable.h"
 
 
 class FactorFilter{
@@ -55,9 +56,14 @@ class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment,
      model_ = NULL;
      users_ = NULL;
      items_ = NULL;
-   };
-   ~FactorModelFilter(){
-   };
+   }
+   void run(RecDat* rd) override;
+   vector<pair<int,double>>* get_global_users() override {return &user_upper_bounds_;}
+   vector<pair<int,double>>* get_global_items() override {return &item_upper_bounds_;}
+   void set_users(vector<int>* users);
+   void set_items(vector<int>* items);
+   void set_model(FactorModel* model);
+   void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; }
    bool init() override {
      if(items_==NULL) items_=experiment_environment_->get_items();
      if(users_==NULL) users_=experiment_environment_->get_users();
@@ -72,14 +78,6 @@ class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment,
       if(!OK) cerr << "FactorModelFilter is not OK." << endl;
       return OK;
     }
-   void run(double time);
-   void run(RecDat* rd);
-   vector<pair<int,double>>* get_global_users(){return &user_upper_bounds_;}
-   vector<pair<int,double>>* get_global_items(){return &item_upper_bounds_;}
-   void set_users(vector<int>* users);
-   void set_items(vector<int>* items);
-   void set_model(FactorModel* model);
-   void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; }
  private:
    void compute_biases();
    void compute_bias(vector<pair<int,double> >* bounds, Bias& biases, vector<int>* entities, vector<pair<int,double> >* other_bounds);

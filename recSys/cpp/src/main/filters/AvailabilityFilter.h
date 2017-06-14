@@ -11,7 +11,6 @@ class AvailabilityFilter : ModelFilter {
 public:
   virtual void run(RecDat* rec_dat) override;
   virtual vector<pair<int,double>>* get_global_items() override;
-  virtual vector<pair<int,double>>* get_global_users() override;
   virtual bool active(RecDat*) override;
   virtual ~AvailabilityFilter(){}
   bool self_test(){
@@ -24,7 +23,6 @@ protected:
   priority_queue<pair<double, int>, vector<pair<double, int>>, greater<pair<double,int>>> availability_ends_;
   set<pair<int, double>> available_items_set_;
   vector<pair<int, double>> available_items_;
-private:
   FRIEND_TEST(TestAvailabilityFilter, test);
 };
 
