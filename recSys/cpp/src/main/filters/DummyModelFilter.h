@@ -23,6 +23,7 @@ class DummyModelFilter : ModelFilter, INeedExperimentEnvironment, Initializable 
     bool init() override {
       if(items_==NULL) items_=experiment_environment_->get_items();
       if(users_==NULL) users_=experiment_environment_->get_users();
+      return true;
     }
     bool self_test(){
       bool OK = ModelFilter::self_test();

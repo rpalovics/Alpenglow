@@ -13,9 +13,7 @@ struct OnlinePredictorParameters{
 class OnlinePredictor : public Logger{
  public:
    OnlinePredictor(OnlinePredictorParameters* params){set_parameters(params);};
-   ~OnlinePredictor(){};
-   void run(RecDat* rec_dat);
-   void set_parameters(OnlinePredictorParameters* params);
+   void run(RecDat* rec_dat) override;
    void set_prediction_creator(PredictionCreator* prediction_creator){prediction_creator_ = prediction_creator;}
    bool self_test(){
      bool OK = true;
@@ -23,6 +21,7 @@ class OnlinePredictor : public Logger{
      return OK;
    }
  private:
+   void set_parameters(OnlinePredictorParameters* params);
    bool do_predict(RecDat* rec_dat);
    PredictionCreator* prediction_creator_;
    double min_time_, time_frame_;

@@ -30,11 +30,9 @@ class TransitionModelLogger : public Logger, public INeedExperimentEnvironment, 
       train_matrix_=NULL;
       toplist_length_logfile_basename_=params->toplist_length_logfile_basename;
       timeline_logfile_name_=params->timeline_logfile_name;
-      timeline_file_.open(timeline_logfile_name_); //TODO move to init()
       last_period_num_=0;
     }
-    virtual ~TransitionModelLogger(){}
-    virtual void run(RecDat* rec_dat){
+    void run(RecDat* rec_dat) override {
       int period_num = (int)rec_dat->time/period_length_;
       if(period_num!=last_period_num_){
         write_toplist_lengths(rec_dat);
@@ -46,9 +44,11 @@ class TransitionModelLogger : public Logger, public INeedExperimentEnvironment, 
     void set_pop_container(PopContainer* pop_container){ pop_container_ = pop_container; }
     void set_model(TransitionProbabilityModel* model){ model_ = model; }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_ = train_matrix; }
-    bool init() override{
+    bool init() override {
       if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
       if (train_matrix_==NULL) train_matrix_=experiment_environment_->get_train_matrix();
+      timeline_file_.open(timeline_logfile_name_);
+      return true;
     }
     bool self_test(){
       bool OK = Logger::self_test();

@@ -25,8 +25,7 @@ class TransitionModelEndLogger : public Logger, public INeedExperimentEnvironmen
       log_file_name_=params->log_file_name;
       max_length_=params->max_length;
     }
-    virtual ~TransitionModelEndLogger(){}
-    virtual void run(RecDat* rec_dat){
+    void run(RecDat* rec_dat) override {
       ofstream ofs(log_file_name_.c_str());
       run_core(ofs);
     }

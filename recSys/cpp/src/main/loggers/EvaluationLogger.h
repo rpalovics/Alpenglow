@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cstring>
 #include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/Initializable.h"
 #include "../models/Model.h"
 #include "Logger.h"
 #include "../recommender_data/RecommenderDataIterator.h"
@@ -37,11 +38,11 @@ class EvaluationLogger : public Logger, public INeedExperimentEnvironment, publi
     void set_model(Model* model){
       model_ = model;
     }
-    void run(RecDat* rec_dat){
+    void run(RecDat* rec_dat) override {
       double error = compute_avg_error_on_timeframe(rec_dat);
       write_avg_error_into_file(rec_dat, error);
     }
-    bool init() override{
+    bool init() override {
       if(recommender_data_iterator_==NULL){
         recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator();
       }

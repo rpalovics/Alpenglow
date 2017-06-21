@@ -14,8 +14,7 @@ class ProceedingLogger : public Logger, public INeedExperimentEnvironment, publi
     ProceedingLogger(){
       recommender_data_iterator_=NULL;
     }
-    virtual ~ProceedingLogger(){}
-    virtual void run(RecDat* rec_dat){
+    virtual void run(RecDat* rec_dat) override {
       int counter = recommender_data_iterator_->get_counter();
       if(counter % frequency_ == 0){
         cerr << setprecision(4) << (double)counter/(double)size_ * 100 <<"\%-";
