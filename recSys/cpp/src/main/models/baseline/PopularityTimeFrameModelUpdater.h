@@ -1,7 +1,7 @@
 #ifndef POPULARITY_TIMEFRAME_UPDATER
 #define POPULARITY_TIMEFRAME_UPDATER
 
-#include <list>
+#include <queue>
 #include <vector>
 #include "../ModelUpdater.h"
 #include "PopularityTimeFrameModel.h"
@@ -11,10 +11,19 @@ using namespace std;
 
 class PopularityTimeFrameModelUpdater : public ModelSimpleUpdater {
   public:
-    void set_model(PopularityTimeFrameModel * model_){model = model_;};
-    void update(RecDat * rec_dat);
+    PopularityTimeFrameModelUpdater(){
+      model_ = NULL;
+    }
+    void set_model(PopularityTimeFrameModel* model){model_ = model;};
+    void update(RecDat* rec_dat);
+    bool self_test(){
+      bool ok = ModelSimpleUpdater::self_test();
+      if (model_==NULL) ok=false;
+      return ok;
+    }
   private:
-    PopularityTimeFrameModel * model;
+    queue<RecDat*> time_frame_data_;
+    PopularityTimeFrameModel* model_;
 };
 
 #endif

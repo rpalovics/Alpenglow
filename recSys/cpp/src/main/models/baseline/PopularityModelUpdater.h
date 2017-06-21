@@ -14,7 +14,7 @@ class PopularityModelUpdater : public ModelSimpleUpdater {
       model_ = NULL;
     }
     void set_model(PopularityModel* model){model_ = model;}
-    virtual void update(RecDat* rec_dat);
+    void update(RecDat* rec_dat) override;
     bool self_test(){
       bool ok = ModelSimpleUpdater::self_test();
       if(model_==NULL){ ok=false; }

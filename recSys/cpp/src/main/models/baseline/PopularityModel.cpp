@@ -1,9 +1,5 @@
 #include "PopularityModel.h"
 
-void PopularityModel::add(RecDat* rec_dat){
-  items_.resize(rec_dat->item); 
-}
-
 double PopularityModel::prediction(RecDat* rec_dat){
   int prediction = items_.get(rec_dat->item);
   if (prediction == 0) return 0;

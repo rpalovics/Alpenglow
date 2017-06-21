@@ -12,8 +12,8 @@ class PopularityModel : public Model {
   public:
     PopularityModel(){ maxitem_ = 0;}
     ~PopularityModel(){}
-    void add(RecDat* rec_dat);
-    double prediction(RecDat* rec_dat);
+    void add(RecDat* rec_dat) override {}
+    double prediction(RecDat* rec_dat) override;
   private:
     PopContainer items_;
     int maxitem_;

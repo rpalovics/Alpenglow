@@ -1,9 +1,8 @@
 #ifndef POPULARITY_TIMEFRAME_MODEL
 #define POPULARITY_TIMEFRAME_MODEL
 
-#include <list>
-#include <vector>
 #include "../Model.h"
+#include "../../utils/PopContainers.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;
@@ -13,21 +12,19 @@ struct PopularityTimeFrameModelParameters{
 class PopularityTimeFrameModel : public Model {
   public:
     PopularityTimeFrameModel(PopularityTimeFrameModelParameters* params){
-      tau = params->tau;
-      maxitem = 0;
+      tau_ = params->tau;
+      maxitem_ = 0;
     }
-    ~PopularityTimeFrameModel(){}
-    void add(RecDat * rec_dat);
-    double prediction(RecDat * rec_dat);
+    void add(RecDat* rec_dat) override {}
+    double prediction(RecDat* rec_dat) override;
+    bool self_test(){
+      return Model::self_test();
+    }
   private:
-    vector<int> items;
-    int maxitem;
-    list<RecDat*> time_frame_data;
-    double tau;
+    PopContainer items_;
+    int maxitem_;
+    double tau_;
     friend class PopularityTimeFrameModelUpdater;
-    FRIEND_TEST(TestPopularityTimeFrameModel, modelsize);
-    FRIEND_TEST(TestPopularityTimeFrameModel, update);
-    FRIEND_TEST(TestPopularityTimeFrameModel, learn);
 };
 
 #endif
