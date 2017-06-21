@@ -3,23 +3,22 @@
 
 #include <vector>
 #include <map>
-#include "PopularityModel.h"
+#include "../Model.h"
 #include "../../utils/PopContainers.h"
 #include "../../recommender_data/RecommenderData.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;
 
-class PersonalPopularityModel : public PopularityModel {
+class PersonalPopularityModel : public Model{
   public:
-    PersonalPopularityModel(){}
-    ~PersonalPopularityModel(){}
-    void add(RecDat * rec_dat);
-    double prediction(RecDat * rec_dat);
+    void add(RecDat* rec_dat) override;
+    double prediction(RecDat* rec_dat) override;
   private:
-    double get_user_best_item_score(int user);
-    SpMatrix train_matrix_;
-    map<int, int> user_best_items_;
+    double get_user_highest_personal_pop_item_score(int user);
+    SpMatrix personal_popularities_;
+    PopContainer global_popularities_;
+    map<int, int> user_personal_pop_items_;
 
     friend class PersonalPopularityModelUpdater;
     FRIEND_TEST(TestPersonalPopularityModel, update);
