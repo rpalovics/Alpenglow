@@ -15,7 +15,6 @@
 %Include src/models/Model.sip
 %Include src/models/baseline/PopularityModel.sip
 %Include src/models/baseline/PersonalPopularityModel.sip
-%Include src/models/baseline/PopularityTimeFrameModel.sip
 %Include src/models/SimilarityModel.sip
 %Include src/models/factor/FactorModel.sip
 %Include src/models/baseline/TransitionProbabilityModel.sip

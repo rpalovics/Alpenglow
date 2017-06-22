@@ -10,14 +10,15 @@ using namespace std;
 
 class PopularityModel : public Model {
   public:
-    PopularityModel(){ maxitem_ = 0;}
+    PopularityModel(){ maxfreq_ = 0;}
     ~PopularityModel(){}
     void add(RecDat* rec_dat) override {}
     double prediction(RecDat* rec_dat) override;
   private:
-    PopContainer items_;
-    int maxitem_;
+    PopContainer item_freqs_;
+    int maxfreq_;
     friend class PopularityModelUpdater;
+    friend class PopularityTimeFrameModelUpdater;
 };
 
 #endif
