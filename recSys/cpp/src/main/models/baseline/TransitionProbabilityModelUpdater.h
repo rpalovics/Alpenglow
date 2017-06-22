@@ -32,7 +32,7 @@ class TransitionProbabilityModelUpdater: public ModelSimpleUpdater{
         label_container_.read_from_file(file);
       }
     }
-    void update(RecDat* rec_dat);
+    void update(RecDat* rec_dat) override;
     void set_model(TransitionProbabilityModel* model){
       model_ = model;
     }
