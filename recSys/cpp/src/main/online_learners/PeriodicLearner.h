@@ -42,7 +42,6 @@ class PeriodicLearner : public OnlineLearner, public Initializable {
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data){ recommender_data_ = recommender_data; }
     bool init();
     bool self_test(){
-      cerr << "Hey, selftest called xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl;
       bool ok = OnlineLearner::self_test();
       if(mode_!="time-based" and mode_!="samplenum-based"){ cerr << "PeriodicLearner::mode should be time-based or samplenum-based." << endl; ok=false; }
       if(mode_ == "time-based" and period_length_<=0){ cerr << "PeriodicLearner::period_length_ oops." << endl; ok = false; }
