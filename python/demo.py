@@ -15,7 +15,7 @@ data = pd.read_csv(
 
 popularityModelExperiment = alpenglow.experiments.PopularityModelExperiment(top_k=100, seed=254938879)
 popRankings = popularityModelExperiment.run(data, verbose=True)
-popResults = ag.NdcgScore(popRankings)
+popResults = ag.DcgScore(popRankings)
 popResults.time_frame(60 * 60 * 24).plot()
 plt.savefig("popularity.png")
 
@@ -27,18 +27,18 @@ factorModelExperiment = alpenglow.experiments.FactorModelExperiment(
     negative_rate=100
 )
 facRankings = factorModelExperiment.run(data, verbose=True)
-facResults = ag.NdcgScore(facRankings)
+facResults = ag.DcgScore(facRankings)
 facResults.time_frame(60 * 60 * 24).plot()
 plt.savefig("factor.png")
 
 
 pd.concat([
-    popResults.time_frame(60 * 60 * 24).rename(columns={'ndcg': 'popularity'}),
-    facResults.time_frame(60 * 60 * 24).rename(columns={'ndcg': 'factor'})
+    popResults.time_frame(60 * 60 * 24).rename(columns={'dcg': 'popularity'}),
+    facResults.time_frame(60 * 60 * 24).rename(columns={'dcg': 'factor'})
 ], axis=1).plot()
 plt.savefig("popvsfac.png")
 
-param = ag.ThreadedParameterSearch(factorModelExperiment, ag.NdcgScore, threads=5)
+param = ag.ThreadedParameterSearch(factorModelExperiment, ag.DcgScore, threads=5)
 param.set_parameterValues("learningRate", [0.09, 0.11, 0.14, 0.17, 0.2])
 results = param.run(data, verbose=True)
 results.set_index('learningRate').plot()

@@ -17,11 +17,11 @@ class TestThreadedParameterSearch(unittest.TestCase):
             top_k=100,
             seed=254938879
         )
-        c = prs.ParameterSearch(model, prs.NdcgScore)
+        c = prs.ParameterSearch(model, prs.DcgScore)
         c.set_parameterValues('top_k', [100, 50])
         c.set_parameterValues('seed', [254938879, 0])
 
-        d = prs.ThreadedParameterSearch(model, prs.NdcgScore)
+        d = prs.ThreadedParameterSearch(model, prs.DcgScore)
         d.set_parameterValues('top_k', [100, 50])
         d.set_parameterValues('seed', [254938879, 0])
 
