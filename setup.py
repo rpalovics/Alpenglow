@@ -39,7 +39,7 @@ class custom_build_ext(sipdistutils.build_ext):
             for s in sources:
                 if s.endswith(".sip"):
                     depends = depends | self._find_sip_extra_depends(s)
-            ext.depends += list(depends)+sources
+            ext.depends += list(depends) + sources
 
     def build_extension(self, ext):
         self._add_ext_extra_depends(ext)
@@ -68,7 +68,7 @@ if os.path.isfile('.parallel'):
         n = int(f.readline().strip())
         distutils.ccompiler.CCompiler.compile = nParalellCompile(n)
 
-#function to recursively find cpp sources
+# function to recursively find cpp sources
 def get_cpp_recursively(rdir, ignores=[]):
     def is_ignored(f):
         for p in ignores:
@@ -97,7 +97,7 @@ for key, value in cfg_vars.items():
 setup(
     name='alpenglow',
     version='0.1',
-    install_requires=['numpy','pandas'],
+    install_requires=['numpy', 'pandas'],
     ext_modules=[
         Extension(
             "alpenglow.cpp",
@@ -126,7 +126,8 @@ setup(
     ],
     packages=[
         'alpenglow',
-        'alpenglow.experiments'
+        'alpenglow.experiments',
+        'alpenglow.evaluation'
     ],
     package_dir={
         'alpenglow': 'python/alpenglow',
