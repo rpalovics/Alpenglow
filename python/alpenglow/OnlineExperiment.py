@@ -16,7 +16,7 @@ class OnlineExperiment:
     def check_unused_parameters(self):
         unused = self.given_parameters - self.used_parameters
         if(len(unused) != 0):
-            raise TypeError("Unused parameters: "+", ".join(unused))
+            raise TypeError("Unused parameters: " + ", ".join(unused))
 
     def set_parameter(self, name, value):
         self.parameters[name] = value
@@ -164,7 +164,19 @@ class OnlineExperiment:
         return self.ranking_logger
 
     def finished(self):
-        return self.ranking_logs
+        logs = self.ranking_logs.logs
+        top_k = self.ranking_logs.top_k
+        df = pd.DataFrame.from_records(
+            [(
+                l.id,
+                l.time,
+                l.prediction,
+                l.rank+1 if l.rank < top_k else None
+            ) for l in logs],
+            columns=["id", "time", "prediction", "rank"]
+        ).set_index("id")
+        df.top_k = top_k
+        return df
 
     def config():
         pass

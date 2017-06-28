@@ -9,12 +9,12 @@
 
 struct RankingLog{
   double time;
+  int id;
   int rank;
-  double prediction;
   int user;
   int item;
   double score;
-  int location_id;
+  double prediction;
 };
 
 struct RankingLogs{
@@ -48,10 +48,10 @@ class MemoryRankingLogger : public Logger{
         log.time = rec_dat->time;
         log.rank = rank_computer_->get_rank(rec_dat);
         log.prediction = recommender_->prediction(rec_dat);
-        log.user = rec_dat->user;
         log.item = rec_dat->item;
+        log.user = rec_dat->user;
         log.score = rec_dat->score;
-        log.location_id = rec_dat->location.location_id;
+
         logs_->logs.push_back(log);
 
         if(ofs.is_open()){

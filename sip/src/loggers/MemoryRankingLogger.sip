@@ -3,12 +3,12 @@ struct RankingLog{
   #include "cpp/MemoryRankingLogger.h"
   %End
   double time;
+  int id;
   int rank;
-  double prediction;
   int user;
   int item;
   double score;
-  int location_id;
+  double prediction;
 };
 
 struct RankingLogs{

@@ -11,7 +11,7 @@ class DataframeIterator(rs.DataframeIterator):
 
         users = self._get_def_valarray('user')
         items = self._get_def_valarray('item')
-        ids = self._get_def_valarray('id', 'arange')
+        ids = list(df.index)
         scores = self._get_def_valarray('score', 'ones')
         times = self._get_def_valarray('time', 'arange')
         evals = self._get_def_valarray('eval', 'ones')

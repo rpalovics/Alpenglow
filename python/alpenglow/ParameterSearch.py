@@ -42,7 +42,7 @@ class ParameterSearch:
             model.set_parameter(k, parameters[k])
         scores = model.run(*runParameters[0], **runParameters[1])
         score = Score(scores)
-        result = score.evaluate()
+        result = score.mean()
         return result
 
     def _mapper(self, parameterTuple):
