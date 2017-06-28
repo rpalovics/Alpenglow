@@ -1,1 +1,5 @@
-source/alpenglow.cpp.rst
+source/*.rst
+!source/index.rst
+!source/modules.rst
+!source/conf.py
+!source/*/*

@@ -13,6 +13,7 @@ Welcome to Alpenglow's documentation!
    :caption: API documentation:
 
    alpenglow
+   alpenglow.evaluation
    alpenglow.experiments
    alpenglow.cpp
 

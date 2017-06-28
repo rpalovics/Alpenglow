@@ -3,5 +3,6 @@
    :caption: Module index:
 
    alpenglow
+   alpenglow.evaluation
    alpenglow.experiments
    alpenglow.cpp
