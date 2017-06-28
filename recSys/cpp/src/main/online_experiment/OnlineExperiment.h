@@ -5,6 +5,7 @@
 #include "../online_recommender/OnlineRecommender.h"
 #include "../online_data_updater/OnlineDataUpdater.h"
 #include "../loggers/Logger.h"
+#include "../general_interfaces/INeedExperimentEnvironment.h"
 #include "ExperimentEnvironment.h"
 
 struct OnlineExperimentParameters{
@@ -43,6 +44,9 @@ class OnlineExperiment{
       return ok;
     }
     void run();
+    void inject_experiment_environment_into(INeedExperimentEnvironment *object){
+      object->set_experiment_environment(&experiment_environment_);
+    }
   private:
     ExperimentEnvironment experiment_environment_;
     RecommenderDataIterator* recommender_data_iterator_;

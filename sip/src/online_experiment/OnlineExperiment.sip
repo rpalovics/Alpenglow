@@ -17,4 +17,5 @@ class OnlineExperiment{
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool self_test();
     void run() throw (PythonKeyboardInterruptException) /ReleaseGIL/;
+    void inject_experiment_environment_into(INeedExperimentEnvironment *object);
 };

@@ -133,18 +133,19 @@ class OnlineExperiment:
             proceeding_logger.set_data_iterator(recommender_data_iterator)
             online_experiment.add_logger(proceeding_logger)
 
-        ranking_logger = self.get_ranking_logger(top_k, min_time, self.parameter_default('out_file',out_file))
+        ranking_logger = self.get_ranking_logger(top_k, min_time, self.parameter_default('out_file', out_file))
         ranking_logger.set_recommender(online_recommender)
         ranking_logger.set_rank_computer(rank_computer)
 
         online_experiment.add_logger(ranking_logger)
 
         created_objects = rs.get_and_clean()
-        for i in created_objects:
-            rs.run_self_test(i)
 
+        rs.set_experiment_environment(online_experiment, created_objects)
         rs.initialize_all(created_objects)
 
+        for i in created_objects:
+            rs.run_self_test(i)
 
         self.check_unused_parameters()
 
