@@ -1,5 +1,6 @@
 import alpenglow as prs
 import alpenglow.Getter as rs
+import alpenglow.evaluation
 import math
 import unittest
 
@@ -16,6 +17,6 @@ class TestDcgScore(unittest.TestCase):
             l.time = i
             logs.append(l)
         facRankings.logs = logs
-        dcg = prs.DcgScore(facRankings).cumulative()
+        dcg = alpenglow.evaluation.DcgScore(facRankings).cumulative()
         dcgs = [math.log(2) / math.log(r + 2) if r < 100 else 0 for r in ranks]
         self.assertAlmostEqual(dcg, sum(dcgs) / len(dcgs))
