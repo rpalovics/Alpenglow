@@ -12,4 +12,5 @@ class PopularityTimeFrameModelUpdater : public ModelSimpleUpdater {
     PopularityTimeFrameModelUpdater(PopularityTimeFrameModelUpdaterParameters*);
     void set_model(PopularityModel* model);
     void update(RecDat* rec_dat);
+    bool self_test();
 };
