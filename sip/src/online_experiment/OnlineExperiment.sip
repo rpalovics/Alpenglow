@@ -1,8 +1,15 @@
 struct OnlineExperimentParameters{
   %TypeHeaderCode
-  #include "online_experiment/OnlineExperiment.h"
+  #include "online_experiment/ExperimentEnvironment.h"
   %End
-  int seed;
+  int top_k;
+  int min_time;
+  int max_time;
+  bool lookback;
+  bool initialize_all;
+  int max_user;
+  int max_item;
+  int random_seed;
 };
 class OnlineExperiment{
   %TypeHeaderCode
@@ -12,7 +19,7 @@ class OnlineExperiment{
     OnlineExperiment(OnlineExperimentParameters * parameters);
     ~OnlineExperiment();
     void add_logger(Logger* logger);
-    void set_online_data_updater(OnlineDataUpdater* updater);
+    //void set_online_data_updater(OnlineDataUpdater* updater);
     void set_online_recommender(OnlineRecommender* recommender);
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool self_test();

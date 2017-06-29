@@ -37,7 +37,7 @@ class OnlineExperiment:
         else:
             return value
 
-    def run(self, data, experimentType=None, columns={}, verbose=True, min_time=0, max_time=0, out_file=None):
+    def run(self, data, experimentType=None, columns={}, verbose=True, min_time=0, max_time=0, out_file=None, lookback=False, initialize_all=False, max_item=-1, max_user=-1):
         rs.collect()
         self.verbose = verbose
 
@@ -53,19 +53,12 @@ class OnlineExperiment:
             recommender_data.set_max_time(max_time)
             recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
             recommender_data_iterator.set_recommender_data(recommender_data)
+        #TODO set max_item, max_user here
 
         print("data reading finished") if self.verbose else None
 
-        train_matrix = rs.SpMatrix()
-        users = rs.VectorInt([])
-        items = rs.VectorInt([])
 
-        elems = {
-            'recommender_data_iterator': recommender_data_iterator,
-            'train_matrix': train_matrix,
-            'users': users,
-            'items': items,
-        }
+        elems = {}
         configdict = self.config(elems)
         config = configdict['config']
         self.learner = configdict['learner']
@@ -74,10 +67,14 @@ class OnlineExperiment:
         top_k = config['top_k']
         if 'min_time' in config:
             min_time = config['min_time']
+        if 'lookback' in config:
+            lookback = config['lookback']
+        if 'initialize_all' in config:
+            initialize_all = config['initialize_all']
         seed = self.parameters["seed"]
 
-        sorted_pop_container = rs.TopPopContainer()
-        pop_container = rs.PopContainer()
+        #sorted_pop_container = rs.TopPopContainer()
+        #pop_container = rs.PopContainer()
         online_recommender = rs.OnlineRecommender()
 
         model = self.model
@@ -86,32 +83,32 @@ class OnlineExperiment:
         online_recommender.set_model(model)
         online_recommender.set_learner(learner)
 
-        online_data_updater = rs.OnlineDataUpdater(
-            train_matrix=train_matrix,
-            items=[],
-            users=[],
-            pop=sorted_pop_container,
-            pop_container=pop_container
-        )
-        online_data_updater.set_items(items)
-        online_data_updater.set_users(users)
+        #online_data_updater = rs.OnlineDataUpdater(
+        #    train_matrix=train_matrix,
+        #    items=[],
+        #    users=[],
+        #    pop=sorted_pop_container,
+        #    pop_container=pop_container
+        #)
+        #online_data_updater.set_items(items)
+        #online_data_updater.set_users(users)
 
         rank_computer = rs.RankComputer(top_k=top_k, random_seed=43211234)
 
-        rank_computer.set_train_matrix(train_matrix)
+        #rank_computer.set_train_matrix(train_matrix)
         rank_computer.set_recommender(online_recommender)
-        rank_computer.set_top_pop_container(sorted_pop_container)
+        #rank_computer.set_top_pop_container(sorted_pop_container)
 
         if 'filters' in config:
             filters = config['filters']
             for f in filters:
                 rank_computer.set_model_filter(f)
 
-        online_experiment = rs.OnlineExperiment(seed=seed)
+        online_experiment = rs.OnlineExperiment(random_seed=seed, min_time=min_time, max_time=max_time, top_k=top_k, lookback=lookback, initialize_all=initialize_all, max_item=max_item, max_user=max_user)
 
         online_experiment.set_online_recommender(online_recommender)
         online_experiment.set_recommender_data_iterator(recommender_data_iterator)
-        online_experiment.set_online_data_updater(online_data_updater)
+        #online_experiment.set_online_data_updater(online_data_updater)
 
         # string attribute_container_name = getPot("set_attribute_container", "");
         # if(attribute_container_name.length()==0) cerr << "WARNING: no attribute container was set into RecommenderData." << endl;

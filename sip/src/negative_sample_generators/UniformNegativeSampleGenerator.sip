@@ -8,7 +8,7 @@ struct UniformNegativeSampleGeneratorParameters{
     bool filter_repeats;
 };
 
-class UniformNegativeSampleGenerator : public NegativeSampleGenerator{
+class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public INeedExperimentEnvironment{
     %TypeHeaderCode
     #include "negative_sample_generators/UniformNegativeSampleGenerator.h"
     %End
@@ -20,6 +20,8 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator{
     %MethodCode
         sipCpp->set_items(&(a0->vec));
     %End
+    void set_experiment_environment(ExperimentEnvironment* ee);
+    bool init();
     bool self_test();
     //vector<int>* generate(RecDat * rec_dat);
 };

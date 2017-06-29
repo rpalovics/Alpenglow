@@ -33,8 +33,6 @@ class BatchAndOnlineExperiment(prs.OnlineExperiment):
             negative_rate=self.parameter_default('batch_negative_rate', 70),
             initialize_all=False,
         ))
-        batch_negative_sample_generator.set_train_matrix(elems['train_matrix'])
-        batch_negative_sample_generator.set_items(elems['items'])
 
         # objective
         point_wise = rs.ObjectiveMSE()
@@ -55,7 +53,6 @@ class BatchAndOnlineExperiment(prs.OnlineExperiment):
             base_in_file_name=""
         ))
         batch_learner.set_model(model)
-        batch_learner.set_recommender_data_iterator(elems['recommender_data_iterator'])
         batch_learner.add_gradient_updater(batch_updater)
         batch_learner.set_gradient_computer(batch_gradient_computer)
         batch_learner.set_negative_sample_generator(batch_negative_sample_generator)
@@ -76,8 +73,6 @@ class BatchAndOnlineExperiment(prs.OnlineExperiment):
             negative_rate=self.parameter_default('online_negative_rate', 100),
             initialize_all=False,
         ))
-        online_negative_sample_generator.set_train_matrix(elems['train_matrix'])
-        online_negative_sample_generator.set_items(elems['items'])
 
         # objective
         point_wise = rs.ObjectiveMSE()
@@ -87,7 +82,6 @@ class BatchAndOnlineExperiment(prs.OnlineExperiment):
 
         # learner
         online_learner = rs.ImplicitGradientLearner()
-        online_learner.set_train_matrix(elems['train_matrix'])
         online_learner.add_gradient_updater(online_updater)
         online_learner.set_model(model)
         online_learner.set_negative_sample_generator(online_negative_sample_generator)

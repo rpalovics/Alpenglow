@@ -27,7 +27,6 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
         updater.set_model(model)
 
         learner = rs.ImplicitGradientLearner()
-        learner.set_train_matrix(elems['train_matrix'])
         learner.add_gradient_updater(updater)
         learner.set_model(model)
 
@@ -36,8 +35,6 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
             initialize_all=False,
             seed=0,
         ))
-        negative_sample_generator.set_train_matrix(elems['train_matrix'])
-        negative_sample_generator.set_items(elems['items'])
         learner.set_negative_sample_generator(negative_sample_generator)
 
         pointWise = rs.ObjectiveMSE()
@@ -48,8 +45,6 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
 
         fmfilter = rs.FactorModelFilter()
         fmfilter.set_model(model)
-        fmfilter.set_users(elems['users'])
-        fmfilter.set_items(elems['items'])
 
         prediction_creator = rs.PredictionCreatorGlobal(**self.parameter_defaults(
             top_k=10000,

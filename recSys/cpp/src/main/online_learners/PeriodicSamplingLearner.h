@@ -15,7 +15,6 @@ class PeriodicSamplingLearner : public PeriodicImplicitGradientLearner{
   public:
     PeriodicSamplingLearner(PeriodicSamplingLearnerParameters* params):PeriodicImplicitGradientLearner(params),distribution_(params->distribution),number_of_samples_(params->number_of_samples),y_(params->y),geometric_param_(params->geometric_param){}
     bool self_test(){
-      cerr << "Hey, selftest called xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl;
       bool ok = PeriodicImplicitGradientLearner::self_test();
       if(distribution_!="uniform" and distribution_!="linear" and distribution_!="arctg" and distribution_!="geometric"){
         cerr << "PeriodicImplicitGradientLearner::distribution should be set to uniform, linear, geometric or arctg." << endl;

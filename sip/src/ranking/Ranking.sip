@@ -5,7 +5,7 @@ struct RankComputerParameters{
   int top_k;
   int random_seed;
 };
-class RankComputer{
+class RankComputer : public INeedExperimentEnvironment, public Initializable {
   %TypeHeaderCode
   #include "ranking/Ranking.h"
   %End
@@ -17,27 +17,7 @@ class RankComputer{
     void set_top_pop_container(TopPopContainer* popularity_sorted_container);
     void set_model_filter(ModelFilter* model_filter);
     bool self_test();
+    bool init();
+    void set_experiment_environment(ExperimentEnvironment* ee);
     int get_rank(RecDat*);
 };
-
-
-// struct TopListCreatorParameters{
-//   %TypeHeaderCode
-//   #include "ranking/Ranking.h"
-//   %End
-//   OnlineRecommender * recommender;
-//   std::vector<int> * items;
-//   SpMatrix * train_matrix;
-//   int top_k;
-// };
-
-// class TopListCreator{
-//   %TypeHeaderCode
-//   #include "ranking/Ranking.h"
-//   %End
-//   public:
-//    TopListCreator(TopListCreatorParameters * parameters);
-//     ~TopListCreator();
-//     void set_parameters(TopListCreatorParameters * parameters);
-//     // std::map<int,double > *  get_top_recommendation(RecDat * rec_dat);
-// };

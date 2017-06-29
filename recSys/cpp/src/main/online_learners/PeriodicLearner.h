@@ -5,6 +5,7 @@
 #include <gtest/gtest_prod.h>
 #include "OnlineLearner.h"
 #include "../recommender_data/RecommenderDataIterator.h"
+#include "../general_interfaces/INeedExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 
 struct PeriodicLearnerParameters{
@@ -20,7 +21,7 @@ struct PeriodicLearnerParameters{
   int samplenum_in_periods;
 };
 
-class PeriodicLearner : public OnlineLearner, public Initializable {
+class PeriodicLearner : public OnlineLearner, public INeedExperimentEnvironment, public Initializable {
   public:
     PeriodicLearner(PeriodicLearnerParameters* params){
       start_time_ = params->start_time;
@@ -40,6 +41,9 @@ class PeriodicLearner : public OnlineLearner, public Initializable {
     virtual ~PeriodicLearner(){}
     void learn(RecDat* rec_dat) override;
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data){ recommender_data_ = recommender_data; }
+    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
+      experiment_environment_=experiment_environment;
+    }
     bool init();
     bool self_test(){
       bool ok = OnlineLearner::self_test();
@@ -52,6 +56,7 @@ class PeriodicLearner : public OnlineLearner, public Initializable {
   protected:
     int compute_next_period_num(RecDat*);
     const RecommenderDataIterator* recommender_data_;
+    ExperimentEnvironment* experiment_environment_;
     int start_time_;
     int period_length_;
     bool read_model_;

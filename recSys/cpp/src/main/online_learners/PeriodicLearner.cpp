@@ -1,7 +1,7 @@
 #include "PeriodicLearner.h"
 
 bool PeriodicLearner::init(){
-  cerr << "PeriodicLearner::init is called." << endl;
+  if(recommender_data_==NULL) recommender_data_=experiment_environment_->get_recommender_data_iterator();
   clear_model(NULL);
   read_model(NULL);
   period_num_=1;

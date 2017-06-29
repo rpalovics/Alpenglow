@@ -36,7 +36,6 @@ class PeriodicImplicitGradientLearner : public PeriodicLearner {
     void set_gradient_computer(GradientComputer* gradient_computer){gradient_computer_ = gradient_computer;}
     void add_iteration_logger(Logger* logger){ iteration_loggers_.push_back(logger); }
     bool self_test(){
-      cerr << "Hey, selftest called xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << endl;
       bool ok = PeriodicLearner::self_test();
       if(learn_model_ and gradient_computer_ == NULL){
         cerr << "PeriodicImplicitGradientLearner::gradient_computer_ is not set." << endl;

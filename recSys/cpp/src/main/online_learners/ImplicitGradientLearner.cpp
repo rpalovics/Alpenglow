@@ -2,7 +2,7 @@
 
 
 void ImplicitGradientLearner::learn(RecDat * rec_dat){
-  if(train_matrix_->get(rec_dat->user,rec_dat->item)==0){ 
+  if(experiment_environment_->is_item_new_for_user() or !lookback_){
     model_->add(rec_dat);
     vector<RecDat>* train_data = negative_sample_generator_->get_implicit_train_data(rec_dat);
     if(model_gradient_updaters_.size()!=0){

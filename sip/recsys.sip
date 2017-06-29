@@ -35,6 +35,7 @@
 %Include src/online_learners/PeriodicSamplingLearner.sip
 %Include src/general_interfaces/Initializable.sip
 %Include src/general_interfaces/INeedExperimentEnvironment.sip
+%Include src/general_interfaces/Updater.sip
 %Include src/gradient_computers/GradientComputer.sip
 %Include src/objectives/Objective.sip
 %Include src/objectives/ObjectiveMSE.sip
@@ -45,8 +46,6 @@
 %Include src/loggers/InterruptLogger.sip
 %Include src/loggers/MemoryRankingLogger.sip
 %Include src/loggers/OnlinePredictor.sip
-%Include src/online_data_updater/Updater.sip
-%Include src/online_data_updater/OnlineDataUpdater.sip
 %Include src/online_experiment/OnlineExperiment.sip
 %Include src/online_experiment/ExperimentEnvironment.sip
 %Include src/online_recommender/OnlineRecommender.sip

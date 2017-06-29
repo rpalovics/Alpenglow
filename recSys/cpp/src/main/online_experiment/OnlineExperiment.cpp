@@ -9,15 +9,9 @@ void OnlineExperiment::run() {
     }
     experiment_environment_.update(rec_dat);
     recommender_->learn(rec_dat);
-    online_data_updater_->update(rec_dat);
   }
   for (uint i = 0; i < end_loggers_.size(); i++) {
     end_loggers_[i]->run(NULL);
-  }
-
-  for(auto i : loggers_){
-    //so the destructors run
-    delete i;
   }
 }
   

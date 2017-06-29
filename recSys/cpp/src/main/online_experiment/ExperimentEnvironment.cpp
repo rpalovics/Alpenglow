@@ -1,5 +1,22 @@
 #include "ExperimentEnvironment.h"
 
 void ExperimentEnvironment::update(RecDat* rec_dat){
-  //TODO
+  int item = rec_dat->item;
+  int user = rec_dat->user;
+  double score = rec_dat->score; 
+
+  if (!GET_VECTORMAP(item_map_,item,false)){
+    PUT_VECTORMAP(item_map_,item,true);
+    items_.push_back(item);
+  }
+  if (!GET_VECTORMAP(user_map_,user,false)){
+    PUT_VECTORMAP(user_map_,user,true);
+    users_.push_back(user);
+  }
+  if(train_matrix_.get(user,item)==0){
+    item_new_for_user_=true;
+    train_matrix_.update(user,item,score);
+  }
+  popularity_sorted_container_.increase(item);
+  popularity_container_.increase(item);
 }
