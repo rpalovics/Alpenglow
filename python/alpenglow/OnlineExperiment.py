@@ -102,7 +102,8 @@ class OnlineExperiment:
         if 'filters' in config:
             filters = config['filters']
             for f in filters:
-                rank_computer.set_model_filter(f)
+                print("set filter",f)
+                rank_computer.set_model_filter(f) #FIXME rank_computer treats only ONE filter
 
         online_experiment = rs.OnlineExperiment(random_seed=seed, min_time=min_time, max_time=max_time, top_k=top_k, lookback=lookback, initialize_all=initialize_all, max_item=max_item, max_user=max_user)
 

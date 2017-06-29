@@ -4,6 +4,7 @@ from .PeriodicPopularityModelExperiment import *
 from .PersonalPopularityModelExperiment import *
 from .PopularityModelExperiment import *
 from .PopularityTimeframeModelExperiment import *
+from .TransitionProbabilityModelExperiment import *
 from .GlobalTopKExperiment import *
 from .SimulatedBatchExperiment import *
 from .BatchAndOnlineExperiment import *
