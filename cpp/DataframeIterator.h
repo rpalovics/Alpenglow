@@ -3,6 +3,7 @@
 
 #include "recommender_data/RecommenderDataIterator.h"
 #include <vector>
+#include <sip.h>
 
 using namespace std;
 
@@ -11,8 +12,10 @@ public:
   DataframeIterator(){
     counter_ = 0;
   }
-  void add_recdat(RecDat &rec_dat){
-    recdats_.push_back(new RecDat(rec_dat));
+  void add_recdats(vector<RecDat*> rds){
+    for(i : rds){
+      recdats_.push_back(i);
+    }
   }
   virtual bool has_next() const {
     return counter_ < recdats_.size(); 
@@ -25,7 +28,10 @@ public:
     if(index>=counter_) throw exception();
     return get_future(index);
   }
-  virtual RecDat* get_future(int index) const { return recdats_[index]; }
+  virtual RecDat* get_future(int index) const {
+    RecDat* rd = recdats_[index];
+    return rd;
+  }
   virtual int size() const { return recdats_.size(); }
   virtual double get_following_timestamp() const {
     if(counter_ < recdats_.size()){

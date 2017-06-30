@@ -1,5 +1,6 @@
 import alpenglow.cpp as rs
 import numpy as np
+import sip
 
 
 class DataframeIterator(rs.DataframeIterator):
@@ -18,6 +19,7 @@ class DataframeIterator(rs.DataframeIterator):
         categories = self._get_def_valarray('category', 'ones')
 
         indexes = np.arange(len(self.df))
+        recdats = []
         for (_i, _user, _item, _id, _score, _time, _eval, _category) in zip(indexes, users, items, ids, scores, times, evals, categories):
             rd = rs.RecDat()
             rd.user = _user
@@ -27,7 +29,9 @@ class DataframeIterator(rs.DataframeIterator):
             rd.time = _time
             rd.eval = _eval
             rd.category = _category
-            self.add_recdat(rd)
+            recdats.append(rd)
+            sip.transferto(rd, None)
+        self.add_recdats(recdats);
         super(rs.DataframeIterator, self).initialize()
 
     def _get_def_valarray(self, name, deftype=None):
