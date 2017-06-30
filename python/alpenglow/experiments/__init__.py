@@ -1,4 +1,5 @@
 from .FactorModelExperiment import *
+from .AsymmetricFactorModelExperiment import *
 from .PeriodicPersonalPopularityModelExperiment import *
 from .PeriodicPopularityModelExperiment import *
 from .PersonalPopularityModelExperiment import *

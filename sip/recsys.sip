@@ -17,6 +17,9 @@
 %Include src/models/SimilarityModel.sip
 %Include src/models/factor/FactorModel.sip
 %Include src/models/factor/FactorModelGradientUpdater.sip
+%Include src/models/factor/AsymmetricFactorModel.sip
+%Include src/models/factor/AsymmetricFactorModelUpdater.sip
+%Include src/models/factor/AsymmetricFactorModelGradientUpdater.sip
 %Include src/models/baseline/PopularityModel.sip
 %Include src/models/baseline/PersonalPopularityModel.sip
 %Include src/models/baseline/PersonalPopularityModelUpdater.sip
