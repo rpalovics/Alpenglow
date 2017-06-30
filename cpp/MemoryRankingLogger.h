@@ -51,6 +51,7 @@ class MemoryRankingLogger : public Logger{
         log.item = rec_dat->item;
         log.user = rec_dat->user;
         log.score = rec_dat->score;
+        log.id = rec_dat->id;
 
         logs_->logs.push_back(log);
 
