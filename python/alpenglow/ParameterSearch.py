@@ -49,10 +49,13 @@ class ParameterSearch:
         (parameters, runParameters) = parameterTuple
         currentParameterValues = [parameters[k] for k in self._getNonDependantParameterNames()]
         result = self._runSingle(self.model, self.Score, parameters, runParameters)
-        return (*currentParameterValues, result)
+        currentParameterValues.append(result)
+        return currentParameterValues
 
     def _toDataFrame(self, results):
-        return pd.DataFrame.from_records(results, columns=(*self._getNonDependantParameterNames(), self.Score.__name__))
+        columns = self._getNonDependantParameterNames()
+        columns.append(self.Score.__name__)
+        return pd.DataFrame.from_records(results, columns=columns)
 
     def run(self, *runParameters, **runKwParameters):
         self.results = []
