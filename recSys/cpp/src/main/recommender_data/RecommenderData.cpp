@@ -23,9 +23,10 @@ void RecommenderData::read_from_file(string file_name, string type){
 void RecommenderData::read_from_file_core(istream& ifs, string type){
   double score;
   double t;
-  int user,item,eval, location;
+  int user,item,eval;
+  //int location;
   int id;
-  double x, y, z;
+  //double x, y, z;
   int category;
   std::string country;
   if (type == "online") {
@@ -38,7 +39,7 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.time = t;
       rec_dat.id = id;
       rec_dat.score = score;
-      rec_dat.location.location_id = 0;
+      //rec_dat.location.location_id = 0;
       rec_dat.eval=eval;
       rec_data.push_back(rec_dat); 
     }
@@ -53,7 +54,7 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.id = id;
       rec_dat.score = score;
       rec_dat.eval=eval;
-      rec_dat.location.location_id = 0;
+      //rec_dat.location.location_id = 0;
       rec_data.push_back(rec_dat); 
     }
   }
@@ -68,7 +69,7 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.score = score;
       rec_dat.eval=eval;
       rec_dat.id = id;
-      rec_dat.location.location_id = 0;
+      //rec_dat.location.location_id = 0;
       ifs.ignore(1, ' ');
       if(ifs.eof()) break;
       string attribute_string;
@@ -88,7 +89,7 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.score = score;
       rec_dat.eval=1;
       rec_dat.id = id;
-      rec_dat.location.location_id = 0;
+      //rec_dat.location.location_id = 0;
       rec_data.push_back(rec_dat);
     }
   }
@@ -102,47 +103,47 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.score = score;
       rec_dat.eval=1;
       rec_dat.id = id;
-      rec_dat.location.location_id = 0;
+      //rec_dat.location.location_id = 0;
       rec_data.push_back(rec_dat);
     }
   }
-  else if ( type  == "location") {
-    id = 0;
-    std::cout << "read location" << std::endl;
-    std::string buff;
-    getline(ifs, buff);
-    while( ifs >> t >> user >> item >> score >> eval >>  location) {
-      if (t>=max_time && max_time>0) break;
-      RecDat rec_dat;
-      rec_dat.user = user;
-      rec_dat.time = t;
-      rec_dat.item = item;
-      rec_dat.location.location_id = location;
-      rec_dat.eval = eval;
-      rec_dat.id = id;
-      rec_dat.score = score;
-      rec_data.push_back(rec_dat);
-    }
-  }
-  else if ( type == "location_xyz") {
-    id = 0;
-    std::cout << "reading, type location_xyz" << std::endl;
-    while (ifs >> t >> user >> item >> score >> eval >> location >> x >> y >> z) {
-      if (t>=max_time && max_time>0) break;
-      RecDat rec_dat;
-      rec_dat.user = user;
-      rec_dat.item = item;
-      rec_dat.time = t;
-      rec_dat.eval = eval;
-      rec_dat.id = id;
-      rec_dat.score = score;
-      rec_dat.location.location_id = location;
-      rec_dat.location.x = x;
-      rec_dat.location.y = y;
-      rec_dat.location.z = z;
-      rec_data.push_back(rec_dat);
-    }
-  }
+  //else if ( type  == "location") {
+  //  id = 0;
+  //  std::cout << "read location" << std::endl;
+  //  std::string buff;
+  //  getline(ifs, buff);
+  //  while( ifs >> t >> user >> item >> score >> eval >>  location) {
+  //    if (t>=max_time && max_time>0) break;
+  //    RecDat rec_dat;
+  //    rec_dat.user = user;
+  //    rec_dat.time = t;
+  //    rec_dat.item = item;
+  //    //rec_dat.location.location_id = location;
+  //    rec_dat.eval = eval;
+  //    rec_dat.id = id;
+  //    rec_dat.score = score;
+  //    rec_data.push_back(rec_dat);
+  //  }
+  //}
+  //else if ( type == "location_xyz") {
+  //  id = 0;
+  //  std::cout << "reading, type location_xyz" << std::endl;
+  //  while (ifs >> t >> user >> item >> score >> eval >> location >> x >> y >> z) {
+  //    if (t>=max_time && max_time>0) break;
+  //    RecDat rec_dat;
+  //    rec_dat.user = user;
+  //    rec_dat.item = item;
+  //    rec_dat.time = t;
+  //    rec_dat.eval = eval;
+  //    rec_dat.id = id;
+  //    rec_dat.score = score;
+  //    rec_dat.location.location_id = location;
+  //    rec_dat.location.x = x;
+  //    rec_dat.location.y = y;
+  //    rec_dat.location.z = z;
+  //    rec_data.push_back(rec_dat);
+  //  }
+  //}
   if (type == "category") {
     id = 0;
     while (ifs >> t >> user >> item >> score >> eval >> category ) {
@@ -155,7 +156,7 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.eval=eval;
       rec_dat.id = id;
       rec_dat.category = category;
-      rec_dat.location.location_id = 0;
+      //rec_dat.location.location_id = 0;
       rec_data.push_back(rec_dat); 
     }
   }

@@ -1,12 +1,12 @@
-struct Location {
-  %TypeHeaderCode
-  #include "recommender_data/RecommenderData.h"
-  %End
-  int location_id;
-  double x;
-  double y;
-  double z;
-};
+//struct Location {
+//  %TypeHeaderCode
+//  #include "recommender_data/RecommenderData.h"
+//  %End
+//  int location_id;
+//  double x;
+//  double y;
+//  double z;
+//};
 
 struct RecDat{
   %TypeHeaderCode
@@ -19,7 +19,7 @@ struct RecDat{
   int item;
   int eval;
   int category;
-  Location location;
+//  Location location;
 };
 
 struct RecommenderDataParameters{
