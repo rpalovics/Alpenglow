@@ -170,10 +170,13 @@ class OnlineExperiment:
             [(
                 l.id,
                 l.time,
+                l.score,
+                l.user,
+                l.item,
                 l.prediction,
                 l.rank+1 if l.rank < top_k else None
             ) for l in logs],
-            columns=["id", "time", "prediction", "rank"]
+            columns=["id", "time", "score", "user", "item", "prediction", "rank"]
         ).set_index("id")
         df.top_k = top_k
         return df
