@@ -13,7 +13,7 @@ public:
     counter_ = 0;
   }
   void add_recdats(vector<RecDat*> rds){
-    for(i : rds){
+    for(auto i : rds){
       recdats_.push_back(i);
     }
   }
