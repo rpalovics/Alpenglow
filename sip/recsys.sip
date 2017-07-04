@@ -39,7 +39,6 @@
 %Include src/online_learners/PeriodicImplicitGradientLearner.sip
 %Include src/online_learners/PeriodicLearner.sip
 %Include src/online_learners/LearnerPeriodicDelayedWrapper.sip
-%Include src/online_learners/CombinedDoubleLayerLearner.sip
 %Include src/online_learners/PeriodicSamplingLearner.sip
 %Include src/general_interfaces/Initializable.sip
 %Include src/general_interfaces/INeedExperimentEnvironment.sip

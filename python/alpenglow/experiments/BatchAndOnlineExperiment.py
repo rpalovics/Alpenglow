@@ -87,10 +87,7 @@ class BatchAndOnlineExperiment(prs.OnlineExperiment):
         online_learner.set_negative_sample_generator(online_negative_sample_generator)
         online_learner.set_gradient_computer(online_gradient_computer)
 
-        # online and batch double layer
-        learner = rs.CombinedDoubleLayerLearner()
-        learner.add_learner(batch_learner)
-        learner.add_learner(online_learner)
+        learner = [batch_learner, online_learner]
 
         return {
             'config': config,

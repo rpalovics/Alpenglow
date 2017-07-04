@@ -89,7 +89,11 @@ class OnlineExperiment:
 
         online_experiment = rs.OnlineExperiment(random_seed=seed, min_time=min_time, max_time=max_time, top_k=top_k, lookback=lookback, initialize_all=initialize_all, max_item=max_item, max_user=max_user)
 
-        online_experiment.add_learner(learner)
+        if type(learner) == list:
+          for obj in learner:
+            online_experiment.add_learner(obj)
+        else:
+          online_experiment.add_learner(learner)
         online_experiment.set_recommender_data_iterator(recommender_data_iterator)
 
         # string attribute_container_name = getPot("set_attribute_container", "");
