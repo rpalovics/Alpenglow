@@ -1,7 +1,7 @@
 #include "Ranking.h"
 
 int RankComputer::get_rank(RecDat* rec_dat){
-  double score = recommender_->prediction(rec_dat);      
+  double score = model_->prediction(rec_dat);      
   if(std::isnan(score) or std::isinf(score)) return (top_k_+3);
   if(score==0) return top_k_+2;
   if(model_filter_!=NULL){
@@ -13,7 +13,7 @@ int RankComputer::get_rank(RecDat* rec_dat){
   int same_scored_itemnum = 0;
   itemlist_init(rec_dat);
   while(itemlist_next(&fake_rec_dat)){
-    double fake_score=recommender_->prediction(&fake_rec_dat);
+    double fake_score=model_->prediction(&fake_rec_dat);
     if(std::isnan(fake_score) or std::isinf(fake_score)) return (top_k_+3);
     if(fake_score > score){ rank++; }
     else if (fake_score == score) same_scored_itemnum++;
@@ -52,51 +52,4 @@ bool RankComputer::itemlist_next(RecDat* fake_rec_dat){
   fake_rec_dat->item = item;
   return true;
 }
-
-//void TopListCreator::set_parameters(TopListCreatorParameters * parameters){
-//  recommender = parameters->recommender;
-//  items = parameters->items;
-//  train_matrix = parameters->train_matrix;
-//  top_k = parameters->top_k;
-//}
-//
-//RecMap *  TopListCreator::get_top_recommendation(RecDat * rec_dat){
-//  recommend(rec_dat);
-//  sort_top_k();
-//  norm_top_k();
-//  create_top_k_map();
-//  return &rec_map;
-//}
-//
-//void TopListCreator::recommend(RecDat * rec_dat){
-//  rec.clear();
-//  RecDat _rec_dat = *rec_dat;
-//  for(uint ii=0; ii<items->size(); ii++){
-//    int item = (*items)[ii];
-//    if(train_matrix->get(rec_dat->user,item)<1) {
-//      _rec_dat.item = item;
-//      double score=recommender->prediction(&_rec_dat);
-//      if(score != 0) rec.push_back(make_pair(item,score));
-//    }
-//  }
-//}
-//
-//void TopListCreator::sort_top_k(){
-//  if((int)rec.size() > top_k) partial_sort (rec.begin(), rec.begin()+top_k, rec.end(),sort_pair_descending_by_second<int>);
-//  else sort(rec.begin(),rec.end(),sort_pair_descending_by_second<int>);
-//}
-//
-//void TopListCreator::norm_top_k(){
-// for(uint ii=0 ; (ii<rec.size() && ii<(uint)top_k); ii++ ){
-//  rec[ii].second=1/(double)(ii+1); 
-// } 
-//}
-//
-//void TopListCreator::create_top_k_map(){
-//  RecVector :: iterator ir = rec.end();
-//  if((int)rec.size()>top_k) ir = rec.begin()+top_k;
-//  rec_map.clear();
-//  copy(rec.begin(), ir,inserter(rec_map, rec_map.begin()));
-//  rec.clear(); 
-//}
 

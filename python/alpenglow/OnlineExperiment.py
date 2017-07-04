@@ -73,31 +73,13 @@ class OnlineExperiment:
             initialize_all = config['initialize_all']
         seed = self.parameters["seed"]
 
-        #sorted_pop_container = rs.TopPopContainer()
-        #pop_container = rs.PopContainer()
-        online_recommender = rs.OnlineRecommender()
-
         model = self.model
         learner = self.learner
 
-        online_recommender.set_model(model)
-        online_recommender.set_learner(learner)
 
-        #online_data_updater = rs.OnlineDataUpdater(
-        #    train_matrix=train_matrix,
-        #    items=[],
-        #    users=[],
-        #    pop=sorted_pop_container,
-        #    pop_container=pop_container
-        #)
-        #online_data_updater.set_items(items)
-        #online_data_updater.set_users(users)
 
         rank_computer = rs.RankComputer(top_k=top_k, random_seed=43211234)
-
-        #rank_computer.set_train_matrix(train_matrix)
-        rank_computer.set_recommender(online_recommender)
-        #rank_computer.set_top_pop_container(sorted_pop_container)
+        rank_computer.set_model(model)
 
         if 'filters' in config:
             filters = config['filters']
@@ -107,9 +89,8 @@ class OnlineExperiment:
 
         online_experiment = rs.OnlineExperiment(random_seed=seed, min_time=min_time, max_time=max_time, top_k=top_k, lookback=lookback, initialize_all=initialize_all, max_item=max_item, max_user=max_user)
 
-        online_experiment.set_online_recommender(online_recommender)
+        online_experiment.add_learner(learner)
         online_experiment.set_recommender_data_iterator(recommender_data_iterator)
-        #online_experiment.set_online_data_updater(online_data_updater)
 
         # string attribute_container_name = getPot("set_attribute_container", "");
         # if(attribute_container_name.length()==0) cerr << "WARNING: no attribute container was set into RecommenderData." << endl;
@@ -132,7 +113,7 @@ class OnlineExperiment:
             online_experiment.add_logger(proceeding_logger)
 
         ranking_logger = self.get_ranking_logger(top_k, min_time, self.parameter_default('out_file', out_file))
-        ranking_logger.set_recommender(online_recommender)
+        ranking_logger.set_model(model)
         ranking_logger.set_rank_computer(rank_computer)
 
         online_experiment.add_logger(ranking_logger)

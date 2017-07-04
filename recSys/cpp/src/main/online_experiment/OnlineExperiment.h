@@ -2,7 +2,7 @@
 #define ONLINE_EXPERIMENT
 
 #include "../recommender_data/RecommenderDataIterator.h"
-#include "../online_recommender/OnlineRecommender.h"
+#include "../online_learners/OnlineLearner.h"
 #include "../general_interfaces/Updater.h"
 #include "../loggers/Logger.h"
 #include "../general_interfaces/INeedExperimentEnvironment.h"
@@ -18,7 +18,7 @@ class OnlineExperiment{
     ~OnlineExperiment(){};
     void add_logger(Logger* logger){loggers_.push_back(logger);}
     void add_end_logger(Logger* logger){end_loggers_.push_back(logger);}
-    void set_online_recommender(OnlineRecommender* recommender){recommender_ = recommender; }
+    void add_learner(OnlineLearner* learner){ learners_.push_back(learner); }
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
       recommender_data_iterator_ = recommender_data_iterator;
       experiment_environment_.set_recommender_data_iterator(recommender_data_iterator);
@@ -28,10 +28,6 @@ class OnlineExperiment{
       if(recommender_data_iterator_ == NULL){
         ok = false;
         cerr << "OnlineExperiment::recommender_data_iterator_ is not set." << endl;
-      }
-      if(recommender_ == NULL){
-        ok = false;
-        cerr << "OnlineExperiment::recommender_ is not set." << endl;
       }
       if(loggers_.size() == 0){
         //ok = false; //That's not a fatal error.
@@ -46,7 +42,7 @@ class OnlineExperiment{
   private:
     ExperimentEnvironment experiment_environment_;
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
-    OnlineRecommender* recommender_ = NULL;
+    vector<OnlineLearner*> learners_;
     vector<Logger*> loggers_;
     vector<Logger*> end_loggers_;
 };

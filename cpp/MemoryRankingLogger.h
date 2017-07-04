@@ -1,7 +1,7 @@
 #ifndef MEMORY_RANKING_LOGGER_H
 #define MEMORY_RANKING_LOGGER_H
 
-#include "online_recommender/OnlineRecommender.h"
+#include "models/Model.h"
 #include "ranking/Ranking.h"
 #include "loggers/Logger.h"
 #include <vector>
@@ -37,7 +37,7 @@ class MemoryRankingLogger : public Logger{
       }
     }
     ~MemoryRankingLogger(){}
-    void set_recommender(OnlineRecommender* recommender){ recommender_ = recommender; }
+    void set_model(Model* model){ model_ = model; }
     void set_rank_computer(RankComputer* rank_computer){ rank_computer_ = rank_computer; }
     void set_ranking_logs(RankingLogs* logs){
       logs_=logs;
@@ -47,7 +47,7 @@ class MemoryRankingLogger : public Logger{
         RankingLog log;
         log.time = rec_dat->time;
         log.rank = rank_computer_->get_rank(rec_dat);
-        log.prediction = recommender_->prediction(rec_dat);
+        log.prediction = model_->prediction(rec_dat);
         log.item = rec_dat->item;
         log.user = rec_dat->user;
         log.score = rec_dat->score;
@@ -71,7 +71,7 @@ class MemoryRankingLogger : public Logger{
     ofstream ofs;
     RankingLogs* logs_;
     double min_time_;
-    OnlineRecommender* recommender_;
+    Model* model_;
     RankComputer* rank_computer_;
 };
 

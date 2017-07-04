@@ -34,7 +34,7 @@ class MemoryRankingLogger : public Logger /NoDefaultCtors/{
   public:
     MemoryRankingLogger(MemoryRankingLoggerParameters* params);
     ~MemoryRankingLogger();
-    void set_recommender(OnlineRecommender* recommender);
+    void set_model(Model* model);
     void set_rank_computer(RankComputer* rank_computer);
     void set_ranking_logs(RankingLogs* logs);
     void run(RecDat* rec_dat);

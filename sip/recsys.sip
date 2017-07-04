@@ -56,7 +56,6 @@
 %Include src/loggers/OnlinePredictor.sip
 %Include src/online_experiment/OnlineExperiment.sip
 %Include src/online_experiment/ExperimentEnvironment.sip
-%Include src/online_recommender/OnlineRecommender.sip
 %Include src/utils/SpMatrix.sip
 %Include src/utils/PopContainers.sip
 %Include src/utils/Recency.sip
