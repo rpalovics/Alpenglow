@@ -1,7 +1,7 @@
 #ifndef FACTOR_MODEL
 #define FACTOR_MODEL
 
-#include <tr1/unordered_map>
+#include <unordered_map>
 #include "../../utils/Factors.h"
 #include "../../utils/Util.h"
 #include "../../utils/Bias.h"

@@ -6,6 +6,7 @@ except:
 import sipdistutils
 import os
 import os.path
+from sys import platform
 
 from distutils.dep_util import newer_group
 from distutils.errors import *
@@ -94,9 +95,17 @@ for key, value in cfg_vars.items():
     if type(value) == str:
         cfg_vars[key] = value.replace("-Wstrict-prototypes", "")
 
+platform_specific_flags = []
+if platform == "linux" or platform == "linux2":
+    platform_specific_flags = ['-mfpmath=sse,387']
+elif platform == "darwin":
+    platform_specific_flags = ['-stdlib=libc++']
+elif platform == "win32":
+    pass
+
 setup(
     name='alpenglow',
-    version='0.1',
+    version='0.1.0',
     install_requires=['numpy', 'pandas'],
     ext_modules=[
         Extension(
@@ -114,14 +123,14 @@ setup(
                 '-std=c++11',
                 '-Wno-deprecated',
                 '-Wno-reorder',
-                '-mfpmath=sse,387',
+                '-O3',
                 '-funroll-loops',
                 '-fomit-frame-pointer',
                 '-lpthread',
                 '-msse3',
                 '-D_LARGEFILE_SOURCE',
                 '-D_FILE_OFFSET_BITS=64'
-            ],
+            ] + platform_specific_flags,
         ),
     ],
     packages=[
