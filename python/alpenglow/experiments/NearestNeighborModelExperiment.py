@@ -25,12 +25,9 @@ class NearestNeighborModelExperiment(prs.OnlineExperiment):
           period_mode="time-based"
         ))
         updater.set_model(model)
-        learner = rs.SimpleLearner()
-        learner.add_simple_updater(updater)
-        learner.set_model(model)
 
         model = model
-        learner = learner
+        learner = [updater]
         filters = [model]
 
         return {

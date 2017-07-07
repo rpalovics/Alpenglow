@@ -1,15 +1,15 @@
-class ModelUpdater {
-  %TypeHeaderCode
-  #include "models/ModelUpdater.h"
-  %End
-  public:
-    virtual double objective(RecDat*);
-    virtual ~ModelUpdater();
-    bool self_test();
-};
+//class ModelUpdater {
+//  %TypeHeaderCode
+//  #include "models/ModelUpdater.h"
+//  %End
+//  public:
+//    virtual double objective(RecDat*);
+//    virtual ~ModelUpdater();
+//    bool self_test();
+//};
 
 
-class ModelGradientUpdater: public ModelUpdater {
+class ModelGradientUpdater{
   %TypeHeaderCode
   #include "models/ModelUpdater.h"
   %End
@@ -20,7 +20,7 @@ class ModelGradientUpdater: public ModelUpdater {
     bool self_test();
 };
 
-class ModelSimpleUpdater: public ModelUpdater {
+class ModelSimpleUpdater : public Updater{
   %TypeHeaderCode
   #include "models/ModelUpdater.h"
   %End
@@ -29,7 +29,7 @@ class ModelSimpleUpdater: public ModelUpdater {
     bool self_test();
 };
 
-class ModelMultiUpdater: public ModelUpdater {
+class ModelMultiUpdater{
   %TypeHeaderCode
   #include "models/ModelUpdater.h"
   %End
