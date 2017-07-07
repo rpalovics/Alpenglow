@@ -6,6 +6,7 @@
 #include <set>
 #include <gtest/gtest_prod.h>
 #include <tuple>
+#include <functional>
 
 class AvailabilityFilter : ModelFilter {
 public:

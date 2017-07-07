@@ -97,11 +97,25 @@ for key, value in cfg_vars.items():
 
 platform_specific_flags = []
 if platform == "linux" or platform == "linux2":
-    platform_specific_flags = ['-mfpmath=sse,387']
+    platform_specific_flags = [
+        '-mfpmath=sse,387',
+        '-Wno-deprecated',
+        '-Wno-reorder',
+    ]
 elif platform == "darwin":
-    platform_specific_flags = ['-stdlib=libc++']
+    platform_specific_flags = [
+        '-stdlib=libc++',
+        '-Wno-deprecated',
+        '-Wno-reorder',
+    ]
 elif platform == "win32":
-    pass
+    platform_specific_flags = [
+        '-Dand=&&',
+        '-Dor=||',
+        '-Duint="unsigned int"',
+        '-DMEMORY_USAGE_LOGGER',
+        '-O2'
+    ]
 
 setup(
     name='alpenglow',
@@ -121,8 +135,6 @@ setup(
             ],
             extra_compile_args=[
                 '-std=c++11',
-                '-Wno-deprecated',
-                '-Wno-reorder',
                 '-O3',
                 '-funroll-loops',
                 '-fomit-frame-pointer',
