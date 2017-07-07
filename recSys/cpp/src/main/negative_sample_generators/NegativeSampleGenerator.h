@@ -11,7 +11,6 @@
 #include <limits>
 
 #include "../utils/SpMatrix.h"
-#include "../online_learners/OnlineLearner.h"
 #include "../models/Model.h"
 //#include "../ranking/Ranking.h"
 #include "../recommender_data/RecommenderData.h"

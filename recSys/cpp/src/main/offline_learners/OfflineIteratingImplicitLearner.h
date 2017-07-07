@@ -16,6 +16,7 @@
 #include "OfflineLearner.cpp"
 #include "../models/Model.h"
 #include "../models/ModelUpdater.h"
+#include "../models/GroupUpdater.h"
 #include "../recommender_data/RecommenderData.h"
 #include "../recommender_data/RandomIterator.h"
 #include "../gradient_computers/GradientComputer.h"

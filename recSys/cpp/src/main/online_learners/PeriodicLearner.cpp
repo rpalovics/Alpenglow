@@ -8,7 +8,7 @@ bool PeriodicLearner::init(){
   return true;
 }
 
-void PeriodicLearner::learn(RecDat* rec_dat){
+void PeriodicLearner::update(RecDat* rec_dat){
   int next_period_num=compute_next_period_num(rec_dat);
   if(next_period_num!=period_num_){
     clear_model(rec_dat);

@@ -1,7 +1,7 @@
 #include "LearnerPeriodicDelayedWrapper.h"
 
 
-void LearnerPeriodicDelayedWrapper::learn(RecDat* rec_dat){
+void LearnerPeriodicDelayedWrapper::update(RecDat* rec_dat){
   if(start_time_ == -1){
     start_time_ = rec_dat->time;
   }
@@ -47,16 +47,4 @@ void LearnerPeriodicDelayedWrapper::simple_learn(RecDat* rec_dat){
 
 void LearnerPeriodicDelayedWrapper::set_wrapped_learner(Updater* learner){
   wrapped_learner_ = learner;
-}
-void LearnerPeriodicDelayedWrapper::set_model(Model* model){
-  throw exception();
-}
-void LearnerPeriodicDelayedWrapper::add_simple_updater(ModelSimpleUpdater* model_updater){
-  throw exception();
-}
-void LearnerPeriodicDelayedWrapper::add_gradient_updater(ModelGradientUpdater* model_updater){
-  throw exception();
-}
-void LearnerPeriodicDelayedWrapper::add_multi_updater(ModelMultiUpdater* model_updater){
-  throw exception();
 }

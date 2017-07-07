@@ -6,7 +6,7 @@ struct LearnerPeriodicDelayedWrapperParameters{
   double delay;
 };
 
-class LearnerPeriodicDelayedWrapper : OnlineLearner{
+class LearnerPeriodicDelayedWrapper : Updater{
   %TypeHeaderCode
   #include "online_learners/LearnerPeriodicDelayedWrapper.h"
   %End
@@ -16,11 +16,7 @@ class LearnerPeriodicDelayedWrapper : OnlineLearner{
 
     virtual void set_wrapped_learner(Updater* learner);
 
-    virtual void learn(RecDat* rec_dat);
-    virtual void add_simple_updater(ModelSimpleUpdater* model_updater);
-    virtual void add_gradient_updater(ModelGradientUpdater* model_updater);
-    virtual void add_multi_updater(ModelMultiUpdater* model_updater);
-    virtual void set_model(Model* model);
+    virtual void update(RecDat* rec_dat);
 
     bool self_test();
 };

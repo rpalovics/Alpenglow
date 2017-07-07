@@ -33,7 +33,6 @@
 %Include src/models/baseline/PopularityTimeFrameModelUpdater.sip
 %Include src/models/baseline/NearestNeighborModel.sip
 %Include src/models/baseline/NearestNeighborModelUpdater.sip
-%Include src/online_learners/OnlineLearner.sip
 %Include src/online_learners/ImplicitGradientLearner.sip
 %Include src/online_learners/OfflineImplicitGradientLearner.sip
 %Include src/online_learners/PeriodicImplicitGradientLearner.sip

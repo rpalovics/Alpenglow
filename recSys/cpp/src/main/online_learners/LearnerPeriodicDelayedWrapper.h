@@ -2,7 +2,7 @@
 #define PERIODIC_DELAYED_LEARNER_WRAPPER
 
 
-#include "OnlineLearner.h"
+#include "../general_interfaces/Updater.h"
 #include <exception>
 #include <queue>
 using namespace std;
@@ -11,7 +11,7 @@ struct LearnerPeriodicDelayedWrapperParameters{
   double delay=-1;
 };
 
-class LearnerPeriodicDelayedWrapper : public OnlineLearner{
+class LearnerPeriodicDelayedWrapper : public Updater{
   public:
     LearnerPeriodicDelayedWrapper(LearnerPeriodicDelayedWrapperParameters* params){
       period_ = params->period;
@@ -22,16 +22,11 @@ class LearnerPeriodicDelayedWrapper : public OnlineLearner{
     }
     virtual ~LearnerPeriodicDelayedWrapper(){}
 
-    virtual void set_wrapped_learner(Updater* learner);
-
-    virtual void learn(RecDat* rec_dat) override;
-    virtual void add_simple_updater(ModelSimpleUpdater* model_updater) override;
-    virtual void add_gradient_updater(ModelGradientUpdater* model_updater) override;
-    virtual void add_multi_updater(ModelMultiUpdater* model_updater) override;
-    virtual void set_model(Model* model) override;
+    void set_wrapped_learner(Updater* learner);
+    virtual void update(RecDat* rec_dat) override;
 
     bool self_test(){
-      bool ok = OnlineLearner::self_test();
+      bool ok = Updater::self_test();
       if(wrapped_learner_ == NULL){
         cerr << "LearnerPeriodicDelayedWrapper::wrapped_learner is not set." << endl; 
         ok = false;

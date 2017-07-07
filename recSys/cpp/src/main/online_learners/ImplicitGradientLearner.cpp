@@ -1,7 +1,7 @@
 #include "ImplicitGradientLearner.h"
 
 
-void ImplicitGradientLearner::learn(RecDat * rec_dat){
+void ImplicitGradientLearner::update(RecDat * rec_dat){
   if(experiment_environment_->is_item_new_for_user() or !lookback_){
     model_->add(rec_dat);
     vector<RecDat>* train_data = negative_sample_generator_->get_implicit_train_data(rec_dat);
