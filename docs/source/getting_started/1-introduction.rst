@@ -3,7 +3,7 @@ Introduction
 
 Welcome to Alpenglow introduction!
 
-Alpenglow is an open source recommender systems research framework, aimed at providing tools for  rapid prototyping and evaluation of algorithms for streaming recommendation tasks.
+Alpenglow is an open source recommender systems research framework, aimed at providing tools for rapid prototyping and evaluation of algorithms for streaming recommendation tasks.
 
 The framework is composed of a large number of components written in C++ and a thin python API for combining them into reusable experiments, thus enabling ease of use and fast execution at the same time. The framework also provides a number of preconfigured experiments in the :py:mod:`alpenglow.experiments` package and various tools for evaluation, hyperparameter search, etc.
 
@@ -12,7 +12,14 @@ Requirements
 
 Anaconda + python3 environment
 
-Installation
+Installing
+----------
+Requirements: Anaconda environment with Python 3.5
+
+.. code-block:: bash
+	conda install -c kdomokos alpenglow
+
+Installing from source on Linux
 -------------
 
 .. code-block:: bash

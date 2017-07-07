@@ -5,8 +5,8 @@ Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_da
 
 .. code-block:: python
 
-	import alpenglow as ag
 	from alpenglow.experiments import FactorModelExperiment
+	from alpenglow.evaluation import DcgScore
 	import pandas as pd
 	import matplotlib
 	matplotlib.use('Agg')
@@ -22,7 +22,7 @@ Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_da
 	    negative_rate=100
 	)
 	fac_rankings = factor_model_experiment.run(data, verbose=True)
-	fac_results = ag.NdcgScore(fac_rankings)
-	fac_results.time_frame(60 * 60 * 24).plot()
+	fac_rankings['dcg'] = DcgScore(fac_rankings)
+	fac_rankings['dcg'].groupby((fac_rankings['time']-fac_rankings['time'].min())//86400).mean().plot()
 	plt.savefig("factor.png")
 

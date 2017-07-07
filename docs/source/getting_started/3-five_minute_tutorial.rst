@@ -1,16 +1,16 @@
 Five minute tutorial
 ====================
 
-In this tutorial we are going to learn the basic concepts of using Alpenglow by evaluation various baseline models on real world data and building a simple combined model.
+In this tutorial we are going to learn the basic concepts of using Alpenglow by evaluating various baseline models on real world data and then building a simple combined model.
 
 The data
 --------
 
 You can find the dataset [todo]. This is a processed version of the 30M dataset [todo], where we
 
-- only kept users above a certain activity threshold
-- only kept the first events of listening sessions
-- recoded the items so they represent artists instead of tracks
+- only keep users above a certain activity threshold
+- only keep the first events of listening sessions
+- recode the items so they represent artists instead of tracks
 
 Let's start by importing the csv using pandas.
 
@@ -26,14 +26,13 @@ Let's start by importing the csv using pandas.
 
 Output::
 
-	Index(['time', 'user', 'item', 'id', 'score', 'eval', 'category'], dtype='object')
+	Index(['time', 'user', 'item', 'score', 'eval', 'category'], dtype='object')
 
-To run online experiments, you will need time-series data of user-item interactions in similar format to the above. The only neccessary columns are the :python:`'user'` and :python:`'item'` columns -- the rest will be autofilled if missing. The most important columns are the following:
+To run online experiments, you will need time-series data of user-item interactions in similar format to the above. The only required columns are the :python:`'user'` and :python:`'item'` columns -- the rest will be autofilled if missing. The most important columns are the following:
 
 - **time**: integer, the timestamp of the record. Controls various things, like evaluation timeframes or batch learning epochs. Defaults to :python:`range(0,len(data))` if missing.
 - **user**: integer, the user the activity belongs to. This column is required.
 - **item**: integer, the item the activity belongs to. This column is required.
-- **id**: integer, the id of the record if available -- this can be relevant when identifying records after evaluation. Defaults to :python:`range(0,len(data))` if missing.
 - **score**: double, the score corresponding to the given record. This could be for example the rating of the item in the case of explicit recommendation. Defaults to constant :python:`1`.
 - **eval**: boolean, whether to run ranking-evaluation on the record. Defaults to constant :python:`True`.
 
@@ -55,39 +54,40 @@ When creating an instance of the experiment, we can provide various configuratio
 	    seed=12345, # for reproducibility, we provide a random seed
 	)
 
-You can see the list available options in the documentation of the :py:class:`alpenglow.OnlineExperiment` class and the specific implementation (in this case, the :py:class:`alpenglow.experiments.PopularityModelExperiment` class) or, failing that, in the source code of the given class.
+You can see the list available options of online experiments in the documentation of :py:class:`alpenglow.OnlineExperiment` and the parameters of this particular experiment in the documentation of the specific implementation (in this case :py:class:`alpenglow.experiments.PopularityModelExperiment`) or, failing that, in the source code of the given class.
 
-Running the experiment on the data is as simple as calling :python:`run()`. Multiple options can be provided at this point, for a full list, refer to the documentation of :py:meth:`alpenglow.OnlineExperiment.OnlineExperiment.run`.
+Running the experiment on the data is as simple as calling :python:`run(data)`. Multiple options can be provided at this point, for a full list, refer to the documentation of :py:meth:`alpenglow.OnlineExperiment.OnlineExperiment.run`.
 
 .. code-block:: python
 
 	result = pop_experiment.run(data, verbose=True) #this might take a while
 
-The :python:`run()` method first builds the experiment out of C++ components according to the given parameters, then processes the data, training and evaluating at the same time. The returned object is a :py:class:`alpenglow.cpp.RankingLogs` object, which contains various information regarding the results of the experiment. For example, we could get the list of ranks corresponding to the rows with :python:`eval=1` using :python:`ranks = [i.rank for i in result.logs]`.
+The :python:`run()` method first builds the experiment out of C++ components according to the given parameters, then processes the data, training on it and evaluating the model at the same time. The returned object is a :py:class:`pandas.DataFrame` object, which contains various information regarding the results of the experiment.
 
-However, the easiest way interpret the results is by using a prebuild evaluator, for example :py:class:`alpenglow.NdcgScore.NdcgScore`:
-
-
-.. code-block:: python
-
-	import alpenglow as ag
-	scores = ag.NdcgScore(results).time_frame(60 * 60 * 24)
-
-The :py:class:`NdcgScore` class calculates the NDCG values for the given ranks, which can then be acquired by accessing the :python:`ndcgs` member of the created instance, or as in the above example, further processed by calculating the average over specific timeframes. The :py:meth:`alpenglow.NdcgScore.NdcgScore.time_frame` method returns a pandas DataFrame containing the averages -- this can be plotted easily to visualize the performance of the recommender model.
+The easiest way interpret the results is by using a predefined evaluator, for example :py:class:`alpenglow.NdcgScore.NdcgScore`:
 
 
 .. code-block:: python
 
-	scores.plot()
+	from alpenglow.evaluation import DcgScore
+	results['dcg'] = DcgScore(results)
+
+The :py:class:`NdcgScore` class calculates the NDCG values for the given ranks and returns a :py:class:`pandas.Series` object. This can be averaged and plotted easily to visualize the performance of the recommender model.
+
+
+.. code-block:: python
+
+	daily_avg_dcg = results['dcg'].groupby((results['time']-results['time'].min())//86400).mean()
+	daily_avg_dcg.plot()
 
 [todo plot]
 
-Putting it all tohether:
+Putting it all together:
 
 .. code-block:: python
 
 	import pandas as pd
-	import alpenglow as ag
+	from alpenglow.evaluation import DcgScore
 	from alpenglow.experiments import PopularityModelExperiment
 
 	data = pd.read_csv('artist_data_10_1800')
@@ -96,6 +96,6 @@ Putting it all tohether:
 	    topK=100,
 	    seed=12345,
 	)
-	result = pop_experiment.run(data, verbose=True)
-	scores = ag.NdcgScore(results).time_frame(60 * 60 * 24)
-	scores.plot()
+	results = pop_experiment.run(data, verbose=True)
+	results['dcg'] = NdcgScore(results)
+	results['dcg'].groupby((results['time']-results['time'].min())//86400).mean().plot()
