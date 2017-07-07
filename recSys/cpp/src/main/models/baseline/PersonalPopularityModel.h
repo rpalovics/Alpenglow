@@ -12,7 +12,6 @@ using namespace std;
 
 class PersonalPopularityModel : public Model{
   public:
-    void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
   private:
     double get_user_highest_personal_pop_item_score(int user);

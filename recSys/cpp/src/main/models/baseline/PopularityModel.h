@@ -11,7 +11,6 @@ using namespace std;
 class PopularityModel : public Model {
   public:
     PopularityModel(){ maxfreq_ = 0;}
-    void add(RecDat* rec_dat) override {}
     double prediction(RecDat* rec_dat) override;
   private:
     PopContainer item_freqs_;

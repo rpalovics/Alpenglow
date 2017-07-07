@@ -14,7 +14,7 @@ class LearnerPeriodicDelayedWrapper : OnlineLearner{
     LearnerPeriodicDelayedWrapper(LearnerPeriodicDelayedWrapperParameters* params);
     virtual ~LearnerPeriodicDelayedWrapper();
 
-    virtual void set_wrapped_learner(OnlineLearner* learner);
+    virtual void set_wrapped_learner(Updater* learner);
 
     virtual void learn(RecDat* rec_dat);
     virtual void add_simple_updater(ModelSimpleUpdater* model_updater);

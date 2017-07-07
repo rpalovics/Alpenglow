@@ -17,18 +17,14 @@ class PeriodicPersonalPopularityModelExperiment(prs.OnlineExperiment):
         updater = rs.PersonalPopularityModelUpdater()
         updater.set_model(model)
 
-        simple_learner = rs.SimpleLearner()
-        simple_learner.add_simple_updater(updater)
-        simple_learner.set_model(model)
-
         learner = rs.LearnerPeriodicDelayedWrapper(**self.parameter_defaults(
             period=86400,
             delay=86400
         ))
-        learner.set_wrapped_learner(simple_learner)
+        learner.set_wrapped_learner(updater)
 
         model = model
-        learner = learner
+        learner = [learner]
 
         return {
             'config': config,

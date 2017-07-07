@@ -3,8 +3,9 @@
 
 
 #include "OnlineLearner.h"
+#include <exception>
 #include <queue>
-
+using namespace std;
 struct LearnerPeriodicDelayedWrapperParameters{
   double period=-1;
   double delay=-1;
@@ -21,7 +22,7 @@ class LearnerPeriodicDelayedWrapper : public OnlineLearner{
     }
     virtual ~LearnerPeriodicDelayedWrapper(){}
 
-    virtual void set_wrapped_learner(OnlineLearner* learner);
+    virtual void set_wrapped_learner(Updater* learner);
 
     virtual void learn(RecDat* rec_dat) override;
     virtual void add_simple_updater(ModelSimpleUpdater* model_updater) override;
@@ -30,12 +31,12 @@ class LearnerPeriodicDelayedWrapper : public OnlineLearner{
     virtual void set_model(Model* model) override;
 
     bool self_test(){
+      bool ok = OnlineLearner::self_test();
       if(wrapped_learner_ == NULL){
         cerr << "LearnerPeriodicDelayedWrapper::wrapped_learner is not set." << endl; 
-        return false;
-      } else {
-        return wrapped_learner_->self_test();
+        ok = false;
       }
+      return ok;
     }
   protected:
     virtual void delayed_learn(RecDat*);
@@ -47,7 +48,7 @@ class LearnerPeriodicDelayedWrapper : public OnlineLearner{
     double start_time_;
     vector<RecDat*> period_accumulator_;
     queue<RecDat*> delay_accumulator_;
-    OnlineLearner* wrapped_learner_;
+    Updater* wrapped_learner_;
 };
 
 #endif

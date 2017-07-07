@@ -9,11 +9,6 @@ double PersonalPopularityModel::get_user_highest_personal_pop_item_score(int use
   }
 }
 
-void PersonalPopularityModel::add(RecDat* rec_dat){
-  if(personal_popularities_.get(rec_dat->user, rec_dat->item) == 0){
-    personal_popularities_.insert(rec_dat->user, rec_dat->item, 0);
-  }
-}
 
 double PersonalPopularityModel::prediction(RecDat* rec_dat){
   double personal_pop = personal_popularities_.get(rec_dat->user, rec_dat->item);

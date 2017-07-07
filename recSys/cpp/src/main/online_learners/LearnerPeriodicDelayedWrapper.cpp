@@ -42,21 +42,21 @@ void LearnerPeriodicDelayedWrapper::periodic_learn(vector<RecDat*> recdats){
 }
 
 void LearnerPeriodicDelayedWrapper::simple_learn(RecDat* rec_dat){
-  wrapped_learner_->learn(rec_dat);
+  wrapped_learner_->update(rec_dat);
 }
 
-void LearnerPeriodicDelayedWrapper::set_wrapped_learner(OnlineLearner* learner){
+void LearnerPeriodicDelayedWrapper::set_wrapped_learner(Updater* learner){
   wrapped_learner_ = learner;
 }
 void LearnerPeriodicDelayedWrapper::set_model(Model* model){
-  wrapped_learner_->set_model(model);
+  throw exception();
 }
 void LearnerPeriodicDelayedWrapper::add_simple_updater(ModelSimpleUpdater* model_updater){
-  wrapped_learner_->add_simple_updater(model_updater);
+  throw exception();
 }
 void LearnerPeriodicDelayedWrapper::add_gradient_updater(ModelGradientUpdater* model_updater){
-  wrapped_learner_->add_gradient_updater(model_updater);
+  throw exception();
 }
 void LearnerPeriodicDelayedWrapper::add_multi_updater(ModelMultiUpdater* model_updater){
-  wrapped_learner_->add_multi_updater(model_updater);
+  throw exception();
 }

@@ -16,12 +16,9 @@ class PopularityModelExperiment(prs.OnlineExperiment):
         model = rs.PopularityModel()
         updater = rs.PopularityModelUpdater()
         updater.set_model(model)
-        learner = rs.SimpleLearner()
-        learner.add_simple_updater(updater)
-        learner.set_model(model)
 
         model = model
-        learner = learner
+        learner = [updater]
 
         return {
             'config': config,

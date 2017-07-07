@@ -7,7 +7,7 @@
 class Model{
   public:
     Model() {}
-    virtual void add(RecDat* rec_dat) = 0;
+    virtual void add(RecDat* rec_dat){} //called only before gradient update
     virtual double prediction(RecDat* rec_dat) = 0;
     virtual void write(ofstream& file) { throw exception(); }
     virtual void read(ifstream& file) { throw exception(); }

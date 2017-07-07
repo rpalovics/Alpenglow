@@ -9,7 +9,6 @@
 class TransitionProbabilityModel: public Model, public ModelFilter{
   public:
     //model
-    void add(RecDat* rec_dat) override {}
     double prediction(RecDat* rec_dat) override;
     //modelfilter
     vector<pair<int,double>>* get_personalized_items(int user) override;
