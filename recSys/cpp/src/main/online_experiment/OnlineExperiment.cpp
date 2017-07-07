@@ -19,9 +19,9 @@ void OnlineExperiment::run() {
     for (auto logger : loggers_) {
       logger->run(rec_dat);
     }
-    experiment_environment_->update(rec_dat);
-    for (auto learner : learners_){
-      learner->learn(rec_dat);
+    experiment_environment_.update(rec_dat);
+    for (auto updater : updaters_){
+      updater->update(rec_dat);
     }
   }
   for (auto end_logger : end_loggers_) {

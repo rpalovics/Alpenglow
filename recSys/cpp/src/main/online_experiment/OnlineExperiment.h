@@ -2,7 +2,6 @@
 #define ONLINE_EXPERIMENT
 
 #include "../recommender_data/RecommenderDataIterator.h"
-#include "../online_learners/OnlineLearner.h"
 #include "../general_interfaces/Updater.h"
 #include "../loggers/Logger.h"
 #include "../general_interfaces/INeedExperimentEnvironment.h"
@@ -30,8 +29,11 @@ class OnlineExperiment{
     };
     void add_logger(Logger* logger){loggers_.push_back(logger);}
     void add_end_logger(Logger* logger){end_loggers_.push_back(logger);}
-    void add_learner(OnlineLearner* learner){ learners_.push_back(learner); }
-    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
+    void add_updater(Updater* updater){ updaters_.push_back(updater); }
+    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
+      recommender_data_iterator_ = recommender_data_iterator;
+      experiment_environment_.set_recommender_data_iterator(recommender_data_iterator);
+    }
     bool self_test(){
       bool ok = true;
       if(recommender_data_iterator_ == NULL){
@@ -49,7 +51,7 @@ class OnlineExperiment{
   private:
     ExperimentEnvironment* experiment_environment_;
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
-    vector<OnlineLearner*> learners_;
+    vector<Updater*> updaters_;
     vector<Logger*> loggers_;
     vector<Logger*> end_loggers_;
 };

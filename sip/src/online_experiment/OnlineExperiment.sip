@@ -20,7 +20,7 @@ class OnlineExperiment{
     ~OnlineExperiment();
     void add_logger(Logger* logger);
     //void set_online_data_updater(OnlineDataUpdater* updater);
-    void add_learner(OnlineLearner* learner);
+    void add_updater(Updater* updater);
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool self_test();
     void run() throw (PythonKeyboardInterruptException) /ReleaseGIL/;

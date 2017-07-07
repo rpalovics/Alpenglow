@@ -2,15 +2,17 @@
 #define ONLINELEARNER
 
 
+#include "../general_interfaces/Updater.h"
 #include "../models/Model.h"
 #include "../models/ModelUpdater.h"
 #include "../models/GroupUpdater.h"
 
 
-class OnlineLearner {
+class OnlineLearner : public Updater{
   public:
     OnlineLearner(){ model_ = NULL; }
     virtual ~OnlineLearner(){}
+    void update(RecDat* rec_dat) override { learn(rec_dat); }
     virtual void learn(RecDat* rec_dat)=0;
     virtual void add_simple_updater(ModelSimpleUpdater* model_updater) {
       model_simple_updaters_.push_back(model_updater);
@@ -22,7 +24,7 @@ class OnlineLearner {
       model_multi_updaters_.push_back(model_updater);
     }
     virtual void set_model(Model* model){model_=model;}
-    bool self_test(){ return true; }
+    bool self_test(){ return Updater::self_test(); }
 
   protected:
     vector<ModelSimpleUpdater*> model_simple_updaters_;

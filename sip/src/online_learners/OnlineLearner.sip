@@ -1,4 +1,4 @@
-class OnlineLearner {
+class OnlineLearner : public Updater {
   %TypeHeaderCode
   #include "online_learners/OnlineLearner.h"
   %End
@@ -6,6 +6,7 @@ class OnlineLearner {
     OnlineLearner();
     virtual ~OnlineLearner();
     virtual void learn(RecDat* rec_dat)=0;
+    void update(RecDat* rec_dat);
     void add_simple_updater(ModelSimpleUpdater* model_updater);
     void add_gradient_updater(ModelGradientUpdater* model_updater);
     void add_multi_updater(ModelMultiUpdater* model_updater);
