@@ -31,7 +31,7 @@ class DataframeIterator(rs.DataframeIterator):
             rd.category = _category
             recdats.append(rd)
             sip.transferto(rd, None)
-        self.add_recdats(recdats);
+        self.add_recdats(recdats)
         super(rs.DataframeIterator, self).initialize()
 
     def _get_def_valarray(self, name, deftype=None):

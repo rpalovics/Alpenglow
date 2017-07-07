@@ -15,6 +15,7 @@ class TestSimulatedBatchExperiment:
         )
         sbExperiment = alpenglow.experiments.SimulatedBatchExperiment(
             top_k=100,
+            negative_rate=3,
             seed=254938879,
             period_length=1000
         )

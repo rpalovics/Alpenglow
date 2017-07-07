@@ -53,10 +53,9 @@ class OnlineExperiment:
             recommender_data.set_max_time(max_time)
             recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
             recommender_data_iterator.set_recommender_data(recommender_data)
-        #TODO set max_item, max_user here
+        # TODO set max_item, max_user here
 
         print("data reading finished") if self.verbose else None
-
 
         elems = {}
         configdict = self.config(elems)
@@ -76,24 +75,22 @@ class OnlineExperiment:
         model = self.model
         learner = self.learner
 
-
-
         rank_computer = rs.RankComputer(top_k=top_k, random_seed=43211234)
         rank_computer.set_model(model)
 
         if 'filters' in config:
             filters = config['filters']
             for f in filters:
-                print("set filter",f)
-                rank_computer.set_model_filter(f) #FIXME rank_computer treats only ONE filter
+                print("set filter", f)
+                rank_computer.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
 
         online_experiment = rs.OnlineExperiment(random_seed=seed, min_time=min_time, max_time=max_time, top_k=top_k, lookback=lookback, initialize_all=initialize_all, max_item=max_item, max_user=max_user)
 
         if type(learner) == list:
-          for obj in learner:
-            online_experiment.add_learner(obj)
+            for obj in learner:
+                online_experiment.add_learner(obj)
         else:
-          online_experiment.add_learner(learner)
+            online_experiment.add_learner(learner)
         online_experiment.set_recommender_data_iterator(recommender_data_iterator)
 
         # string attribute_container_name = getPot("set_attribute_container", "");
@@ -159,7 +156,7 @@ class OnlineExperiment:
                 l.user,
                 l.item,
                 l.prediction,
-                l.rank+1 if l.rank < top_k else None
+                l.rank + 1 if l.rank < top_k else None
             ) for l in logs],
             columns=["id", "time", "score", "user", "item", "prediction", "rank"]
         ).set_index("id")

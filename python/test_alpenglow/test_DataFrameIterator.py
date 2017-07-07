@@ -16,7 +16,7 @@ class TestDataFrameIterator:
         )
         data['id'] += 5
         data['eval'] = 0
-        data.iloc[len(data) // 2:]['eval'] = 1
+        data.loc[data.iloc[len(data) // 2:].index, 'eval'] = 1
         data.set_index('id')
         factorModelExperiment = alpenglow.experiments.FactorModelExperiment(
             top_k=100,

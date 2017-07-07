@@ -1,11 +1,12 @@
 import alpenglow.Getter as rs
 import alpenglow as prs
 
+
 class SimulatedBatchExperiment(prs.OnlineExperiment):
     def config(self, elems):
         config = self.parameter_defaults(
-            top_k= 100,
-            min_time= 0,
+            top_k=100,
+            min_time=0,
             loggers=[],
         )
 
@@ -34,15 +35,15 @@ class SimulatedBatchExperiment(prs.OnlineExperiment):
             base_in_file_name=""
         ))
         learner.set_model(model)
-        #learner.set_recommender_data_iterator(elems['recommender_data_iterator'])
+        # learner.set_recommender_data_iterator(elems['recommender_data_iterator'])
         learner.add_gradient_updater(updater)
 
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
-            negative_rate=3,
+            negative_rate=0,
             initialize_all=False,
         ))
-        #negative_sample_generator.set_train_matrix(elems['train_matrix'])
-        #negative_sample_generator.set_items(elems['items'])
+        # negative_sample_generator.set_train_matrix(elems['train_matrix'])
+        # negative_sample_generator.set_items(elems['items'])
         learner.set_negative_sample_generator(negative_sample_generator)
 
         point_wise = rs.ObjectiveMSE()
