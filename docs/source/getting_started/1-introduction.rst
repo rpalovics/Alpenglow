@@ -10,17 +10,17 @@ The framework is composed of a large number of components written in C++ and a t
 Requirements
 -------------
 
-Anaconda + python3 environment
+Anaconda environment with Python 3.5
 
 Installing
 ----------
-Requirements: Anaconda environment with Python 3.5
 
 .. code-block:: bash
+
 	conda install -c kdomokos alpenglow
 
 Installing from source on Linux
--------------
+-------------------------------
 
 .. code-block:: bash
 
@@ -29,7 +29,7 @@ Installing from source on Linux
 	pip install .
 
 Development
-------------
+-----------
 .. role:: bash(code)
    :language: bash
 
