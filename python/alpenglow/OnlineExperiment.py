@@ -1,5 +1,5 @@
 from .Getter import Getter as rs
-from .DataframeIterator import DataframeIterator
+from .DataframeData import DataframeData
 from .ParameterSearch import DependentParameter
 import pandas as pd
 import sip
@@ -44,16 +44,19 @@ class OnlineExperiment:
         print("reading data...") if self.verbose else None
 
         if not isinstance(data, str):
-            recommender_data_iterator = DataframeIterator(data, columns=columns)
+            if(max_time != 0):
+                # TODO
+                pass
+            recommender_data = DataframeData(data, columns=columns)
         else:
             recommender_data = rs.RecommenderData(
                 file_name=data,
                 type=experimentType
             )
             recommender_data.set_max_time(max_time)
-            recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
-            recommender_data_iterator.set_recommender_data(recommender_data)
         # TODO set max_item, max_user here
+        recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
+        recommender_data_iterator.set_recommender_data(recommender_data)
 
         print("data reading finished") if self.verbose else None
 

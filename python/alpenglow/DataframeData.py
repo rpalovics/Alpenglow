@@ -3,9 +3,9 @@ import numpy as np
 import sip
 
 
-class DataframeIterator(rs.DataframeIterator):
+class DataframeData(rs.DataframeData):
     def __init__(self, df, columns={}):
-        super(rs.DataframeIterator, self).__init__()
+        super(rs.DataframeData, self).__init__()
         self.columns = columns
         self.position = 0
         self.df = df
@@ -32,7 +32,7 @@ class DataframeIterator(rs.DataframeIterator):
             recdats.append(rd)
             sip.transferto(rd, None)
         self.add_recdats(recdats)
-        super(rs.DataframeIterator, self).initialize()
+        print("initing dataframedata from py", super(rs.DataframeData, self).initialize())
 
     def _get_def_valarray(self, name, deftype=None):
         if(name in self.columns):

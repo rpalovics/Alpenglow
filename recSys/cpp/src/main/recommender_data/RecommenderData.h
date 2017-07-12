@@ -80,14 +80,14 @@ class RecommenderData : public Initializable{
     void read_from_file(string file_name, string type);
     void read_from_file_core(istream& ifs, string type);
     void set_rec_dats(RecDats rec_data){ this->rec_data = rec_data; }
-    RecDat* get(int idx){return &(rec_data[idx]);}
-    int size(){return rec_data.size();}
+    virtual RecDat* get(int idx){return &(rec_data[idx]);}
+    virtual int size(){return rec_data.size();}
     SpMatrix* matrix();
     vector<int>* items();
     vector<int>* users();
     void set_max_time(double _max_time){ max_time = _max_time; }
     RecDats* get_rec_data(){ return &rec_data; }
-    bool init(){
+    bool init() override {
       read_from_file(file_name, type);
       return true;
     }
