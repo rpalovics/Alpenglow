@@ -36,5 +36,6 @@ class NearestNeighborModelExperiment(prs.OnlineExperiment):
         return {
             'config': config,
             'model': model,
-            'learner': learner
+            'learner': learner,
+            'filters': filters,
         }
