@@ -6,6 +6,7 @@ struct UniformNegativeSampleGeneratorParameters{
     bool initialize_all;
     int max_item;
     bool filter_repeats;
+    int seed;
 };
 
 class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public INeedExperimentEnvironment{

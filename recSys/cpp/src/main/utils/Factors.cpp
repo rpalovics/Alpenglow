@@ -24,7 +24,7 @@ void Factors::set_rand(int idx){
   if(factors[idx]!=NULL) delete factors[idx];
   factors[idx] = new vector <double> (dimension,0);
   for(int ii=0; ii<dimension; ii++){
-    (*factors[idx])[ii] = ((double)rand()/(double)RAND_MAX)*(begin_max-begin_min)+begin_min;
+    (*factors[idx])[ii] = rnd.get()*(begin_max-begin_min)+begin_min;
   } 
 }
 void Factors::init(int idx){

@@ -20,6 +20,7 @@ struct FactorModelParameters{
   bool use_item_bias, use_user_bias;
   bool initialize_all;
   int max_item, max_user;
+  int seed=67439852;
   FactorModelParameters(){ //setting all to jinjactor default value
     dimension=-1;begin_min=-1;begin_max=-1;
     use_sigmoid=false;use_item_bias=false;use_user_bias=false;

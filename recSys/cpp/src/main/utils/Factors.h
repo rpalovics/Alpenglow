@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <cmath>
 #include <gtest/gtest_prod.h>
+#include "Random.h"
 
 using namespace std;
 
@@ -18,12 +19,13 @@ struct FactorsParameters{
   double begin_max;
   double begin_min;
   double dimension;
+  int seed;
 };
 
 class Factors{
   public:
     Factors(){};
-    Factors(FactorsParameters parameters){
+    Factors(FactorsParameters parameters) : rnd(parameters.seed){
       set_parameters(parameters);
     };
     ~Factors(){
@@ -59,6 +61,7 @@ class Factors{
     size_t get_dimension(){return dimension;}
     vector <int> get_nonnull_indices();
   private:
+    Random rnd;
     vector <vector<double>*> factors;
     double begin_min, begin_max;
     int dimension;

@@ -4,12 +4,14 @@
 #include "NegativeSampleGenerator.h"
 #include "../general_interfaces/INeedExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
+#include "../utils/Random.h"
 
 struct UniformNegativeSampleGeneratorParameters{
     double negative_rate; 
     bool initialize_all;
     int max_item;
     bool filter_repeats;
+    int seed=67439852;
     UniformNegativeSampleGeneratorParameters(){
       negative_rate=-1;
       initialize_all=false;
@@ -24,7 +26,8 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public IN
       negative_rate_(parameters->negative_rate),
       filter_repeats_(parameters->filter_repeats),
       initialize_all_(parameters->initialize_all),
-      max_item_(parameters->max_item)
+      max_item_(parameters->max_item),
+      rnd(parameters->seed)
     {}
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_=train_matrix; }
     void set_items(vector<int>* items){ if(!initialize_all_) items_=items; }
@@ -66,6 +69,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public IN
     vector<int>* items_ = NULL;
     SpMatrix* train_matrix_ = NULL; 
     ExperimentEnvironment* experiment_environment_;
+    Random rnd;
     const double negative_rate_;
     const bool filter_repeats_;
     const bool initialize_all_;

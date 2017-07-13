@@ -5,6 +5,7 @@ void FactorModel::set_parameters(FactorModelParameters* parameters){
   factors_parameters.begin_min=begin_min_;
   factors_parameters.begin_max=begin_max_;
   factors_parameters.dimension=dimension_;
+  factors_parameters.seed=parameters->seed;
   user_factors_.set_parameters(factors_parameters);
   item_factors_.set_parameters(factors_parameters);
 
