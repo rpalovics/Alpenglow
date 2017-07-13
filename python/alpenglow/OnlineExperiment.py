@@ -1,41 +1,16 @@
 from .Getter import Getter as rs
 from .DataframeData import DataframeData
-from .ParameterSearch import DependentParameter
+from .ParameterDefaults import ParameterDefaults
 import pandas as pd
 import sip
 
 
-class OnlineExperiment:
+class OnlineExperiment(ParameterDefaults):
     def __init__(self, **parameters):
-        self.parameters = parameters
-        self.given_parameters = set(self.parameters.keys())
+        super().__init__(**parameters)
         self.used_parameters = set(['seed'])
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
-
-    def check_unused_parameters(self):
-        unused = self.given_parameters - self.used_parameters
-        if(len(unused) != 0):
-            raise TypeError("Unused parameters: " + ", ".join(unused))
-
-    def set_parameter(self, name, value):
-        self.parameters[name] = value
-        self.given_parameters |= set([name])
-
-    def parameter_defaults(self, **defaults):
-        for k in defaults:
-            defaults[k] = self.parameter_default(k, defaults[k])
-        return defaults
-
-    def parameter_default(self, name, value):
-        self.used_parameters |= set([name])
-        if name in self.parameters:
-            if isinstance(self.parameters[name], DependentParameter):
-                return self.parameters[name].eval(self.parameters)
-            else:
-                return self.parameters[name]
-        else:
-            return value
 
     def run(self, data, experimentType=None, columns={}, verbose=True, min_time=0, max_time=0, out_file=None, lookback=False, initialize_all=False, max_item=-1, max_user=-1):
         rs.collect()
@@ -84,7 +59,6 @@ class OnlineExperiment:
         if 'filters' in config:
             filters = config['filters']
             for f in filters:
-                print("set filter", f)
                 rank_computer.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
 
         online_experiment = rs.OnlineExperiment(random_seed=seed, min_time=min_time, max_time=max_time, top_k=top_k, lookback=lookback, initialize_all=initialize_all, max_item=max_item, max_user=max_user)
@@ -123,13 +97,10 @@ class OnlineExperiment:
         online_experiment.add_logger(ranking_logger)
 
         created_objects = rs.get_and_clean()
-
         rs.set_experiment_environment(online_experiment, created_objects)
         rs.initialize_all(created_objects)
-
         for i in created_objects:
             rs.run_self_test(i)
-
         self.check_unused_parameters()
 
         print("running experiment...") if self.verbose else None

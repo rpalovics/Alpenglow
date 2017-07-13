@@ -32,7 +32,7 @@ class DataframeData(rs.DataframeData):
             recdats.append(rd)
             sip.transferto(rd, None)
         self.add_recdats(recdats)
-        print("initing dataframedata from py", super(rs.DataframeData, self).initialize())
+        super(rs.DataframeData, self).initialize()
 
     def _get_def_valarray(self, name, deftype=None):
         if(name in self.columns):

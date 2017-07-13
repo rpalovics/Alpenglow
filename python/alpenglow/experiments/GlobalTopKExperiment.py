@@ -7,7 +7,7 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
         config = self.parameter_defaults(
             top_k=100,
             min_time=0,
-            seed=0,
+            seed=67439852,
             out_file=None,
             filters=[],
             loggers=[],
@@ -33,7 +33,7 @@ class GlobalTopKExperiment(prs.OnlineExperiment):
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=0.0,
             initialize_all=False,
-            seed=0,
+            seed=67439852,
         ))
         learner.set_negative_sample_generator(negative_sample_generator)
 

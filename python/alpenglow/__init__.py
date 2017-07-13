@@ -4,3 +4,4 @@ from .AvailabilityFilter import *
 from .ParameterSearch import *
 from .ThreadedParameterSearch import *
 from .DataframeData import *
+from .OfflineModel import *

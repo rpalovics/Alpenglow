@@ -11,12 +11,10 @@ public:
   bool init() override {return true;}
   void add_recdats(vector<RecDat*> rds){
     for(auto i : rds){
-      rec_data_.push_back(*i);
+      rec_data.push_back(*i);
     }
   }
-  int size() override {return rec_data_.size();}
-  RecDat* get(int idx) override {return &(rec_data_[idx]);}
-private:
-  vector<RecDat> rec_data_;
+  int size() override {return rec_data.size();}
+  RecDat* get(int idx) override {return &(rec_data[idx]);}
 };
 #endif

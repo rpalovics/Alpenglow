@@ -94,7 +94,7 @@ class RecommenderData : public Initializable{
     void set_attribute_container(InlineAttributeReader* attribute_container){
       attribute_container_ = attribute_container;
     }
-  private:
+  protected:
     RecDats rec_data;
     SpMatrix rec_matrix;
     vector<int> items_;

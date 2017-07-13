@@ -7,7 +7,7 @@ class PopularityTimeframeModelExperiment(prs.OnlineExperiment):
         config = self.parameter_defaults(
             top_k=100,
             min_time=0,
-            seed=0,
+            seed=67439852,
             out_file=None,
             filters=[],
             loggers=[],

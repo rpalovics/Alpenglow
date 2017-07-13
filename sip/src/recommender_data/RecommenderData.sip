@@ -55,12 +55,12 @@ class RecommenderData : public Initializable{
     std::vector<int>* users();
 
 
-    void get_itemsInto(VectorInt*);
+    void get_items_into(VectorInt*);
     %MethodCode
         a0->vec = *(sipCpp->items());
     %End
 
-    void get_usersInto(VectorInt*);
+    void get_users_into(VectorInt*);
     %MethodCode
         a0->vec = *(sipCpp->users());
     %End
