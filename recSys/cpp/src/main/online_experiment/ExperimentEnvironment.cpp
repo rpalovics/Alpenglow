@@ -1,5 +1,15 @@
 #include "ExperimentEnvironment.h"
+#include "OnlineExperiment.h"
 
+
+void ExperimentEnvironment::set_parameters(OnlineExperimentParameters* params){
+  top_k_ = params->top_k;
+  min_time_ = params->min_time;
+  max_time_ = params->max_time;
+  lookback_ = params->lookback;
+  initialize_all_ = params->initialize_all;
+  random_.set(params->random_seed);
+}
 void ExperimentEnvironment::update(RecDat* rec_dat){
   int item = rec_dat->item;
   int user = rec_dat->user;

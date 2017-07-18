@@ -7,28 +7,13 @@
 #include "../recommender_data/macros.h"
 #include "../utils/PopContainers.h"
 #include "../utils/Random.h"
+#include "OnlineExperiment.h"
 
-struct OnlineExperimentParameters{
-  int top_k;
-  int min_time;
-  int max_time;
-  bool lookback;
-  bool initialize_all;
-  int max_user;
-  int max_item;
-  int random_seed;
-};
+struct OnlineExperimentParameters;
 
 class ExperimentEnvironment{
   public:
-    void set_parameters(OnlineExperimentParameters* params){
-      top_k_ = params->top_k;
-      min_time_ = params->min_time;
-      max_time_ = params->max_time;
-      lookback_ = params->lookback;
-      initialize_all_ = params->initialize_all;
-      random_.set(params->random_seed);
-    }
+    void set_parameters(OnlineExperimentParameters* params);
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
       recommender_data_iterator_=recommender_data_iterator;
     }

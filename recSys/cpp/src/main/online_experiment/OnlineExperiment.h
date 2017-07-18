@@ -8,21 +8,30 @@
 #include "../general_interfaces/INeedExperimentEnvironment.h"
 #include "ExperimentEnvironment.h"
 
+class ExperimentEnvironment;
+class INeedExperimentEnvironment;
+
+struct OnlineExperimentParameters{
+  int top_k;
+  int min_time;
+  int max_time;
+  bool lookback;
+  bool initialize_all;
+  int max_user;
+  int max_item;
+  int random_seed;
+};
 
 class OnlineExperiment{
   public:
-    OnlineExperiment(OnlineExperimentParameters* parameters){
-      srand(parameters->random_seed);
-      experiment_environment_.set_parameters(parameters);
+    OnlineExperiment(OnlineExperimentParameters* parameters);
+    ~OnlineExperiment(){
+      delete experiment_environment_;
     };
-    ~OnlineExperiment(){};
     void add_logger(Logger* logger){loggers_.push_back(logger);}
     void add_end_logger(Logger* logger){end_loggers_.push_back(logger);}
     void add_learner(OnlineLearner* learner){ learners_.push_back(learner); }
-    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
-      recommender_data_iterator_ = recommender_data_iterator;
-      experiment_environment_.set_recommender_data_iterator(recommender_data_iterator);
-    }
+    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool self_test(){
       bool ok = true;
       if(recommender_data_iterator_ == NULL){
@@ -36,11 +45,9 @@ class OnlineExperiment{
       return ok;
     }
     void run();
-    void inject_experiment_environment_into(INeedExperimentEnvironment *object){
-      object->set_experiment_environment(&experiment_environment_);
-    }
+    void inject_experiment_environment_into(INeedExperimentEnvironment *object);
   private:
-    ExperimentEnvironment experiment_environment_;
+    ExperimentEnvironment* experiment_environment_;
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
     vector<OnlineLearner*> learners_;
     vector<Logger*> loggers_;
