@@ -69,4 +69,6 @@ class OfflineModel(ParameterDefaults):
         self.model = model
 
     def predict(self, user_item_pairs):
-        pass
+        predictor = rs.MassPredictor()
+        predictor.set_model(self.model)
+        return predictor.predict(user_item_pairs['user'].tolist(), user_item_pairs['item'].tolist())

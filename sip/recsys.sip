@@ -15,6 +15,7 @@
 %Include src/models/Model.sip
 %Include src/models/ModelUpdater.sip
 %Include src/models/SimilarityModel.sip
+%Include src/models/MassPredictor.sip
 %Include src/models/factor/FactorModel.sip
 %Include src/models/factor/FactorModelGradientUpdater.sip
 %Include src/models/factor/AsymmetricFactorModel.sip
