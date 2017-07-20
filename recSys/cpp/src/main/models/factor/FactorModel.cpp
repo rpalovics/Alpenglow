@@ -7,6 +7,7 @@ void FactorModel::set_parameters(FactorModelParameters* parameters){
   factors_parameters.dimension=dimension_;
   factors_parameters.seed=parameters->seed;
   user_factors_.set_parameters(factors_parameters);
+  factors_parameters.seed+=67439852;
   item_factors_.set_parameters(factors_parameters);
 
   user_recency_ = NULL; item_recency_ = NULL;

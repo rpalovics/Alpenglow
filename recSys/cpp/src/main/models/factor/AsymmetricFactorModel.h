@@ -18,6 +18,7 @@ struct AsymmetricFactorModelParameters{
   int max_item;
   string norm_type; //disabled, constant, recency, exponential, youngest
   double gamma;
+  int seed=928357823;
   AsymmetricFactorModelParameters(){
     dimension=-1;
     begin_min=-1; begin_max=-1;

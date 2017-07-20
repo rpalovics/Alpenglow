@@ -29,7 +29,7 @@ class Random{
     void read(ifstream& file){file.read(reinterpret_cast<char*>(&state), sizeof state);}
     vector <int> sample_num;   
   private:
-    long long state=67439852;
+    unsigned long long state=67439852;
     static const int multiplier = 48271;
     static const int mod = 2147483647;
     void step(){

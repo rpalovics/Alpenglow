@@ -7,6 +7,7 @@ void Factors::set_parameters(FactorsParameters parameters){
   begin_min=parameters.begin_min;
   begin_max=parameters.begin_max;
   dimension=parameters.dimension;
+  rnd.set(parameters.seed);
 }
 
 void Factors::resize(int idx){

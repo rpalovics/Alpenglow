@@ -22,6 +22,7 @@ struct SvdppModelParameters{
   double history_weight;
   string norm_type;
   double gamma;
+  int seed=928357823;
   SvdppModelParameters(){
     dimension=-1;
     begin_min=-1;begin_max=-1;

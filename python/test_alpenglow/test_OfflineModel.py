@@ -24,4 +24,4 @@ class TestOfflineModel(unittest.TestCase):
 
         errors = [(1 - predict(model.model, u, i))**2 for (u, i) in data[['user', 'item']].values]
         rmse = np.sqrt(pd.Series(errors)).mean()
-        self.assertAlmostEqual(0.29222296412604876, rmse)
+        self.assertAlmostEqual(0.31307693145764515, rmse)

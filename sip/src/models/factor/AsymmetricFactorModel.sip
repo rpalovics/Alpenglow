@@ -10,6 +10,7 @@ struct AsymmetricFactorModelParameters{
   int max_item;
   std::string norm_type;
   double gamma;
+  int seed;
   AsymmetricFactorModelParameters();
 };
 

@@ -10,6 +10,7 @@ struct SvdppModelParameters{
   double history_weight;
   std::string norm_type;
   double gamma;
+  int seed;
   SvdppModelParameters();
 };
 
