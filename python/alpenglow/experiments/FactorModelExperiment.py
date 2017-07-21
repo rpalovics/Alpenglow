@@ -34,6 +34,7 @@ class FactorModelExperiment(prs.OnlineExperiment):
             negative_rate=0.0,
             initialize_all=False,
             seed=67439852,
+            filter_repeats=False,
         ))
         learner.set_negative_sample_generator(negative_sample_generator)
 

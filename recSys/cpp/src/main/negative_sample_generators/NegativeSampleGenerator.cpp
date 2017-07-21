@@ -1,6 +1,15 @@
 #include "NegativeSampleGenerator.h"
 
 
+void NegativeSampleGenerator::update(RecDat* rec_dat){
+  get_implicit_train_data(rec_dat);
+  for(auto sample:implicit_train_data_){
+    for(auto updater:updaters_){
+      updater->update(&sample);
+    }
+  }
+}
+
 vector<RecDat>*  NegativeSampleGenerator::get_implicit_train_data(RecDat* positive_sample){
   generate(positive_sample);
   implicit_train_data_.clear();

@@ -12,23 +12,28 @@
 
 #include "../utils/SpMatrix.h"
 #include "../models/Model.h"
-//#include "../ranking/Ranking.h"
 #include "../recommender_data/RecommenderData.h"
 #include "../utils/Random.h"
+#include "../general_interfaces/Updater.h"
 
 
-class NegativeSampleGenerator{
+class NegativeSampleGenerator : public Updater{
   public:
-    NegativeSampleGenerator(){};
-    virtual ~NegativeSampleGenerator(){};
-    virtual vector<int>* generate(RecDat* rec_dat)=0; //deprecated, should not be called from other classes
-    virtual vector<RecDat>* get_implicit_train_data(RecDat* positive_sample);
+    void update(RecDat* rec_dat);
     bool self_test(){
-      return true;
+      return Updater::self_test();
     }
+
+    void message(UpdaterMessage message){ for(auto updater:updaters_) updater->message(message); } //TODO move to abstract class
+    void add_updater(Updater* updater){ updaters_.push_back(updater); } //TODO move to abstract class
+    
+    virtual vector<RecDat>* get_implicit_train_data(RecDat* positive_sample); //TODO should not be virtual, should be private
   protected:
     vector<int> samples; //TODO rename samples_
     vector<RecDat> implicit_train_data_;
+  private:
+    virtual vector<int>* generate(RecDat* rec_dat)=0; //deprecated, should not be called from other classes
+    vector<Updater*> updaters_; //TODO move to abstract class
 };
 
 

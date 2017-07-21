@@ -1,6 +1,7 @@
 #include "FactorModelGradientUpdater.h"
 
 void FactorModelGradientUpdater::update(RecDat* rec_dat, double gradient){
+  //cout << "update " << *rec_dat << " grad=" << gradient << endl;
   if(model_->use_sigmoid_){
     double pred = model_->prediction(rec_dat);
     gradient *= Util::sigmoid_derivative_function(pred);

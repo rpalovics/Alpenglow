@@ -36,10 +36,13 @@ void FactorModel::clear(){
 }
 
 void FactorModel::add(RecDat *rec_dat){
+  //cout << "FactorModel::add " << *rec_dat << endl;
   user_factors_.init(rec_dat->user);
   item_factors_.init(rec_dat->item);
   if (use_user_bias_) user_bias_.init(rec_dat->user);
   if (use_item_bias_) item_bias_.init(rec_dat->item);
+  //cout << "user factors" << user_factors_ << endl;
+  //cout << "item factors" << item_factors_ << endl;
 }
 
 double FactorModel::prediction(RecDat *rec_dat){

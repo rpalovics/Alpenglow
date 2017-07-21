@@ -60,6 +60,18 @@ class Factors{
     void clear();
     size_t get_dimension(){return dimension;}
     vector <int> get_nonnull_indices();
+    friend ostream &operator<<( ostream &output, const Factors &factors ){ 
+       output << "size=" << factors.factors.size() << " factors: ";
+       for ( auto factor: factors.factors){
+         if (factor!=NULL){
+           for ( auto x:*factor) {
+             output << x << ",";
+           }
+         }
+         output << ";" << endl;
+       }
+       return output;            
+    }
   private:
     Random rnd;
     vector <vector<double>*> factors;
