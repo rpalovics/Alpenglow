@@ -30,10 +30,7 @@ class OnlineExperiment{
     void add_logger(Logger* logger){loggers_.push_back(logger);}
     void add_end_logger(Logger* logger){end_loggers_.push_back(logger);}
     void add_updater(Updater* updater){ updaters_.push_back(updater); }
-    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
-      recommender_data_iterator_ = recommender_data_iterator;
-      experiment_environment_.set_recommender_data_iterator(recommender_data_iterator);
-    }
+    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool self_test(){
       bool ok = true;
       if(recommender_data_iterator_ == NULL){
