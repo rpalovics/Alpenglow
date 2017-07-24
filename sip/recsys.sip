@@ -66,6 +66,7 @@
 %Include src/filters/ModelFilter.sip
 %Include src/filters/AvailabilityFilter.sip
 %Include src/filters/FactorModelFilter.sip
+%Include src/filters/DummyModelFilter.sip
 
 
 %Include src/offline_experiment/OfflineExperiment.sip
@@ -74,3 +75,4 @@
 %Include src/offline_learners/OfflineLearner.sip
 %Include src/offline_learners/OfflineIteratingImplicitLearner.sip
 %Include src/offline_learners/OfflineIteratingLearner.sip
+%Include src/offline_evaluators/OfflineRankingComputer.sip

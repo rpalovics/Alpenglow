@@ -12,9 +12,11 @@ class OnlineExperiment(ParameterDefaults):
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
 
-    def run(self, data, experimentType=None, columns={}, verbose=True, min_time=0, max_time=0, out_file=None, lookback=False, initialize_all=False, max_item=-1, max_user=-1):
+    def run(self, data, experimentType=None, columns={}, verbose=True, out_file=None, lookback=False, initialize_all=False, max_item=-1, max_user=-1):
         rs.collect()
         self.verbose = verbose
+        min_time = 0
+        max_time = 0
 
         print("reading data...") if self.verbose else None
 

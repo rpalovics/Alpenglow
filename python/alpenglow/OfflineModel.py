@@ -1,6 +1,8 @@
 from .DataframeData import DataframeData
 from .Getter import Getter as rs
 from .ParameterDefaults import ParameterDefaults
+import numpy as np
+import pandas as pd
 
 
 class OfflineModel(ParameterDefaults):
@@ -10,11 +12,19 @@ class OfflineModel(ParameterDefaults):
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
 
-    def fit(self, data, columns={}):
+    def fit(self, X, y=None, columns={}):
         rs.collect()
+        data = X
+        if y is None:
+            if 'score' not in X:
+                data['score'] = np.ones(len(X))
+        else:
+            if 'score' in X:
+                raise ValueError("y and score column both provided")
+            else:
+                data['score'] = y
+
         recommender_data = DataframeData(data, columns=columns)
-        recommender_data_iterator = rs.ShuffleIterator(seed=self.parameter_default('seed', 254938879))
-        recommender_data_iterator.set_recommender_data(recommender_data)
 
         matrix = recommender_data.matrix()
         users = rs.VectorInt([])
@@ -67,8 +77,51 @@ class OfflineModel(ParameterDefaults):
 
         self.objects = created_objects
         self.model = model
+        self.items = items
+        self.users = users
+        self.matrix = matrix
+        self.recommender_data = recommender_data
 
-    def predict(self, user_item_pairs):
+    def predict(self, X):
         predictor = rs.MassPredictor()
         predictor.set_model(self.model)
-        return predictor.predict(user_item_pairs['user'].tolist(), user_item_pairs['item'].tolist())
+        return predictor.predict(X['user'].tolist(), X['item'].tolist())
+
+    def recommend(self, users=None, k=100, exclude_known=True):
+        rs.collect()
+        dummy_model_filter = rs.DummyModelFilter()
+        dummy_model_filter.set_items(self.items)
+        dummy_model_filter.set_users(self.users)
+
+        pred_creator = rs.PredictionCreatorPersonalized(
+            top_k=k,
+            lookback=1 if exclude_known else 0
+        )
+
+        pred_creator.set_filter(dummy_model_filter)
+        pred_creator.set_train_matrix(self.matrix)
+        pred_creator.set_model(self.model)
+
+        ranking_computer = rs.OfflineRankingComputer(
+            top_k=k
+        )
+        ranking_computer.set_items(self.items)
+        if users is None:
+            ranking_computer.set_users(self.users)
+        else:
+            ranking_computer.set_users(rs.VectorInt(pd.Series(users).unique().tolist()))
+
+        ranking_computer.set_toplist_creator(pred_creator)
+
+        created_objects = rs.get_and_clean()
+        # rs.initialize_all(created_objects)
+        for i in created_objects:
+            rs.run_self_test(i)
+
+        preds = ranking_computer.compute()
+        preds_df = pd.DataFrame({
+            'user': preds.users,
+            'item': preds.items,
+            'rank': preds.ranks
+        }).sort_values(['user', 'rank'])[['user', 'item', 'rank']]
+        return preds_df

@@ -6,7 +6,7 @@
 #include "../general_interfaces/Initializable.h"
 
 ///Assuption: vectors users_ and items_ never get shorter
-class DummyModelFilter : ModelFilter, INeedExperimentEnvironment, Initializable {
+class DummyModelFilter : public ModelFilter, public INeedExperimentEnvironment, public Initializable {
   public:
     DummyModelFilter(){
       last_users_size_ = -1;
