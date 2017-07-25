@@ -5,3 +5,4 @@ from .ParameterSearch import *
 from .ThreadedParameterSearch import *
 from .DataframeData import *
 from .OfflineModel import *
+from .FactorModelReader import *
