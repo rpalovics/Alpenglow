@@ -72,6 +72,7 @@ class Factors{
        }
        return output;            
     }
+    friend class FactorModelReader;
   private:
     Random rnd;
     vector <vector<double>*> factors;
