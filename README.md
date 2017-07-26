@@ -8,21 +8,21 @@
 - Alpenglow is capable of training and evaluating industry standard recommendation algorithms including variants of popularity, nearest neighbor, and factorization models.
 - Besides batch training and evaluation, Alpenglow supports *online training* of recommendation models capable of adapting to concept drift in non-stationary environments.
 
-### Requirements:
+### Requirements
 - Anaconda + Python 3 environment
 
-### Installation:
+### Installation
 - `cd Alpenglow`
 - `conda install libgcc`
 - `pip install .`
 
-### Development:
+### Development
 - For faster recompilation, use `export CC="ccache cc"`
 - To enable compilation on 4 threads for example, use `echo 4 > .parallel`
 - Reinstall modified version using `pip install --upgrade --force-reinstall --no-deps .`
 - To build and use in the current folder, use `pip install --upgrade --force-reinstall --no-deps -e .` and `export PYTHONPATH="$(pwd)/python:$PYTHONPATH"`
 
-### Example usage:
+### Example usage
 - Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset
 
 ```python
