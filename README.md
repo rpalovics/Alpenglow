@@ -46,7 +46,7 @@ factor_model_experiment = FactorModelExperiment(
 rankings = factor_model_experiment.run(data, verbose=True)
 rankings['dcg'] = DcgScore(rankings)
 day = 86400
-averages = rankings['dcg'].groupby((rankings['time']-rankings['time'].min())//864aa).mean()
+averages = rankings['dcg'].groupby((rankings['time']-rankings['time'].min())//day).mean()
 plt.plot(averages)
 plt.savefig("factor.png")
 ```
