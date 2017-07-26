@@ -25,7 +25,6 @@ from alpenglow.experiments import FactorModelExperiment
 from alpenglow.evaluation import DcgScore
 import pandas as pd
 import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 data = pd.read_csv("/path/to/sample_dataset")
