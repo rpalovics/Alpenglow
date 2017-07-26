@@ -47,6 +47,6 @@ plt.plot(averages)
 
 ### Development
 - For faster recompilation, use `export CC="ccache cc"`
-- E-g- to enable compilation on 4 threads, use `echo 4 > .parallel`
+- E.g. to enable compilation on 4 threads, use `echo 4 > .parallel`
 - Reinstall modified version using `pip install --upgrade --force-reinstall --no-deps .`
 - To build and use in the current folder, use `pip install --upgrade --force-reinstall --no-deps -e .` and `export PYTHONPATH="$(pwd)/python:$PYTHONPATH"`
