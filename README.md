@@ -16,13 +16,8 @@
 - `conda install libgcc`
 - `pip install .`
 
-### Development
-- For faster recompilation, use `export CC="ccache cc"`
-- To enable compilation on 4 threads for example, use `echo 4 > .parallel`
-- Reinstall modified version using `pip install --upgrade --force-reinstall --no-deps .`
-- To build and use in the current folder, use `pip install --upgrade --force-reinstall --no-deps -e .` and `export PYTHONPATH="$(pwd)/python:$PYTHONPATH"`
+### Getting Started
 
-### Example usage
 - First download the [sample dataset](http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset)
 
 ```python
@@ -49,3 +44,9 @@ day = 86400
 averages = rankings['dcg'].groupby((rankings['time']-rankings['time'].min())//day).mean()
 plt.plot(averages)
 ```
+
+### Development
+- For faster recompilation, use `export CC="ccache cc"`
+- E-g- to enable compilation on 4 threads, use `echo 4 > .parallel`
+- Reinstall modified version using `pip install --upgrade --force-reinstall --no-deps .`
+- To build and use in the current folder, use `pip install --upgrade --force-reinstall --no-deps -e .` and `export PYTHONPATH="$(pwd)/python:$PYTHONPATH"`
