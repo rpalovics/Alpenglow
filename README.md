@@ -23,7 +23,7 @@
 - To build and use in the current folder, use `pip install --upgrade --force-reinstall --no-deps -e .` and `export PYTHONPATH="$(pwd)/python:$PYTHONPATH"`
 
 ### Example usage
-- Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset
+- First download the [sample dataset](http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset)
 
 ```python
 from alpenglow.experiments import FactorModelExperiment
