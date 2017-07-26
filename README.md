@@ -6,10 +6,10 @@
 
 - Alpenglow is a free and open source C++ framework with easy-to-use Python API.
 - Alpenglow is capable of training and evaluating industry standard recommendation algorithms including variants of popularity, nearest neighbor, and factorization models.
-- Besides batch training and evaluation, Alpenglow supports online training of recommendation models capable of adapting to concept drift in non-stationary environments.
+- Besides batch training and evaluation, Alpenglow supports *online training* of recommendation models capable of adapting to concept drift in non-stationary environments.
 
 ### Requirements:
-- Anaconda + python3 environment
+- Anaconda + Python 3 environment
 
 ### Installation:
 - `cd Alpenglow`
@@ -42,8 +42,11 @@ factor_model_experiment = FactorModelExperiment(
     learning_rate=0.14,
     negative_rate=100
 )
-fac_rankings = factor_model_experiment.run(data, verbose=True)
-fac_rankings['dcg'] = DcgScore(fac_rankings)
-fac_rankings['dcg'].groupby((fac_rankings['time']-fac_rankings['time'].min())//86400).mean().plot()
+
+rankings = factor_model_experiment.run(data, verbose=True)
+rankings['dcg'] = DcgScore(rankings)
+day = 86400
+averages = rankings['dcg'].groupby((rankings['time']-rankings['time'].min())//864aa).mean()
+plt.plot(averages)
 plt.savefig("factor.png")
 ```
