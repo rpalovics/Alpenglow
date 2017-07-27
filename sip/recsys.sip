@@ -53,6 +53,9 @@
 %Include src/loggers/InterruptLogger.sip
 %Include src/loggers/MemoryRankingLogger.sip
 %Include src/loggers/OnlinePredictor.sip
+%Include src/loggers/ConditionalMetaLogger.sip
+%Include src/loggers/ListConditionalMetaLogger.sip
+%Include src/loggers/PredictionLogger.sip
 %Include src/online_experiment/OnlineExperiment.sip
 %Include src/online_experiment/ExperimentEnvironment.sip
 %Include src/utils/SpMatrix.sip

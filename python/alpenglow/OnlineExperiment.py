@@ -12,7 +12,7 @@ class OnlineExperiment(ParameterDefaults):
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
 
-    def run(self, data, experimentType=None, columns={}, verbose=True, out_file=None, lookback=False, initialize_all=False, max_item=-1, max_user=-1):
+    def run(self, data, experimentType=None, columns={}, verbose=True, out_file=None, lookback=False, initialize_all=False, max_item=-1, max_user=-1, calculate_toplists=False):
         rs.collect()
         self.verbose = verbose
         min_time = 0
@@ -84,6 +84,44 @@ class OnlineExperiment(ParameterDefaults):
             for l in loggers:
                 online_experiment.add_logger(l)
 
+        if calculate_toplists != False:
+            print('logging predictions') if self.verbose else None
+            model_filter = None
+            if 'filters' in config and len(config['filters']) != 0:
+                model_filter = config['filters'][0]
+                if(len(config['filters']) > 1):
+                    print("Warning: predictionCreator accepts only one model_filter")
+            else:
+                dummy_model_filter = rs.DummyModelFilter()
+                # dummy_model_filter.set_items(items)
+                # dummy_model_filter.set_users(users)
+                model_filter = dummy_model_filter
+
+            pred_creator = rs.PredictionCreatorPersonalized(
+                top_k=top_k,
+                # TODO lookback=0 if recommendOnlyNew else 1
+                lookback=0
+            )
+            pred_creator.set_filter(model_filter)
+
+            pred_creator.set_model(model)
+            pred_logger = rs.PredictionLogger(
+                fileName="preds.txt"
+            )
+            pred_logger.set_prediction_creator(pred_creator)
+
+            if type(calculate_toplists) is bool:
+                online_experiment.add_logger(pred_logger)
+            else:
+                conditional_meta_logger = rs.ListConditionalMetaLogger(
+                    should_run_vector=list(calculate_toplists)
+                )
+                conditional_meta_logger.set_logger(pred_logger)
+                online_experiment.add_logger(conditional_meta_logger)
+            self.predictions = pred_logger
+        else:
+            self.predictions = None
+
         interrupt_logger = rs.InterruptLogger()
         online_experiment.add_logger(interrupt_logger)
 
@@ -109,6 +147,21 @@ class OnlineExperiment(ParameterDefaults):
         online_experiment.run()
         results = self.finished()
         return results
+
+    def get_predictions(self):
+        if self.predictions is not None:
+            preds = self.predictions.get_predictions()
+            preds_df = pd.DataFrame({
+                'record_id': preds.ids,
+                'time': preds.times,
+                'user': preds.users,
+                'item': preds.items,
+                'rank': preds.ranks,
+                'prediction': preds.scores,
+            }).sort_values(['time', 'user','rank'])[['record_id', 'time', 'user', 'item', 'rank', 'prediction']]
+            return preds_df
+        else:
+            return None
 
     def get_ranking_logger(self, top_k, min_time, out_file):
         if out_file is None:
