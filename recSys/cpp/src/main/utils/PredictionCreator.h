@@ -8,6 +8,7 @@
 #include "../models/Model.h"
 #include "../filters/ModelFilter.h"
 #include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/Initializable.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ struct PredictionCreatorParameters{
   int top_k;
   int lookback;
 };
-class PredictionCreator : public INeedExperimentEnvironment{
+class PredictionCreator : public INeedExperimentEnvironment, public Initializable {
  public:
    PredictionCreator(PredictionCreatorParameters* params){
      top_k_ = params->top_k;
@@ -29,11 +30,13 @@ class PredictionCreator : public INeedExperimentEnvironment{
    void set_model(Model* model){model_=model;}
    void set_filter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
    void set_train_matrix(SpMatrix *train_matrix){train_matrix_ = train_matrix; }
-   void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; }
-   void init(){
+   void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; cerr << "PredCreator::set_exp_env runs" << endl;}
+   bool init(){
+     cerr << "PredCreator::init runs()" << endl;
      if(train_matrix_ == NULL) train_matrix_=experiment_environment_->get_train_matrix();
      if(top_k_ == -1) top_k_=experiment_environment_->get_top_k();
      if(lookback_ == -1) lookback_=experiment_environment_->is_lookback();
+     return true;
    }
    bool self_test(){
      bool OK = true;

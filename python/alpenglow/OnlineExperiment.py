@@ -100,7 +100,7 @@ class OnlineExperiment(ParameterDefaults):
             pred_creator = rs.PredictionCreatorPersonalized(
                 top_k=top_k,
                 # TODO lookback=0 if recommendOnlyNew else 1
-                lookback=0
+                lookback=1
             )
             pred_creator.set_filter(model_filter)
 

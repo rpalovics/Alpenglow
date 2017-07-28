@@ -5,7 +5,7 @@ struct PredictionCreatorParameters{
   int top_k;
   int lookback;
 };
-class PredictionCreator : public INeedExperimentEnvironment {
+class PredictionCreator : public INeedExperimentEnvironment, public Initializable {
   %TypeHeaderCode
   #include "utils/PredictionCreator.h"
   %End
@@ -17,6 +17,7 @@ class PredictionCreator : public INeedExperimentEnvironment {
     void set_filter(ModelFilter* filter_);
     void set_train_matrix(SpMatrix *train_matrix_);
     void set_experiment_environment(ExperimentEnvironment*);
+    bool init();
     virtual bool self_test();
 };
 
