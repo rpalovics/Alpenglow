@@ -4,8 +4,6 @@
 #include "Logger.h"
 #include "../utils/PredictionCreator.h"
 
-struct PredictionLoggerParameters{};
-
 struct OnlinePredictions{
   vector<int> ids;
   vector<int> times;
@@ -17,10 +15,9 @@ struct OnlinePredictions{
 
 class PredictionLogger : public Logger{
   public:
-    PredictionLogger(PredictionLoggerParameters * params){set_parameters(params);};
+    PredictionLogger(){};
     ~PredictionLogger(){};
     void run(RecDat * recDat);
-    void set_parameters(PredictionLoggerParameters* params);
     void set_prediction_creator(PredictionCreator* prediction_creator_){prediction_creator = prediction_creator_;}
     bool self_test(){
       bool ok = true;

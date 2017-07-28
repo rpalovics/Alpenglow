@@ -21,9 +21,6 @@ class OnlineExperiment(ParameterDefaults):
         print("reading data...") if self.verbose else None
 
         if not isinstance(data, str):
-            if(max_time != 0):
-                # TODO
-                pass
             recommender_data = DataframeData(data, columns=columns)
         else:
             recommender_data = rs.RecommenderData(
@@ -63,7 +60,16 @@ class OnlineExperiment(ParameterDefaults):
             for f in filters:
                 rank_computer.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
 
-        online_experiment = rs.OnlineExperiment(random_seed=seed, min_time=min_time, max_time=max_time, top_k=top_k, lookback=lookback, initialize_all=initialize_all, max_item=max_item, max_user=max_user)
+        online_experiment = rs.OnlineExperiment(
+            random_seed=seed,
+            min_time=min_time,
+            max_time=max_time,
+            top_k=top_k,
+            lookback=lookback,
+            initialize_all=initialize_all,
+            max_item=max_item,
+            max_user=max_user
+        )
 
         if type(learner) == list:
           for obj in learner:
@@ -84,7 +90,7 @@ class OnlineExperiment(ParameterDefaults):
             for l in loggers:
                 online_experiment.add_logger(l)
 
-        if calculate_toplists != False:
+        if type(calculate_toplists) is not bool or calculate_toplists:
             print('logging predictions') if self.verbose else None
             model_filter = None
             if 'filters' in config and len(config['filters']) != 0:
@@ -93,28 +99,23 @@ class OnlineExperiment(ParameterDefaults):
                     print("Warning: predictionCreator accepts only one model_filter")
             else:
                 dummy_model_filter = rs.DummyModelFilter()
-                # dummy_model_filter.set_items(items)
-                # dummy_model_filter.set_users(users)
                 model_filter = dummy_model_filter
 
             pred_creator = rs.PredictionCreatorPersonalized(
                 top_k=top_k,
-                # TODO lookback=0 if recommendOnlyNew else 1
-                lookback=1
+                lookback=lookback
             )
             pred_creator.set_filter(model_filter)
 
             pred_creator.set_model(model)
-            pred_logger = rs.PredictionLogger(
-                fileName="preds.txt"
-            )
+            pred_logger = rs.PredictionLogger()
             pred_logger.set_prediction_creator(pred_creator)
 
             if type(calculate_toplists) is bool:
                 online_experiment.add_logger(pred_logger)
             else:
                 conditional_meta_logger = rs.ListConditionalMetaLogger(
-                    should_run_vector=list(calculate_toplists)
+                    should_run_vector=[int(i) for i in calculate_toplists]
                 )
                 conditional_meta_logger.set_logger(pred_logger)
                 online_experiment.add_logger(conditional_meta_logger)

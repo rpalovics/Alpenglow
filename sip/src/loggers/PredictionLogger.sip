@@ -1,9 +1,3 @@
-struct PredictionLoggerParameters{
-  %TypeHeaderCode
-  #include "loggers/PredictionLogger.h"
-  %End
-};
-
 struct OnlinePredictions{
   %TypeHeaderCode
   #include "loggers/PredictionLogger.h"
@@ -21,10 +15,9 @@ class PredictionLogger : public Logger /NoDefaultCtors/{
   #include "loggers/PredictionLogger.h"
   %End
   public:
-    PredictionLogger(PredictionLoggerParameters * params);
+    PredictionLogger();
     ~PredictionLogger();
     void run(RecDat * recDat);
-    void set_parameters(PredictionLoggerParameters* params);
     void set_prediction_creator(PredictionCreator* predictionCreator_);
     bool self_test();
     OnlinePredictions* get_predictions();
