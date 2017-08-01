@@ -24,9 +24,7 @@ struct OnlineExperimentParameters{
 class OnlineExperiment{
   public:
     OnlineExperiment(OnlineExperimentParameters* parameters);
-    ~OnlineExperiment(){
-      delete experiment_environment_;
-    };
+    ~OnlineExperiment();
     void add_logger(Logger* logger){loggers_.push_back(logger);}
     void add_end_logger(Logger* logger){end_loggers_.push_back(logger);}
     void add_updater(Updater* updater){ updaters_.push_back(updater); }

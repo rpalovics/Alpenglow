@@ -8,8 +8,10 @@
 #include "../models/Model.h"
 #include "../recommender_data/RecommenderData.h"
 #include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../models/RankingScoreIterator.h"
 #include <numeric> 
 #include "../utils/Random.h"
+
 struct RankComputerParameters{
   int top_k;
   int random_seed;
@@ -18,6 +20,7 @@ struct RankComputerParameters{
     random_seed = -1;
   }
 };
+
 class RankComputer : public INeedExperimentEnvironment, public Initializable{
   public:
     RankComputer(RankComputerParameters* parameters){
@@ -30,6 +33,9 @@ class RankComputer : public INeedExperimentEnvironment, public Initializable{
     void set_top_pop_container(TopPopContainer* popularity_sorted_container){ popularity_sorted_container_ = popularity_sorted_container; }
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
       experiment_environment_=experiment_environment;
+    }
+    void set_items(vector<int> *items){
+      items_ = items;
     }
     bool self_test(){
       bool ok=true;
@@ -45,17 +51,29 @@ class RankComputer : public INeedExperimentEnvironment, public Initializable{
       if(popularity_sorted_container_==NULL){
         popularity_sorted_container_=experiment_environment_->get_popularity_sorted_container();
       }
+      if(items_==NULL) items_ = experiment_environment_->get_items();
+
+      RankingScoreIteratorProvider* ranking_model = dynamic_cast<RankingScoreIteratorProvider*>(model_);
+      if(ranking_model){
+        ranking_model_ = ranking_model;
+      }
+
+      
       return true;
     }
     int get_rank(RecDat*);
   protected:
+    int get_rank_bruteforce(RecDat*);
+    int get_rank_ranking_model(RecDat*);
     void itemlist_init(RecDat* rec_dat);
     bool itemlist_next(RecDat* rec_dat);
     int itemlist_index_;
     int itemlist_max_index_;
     int itemlist_positive_item_;
+    vector<int> *items_ = NULL;
     vector<pair<int,double>>* itemlist_ = NULL;
     Model* model_ = NULL;
+    RankingScoreIteratorProvider* ranking_model_ = NULL;
     SpMatrix* train_matrix_ = NULL;
     TopPopContainer* popularity_sorted_container_ = NULL;
     ModelFilter* model_filter_ = NULL;
@@ -63,6 +81,5 @@ class RankComputer : public INeedExperimentEnvironment, public Initializable{
     Random random_;
     int top_k_;
 };
-
 
 #endif

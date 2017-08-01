@@ -1,5 +1,7 @@
 #include "FactorModel.h"
 
+#include "FactorModelRankingScoreIterator.h"
+
 void FactorModel::set_parameters(FactorModelParameters* parameters){
   FactorsParameters factors_parameters;
   factors_parameters.begin_min=begin_min_;
@@ -36,13 +38,11 @@ void FactorModel::clear(){
 }
 
 void FactorModel::add(RecDat *rec_dat){
-  //cout << "FactorModel::add " << *rec_dat << endl;
   user_factors_.init(rec_dat->user);
   item_factors_.init(rec_dat->item);
   if (use_user_bias_) user_bias_.init(rec_dat->user);
   if (use_item_bias_) item_bias_.init(rec_dat->item);
-  //cout << "user factors" << user_factors_ << endl;
-  //cout << "item factors" << item_factors_ << endl;
+  lemp_container.schedule_update_item(rec_dat->item);
 }
 
 double FactorModel::prediction(RecDat *rec_dat){
@@ -100,6 +100,13 @@ void FactorModel::read(ifstream& file){
   //TODO bias, recency
 }
 
+RankingScoreIterator* FactorModel::get_ranking_score_iterator(int u){
+  if(use_item_bias_ || use_user_bias_){
+    return NULL;
+  } else {
+    return new FactorModelRankingScoreIterator(user_factors_.get(u), &lemp_container);
+  }
+}
 
 //double FactorModel::user_factor_mean() {
 //  double avg=0;

@@ -8,6 +8,8 @@
 #include "../../utils/Recency.h"
 #include "../Model.h"
 #include "../SimilarityModel.h"
+#include "../RankingScoreIterator.h"
+#include "../../ranking/lemp/LempContainer.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;
@@ -21,6 +23,7 @@ struct FactorModelParameters{
   bool initialize_all;
   int max_item, max_user;
   int seed=67439852;
+  int lemp_bucket_size = 64;
   FactorModelParameters(){ //setting all to jinjactor default value
     dimension=-1;begin_min=-1;begin_max=-1;
     use_sigmoid=false;use_item_bias=false;use_user_bias=false;
@@ -28,7 +31,12 @@ struct FactorModelParameters{
   }
 };
 
-class FactorModel : public Model, public SimilarityModel, public Initializable {
+class FactorModel 
+  : public Model, 
+    public SimilarityModel,
+    public Initializable,
+    public RankingScoreIteratorProvider
+{
   public:
     FactorModel(FactorModelParameters *parameters):
       dimension_(parameters->dimension),
@@ -39,7 +47,8 @@ class FactorModel : public Model, public SimilarityModel, public Initializable {
       max_user_(parameters->max_user),
       max_item_(parameters->max_item),
       use_item_bias_(parameters->use_item_bias),
-      use_user_bias_(parameters->use_user_bias)
+      use_user_bias_(parameters->use_user_bias),
+      lemp_container(&item_factors_, parameters->lemp_bucket_size)
     {
       set_parameters(parameters);
     };
@@ -69,6 +78,8 @@ class FactorModel : public Model, public SimilarityModel, public Initializable {
       }
       return ok;
     }
+    
+    RankingScoreIterator* get_ranking_score_iterator(int u) override;
   protected:
     //parameters
     const int dimension_;
@@ -85,6 +96,7 @@ class FactorModel : public Model, public SimilarityModel, public Initializable {
     Factors user_factors_, item_factors_;
     Bias user_bias_, item_bias_;
     Recency *user_recency_, *item_recency_;
+    LempContainer lemp_container;
 
     //other
     //double user_factor_mean();

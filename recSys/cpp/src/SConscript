@@ -5,7 +5,8 @@ env = Environment(
     CCFLAGS=[
         '-std=c++11',
         '-Wall',
-        '-O3',
+        # '-O3',
+        '-ggdb',
         '-fPIC',
         '-Wno-deprecated',
         '-Wno-reorder',

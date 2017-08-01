@@ -94,6 +94,8 @@ cfg_vars = distutils.sysconfig.get_config_vars()
 for key, value in cfg_vars.items():
     if type(value) == str:
         cfg_vars[key] = value.replace("-Wstrict-prototypes", "")
+        cfg_vars[key] = value.replace("-g", "")
+        cfg_vars[key] = value.replace("-O3", "")
 
 platform_specific_flags = []
 if platform == "linux" or platform == "linux2":
@@ -135,7 +137,7 @@ setup(
             ],
             extra_compile_args=[
                 '-std=c++11',
-                '-O3',
+                '-O2',
                 '-funroll-loops',
                 '-fomit-frame-pointer',
                 '-lpthread',

@@ -4,14 +4,21 @@ OnlineExperiment::OnlineExperiment(OnlineExperimentParameters* parameters){
   srand(parameters->random_seed);
   experiment_environment_ = new ExperimentEnvironment();
   experiment_environment_->set_parameters(parameters);
-};
+}
+
+OnlineExperiment::~OnlineExperiment(){
+  delete experiment_environment_;
+}
+
 void OnlineExperiment::set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
   recommender_data_iterator_ = recommender_data_iterator;
   experiment_environment_->set_recommender_data_iterator(recommender_data_iterator);
 }
+
 void OnlineExperiment::inject_experiment_environment_into(INeedExperimentEnvironment *object){
   object->set_experiment_environment(experiment_environment_);
 }
+
 void OnlineExperiment::run() {
   cerr << "run..." <<endl;
   while (recommender_data_iterator_->has_next()) {

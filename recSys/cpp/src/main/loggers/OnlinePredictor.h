@@ -2,7 +2,7 @@
 #define ONLINE_PREDICTOR
 #include <gtest/gtest_prod.h>
 #include "Logger.h"
-#include "utils/PredictionCreator.h"
+#include "../utils/PredictionCreator.h"
 
 struct OnlinePredictorParameters{
   double min_time, time_frame;

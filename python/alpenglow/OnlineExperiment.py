@@ -190,6 +190,7 @@ class OnlineExperiment(ParameterDefaults):
             ) for l in logs],
             columns=["id", "time", "score", "user", "item", "prediction", "rank"]
         ).set_index("id")
+        df['rank']=df['rank'].astype(float)
         df.top_k = top_k
         return df
 

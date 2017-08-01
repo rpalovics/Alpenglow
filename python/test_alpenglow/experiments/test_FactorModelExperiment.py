@@ -58,46 +58,6 @@ class TestFactorModelExperiment:
         desired_ranks = [101.0, 101.0, 101.0, 2.0, 1.0, 2.0, 101.0, 101.0, 3.0]
         assert list(facRankings["rank"].fillna(101)) == desired_ranks
 
-    #def test_factorModelExperiment_23(self):
-    #    data = pd.read_csv(
-    #        "python/test_alpenglow/test_data_1",
-    #    )
-    #    data["score"]=1
-    #    factorModelExperiment = alpenglow.experiments.FactorModelExperiment(
-    #        top_k=100,
-    #        seed=254938879,
-    #        dimension=10,
-    #        learning_rate=0.1,
-    #        negative_rate=10
-    #    )
-    #    facRankings = factorModelExperiment.run(
-    #        data,
-    #        verbose=True,
-    #        calculate_toplists=True
-    #    )
-    #    print("rankings")
-    #    print(facRankings)
-    #    print("end of rankings")
-    #    preds = factorModelExperiment.get_predictions()
-    #    print("preds")
-    #    print(preds)
-    #    print("end of preds")
-    #    preds_joined = preds.join(data.reset_index().set_index(['index','item'])['score'],
-    #        on=['record_id','item'],
-    #        how="left")
-    #    preds_hits = (
-    #        preds_joined
-    #            .fillna(0)
-    #            .sort_values('score', ascending=False)
-    #            .drop_duplicates(subset=['record_id'])
-    #            .sort_values('record_id')
-    #    )
-    #    preds_hits.loc[preds_hits['score']==0, 'rank']=101
-    #    desired_ranks = [101.0, 101.0, 2.0, 1.0, 2.0, 101.0, 101.0, 3.0]
-    #    print("len of desired: ", len(desired_ranks), "len of actual: ", len(list(preds_hits['rank'])))
-    #    print("users: ",list(preds_hits['user']))
-    #    assert desired_ranks == list(preds_hits['rank'])
-
     def test_factorModelExperiment_3(self):
         data = pd.read_csv(
             "python/test_alpenglow/test_data_4",

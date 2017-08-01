@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include <iomanip>
+#include <numeric>
 using std::vector;
 
 class Util {
@@ -13,11 +14,7 @@ public:
     if (user_factor == NULL || item_factor == NULL || user_factor->size() != item_factor->size()){
       return 0.0;
     }
-    double product=0;
-    for(unsigned ii=0; ii<user_factor->size(); ii++) {
-      product+=(*user_factor)[ii]*(*item_factor)[ii];
-    }
-    return product;
+    return std::inner_product(user_factor->begin(), user_factor->end(), item_factor->begin(), 0.0);
   }
   static double norm(vector<double>* v){
     double n = scalar_product(v, v);
