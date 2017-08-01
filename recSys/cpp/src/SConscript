@@ -1,0 +1,35 @@
+import os
+
+env = Environment(
+    CXX="g++",
+    CCFLAGS=[
+        '-std=c++11',
+        '-Wall',
+        '-O3',
+        '-fPIC',
+        '-Wno-deprecated',
+        '-Wno-reorder',
+        '-mfpmath=sse,387',
+        '-funroll-loops',
+        '-fomit-frame-pointer',
+        '-lpthread',
+        '-msse3',
+        '-D_LARGEFILE_SOURCE',
+        '-D_FILE_OFFSET_BITS=64'
+    ],
+    CPPPATH=['#.', '#../dep/gtest/include'],
+    LIBPATH=['#../dep/gtest/build', '/usr/local/lib'],
+    LIBS=['gtest', 'pthread']
+)
+cpp = Glob("main/*/*.cpp")
+cpp.extend(Glob("main/*/*/*.cpp"))
+objs = env.Object(cpp)
+
+cpp_test = Glob("test/*/*.cpp")
+cpp_test.extend(Glob("test/*/*/*.cpp"))
+
+for src in cpp_test:
+    src_str = str(src)
+    relative_path = os.path.relpath(src_str, os.path.commonprefix([src_str, Dir('#').abspath]))
+    env.Object(relative_path)
+    env.Program("test/"+os.path.basename(os.path.splitext(relative_path)[0]), [relative_path]+['#../bin/'+str(i) for i in objs])

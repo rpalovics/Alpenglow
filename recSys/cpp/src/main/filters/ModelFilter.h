@@ -19,6 +19,7 @@
 class ModelFilter {
 public:
   virtual void run(RecDat* rec_dat){} //run_global es run_personalized?
+  virtual void run(double time){RecDat rd; rd.time=time; this->run(&rd);}
   virtual vector<pair<int,double>>* get_global_items(){ return NULL; }
   virtual vector<pair<int,double>>* get_global_users(){ return NULL; }
   virtual vector<pair<int,double>>* get_personalized_items(int user){

@@ -58,6 +58,7 @@ class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment,
      items_ = NULL;
    }
    void run(RecDat* rd) override;
+   void run(double time){RecDat rd; rd.time=time; this->run(&rd);}
    vector<pair<int,double>>* get_global_users() override {return &user_upper_bounds_;}
    vector<pair<int,double>>* get_global_items() override {return &item_upper_bounds_;}
    void set_users(vector<int>* users);
