@@ -23,7 +23,7 @@ Development
    :language: bash
 
 
-- For faster recompilation, usen :bash:`export CC="ccache cc"`
+- For faster recompilation, use :bash:`export CC="ccache cc"`
 - To enable compilation on 4 threads for example, use :bash:`echo 4 > .parallel`
 - Reinstall modified version using :bash:`pip install --upgrade --force-reinstall --no-deps .`
 - To build and use in the current folder, :bash:`use pip install --upgrade --force-reinstall --no-deps -e .` and :bash:`export PYTHONPATH="$(pwd)/python:$PYTHONPATH"`
