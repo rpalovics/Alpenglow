@@ -9,6 +9,7 @@
 #include "../filters/ModelFilter.h"
 #include "../general_interfaces/INeedExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
+#include "../models/TopListRecommender.h"
 
 using namespace std;
 
@@ -63,6 +64,7 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
    Model* model_;
    ModelFilter* filter_;
    SpMatrix* train_matrix_;
+   SpMatrix dummy_train_matrix_;
    int top_k_; //TODO const
    int lookback_;
 };
@@ -114,8 +116,18 @@ class PredictionCreatorPersonalized: public PredictionCreator{
     };
     vector<RecDat>* run(RecDat* rec_dat);
     bool self_test(){ return PredictionCreator::self_test(); }
+    bool init() {
+      PredictionCreator::init();
+      TopListRecommender* ranking_model = dynamic_cast<TopListRecommender*>(model_);
+      if(ranking_model){
+        ranking_model_ = ranking_model;
+      }
+    }
   private:
     MinHeap* min_heap_;
+    TopListRecommender *ranking_model_ = NULL;
+    vector<RecDat>* run_bruteforce(RecDat* rec_dat);
+    vector<RecDat>* run_ranking_model(RecDat* rec_dat);
 };
 
 #endif

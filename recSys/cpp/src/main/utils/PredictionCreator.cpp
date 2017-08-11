@@ -51,7 +51,15 @@ void PredictionCreatorGlobal::process_line(vector<pair<int,double> >* sorted_as,
   }
 }
 
-vector<RecDat>* PredictionCreatorPersonalized::run(RecDat* rec_dat){ //TODO test
+vector<RecDat>* PredictionCreatorPersonalized::run(RecDat* rec_dat){
+  if(ranking_model_ != NULL){
+    return run_ranking_model(rec_dat);
+  } else {
+    return run_bruteforce(rec_dat);
+  }
+}
+
+vector<RecDat>* PredictionCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ //TODO test
   filter_->run(rec_dat);
   RecDat fake_rec_dat = *rec_dat; //TODO lehet NULL
   vector<pair<int,double>>* sorted_items = filter_->get_personalized_items(rec_dat->user);
@@ -67,6 +75,26 @@ vector<RecDat>* PredictionCreatorPersonalized::run(RecDat* rec_dat){ //TODO test
   for(int ii=(int)min_heap_->size()-1; ii>=0; ii--){
     top_predictions_[ii]=min_heap_->get_min();
     min_heap_->delete_min();
+  }
+  return &top_predictions_;
+}
+
+vector<RecDat>* PredictionCreatorPersonalized::run_ranking_model(RecDat* rec_dat){
+  SpMatrix *matrix = train_matrix_;
+  if(!lookback_){
+    matrix = &dummy_train_matrix_;
+  }
+  vector<pair<int,double>> predictions = ranking_model_->get_top_list(rec_dat->user, top_k_, matrix);
+  top_predictions_.clear();
+  for(auto &pair : predictions){
+    int id;
+    double score;
+    tie(id,score)=pair;
+    RecDat rd;
+    rd.user=rec_dat->user;
+    rd.item=id;
+    rd.score=score;
+    top_predictions_.push_back(rd);
   }
   return &top_predictions_;
 }

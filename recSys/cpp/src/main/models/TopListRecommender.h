@@ -1,9 +1,24 @@
 #ifndef TOP_LIST_RECOMMENDER_H
 #define TOP_LIST_RECOMMENDER_H
 
-class TopListRecommender{
-  //id, score
-  virtual vector<tuple<int,double>> get_top_list(int user, int k) = 0;
-}
+#include <vector>
+#include "RankingScoreIterator.h"
+#include "../utils/SpMatrix.h"
 
-#endif;
+using namespace std;
+
+class TopListRecommender{
+public:
+  //id, score
+  virtual vector<pair<int,double>> get_top_list(int user, int k, SpMatrix *exclude) = 0;
+};
+
+class ToplistFromRankingScoreRecommender
+: public TopListRecommender,
+  public virtual RankingScoreIteratorProvider
+{
+public:
+  vector<pair<int,double>> get_top_list(int user, int k, SpMatrix *exclude) override;
+};
+
+#endif

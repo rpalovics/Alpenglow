@@ -9,6 +9,7 @@
 #include "../Model.h"
 #include "../SimilarityModel.h"
 #include "../RankingScoreIterator.h"
+#include "../TopListRecommender.h"
 #include "../../ranking/lemp/LempContainer.h"
 #include <gtest/gtest_prod.h>
 
@@ -35,7 +36,8 @@ class FactorModel
   : public Model, 
     public SimilarityModel,
     public Initializable,
-    public RankingScoreIteratorProvider
+    virtual public RankingScoreIteratorProvider,
+    public ToplistFromRankingScoreRecommender
 {
   public:
     FactorModel(FactorModelParameters *parameters):
