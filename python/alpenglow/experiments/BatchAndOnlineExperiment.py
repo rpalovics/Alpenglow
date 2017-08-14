@@ -32,6 +32,8 @@ class BatchAndOnlineExperiment(prs.OnlineExperiment):
         batch_negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=self.parameter_default('batch_negative_rate', 70),
             initialize_all=False,
+            seed=67439852,
+            filter_repeats=False,
         ))
 
         # objective
@@ -72,6 +74,8 @@ class BatchAndOnlineExperiment(prs.OnlineExperiment):
         online_negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=self.parameter_default('online_negative_rate', 100),
             initialize_all=False,
+            seed=67439852,
+            filter_repeats=False,
         ))
 
         # objective

@@ -35,7 +35,7 @@ class FactorModelExperiment2(prs.OnlineExperiment):
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=0.0,
             initialize_all=False,
-            seed=0,
+            seed=67439852,
             filter_repeats=False,
         ))
         negative_sample_generator.add_updater(gradient_computer)
