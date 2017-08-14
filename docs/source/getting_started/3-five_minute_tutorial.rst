@@ -12,7 +12,7 @@ You can find the dataset [todo]. This is a processed version of the 30M dataset 
 - only keep the first events of listening sessions
 - recode the items so they represent artists instead of tracks
 
-Let's start by importing the csv using pandas.
+Let's start by importing standard packages and Alpenglow; and then reading the csv file using pandas.
 
 
 .. role:: python(code)
@@ -21,7 +21,11 @@ Let's start by importing the csv using pandas.
 .. code-block:: python
 
 	import pandas as pd
-	data = pd.read_csv('artist_data_10_1800')
+	import matplotlib
+	import matplotlib.pyplot as plt
+	import alpenglow as ag
+
+	data = pd.read_csv('data')
 	print(data.columns)
 
 Output::
@@ -89,7 +93,8 @@ The :py:class:`DcgScore` class calculates the NDCG values for the given ranks an
 .. code-block:: python
 
 	daily_avg_dcg = results['dcg'].groupby((results['time']-results['time'].min())//86400).mean()
-	daily_avg_dcg.plot()
+	plt.plot(daily_avg_dcg,"o-", label="popularity")
+	plt.legend()
 
 [todo plot]
 
@@ -98,10 +103,12 @@ Putting it all together:
 .. code-block:: python
 
 	import pandas as pd
+	import matplotlib
+	import matplotlib.pyplot as plt
 	from alpenglow.evaluation import DcgScore
 	from alpenglow.experiments import PopularityModelExperiment
 
-	data = pd.read_csv('artist_data_10_1800')
+	data = pd.read_csv('data')
 
 	pop_experiment = PopularityModelExperiment(
 	    top_k=100,
@@ -111,10 +118,15 @@ Putting it all together:
 	results['dcg'] = DcgScore(results)
 	results['dcg'].groupby((results['time']-results['time'].min())//86400).mean().plot()
 
+	plt.plot(daily_avg_dcg,"o-", label="popularity")
+	plt.legend()
+
 Matrix factorization, hyperparameter search
 -------------------------------------------
 
-The :py:class:`alpenglow.experiments.FactorModelExperiment` class implements a factor model, which is updated in an online fashion. After checking the documentation / source, we can see that the most relevant hyperparameters for this model are :python:`dimension` (the number of latent factors), :python:`learning_rate`, :python:`negative_rate` and :python:`regularization_rate`. For this experiment, we are not going to increase the default value of 10 for the factor dimension, and we are not going to need regularization, so we'll leave it at its default (0) as well. The learning rate and the negative rate will probably have to be tweaked.
+The :py:class:`alpenglow.experiments.FactorModelExperiment` class implements a factor model, which is updated in an online fashion. After checking the documentation / source, we can see that the most relevant hyperparameters for this model are :python:`dimension` (the number of latent factors), :python:`learning_rate`, :python:`negative_rate` and :python:`regularization_rate`. For this experiment, we are leaving the factor dimension at the default value of 10, and we don't need regularization, so we'll leave it at its default (0) as well. We will find the best negative rate and learning rate using grid search.
+
+We can run the :python:`FactorModelExperiment` similarly to the popularity model:
 
 .. code-block:: python
 
@@ -127,3 +139,26 @@ The :py:class:`alpenglow.experiments.FactorModelExperiment` class implements a f
 	mf_results['dcg'] = DcgScore(mf_results)
 	mf_daily_avg = mf_results['dcg'].groupby((mf_results['time']-mf_results['time'].min())//86400).mean().plot()
 
+	plt.plot(mf_daily_avg,"o-", label="factorization")
+	plt.legend()
+
+The default parameters are chosen to perform generally well. However, the best choice always depends on the task at hand. To find the best values for this particular dataset, we can use Alpenglow's built in multithreaded hyperparameter search tool: :py:class:`alpenglow.ThreadedParameterSearch`.
+
+.. code-block:: python
+
+	mf_parameter_search = ag.ThreadedParameterSearch(mf_experiment, DcgScore, threads=4)
+	mf_parameter_search.set_parameter_values('negative_rate', np.linspace(10, 100, 4))
+
+The :python:`ThreadedParameterSearch` instance wraps around an :python:`OnlineExperiment` instance, modifies its parameters according to the given possible parameter values. With each call to the function :python:`set_parameter_values`, we can set a new dimension for the grid search, which runs the experiments in parallel accoring to the given :python:`threads` parameter. We can start the hyperparameter search similar to the experiment itself: by calling :python:`run()`.
+
+.. code-block:: python
+
+	neg_rate_scores = mf_parameter_search.run(data, verbose=False)
+
+The result of the search is a pandas DataFrame, with columns representing the given parameters and the score itself.
+
+.. code-block:: python
+
+	plt.plot(neg_rate_scores["negative_rate"], neg_rate_scores["DcgScore"], "o-")
+	plt.xlabel("negative rate")
+	plt.ylabel("average DCG") 
