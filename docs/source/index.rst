@@ -1,7 +1,6 @@
 Welcome to Alpenglow's documentation!
 =====================================
 
-
 .. toctree::
    :maxdepth: 1
    :caption: Getting started:
@@ -13,11 +12,12 @@ Welcome to Alpenglow's documentation!
 
 .. toctree::
    :maxdepth: 1
-   :caption: General information about Alpenglow:
+   :caption: General information:
 
    general/python_api
    general/cpp_api
    general/anatomy_of_experiment
+   general/memory_management
    general/future_work
 
 .. toctree::
@@ -25,8 +25,6 @@ Welcome to Alpenglow's documentation!
    :caption: API documentation:
 
    alpenglow
-   alpenglow.evaluation
-   alpenglow.experiments
    alpenglow.cpp
 
 

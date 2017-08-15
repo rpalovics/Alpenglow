@@ -65,8 +65,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Alpenglow'
-copyright = '2017, MTA Sztaki'
-author = 'MTA Sztaki'
+copyright = '2017, MTA SZTAKI'
+author = 'MTA SZTAKI'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -146,7 +146,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'Alpenglow.tex', 'Alpenglow Documentation',
-     'MTA Sztaki', 'manual'),
+     'MTA SZTAKI', 'manual'),
 ]
 
 
