@@ -1,7 +1,7 @@
 Five minute tutorial
 ====================
 
-In this tutorial we are going to learn the basic concepts of using Alpenglow by evaluating various baseline models on real world data and then building a simple combined model.
+In this tutorial we are going to learn the basic concepts of using Alpenglow by evaluating various baseline models on real world data.
 
 The data
 --------
@@ -12,7 +12,7 @@ You can find the dataset [todo]. This is a processed version of the 30M dataset 
 - only keep the first events of listening sessions
 - recode the items so they represent artists instead of tracks
 
-Let's start by importing standard packages and Alpenglow; and then reading the csv file using pandas.
+Let's start by importing standard packages and Alpenglow; and then reading the csv file using pandas. To avoid waiting too much for the experiments to complete, we limit the amount of records read to 200000.
 
 
 .. role:: python(code)
@@ -25,7 +25,7 @@ Let's start by importing standard packages and Alpenglow; and then reading the c
 	import matplotlib.pyplot as plt
 	import alpenglow as ag
 
-	data = pd.read_csv('data')
+	data = pd.read_csv('data', nrows=200000)
 	print(data.columns)
 
 Output::
@@ -94,9 +94,10 @@ The :py:class:`DcgScore` class calculates the NDCG values for the given ranks an
 
 	daily_avg_dcg = results['dcg'].groupby((results['time']-results['time'].min())//86400).mean()
 	plt.plot(daily_avg_dcg,"o-", label="popularity")
+	plt.title('popularity model performance')
 	plt.legend()
 
-[todo plot]
+.. image:: pop.png
 
 Putting it all together:
 
@@ -119,6 +120,7 @@ Putting it all together:
 	results['dcg'].groupby((results['time']-results['time'].min())//86400).mean().plot()
 
 	plt.plot(daily_avg_dcg,"o-", label="popularity")
+	plt.title('popularity model performance')
 	plt.legend()
 
 Matrix factorization, hyperparameter search
@@ -140,7 +142,10 @@ We can run the :python:`FactorModelExperiment` similarly to the popularity model
 	mf_daily_avg = mf_results['dcg'].groupby((mf_results['time']-mf_results['time'].min())//86400).mean().plot()
 
 	plt.plot(mf_daily_avg,"o-", label="factorization")
+	plt.title('factor model performance')
 	plt.legend()
+
+.. image:: factor.png
 
 The default parameters are chosen to perform generally well. However, the best choice always depends on the task at hand. To find the best values for this particular dataset, we can use Alpenglow's built in multithreaded hyperparameter search tool: :py:class:`alpenglow.ThreadedParameterSearch`.
 
@@ -149,7 +154,7 @@ The default parameters are chosen to perform generally well. However, the best c
 	mf_parameter_search = ag.ThreadedParameterSearch(mf_experiment, DcgScore, threads=4)
 	mf_parameter_search.set_parameter_values('negative_rate', np.linspace(10, 100, 4))
 
-The :python:`ThreadedParameterSearch` instance wraps around an :python:`OnlineExperiment` instance, modifies its parameters according to the given possible parameter values. With each call to the function :python:`set_parameter_values`, we can set a new dimension for the grid search, which runs the experiments in parallel accoring to the given :python:`threads` parameter. We can start the hyperparameter search similar to the experiment itself: by calling :python:`run()`.
+The :python:`ThreadedParameterSearch` instance wraps around an :python:`OnlineExperiment` instance. With each call to the function :python:`set_parameter_values`, we can set a new dimension for the grid search, which runs the experiments in parallel accoring to the given :python:`threads` parameter. We can start the hyperparameter search similar to the experiment itself: by calling :python:`run()`.
 
 .. code-block:: python
 
@@ -159,6 +164,9 @@ The result of the search is a pandas DataFrame, with columns representing the gi
 
 .. code-block:: python
 
-	plt.plot(neg_rate_scores["negative_rate"], neg_rate_scores["DcgScore"], "o-")
-	plt.xlabel("negative rate")
-	plt.ylabel("average DCG") 
+	plt.plot(neg_rate_scores['negative_rate'], neg_rate_scores['DcgScore'])
+	plt.ylabel('average dcg')
+	plt.xlabel('negative rate')
+	plt.title('factor model performance')
+
+.. image:: factor_negative_rate.png
