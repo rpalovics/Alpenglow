@@ -9,8 +9,8 @@ Welcome to Alpenglow's documentation!
    getting_started/1-introduction
    getting_started/2-example_usage
    getting_started/3-five_minute_tutorial
-   getting_started/4-further_reading
    getting_started/4-structure
+   getting_started/5-further_reading
 
 .. toctree::
    :maxdepth: 1
