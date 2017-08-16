@@ -150,11 +150,13 @@ setup(
     packages=[
         'alpenglow',
         'alpenglow.experiments',
-        'alpenglow.evaluation'
+        'alpenglow.evaluation',
+        'alpenglow.offline',
+        'alpenglow.offline.models',
+        'alpenglow.offline.evaluation',
     ],
     package_dir={
         'alpenglow': 'python/alpenglow',
-        'alpenglow.experiments': 'python/alpenglow/experiments',
     },
     cmdclass={
         'build_ext': custom_build_ext

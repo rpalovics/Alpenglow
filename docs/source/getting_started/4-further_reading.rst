@@ -7,7 +7,7 @@ If you want to get familiar with Alpenglow quickly, we collected a list of resou
 
 2. The documentation of implemented experiments in the :py:mod:`alpenglow.experimens` package, which briefly describe the algorithms themselves and their parameters.
 
-3. The documentation of :py:class:`alpenglow.OfflineModel`, which describes how to use Alpenglow for traditional, scikit-learn style machine learning.
+3. The documentation of :py:class:`alpenglow.offline.OfflineModel`, which describes how to use Alpenglow for traditional, scikit-learn style machine learning.
 
 4. The documentation of implemented offline models in the :py:mod:`alpenglow.offline.models` package.
 

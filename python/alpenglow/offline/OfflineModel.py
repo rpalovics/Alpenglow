@@ -1,6 +1,6 @@
-from .DataframeData import DataframeData
-from .Getter import Getter as rs
-from .ParameterDefaults import ParameterDefaults
+from alpenglow import DataframeData
+from alpenglow import Getter as rs
+from alpenglow import ParameterDefaults
 import numpy as np
 import pandas as pd
 

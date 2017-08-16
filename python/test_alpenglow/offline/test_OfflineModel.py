@@ -1,4 +1,5 @@
 import alpenglow as prs
+from alpenglow.offline import OfflineModel
 import alpenglow.Getter as rs
 import pandas as pd
 import numpy as np
@@ -13,7 +14,7 @@ class TestOfflineModel(unittest.TestCase):
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        model = prs.OfflineModel()
+        model = OfflineModel()
         model.fit(data)
 
         def predict(model, user, item):
@@ -33,7 +34,7 @@ class TestOfflineModel(unittest.TestCase):
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        exp = prs.OfflineModel()
+        exp = OfflineModel()
         exp.fit(data)
         preds = exp.recommend()
 

@@ -8,6 +8,7 @@ Subpackages
 
     alpenglow.evaluation
     alpenglow.experiments
+    alpenglow.offline
 
 Submodules
 ----------
@@ -40,14 +41,6 @@ alpenglow.Getter module
 -----------------------
 
 .. automodule:: alpenglow.Getter
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alpenglow.OfflineModel module
------------------------------
-
-.. automodule:: alpenglow.OfflineModel
     :members:
     :undoc-members:
     :show-inheritance:
