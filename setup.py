@@ -154,6 +154,7 @@ setup(
         'alpenglow.offline',
         'alpenglow.offline.models',
         'alpenglow.offline.evaluation',
+        'alpenglow.utils',
     ],
     package_dir={
         'alpenglow': 'python/alpenglow',
