@@ -13,6 +13,9 @@ class DependentParameter:
 
 
 class ParameterSearch:
+    """Utility for evaluating online experiments with different hyperparameters. For a
+    brief tutorial on using this class, see :doc:`/getting_started/3-five_minute_tutorial`.
+    """
     def __init__(self, model, Score):
         self.model = model
         self.Score = Score

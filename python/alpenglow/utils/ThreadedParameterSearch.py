@@ -3,6 +3,8 @@ import concurrent.futures
 
 
 class ThreadedParameterSearch(ParameterSearch):
+    """Threaded version of :py:class:`alpenglow.utils.ParameterSearch`.
+    """
     def __init__(self, model, Score, threads=4, use_process_pool=True):
         ParameterSearch.__init__(self, model, Score)
         self.threads = threads

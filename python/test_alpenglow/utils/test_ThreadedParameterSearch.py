@@ -4,6 +4,7 @@ import alpenglow.evaluation
 import pandas as pd
 import math
 import unittest
+from alpenglow.utils import ParameterSearch, ThreadedParameterSearch
 
 
 class TestThreadedParameterSearch(unittest.TestCase):
@@ -18,11 +19,11 @@ class TestThreadedParameterSearch(unittest.TestCase):
             top_k=100,
             seed=254938879
         )
-        c = prs.ParameterSearch(model, alpenglow.evaluation.DcgScore)
+        c = ParameterSearch(model, alpenglow.evaluation.DcgScore)
         c.set_parameter_values('top_k', [100, 50])
         c.set_parameter_values('seed', [254938879, 0])
 
-        d = prs.ThreadedParameterSearch(model, alpenglow.evaluation.DcgScore)
+        d = ThreadedParameterSearch(model, alpenglow.evaluation.DcgScore)
         d.set_parameter_values('top_k', [100, 50])
         d.set_parameter_values('seed', [254938879, 0])
 

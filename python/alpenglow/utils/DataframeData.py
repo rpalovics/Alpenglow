@@ -4,6 +4,8 @@ import sip
 
 
 class DataframeData(rs.DataframeData):
+    """Python wrapper around :py:class:`alpenglow.cpp.DataframeData`.
+    """
     def __init__(self, df, columns={}):
         super(rs.DataframeData, self).__init__()
         self.columns = columns

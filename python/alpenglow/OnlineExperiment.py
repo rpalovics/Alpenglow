@@ -1,5 +1,5 @@
 from .Getter import Getter as rs
-from .DataframeData import DataframeData
+from .utils.DataframeData import DataframeData
 from .ParameterDefaults import ParameterDefaults
 import pandas as pd
 import sip
@@ -24,6 +24,7 @@ class OnlineExperiment(ParameterDefaults):
     rank. If the item is not found in the top :code:`top_k` items, the evaluation step
     returns :code:`NaN`.
 
+    For abrief tutorial on using this class, see :doc:`/getting_started/3-five_minute_tutorial`.
     """
 
     def __init__(self, **parameters):

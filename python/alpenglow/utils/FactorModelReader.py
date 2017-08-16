@@ -3,6 +3,9 @@ import pandas as pd
 
 
 def readFactorModel(file, dimensions):
+    """Utility for reading binary models --saved by online experiments-- into
+    pandas DataFrames.
+    """
     r = ag.FactorModelReader()
     uif = r.read(file, dimensions)
 

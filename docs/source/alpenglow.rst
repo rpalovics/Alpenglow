@@ -9,33 +9,10 @@ Subpackages
     alpenglow.evaluation
     alpenglow.experiments
     alpenglow.offline
+    alpenglow.utils
 
 Submodules
 ----------
-
-alpenglow.AvailabilityFilter module
------------------------------------
-
-.. automodule:: alpenglow.AvailabilityFilter
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alpenglow.DataframeData module
-------------------------------
-
-.. automodule:: alpenglow.DataframeData
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alpenglow.FactorModelReader module
-----------------------------------
-
-.. automodule:: alpenglow.FactorModelReader
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 alpenglow.Getter module
 -----------------------
@@ -57,22 +34,6 @@ alpenglow.ParameterDefaults module
 ----------------------------------
 
 .. automodule:: alpenglow.ParameterDefaults
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alpenglow.ParameterSearch module
---------------------------------
-
-.. automodule:: alpenglow.ParameterSearch
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-alpenglow.ThreadedParameterSearch module
-----------------------------------------
-
-.. automodule:: alpenglow.ThreadedParameterSearch
     :members:
     :undoc-members:
     :show-inheritance:
