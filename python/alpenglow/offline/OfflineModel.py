@@ -6,6 +6,24 @@ import pandas as pd
 
 
 class OfflineModel(ParameterDefaults):
+    """OfflineModel is the base class for all traditional, scikit-learn style models in
+    Alpenglow. Example usage:
+
+    .. code-block:: python
+
+        data = pd.read_csv('data')
+        train_data = data[data.time < (data.time.min()+250*86400)]
+        test_data = data[ (data.time >= (data.time.min()+250*86400)) & (data.time < (data.time.min()+300*86400))]
+
+        exp = ag.OfflineModel(
+            learning_rate=0.07,
+            negative_rate=70,
+            number_of_iterations=9,
+        )
+        exp.fit(data)
+        test_users = list(set(test_data.user)&set(train_data.user))
+        recommendations = exp.recommend(users=test_users)
+    """
     def __init__(self, **parameters):
         super().__init__(**parameters)
         self.used_parameters = set(['seed'])
@@ -13,6 +31,19 @@ class OfflineModel(ParameterDefaults):
             self.parameters["seed"] = 254938879
 
     def fit(self, X, y=None, columns={}):
+        """Fit the model to a dataset.
+
+        Parameters
+        ----------
+        X : pandas.DataFrame
+            The input data, must contain the columns **user** and **item**. May contain the **score** column as well.
+        y : pandas.Series or list
+            The target values. If not set (and X doesn't contain the score column), it is assumed to be constant 1 (implicit recommendation).
+        columns : dict
+            Optionally the mapping of the input DataFrame's columns' names to the expected ones.
+
+
+        """
         rs.collect()
         data = X
         if y is None:
@@ -83,11 +114,42 @@ class OfflineModel(ParameterDefaults):
         self.recommender_data = recommender_data
 
     def predict(self, X):
+        """Predict the target values on X.
+
+        Parameters
+        ----------
+        X : pandas.DataFrame
+            The input data, must contain the columns **user** and **item**.
+
+        Returns
+        -------
+        list
+          List of predictions
+
+        """
         predictor = rs.MassPredictor()
         predictor.set_model(self.model)
         return predictor.predict(X['user'].tolist(), X['item'].tolist())
 
     def recommend(self, users=None, k=100, exclude_known=True):
+        """Give toplist recommendations for users.
+
+        Parameters
+        ----------
+        users : list
+            List of users to give recommendation for.
+        k : int
+            Size of toplists
+        exclude_known : bool
+            Whether to exclude (user,item) pairs in the train dataset from the toplists.
+
+        Returns
+        -------
+        pandas.DataFrame
+          DataFrame of recommendations, with columns **user**, **item** and **rank**.
+
+        """
+
         rs.collect()
         dummy_model_filter = rs.DummyModelFilter()
         dummy_model_filter.set_items(self.items)
