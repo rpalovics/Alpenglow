@@ -122,6 +122,7 @@ class PredictionCreatorPersonalized: public PredictionCreator{
       if(ranking_model){
         ranking_model_ = ranking_model;
       }
+      return true;
     }
   private:
     MinHeap* min_heap_;

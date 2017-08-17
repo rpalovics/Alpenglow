@@ -52,7 +52,7 @@ void LempContainer::rebuild_from_items(vector<tuple<int,double,vector<double>>> 
   sort(
     items.begin(),
     items.end(),
-    [](const decltype(items[0]) & t1, const decltype(items[0]) & t2){ 
+    [](const tuple<int,double,vector<double>> & t1, const tuple<int,double,vector<double>> & t2){ 
       return get<1>(t1) > get<1>(t2); 
   });
 
@@ -134,7 +134,10 @@ LempBucket* LempContainer::remove_item(int id){
     container_bucket->erase_item(id);
 
     repair_bucket(container_bucket_it, container_bucket_max);
+
+    return container_bucket;
   }
+  return NULL;
 }
 
 void LempContainer::repair_bucket(multiset<LempBucket*>::iterator bucket, double previous_bucket_max){
