@@ -10,7 +10,7 @@ The framework is composed of a large number of components written in C++ and a t
 Requirements
 -------------
 
-Anaconda environment with Python 3.5
+Anaconda environment with Python >= 3.5
 
 Installing
 ----------

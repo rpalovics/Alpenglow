@@ -6,7 +6,8 @@ import sip
 
 
 class OnlineExperiment(ParameterDefaults):
-    """This is the base class of every online experiment in Alpenglow. It builds
+    """OnlineExperiment(seed=254938879,top_k=100)
+    This is the base class of every online experiment in Alpenglow. It builds
     the general experimental setup needed to run the online training and evaluation
     of a model. It also handles default parameters and the ability to override them
     when instantiating an experiment.
@@ -25,6 +26,13 @@ class OnlineExperiment(ParameterDefaults):
     returns :code:`NaN`.
 
     For a brief tutorial on using this class, see :doc:`/getting_started/3-five_minute_tutorial`.
+
+    Parameters
+    ----------
+    seed : int
+        The seed to initialize RNG-s. Should not be 0.
+    top_k : int
+        The length of the toplists.
     """
 
     def __init__(self, **parameters):

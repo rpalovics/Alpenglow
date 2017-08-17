@@ -3,6 +3,30 @@ import alpenglow as prs
 
 
 class FactorExperiment(prs.OnlineExperiment):
+    """FactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=0.0)
+
+    This class implements the well-known matrix factorization recommendation model [Koren2009]_
+    and trains it via stochastic gradient descent. The model is able to train on implicit data
+    as well using negative sample generation, see [X.He2016]_ and the **negative_rate** parameter.
+
+    .. [Koren2009] Koren, Yehuda, Robert Bell, and Chris Volinsky. "Matrix factorization techniques for recommender systems." Computer 42.8 (2009).
+    .. [X.He2016] X. He, H. Zhang, M.-Y. Kan, and T.-S. Chua. Fast matrix factorization for online recommendation with implicit feedback. In SIGIR, pages 549–558, 2016.
+
+    Parameters
+    ----------
+    dimension : int
+        The latent factor dimension of the factormodel.
+    begin_min : double
+        The factors are initialized randomly, sampling each element uniformly from the interval (begin_min, begin_max).
+    begin_max : double
+        See begin_min.
+    learning_rate : double
+        The learning rate used in the stochastic gradient descent updates.
+    regularization_rate : double
+        The coefficient for the L2 regularization term.
+    negative_rate : int
+        The number of negative samples generated after each update. Useful for implicit recommendation.
+    """
     def config(self, elems):
         config = self.parameter_defaults(
             top_k=100,
