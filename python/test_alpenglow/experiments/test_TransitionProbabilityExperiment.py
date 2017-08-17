@@ -5,15 +5,15 @@ import pandas as pd
 import math
 
 
-class TestTransitionProbabilityModelExperiment:
-    def test_transitionProbabilityModelExperiment(self):
+class TestTransitionProbabilityExperiment:
+    def test_transitionProbabilityExperiment(self):
         data = pd.read_csv(
             "python/test_alpenglow/test_data_4",
             sep=' ',
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        experiment = alpenglow.experiments.TransitionProbabilityModelExperiment(
+        experiment = alpenglow.experiments.TransitionProbabilityExperiment(
             top_k=100,
             seed=254938879,
         )

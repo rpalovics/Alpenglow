@@ -5,15 +5,15 @@ import pandas as pd
 import math
 
 
-class TestSimulatedBatchExperiment:
-    def test_simulatedBatchExperiment(self):
+class TestBatchFactorExperiment:
+    def test_batchFactorExperiment(self):
         data = pd.read_csv(
             "python/test_alpenglow/test_data_4",
             sep=' ',
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        sbExperiment = alpenglow.experiments.SimulatedBatchExperiment(
+        sbExperiment = alpenglow.experiments.BatchFactorExperiment(
             top_k=100,
             negative_rate=3,
             seed=254938879,

@@ -2,7 +2,7 @@ import alpenglow.Getter as rs
 import alpenglow as prs
 
 
-class SimulatedBatchExperiment(prs.OnlineExperiment):
+class BatchFactorExperiment(prs.OnlineExperiment):
     def config(self, elems):
         config = self.parameter_defaults(
             top_k=100,

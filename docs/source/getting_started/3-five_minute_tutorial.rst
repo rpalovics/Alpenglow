@@ -47,18 +47,18 @@ Let's start by evaluating a very basic model on the dataset, the popularity mode
 
 .. code-block:: python
 
-	from alpenglow.experiments import PopularityModelExperiment
+	from alpenglow.experiments import PopularityExperiment
 
 When creating an instance of the experiment, we can provide various configuration options and parameters.
 
 .. code-block:: python
 
-	pop_experiment = PopularityModelExperiment(
+	pop_experiment = PopularityExperiment(
 	    top_k=100, # we are going to evaluate on top 100 ranking lists
 	    seed=12345, # for reproducibility, we provide a random seed
 	)
 
-You can see the list available options of online experiments in the documentation of :py:class:`alpenglow.OnlineExperiment` and the parameters of this particular experiment in the documentation of the specific implementation (in this case :py:class:`alpenglow.experiments.PopularityModelExperiment`) or, failing that, in the source code of the given class.
+You can see the list available options of online experiments in the documentation of :py:class:`alpenglow.OnlineExperiment` and the parameters of this particular experiment in the documentation of the specific implementation (in this case :py:class:`alpenglow.experiments.PopularityExperiment`) or, failing that, in the source code of the given class.
 
 Running the experiment on the data is as simple as calling :python:`run(data)`. Multiple options can be provided at this point, for a full list, refer to the documentation of :py:meth:`alpenglow.OnlineExperiment.OnlineExperiment.run`.
 
@@ -107,11 +107,11 @@ Putting it all together:
 	import matplotlib
 	import matplotlib.pyplot as plt
 	from alpenglow.evaluation import DcgScore
-	from alpenglow.experiments import PopularityModelExperiment
+	from alpenglow.experiments import PopularityExperiment
 
 	data = pd.read_csv('data')
 
-	pop_experiment = PopularityModelExperiment(
+	pop_experiment = PopularityExperiment(
 	    top_k=100,
 	    seed=12345,
 	)
@@ -126,15 +126,15 @@ Putting it all together:
 Matrix factorization, hyperparameter search
 -------------------------------------------
 
-The :py:class:`alpenglow.experiments.FactorModelExperiment` class implements a factor model, which is updated in an online fashion. After checking the documentation / source, we can see that the most relevant hyperparameters for this model are :python:`dimension` (the number of latent factors), :python:`learning_rate`, :python:`negative_rate` and :python:`regularization_rate`. For this experiment, we are leaving the factor dimension at the default value of 10, and we don't need regularization, so we'll leave it at its default (0) as well. We will find the best negative rate and learning rate using grid search.
+The :py:class:`alpenglow.experiments.FactorExperiment` class implements a factor model, which is updated in an online fashion. After checking the documentation / source, we can see that the most relevant hyperparameters for this model are :python:`dimension` (the number of latent factors), :python:`learning_rate`, :python:`negative_rate` and :python:`regularization_rate`. For this experiment, we are leaving the factor dimension at the default value of 10, and we don't need regularization, so we'll leave it at its default (0) as well. We will find the best negative rate and learning rate using grid search.
 
 We can run the :python:`FactorModelExperiment` similarly to the popularity model:
 
 .. code-block:: python
 
-	from alpenglow.experiments import FactorModelExperiment
+	from alpenglow.experiments import FactorExperiment
 
-	mf_experiment = FactorModelExperiment(
+	mf_experiment = FactorExperiment(
 	    top_k=100,
 	)
 	mf_results = mf_experiment.run(data, verbose=True)

@@ -15,7 +15,7 @@ class TestThreadedParameterSearch(unittest.TestCase):
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        model = alpenglow.experiments.PopularityModelExperiment(
+        model = alpenglow.experiments.PopularityExperiment(
             top_k=100,
             seed=254938879
         )

@@ -6,9 +6,9 @@ import pandas as pd
 import math
 
 
-class TestAsymmetricFactorModelExperiment:
-    def test_AsymmetricFactorModelExperiment(self):
-        experiment = alpenglow.experiments.AsymmetricFactorModelExperiment(
+class TestAsymmetricFactorExperiment:
+    def test_AsymmetricFactorExperiment(self):
+        experiment = alpenglow.experiments.AsymmetricFactorExperiment(
             top_k=100,
             seed=254938879,
             dimension=10,

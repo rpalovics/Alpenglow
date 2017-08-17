@@ -6,9 +6,9 @@ import pandas as pd
 import math
 
 
-class TestSvdppModelExperiment:
-    def test_SvdppModelExperiment(self):
-        experiment = alpenglow.experiments.SvdppModelExperiment(
+class TestSvdppExperiment:
+    def test_SvdppExperiment(self):
+        experiment = alpenglow.experiments.SvdppExperiment(
             top_k=100,
             seed=254938879,
             dimension=10,

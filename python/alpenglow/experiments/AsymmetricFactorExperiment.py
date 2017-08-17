@@ -2,7 +2,7 @@ import alpenglow.Getter as rs
 import alpenglow as prs
 
 
-class SvdppModelExperiment(prs.OnlineExperiment):
+class AsymmetricFactorExperiment(prs.OnlineExperiment):
     def config(self, elems):
         config = self.parameter_defaults(
             top_k=100,
@@ -13,23 +13,21 @@ class SvdppModelExperiment(prs.OnlineExperiment):
             loggers=[],
         )
 
-        model = rs.SvdppModel(**self.parameter_defaults(
+        model = rs.AsymmetricFactorModel(**self.parameter_defaults(
             begin_min=-0.01,
             begin_max=0.01,
             dimension=10,
             use_sigmoid=False,
             norm_type="exponential",
-            gamma=0.8,
-            user_vector_weight=0.5,
-            history_weight=0.5
+            gamma=0.8
         ))
 
-        gradient_updater = rs.SvdppModelGradientUpdater(**self.parameter_defaults(
+        gradient_updater = rs.AsymmetricFactorModelGradientUpdater(**self.parameter_defaults(
             learning_rate=0.05,
             cumulative_item_updates=False,
         ))
         gradient_updater.set_model(model)
-        simple_updater = rs.SvdppModelUpdater()
+        simple_updater = rs.AsymmetricFactorModelUpdater()
         simple_updater.set_model(model)
 
         learner = rs.ImplicitGradientLearner()

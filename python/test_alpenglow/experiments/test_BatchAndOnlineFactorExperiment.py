@@ -5,9 +5,9 @@ import pandas as pd
 import math
 
 
-class TestBatchAndOnlineExperiment:
-    def test_batchAndOnlineExperiment(self):
-        boModelExperiment = alpenglow.experiments.BatchAndOnlineExperiment(
+class TestBatchAndOnlineFactorExperiment:
+    def test_batchAndOnlineFactorExperiment(self):
+        boModelExperiment = alpenglow.experiments.BatchAndOnlineFactorExperiment(
             top_k=100,
             seed=254938879,
             dimension=10,

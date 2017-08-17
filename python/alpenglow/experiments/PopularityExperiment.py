@@ -2,7 +2,7 @@ import alpenglow.Getter as rs
 import alpenglow as prs
 
 
-class TransitionProbabilityModelExperiment(prs.OnlineExperiment):
+class PopularityExperiment(prs.OnlineExperiment):
     def config(self, elems):
         config = self.parameter_defaults(
             top_k=100,
@@ -13,22 +13,15 @@ class TransitionProbabilityModelExperiment(prs.OnlineExperiment):
             loggers=[],
         )
 
-        model = rs.TransitionProbabilityModel()
-        updater = rs.TransitionProbabilityModelUpdater(**self.parameter_defaults(
-          filter_freq_updates=False,
-          mode_="normal",
-          label_transition_mode_=False,
-          label_file_name_=""
-        ))
+        model = rs.PopularityModel()
+        updater = rs.PopularityModelUpdater()
         updater.set_model(model)
 
         model = model
         learner = [updater]
-        filters = [model]
 
         return {
             'config': config,
             'model': model,
-            'learner': learner,
-            'filters': filters,
+            'learner': learner
         }

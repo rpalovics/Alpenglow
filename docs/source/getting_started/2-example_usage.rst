@@ -5,7 +5,7 @@ Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_da
 
 .. code-block:: python
 
-	from alpenglow.experiments import FactorModelExperiment
+	from alpenglow.experiments import FactorExperiment
 	from alpenglow.evaluation import DcgScore
 	import pandas as pd
 	import matplotlib
@@ -14,7 +14,7 @@ Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_da
 
 	data = pd.read_csv("/path/to/sample_dataset")
 
-	factor_model_experiment = FactorModelExperiment(
+	factor_model_experiment = FactorExperiment(
 	    top_k=100,
 	    seed=254938879,
 	    dimension=10,

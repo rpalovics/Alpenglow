@@ -5,15 +5,15 @@ import pandas as pd
 import math
 
 
-class TestPopularityModelExperiment:
-    def test_popularityModelExperiment(self):
+class TestPopularityTimeframeExperiment:
+    def test_PopularityTimeframeExperiment(self):
         data = pd.read_csv(
             "python/test_alpenglow/test_data_4",
             sep=' ',
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        experiment = alpenglow.experiments.PopularityTimeframeModelExperiment(
+        experiment = alpenglow.experiments.PopularityTimeframeExperiment(
             top_k=100,
             seed=254938879,
             tau=600

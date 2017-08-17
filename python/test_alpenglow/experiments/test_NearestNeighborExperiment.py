@@ -5,15 +5,15 @@ import pandas as pd
 import math
 
 
-class TestNearestNeighborModelExperiment:
-    def test_nearestNeighborModelExperiment(self):
+class TestNearestNeighborExperiment:
+    def test_nearestNeighborExperiment(self):
         data = pd.read_csv(
             "python/test_alpenglow/test_data_4",
             sep=' ',
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        experiment = alpenglow.experiments.NearestNeighborModelExperiment(
+        experiment = alpenglow.experiments.NearestNeighborExperiment(
             top_k=100,
             seed=254938879,
             compute_similarity_period=100,

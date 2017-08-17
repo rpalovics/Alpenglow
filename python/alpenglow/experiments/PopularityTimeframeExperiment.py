@@ -2,7 +2,7 @@ import alpenglow.Getter as rs
 import alpenglow as prs
 
 
-class PeriodicPopularityModelExperiment(prs.OnlineExperiment):
+class PopularityTimeframeExperiment(prs.OnlineExperiment):
     def config(self, elems):
         config = self.parameter_defaults(
             top_k=100,
@@ -14,17 +14,13 @@ class PeriodicPopularityModelExperiment(prs.OnlineExperiment):
         )
 
         model = rs.PopularityModel()
-        updater = rs.PopularityModelUpdater()
+        updater = rs.PopularityTimeFrameModelUpdater(**self.parameter_defaults(
+          tau=86400
+        ))
         updater.set_model(model)
 
-        learner = rs.LearnerPeriodicDelayedWrapper(**self.parameter_defaults(
-            period=86400,
-            delay=86400
-        ))
-        learner.set_wrapped_learner(updater)
-
         model = model
-        learner = learner
+        learner = [updater]
 
         return {
             'config': config,

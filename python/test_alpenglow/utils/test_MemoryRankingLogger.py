@@ -18,7 +18,7 @@ class TestMemoryRankingLogger:
         data['eval'] = 0
         data.loc[data.iloc[len(data) // 2:].index, 'eval'] = 1
         data.set_index('id')
-        factorModelExperiment = alpenglow.experiments.FactorModelExperiment(
+        factorModelExperiment = alpenglow.experiments.FactorExperiment(
             top_k=100,
             seed=254938879,
             dimension=10,
