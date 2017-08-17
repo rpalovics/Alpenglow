@@ -3,6 +3,9 @@ import alpenglow as prs
 
 
 class PopularityExperiment(prs.OnlineExperiment):
+    """Recommends the most popular item from the set of items seen so far.
+    """
+
     def config(self, elems):
         config = self.parameter_defaults(
             top_k=100,

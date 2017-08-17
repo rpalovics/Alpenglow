@@ -3,6 +3,32 @@ import alpenglow as prs
 
 
 class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
+    """BatchAndOnlineFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,batch_learning_rate=0.05,batch_regularization_rate=0.0,batch_negative_rate=70,online_learning_rate=0.05,online_regularization_rate=0.0,online_negative_rate=100)
+
+    Combines BatchFactorExperiment and FactorExperiment by updating 
+    the model both in batch and continously.
+
+    Parameters
+    ----------
+    dimension : int
+        The latent factor dimension of the factormodel.
+    begin_min : double
+        The factors are initialized randomly, sampling each element uniformly from the interval (begin_min, begin_max).
+    begin_max : double
+        See begin_min.
+    batch_learning_rate : double
+        The learning rate used in the batch stochastic gradient descent updates.
+    batch_regularization_rate : double
+        The coefficient for the L2 regularization term for batch updates.
+    batch_negative_rate : int
+        The number of negative samples generated after each batch update. Useful for implicit recommendation.
+    online_learning_rate : double
+        The learning rate used in the online stochastic gradient descent updates.
+    online_regularization_rate : double
+        The coefficient for the L2 regularization term for online updata.
+    online_negative_rate : int
+        The number of negative samples generated after online each update. Useful for implicit recommendation.
+    """
     def config(self, elems):
         config = self.parameter_defaults(
             top_k=100,
@@ -22,10 +48,10 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
         #
 
         # updater
-        batch_updater = rs.FactorModelGradientUpdater(
+        batch_updater = rs.FactorModelGradientUpdater(**self.parameter_defaults(
             learning_rate=self.parameter_default('batch_learning_rate', 0.05),
             regularization_rate=0.0
-        )
+        ))
         batch_updater.set_model(model)
 
         # negative sample generator
@@ -64,10 +90,10 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
         #
 
         # updater
-        online_updater = rs.FactorModelGradientUpdater(
+        online_updater = rs.FactorModelGradientUpdater(**self.parameter_defaults(
             learning_rate=self.parameter_default('online_learning_rate', 0.2),
             regularization_rate=0.0
-        )
+        ))
         online_updater.set_model(model)
 
         # negative sample generator
