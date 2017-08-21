@@ -1,12 +1,12 @@
 import alpenglow as prs
-from alpenglow.offline import OfflineModel
+from alpenglow.offline.models import FactorModel
 import alpenglow.Getter as rs
 import pandas as pd
 import numpy as np
 import unittest
 
 
-class TestOfflineModel(unittest.TestCase):
+class TestFactorModel(unittest.TestCase):
     def test_rmse(self):
         data = pd.read_csv(
             "python/test_alpenglow/test_data_4",
@@ -14,7 +14,7 @@ class TestOfflineModel(unittest.TestCase):
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        model = OfflineModel()
+        model = FactorModel()
         model.fit(data)
 
         def predict(model, user, item):
@@ -34,7 +34,7 @@ class TestOfflineModel(unittest.TestCase):
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        exp = OfflineModel()
+        exp = FactorModel()
         exp.fit(data)
         preds = exp.recommend()
 

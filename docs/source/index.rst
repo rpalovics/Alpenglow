@@ -25,6 +25,7 @@ Welcome to Alpenglow's documentation!
    :caption: API documentation:
 
    alpenglow
+   alpenglow.offline
    alpenglow.cpp
 
 

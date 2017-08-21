@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     alpenglow.offline.evaluation
+    alpenglow.offline.models
 
 Submodules
 ----------
