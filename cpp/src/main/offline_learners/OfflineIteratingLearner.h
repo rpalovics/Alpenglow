@@ -62,7 +62,7 @@ class OfflineIteratingLearner : public OfflineLearner {
     if(seed_==-1){ OK = false; cerr << "OfflineIteratingLearner::seed is not set." << endl; }
     if(number_of_iterations_<0 and gradient_updaters_.size()!=0){ OK = false; cerr << "OfflineIteratingLearner::number_of_iterations is not set but gradient updaters are present." << endl; }
     if(model_==NULL){ OK = false; cerr << "OfflineIteratingLearner::model_ is not set." << endl; }
-    if(gradient_updaters_.size()==0 and simple_updaters_.size()==0 and early_simple_updaters_.size==0){ OK = false; cerr << "No updaters are added to OfflineIteratingLearner." << endl; }
+    if(gradient_updaters_.size()==0 and simple_updaters_.size()==0 and early_simple_updaters_.size()==0){ OK = false; cerr << "No updaters are added to OfflineIteratingLearner." << endl; }
     if(gradient_computer_==NULL and gradient_updaters_.size()>0){ OK=false; cerr << "OfflineIteratingLearner::gradient_computer is not set." << endl; }
     if(recommender_data_==NULL){ OK=false; cerr << "OfflineIteratingLearner::recommender_data_ is not set." << endl; }
     if(random_iterator_==NULL){ OK=false; cerr << "Problem with OfflineFactorModel::random_iterator" << endl; }
