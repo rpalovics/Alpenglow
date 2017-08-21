@@ -9,6 +9,6 @@ python/.cache
 .parallel
 alpenglow.egg-info
 python/alpenglow/cpp.*.so
-recSys/cpp/bin
-recSys/cpp/dep/*
-!recSys/cpp/dep/empty
+cpp/bin
+cpp/dep/*
+!cpp/dep/empty

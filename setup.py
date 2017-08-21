@@ -1,7 +1,7 @@
-try:
-    from setuptools import setup, Extension
-except:
-    from distutils.core import setup, Extension
+# try:
+#     from setuptools import setup, Extension
+# except:
+from distutils.core import setup, Extension
 
 import sipdistutils
 import os
@@ -86,7 +86,7 @@ def get_cpp_recursively(rdir, ignores=[]):
 
 # finding cpp sources
 cpp_sources = get_cpp_recursively(
-    "recSys/cpp/src/main",
+    "cpp/src/main",
 )
 
 # Remove the "-Wstrict-prototypes" compiler option, which isn't valid for C++.
@@ -131,9 +131,9 @@ setup(
             ] + cpp_sources,
             include_dirs=[
                 '.',
-                'recSys/cpp/src',
-                'recSys/cpp/src/main',
-                'recSys/cpp/dep/gtest/include'
+                'cpp/src',
+                'cpp/src/main',
+                'cpp/dep/gtest/include'
             ],
             extra_compile_args=[
                 '-std=c++11',

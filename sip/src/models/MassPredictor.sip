@@ -1,6 +1,6 @@
 class MassPredictor{
 %TypeHeaderCode
-#include "cpp/MassPredictor.h"
+#include "python/cpp_bridge/MassPredictor.h"
 %End
 public:
   void set_model(Model *model);
