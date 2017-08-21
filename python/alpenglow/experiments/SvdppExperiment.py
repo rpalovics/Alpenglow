@@ -3,16 +3,7 @@ import alpenglow as prs
 
 
 class SvdppExperiment(prs.OnlineExperiment):
-    def config(self, elems):
-        config = self.parameter_defaults(
-            top_k=100,
-            min_time=0,
-            seed=67439852,
-            out_file=None,
-            filters=[],
-            loggers=[],
-        )
-
+    def _config(self, top_k, seed):
         model = rs.SvdppModel(**self.parameter_defaults(
             begin_min=-0.01,
             begin_max=0.01,
@@ -50,8 +41,4 @@ class SvdppExperiment(prs.OnlineExperiment):
         gradient_computer.set_model(model)
         learner.set_gradient_computer(gradient_computer)
 
-        return {
-            'config': config,
-            'model': model,
-            'learner': learner
-        }
+        return (model, learner, [], [])

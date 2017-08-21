@@ -27,15 +27,7 @@ class FactorExperiment(prs.OnlineExperiment):
     negative_rate : int
         The number of negative samples generated after each update. Useful for implicit recommendation.
     """
-    def config(self, elems):
-        config = self.parameter_defaults(
-            top_k=100,
-            min_time=0,
-            seed=67439852,
-            out_file=None,
-            filters=[],
-            loggers=[],
-        )
+    def _config(self, top_k, seed):
 
         model = rs.FactorModel(**self.parameter_defaults(
             begin_min=-0.01,
@@ -68,8 +60,4 @@ class FactorExperiment(prs.OnlineExperiment):
         gradient_computer.set_model(model)
         learner.set_gradient_computer(gradient_computer)
 
-        return {
-            'config': config,
-            'model': model,
-            'learner': learner
-        }
+        return (model, learner, [], [])

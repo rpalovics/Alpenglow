@@ -29,13 +29,7 @@ class BatchFactorExperiment(prs.OnlineExperiment):
         The amount of time between model retrains (seconds).
     """
 
-    def config(self, elems):
-        config = self.parameter_defaults(
-            top_k=100,
-            min_time=0,
-            loggers=[],
-        )
-
+    def _config(self, top_k, seed):
         model = rs.FactorModel(**self.parameter_defaults(
             begin_min=-0.01,
             begin_max=0.01,
@@ -61,7 +55,6 @@ class BatchFactorExperiment(prs.OnlineExperiment):
             base_in_file_name=""
         ))
         learner.set_model(model)
-        # learner.set_recommender_data_iterator(elems['recommender_data_iterator'])
         learner.add_gradient_updater(updater)
 
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
@@ -70,8 +63,7 @@ class BatchFactorExperiment(prs.OnlineExperiment):
             seed=67439852,
             filter_repeats=False,
         ))
-        # negative_sample_generator.set_train_matrix(elems['train_matrix'])
-        # negative_sample_generator.set_items(elems['items'])
+
         learner.set_negative_sample_generator(negative_sample_generator)
 
         point_wise = rs.ObjectiveMSE()
@@ -80,8 +72,4 @@ class BatchFactorExperiment(prs.OnlineExperiment):
         gradient_computer.set_model(model)
         learner.set_gradient_computer(gradient_computer)
 
-        return {
-            'config': config,
-            'model': model,
-            'learner': learner
-        }
+        return (model, learner, [], [])

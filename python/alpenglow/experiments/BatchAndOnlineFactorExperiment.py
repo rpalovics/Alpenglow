@@ -29,12 +29,7 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
     online_negative_rate : int
         The number of negative samples generated after online each update. Useful for implicit recommendation.
     """
-    def config(self, elems):
-        config = self.parameter_defaults(
-            top_k=100,
-            min_time=0,
-            loggers=[],
-        )
+    def _config(self, top_k, seed):
 
         model = rs.FactorModel(**self.parameter_defaults(
             begin_min=-0.01,
@@ -119,8 +114,4 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
 
         learner = [batch_learner, online_learner]
 
-        return {
-            'config': config,
-            'model': model,
-            'learner': learner
-        }
+        return (model, learner, [], [])

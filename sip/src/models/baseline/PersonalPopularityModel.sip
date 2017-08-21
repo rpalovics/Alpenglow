@@ -1,4 +1,4 @@
-class PersonalPopularityModel{
+class PersonalPopularityModel : public Model{
   %TypeHeaderCode
   #include "models/baseline/PersonalPopularityModel.h"
   %End

@@ -37,9 +37,11 @@ class OnlineExperiment(ParameterDefaults):
 
     def __init__(self, **parameters):
         super().__init__(**parameters)
-        self.used_parameters = set(['seed'])
+        self.used_parameters = set(['seed', 'top_k'])
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
+        if("top_k" not in self.parameters):
+            self.parameters["top_k"] = 100
 
     def run(self, data, experimentType=None, columns={}, verbose=True, out_file=None, lookback=False, initialize_all=False, max_item=-1, max_user=-1, calculate_toplists=False):
         """
@@ -89,31 +91,16 @@ class OnlineExperiment(ParameterDefaults):
 
         print("data reading finished") if self.verbose else None
 
-        elems = {}
-        configdict = self.config(elems)
-        config = configdict['config']
-        self.learner = configdict['learner']
-        self.model = configdict['model']
-
-        top_k = config['top_k']
-        if 'min_time' in config:
-            min_time = config['min_time']
-        if 'lookback' in config:
-            lookback = config['lookback']
-        if 'initialize_all' in config:
-            initialize_all = config['initialize_all']
+        top_k = self.parameters['top_k']
         seed = self.parameters["seed"]
 
-        model = self.model
-        learner = self.learner
+        (model, learner, filters, loggers) = self._config(top_k, seed)
 
         rank_computer = rs.RankComputer(top_k=top_k, random_seed=43211234)
         rank_computer.set_model(model)
 
-        if 'filters' in config:
-            filters = config['filters']
-            for f in filters:
-                rank_computer.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
+        for f in filters:
+            rank_computer.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
 
         online_experiment = rs.OnlineExperiment(
             random_seed=seed,
@@ -140,17 +127,15 @@ class OnlineExperiment(ParameterDefaults):
         #   recommender_data->set_attribute_container(attribute_container);
         # }
 
-        if 'loggers' in config:
-            loggers = config['loggers']
-            for l in loggers:
-                online_experiment.add_logger(l)
+        for l in loggers:
+            online_experiment.add_logger(l)
 
         if type(calculate_toplists) is not bool or calculate_toplists:
             print('logging predictions') if self.verbose else None
             model_filter = None
-            if 'filters' in config and len(config['filters']) != 0:
-                model_filter = config['filters'][0]
-                if(len(config['filters']) > 1):
+            if len(filters) != 0:
+                model_filter = filters[0]
+                if(len(filters) > 1):
                     print("Warning: predictionCreator accepts only one model_filter")
             else:
                 dummy_model_filter = rs.DummyModelFilter()
@@ -264,7 +249,7 @@ class OnlineExperiment(ParameterDefaults):
         df.top_k = top_k
         return df
 
-    def config(elems):
+    def _config(self, top_k, seed):
         """ This method needs to be implemented in every subclass of this class. It is
         called during the :code:`run()` method, and is required to build the model from
         the available C++ components. The expected return type is a python dictionary,

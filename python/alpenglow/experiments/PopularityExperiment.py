@@ -6,25 +6,9 @@ class PopularityExperiment(prs.OnlineExperiment):
     """Recommends the most popular item from the set of items seen so far.
     """
 
-    def config(self, elems):
-        config = self.parameter_defaults(
-            top_k=100,
-            min_time=0,
-            seed=67439852,
-            out_file=None,
-            filters=[],
-            loggers=[],
-        )
-
+    def _config(self, top_k, seed):
         model = rs.PopularityModel()
         updater = rs.PopularityModelUpdater()
         updater.set_model(model)
 
-        model = model
-        learner = [updater]
-
-        return {
-            'config': config,
-            'model': model,
-            'learner': learner
-        }
+        return (model, updater, [], [])

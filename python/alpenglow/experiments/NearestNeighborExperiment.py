@@ -3,16 +3,7 @@ import alpenglow as prs
 
 
 class NearestNeighborExperiment(prs.OnlineExperiment):
-    def config(self, elems):
-        config = self.parameter_defaults(
-            top_k=100,
-            min_time=0,
-            seed=67439852,
-            out_file=None,
-            filters=[],
-            loggers=[],
-        )
-
+    def _config(self, top_k, seed):
         model = rs.NearestNeighborModel(**self.parameter_defaults(
           gamma=0.8,
           norm="num",
@@ -30,9 +21,4 @@ class NearestNeighborExperiment(prs.OnlineExperiment):
         learner = [updater]
         filters = [model]
 
-        return {
-            'config': config,
-            'model': model,
-            'learner': learner,
-            'filters': filters,
-        }
+        return (model, updater, [model], [])
