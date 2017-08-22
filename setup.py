@@ -1,7 +1,7 @@
-try:
-    from setuptools import setup, Extension
-except:
-    from distutils.core import setup, Extension
+# try:
+#     from setuptools import setup, Extension
+# except:
+from distutils.core import setup, Extension
 
 import sipdistutils
 import os
@@ -86,7 +86,7 @@ def get_cpp_recursively(rdir, ignores=[]):
 
 # finding cpp sources
 cpp_sources = get_cpp_recursively(
-    "recSys/cpp/src/main",
+    "cpp/src/main",
 )
 
 # Remove the "-Wstrict-prototypes" compiler option, which isn't valid for C++.
@@ -94,6 +94,8 @@ cfg_vars = distutils.sysconfig.get_config_vars()
 for key, value in cfg_vars.items():
     if type(value) == str:
         cfg_vars[key] = value.replace("-Wstrict-prototypes", "")
+        cfg_vars[key] = value.replace("-g", "")
+        cfg_vars[key] = value.replace("-O3", "")
 
 platform_specific_flags = []
 if platform == "linux" or platform == "linux2":
@@ -129,13 +131,13 @@ setup(
             ] + cpp_sources,
             include_dirs=[
                 '.',
-                'recSys/cpp/src',
-                'recSys/cpp/src/main',
-                'recSys/cpp/dep/gtest/include'
+                'cpp/src',
+                'cpp/src/main',
+                'cpp/dep/gtest/include'
             ],
             extra_compile_args=[
                 '-std=c++11',
-                '-O3',
+                '-O2',
                 '-funroll-loops',
                 '-fomit-frame-pointer',
                 '-lpthread',
@@ -148,11 +150,14 @@ setup(
     packages=[
         'alpenglow',
         'alpenglow.experiments',
-        'alpenglow.evaluation'
+        'alpenglow.evaluation',
+        'alpenglow.offline',
+        'alpenglow.offline.models',
+        'alpenglow.offline.evaluation',
+        'alpenglow.utils',
     ],
     package_dir={
         'alpenglow': 'python/alpenglow',
-        'alpenglow.experiments': 'python/alpenglow/experiments',
     },
     cmdclass={
         'build_ext': custom_build_ext

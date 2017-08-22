@@ -11,7 +11,10 @@
 ### Requirements
 - Anaconda + Python 3 environment
 
-### Installation
+### Installation from conda repositories
+Coming soon
+
+### Installation from source (linux only at the moment)
 - `cd Alpenglow`
 - `conda install libgcc`
 - `pip install .`

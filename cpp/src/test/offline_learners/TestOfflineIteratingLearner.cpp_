@@ -1,0 +1,195 @@
+#include <gtest/gtest.h>
+#include "../../main/offline_learners/OfflineIteratingLearner.h"
+namespace {
+class DummyModel : public Model{
+ public:
+  DummyModel(){}
+  void add(RecDat* rec_dat){
+    add_data_.push_back(rec_dat);
+  }
+  double prediction(RecDat* rec_dat){
+    pred_data_.push_back(rec_dat);
+    return 0.1;
+  }
+  vector<RecDat*> pred_data_;
+  vector<RecDat*> add_data_;
+};
+class DummyModelSimpleUpdater : public ModelSimpleUpdater{
+ public:
+  DummyModelSimpleUpdater(){ counter_=0; users_.resize(3);}
+  void update(RecDat* rec_dat){
+    counter_++;
+    users_[rec_dat->user]++;
+  }
+  int counter_;
+  vector<int> users_;
+};
+class DummyModelGradientUpdater : public ModelGradientUpdater{
+ public:
+  DummyModelGradientUpdater(){
+    counter_=0;
+    users_.resize(3);
+  }
+  void update(RecDat* rec_dat, double gradient){
+    counter_++;
+    users_[rec_dat->user]++;
+    updates_.push_back(make_pair(rec_dat, gradient));
+  }
+  int counter_;
+  vector<int> users_;
+  vector< pair<RecDat*, double> > updates_;
+};
+class DummyGradientComputer : public GradientComputerPointWise{
+ public:
+  double get_gradient(RecDat* rec_dat){
+    return 0.1*rec_dat->user;
+  }
+};
+
+class TestOfflineIteratingLearner : public ::testing::Test { 
+  public:
+    vector<RecDat> rec_dats_;
+    RecommenderData recommender_data_;
+    DummyModel model_;
+    DummyGradientComputer gradient_computer_;
+    DummyModelGradientUpdater grad_upd1_, grad_upd2_;
+    DummyModelSimpleUpdater simple_upd1_, simple_upd2_;
+    OfflineIteratingLearnerParameters params_;
+
+    TestOfflineIteratingLearner(){}
+    virtual ~TestOfflineIteratingLearner(){}
+    virtual void SetUp(){
+      rec_dats_.resize(3);
+      rec_dats_[0].user=0;
+      rec_dats_[1].user=1;
+      rec_dats_[2].user=2;
+      rec_dats_[0].item=3;
+      rec_dats_[1].item=4;
+      rec_dats_[2].item=5;
+      recommender_data_.set_rec_dats(rec_dats_);
+    }
+    virtual void TearDown(){
+    }
+    RecDat* createRecDat(int user, int item, double time){
+      RecDat recDat;
+      recDat.user = user;
+      recDat.item = item;
+      recDat.time = time;
+      rec_dats_.push_back(recDat);
+      return &rec_dats_[rec_dats_.size()-1];
+    }
+};
+}
+
+TEST_F(TestOfflineIteratingLearner, self_test){
+  params_.number_of_iterations=3;
+  params_.seed=123456789;
+  OfflineIteratingLearner learner(&params_);
+  EXPECT_FALSE(learner.self_test());
+  learner.set_model(&model_);
+  learner.set_recommender_data(&recommender_data_);
+  learner.set_gradient_computer(&gradient_computer_);
+  learner.add_simple_updater(&simple_upd1_);
+  learner.add_simple_updater(&simple_upd2_);
+  learner.add_gradient_updater(&grad_upd1_);
+  learner.add_gradient_updater(&grad_upd2_);
+  EXPECT_TRUE(learner.self_test());
+}
+
+TEST_F(TestOfflineIteratingLearner, simple){
+  params_.number_of_iterations=-1;
+  params_.seed=123456789;
+  OfflineIteratingLearner learner(&params_);
+  EXPECT_FALSE(learner.self_test());
+  learner.set_model(&model_);
+  learner.set_recommender_data(&recommender_data_);
+  learner.add_simple_updater(&simple_upd1_);
+  learner.add_simple_updater(&simple_upd2_);
+  EXPECT_TRUE(learner.self_test());
+  learner.iterate();
+  EXPECT_EQ(3,model_.add_data_.size());
+  EXPECT_EQ(0,model_.pred_data_.size());
+  EXPECT_EQ(3,simple_upd1_.counter_);
+  EXPECT_EQ(3,simple_upd2_.counter_);
+  EXPECT_EQ(0,grad_upd1_.counter_);
+  EXPECT_EQ(0,grad_upd2_.counter_);
+  EXPECT_EQ(1,simple_upd1_.users_[0]);
+  EXPECT_EQ(1,simple_upd1_.users_[1]);
+  EXPECT_EQ(1,simple_upd1_.users_[2]);
+  EXPECT_EQ(1,simple_upd2_.users_[0]);
+  EXPECT_EQ(1,simple_upd2_.users_[1]);
+  EXPECT_EQ(1,simple_upd2_.users_[2]);
+}
+
+TEST_F(TestOfflineIteratingLearner, gradient){
+  params_.number_of_iterations=3;
+  params_.seed=123456789;
+  OfflineIteratingLearner learner(&params_);
+  EXPECT_FALSE(learner.self_test());
+  learner.set_model(&model_);
+  learner.set_recommender_data(&recommender_data_);
+  learner.set_gradient_computer(&gradient_computer_);
+  learner.add_gradient_updater(&grad_upd1_);
+  learner.add_gradient_updater(&grad_upd2_);
+  EXPECT_TRUE(learner.self_test());
+  learner.iterate();
+  EXPECT_EQ(3,model_.add_data_.size());
+  EXPECT_EQ(0,model_.pred_data_.size());
+  EXPECT_EQ(0,simple_upd1_.counter_);
+  EXPECT_EQ(0,simple_upd2_.counter_);
+  EXPECT_EQ(9,grad_upd1_.counter_);
+  EXPECT_EQ(9,grad_upd2_.counter_);
+  EXPECT_EQ(3,grad_upd1_.users_[0]);
+  EXPECT_EQ(3,grad_upd1_.users_[1]);
+  EXPECT_EQ(3,grad_upd1_.users_[2]);
+  EXPECT_EQ(3,grad_upd2_.users_[0]);
+  EXPECT_EQ(3,grad_upd2_.users_[1]);
+  EXPECT_EQ(3,grad_upd2_.users_[2]);
+  for(int ii=0; ii<grad_upd1_.updates_.size(); ii++){
+    EXPECT_EQ(grad_upd1_.updates_[ii].first->user*0.1,grad_upd1_.updates_[ii].second);
+    EXPECT_EQ(grad_upd2_.updates_[ii].first->user*0.1,grad_upd2_.updates_[ii].second);
+  }
+}
+
+TEST_F(TestOfflineIteratingLearner, mixed){
+  params_.number_of_iterations=3;
+  params_.seed=123456789;
+  OfflineIteratingLearner learner(&params_);
+  EXPECT_FALSE(learner.self_test());
+  learner.set_model(&model_);
+  learner.set_recommender_data(&recommender_data_);
+  learner.set_gradient_computer(&gradient_computer_);
+  learner.add_simple_updater(&simple_upd1_);
+  learner.add_simple_updater(&simple_upd2_);
+  learner.add_gradient_updater(&grad_upd1_);
+  learner.add_gradient_updater(&grad_upd2_);
+  EXPECT_TRUE(learner.self_test());
+  learner.iterate();
+  EXPECT_EQ(3,model_.add_data_.size());
+  EXPECT_EQ(0,model_.pred_data_.size());
+  EXPECT_EQ(3,simple_upd1_.counter_);
+  EXPECT_EQ(3,simple_upd2_.counter_);
+  EXPECT_EQ(9,grad_upd1_.counter_);
+  EXPECT_EQ(9,grad_upd2_.counter_);
+  EXPECT_EQ(1,simple_upd1_.users_[0]);
+  EXPECT_EQ(1,simple_upd1_.users_[1]);
+  EXPECT_EQ(1,simple_upd1_.users_[2]);
+  EXPECT_EQ(1,simple_upd2_.users_[0]);
+  EXPECT_EQ(1,simple_upd2_.users_[1]);
+  EXPECT_EQ(1,simple_upd2_.users_[2]);
+  EXPECT_EQ(3,grad_upd1_.users_[0]);
+  EXPECT_EQ(3,grad_upd1_.users_[1]);
+  EXPECT_EQ(3,grad_upd1_.users_[2]);
+  EXPECT_EQ(3,grad_upd2_.users_[0]);
+  EXPECT_EQ(3,grad_upd2_.users_[1]);
+  EXPECT_EQ(3,grad_upd2_.users_[2]);
+  for(int ii=0; ii<grad_upd1_.updates_.size(); ii++){
+    EXPECT_EQ(grad_upd1_.updates_[ii].first->user*0.1,grad_upd1_.updates_[ii].second);
+    EXPECT_EQ(grad_upd2_.updates_[ii].first->user*0.1,grad_upd2_.updates_[ii].second);
+  }
+}
+
+int main (int argc, char **argv) {
+  testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}

@@ -65,8 +65,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Alpenglow'
-copyright = '2017, MTA Sztaki'
-author = 'MTA Sztaki'
+copyright = '2017, MTA SZTAKI'
+author = 'MTA SZTAKI'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -101,7 +101,7 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'classic'
+# html_theme = 'classic'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -112,7 +112,7 @@ html_theme = 'classic'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+# html_static_path = ['_static']
 
 
 # -- Options for HTMLHelp output ------------------------------------------
@@ -146,7 +146,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'Alpenglow.tex', 'Alpenglow Documentation',
-     'MTA Sztaki', 'manual'),
+     'MTA SZTAKI', 'manual'),
 ]
 
 

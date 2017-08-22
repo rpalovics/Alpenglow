@@ -1,6 +1,6 @@
 class DataframeData : public RecommenderData {
   %TypeHeaderCode
-  #include "cpp/DataframeData.h"
+  #include "python/cpp_bridge/DataframeData.h"
   %End
   public:
     virtual bool init();

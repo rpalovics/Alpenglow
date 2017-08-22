@@ -1,6 +1,6 @@
 class VectorInt{
   %TypeHeaderCode
-  #include "cpp/VectorType.h"
+  #include "python/cpp_bridge/VectorType.h"
   %End
 public:
   std::vector<int> vec;

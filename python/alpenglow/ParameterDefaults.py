@@ -1,6 +1,9 @@
-from .ParameterSearch import DependentParameter
+from .utils.ParameterSearch import DependentParameter
 
 class ParameterDefaults:
+    """
+    Base class of OnlineExperiment and OfflineModel, providing utilities for parameter defaults and overriding.
+    """
     def __init__(self, **parameters):
         self.parameters = parameters
         self.given_parameters = set(self.parameters.keys())

@@ -1,4 +1,4 @@
-class PersonalPopularityModelUpdater {
+class PersonalPopularityModelUpdater : ModelSimpleUpdater{
   %TypeHeaderCode
   #include "models/baseline/PersonalPopularityModelUpdater.h"
   %End

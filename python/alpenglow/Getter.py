@@ -2,6 +2,10 @@ import alpenglow.cpp as pr
 
 
 class MetaGetter(type):
+    """Metaclass of :py:class:`alpenglow.Getter.Getter`. Provides utilities for
+    creating and managing cpp objects in the :py:mod:`alpenglow.cpp` package. For more
+    information, see :doc:`/general/memory_management`.
+    """
     def __init__(self, a, b, c):
         self.collect_ = False
         self.items = []
@@ -57,4 +61,7 @@ class MetaGetter(type):
             online_experiment.inject_experiment_environment_into(o)
 
 class Getter(object, metaclass=MetaGetter):
+    """Responsible for creating and managing cpp objects in the :py:mod:`alpenglow.cpp`
+    package.
+    """
     pass

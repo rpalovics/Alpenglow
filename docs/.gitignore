@@ -1,5 +1,5 @@
-source/*.rst
-!source/index.rst
-!source/modules.rst
-!source/conf.py
-!source/*/*
+#source/*.rst
+#!source/index.rst
+#!source/modules.rst
+#!source/conf.py
+#!source/*/*
