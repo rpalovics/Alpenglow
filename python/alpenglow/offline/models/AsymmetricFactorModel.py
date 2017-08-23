@@ -18,6 +18,8 @@ class AsymmetricFactorModel(alpenglow.offline.OfflineModel):
             regularization_rate=0.0
         ))
         updater.set_model(model)
+        simple_updater = rs.AsymmetricFactorModelUpdater()
+        simple_updater.set_model(model)
 
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=9
@@ -39,5 +41,6 @@ class AsymmetricFactorModel(alpenglow.offline.OfflineModel):
         learner.set_model(model)
         learner.set_recommender_data(recommender_data)
         learner.add_gradient_updater(updater)
+        learner.add_early_simple_updater(simple_updater)
 
         return (model, learner)
