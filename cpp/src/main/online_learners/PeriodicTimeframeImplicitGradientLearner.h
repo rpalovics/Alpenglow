@@ -2,6 +2,7 @@
 #define PERIODIC_TIMEFRAME_IMPLICIT_GRADIENT_LEARNER
 
 #include "PeriodicImplicitGradientLearner.h"
+#include "../general_interfaces/INeedExperimentEnvironment.h"
 
 using namespace std;
 
@@ -25,8 +26,8 @@ class PeriodicTimeframeImplicitGradientLearner : public PeriodicImplicitGradient
       return ok;
     }
   private:
-    SpMatrix* local_train_matrix_;
-    vector<int>* local_items_;
+    SpMatrix* local_train_matrix_=NULL;
+    vector<int>* local_items_=NULL;
     int timeframe_length_;
     vector<RecDat*> generate_train_data(RecDat* rec_dat) override;
     void initialize_model(RecDat* rec_dat, vector<RecDat*> train_data) override;

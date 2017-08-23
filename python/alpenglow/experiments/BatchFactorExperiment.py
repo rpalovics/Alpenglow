@@ -3,7 +3,7 @@ import alpenglow as prs
 
 
 class BatchFactorExperiment(prs.OnlineExperiment):
-    """BatchFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=0.0,number_of_iterations=3,period_length=86400)
+    """BatchFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=0.0,number_of_iterations=3,period_length=86400,timeframe_length=0,clear_model=False)
 
     Batch version of :py:class:`alpenglow.experiments.FactorExperiment.FactorExperiment`,
     meaning it retrains its model periodically nd evaluates the latest model between two
@@ -27,6 +27,10 @@ class BatchFactorExperiment(prs.OnlineExperiment):
         The number of iterations over the data in model retrain.
     period_length : int
         The amount of time between model retrains (seconds).
+    timeframe_length : int
+        The size of historic time interval to iterate over at every model retrain. Leave at the default 0 to retrain on everything.
+    clear_model: bool
+        Whether to clear the model between retrains.
     """
 
     def _config(self, top_k, seed):
@@ -43,7 +47,7 @@ class BatchFactorExperiment(prs.OnlineExperiment):
         ))
         updater.set_model(model)
 
-        learner = rs.OfflineImplicitGradientLearner(**self.parameter_defaults(
+        learner_parameters = self.parameter_defaults(
             number_of_iterations=3,
             start_time=-1,
             period_length=86400,
@@ -52,8 +56,16 @@ class BatchFactorExperiment(prs.OnlineExperiment):
             clear_model=False,
             learn=True,
             base_out_file_name="",
-            base_in_file_name=""
-        ))
+            base_in_file_name="",
+            timeframe_length=0,
+        )
+
+        if(learner_parameters['timeframe_length']==0):
+            learner_parameters.pop('timeframe_length', None)
+            learner = rs.OfflineImplicitGradientLearner(**learner_parameters)
+        else:
+            learner = rs.PeriodicTimeframeImplicitGradientLearner(**learner_parameters)
+
         learner.set_model(model)
         learner.add_gradient_updater(updater)
 

@@ -23,7 +23,7 @@ struct PeriodicLearnerParameters{
   int samplenum_in_periods;
 };
 
-class PeriodicLearner : public Updater, public INeedExperimentEnvironment, public Initializable {
+class PeriodicLearner : public Updater,  public Initializable, public INeedExperimentEnvironment {
   public:
     PeriodicLearner(PeriodicLearnerParameters* params){
       start_time_ = params->start_time;

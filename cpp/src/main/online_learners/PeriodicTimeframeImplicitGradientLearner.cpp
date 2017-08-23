@@ -15,7 +15,7 @@ vector<RecDat*> PeriodicTimeframeImplicitGradientLearner::generate_train_data(Re
 void PeriodicTimeframeImplicitGradientLearner::initialize_model(RecDat* rec_dat, vector<RecDat*> train_data){
   if(local_items_!=NULL and local_train_matrix_!=NULL){
     //local items, local_train_matrix: compute items, spmatrix for timeframe
-    local_train_matrix_->clear(); 
+    local_train_matrix_->clear();
     vector<int> item_map;
     local_items_->clear();
     for(uint i=0;i<train_data.size();i++){
