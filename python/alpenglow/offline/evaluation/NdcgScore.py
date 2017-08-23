@@ -16,7 +16,7 @@ def NdcgScore(test, recommendations, top_k=100):
     ranked_test['rank']=1
     ranked_test['rank']=ranked_test.groupby('user')['rank'].transform(pd.Series.cumsum)
         
-    ranked_test = ranked_test[ranked_test['rank']<=100].copy()
+    ranked_test = ranked_test[ranked_test['rank']<=top_k].copy()
     ranked_test['dg']=ranked_test['score']/np.log2(ranked_test['rank']+1)
     idcgs['idcg'] = ranked_test.groupby('user')['dg'].sum()
     recs['dg']=recs['score_test']/np.log2(recs['rank']+1)

@@ -12,6 +12,22 @@ alpenglow.offline.evaluation.NdcgScore module
     :undoc-members:
     :show-inheritance:
 
+alpenglow.offline.evaluation.PrecisionScore module
+--------------------------------------------------
+
+.. automodule:: alpenglow.offline.evaluation.PrecisionScore
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alpenglow.offline.evaluation.RecallScore module
+-----------------------------------------------
+
+.. automodule:: alpenglow.offline.evaluation.RecallScore
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
