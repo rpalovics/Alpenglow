@@ -122,6 +122,8 @@ LempBucket* LempContainer::insert_item(int id){
   }
 
   repair_bucket(container_bucket_it,container_bucket_max);
+
+  return container_bucket;
 }
 
 LempBucket* LempContainer::remove_item(int id){
