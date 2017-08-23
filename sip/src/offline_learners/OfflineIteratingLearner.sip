@@ -14,6 +14,7 @@ class OfflineIteratingLearner : public OfflineLearner {
   OfflineIteratingLearner(OfflineIteratingLearnerParameters *parameters);
   void iterate();
   void add_simple_updater(ModelSimpleUpdater* model_updater);
+  void add_early_simple_updater(ModelSimpleUpdater* model_updater);
   void add_gradient_updater(ModelGradientUpdater* model_updater);
   void set_model(Model* model);
   void set_recommender_data(RecommenderData *recommender_data);

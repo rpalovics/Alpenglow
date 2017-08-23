@@ -41,6 +41,9 @@ class OfflineIteratingImplicitLearner : public OfflineLearner {
     model_ = NULL;
   }
   void iterate();
+  void add_early_simple_updater(ModelSimpleUpdater* model_updater) {
+    early_simple_updaters_.push_back(model_updater);
+  }
   void add_simple_updater(ModelSimpleUpdater* model_updater) {
     simple_updaters_.push_back(model_updater);
   }
@@ -65,6 +68,7 @@ class OfflineIteratingImplicitLearner : public OfflineLearner {
     if(seed_==-1){ OK = false; cerr << "OfflineIteratingImplicitLearner::seed is not set." << endl; }
     if(number_of_iterations_<0 ){ OK = false; cerr << "OfflineIteratingImplicitLearner::number_of_iterations is not set." << endl; }
     if(model_==NULL){ OK = false; cerr << "OfflineIteratingImplicitLearner::model_ is not set." << endl; }
+    if(gradient_updaters_.size()==0 and simple_updaters_.size()==0 and early_simple_updaters_.size()==0){ OK = false; cerr << "No updaters are added to OfflineIteratingLearner." << endl; }
     //if(gradient_updaters_.size()==0){ OK = false; cerr << "No gradient updaters are added to OfflineIteratingImplicitLearner." << endl; }
     if(gradient_computer_==NULL){ OK=false; cerr << "OfflineIteratingImplicitLearner::gradient_computer is not set." << endl; }
     if(negative_sample_generator_==NULL){ OK=false; cerr << "OfflineIteratingImplicitLearner::negative_sample_generator_ is not set." << endl; }
@@ -76,6 +80,7 @@ class OfflineIteratingImplicitLearner : public OfflineLearner {
   void init();
   std::vector<ModelSimpleUpdater*> simple_updaters_;
   std::vector<ModelGradientUpdater*> gradient_updaters_;
+  std::vector<ModelSimpleUpdater*> early_simple_updaters_;
   RandomIterator *random_iterator_;
   RecommenderData *recommender_data_;
   GradientComputer *gradient_computer_;
