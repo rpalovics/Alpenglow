@@ -20,7 +20,7 @@ void OnlineExperiment::inject_experiment_environment_into(INeedExperimentEnviron
 }
 
 void OnlineExperiment::run() {
-  cerr << "run..." <<endl;
+  // cerr << "run..." <<endl;
   while (recommender_data_iterator_->has_next()) {
     RecDat* rec_dat = recommender_data_iterator_->next();
     for (auto logger : loggers_) {

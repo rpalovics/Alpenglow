@@ -22,6 +22,8 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
         The coefficient for the L2 regularization term for batch updates.
     batch_negative_rate : int
         The number of negative samples generated after each batch update. Useful for implicit recommendation.
+    timeframe_length : int
+        The size of historic time interval to iterate over at every batch model retrain. Leave at the default 0 to retrain on everything.
     online_learning_rate : double
         The learning rate used in the online stochastic gradient descent updates.
     online_regularization_rate : double
@@ -64,7 +66,7 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
         batch_gradient_computer.set_model(model)
 
         # learner
-        batch_learner = rs.OfflineImplicitGradientLearner(**self.parameter_defaults(
+        batch_learner_parameters = self.parameter_defaults(
             number_of_iterations=9,
             start_time=-1,
             period_length=86400,
@@ -73,8 +75,16 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
             clear_model=False,
             learn=True,
             base_out_file_name="",
-            base_in_file_name=""
-        ))
+            base_in_file_name="",
+            timeframe_length=0,
+        )
+
+        if(batch_learner_parameters['timeframe_length']==0):
+            batch_learner_parameters.pop('timeframe_length', None)
+            batch_learner = rs.OfflineImplicitGradientLearner(**batch_learner_parameters)
+        else:
+            batch_learner = rs.PeriodicTimeframeImplicitGradientLearner(**batch_learner_parameters)
+
         batch_learner.set_model(model)
         batch_learner.add_gradient_updater(batch_updater)
         batch_learner.set_gradient_computer(batch_gradient_computer)

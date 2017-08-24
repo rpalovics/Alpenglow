@@ -11,12 +11,12 @@ void OnlinePredictor::set_parameters(OnlinePredictorParameters* params){
 
 void OnlinePredictor::run(RecDat* rec_dat){
   if(do_predict(rec_dat)){
-    cerr << "OnlinePredictor::predict computes prediction." << endl;
+    // cerr << "OnlinePredictor::predict computes prediction." << endl;
     vector<RecDat>* top_predictions = prediction_creator_->run(rec_dat);
     for(uint ii=0; ii<top_predictions->size(); ii++){
       ofs_ << actual_time_frame_ << " " << top_predictions->at(ii).user << " " << top_predictions->at(ii).item << " " << top_predictions->at(ii).score << endl; 
     } 
-    cerr << "OnlinePredictor::predict done" << endl;
+    // cerr << "OnlinePredictor::predict done" << endl;
   }
 }
 

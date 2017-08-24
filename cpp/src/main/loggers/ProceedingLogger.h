@@ -17,7 +17,7 @@ class ProceedingLogger : public Logger, public INeedExperimentEnvironment, publi
     virtual void run(RecDat* rec_dat) override {
       int counter = recommender_data_iterator_->get_counter();
       if(counter % frequency_ == 0){
-        cerr << setprecision(4) << (double)counter/(double)size_ * 100 <<"%-";
+        cerr << setprecision(4) << int((double)counter/(double)size_ * 100) <<"%-";
       }
       if(counter == size_-1){
         cerr << "OK" << endl;
@@ -26,7 +26,6 @@ class ProceedingLogger : public Logger, public INeedExperimentEnvironment, publi
     virtual bool init() override {
       if(recommender_data_iterator_==NULL){ recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator(); }
       if(!recommender_data_iterator_->is_initialized()){
-        cout << "cant init " << endl;
         return false;
       }
       size_=recommender_data_iterator_->size();

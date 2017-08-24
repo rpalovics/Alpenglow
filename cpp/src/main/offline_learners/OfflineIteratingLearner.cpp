@@ -31,7 +31,7 @@ void OfflineIteratingLearner::iterate() {
   if(gradient_updaters_.size()>0){
     int counter = number_of_iterations_+1;
     while (--counter) {
-      cerr << "Beginning of " << number_of_iterations_+1-counter << "th iteration." << endl;
+      // cerr << "Beginning of " << number_of_iterations_+1-counter << "th iteration." << endl;
       random_iterator_->shuffle();
       while ( random_iterator_->has_next() ) {
         RecDat *rec_dat = random_iterator_->next();
@@ -40,7 +40,7 @@ void OfflineIteratingLearner::iterate() {
           gradient_updaters_[ui]->update(rec_dat, gradient);
         }
       }
-      cerr << "End of " << number_of_iterations_+1-counter << "th iteration." << endl;
+      // cerr << "End of " << number_of_iterations_+1-counter << "th iteration." << endl;
     }
   }
   if(simple_updaters_.size()>0){

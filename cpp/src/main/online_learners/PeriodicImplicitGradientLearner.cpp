@@ -36,7 +36,7 @@ void PeriodicImplicitGradientLearner::train_model(RecDat* rec_dat, vector<RecDat
      iteration_loggers_[j]->run(rec_dat);
    }
  }
- cerr << "Number of positive samples=" << train_data.size() << ", cost=" << cost << endl;
+ // cerr << "Number of positive samples=" << train_data.size() << ", cost=" << cost << endl;
  
 }
 

@@ -1,7 +1,7 @@
 #include "PeriodicTimeframeImplicitGradientLearner.h"
 
 vector<RecDat*> PeriodicTimeframeImplicitGradientLearner::generate_train_data(RecDat* rec_dat){
-  cerr << "Period num=" << period_num_ << endl;
+  // cerr << "Period num=" << period_num_ << endl;
   int timeframe_begin=start_time_+period_num_*period_length_-timeframe_length_;
   vector<RecDat*> train_data;
   for(int counter = recommender_data_->get_counter();counter>=0;counter--){

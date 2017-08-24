@@ -160,7 +160,7 @@ void RecommenderData::read_from_file_core(istream& ifs, string type){
       rec_data.push_back(rec_dat); 
     }
   }
-  cerr << "read OK, size: " << rec_data.size() << endl;
+  // cerr << "read OK, size: " << rec_data.size() << endl;
 }
 
 SpMatrix* RecommenderData::matrix() {
