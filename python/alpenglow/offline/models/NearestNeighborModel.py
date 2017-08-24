@@ -3,6 +3,15 @@ import alpenglow.offline
 
 
 class NearestNeighborModel(alpenglow.offline.OfflineModel):
+    """NearestNeighborModel(num_of_neighbors=10)
+
+    Item based nearest neighbor.
+
+    Parameters
+    ----------
+    num_of_neighbors : int
+        Number of neighbors to consider.
+    """
     def _fit(self, recommender_data, users, items, matrix):
         model = rs.NearestNeighborModel(
             gamma=1,

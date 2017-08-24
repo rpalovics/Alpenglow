@@ -3,6 +3,8 @@ import alpenglow.offline
 
 
 class PopularityModel(alpenglow.offline.OfflineModel):
+    """Recommends the most popular item from the set of items.
+    """
     def _fit(self, recommender_data, users, items, matrix):
         model = rs.PopularityModel()
 

@@ -14,7 +14,10 @@ class TestFactorModel(unittest.TestCase):
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        model = FactorModel()
+        model = FactorModel(
+            negative_rate=9,
+            number_of_iterations=20,
+        )
         model.fit(data)
 
         def predict(model, user, item):
@@ -34,7 +37,10 @@ class TestFactorModel(unittest.TestCase):
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']
         )
-        exp = FactorModel()
+        exp = FactorModel(
+            negative_rate=9,
+            number_of_iterations=20,
+        )
         exp.fit(data)
         preds = exp.recommend()
 

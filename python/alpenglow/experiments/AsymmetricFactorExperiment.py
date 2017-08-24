@@ -3,7 +3,7 @@ import alpenglow as prs
 
 
 class AsymmetricFactorExperiment(prs.OnlineExperiment):
-    """AsymmetricFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=20,cumulative_item_updates=True,norm_type="exponential","gamma"=0.8)
+    """AsymmetricFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=20,cumulative_item_updates=True,norm_type="exponential",gamma=0.8)
     
     Implements the recommendation model introduced in [Paterek2007]_.
 
@@ -24,7 +24,7 @@ class AsymmetricFactorExperiment(prs.OnlineExperiment):
     negative_rate : int
         The number of negative samples generated after each update. Useful for implicit recommendation.
     norm_type : str
-        Type of time decay; either "constant", "exponential" or "none".
+        Type of time decay; either "constant", "exponential" or "disabled".
     gamma : double
         Coefficient of time decay in the case of **norm_type** == "exponential".
 
