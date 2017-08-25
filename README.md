@@ -7,10 +7,10 @@
 - Besides batch training and evaluation, Alpenglow supports *online training* of recommendation models capable of adapting to concept drift in non-stationary environments.
 
 ### Requirements
-- Anaconda + Python 3 environment
+- Anaconda + Python 3.5 or 3.6 environment
 
 ### Installation from conda repositories
-Coming soon
+conda install -c conda-forge alpenglow
 
 ### Installation from source (linux only at the moment)
 - `cd Alpenglow`
@@ -30,7 +30,7 @@ import matplotlib.pyplot as plt
 
 data = pd.read_csv("/path/to/sample_dataset")
 
-factor_model_experiment = FactorModelExperiment(
+factor_model_experiment = FactorExperiment(
     top_k=100,
     seed=254938879,
     dimension=10,
