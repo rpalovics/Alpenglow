@@ -10,7 +10,7 @@
 - Anaconda + Python 3.5 or 3.6 environment
 
 ### Installation from conda repositories
-conda install -c conda-forge alpenglow
+- `conda install -c conda-forge alpenglow`
 
 ### Installation from source (linux only at the moment)
 - `cd Alpenglow`
