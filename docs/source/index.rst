@@ -14,11 +14,12 @@ Welcome to Alpenglow's documentation!
    :maxdepth: 1
    :caption: General information:
 
-   general/python_api
-   general/cpp_api
    general/anatomy_of_experiment
-   general/memory_management
-   general/future_work
+      
+..    general/python_api
+..    general/cpp_api
+..    general/memory_management
+..    general/future_work
 
 .. toctree::
    :maxdepth: 1

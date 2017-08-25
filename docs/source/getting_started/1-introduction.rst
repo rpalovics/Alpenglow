@@ -17,7 +17,7 @@ Installing
 
 .. code-block:: bash
 
-	conda install -c kdomokos alpenglow
+	conda install -c conda-forge alpenglow
 
 Installing from source on Linux
 -------------------------------
