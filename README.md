@@ -22,7 +22,7 @@
 - First download the [sample dataset](http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset)
 
 ```python
-from alpenglow.experiments import FactorModelExperiment
+from alpenglow.experiments import FactorExperiment
 from alpenglow.evaluation import DcgScore
 import pandas as pd
 import matplotlib
