@@ -3,7 +3,7 @@ import alpenglow as prs
 
 
 class NearestNeighborExperiment(prs.OnlineExperiment):
-    """NearestNeighborExperiment(gamma=0.8,norm="num",direction="forward",gamma_thresold=0,num_of_neighbors=10)
+    """NearestNeighborExperiment(gamma=0.8,direction="forward",gamma_threshold=0,num_of_neighbors=10)
 
     This class implements an online version of a similarity based recommendation model.
     One of the earliest and most popular collaborative filtering algorithms in practice is the item-based nearest neighbor [Sarwar2001]_
@@ -19,12 +19,10 @@ class NearestNeighborExperiment(prs.OnlineExperiment):
     ----------
     gamma : double
         The constant used in the decay function. It shoud be set to 1 in offline and stationary experiments.
-    norm : string
-        The type of normalization, can be "num" or "sum". Defaults to "num" and the other option is not implemented yet.
     direction : string
-        It should be set to "both" in offline and stationary experiments.
+        Set to "forward" to consider the order of item pairs. Set to "both" when the order is not relevant.
     gamma_thresold : double
-        Threshold to omit very small members when summing similarity.  If the value of the decay function is smaller than the threshold, we omit the following members. Defaults to 0 (do not omit small members).
+        Threshold to omit very small members when summing similarity.  If the value of the decay function is smaller than the threshold, we omit the following members.  Defaults to 0 (do not omit small members).
     num_of_neighbors : int
         The number of most similar items that will be stored in the model.
     """
