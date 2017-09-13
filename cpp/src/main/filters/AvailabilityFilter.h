@@ -8,7 +8,7 @@
 #include <tuple>
 #include <functional>
 
-class AvailabilityFilter : ModelFilter {
+class AvailabilityFilter : public ModelFilter {
 public:
   virtual void run(RecDat* rec_dat) override;
   virtual vector<pair<int,double>>* get_global_items() override;
