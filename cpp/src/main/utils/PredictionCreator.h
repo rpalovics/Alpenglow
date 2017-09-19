@@ -15,13 +15,13 @@ using namespace std;
 
 struct PredictionCreatorParameters{
   int top_k;
-  int lookback;
+  int recommend_only_new;
 };
 class PredictionCreator : public INeedExperimentEnvironment, public Initializable {
  public:
    PredictionCreator(PredictionCreatorParameters* params){
      top_k_ = params->top_k;
-     lookback_ = params->lookback;
+     recommend_only_new_ = params->recommend_only_new;
      train_matrix_ = NULL;
      model_ = NULL;
      filter_ = NULL;
@@ -35,7 +35,7 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
    bool init(){
      if(train_matrix_ == NULL) train_matrix_=experiment_environment_->get_train_matrix();
      if(top_k_ == -1) top_k_=experiment_environment_->get_top_k();
-     if(lookback_ == -1) lookback_=experiment_environment_->is_lookback();
+     if(recommend_only_new_ == -1) recommend_only_new_=experiment_environment_->is_recommend_only_new();
      return true;
    }
    bool self_test(){
@@ -52,7 +52,7 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
        OK = false;
        cerr << "Invalid value top_k_==" << top_k_ << " is set in PredictionCreator." << endl;
      }
-     if(lookback_==1 and train_matrix_==NULL){
+     if(recommend_only_new_==1 and train_matrix_==NULL){
        OK = false;
        cerr << "Not set: train_matrix of PredictionCreator." << endl;
      }
@@ -66,7 +66,7 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
    SpMatrix* train_matrix_;
    SpMatrix dummy_train_matrix_;
    int top_k_; //TODO const
-   int lookback_;
+   int recommend_only_new_;
 };
 
 struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
@@ -104,7 +104,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
     FRIEND_TEST(TestPredictionCreatorGlobal, process_line);
     FRIEND_TEST(TestPredictionCreatorGlobal, process_line2);
     FRIEND_TEST(TestPredictionCreatorGlobal, process_square);
-    FRIEND_TEST(TestPredictionCreatorGlobal, lookback);
+    FRIEND_TEST(TestPredictionCreatorGlobal, recommend_only_new);
 };
 
 struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParameters{

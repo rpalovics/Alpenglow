@@ -5,7 +5,7 @@ struct OnlineExperimentParameters{
   int top_k;
   int min_time;
   int max_time;
-  bool lookback;
+  bool recommend_only_new;
   bool initialize_all;
   int max_user;
   int max_item;

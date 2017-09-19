@@ -126,7 +126,7 @@ class OfflineModel(ParameterDefaults):
 
         pred_creator = rs.PredictionCreatorPersonalized(
             top_k=k,
-            lookback=1 if exclude_known else 0
+            recommend_only_new=1 if exclude_known else 0
         )
 
         pred_creator.set_filter(dummy_model_filter)

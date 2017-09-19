@@ -44,7 +44,7 @@ namespace {
         PredictionCreatorGlobalParameters params;
         params.top_k = 3;
         params.initial_threshold = 0;
-        params.lookback = 0;
+        params.recommend_only_new = 0;
         predictionCreator = new PredictionCreatorGlobal(&params);
         predictionCreator->set_model(&model);
         predictionCreator->set_filter(&filter);
@@ -196,9 +196,9 @@ TEST_F(TestPredictionCreatorGlobal, process_square){
   EXPECT_EQ(0,model.preds[0].user);
 }
 
-TEST_F(TestPredictionCreatorGlobal, lookback){
+TEST_F(TestPredictionCreatorGlobal, recommend_only_new){
   predictionCreator->initial_threshold_=1;
-  predictionCreator->lookback_ = 1;
+  predictionCreator->recommend_only_new_ = 1;
   SpMatrix matrix;
   matrix.insert(2,1,1);
   matrix.insert(1,3,1);

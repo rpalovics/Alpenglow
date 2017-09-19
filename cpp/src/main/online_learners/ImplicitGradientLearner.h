@@ -50,7 +50,7 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
     virtual void set_model(Model* model){model_=model;}
     bool init() override {
       if(train_matrix_==NULL){ train_matrix_=experiment_environment_->get_train_matrix(); }
-      lookback_=experiment_environment_->is_lookback();
+      recommend_only_new_=experiment_environment_->is_recommend_only_new();
       return true;
     }
     bool self_test(){
@@ -78,6 +78,6 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
     vector<ModelGradientUpdater*> model_gradient_updaters_;
     vector<ModelMultiUpdater*> model_multi_updaters_;
     Model* model_;
-    bool lookback_;
+    bool recommend_only_new_;
 };
 #endif

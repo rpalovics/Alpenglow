@@ -43,7 +43,7 @@ class OnlineExperiment(ParameterDefaults):
         if("top_k" not in self.parameters):
             self.parameters["top_k"] = 100
 
-    def run(self, data, experimentType=None, columns={}, verbose=True, out_file=None, lookback=False, initialize_all=False, max_item=-1, max_user=-1, calculate_toplists=False):
+    def run(self, data, experimentType=None, columns={}, verbose=True, out_file=None, recommend_only_new=False, initialize_all=False, max_item=-1, max_user=-1, calculate_toplists=False):
         """
         Parameters
         ----------
@@ -57,7 +57,7 @@ class OnlineExperiment(ParameterDefaults):
             Whether to write information about the experiment while running
         out_file: str
             If set, the results of the experiment are also written to the file located at :code:`out_file`.
-        lookback: bool
+        recommend_only_new: bool
             If set to True, a user's previosly seen items are excluded from the toplist evaluation. The :code:`eval` columns of the input data should be set accordingly.
         calculate_toplists: bool or list
             Whether to actually compute the toplists or just the ranks (the latter is faster). It can be specified on a record-by-record basis, by giving a list of booleans as parameter. The calculated toplists can be acquired after the experiment's end by using :code:`get_predictions`.
@@ -107,7 +107,7 @@ class OnlineExperiment(ParameterDefaults):
             min_time=min_time,
             max_time=max_time,
             top_k=top_k,
-            lookback=lookback,
+            recommend_only_new=recommend_only_new,
             initialize_all=initialize_all,
             max_item=max_item,
             max_user=max_user
@@ -143,7 +143,7 @@ class OnlineExperiment(ParameterDefaults):
 
             pred_creator = rs.PredictionCreatorPersonalized(
                 top_k=top_k,
-                lookback=lookback
+                recommend_only_new=recommend_only_new
             )
             pred_creator.set_filter(model_filter)
 

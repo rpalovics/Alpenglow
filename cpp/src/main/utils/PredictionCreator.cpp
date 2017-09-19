@@ -44,7 +44,7 @@ void PredictionCreatorGlobal::process_line(vector<pair<int,double> >* sorted_as,
     double a_bound = (*sorted_as)[a_index].second;
     if(min_heap_->size()==top_k_ and a_bound<=min_heap_->get_min().score){break;}
     (*fake_rec_dat_a)=(*sorted_as)[a_index].first;
-    if(lookback_!=1 or train_matrix_->get(fake_rec_dat->user, fake_rec_dat->item)==0){
+    if(recommend_only_new_!=1 or train_matrix_->get(fake_rec_dat->user, fake_rec_dat->item)==0){
       fake_rec_dat->score=model_->prediction(fake_rec_dat);
       min_heap_->insert(*fake_rec_dat);
     }
@@ -65,7 +65,7 @@ vector<RecDat>* PredictionCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ 
   vector<pair<int,double>>* sorted_items = filter_->get_personalized_items(rec_dat->user);
   for(auto item_bound: *sorted_items){
     if(min_heap_->size()==top_k_ and item_bound.second!=-1 and item_bound.second<min_heap_->get_min().score){ break; } //all consecutive items have lower prediction
-    if(lookback_==1 and train_matrix_->get(rec_dat->user, item_bound.first)!=0){ continue; } //invalid item, not new for the user
+    if(recommend_only_new_==1 and train_matrix_->get(rec_dat->user, item_bound.first)!=0){ continue; } //invalid item, not new for the user
     fake_rec_dat.item = item_bound.first;
     fake_rec_dat.score = model_->prediction(&fake_rec_dat);
     min_heap_->insert(fake_rec_dat);
@@ -81,7 +81,7 @@ vector<RecDat>* PredictionCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ 
 
 vector<RecDat>* PredictionCreatorPersonalized::run_ranking_model(RecDat* rec_dat){
   SpMatrix *matrix = train_matrix_;
-  if(!lookback_){
+  if(!recommend_only_new_){
     matrix = &dummy_train_matrix_;
   }
   vector<pair<int,double>> predictions = ranking_model_->get_top_list(rec_dat->user, top_k_, matrix);

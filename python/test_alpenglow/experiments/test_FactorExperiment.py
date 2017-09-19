@@ -79,7 +79,7 @@ class TestFactorExperiment:
             data,
             verbose=True,
             calculate_toplists=data['eval'],
-            lookback=True
+            recommend_only_new=True
         )
         preds = factorExperiment.get_predictions()
         preds_joined = preds.join(
