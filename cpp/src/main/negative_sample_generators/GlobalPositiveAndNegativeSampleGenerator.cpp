@@ -26,11 +26,11 @@ void GlobalPositiveAndNegativeSampleGenerator::generate_positive(RecDat * rec_da
   if(history_size>0){
     double p = positive_rate;
     int num = (int) p;
-    if(rand()/(RAND_MAX+(double)1) < p-(int)p) num++;
+    if(random_.get() < p-(int)p) num++;
     for(uint ii=0; ii < num; ii++){ 
       int index = 0;
       if(decay_type == "uniform") index = random_.get(history_size);
-      else if (decay_type == "geometric") index = history_size - random_.get_geometric(history_size,decay,threshold) - 1;
+      else if (decay_type == "geometric") index = history_size - random_.get_geometric(decay,history_size);
       if(index >= 0){ 
           positive_samples.push_back(history[index]);
           positive_relevances.push_back(history_size - 1 - index);
@@ -40,12 +40,12 @@ void GlobalPositiveAndNegativeSampleGenerator::generate_positive(RecDat * rec_da
 }
 
 
-vector <int> * GlobalPositiveAndNegativeSampleGenerator::generate(RecDat * rec_dat){
+vector<int>* GlobalPositiveAndNegativeSampleGenerator::generate(RecDat * rec_dat){
   int learnt = 0;
   samples.clear();
   int user_activity = train_matrix->row_size(rec_dat->user);
   while(learnt < negative_rate && learnt<(int)items->size()-user_activity-1){
-    int item = items->at((int)(rand()/(RAND_MAX+1.0)*(items->size())));
+    int item = items->at(random_.get(items->size()));
     if(!train_matrix->has_value(rec_dat->user,item) && item!=rec_dat->item){ 
       samples.push_back(item);
       learnt++;    

@@ -1,18 +1,22 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include "../../main/utils/MinHeap.h"
+#include "../../main/utils/Random.h"
 
 
 namespace {
 
 class TestMinHeap : public ::testing::Test  {
 public:
+  Random random_;
   TestMinHeap() {
   }
   virtual ~TestMinHeap() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){}
+  virtual void SetUp(){
+    random_.set(3324451);
+  }
   virtual void TearDown(){}
 };
 
@@ -129,7 +133,7 @@ TEST_F(TestMinHeap, small){
   recDat.item=2;
   recDat.time=10;
   for(int i=0;i<maxtime;i++){
-    recDat.score=rand()/RAND_MAX;
+    recDat.score=random_.get();
     heap.insert(recDat);
   }
 }
@@ -141,7 +145,7 @@ TEST_F(TestMinHeap, medium){
   recDat.item=2;
   recDat.time=10;
   for(int i=0;i<maxtime;i++){
-    recDat.score=rand()/RAND_MAX;
+    recDat.score=random_.get();
     heap.insert(recDat);
   }
 }
@@ -153,7 +157,7 @@ TEST_F(TestMinHeap, medium2){
   recDat.item=2;
   recDat.time=10;
   for(int i=0;i<maxtime;i++){
-    recDat.score=rand()/RAND_MAX;
+    recDat.score=random_.get();
     heap.insert(recDat);
   }
 }
@@ -165,7 +169,7 @@ TEST_F(TestMinHeap, large){
   recDat.item=2;
   recDat.time=10;
   for(int i=0;i<maxtime;i++){
-    recDat.score=rand()/RAND_MAX;
+    recDat.score=random_.get();
     heap.insert(recDat);
   }
 }

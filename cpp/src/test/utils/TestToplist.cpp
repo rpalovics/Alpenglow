@@ -2,18 +2,22 @@
 #include <gtest/gtest.h>
 #include "../../main/recommender_data/RecommenderData.h"
 #include "../../main/utils/Toplist.h"
+#include "../../main/utils/Random.h"
 
 
 namespace {
 
 class TestToplist : public ::testing::Test  {
 public:
+  Random random_;
   TestToplist() {
   }
   virtual ~TestToplist() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){}
+  virtual void SetUp(){
+    random_.set(3324451);
+  }
   virtual void TearDown(){}
 };
 
@@ -139,7 +143,7 @@ TEST_F(TestToplist, small){
   recDat.item=2;
   recDat.time=10;
   for(int i=0;i<maxtime;i++){
-    recDat.score=rand()/RAND_MAX;
+    recDat.score=random_.get();
     heap.insert(recDat);
   }
 }
@@ -151,7 +155,7 @@ TEST_F(TestToplist, medium){
   recDat.item=2;
   recDat.time=10;
   for(int i=0;i<maxtime;i++){
-    recDat.score=rand()/RAND_MAX;
+    recDat.score=random_.get();
     heap.insert(recDat);
   }
 }
@@ -163,7 +167,7 @@ TEST_F(TestToplist, medium2){
   recDat.item=2;
   recDat.time=10;
   for(int i=0;i<maxtime;i++){
-    recDat.score=rand()/RAND_MAX;
+    recDat.score=random_.get();
     heap.insert(recDat);
   }
 }
@@ -175,7 +179,7 @@ TEST_F(TestToplist, large){
   recDat.item=2;
   recDat.time=10;
   for(int i=0;i<maxtime;i++){
-    recDat.score=rand()/RAND_MAX;
+    recDat.score=random_.get();
     heap.insert(recDat);
   }
 }

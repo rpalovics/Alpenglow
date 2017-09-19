@@ -9,7 +9,6 @@ class Random{
     int get(int max);
     double get();
     int get_linear(int max); 
-    int get_geometric(int length,double prob, int threshold); 
     int get_geometric(double prob, int length); 
     double get_linear();
     double get_arctg(double y);
@@ -17,5 +16,4 @@ class Random{
     int operator()(int max);
     //void write(ofstream& file);
     //void read(ifstream& file);
-    //vector <int> sample_num;   
 };

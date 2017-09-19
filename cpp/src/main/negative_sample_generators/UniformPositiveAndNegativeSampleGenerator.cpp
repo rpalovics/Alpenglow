@@ -41,7 +41,7 @@ vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecD
     if(sample_){
       double p = get_positive_rate(history_size);
       int num = (int) p;
-      if(rand()/(RAND_MAX+(double)1) < p-(int)p) num++;
+      if(random_.get() < p-(int)p) num++;
       for(uint ii=0; ii < num; ii++){ 
         int index = 0;
         if(distribution_ == "uniform")
@@ -51,7 +51,7 @@ vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecD
         else if (distribution_ == "neg_linear")
           index = history_size - random_.get_linear(history_size) - 1;
         else if (distribution_ == "geometric")
-          index = history_size - random_.get_geometric(history_size,decay,100) - 1;
+          index = history_size - random_.get_geometric(decay,history_size);
         if(index >= 0){
           if (type == "user" ) {
             user_positive_samples.push_back(history->at(index));
@@ -87,7 +87,7 @@ vector <int> * UniformPositiveAndNegativeSampleGenerator::generate(RecDat * rec_
   samples.clear();
   int user_activity = train_matrix->row_size(rec_dat->user);
   while(learnt < negative_rate && learnt<(int)items->size()-user_activity-1){
-    int item = items->at((int)(rand()/(RAND_MAX+1.0)*(items->size())));
+    int item = items->at(random_.get(items->size()));
     if(!train_matrix->has_value(rec_dat->user,item) && item!=rec_dat->item){ 
       samples.push_back(item);
       learnt++;    

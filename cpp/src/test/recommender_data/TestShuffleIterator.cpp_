@@ -170,8 +170,6 @@ TEST_F(TestShuffleIterator, reproducable) {
     recData.push_back(createRecDat(3,9,10.5,1.0));
     rd.set_rec_dats(recData);
     ShuffleIterator it(&rd, 123124);
-    rand();
-    rand();
     ShuffleIterator it2(&rd, 123124);
     EXPECT_EQ(it.get_future(0)->item,it2.get_future(0)->item);
     EXPECT_EQ(it.get_future(1)->item,it2.get_future(1)->item);

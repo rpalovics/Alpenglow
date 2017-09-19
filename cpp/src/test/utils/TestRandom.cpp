@@ -99,28 +99,6 @@ TEST_F(TestRandom, get_arctg){
 }
 
 
-/*
-TEST_F(TestRandom, get_geometric2){
-  Random random(3423452);
-  int max = 10;
-  vector<int> distrib(max+1);
-  int all=200000;
-  double p=0.2;
-  for(int i=0;i<all;i++){
-    distrib.at(random.get_geometric(max,p,1))++;
-  }
-  vector<double> theor_distrib(max);
-  for(int i = 0; i < max+1;i++) {
-    //theor_distrib[i]= atan((double)(i+1)*y/distrsize)/atan(y)-atan((double)i*y/distrsize)/atan(y);
-    cout << i << ": " << distrib.at(i) << endl;
-  }
-    cout <<"asd"<< endl;
-  /*for(int i=0;i<max;i++){
-    EXPECT_LT(theor_distrib[i]*0.7, (double)distrib[i]/all);
-    EXPECT_GT(theor_distrib[i]*1.3, (double)distrib[i]/all);
-  }
-}*/
-
 TEST_F(TestRandom, get_geometric){
   Random random(3423452);
   int max = 10;
