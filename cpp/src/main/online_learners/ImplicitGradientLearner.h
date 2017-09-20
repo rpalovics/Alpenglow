@@ -67,7 +67,7 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
   protected:
     bool autocalled_initialize() override {
       if(train_matrix_==NULL){ train_matrix_=experiment_environment_->get_train_matrix(); }
-      recommend_only_new_=experiment_environment_->is_recommend_only_new();
+      recommend_only_new_=experiment_environment_->do_exclude_known();
       return true;
     }
     ExperimentEnvironment* experiment_environment_ = NULL;

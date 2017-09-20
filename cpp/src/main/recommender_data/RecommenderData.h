@@ -1,4 +1,3 @@
-
 #ifndef RECOMMENDER_DATA
 #define RECOMMENDER_DATA
 /* RecommenderData class
@@ -20,31 +19,12 @@
 
 using namespace std;
 
-//struct Location {
-//  int location_id;
-//  double x;
-//  double y;
-//  double z;
-//};
-//
-//
-//struct Tweet {
-//  double time;
-//  double x;
-//  double y;
-//  double z;
-//  int location_id;
-//  double distance;
-//};
-
-
 struct RecDat{
   int id;
   double score;
   double time;
   int user,item,eval;
   int category;
-  //Location location;
   // std::vector<std::vector<int>> *attributes;
   //bool operator<(const RecDat& rec_dat) const { return score < rec_dat.score; }
   //bool operator>(const RecDat& rec_dat) const { return score > rec_dat.score; }

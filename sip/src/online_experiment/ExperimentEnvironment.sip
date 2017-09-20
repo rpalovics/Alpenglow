@@ -8,7 +8,7 @@ class ExperimentEnvironment{
     int get_top_k();
     int get_min_time();
     int get_max_time();
-    bool is_recommend_only_new();
+    bool do_exclude_known();
 
     RecommenderDataIterator* get_recommender_data_iterator();
     Random* get_random();
