@@ -15,13 +15,13 @@ using namespace std;
 
 struct PredictionCreatorParameters{
   int top_k;
-  int recommend_only_new;
+  int exclude_known;
 };
 class PredictionCreator : public INeedExperimentEnvironment, public Initializable {
  public:
    PredictionCreator(PredictionCreatorParameters* params){
      top_k_ = params->top_k;
-     recommend_only_new_ = params->recommend_only_new;
+     exclude_known_ = params->exclude_known;
      train_matrix_ = NULL;
      model_ = NULL;
      filter_ = NULL;
@@ -46,7 +46,7 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
        OK = false;
        cerr << "Invalid value top_k_==" << top_k_ << " is set in PredictionCreator." << endl;
      }
-     if(recommend_only_new_==1 and train_matrix_==NULL){
+     if(exclude_known_==1 and train_matrix_==NULL){
        OK = false;
        cerr << "Not set: train_matrix of PredictionCreator." << endl;
      }
@@ -56,7 +56,7 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
    bool autocalled_initialize() override {
      if(train_matrix_ == NULL) train_matrix_=experiment_environment_->get_train_matrix();
      if(top_k_ == -1) top_k_=experiment_environment_->get_top_k();
-     if(recommend_only_new_ == -1) recommend_only_new_=experiment_environment_->do_exclude_known();
+     if(exclude_known_ == -1) exclude_known_=experiment_environment_->do_exclude_known();
      return true;
    }
    ExperimentEnvironment* experiment_environment_;
@@ -66,7 +66,7 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
    SpMatrix* train_matrix_;
    SpMatrix dummy_train_matrix_;
    int top_k_; //TODO const
-   int recommend_only_new_;
+   int exclude_known_;
 };
 
 struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
@@ -104,7 +104,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
     FRIEND_TEST(TestPredictionCreatorGlobal, process_line);
     FRIEND_TEST(TestPredictionCreatorGlobal, process_line2);
     FRIEND_TEST(TestPredictionCreatorGlobal, process_square);
-    FRIEND_TEST(TestPredictionCreatorGlobal, recommend_only_new);
+    FRIEND_TEST(TestPredictionCreatorGlobal, exclude_known);
 };
 
 struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParameters{

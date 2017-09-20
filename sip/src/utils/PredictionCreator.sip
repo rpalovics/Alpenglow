@@ -3,7 +3,7 @@ struct PredictionCreatorParameters{
   #include "utils/PredictionCreator.h"
   %End
   int top_k;
-  int recommend_only_new;
+  int exclude_known;
 };
 class PredictionCreator : public INeedExperimentEnvironment, public Initializable {
   %TypeHeaderCode

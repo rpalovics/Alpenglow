@@ -67,7 +67,7 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
   protected:
     bool autocalled_initialize() override {
       if(train_matrix_==NULL){ train_matrix_=experiment_environment_->get_train_matrix(); }
-      recommend_only_new_=experiment_environment_->do_exclude_known();
+      exclude_known_=experiment_environment_->do_exclude_known();
       return true;
     }
     ExperimentEnvironment* experiment_environment_ = NULL;
@@ -78,6 +78,6 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
     vector<ModelGradientUpdater*> model_gradient_updaters_;
     vector<ModelMultiUpdater*> model_multi_updaters_;
     Model* model_;
-    bool recommend_only_new_;
+    bool exclude_known_;
 };
 #endif

@@ -24,7 +24,7 @@ namespace {
       virtual void SetUp(){
         PredictionCreatorParameters params1;
         params1.top_k=0;
-        params1.recommend_only_new=0;
+        params1.exclude_known=0;
         predictionCreator = new DummyPredictionCreator(&params1);
 
         OnlinePredictorParameters params;

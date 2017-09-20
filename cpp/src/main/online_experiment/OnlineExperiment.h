@@ -14,7 +14,7 @@ struct OnlineExperimentParameters{
   int top_k;
   int min_time;
   int max_time;
-  bool recommend_only_new;
+  bool exclude_known;
   bool initialize_all;
   int max_user;
   int max_item;

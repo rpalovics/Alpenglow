@@ -22,7 +22,7 @@ class ExperimentEnvironment{
     int get_top_k() const { return top_k_; }
     int get_min_time() const { return min_time_; }
     int get_max_time() const { return max_time_; }
-    bool do_exclude_known() const { return recommend_only_new_; }
+    bool do_exclude_known() const { return exclude_known_; }
 
     //common objects
     RecommenderDataIterator* get_recommender_data_iterator() const { return recommender_data_iterator_; } //TODO const
@@ -43,7 +43,7 @@ class ExperimentEnvironment{
     int top_k_;
     int min_time_;
     int max_time_;
-    bool recommend_only_new_;
+    bool exclude_known_;
     bool initialize_all_;
 
     RecommenderDataIterator* recommender_data_iterator_ = NULL;

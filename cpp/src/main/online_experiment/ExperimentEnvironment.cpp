@@ -6,7 +6,7 @@ void ExperimentEnvironment::set_parameters(OnlineExperimentParameters* params){
   top_k_ = params->top_k;
   min_time_ = params->min_time;
   max_time_ = params->max_time;
-  recommend_only_new_ = params->recommend_only_new;
+  exclude_known_ = params->exclude_known;
   initialize_all_ = params->initialize_all;
   random_.set(params->random_seed);
 }
