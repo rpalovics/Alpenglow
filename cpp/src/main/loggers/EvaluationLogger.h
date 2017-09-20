@@ -42,12 +42,6 @@ class EvaluationLogger : public Logger, public INeedExperimentEnvironment, publi
       double error = compute_avg_error_on_timeframe(rec_dat);
       write_avg_error_into_file(rec_dat, error);
     }
-    bool init() override {
-      if(recommender_data_iterator_==NULL){
-        recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator();
-      }
-      return true;
-    }
     bool self_test(){
       bool ok = Logger::self_test();
       if(recommender_data_iterator_==NULL) ok=false;
@@ -57,6 +51,13 @@ class EvaluationLogger : public Logger, public INeedExperimentEnvironment, publi
       //mode is in iteration, timeframe, write out meanings
       //error type is in mse, ndcg, write out meanings
       return ok;
+    }
+  protected:
+    bool autocalled_initialize() override {
+      if(recommender_data_iterator_==NULL){
+        recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator();
+      }
+      return true;
     }
   private:
     //parameters

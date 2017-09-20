@@ -22,7 +22,8 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
         sipCpp->set_items(&(a0->vec));
     %End
     void set_experiment_environment(ExperimentEnvironment* ee);
-    bool init();
     bool self_test();
     //vector<int>* generate(RecDat * rec_dat);
+  protected:
+    bool autocalled_initialize();
 };

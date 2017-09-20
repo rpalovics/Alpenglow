@@ -4,7 +4,6 @@ class RecommenderDataIterator : public Initializable {
   %End
   public:
     void set_recommender_data(RecommenderData* data);
-    virtual bool init();
     virtual bool has_next() const;
     virtual RecDat* next() = 0;
     virtual int get_counter() const;
@@ -13,4 +12,6 @@ class RecommenderDataIterator : public Initializable {
     virtual int size() const;
     virtual double get_following_timestamp() const = 0;
     virtual ~RecommenderDataIterator();
+  protected:
+    bool autocalled_initialize();
 };

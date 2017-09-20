@@ -1,20 +1,18 @@
 #include "OfflineIteratingImplicitLearner.h"
 
-void OfflineIteratingImplicitLearner::init() {
-  if ( !initialized_ )  {
-    random_iterator_->init();
-    while( random_iterator_->has_next() ) {
-      RecDat *rec_dat = random_iterator_->next();
-      model_->add(rec_dat);
-    }
-    initialized_ = true;
-  }
+bool OfflineIteratingImplicitLearner::autocalled_initialize() {
+  random_iterator_->restart();
+  while( random_iterator_->has_next() ) {
+    RecDat *rec_dat = random_iterator_->next();
+    model_->add(rec_dat);
+  }  
+  return true;
 }
 
 void OfflineIteratingImplicitLearner::iterate() {
-  init();
+  initialize();
   if(early_simple_updaters_.size()>0){
-    random_iterator_->init();
+    random_iterator_->restart();
     for(uint ui = 0; ui<early_simple_updaters_.size(); ui++){
       early_simple_updaters_[ui]->start_of_updating(NULL);
     }
@@ -41,7 +39,7 @@ void OfflineIteratingImplicitLearner::iterate() {
     // cerr << "End of " << number_of_iterations_+1-counter << "th iteration." << endl;
   }
   if(simple_updaters_.size()>0){
-    random_iterator_->init();
+    random_iterator_->restart();
     for(uint ui = 0; ui<simple_updaters_.size(); ui++){
       simple_updaters_[ui]->start_of_updating(NULL);
     }

@@ -6,13 +6,14 @@ public:
   bool is_initialized(){ return is_initialized_; }
   bool initialize(){
     if(!is_initialized()){
-      is_initialized_ = init();
+      is_initialized_ = autocalled_initialize();
       return is_initialized_;
     } else {
       return true;
     }
   }
-  virtual bool init()=0;
+protected:
+  virtual bool autocalled_initialize()=0;
 private:
   bool is_initialized_=false;
 };

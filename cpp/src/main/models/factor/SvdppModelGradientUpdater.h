@@ -22,13 +22,11 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
     };
     void set_model(SvdppModel* model){
       model_ = model;
+      cumulated_histvector_updates_.resize(model_->dimension_,0);
     }
     void update(RecDat* rec_dat, double gradient) override;
     void beginning_of_updating_cycle(RecDat*) override;
     void end_of_updating_cycle(RecDat*) override;
-    void init(){
-      cumulated_histvector_updates_.resize(model_->dimension_,0);
-    }
     bool self_test(){
       bool ok = ModelGradientUpdater::self_test();
       if(model_==NULL){ ok=false; cerr << "SvdppModelGradientUpdater::model is not set." << endl; }

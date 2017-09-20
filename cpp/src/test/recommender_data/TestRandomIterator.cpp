@@ -63,7 +63,7 @@ TEST_F(TestRandomIterator, iterator) {
     EXPECT_TRUE(it.has_next());
     it.next();
     EXPECT_FALSE(it.has_next());
-    it.init();
+    it.restart();
     EXPECT_TRUE(it.has_next());
     it.next();
     it.next();

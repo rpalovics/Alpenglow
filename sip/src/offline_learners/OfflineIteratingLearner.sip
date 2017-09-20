@@ -6,7 +6,7 @@ struct OfflineIteratingLearnerParameters {
   int seed;
 };
 
-class OfflineIteratingLearner : public OfflineLearner {
+class OfflineIteratingLearner : public OfflineLearner, public Initializable {
  %TypeHeaderCode
  #include "offline_learners/OfflineIteratingLearner.h"
  %End
@@ -20,4 +20,6 @@ class OfflineIteratingLearner : public OfflineLearner {
   void set_recommender_data(RecommenderData *recommender_data);
   void set_gradient_computer(GradientComputerPointWise *gradient_computer);
   bool self_test();
+ protected:
+  bool autocalled_initialize();
 };

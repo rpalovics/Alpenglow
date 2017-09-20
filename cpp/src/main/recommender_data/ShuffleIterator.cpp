@@ -3,7 +3,7 @@
 ShuffleIterator::ShuffleIterator(RecommenderData* data, int seed) {
   recommender_data_ = data;
   seed_ = seed;
-  init();
+  initialize();
 }
 
 RecDat* ShuffleIterator::next() {
@@ -19,9 +19,10 @@ RecDat* ShuffleIterator::get_future(int index) const {
  return shuffled_data_[index];
 }
 
-bool ShuffleIterator::init(){
-  if(!RecommenderDataIterator::init()){
-    return false;
+bool ShuffleIterator::autocalled_initialize(){
+  if(!parent_is_initialized_){
+    parent_is_initialized_=RecommenderDataIterator::autocalled_initialize();
+    if(!parent_is_initialized_) return false;
   }
   counter_ = 0;
 

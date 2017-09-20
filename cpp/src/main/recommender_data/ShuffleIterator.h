@@ -25,7 +25,7 @@ class ShuffleIterator : public RecommenderDataIterator {
     ShuffleIterator(ShuffleIteratorParameters* params){
       seed_ = params->seed;
     }
-    bool init();
+    bool autocalled_initialize() override;
     RecDat* next();
     RecDat* get(int index) const override;
     RecDat* get_future(int index) const override;
@@ -34,5 +34,6 @@ class ShuffleIterator : public RecommenderDataIterator {
     FRIEND_TEST(TestRecommenderDataIterator, iterator);
     vector<RecDat*> shuffled_data_;
     int seed_;
+    bool parent_is_initialized_ = false;
 };
 #endif

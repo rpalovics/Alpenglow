@@ -18,6 +18,7 @@ class DummyModelFilter : public ModelFilter, public INeedExperimentEnvironment, 
     %MethodCode
         sipCpp->set_items(&(a0->vec));
     %End
-    bool init();
     bool self_test();
+  protected:
+    bool autocalled_initialize();
 };

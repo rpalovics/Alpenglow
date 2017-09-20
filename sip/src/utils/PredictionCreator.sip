@@ -17,8 +17,9 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
     void set_filter(ModelFilter* filter_);
     void set_train_matrix(SpMatrix *train_matrix_);
     void set_experiment_environment(ExperimentEnvironment*);
-    bool init();
     virtual bool self_test();
+  protected:
+    bool autocalled_initialize();
 };
 
 struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
@@ -53,4 +54,6 @@ class PredictionCreatorPersonalized: public PredictionCreator{
     virtual ~PredictionCreatorPersonalized();
     std::vector<RecDat>* run(RecDat * rec_dat);
     bool self_test();
+  protected:
+    bool autocalled_initialize();
 };

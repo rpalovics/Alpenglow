@@ -28,12 +28,11 @@ struct OfflineIteratingImplicitLearnerParameters {
   int seed;
 };
 
-class OfflineIteratingImplicitLearner : public OfflineLearner {
+class OfflineIteratingImplicitLearner : public OfflineLearner, public Initializable {
  public:
   OfflineIteratingImplicitLearner(OfflineIteratingImplicitLearnerParameters *parameters) {
     seed_ = parameters->seed;
     number_of_iterations_ = parameters->number_of_iterations;
-    initialized_ = false;
     random_iterator_ = NULL;
     recommender_data_ = NULL;
     gradient_computer_ = NULL;
@@ -41,6 +40,7 @@ class OfflineIteratingImplicitLearner : public OfflineLearner {
     model_ = NULL;
   }
   void iterate();
+  bool autocalled_initialize() override;
   void add_early_simple_updater(ModelSimpleUpdater* model_updater) {
     early_simple_updaters_.push_back(model_updater);
   }
@@ -77,7 +77,6 @@ class OfflineIteratingImplicitLearner : public OfflineLearner {
     return OK;
   }
  private:
-  void init();
   std::vector<ModelSimpleUpdater*> simple_updaters_;
   std::vector<ModelGradientUpdater*> gradient_updaters_;
   std::vector<ModelSimpleUpdater*> early_simple_updaters_;
@@ -88,7 +87,6 @@ class OfflineIteratingImplicitLearner : public OfflineLearner {
   Model *model_;
   int number_of_iterations_;
   int seed_;
-  bool initialized_;
 };
 
 #endif

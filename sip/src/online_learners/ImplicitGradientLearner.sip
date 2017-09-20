@@ -14,6 +14,7 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
     void add_multi_updater(ModelMultiUpdater* model_updater); 
     void set_model(Model* model);
     bool self_test();
-    bool init();
     void set_experiment_environment(ExperimentEnvironment* experiment_environment);
+  protected:
+    bool autocalled_initialize();
 };

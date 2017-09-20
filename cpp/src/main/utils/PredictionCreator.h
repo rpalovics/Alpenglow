@@ -32,12 +32,6 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
    void set_filter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
    void set_train_matrix(SpMatrix *train_matrix){train_matrix_ = train_matrix; }
    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; }
-   bool init(){
-     if(train_matrix_ == NULL) train_matrix_=experiment_environment_->get_train_matrix();
-     if(top_k_ == -1) top_k_=experiment_environment_->get_top_k();
-     if(recommend_only_new_ == -1) recommend_only_new_=experiment_environment_->is_recommend_only_new();
-     return true;
-   }
    bool self_test(){
      bool OK = true;
      if(model_==NULL){
@@ -59,6 +53,12 @@ class PredictionCreator : public INeedExperimentEnvironment, public Initializabl
      return OK;
    }
  protected:
+   bool autocalled_initialize() override {
+     if(train_matrix_ == NULL) train_matrix_=experiment_environment_->get_train_matrix();
+     if(top_k_ == -1) top_k_=experiment_environment_->get_top_k();
+     if(recommend_only_new_ == -1) recommend_only_new_=experiment_environment_->is_recommend_only_new();
+     return true;
+   }
    ExperimentEnvironment* experiment_environment_;
    vector<RecDat> top_predictions_;
    Model* model_;
@@ -116,8 +116,12 @@ class PredictionCreatorPersonalized: public PredictionCreator{
     };
     vector<RecDat>* run(RecDat* rec_dat);
     bool self_test(){ return PredictionCreator::self_test(); }
-    bool init() {
-      PredictionCreator::init();
+  protected:
+    bool autocalled_initialize() override {
+      if (!parent_is_initialized_){
+        parent_is_initialized_ = PredictionCreator::autocalled_initialize();
+        if (!parent_is_initialized_) return false;
+      }
       TopListRecommender* ranking_model = dynamic_cast<TopListRecommender*>(model_);
       if(ranking_model){
         ranking_model_ = ranking_model;
@@ -129,6 +133,7 @@ class PredictionCreatorPersonalized: public PredictionCreator{
     TopListRecommender *ranking_model_ = NULL;
     vector<RecDat>* run_bruteforce(RecDat* rec_dat);
     vector<RecDat>* run_ranking_model(RecDat* rec_dat);
+    bool parent_is_initialized_ = false;
 };
 
 #endif

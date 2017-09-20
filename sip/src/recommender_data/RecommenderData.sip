@@ -67,6 +67,7 @@ class RecommenderData : public Initializable{
 
     void set_max_time(double _max_time);
     std::vector <RecDat>* get_rec_data();
-    bool init();
     void set_attribute_container(InlineAttributeReader* attribute_container);
+  protected:
+    bool autocalled_initialize();
 };

@@ -26,18 +26,18 @@ struct OfflineIteratingLearnerParameters {
   int seed;
 };
 
-class OfflineIteratingLearner : public OfflineLearner {
+class OfflineIteratingLearner : public OfflineLearner, public Initializable {
  public:
   OfflineIteratingLearner(OfflineIteratingLearnerParameters *parameters) {
     seed_ = parameters->seed;
     number_of_iterations_ = parameters->number_of_iterations;
-    initialized_ = false;
     random_iterator_ = NULL;
     recommender_data_ = NULL;
     gradient_computer_ = NULL;
     model_ = NULL;
   }
   void iterate();
+  bool autocalled_initialize() override;
   void add_early_simple_updater(ModelSimpleUpdater* model_updater) {
     early_simple_updaters_.push_back(model_updater);
   }
@@ -69,7 +69,6 @@ class OfflineIteratingLearner : public OfflineLearner {
     return OK;
   }
  private:
-  void init();
   std::vector<ModelSimpleUpdater*> simple_updaters_;
   std::vector<ModelSimpleUpdater*> early_simple_updaters_;
   std::vector<ModelGradientUpdater*> gradient_updaters_;
@@ -79,7 +78,6 @@ class OfflineIteratingLearner : public OfflineLearner {
   Model *model_;
   int number_of_iterations_;
   int seed_;
-  bool initialized_;
 };
 
 #endif

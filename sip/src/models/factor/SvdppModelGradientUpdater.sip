@@ -16,6 +16,5 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
     void update(RecDat* rec_dat, double gradient);
     void beginning_of_updating_cycle(RecDat*);
     void end_of_updating_cycle(RecDat*);
-    void init();
     bool self_test();
 };

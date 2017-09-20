@@ -17,7 +17,8 @@ class RankComputer : public INeedExperimentEnvironment, public Initializable {
     void set_top_pop_container(TopPopContainer* popularity_sorted_container);
     void set_model_filter(ModelFilter* model_filter);
     bool self_test();
-    bool init();
     void set_experiment_environment(ExperimentEnvironment* ee);
     int get_rank(RecDat*);
+  protected:
+    bool autocalled_initialize();
 };

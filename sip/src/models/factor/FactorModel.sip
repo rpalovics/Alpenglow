@@ -28,6 +28,7 @@ class FactorModel : public Model, public SimilarityModel, public Initializable {
     void clear();
     void set_user_recency(Recency *recency);
     void set_item_recency(Recency *recency);
-    bool init();
     bool self_test();
+  protected:
+    bool autocalled_initialize();
 };

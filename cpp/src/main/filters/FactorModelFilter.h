@@ -65,11 +65,6 @@ class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment,
    void set_items(vector<int>* items);
    void set_model(FactorModel* model);
    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; }
-   bool init() override {
-     if(items_==NULL) items_=experiment_environment_->get_items();
-     if(users_==NULL) users_=experiment_environment_->get_users();
-     return true;
-   }
    bool self_test(){
       bool OK = ModelFilter::self_test();
       if(!user_factor_filter_.self_test()){ OK=false; }
@@ -80,6 +75,12 @@ class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment,
       if(!OK) cerr << "FactorModelFilter is not OK." << endl;
       return OK;
     }
+ protected:
+   bool autocalled_initialize() override {
+     if(items_==NULL) items_=experiment_environment_->get_items();
+     if(users_==NULL) users_=experiment_environment_->get_users();
+     return true;
+   }
  private:
    void compute_biases();
    void compute_bias(vector<pair<int,double> >* bounds, Bias& biases, vector<int>* entities, vector<pair<int,double> >* other_bounds);

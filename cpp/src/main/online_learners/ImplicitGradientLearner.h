@@ -48,11 +48,6 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
       model_multi_updaters_.push_back(model_updater);
     }
     virtual void set_model(Model* model){model_=model;}
-    bool init() override {
-      if(train_matrix_==NULL){ train_matrix_=experiment_environment_->get_train_matrix(); }
-      recommend_only_new_=experiment_environment_->is_recommend_only_new();
-      return true;
-    }
     bool self_test(){
       bool ok = Updater::self_test();
       if(negative_sample_generator_==NULL){
@@ -70,6 +65,11 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
       return ok;
     }
   protected:
+    bool autocalled_initialize() override {
+      if(train_matrix_==NULL){ train_matrix_=experiment_environment_->get_train_matrix(); }
+      recommend_only_new_=experiment_environment_->is_recommend_only_new();
+      return true;
+    }
     ExperimentEnvironment* experiment_environment_ = NULL;
     SpMatrix* train_matrix_ = NULL;
     GradientComputer* gradient_computer_ = NULL;

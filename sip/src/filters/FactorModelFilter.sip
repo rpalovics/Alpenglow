@@ -21,4 +21,6 @@ class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment{
         sipCpp->set_users(&(a0->vec));
     %End
     void set_model(FactorModel * _model); 
+  protected:
+    bool autocalled_initialize();
 };

@@ -29,7 +29,13 @@ class MemoryUsageLogger : public Logger, public Initializable, public INeedExper
     void set_data_iterator(RecommenderDataIterator* recommender_data_iterator){
       recommender_data_iterator_ = recommender_data_iterator;
     }
-    virtual bool init() override {
+    bool self_test(){
+      bool OK = Logger::self_test();
+      if(recommender_data_iterator_==NULL){ OK=false; cerr << "MemoryUsageLogger::recommender_data_iterator_ is not set." << endl; }
+      return OK;
+    }
+  protected:
+    bool autocalled_initialize() override {
       if(recommender_data_iterator_==NULL){ recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator(); }
       if(!recommender_data_iterator_->is_initialized()){
         return false;
@@ -37,11 +43,6 @@ class MemoryUsageLogger : public Logger, public Initializable, public INeedExper
       size_=recommender_data_iterator_->size();
       frequency_=size_/100+1;
       return true;
-    }
-    bool self_test(){
-      bool OK = Logger::self_test();
-      if(recommender_data_iterator_==NULL){ OK=false; cerr << "MemoryUsageLogger::recommender_data_iterator_ is not set." << endl; }
-      return OK;
     }
   private:
     ExperimentEnvironment* experiment_environment_;

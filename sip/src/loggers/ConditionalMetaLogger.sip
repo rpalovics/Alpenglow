@@ -7,7 +7,8 @@ class ConditionalMetaLogger : public Logger, public Initializable{
     virtual ~ConditionalMetaLogger();
     virtual void run(RecDat* recDat);
     virtual bool should_run(RecDat* recDat)=0;
-    virtual bool init();
     virtual void set_logger(Logger* logger);
     bool self_test();
+ protected:
+  bool autocalled_initialize();
 };

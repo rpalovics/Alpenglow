@@ -20,7 +20,7 @@ struct UniformNegativeSampleGeneratorParameters{
     }
 };
 
-class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public INeedExperimentEnvironment, public Initializable {
+class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public INeedExperimentEnvironment {
   public:
     UniformNegativeSampleGenerator(UniformNegativeSampleGeneratorParameters* parameters):
       negative_rate_(parameters->negative_rate),
@@ -33,15 +33,6 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public IN
     void set_items(vector<int>* items){ if(!initialize_all_) items_=items; }
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
       experiment_environment_=experiment_environment;
-    }
-    bool init(){
-      if(initialize_all_){ //TODO initialize all kozos parameter legyen
-        items_=new vector<int>(max_item_+1);
-        for(int i=0;i<items_->size();i++){items_->at(i)=i;}
-      }
-      if(items_==NULL){ items_=experiment_environment_->get_items(); }
-      if(train_matrix_==NULL){ train_matrix_=experiment_environment_->get_train_matrix(); }
-      return true;
     }
       
     vector<int>* generate(RecDat* rec_dat);
@@ -66,6 +57,15 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public IN
       return ok;
     }
   protected:
+    bool autocalled_initialize() override {
+      if(initialize_all_){ //TODO initialize all kozos parameter legyen
+        items_=new vector<int>(max_item_+1);
+        for(int i=0;i<items_->size();i++){items_->at(i)=i;}
+      }
+      if(items_==NULL){ items_=experiment_environment_->get_items(); }
+      if(train_matrix_==NULL){ train_matrix_=experiment_environment_->get_train_matrix(); }
+      return true;
+    }
     vector<int>* items_ = NULL;
     SpMatrix* train_matrix_ = NULL; 
     ExperimentEnvironment* experiment_environment_;

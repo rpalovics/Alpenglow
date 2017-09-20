@@ -46,7 +46,9 @@ class RankComputer : public INeedExperimentEnvironment, public Initializable{
       if(train_matrix_==NULL){ok=false;cerr<<"RankComputer::train_matrix_ is not set." << endl;}
       return ok;
     }
-    bool init() override {
+    int get_rank(RecDat*);
+  protected:
+    bool autocalled_initialize() override {
       if(train_matrix_==NULL) train_matrix_=experiment_environment_->get_train_matrix();
       if(popularity_sorted_container_==NULL){
         popularity_sorted_container_=experiment_environment_->get_popularity_sorted_container();
@@ -61,8 +63,6 @@ class RankComputer : public INeedExperimentEnvironment, public Initializable{
       
       return true;
     }
-    int get_rank(RecDat*);
-  protected:
     int get_rank_bruteforce(RecDat*);
     int get_rank_ranking_model(RecDat*);
     void itemlist_init(RecDat* rec_dat);

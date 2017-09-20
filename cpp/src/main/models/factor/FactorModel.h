@@ -63,7 +63,6 @@ class FactorModel
     void clear() override;
     void set_user_recency(Recency *recency){user_recency_ = recency;}
     void set_item_recency(Recency *recency){item_recency_ = recency;}
-    bool init(){ clear(); return true;}
     bool self_test(){ //Ezek egyike sem feltetlen hiba, esetleg kevesbe szigoruva kene tenni.
       bool ok = Model::self_test() and SimilarityModel::self_test();
       if(initialize_all_ and (max_user_==-1 or max_item_==-1)){
@@ -103,6 +102,10 @@ class FactorModel
     //other
     //double user_factor_mean();
     //double item_factor_mean();
+    bool autocalled_initialize() override {
+      clear();
+      return true;
+    }
     void set_parameters(FactorModelParameters * parameters);
     double compute_product(RecDat * rec_dat);
     double compute_user_bias(RecDat * rec_dat);

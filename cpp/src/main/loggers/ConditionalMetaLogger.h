@@ -14,7 +14,6 @@ class ConditionalMetaLogger : public Logger, public Initializable{
       }
     };
     virtual bool should_run(RecDat* recDat)=0;
-    virtual bool init(){return true;}
     virtual void set_logger(Logger* logger){
       logger_ = logger;
     }
@@ -26,6 +25,10 @@ class ConditionalMetaLogger : public Logger, public Initializable{
       }
       return OK;
     }
+  protected:
+   bool autocalled_initialize() override { //TODO remove unnecessary Initializable
+     return true;
+   }
   private:
     Logger *logger_;
 };

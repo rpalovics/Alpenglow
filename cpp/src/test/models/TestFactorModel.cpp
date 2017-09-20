@@ -23,7 +23,7 @@ class TestFactorModel : public ::testing::Test {
       params.initialize_all = false;
       params.use_sigmoid = false;
       model = new FactorModel(&params);
-      model->init();
+      ASSERT_TRUE(model->initialize());
       FactorModelGradientUpdaterParameters updaterParams;
       updaterParams.learning_rate = 0.1;
       updaterParams.regularization_rate = 0.1;
@@ -81,7 +81,7 @@ class TestFactorModel2 : public ::testing::Test { //test initialize all function
       params.max_item = 10;
       params.max_user = 6;
       model = new FactorModel(&params);
-      model->init();
+      ASSERT_TRUE(model->initialize());
     }
     virtual void TearDown(){
       delete model;

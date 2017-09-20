@@ -54,15 +54,16 @@ class TransitionModelEndLogger : public Logger, public INeedExperimentEnvironmen
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_pop_container(PopContainer* pop_container){ pop_container_ = pop_container; }
     void set_model(TransitionProbabilityModel* model){ model_ = model; }
-    bool init() override{
-      if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
-      return true;
-    }
     bool self_test(){
       bool OK = Logger::self_test();
       if(model_==NULL){ OK=false; cerr << "TransitionModelEndLogger::model is not set." << endl; }
       if(pop_container_==NULL){ OK=false; cerr << "TransitionModelEndLogger::pop_container is not set." << endl; }
       return OK;
+    }
+  protected:
+    bool autocalled_initialize() override {
+      if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
+      return true;
     }
   private:
     ExperimentEnvironment* experiment_environment_;

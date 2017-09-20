@@ -90,14 +90,14 @@ class RecommenderData : public Initializable{
     vector<int>* users();
     void set_max_time(double _max_time){ max_time = _max_time; }
     RecDats* get_rec_data(){ return &rec_data; }
-    bool init() override {
-      read_from_file(file_name, type);
-      return true;
-    }
     void set_attribute_container(InlineAttributeReader* attribute_container){
       attribute_container_ = attribute_container;
     }
   protected:
+    bool autocalled_initialize() override {
+      read_from_file(file_name, type);
+      return true;
+    }
     RecDats rec_data;
     SpMatrix rec_matrix;
     vector<int> items_;

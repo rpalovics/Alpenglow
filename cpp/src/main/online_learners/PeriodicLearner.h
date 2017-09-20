@@ -56,7 +56,6 @@ class PeriodicLearner : public Updater,  public Initializable, public INeedExper
       model_multi_updaters_.push_back(model_updater);
     }
     virtual void set_model(Model* model){model_=model;}
-    bool init();
     bool self_test(){
       bool ok = Updater::self_test();
       if(mode_!="time-based" and mode_!="samplenum-based"){ cerr << "PeriodicLearner::mode should be time-based or samplenum-based." << endl; ok=false; }
@@ -66,6 +65,7 @@ class PeriodicLearner : public Updater,  public Initializable, public INeedExper
       return ok;
     }
   protected:
+    bool autocalled_initialize() override;
     int compute_next_period_num(RecDat*);
     const RecommenderDataIterator* recommender_data_;
     ExperimentEnvironment* experiment_environment_;
