@@ -73,6 +73,9 @@ class RecommenderData : public Initializable{
   public:
     RecommenderData(){rec_matrix.clear();max_time=0;};
     RecommenderData(RecommenderDataParameters* params){
+      set_parameters(params);
+    }
+    void set_parameters(RecommenderDataParameters* params){
       file_name = params->file_name;
       type = params->type;
     }

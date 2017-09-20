@@ -9,6 +9,12 @@ class TestShuffleIterator : public ::testing::Test  {
 public:
   RecommenderData rd;
   TestShuffleIterator() {
+    RecommenderDataParameters params;
+    params.file_name = "";
+    params.type = "";
+    rd.set_parameters(&params);
+    EXPECT_TRUE(rd.initialize());
+      
   }
   virtual ~TestShuffleIterator() {
     // You can do clean-up work that doesn't throw exceptions here.
@@ -42,6 +48,7 @@ TEST_F(TestShuffleIterator, size) {
     recData.push_back(createRecDat(2,8,10.0,1.0));
     rd.set_rec_dats(recData);
     ShuffleIterator it(&rd, 123124);
+    ASSERT_TRUE(it.initialize());
     EXPECT_EQ(3,it.size());
 }
 
@@ -52,6 +59,7 @@ TEST_F(TestShuffleIterator, hasNext) {
     recData.push_back(createRecDat(2,8,10.3,1.0));
     rd.set_rec_dats(recData);
     ShuffleIterator it(&rd, 1231212);
+    ASSERT_TRUE(it.initialize());
     EXPECT_EQ(3,it.size());
     ASSERT_TRUE(it.has_next());
     it.next();
@@ -69,6 +77,7 @@ TEST_F(TestShuffleIterator, noshuffle_it) {
     recData.push_back(createRecDat(2,8,10.3,1.0));
     rd.set_rec_dats(recData);
     ShuffleIterator it(&rd, 1231212);
+    ASSERT_TRUE(it.initialize());
     EXPECT_EQ(3,it.size());
     ASSERT_TRUE(it.has_next());
     RecDat* recDat = it.next();
@@ -95,6 +104,7 @@ TEST_F(TestShuffleIterator, shuffle_it) {
     recData.push_back(createRecDat(3,9,10.5,1.0));
     rd.set_rec_dats(recData);
     ShuffleIterator it(&rd, 1239);
+    ASSERT_TRUE(it.initialize());
     EXPECT_EQ(9,it.size());
     vector<int> items; items.push_back(1); items.push_back(2); items.push_back(3);
     ASSERT_TRUE(it.has_next());
@@ -148,6 +158,7 @@ TEST_F(TestShuffleIterator, noshuffle_get) {
     recData.push_back(createRecDat(2,8,10.3,1.0));
     rd.set_rec_dats(recData);
     ShuffleIterator it(&rd, 12361887);
+    ASSERT_TRUE(it.initialize());
     EXPECT_EQ(3,it.size());
     EXPECT_EQ(3, (it.get_future(0))->item);
     EXPECT_EQ(6, (it.get_future(1))->item);
@@ -170,7 +181,9 @@ TEST_F(TestShuffleIterator, reproducable) {
     recData.push_back(createRecDat(3,9,10.5,1.0));
     rd.set_rec_dats(recData);
     ShuffleIterator it(&rd, 123124);
+    ASSERT_TRUE(it.initialize());
     ShuffleIterator it2(&rd, 123124);
+    ASSERT_TRUE(it2.initialize());
     EXPECT_EQ(it.get_future(0)->item,it2.get_future(0)->item);
     EXPECT_EQ(it.get_future(1)->item,it2.get_future(1)->item);
     EXPECT_EQ(it.get_future(2)->item,it2.get_future(2)->item);

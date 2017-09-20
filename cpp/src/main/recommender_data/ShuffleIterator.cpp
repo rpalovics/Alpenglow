@@ -20,11 +20,12 @@ RecDat* ShuffleIterator::get_future(int index) const {
 }
 
 bool ShuffleIterator::init(){
-  if(!recommender_data_->is_initialized()){
+  if(!RecommenderDataIterator::init()){
     return false;
   }
   counter_ = 0;
-  //initialize shuffled data
+
+  //shuffle same timestamped samples
   Random random(seed_);
   shuffled_data_.push_back(recommender_data_->get(0));
   double current_time = shuffled_data_[0]->time;
