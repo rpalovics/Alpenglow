@@ -36,21 +36,18 @@ struct RecDat{
 };
 typedef vector <RecDat> RecDats;
 
-typedef map <int,double> Recommendation;
-typedef map <int,double> :: iterator RecIterator;
+//typedef map <int,double> Recommendation;
 
 struct RecPred{
   double score;
   double prediction;
 };
-typedef vector <RecPred> Predictions;
-typedef vector <double> Gradients;
 
 class RecommenderData : public Initializable {
   public:
     RecDat* get(int idx){return &(rec_data_[idx]);}
-    void set_rec_data(RecDats rec_data_){ this->rec_data_ = rec_data_; }
-    RecDats* get_rec_data(){ return &rec_data_; }
+    void set_rec_data(vector<RecDat> rec_data_){ this->rec_data_ = rec_data_; }
+    vector<RecDat>* get_rec_data(){ return &rec_data_; }
     int size(){return rec_data_.size();}
     SpMatrix* get_full_matrix();
     vector<int>* get_all_items();
@@ -59,7 +56,7 @@ class RecommenderData : public Initializable {
     virtual ~RecommenderData(){};
   protected:
     bool autocalled_initialize() override { return true; }
-    RecDats rec_data_;
+    vector<RecDat> rec_data_;
   private:
     SpMatrix full_matrix_;
     vector<int> items_;
