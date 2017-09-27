@@ -1,6 +1,6 @@
 #include "OfflineRankingEvaluator.h"
 //void OfflineRankingEvaluator::evaluate(){
-//  RecommenderData test_data;
+//  LegacyRecommenderData test_data;
 //  test_data.read_from_file(test_file_name_, test_file_type_);
 //  vector<USER>* users = test_data.users();
 //  for(auto user : *users){

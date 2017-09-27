@@ -22,7 +22,7 @@ public:
 } //namespace
 
 TEST_F(TestCooccurrenceComputer, run) {
-  RecommenderData recommender_data;
+  LegacyRecommenderData recommender_data;
   stringstream ifs;
   ifs << "100 1 1 0 1 1" << endl;
   ifs << "100 1 2 0 1 1" << endl;
@@ -78,7 +78,7 @@ TEST_F(TestCooccurrenceComputer, run) {
 }
 
 TEST_F(TestCooccurrenceComputer, compute_itemset_for_users){
-  RecommenderData recommender_data;
+  LegacyRecommenderData recommender_data;
   stringstream ifs;
   ifs << "100 1 1 0 1 1" << endl;
   ifs << "100 1 2 0 1 1" << endl;

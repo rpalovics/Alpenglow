@@ -7,9 +7,9 @@ namespace {
 
 class TestShuffleIterator : public ::testing::Test  {
 public:
-  RecommenderData rd;
+  LegacyRecommenderData rd;
   TestShuffleIterator() {
-    RecommenderDataParameters params;
+    LegacyRecommenderDataParameters params;
     params.file_name = "";
     params.type = "";
     rd.set_parameters(&params);

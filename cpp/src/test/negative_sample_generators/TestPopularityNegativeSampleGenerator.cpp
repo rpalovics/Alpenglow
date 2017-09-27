@@ -54,7 +54,7 @@ public:
 }
 
 TEST_F(TestPopularityNegativeSampleGenerator,general) {
-  RecommenderData recommenderData;
+  LegacyRecommenderData recommenderData;
   vector<RecDat> recData;
   recData.push_back(createRecDat(1,1,1.0));
   recData.push_back(createRecDat(2,1,1.0));

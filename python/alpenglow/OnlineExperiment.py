@@ -80,11 +80,11 @@ class OnlineExperiment(ParameterDefaults):
         if not isinstance(data, str):
             recommender_data = DataframeData(data, columns=columns)
         else:
-            recommender_data = rs.RecommenderData(
+            recommender_data = rs.LegacyRecommenderData(
                 file_name=data,
-                type=experimentType
+                type=experimentType,
+                max_time=max_time
             )
-            recommender_data.set_max_time(max_time)
         # TODO set max_item, max_user here
         recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
         recommender_data_iterator.set_recommender_data(recommender_data)

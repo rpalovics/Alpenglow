@@ -81,7 +81,7 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
     int cutoff_;
     int time_;
     Model* model_;
-    RecommenderData test_data_;
+    LegacyRecommenderData test_data_;
     RecommenderData* train_data_;
     ModelFilter* model_filter_;
     FRIEND_TEST(TestPrecisionRecallEvaluator, general);

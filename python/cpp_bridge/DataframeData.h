@@ -13,8 +13,8 @@ public:
       rec_data.push_back(*i);
     }
   }
-  int size() override {return rec_data.size();}
-  RecDat* get(int idx) override {return &(rec_data[idx]);}
+  //int size() override {return rec_data.size();}
+  //RecDat* get(int idx) override {return &(rec_data[idx]);}
 protected:
   bool autocalled_initialize() override {return true;}
 };

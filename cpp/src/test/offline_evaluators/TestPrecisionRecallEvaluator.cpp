@@ -23,7 +23,7 @@ class TestPrecisionRecallEvaluator : public ::testing::Test {
   public:
     DummyModel model_;
     DummyFilter filter_;
-    RecommenderData train_data_;
+    LegacyRecommenderData train_data_;
     PrecisionRecallEvaluatorParameters params_;
 
     TestPrecisionRecallEvaluator(){}

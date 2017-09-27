@@ -23,7 +23,7 @@ class OfflineRankingEvaluator : public OfflineEvaluator{
       toplist_creator_ = NULL;
     }
     virtual void evaluate(){
-      RecommenderData test_data;
+      LegacyRecommenderData test_data;
       test_data.read_from_file(test_file_name_, test_file_type_);
       vector<USER>* users = test_data.users();
       cerr << "Number of test users: " << users->size() << endl;

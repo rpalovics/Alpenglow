@@ -49,7 +49,7 @@ class DummyGradientComputer : public GradientComputerPointWise{
 class TestOfflineIteratingLearner : public ::testing::Test { 
   public:
     vector<RecDat> rec_dats_;
-    RecommenderData recommender_data_;
+    LegacyRecommenderData recommender_data_;
     DummyModel model_;
     DummyGradientComputer gradient_computer_;
     DummyModelGradientUpdater grad_upd1_, grad_upd2_;

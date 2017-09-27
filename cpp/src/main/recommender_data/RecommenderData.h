@@ -16,6 +16,7 @@
 #include "../utils/SpMatrix.h"
 #include "AttributeContainer.h"
 #include "../general_interfaces/Initializable.h"
+#include "macros.h"
 
 using namespace std;
 
@@ -45,44 +46,58 @@ struct RecPred{
 typedef vector <RecPred> Predictions;
 typedef vector <double> Gradients;
 
-struct RecommenderDataParameters{
+class RecommenderData : public Initializable {
+  public:
+    RecDat* get(int idx){return &(rec_data[idx]);}
+    void set_rec_dats(RecDats rec_data){ this->rec_data = rec_data; } //TODO rename: set_rec_data
+    RecDats* get_rec_data(){ return &rec_data; }
+    int size(){return rec_data.size();}
+    SpMatrix* matrix(); //TODO rename get_full_matrix
+    vector<int>* items(); //TODO rename get_all_items
+    vector<int>* users(); //TODO rename get_all_users
+    virtual ~RecommenderData(){};
+  protected:
+    bool autocalled_initialize() override { return true; }
+    RecDats rec_data; //TODO rec_data_ vagy timeline_
+  private:
+    SpMatrix rec_matrix; // TODO rename full_matrix_
+    vector<int> items_;
+    vector<int> users_;
+};
+
+struct LegacyRecommenderDataParameters{
   string file_name;
   string type;
+  int max_time;
 };
-class RecommenderData : public Initializable{
+class LegacyRecommenderData : public RecommenderData {
   public:
-    RecommenderData(){rec_matrix.clear();max_time=0;};
-    RecommenderData(RecommenderDataParameters* params){
+    LegacyRecommenderData(){max_time_=0;}
+    LegacyRecommenderData(LegacyRecommenderDataParameters* params){
       set_parameters(params);
     }
-    void set_parameters(RecommenderDataParameters* params){
+    void set_parameters(LegacyRecommenderDataParameters* params){
       file_name = params->file_name;
       type = params->type;
+      max_time_ = params->max_time;
     }
-    ~RecommenderData(){};
-    void read_from_file(string file_name, string type);
-    void read_from_file_core(istream& ifs, string type);
-    void set_rec_dats(RecDats rec_data){ this->rec_data = rec_data; }
-    virtual RecDat* get(int idx){return &(rec_data[idx]);}
-    virtual int size(){return rec_data.size();}
-    SpMatrix* matrix();
-    vector<int>* items();
-    vector<int>* users();
-    void set_max_time(double _max_time){ max_time = _max_time; }
-    RecDats* get_rec_data(){ return &rec_data; }
+    void read_from_file(string file_name, string type); //private?
+    void read_from_file_core(istream& ifs, string type); //private?
     void set_attribute_container(InlineAttributeReader* attribute_container){
       attribute_container_ = attribute_container;
     }
   protected:
     bool autocalled_initialize() override {
+      if (!parent_is_initialized_){
+        parent_is_initialized_ = RecommenderData::autocalled_initialize();
+        if (!parent_is_initialized_) return false;
+      }
       read_from_file(file_name, type);
       return true;
     }
-    RecDats rec_data;
-    SpMatrix rec_matrix;
-    vector<int> items_;
-    vector<int> users_;
-    double max_time;
+  private:
+    bool parent_is_initialized_ = false;
+    int max_time_;
     string file_name;
     string type;
     InlineAttributeReader* attribute_container_;

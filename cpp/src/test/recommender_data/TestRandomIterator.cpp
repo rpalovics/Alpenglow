@@ -8,7 +8,7 @@ namespace {
 
 class TestRandomIterator : public ::testing::Test  {
 public:
-  RecommenderData rd;
+  LegacyRecommenderData rd;
   TestRandomIterator() {
   }
   virtual ~TestRandomIterator() {
