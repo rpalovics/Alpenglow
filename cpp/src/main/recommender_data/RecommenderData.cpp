@@ -39,6 +39,13 @@ vector<int>* RecommenderData::users(){
   return &users_;
 }
 
+void RecommenderData::clear(){
+  rec_data.clear();
+  rec_matrix.clear();
+  items_.clear();
+  users_.clear();
+}
+
 //std::map<int, std::vector<std::vector<int> >*> track_attribute_map;
 
 void LegacyRecommenderData::read_from_file(string file_name, string type){

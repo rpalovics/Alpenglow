@@ -55,6 +55,7 @@ class RecommenderData : public Initializable {
     SpMatrix* matrix(); //TODO rename get_full_matrix
     vector<int>* items(); //TODO rename get_all_items
     vector<int>* users(); //TODO rename get_all_users
+    void clear();
     virtual ~RecommenderData(){};
   protected:
     bool autocalled_initialize() override { return true; }
