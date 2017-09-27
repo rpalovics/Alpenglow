@@ -33,7 +33,7 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
     void set_train_data(RecommenderData* recommender_data){ train_data_ = recommender_data; }
     void set_model_filter(ModelFilter* model_filter){ model_filter_ = model_filter; }
     virtual void evaluate(){
-  vector<int>* users = test_data_.users();
+  vector<int>* users = test_data_.get_all_users();
   double precision_sum = 0;
   double recall_sum = 0;
   RecDat zero_time_rd;
@@ -43,7 +43,7 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
   for(uint i=0;i<users->size();i++){
     int user = users->at(i);
     int true_positive = compute_true_positive(user);
-    precision_sum += true_positive/(double)test_data_.matrix()->get(user)->size();
+    precision_sum += true_positive/(double)test_data_.get_full_matrix()->get(user)->size();
     recall_sum += true_positive/(double)cutoff_;
   }
   double precision_avg = precision_sum/users->size();
@@ -102,7 +102,7 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
     top_list.insert(rec_dat);
   }
   int true_positive = 0;
-  map<int, double>* positive = test_data_.matrix()->get(user);
+  map<int, double>* positive = test_data_.get_full_matrix()->get(user);
   for(;top_list.size()>0;top_list.delete_min()){
     rec_dat = top_list.get_min();
     map<int, double>::iterator it = positive->find(rec_dat.item);

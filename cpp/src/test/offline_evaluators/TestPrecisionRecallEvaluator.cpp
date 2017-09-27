@@ -43,7 +43,7 @@ class TestPrecisionRecallEvaluator : public ::testing::Test {
       rec_dats[4].item=4;
       rec_dats[5].user=3;
       rec_dats[5].item=4;
-      train_data_.set_rec_dats(rec_dats);
+      train_data_.set_rec_data(rec_dats);
 
       filter_.items_.push_back(make_pair(0,std::numeric_limits<double>::infinity()));
       filter_.items_.push_back(make_pair(1,std::numeric_limits<double>::infinity()));
@@ -101,7 +101,7 @@ TEST_F(TestPrecisionRecallEvaluator, general){
   rec_dats[9].item=3;
   rec_dats[10].user=2;
   rec_dats[10].item=4;
-  evaluator.test_data_.set_rec_dats(rec_dats);
+  evaluator.test_data_.set_rec_data(rec_dats);
   ASSERT_TRUE(evaluator.self_test());
 
   evaluator.evaluate();

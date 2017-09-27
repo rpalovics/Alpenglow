@@ -108,7 +108,7 @@ namespace{
     recData.push_back(*createRecDat(6,7,13,1.0));
     recData.push_back(*createRecDat(3,4,16,1.0));
     RecommenderData recommenderData;
-    recommenderData.set_rec_dats(recData);
+    recommenderData.set_rec_data(recData);
     SimpleIterator iterator(&recommenderData);
     learner.set_recommender_data_iterator(&iterator);
 
@@ -163,7 +163,7 @@ namespace{
     recData.push_back(*createRecDat(6,7,13,1.0));
     recData.push_back(*createRecDat(3,4,16,1.0));
     RecommenderData recommenderData;
-    recommenderData.set_rec_dats(recData);
+    recommenderData.set_rec_data(recData);
     SimpleIterator iterator(&recommenderData);
     learner.set_recommender_data_iterator(&iterator);
 
@@ -221,7 +221,7 @@ namespace{
     recData.push_back(*createRecDat(3,4,16,1.0));
     recData.push_back(*createRecDat(2,4,16,1.0));
     RecommenderData recommenderData;
-    recommenderData.set_rec_dats(recData);
+    recommenderData.set_rec_data(recData);
     SimpleIterator iterator(&recommenderData);
     learner.set_recommender_data_iterator(&iterator);
 
@@ -280,7 +280,7 @@ namespace{
     recData.push_back(*createRecDat(3,4,16,1.0));
     recData.push_back(*createRecDat(2,4,16,1.0));
     RecommenderData recommenderData;
-    recommenderData.set_rec_dats(recData);
+    recommenderData.set_rec_data(recData);
     SimpleIterator iterator(&recommenderData);
     learner.set_recommender_data_iterator(&iterator);
 
@@ -336,7 +336,7 @@ namespace{
     recData.push_back(*createRecDat(6,7,13,1.0));
     recData.push_back(*createRecDat(3,4,16,1.0));
     RecommenderData recommenderData;
-    recommenderData.set_rec_dats(recData);
+    recommenderData.set_rec_data(recData);
     SimpleIterator iterator(&recommenderData);
     learner.set_recommender_data_iterator(&iterator);
 

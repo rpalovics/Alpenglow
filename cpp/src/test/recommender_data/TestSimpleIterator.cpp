@@ -33,7 +33,7 @@ TEST_F(TestSimpleIterator, size) {
     recData.push_back(createRecDat(2,3,10.0,1.0));
     recData.push_back(createRecDat(1,6,10.0,1.0));
     recData.push_back(createRecDat(2,8,10.0,1.0));
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     SimpleIterator it(&rd);
     EXPECT_EQ(3,it.size());
 }
@@ -43,7 +43,7 @@ TEST_F(TestSimpleIterator, iterate) {
     recData.push_back(createRecDat(2,3,10.0,1.0));
     recData.push_back(createRecDat(1,6,10.0,1.0));
     recData.push_back(createRecDat(2,8,10.0,1.0));
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     SimpleIterator it(&rd);
     EXPECT_EQ(3,it.size());
     EXPECT_TRUE(it.has_next());
@@ -63,7 +63,7 @@ TEST_F(TestSimpleIterator, get) {
     recData.push_back(createRecDat(2,3,10.0,1.0));
     recData.push_back(createRecDat(1,6,10.0,1.0));
     recData.push_back(createRecDat(2,8,10.0,1.0));
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     SimpleIterator it(&rd);
     EXPECT_EQ(3,it.size());
     EXPECT_EQ(3, (it.get_future(0))->item);
@@ -80,7 +80,7 @@ TEST_F(TestSimpleIterator, get) {
 //    recData.push_back(createRecDat(2,3,10.0,1.0));
 //    recData.push_back(createRecDat(1,6,10.0,1.0));
 //    recData.push_back(createRecDat(2,8,10.0,1.0));
-//    rd.set_rec_dats(recData);
+//    rd.set_rec_data(recData);
 //    SimpleIterator it(&rd);
 //    EXPECT_EQ(rd.matrix(),it.matrix());
 //}

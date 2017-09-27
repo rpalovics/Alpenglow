@@ -44,7 +44,7 @@ TEST_F(TestRandomIterator, iterator) {
     recData[2].user=2;
     recData[3].user=3;
     recData[4].user=4;
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     RandomIterator it(&rd, 123124);
     EXPECT_TRUE(it.has_next());
     it.next();
@@ -79,7 +79,7 @@ TEST_F(TestRandomIterator, shuffle) {
     recData[0].user=0;
     recData[1].user=1;
     recData[2].user=2;
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     RandomIterator it(&rd, 123124);
     int counter[3][3];
     for(int ii=0;ii<3;ii++){

@@ -77,7 +77,7 @@ TEST_F(TestPopularityNegativeSampleGenerator,general) {
   recData.push_back(createRecDat(13,1,1.0));
   recData.push_back(createRecDat(14,1,1.0));
   recData.push_back(createRecDat(15,1,1.0));
-  recommenderData.set_rec_dats(recData);
+  recommenderData.set_rec_data(recData);
   SimpleIterator dataIterator(&recommenderData);
   PopularityNegativeSampleGeneratorParameters params;
   params.negative_rate = 3;

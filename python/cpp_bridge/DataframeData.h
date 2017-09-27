@@ -10,7 +10,7 @@ class DataframeData : public RecommenderData {
 public:
   void add_recdats(vector<RecDat*> rds){
     for(auto i : rds){
-      rec_data.push_back(*i);
+      rec_data_.push_back(*i);
     }
   }
   //int size() override {return rec_data.size();}

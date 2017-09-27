@@ -37,23 +37,23 @@ class RecommenderData : public Initializable{
   %End
   public:
     ~RecommenderData();
-    void set_rec_dats(std::vector <RecDat> rec_data);
+    void set_rec_data(std::vector <RecDat> rec_data);
     RecDat* get(int idx);
     int size();
-    SpMatrix* matrix();
-    std::vector<int>* items();
-    std::vector<int>* users();
+    SpMatrix* get_full_matrix();
+    std::vector<int>* get_all_items();
+    std::vector<int>* get_all_users();
     void clear();
 
 
     void get_items_into(VectorInt*);
     %MethodCode
-        a0->vec = *(sipCpp->items());
+        a0->vec = *(sipCpp->get_all_items());
     %End
 
     void get_users_into(VectorInt*);
     %MethodCode
-        a0->vec = *(sipCpp->users());
+        a0->vec = *(sipCpp->get_all_users());
     %End
 
     std::vector <RecDat>* get_rec_data();

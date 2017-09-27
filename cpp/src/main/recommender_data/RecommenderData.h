@@ -48,28 +48,28 @@ typedef vector <double> Gradients;
 
 class RecommenderData : public Initializable {
   public:
-    RecDat* get(int idx){return &(rec_data[idx]);}
-    void set_rec_dats(RecDats rec_data){ this->rec_data = rec_data; } //TODO rename: set_rec_data
-    RecDats* get_rec_data(){ return &rec_data; }
-    int size(){return rec_data.size();}
-    SpMatrix* matrix(); //TODO rename get_full_matrix
-    vector<int>* items(); //TODO rename get_all_items
-    vector<int>* users(); //TODO rename get_all_users
+    RecDat* get(int idx){return &(rec_data_[idx]);}
+    void set_rec_data(RecDats rec_data_){ this->rec_data_ = rec_data_; }
+    RecDats* get_rec_data(){ return &rec_data_; }
+    int size(){return rec_data_.size();}
+    SpMatrix* get_full_matrix();
+    vector<int>* get_all_items();
+    vector<int>* get_all_users();
     void clear();
     virtual ~RecommenderData(){};
   protected:
     bool autocalled_initialize() override { return true; }
-    RecDats rec_data; //TODO rec_data_ vagy timeline_
+    RecDats rec_data_;
   private:
-    SpMatrix rec_matrix; // TODO rename full_matrix_
+    SpMatrix full_matrix_;
     vector<int> items_;
     vector<int> users_;
 };
 
 struct LegacyRecommenderDataParameters{
-  string file_name;
-  string type;
-  int max_time;
+  string file_name = "";
+  string type = "online";
+  int max_time = 0;
 };
 class LegacyRecommenderData : public RecommenderData {
   public:
@@ -78,8 +78,8 @@ class LegacyRecommenderData : public RecommenderData {
       set_parameters(params);
     }
     void set_parameters(LegacyRecommenderDataParameters* params){
-      file_name = params->file_name;
-      type = params->type;
+      file_name_ = params->file_name;
+      type_ = params->type;
       max_time_ = params->max_time;
     }
     void read_from_file(string file_name, string type); //private?
@@ -93,14 +93,14 @@ class LegacyRecommenderData : public RecommenderData {
         parent_is_initialized_ = RecommenderData::autocalled_initialize();
         if (!parent_is_initialized_) return false;
       }
-      read_from_file(file_name, type);
+      read_from_file(file_name_, type_);
       return true;
     }
   private:
     bool parent_is_initialized_ = false;
-    int max_time_;
-    string file_name;
-    string type;
+    int max_time_ = 0;
+    string file_name_ = "";
+    string type_ = "online";
     InlineAttributeReader* attribute_container_;
 };
 

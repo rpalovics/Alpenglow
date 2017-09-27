@@ -46,7 +46,7 @@ TEST_F(TestShuffleIterator, size) {
     recData.push_back(createRecDat(2,3,10.0,1.0));
     recData.push_back(createRecDat(1,6,10.0,1.0));
     recData.push_back(createRecDat(2,8,10.0,1.0));
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     ShuffleIterator it(&rd, 123124);
     ASSERT_TRUE(it.initialize());
     EXPECT_EQ(3,it.size());
@@ -57,7 +57,7 @@ TEST_F(TestShuffleIterator, hasNext) {
     recData.push_back(createRecDat(2,3,10.1,1.0));
     recData.push_back(createRecDat(1,6,10.2,1.0));
     recData.push_back(createRecDat(2,8,10.3,1.0));
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     ShuffleIterator it(&rd, 1231212);
     ASSERT_TRUE(it.initialize());
     EXPECT_EQ(3,it.size());
@@ -75,7 +75,7 @@ TEST_F(TestShuffleIterator, noshuffle_it) {
     recData.push_back(createRecDat(2,3,10.1,1.0));
     recData.push_back(createRecDat(1,6,10.2,1.0));
     recData.push_back(createRecDat(2,8,10.3,1.0));
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     ShuffleIterator it(&rd, 1231212);
     ASSERT_TRUE(it.initialize());
     EXPECT_EQ(3,it.size());
@@ -102,7 +102,7 @@ TEST_F(TestShuffleIterator, shuffle_it) {
     recData.push_back(createRecDat(1,7,10.5,1.0));
     recData.push_back(createRecDat(2,8,10.5,1.0));
     recData.push_back(createRecDat(3,9,10.5,1.0));
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     ShuffleIterator it(&rd, 1239);
     ASSERT_TRUE(it.initialize());
     EXPECT_EQ(9,it.size());
@@ -156,7 +156,7 @@ TEST_F(TestShuffleIterator, noshuffle_get) {
     recData.push_back(createRecDat(2,3,10.1,1.0));
     recData.push_back(createRecDat(1,6,10.2,1.0));
     recData.push_back(createRecDat(2,8,10.3,1.0));
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     ShuffleIterator it(&rd, 12361887);
     ASSERT_TRUE(it.initialize());
     EXPECT_EQ(3,it.size());
@@ -179,7 +179,7 @@ TEST_F(TestShuffleIterator, reproducable) {
     recData.push_back(createRecDat(1,7,10.5,1.0));
     recData.push_back(createRecDat(2,8,10.5,1.0));
     recData.push_back(createRecDat(3,9,10.5,1.0));
-    rd.set_rec_dats(recData);
+    rd.set_rec_data(recData);
     ShuffleIterator it(&rd, 123124);
     ASSERT_TRUE(it.initialize());
     ShuffleIterator it2(&rd, 123124);
@@ -201,7 +201,7 @@ TEST_F(TestShuffleIterator, reproducable) {
 //    recData.push_back(createRecDat(2,3,10.0,1.0));
 //    recData.push_back(createRecDat(1,6,10.0,1.0));
 //    recData.push_back(createRecDat(2,8,10.0,1.0));
-//    rd.set_rec_dats(recData);
+//    rd.set_rec_data(recData);
 //    ShuffleIterator it(&rd, 1283761287);
 //    EXPECT_EQ(rd.matrix(),it.matrix());
 //}

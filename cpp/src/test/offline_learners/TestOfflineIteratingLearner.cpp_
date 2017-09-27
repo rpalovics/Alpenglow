@@ -66,7 +66,7 @@ class TestOfflineIteratingLearner : public ::testing::Test {
       rec_dats_[0].item=3;
       rec_dats_[1].item=4;
       rec_dats_[2].item=5;
-      recommender_data_.set_rec_dats(rec_dats_);
+      recommender_data_.set_rec_data(rec_dats_);
     }
     virtual void TearDown(){
     }

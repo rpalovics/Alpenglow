@@ -1,21 +1,21 @@
 #include "RecommenderData.h"
 //#include <cstdlib>
 
-SpMatrix* RecommenderData::matrix() {
-  if(rec_matrix.size()==0){
-    for (uint jj=0; jj<rec_data.size(); jj++) {
-      RecDat& rec_dat = rec_data[jj];
-      rec_matrix.update(rec_dat.user,rec_dat.item,rec_dat.score);
+SpMatrix* RecommenderData::get_full_matrix() {
+  if(full_matrix_.size()==0){
+    for (uint jj=0; jj<rec_data_.size(); jj++) {
+      RecDat& rec_dat = rec_data_[jj];
+      full_matrix_.update(rec_dat.user,rec_dat.item,rec_dat.score);
     }
   }
-  return &rec_matrix;
+  return &full_matrix_;
 }
 
-vector<int>* RecommenderData::items(){
+vector<int>* RecommenderData::get_all_items(){
   if(items_.size()==0){
     vector<int> item_map;
-    for(uint ii=0; ii<rec_data.size(); ii++){
-      int item = rec_data[ii].item;
+    for(uint ii=0; ii<rec_data_.size(); ii++){
+      int item = rec_data_[ii].item;
       if (!GET_VECTORMAP(item_map,item,false)){
         PUT_VECTORMAP(item_map,item,true);
         items_.push_back(item);
@@ -25,11 +25,11 @@ vector<int>* RecommenderData::items(){
   return &items_;
 }
 
-vector<int>* RecommenderData::users(){
+vector<int>* RecommenderData::get_all_users(){
   if(users_.size()==0){
     vector<int> user_map;
-    for(uint ii=0; ii<rec_data.size(); ii++){
-      int user = rec_data[ii].user;
+    for(uint ii=0; ii<rec_data_.size(); ii++){
+      int user = rec_data_[ii].user;
       if (!GET_VECTORMAP(user_map,user,false)){
         PUT_VECTORMAP(user_map,user,true);
         users_.push_back(user);
@@ -40,8 +40,8 @@ vector<int>* RecommenderData::users(){
 }
 
 void RecommenderData::clear(){
-  rec_data.clear();
-  rec_matrix.clear();
+  rec_data_.clear();
+  full_matrix_.clear();
   items_.clear();
   users_.clear();
 }
@@ -73,7 +73,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.score = score;
       //rec_dat.location.location_id = 0;
       rec_dat.eval=eval;
-      rec_data.push_back(rec_dat); 
+      rec_data_.push_back(rec_dat); 
     }
   }
   if (type == "online_id") {
@@ -87,7 +87,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.score = score;
       rec_dat.eval=eval;
       //rec_dat.location.location_id = 0;
-      rec_data.push_back(rec_dat); 
+      rec_data_.push_back(rec_dat); 
     }
   }
   if (type == "online_attribute") {
@@ -106,7 +106,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       if(ifs.eof()) break;
       string attribute_string;
       getline(ifs, attribute_string);
-      rec_data.push_back(rec_dat); 
+      rec_data_.push_back(rec_dat); 
       attribute_container_->read_attribute(id, attribute_string);
       id++;
     }
@@ -122,7 +122,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.eval=1;
       rec_dat.id = id;
       //rec_dat.location.location_id = 0;
-      rec_data.push_back(rec_dat);
+      rec_data_.push_back(rec_dat);
     }
   }
   else if (type == "offlineTimestamp") {
@@ -136,7 +136,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.eval=1;
       rec_dat.id = id;
       //rec_dat.location.location_id = 0;
-      rec_data.push_back(rec_dat);
+      rec_data_.push_back(rec_dat);
     }
   }
   //else if ( type  == "location") {
@@ -154,7 +154,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
   //    rec_dat.eval = eval;
   //    rec_dat.id = id;
   //    rec_dat.score = score;
-  //    rec_data.push_back(rec_dat);
+  //    rec_data_.push_back(rec_dat);
   //  }
   //}
   //else if ( type == "location_xyz") {
@@ -173,7 +173,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
   //    rec_dat.location.x = x;
   //    rec_dat.location.y = y;
   //    rec_dat.location.z = z;
-  //    rec_data.push_back(rec_dat);
+  //    rec_data_.push_back(rec_dat);
   //  }
   //}
   if (type == "category") {
@@ -189,9 +189,9 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.id = id;
       rec_dat.category = category;
       //rec_dat.location.location_id = 0;
-      rec_data.push_back(rec_dat); 
+      rec_data_.push_back(rec_dat); 
     }
   }
-  // cerr << "read OK, size: " << rec_data.size() << endl;
+  // cerr << "read OK, size: " << rec_data_.size() << endl;
 }
 
