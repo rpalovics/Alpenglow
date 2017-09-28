@@ -71,6 +71,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       //rec_dat.location.location_id = 0;
       rec_dat.eval=eval;
       rec_data_.push_back(rec_dat); 
+      id++;
     }
   }
   if (type == "online_id") {
@@ -120,6 +121,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.id = id;
       //rec_dat.location.location_id = 0;
       rec_data_.push_back(rec_dat);
+      id++;
     }
   }
   else if (type == "offlineTimestamp") {
@@ -134,6 +136,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.id = id;
       //rec_dat.location.location_id = 0;
       rec_data_.push_back(rec_dat);
+      id++;
     }
   }
   //else if ( type  == "location") {
@@ -187,6 +190,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       rec_dat.category = category;
       //rec_dat.location.location_id = 0;
       rec_data_.push_back(rec_dat); 
+      id++;
     }
   }
   // cerr << "read OK, size: " << rec_data_.size() << endl;

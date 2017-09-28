@@ -68,7 +68,7 @@ struct LegacyRecommenderDataParameters{
 };
 class LegacyRecommenderData : public RecommenderData {
   public:
-    LegacyRecommenderData(){max_time_=0;}
+    LegacyRecommenderData(){}
     LegacyRecommenderData(LegacyRecommenderDataParameters* params){
       set_parameters(params);
     }
