@@ -7,14 +7,9 @@ namespace {
 
 class TestShuffleIterator : public ::testing::Test  {
 public:
-  LegacyRecommenderData rd;
+  RecommenderData rd;
   TestShuffleIterator() {
-    LegacyRecommenderDataParameters params;
-    params.file_name = "";
-    params.type = "";
-    rd.set_parameters(&params);
     EXPECT_TRUE(rd.initialize());
-      
   }
   virtual ~TestShuffleIterator() {
     // You can do clean-up work that doesn't throw exceptions here.

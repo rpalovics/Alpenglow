@@ -1,5 +1,4 @@
 #include "RecommenderData.h"
-//#include <cstdlib>
 
 SpMatrix* RecommenderData::get_full_matrix() {
   if(full_matrix_.size()==0){
@@ -45,8 +44,6 @@ void RecommenderData::clear(){
   items_.clear();
   users_.clear();
 }
-
-//std::map<int, std::vector<std::vector<int> >*> track_attribute_map;
 
 void LegacyRecommenderData::read_from_file(string file_name, string type){
   ifstream ifs(file_name.c_str());

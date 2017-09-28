@@ -17,38 +17,48 @@ public:
     auto it = my_set.find(i);
     return (it!=my_set.end());
   }
+  RecDat create_rec_dat(double time, int user, int item, int id, int score, int eval){
+     RecDat rec_dat;
+     rec_dat.time = time;
+     rec_dat.user = user;
+     rec_dat.item = item;
+     rec_dat.id = id;
+     rec_dat.score = score;
+     rec_dat.eval = eval;
+     return rec_dat;
+  }
 };
 
 } //namespace
 
 TEST_F(TestCooccurrenceComputer, run) {
-  LegacyRecommenderData recommender_data;
-  stringstream ifs;
-  ifs << "100 1 1 0 1 1" << endl;
-  ifs << "100 1 2 0 1 1" << endl;
-  ifs << "100 1 3 0 1 1" << endl;
-  ifs << "100 1 4 0 1 1" << endl;
+  RecommenderData recommender_data;
+  vector<RecDat> rec_data;
+  rec_data.push_back(create_rec_dat(100,1,1,0,1,1));
+  rec_data.push_back(create_rec_dat(100,1,2,0,1,1));
+  rec_data.push_back(create_rec_dat(100,1,3,0,1,1));
+  rec_data.push_back(create_rec_dat(100,1,4,0,1,1));
 
-  ifs << "100 2 1 0 1 1" << endl;
-  ifs << "100 2 1 0 1 1" << endl;
-  ifs << "100 2 1 0 1 1" << endl;
-  ifs << "100 2 1 0 1 1" << endl;
-  
-  ifs << "100 3 5 0 1 1" << endl;
-  ifs << "100 3 8 0 1 1" << endl;
-  ifs << "100 3 8 0 1 1" << endl;
-  ifs << "100 3 5 0 1 1" << endl;
+  rec_data.push_back(create_rec_dat(100,2,1,0,1,1));
+  rec_data.push_back(create_rec_dat(100,2,1,0,1,1));
+  rec_data.push_back(create_rec_dat(100,2,1,0,1,1));
+  rec_data.push_back(create_rec_dat(100,2,1,0,1,1));
 
-  ifs << "100 4 1 0 1 1" << endl;
-  ifs << "100 4 3 0 1 1" << endl;
+  rec_data.push_back(create_rec_dat(100,3,5,0,1,1));
+  rec_data.push_back(create_rec_dat(100,3,8,0,1,1));
+  rec_data.push_back(create_rec_dat(100,3,8,0,1,1));
+  rec_data.push_back(create_rec_dat(100,3,5,0,1,1));
 
-  ifs << "100 5 1 0 1 1" << endl;
-  ifs << "100 5 3 0 1 1" << endl;
+  rec_data.push_back(create_rec_dat(100,4,1,0,1,1));
+  rec_data.push_back(create_rec_dat(100,4,3,0,1,1));
 
-  ifs << "100 6 1 0 1 1" << endl;
-  ifs << "100 6 3 0 1 1";
-  string type = "online_id";
-  recommender_data.read_from_file_core(ifs, type);
+  rec_data.push_back(create_rec_dat(100,5,1,0,1,1));
+  rec_data.push_back(create_rec_dat(100,5,3,0,1,1));
+
+  rec_data.push_back(create_rec_dat(100,6,1,0,1,1));
+  rec_data.push_back(create_rec_dat(100,6,3,0,1,1));
+  recommender_data.set_rec_data(rec_data);
+
   vector<set<ITEM>> users_items;
   vector<map<ITEM,WEIGHT>> edge_weights;
   stringstream ofs;

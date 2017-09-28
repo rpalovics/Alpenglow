@@ -23,7 +23,7 @@ class TestPrecisionRecallEvaluator : public ::testing::Test {
   public:
     DummyModel model_;
     DummyFilter filter_;
-    LegacyRecommenderData train_data_;
+    RecommenderData train_data_;
     PrecisionRecallEvaluatorParameters params_;
 
     TestPrecisionRecallEvaluator(){}
@@ -44,6 +44,7 @@ class TestPrecisionRecallEvaluator : public ::testing::Test {
       rec_dats[5].user=3;
       rec_dats[5].item=4;
       train_data_.set_rec_data(rec_dats);
+      train_data_.initialize();
 
       filter_.items_.push_back(make_pair(0,std::numeric_limits<double>::infinity()));
       filter_.items_.push_back(make_pair(1,std::numeric_limits<double>::infinity()));

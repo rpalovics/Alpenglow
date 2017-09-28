@@ -7,7 +7,7 @@ namespace {
 
 class TestSimpleIterator : public ::testing::Test  {
 public:
-  LegacyRecommenderData rd;
+  RecommenderData rd;
   TestSimpleIterator() {
   }
   virtual ~TestSimpleIterator() {

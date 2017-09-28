@@ -36,8 +36,6 @@ struct RecDat{
 };
 typedef vector <RecDat> RecDats;
 
-//typedef map <int,double> Recommendation;
-
 struct RecPred{
   double score;
   double prediction;
