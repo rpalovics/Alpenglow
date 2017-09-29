@@ -2,8 +2,8 @@ import alpenglow.Getter as rs
 import alpenglow as prs
 
 
-class FactorExperiment(prs.OnlineExperiment):
-    """FactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=0.0)
+class OldFactorExperiment(prs.OnlineExperiment):
+    """OldFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=0.0)
 
     This class implements an online version of the well-known matrix factorization recommendation model [Koren2009]_
     and trains it via stochastic gradient descent. The model is able to train on implicit data
@@ -28,14 +28,6 @@ class FactorExperiment(prs.OnlineExperiment):
         The number of negative samples generated after each update. Useful for implicit recommendation.
     """
     def _config(self, top_k, seed):
-        #config = self.parameter_defaults(
-        #    top_k=100,
-        #    min_time=0,
-        #    seed=0,
-        #    out_file=None,
-        #    filters=[],
-        #    loggers=[],
-        #)
 
         model = rs.FactorModel(**self.parameter_defaults(
             begin_min=-0.01,
@@ -50,11 +42,9 @@ class FactorExperiment(prs.OnlineExperiment):
         ))
         updater.set_model(model)
 
-        point_wise = rs.ObjectiveMSE()
-        gradient_computer = rs.GradientComputerPointWise()
-        gradient_computer.set_objective(point_wise)
-        gradient_computer.set_model(model)
-        gradient_computer.add_gradient_updater(updater)
+        learner = rs.ImplicitGradientLearner()
+        learner.add_gradient_updater(updater)
+        learner.set_model(model)
 
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=0.0,
@@ -62,7 +52,12 @@ class FactorExperiment(prs.OnlineExperiment):
             seed=67439852,
             filter_repeats=False,
         ))
-        negative_sample_generator.add_updater(gradient_computer)
+        learner.set_negative_sample_generator(negative_sample_generator)
 
+        point_wise = rs.ObjectiveMSE()
+        gradient_computer = rs.GradientComputerPointWise()
+        gradient_computer.set_objective(point_wise)
+        gradient_computer.set_model(model)
+        learner.set_gradient_computer(gradient_computer)
 
-        return (model, [negative_sample_generator], [], [])
+        return (model, learner, [], [])
