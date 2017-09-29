@@ -64,7 +64,37 @@ TEST_F(TestOfflineIteratingOnlineLearnerWrapper, test){
   EXPECT_EQ(grad_messages,grad_upd2_.messages_);
   EXPECT_EQ(3,upd1_.counter_);
   EXPECT_EQ(simple_messages,upd1_.messages_);
-  EXPECT_EQ(3,upd2_.counter_); //TODO test messages
+  EXPECT_EQ(3,upd2_.counter_);
+  EXPECT_EQ(simple_messages,upd2_.messages_);
+}
+
+TEST_F(TestOfflineIteratingOnlineLearnerWrapper, compatibility_mode){
+  params_.number_of_iterations=4;
+  params_.seed=123456789;
+  params_.shuffle=true;
+  OfflineIteratingOnlineLearnerWrapper learner(&params_);
+  learner.add_early_updater(&early_upd1_);
+  learner.add_early_updater(&early_upd2_);
+  learner.add_iterate_updater(&grad_upd1_);
+  learner.add_iterate_updater(&grad_upd2_);
+  EXPECT_TRUE(learner.self_test());
+  learner.add_updater(&upd1_);
+  learner.add_updater(&upd2_);
+  learner.set_recommender_data(&recommender_data_);
+  learner.iterate();
+  vector<int> simple_messages = {1,1,0,0,0,0};
+  vector<int> grad_messages = {0,0,1,1,0,0};
+  EXPECT_EQ(3,early_upd1_.counter_);
+  EXPECT_EQ(simple_messages,early_upd1_.messages_);
+  EXPECT_EQ(3,early_upd2_.counter_);
+  EXPECT_EQ(simple_messages,early_upd2_.messages_);
+  EXPECT_EQ(12,grad_upd1_.counter_);
+  EXPECT_EQ(grad_messages,grad_upd1_.messages_);
+  EXPECT_EQ(12,grad_upd2_.counter_);
+  EXPECT_EQ(grad_messages,grad_upd2_.messages_);
+  EXPECT_EQ(3,upd1_.counter_);
+  EXPECT_EQ(simple_messages,upd1_.messages_);
+  EXPECT_EQ(3,upd2_.counter_);
   EXPECT_EQ(simple_messages,upd2_.messages_);
 }
 
