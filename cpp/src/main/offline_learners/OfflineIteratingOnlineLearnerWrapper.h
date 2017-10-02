@@ -5,7 +5,6 @@
 #include "../utils/Random.h"
 #include "../general_interfaces/Updater.h"
 #include "../recommender_data/RandomIterator.h"
-#include "../models/Model.h"
 
 struct OfflineIteratingOnlineLearnerWrapperParameters {
   int number_of_iterations=10;
