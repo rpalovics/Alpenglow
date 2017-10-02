@@ -1,4 +1,12 @@
 #include "AsymmetricFactorModelGradientUpdater.h"
+void AsymmetricFactorModelGradientUpdater::message(UpdaterMessage message){
+  if(message==UpdaterMessage::start_of_implicit_update_cycle){
+    beginning_of_updating_cycle(NULL);
+  }
+  if(message==UpdaterMessage::end_of_implicit_update_cycle){
+    end_of_updating_cycle(NULL);
+  }
+}
 void AsymmetricFactorModelGradientUpdater::beginning_of_updating_cycle(RecDat* rec_dat){
   if(cumulative_item_updates_){
     Util::zero_out_vector(&cumulated_histvector_updates_);

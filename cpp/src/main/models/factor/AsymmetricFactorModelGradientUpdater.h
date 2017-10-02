@@ -26,8 +26,9 @@ class AsymmetricFactorModelGradientUpdater : public ModelGradientUpdater{
     { }
     ~AsymmetricFactorModelGradientUpdater(){};
     void update(RecDat* rec_dat, double gradient) override;
-    void beginning_of_updating_cycle(RecDat*) override;
-    void end_of_updating_cycle(RecDat*) override;
+    void message(UpdaterMessage message) override;
+    void beginning_of_updating_cycle(RecDat*) override; //TODO private
+    void end_of_updating_cycle(RecDat*) override; //TODO private
     void set_model(AsymmetricFactorModel* model){
       model_ = model;
       cumulated_histvector_updates_.resize(model_->dimension_,0);
@@ -49,8 +50,6 @@ class AsymmetricFactorModelGradientUpdater : public ModelGradientUpdater{
 
     //state
     vector<double> cumulated_histvector_updates_;
-    //double avg_mse_; //DEBUG
-    //int n_of_s_; //DEBUG
 };
 
 #endif
