@@ -2,12 +2,13 @@
 
 void OfflineIteratingOnlineLearnerWrapper::fit(RecommenderData* recommender_data) {
   RandomIterator random_iterator(recommender_data, seed_); //TODO is it ok to use the same seed?
-  if(early_updaters_.size()>0){
+  if(early_updaters_.size()>0 or model_!=NULL){
     for(uint ui = 0; ui<early_updaters_.size(); ui++){
       early_updaters_[ui]->message(UpdaterMessage::start_of_offline_update);
     }
     while ( random_iterator.has_next() ) {
       RecDat *rec_dat = random_iterator.next();
+      if(model_!=NULL) model_->add(rec_dat); //TODO remove
       for(uint ui = 0; ui<early_updaters_.size(); ui++){
         early_updaters_[ui]->update(rec_dat);
       }
@@ -22,7 +23,7 @@ void OfflineIteratingOnlineLearnerWrapper::fit(RecommenderData* recommender_data
     }
     int counter = number_of_iterations_+1;
     while (--counter) {
-      // cerr << "Beginning of " << number_of_iterations_+1-counter << "th iteration." << endl;
+      //cerr << "Beginning of " << number_of_iterations_+1-counter << "th iteration." << endl;
       if (shuffle_) random_iterator.shuffle();
       else random_iterator.restart();
       while ( random_iterator.has_next() ) {
@@ -31,7 +32,7 @@ void OfflineIteratingOnlineLearnerWrapper::fit(RecommenderData* recommender_data
           iterate_updaters_[ui]->update(rec_dat);
         }
       }
-      // cerr << "End of " << number_of_iterations_+1-counter << "th iteration." << endl;
+      //cerr << "End of " << number_of_iterations_+1-counter << "th iteration." << endl;
     }
     for(uint ui = 0; ui<iterate_updaters_.size(); ui++) {
       iterate_updaters_[ui]->message(UpdaterMessage::end_of_offline_iterations);

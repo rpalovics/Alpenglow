@@ -19,5 +19,6 @@ class OfflineIteratingOnlineLearnerWrapper : public OfflineLearner {
   void add_early_updater(Updater* model_updater);
   void add_updater(Updater* model_updater);
   void add_iterate_updater(Updater* model_updater);
+  void set_model(Model* model); //TODO remove
   bool self_test();
 };

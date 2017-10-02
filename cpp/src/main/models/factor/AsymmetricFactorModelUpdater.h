@@ -8,6 +8,7 @@ class AsymmetricFactorModelUpdater : public ModelSimpleUpdater{
   public:
     AsymmetricFactorModelUpdater(){ model_=NULL;}
     void update(RecDat* rec_dat) override {
+      model_->add(rec_dat);
       model_->user_history_container_.update(rec_dat);
       model_->invalidate_user_factor_=true;
     }

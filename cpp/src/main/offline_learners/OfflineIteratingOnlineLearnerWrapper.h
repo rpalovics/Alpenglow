@@ -5,6 +5,7 @@
 #include "../utils/Random.h"
 #include "../general_interfaces/Updater.h"
 #include "../recommender_data/RandomIterator.h"
+#include "../models/Model.h" //TODO remove
 
 struct OfflineIteratingOnlineLearnerWrapperParameters {
   int number_of_iterations=10;
@@ -35,6 +36,9 @@ class OfflineIteratingOnlineLearnerWrapper : public OfflineLearner {
   void set_recommender_data(RecommenderData* recommender_data){ //deprecated, use fit()
     recommender_data_ = recommender_data;
   }
+  void set_model(Model* model){ //TODO remove
+    model_ = model;
+  }
   bool self_test(){
     bool OK = OfflineLearner::self_test();
     if(seed_==-1 and shuffle_){ OK = false; cerr << "OfflineIteratingOnlineLearnerWrapper::seed is not set but shuffle is set." << endl; }
@@ -50,6 +54,7 @@ class OfflineIteratingOnlineLearnerWrapper : public OfflineLearner {
   int seed_;
   bool shuffle_;
   RecommenderData* recommender_data_; //deprecated
+  Model* model_ = NULL; //TODO remove
 };
 
 #endif

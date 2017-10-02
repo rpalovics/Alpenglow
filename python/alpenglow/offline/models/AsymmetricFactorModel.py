@@ -30,7 +30,7 @@ class AsymmetricFactorModel(alpenglow.offline.OfflineModel):
             begin_max=self.parameter_default("begin_max", 0.01),
             dimension=self.parameter_default("dimension", 10),
             use_sigmoid=False,
-            norm_type="disabled",
+            norm_type="constant",
             gamma=1
         )
 
@@ -42,26 +42,27 @@ class AsymmetricFactorModel(alpenglow.offline.OfflineModel):
         simple_updater = rs.AsymmetricFactorModelUpdater()
         simple_updater.set_model(model)
 
+        point_wise = rs.ObjectiveMSE()
+        gradient_computer = rs.GradientComputerPointWise()
+        gradient_computer.set_objective(point_wise)
+        gradient_computer.set_model(model)
+        gradient_computer.add_gradient_updater(updater)
+
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=0
         ))
         negative_sample_generator.set_train_matrix(matrix)
         negative_sample_generator.set_items(items)
+        negative_sample_generator.add_updater(gradient_computer)
 
-        point_wise = rs.ObjectiveMSE()
-        gradient_computer = rs.GradientComputerPointWise()
-        gradient_computer.set_objective(point_wise)
-        gradient_computer.set_model(model)
 
-        learner = rs.OfflineIteratingImplicitLearner(**self.parameter_defaults(
+        learner = rs.OfflineIteratingOnlineLearnerWrapper(**self.parameter_defaults(
             seed=254938879,
             number_of_iterations=9,
+            shuffle=True,
         ))
-        learner.set_gradient_computer(gradient_computer)
-        learner.set_negative_sample_generator(negative_sample_generator)
-        learner.set_model(model)
         learner.set_recommender_data(recommender_data)
-        learner.add_gradient_updater(updater)
-        learner.add_early_simple_updater(simple_updater)
+        learner.add_early_updater(simple_updater)
+        learner.add_iterate_updater(negative_sample_generator)
 
         return (model, learner)
