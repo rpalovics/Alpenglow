@@ -6,10 +6,10 @@ bool OfflineIteratingLearner::autocalled_initialize() {
     RecDat *rec_dat = random_iterator_->next();
     model_->add(rec_dat);
   }
+  return true;
 }
 
 void OfflineIteratingLearner::iterate() {
-  initialize();
   if(early_simple_updaters_.size()>0){
     random_iterator_->restart();
     for(uint ui = 0; ui<early_simple_updaters_.size(); ui++){
