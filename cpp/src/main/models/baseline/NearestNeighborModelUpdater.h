@@ -4,6 +4,7 @@
 #include <iostream>
 #include "../../recommender_data/macros.h"
 #include "../ModelUpdater.h"
+#include "../../general_interfaces/Updater.h"
 #include "NearestNeighborModel.h"
 
 struct NearestNeighborModelUpdaterParameters {
@@ -24,6 +25,7 @@ public:
     last_similarity_recompute_period_ = 0;
   }
   void update(RecDat* rec_dat) override;
+  void message(UpdaterMessage message) override;
   void end_of_updating(RecDat*) override; //offline hasznalathoz
   void set_model(NearestNeighborModel* model){ model_ = model; }
   bool self_test(){

@@ -1,5 +1,9 @@
 #include "NearestNeighborModelUpdater.h"
 
+void NearestNeighborModelUpdater::message(UpdaterMessage message){
+  if (message == UpdaterMessage::end_of_offline_update) end_of_updating(NULL);
+}
+
 void NearestNeighborModelUpdater::update(RecDat* rec_dat){
   model_->active_user_=-1;
   model_-> user_histories_.update(rec_dat);
