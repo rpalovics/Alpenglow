@@ -343,13 +343,13 @@ offline_learners
 ----------------
 
 
-.. autoclass:: alpenglow.cpp.OfflineIteratingImplicitLearnerParameters
+.. autoclass:: alpenglow.cpp.OfflineIteratingOnlineLearnerWrapperParameters
     :members:
     :undoc-members:
     :show-inheritance:
 
 
-.. autoclass:: alpenglow.cpp.OfflineIteratingImplicitLearner
+.. autoclass:: alpenglow.cpp.OfflineIteratingOnlineLearnerWrapper
     :members:
     :undoc-members:
     :show-inheritance:
