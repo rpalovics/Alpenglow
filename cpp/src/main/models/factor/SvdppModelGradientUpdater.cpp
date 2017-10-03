@@ -1,26 +1,13 @@
 #include "SvdppModelGradientUpdater.h"
 
-
-//void SvdppModelGradientUpdater::update(vector<RecDat>* sample) {
-  //int user = sample->at(0).user;
-  //vector<double> diff(model_->dimension_);
-  //for (uint i=0; i<sample->size(); i++){
-  //  RecDat *rec_dat = &(sample->at(i));
-  //  double coeff = rec_dat->score-model_->prediction(rec_dat);
-  //  Util::sum_update_with(&diff, model_->item_factors_->get(rec_dat->item), coeff);
-  //  model_->item_factors_->add(rec_dat->item,model_->user_factors_->get(user),coeff*learning_rate_);	
-  //}
-  //Util::multiply_vector(learning_rate_,&diff);
-  //model_->user_factors_->add(user,&diff);
-  //
-  //if (model_->user_history_.size()<=user or model_->user_history_[user]==NULL) return;
-  //int user_history_length = model_->user_history_[user]->size();	
-  //double weight=model_->norm_cache_;
-  //for (uint i = 0; i < user_history_length; i++) {
-  //  model_->history_factors_->add(model_->user_history_[user]->at(user_history_length-1-i),&diff,weight);
-  //  weight *= model_->history_weight_;
-  //}
-//}
+void SvdppModelGradientUpdater::message(UpdaterMessage message){
+  if(message==UpdaterMessage::start_of_implicit_update_cycle){
+    beginning_of_updating_cycle(NULL);
+  }
+  if(message==UpdaterMessage::end_of_implicit_update_cycle){
+    end_of_updating_cycle(NULL);
+  }
+}
 
 void SvdppModelGradientUpdater::beginning_of_updating_cycle(RecDat* rec_dat){
   if(cumulative_item_updates_){
@@ -43,13 +30,10 @@ void SvdppModelGradientUpdater::update(RecDat* rec_dat, double gradient){
   update_item_factors(rec_dat,gradient);
 }
 void SvdppModelGradientUpdater::end_of_updating_cycle(RecDat* rec_dat){
-  //cerr << "train avg " << *rec_dat << " " << " mse=" << avg_mse_/n_of_s_ << endl; //DEBUG
   if(cumulative_item_updates_){
     update_history_item_factors(rec_dat,1,&cumulated_histvector_updates_);
     model_->invalidate_user_factor_ = true;
   }
-  //double prediction = model_->prediction(rec_dat); //DEBUG
-  //cerr << "after train " << *rec_dat << " " << " mse=" << (1-prediction)*(1-prediction) << endl; //DEBUG
 }
 
 void SvdppModelGradientUpdater::update_item_factors(RecDat* rec_dat, double gradient){

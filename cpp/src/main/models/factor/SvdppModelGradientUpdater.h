@@ -13,7 +13,6 @@ struct SvdppModelGradientUpdaterParameters{
 };
 
 class SvdppModelGradientUpdater : public ModelGradientUpdater {
-//class SvdppModelGradientUpdater : public ModelMultiUpdater {
   public:
     SvdppModelGradientUpdater(SvdppModelGradientUpdaterParameters *parameters){
       learning_rate_ = parameters->learning_rate;
@@ -24,6 +23,7 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
       model_ = model;
       cumulated_histvector_updates_.resize(model_->dimension_,0);
     }
+    void message(UpdaterMessage message) override;
     void update(RecDat* rec_dat, double gradient) override;
     void beginning_of_updating_cycle(RecDat*) override;
     void end_of_updating_cycle(RecDat*) override;
@@ -33,7 +33,6 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
       if(learning_rate_<0){ ok=false; cerr << "SvdppModelGradientUpdater::learning_rate is not set." << endl; }
       return ok;
     }
-    //void update(vector<RecDat>* samples);
   private:
     void update_history_item_factors(RecDat* rec_dat, double gradient, vector<double>* item_vector);
     void update_item_factors(RecDat* rec_dat, double gradient);
