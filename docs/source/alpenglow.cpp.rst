@@ -342,17 +342,6 @@ general_interfaces
 offline_learners
 ----------------
 
-.. autoclass:: alpenglow.cpp.OfflineIteratingLearnerParameters
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.OfflineIteratingLearner
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 .. autoclass:: alpenglow.cpp.OfflineIteratingImplicitLearnerParameters
     :members:

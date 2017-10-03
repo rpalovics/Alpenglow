@@ -77,6 +77,5 @@
 %Include src/offline_evaluators/PrecisionRecallEvaluator.sip
 %Include src/offline_learners/OfflineLearner.sip
 %Include src/offline_learners/OfflineIteratingImplicitLearner.sip
-%Include src/offline_learners/OfflineIteratingLearner.sip
 %Include src/offline_learners/OfflineIteratingOnlineLearnerWrapper.sip
 %Include src/offline_evaluators/OfflineRankingComputer.sip
