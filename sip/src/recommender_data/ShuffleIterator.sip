@@ -15,6 +15,7 @@ class ShuffleIterator : public RecommenderDataIterator {
     ShuffleIterator(ShuffleIteratorParameters* params);
     RecDat* next();
     RecDat* get(int index) const;
+    RecDat* get_actual();
     RecDat* get_future(int index) const;
     double get_following_timestamp() const;
   protected:
