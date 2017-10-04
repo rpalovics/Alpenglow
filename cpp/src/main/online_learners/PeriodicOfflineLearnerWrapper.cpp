@@ -11,7 +11,8 @@ void PeriodicOfflineLearnerWrapper::update(RecDat* rec_dat){
 }
 void PeriodicOfflineLearnerWrapper::update_model(RecDat* rec_dat){
   if(learn_ and offline_learners_.size()!=0){
-    RecommenderData* recommender_data = generate_recommender_data(rec_dat);
+    RecommenderData* recommender_data =
+         data_generator_->generate_recommender_data(rec_dat);
     for(offline_learner:offline_learners_){
       offline_learner->fit(recommender_data);
     }

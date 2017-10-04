@@ -4,6 +4,7 @@
 #include "../general_interfaces/Updater.h"
 #include "../offline_learners/OfflineLearner.h"
 #include "../utils/PeriodComputer.h"
+#include "../utils/DataGenerator.h"
 #include "../models/Model.h"
 
 struct PeriodicOfflineLearnerWrapperParameters{
@@ -22,6 +23,7 @@ class PeriodicOfflineLearnerWrapper : public Updater {
       base_in_file_name_ = params->base_in_file_name;
       write_model_ = params->write_model;
       base_out_file_name_ = params->base_out_file_name;
+      clear_model_ = params->clear_model;
       learn_ = params->learn;
     }
     void add_offline_learner(OfflineLearner* offline_learner){
@@ -33,16 +35,21 @@ class PeriodicOfflineLearnerWrapper : public Updater {
     void set_period_computer(PeriodComputer* period_computer){
       period_computer_ = period_computer;
     }
+    void set_data_generator(DataGenerator* data_generator){
+      data_generator_ = data_generator;
+    }
     void update(RecDat* rec_dat) override;
     bool self_test(){
       bool ok = Updater::self_test();
       if(period_computer_==NULL){ ok = false; cerr << "PeriodicOfflineLearnerWrapper::period_computer is not set." << endl; }
       if(model_==NULL and (read_model_ or write_model_ or clear_model_)){ ok = false; }
+      if(learn_ and offline_learners_.size()!=0 and data_generator_ ==NULL){ ok = false; }
       return ok;
     }
   private:
     //components
     PeriodComputer* period_computer_ = NULL;
+    DataGenerator* data_generator_ = NULL;
     vector<OfflineLearner*> offline_learners_;
     Model* model_ = NULL;
     //parameters
@@ -57,7 +64,6 @@ class PeriodicOfflineLearnerWrapper : public Updater {
     void clear_model(RecDat*);
     void write_model(RecDat*);
     void update_model(RecDat*);
-    virtual RecommenderData* generate_recommender_data(RecDat* rec_dat){ return NULL; } //TODO should be a component to set?
 };
 
 #endif
