@@ -15,6 +15,7 @@ public:
   virtual bool has_next() const { return counter_ < recommender_data_->size(); } //iterator
   virtual RecDat* next() = 0; //iterator
   virtual int get_counter() const { return counter_-1; } //get the index of actual sample
+  virtual RecDat* get_actual() = 0; //get actual sample
   virtual RecDat* get(int index) const = 0; //index'th sample from recommender_data
   virtual RecDat* get_future(int index) const = 0; //index'th sample from recommender_data, getting sample from future is allowed
   virtual int size() const { return recommender_data_->size(); } //number of samples

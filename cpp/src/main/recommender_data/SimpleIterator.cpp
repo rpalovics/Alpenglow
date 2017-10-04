@@ -8,6 +8,9 @@
 RecDat* SimpleIterator::next() {
   return recommender_data_->get(counter_++);
 }
+RecDat* SimpleIterator::get_actual(){
+  return recommender_data_->get(counter_-1);
+}
 
 RecDat* SimpleIterator::get(int index) const {
   if(index>=counter_) throw exception();

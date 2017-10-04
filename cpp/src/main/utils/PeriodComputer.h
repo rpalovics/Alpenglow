@@ -10,7 +10,7 @@
 using namespace std;
 
 struct PeriodComputerParameters{
-  string mode = "time"; //"samplenum": we treat sample counter as time
+  string period_mode = "time"; //"samplenum": we treat sample counter as time
   int period_length = 86400;
   int start_time = -1; //if time<start_time, end_of_period will be false
 };
@@ -20,7 +20,7 @@ class PeriodComputer : public Updater, public INeedExperimentEnvironment, public
     PeriodComputer(PeriodComputerParameters* params){ set_parameters(params); }
     PeriodComputer(){}
     void set_parameters(PeriodComputerParameters* params){
-      mode_ = params->mode;
+      period_mode_ = params->period_mode;
       period_length_ = params->period_length;
       start_time_ = params->start_time;
     }
@@ -32,16 +32,16 @@ class PeriodComputer : public Updater, public INeedExperimentEnvironment, public
     bool self_test(){
       bool ok = Updater::self_test();
       if (recommender_data_iterator_==NULL) ok=false;
-      if (mode_ != "time" and mode_ != "samplenum") ok=false;
+      if (period_mode_ != "time" and period_mode_ != "samplenum") ok=false;
       return ok;
     }
   protected:
     bool autocalled_initialize() override {
       if(recommender_data_iterator_==NULL) recommender_data_iterator_ = experiment_environment_->get_recommender_data_iterator();
-      if(mode_=="time"){
+      if(period_mode_=="time"){
         if(!recommender_data_iterator_->is_initialized()) return false;
         timestamp_ = recommender_data_iterator_->get_following_timestamp();
-        next_period_num_ = timestamp_/period_length_;
+        period_num_ = timestamp_/period_length_;
       }
       return true;
     }
@@ -49,12 +49,12 @@ class PeriodComputer : public Updater, public INeedExperimentEnvironment, public
     ExperimentEnvironment* experiment_environment_ = NULL;
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
     //state
-    int next_period_num_ = 0;
+    bool end_of_period_ = false;
     int period_num_ = 0; 
     double timestamp_ = 0;
-    bool reached_end_ = false;
+    bool reached_end_already_ = false;
     //parameters TODO const...
-    string mode_ = "time";
+    string period_mode_ = "time";
     int period_length_ = 86400;
     int start_time_ = -1;
 };

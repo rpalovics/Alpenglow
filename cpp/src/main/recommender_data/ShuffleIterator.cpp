@@ -10,6 +10,10 @@ RecDat* ShuffleIterator::next() {
   return shuffled_data_[counter_++];
 }
 
+RecDat* ShuffleIterator::get_actual(){
+  return shuffled_data_[counter_-1];
+}
+
 RecDat* ShuffleIterator::get(int index) const {
   if(index>=counter_) throw exception();
   return shuffled_data_[index];

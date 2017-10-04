@@ -36,7 +36,7 @@ public:
 
 
 TEST_F(TestPeriodComputer, environment_samplenum) {
-  params.mode = "samplenum";
+  params.period_mode = "samplenum";
   params.period_length = 5;
   params.start_time = 8;
   period_computer.set_parameters(&params);
@@ -84,7 +84,7 @@ TEST_F(TestPeriodComputer, environment_samplenum) {
 }
 
 TEST_F(TestPeriodComputer, environment_time) {
-  params.mode = "time";
+  params.period_mode = "time";
   params.period_length = 5;
   params.start_time = 8;
   period_computer.set_parameters(&params);

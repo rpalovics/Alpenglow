@@ -30,6 +30,7 @@ class ShuffleIterator : public RecommenderDataIterator {
     RecDat* get(int index) const override;
     RecDat* get_future(int index) const override;
     double get_following_timestamp() const override;
+    RecDat* get_actual() override;
   private:
     FRIEND_TEST(TestRecommenderDataIterator, iterator);
     vector<RecDat*> shuffled_data_;

@@ -18,6 +18,7 @@ class SimpleIterator : public RecommenderDataIterator {
     }
     RecDat* next() override;
     RecDat* get(int index) const override;
+    RecDat* get_actual() override;
     RecDat* get_future(int index) const override;
     double get_following_timestamp() const override;
 };
