@@ -6,11 +6,14 @@
 #include "../general_interfaces/Initializable.h"
 
 struct TimeframeDataGeneratorParameters {
+  int time_frame_length = 86400;
 };
-class TimeframeDataGenerator : public DataGenerator{
+class TimeframeDataGenerator : public DataGenerator, public INeedExperimentEnvironment, public Initializable {
   public:
+    TimeframeDataGenerator(TimeframeDataGeneratorParameters* params){
+    }
     RecommenderData* generate_recommender_data(RecDat*) override;
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment){
+    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
       experiment_environment_ = experiment_environment;
     }
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
@@ -22,7 +25,7 @@ class TimeframeDataGenerator : public DataGenerator{
       return ok;
     }
   protected:
-    bool autocalled_initialize(){
+    bool autocalled_initialize() override {
       if(recommender_data_iterator_==NULL){ recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator(); }
       return true;
     }
