@@ -6,36 +6,44 @@
 #include "../utils/PeriodComputer.h"
 
 struct PeriodicOfflineLearnerWrapperParameters{
-  int period_length; //time or samplenum
-  string mode; //time or samplenum
-  int start_time;
-  bool read_model;
-  string base_in_file_name;
-  bool write_model;
-  string base_out_file_name;
-  bool clear_model;
+  bool read_model = false;
+  string base_in_file_name = "";
+  bool write_model = false;
+  string base_out_file_name = "";
+  bool clear_model = false;
 };
 
-class PeriodicOfflineLearnerWrapper : public Updater , public INeedExperimentEnvironment, public Initializable{
+class PeriodicOfflineLearnerWrapper : public Updater {
   public:
     PeriodicOfflineLearnerWrapper(PeriodicOfflineLearnerWrapperParameters* params){
+      read_model_ = params->read_model;
+      base_in_file_name_ = params->base_in_file_name;
+      write_model_ = params->write_model;
+      base_out_file_name_ = params->base_out_file_name;
     }
-    void set_offline_learner(OfflineLearner* offline_learner){
-      offline_learner_ = offline_learner;
+    void add_offline_learner(OfflineLearner* offline_learner){
+      offline_learners_.push_back(offline_learner);
     }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; } //TODO period_computer_
-    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){ recommender_data_iterator_ = recommender_data_iterator; } //TODO period_computer_
+    void set_period_computer(PeriodComputer* period_computer){
+      period_computer_ = period_computer;
+    }
     void update(RecDat* rec_dat) override;
     bool self_test(){
       bool ok = Updater::self_test();
-      if(offline_learner_==NULL){ ok = false; cerr << "PeriodicOfflineLearnerWrapper::offline_learner is not set." << endl; }
+      if(period_computer_==NULL){ ok = false; cerr << "PeriodicOfflineLearnerWrapper::period_computer is not set." << endl; }
       return ok;
     }
   private:
-    ExperimentEnvironment* experiment_environment_ = NULL;
-    RecommenderDataIterator* recommender_data_iterator_ = NULL;
-    PeriodComputer period_computer_;
-    OfflineLearner* offline_learner_ = NULL;
+    //components
+    PeriodComputer* period_computer_ = NULL;
+    vector<OfflineLearner*> offline_learners_;
+    //parameters
+    bool read_model_ = false;
+    string base_in_file_name_ = "";
+    bool write_model_ = false;
+    string base_out_file_name_ = "";
+    bool clear_model_ = false;
+    //other
     void read_model(RecDat*);
     void clear_model(RecDat*);
     void write_model(RecDat*);

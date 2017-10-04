@@ -9,3 +9,7 @@ void PeriodicOfflineLearnerWrapper::update(RecDat* rec_dat){
   //}
   //period_computer_.update(rec_dat);
 }
+void PeriodicOfflineLearnerWrapper::read_model(RecDat*){}
+void PeriodicOfflineLearnerWrapper::clear_model(RecDat*){}
+void PeriodicOfflineLearnerWrapper::write_model(RecDat*){}
+void PeriodicOfflineLearnerWrapper::update_model(RecDat*){}
