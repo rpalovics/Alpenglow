@@ -4,7 +4,7 @@
 #include "../general_interfaces/Updater.h"
 #include "../offline_learners/OfflineLearner.h"
 #include "../utils/PeriodComputer.h"
-#include "../utils/DataGenerator.h"
+#include "../data_generators/DataGenerator.h"
 #include "../models/Model.h"
 
 struct PeriodicOfflineLearnerWrapperParameters{
