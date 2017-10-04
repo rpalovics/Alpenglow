@@ -25,5 +25,5 @@ void PeriodComputer::update(RecDat* rec_dat){
   }
 }
 int PeriodComputer::get_period_num() const {
-  return period_num_;
+  return period_num_+1;
 }

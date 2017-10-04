@@ -47,21 +47,11 @@ TEST_F(TestPeriodComputer, environment_samplenum) {
   for(int i=0;i<4;i++){
     period_computer.update(recommender_data_iterator.next());
     EXPECT_FALSE(period_computer.end_of_period());
-    EXPECT_EQ(0,period_computer.get_period_num());
+    EXPECT_EQ(1,period_computer.get_period_num());
   }
 
   period_computer.update(recommender_data_iterator.next()); //4
   EXPECT_FALSE(period_computer.end_of_period()); //time<start_time
-  EXPECT_EQ(0,period_computer.get_period_num());
-
-  for(int i=0;i<4;i++){
-    period_computer.update(recommender_data_iterator.next());
-    EXPECT_FALSE(period_computer.end_of_period());
-    EXPECT_EQ(1,period_computer.get_period_num());
-  }
-
-  period_computer.update(recommender_data_iterator.next()); //9
-  EXPECT_TRUE(period_computer.end_of_period());
   EXPECT_EQ(1,period_computer.get_period_num());
 
   for(int i=0;i<4;i++){
@@ -70,9 +60,19 @@ TEST_F(TestPeriodComputer, environment_samplenum) {
     EXPECT_EQ(2,period_computer.get_period_num());
   }
 
-  period_computer.update(recommender_data_iterator.next()); //14
+  period_computer.update(recommender_data_iterator.next()); //9
   EXPECT_TRUE(period_computer.end_of_period());
   EXPECT_EQ(2,period_computer.get_period_num());
+
+  for(int i=0;i<4;i++){
+    period_computer.update(recommender_data_iterator.next());
+    EXPECT_FALSE(period_computer.end_of_period());
+    EXPECT_EQ(3,period_computer.get_period_num());
+  }
+
+  period_computer.update(recommender_data_iterator.next()); //14
+  EXPECT_TRUE(period_computer.end_of_period());
+  EXPECT_EQ(3,period_computer.get_period_num());
   
   while(recommender_data_iterator.has_next()){
     period_computer.update(recommender_data_iterator.next());
@@ -98,7 +98,7 @@ TEST_F(TestPeriodComputer, environment_time) {
     int period_num = actual->time/params.period_length;
     int next_period_num = following_timestamp/params.period_length;
     EXPECT_FALSE(period_computer.end_of_period()^(period_num!=next_period_num and following_timestamp > params.start_time) and recommender_data_iterator.has_next());
-    EXPECT_EQ(period_num,period_computer.get_period_num());
+    EXPECT_EQ(period_num+1,period_computer.get_period_num());
   }
   EXPECT_TRUE(period_computer.end_of_period());
   RecDat rec_dat;
