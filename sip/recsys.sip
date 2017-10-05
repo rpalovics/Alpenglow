@@ -51,6 +51,9 @@
 %Include src/negative_sample_generators/NegativeSampleGenerator.sip
 %Include src/negative_sample_generators/UniformNegativeSampleGenerator.sip
 %Include src/data_generators/DataGenerator.sip
+%Include src/data_generators/CompletePastDataGenerator.sip
+%Include src/data_generators/SamplingDataGenerator.sip
+%Include src/data_generators/TimeframeDataGenerator.sip
 %Include src/loggers/Logger.sip
 %Include src/loggers/ProceedingLogger.sip
 %Include src/loggers/InterruptLogger.sip
