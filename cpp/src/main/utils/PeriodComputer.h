@@ -1,5 +1,5 @@
 #ifndef PERIOD_COMPUTER
-#define PREIOD_COMPUTER
+#define PERIOD_COMPUTER
 
 #include <string>
 #include "../recommender_data/RecommenderData.h"

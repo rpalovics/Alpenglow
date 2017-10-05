@@ -41,6 +41,7 @@
 %Include src/online_learners/LearnerPeriodicDelayedWrapper.sip
 %Include src/online_learners/PeriodicSamplingLearner.sip
 %Include src/online_learners/PeriodicTimeframeImplicitGradientLearner.sip
+%Include src/online_learners/PeriodicOfflineLearnerWrapper.sip
 %Include src/general_interfaces/Initializable.sip
 %Include src/general_interfaces/INeedExperimentEnvironment.sip
 %Include src/general_interfaces/Updater.sip
@@ -49,6 +50,7 @@
 %Include src/objectives/ObjectiveMSE.sip
 %Include src/negative_sample_generators/NegativeSampleGenerator.sip
 %Include src/negative_sample_generators/UniformNegativeSampleGenerator.sip
+%Include src/data_generators/DataGenerator.sip
 %Include src/loggers/Logger.sip
 %Include src/loggers/ProceedingLogger.sip
 %Include src/loggers/InterruptLogger.sip
