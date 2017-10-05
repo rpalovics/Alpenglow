@@ -11,6 +11,7 @@ struct TimeframeDataGeneratorParameters {
 class TimeframeDataGenerator : public DataGenerator, public INeedExperimentEnvironment, public Initializable {
   public:
     TimeframeDataGenerator(TimeframeDataGeneratorParameters* params){
+      time_frame_length_ = params->time_frame_length;
     }
     RecommenderData* generate_recommender_data(RecDat*) override;
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
@@ -30,6 +31,7 @@ class TimeframeDataGenerator : public DataGenerator, public INeedExperimentEnvir
       return true;
     }
   private:
+    int time_frame_length_ = 86400;
     ExperimentEnvironment* experiment_environment_ = NULL;
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
     RecommenderData local_recommender_data_;

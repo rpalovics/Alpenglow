@@ -30,7 +30,7 @@ struct RecDat{
   //bool operator<(const RecDat& rec_dat) const { return score < rec_dat.score; }
   //bool operator>(const RecDat& rec_dat) const { return score > rec_dat.score; }
   friend ostream &operator<<( ostream &output, const RecDat &rec_dat ){ 
-     output << "t=" << (int) rec_dat.time << " u=" << rec_dat.user << " i=" << rec_dat.item << " s=" << rec_dat.score;
+     output << "id=" << rec_dat.id << " t=" << (int) rec_dat.time << " u=" << rec_dat.user << " i=" << rec_dat.item << " s=" << rec_dat.score;
      return output;            
   }
 };
