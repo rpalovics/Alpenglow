@@ -8,7 +8,7 @@ import math
 class TestBatchFactorExperiment:
     def test_batchFactorExperiment(self):
         data = pd.read_csv(
-            "python/test_alpenglow/test_data_4",
+            "python/test_alpenglow/test_data_41",
             sep=' ',
             header=None,
             names=['time', 'user', 'item', 'id', 'score', 'eval']

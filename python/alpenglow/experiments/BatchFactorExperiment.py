@@ -47,27 +47,11 @@ class BatchFactorExperiment(prs.OnlineExperiment):
         ))
         updater.set_model(model)
 
-        learner_parameters = self.parameter_defaults(
-            number_of_iterations=3,
-            start_time=-1,
-            period_length=86400,
-            write_model=False,
-            read_model=False,
-            clear_model=False,
-            learn=True,
-            base_out_file_name="",
-            base_in_file_name="",
-            timeframe_length=0,
-        )
-
-        if(learner_parameters['timeframe_length']==0):
-            learner_parameters.pop('timeframe_length', None)
-            learner = rs.OfflineImplicitGradientLearner(**learner_parameters)
-        else:
-            learner = rs.PeriodicTimeframeImplicitGradientLearner(**learner_parameters)
-
-        learner.set_model(model)
-        learner.add_gradient_updater(updater)
+        point_wise = rs.ObjectiveMSE()
+        gradient_computer = rs.GradientComputerPointWise()
+        gradient_computer.set_objective(point_wise)
+        gradient_computer.set_model(model)
+        gradient_computer.add_gradient_updater(updater)
 
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=0,
@@ -75,13 +59,39 @@ class BatchFactorExperiment(prs.OnlineExperiment):
             seed=67439852,
             filter_repeats=False,
         ))
+        #negative_sample_generator.add_updater(gradient_computer)
 
-        learner.set_negative_sample_generator(negative_sample_generator)
+        offline_learner = rs.OfflineIteratingOnlineLearnerWrapper(**self.parameter_defaults(
+            seed=254938879,
+            number_of_iterations=3,
+            shuffle=True,
+        ))
+        offline_learner.add_iterate_updater(negative_sample_generator)
 
-        point_wise = rs.ObjectiveMSE()
-        gradient_computer = rs.GradientComputerPointWise()
-        gradient_computer.set_objective(point_wise)
-        gradient_computer.set_model(model)
-        learner.set_gradient_computer(gradient_computer)
+        online_learner = rs.PeriodicOfflineLearnerWrapper(**self.parameter_defaults(
+            write_model=False,
+            read_model=False,
+            clear_model=False,
+            learn=True,
+            base_out_file_name="",
+            base_in_file_name="",
+        ))
+        online_learner.set_model(model)
+        
+        data_generator_parameters = self.parameter_defaults(
+            timeframe_length=0,
+        )
+        if(data_generator_parameters['timeframe_length']==0):
+            data_generator = rs.CompletePastDataGenerator()
+        else:
+            data_generator = rs.TimeframeDataGenerator(**data_generator_parameters)
+        online_learner.set_data_generator(data_generator)
+        period_computer = rs.PeriodComputer(**self.parameter_defaults(
+            period_length=86400,
+            start_time=-1,
+            period_mode="time",
+        )) 
+        online_learner.set_period_computer(period_computer)
 
-        return (model, learner, [], [])
+
+        return (model, online_learner, [], [])
