@@ -38,7 +38,7 @@ public:
 
 
 TEST_F(TestTimeframeDataGenerator, environment_samplenum) {
-  params.time_frame_length = 10;
+  params.timeframe_length = 10;
   TimeframeDataGenerator data_generator(&params);
   data_generator.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(data_generator.initialize());
