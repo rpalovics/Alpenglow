@@ -2,7 +2,7 @@ struct TimeframeDataGeneratorParameters {
   %TypeHeaderCode
   #include "data_generators/TimeframeDataGenerator.h"
   %End
-  int time_frame_length;
+  int timeframe_length;
 };
 class TimeframeDataGenerator : public DataGenerator, public INeedExperimentEnvironment, public Initializable {
   public:
