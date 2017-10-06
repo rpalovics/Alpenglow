@@ -36,3 +36,4 @@ class TestBatchFactorExperiment:
             local_cum_dcg=0
 
         assert list(rankings["rank"].fillna(101)) == desired_ranks
+        assert 1==2
