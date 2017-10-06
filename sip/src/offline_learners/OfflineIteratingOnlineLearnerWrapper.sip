@@ -13,12 +13,9 @@ class OfflineIteratingOnlineLearnerWrapper : public OfflineLearner {
   %End
  public:
   OfflineIteratingOnlineLearnerWrapper(OfflineIteratingOnlineLearnerWrapperParameters *parameters);
-  void iterate();
   void fit(RecommenderData* recommender_data);
-  void set_recommender_data(RecommenderData* recommender_data);
   void add_early_updater(Updater* model_updater);
   void add_updater(Updater* model_updater);
   void add_iterate_updater(Updater* model_updater);
-  void set_model(Model* model); //TODO remove
   bool self_test();
 };

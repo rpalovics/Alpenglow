@@ -18,7 +18,6 @@ class PopularityModel(alpenglow.offline.OfflineModel):
             number_of_iterations=0,
             shuffle=False,
         )
-        learner.set_recommender_data(recommender_data)
         learner.add_updater(updater)
 
         return (model, learner)

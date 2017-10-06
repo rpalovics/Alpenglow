@@ -437,15 +437,6 @@ online_experiment
     :show-inheritance:
 
 
-offline_experiment
-------------------
-
-.. autoclass:: alpenglow.cpp.OfflineExperiment
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
 ranking
 -------
 

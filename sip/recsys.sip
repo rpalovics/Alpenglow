@@ -73,7 +73,6 @@
 %Include src/filters/DummyModelFilter.sip
 
 
-%Include src/offline_experiment/OfflineExperiment.sip
 %Include src/offline_evaluators/OfflineEvaluator.sip
 %Include src/offline_evaluators/PrecisionRecallEvaluator.sip
 %Include src/offline_learners/OfflineLearner.sip

@@ -64,7 +64,6 @@ class SvdppModel(alpenglow.offline.OfflineModel):
             number_of_iterations=20,
             shuffle=True,
         ))
-        learner.set_recommender_data(recommender_data)
         learner.add_early_updater(simple_updater)
         learner.add_iterate_updater(negative_sample_generator)
 

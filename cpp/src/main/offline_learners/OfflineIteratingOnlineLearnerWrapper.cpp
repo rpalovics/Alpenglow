@@ -2,13 +2,12 @@
 
 void OfflineIteratingOnlineLearnerWrapper::fit(RecommenderData* recommender_data) {
   RandomIterator random_iterator(recommender_data, seed_); //TODO is it ok to use the same seed?
-  if(early_updaters_.size()>0 or model_!=NULL){
+  if(early_updaters_.size()>0){
     for(uint ui = 0; ui<early_updaters_.size(); ui++){
       early_updaters_[ui]->message(UpdaterMessage::start_of_offline_update);
     }
     while ( random_iterator.has_next() ) {
       RecDat *rec_dat = random_iterator.next();
-      if(model_!=NULL) model_->add(rec_dat); //TODO remove
       for(uint ui = 0; ui<early_updaters_.size(); ui++){
         early_updaters_[ui]->update(rec_dat);
       }

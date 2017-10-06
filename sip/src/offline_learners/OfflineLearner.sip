@@ -4,6 +4,6 @@ class OfflineLearner{
  %End
  public:
   OfflineLearner();
-  virtual void iterate()=0;
+  virtual void fit(RecommenderData*)=0;
   bool self_test();
 };

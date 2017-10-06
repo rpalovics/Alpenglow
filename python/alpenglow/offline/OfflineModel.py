@@ -70,7 +70,7 @@ class OfflineModel(ParameterDefaults):
             rs.run_self_test(i)
         self.check_unused_parameters()
 
-        learner.iterate()
+        learner.fit(recommender_data)
 
         self.objects = created_objects
         self.model = model
