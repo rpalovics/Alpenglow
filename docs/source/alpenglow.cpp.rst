@@ -252,18 +252,6 @@ online_learners
     :show-inheritance:
 
 
-.. autoclass:: alpenglow.cpp.PeriodicImplicitGradientLearner
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PeriodicImplicitGradientLearnerParameters
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
 .. autoclass:: alpenglow.cpp.LearnerPeriodicDelayedWrapper
     :members:
     :undoc-members:
@@ -275,47 +263,6 @@ online_learners
     :undoc-members:
     :show-inheritance:
 
-
-.. autoclass:: alpenglow.cpp.ImplicitGradientLearner
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PeriodicLearner
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PeriodicLearnerParameters
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PeriodicSamplingLearnerParameters
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PeriodicSamplingLearner
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PeriodicTimeframeImplicitGradientLearner
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PeriodicTimeframeImplicitGradientLearnerParameters
-    :members:
-    :undoc-members:
-    :show-inheritance:
 
 
 general_interfaces

@@ -35,12 +35,7 @@
 %Include src/models/baseline/NearestNeighborModel.sip
 %Include src/models/baseline/NearestNeighborModelUpdater.sip
 %Include src/online_learners/ImplicitGradientLearner.sip
-%Include src/online_learners/OfflineImplicitGradientLearner.sip
-%Include src/online_learners/PeriodicImplicitGradientLearner.sip
-%Include src/online_learners/PeriodicLearner.sip
 %Include src/online_learners/LearnerPeriodicDelayedWrapper.sip
-%Include src/online_learners/PeriodicSamplingLearner.sip
-%Include src/online_learners/PeriodicTimeframeImplicitGradientLearner.sip
 %Include src/online_learners/PeriodicOfflineLearnerWrapper.sip
 %Include src/general_interfaces/Initializable.sip
 %Include src/general_interfaces/INeedExperimentEnvironment.sip
