@@ -3,6 +3,7 @@
 void PeriodicOfflineLearnerWrapper::update(RecDat* rec_dat){
   period_computer_->update(rec_dat);
   if(period_computer_->end_of_period()){
+    cerr << "POW: update at" << *rec_dat << endl;
     clear_model(rec_dat);
     read_model(rec_dat);
     update_model(rec_dat);
