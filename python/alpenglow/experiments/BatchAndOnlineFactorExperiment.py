@@ -101,6 +101,14 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
         ))
         online_updater.set_model(model)
 
+
+        # objective
+        point_wise = rs.ObjectiveMSE()
+        online_gradient_computer = rs.GradientComputerPointWise()
+        online_gradient_computer.set_objective(point_wise)
+        online_gradient_computer.set_model(model)
+        online_gradient_computer.add_gradient_updater(online_updater)
+
         # negative sample generator
         online_negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=self.parameter_default('online_negative_rate', 100),
@@ -108,20 +116,8 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
             seed=67439852,
             filter_repeats=False,
         ))
+        online_negative_sample_generator.add_updater(online_gradient_computer)
 
-        # objective
-        point_wise = rs.ObjectiveMSE()
-        online_gradient_computer = rs.GradientComputerPointWise()
-        online_gradient_computer.set_objective(point_wise)
-        online_gradient_computer.set_model(model)
-
-        # learner
-        online_learner = rs.ImplicitGradientLearner()
-        online_learner.add_gradient_updater(online_updater)
-        online_learner.set_model(model)
-        online_learner.set_negative_sample_generator(online_negative_sample_generator)
-        online_learner.set_gradient_computer(online_gradient_computer)
-
-        learner = [batch_learner, online_learner]
+        learner = [batch_learner, online_negative_sample_generator]
 
         return (model, learner, [], [])
