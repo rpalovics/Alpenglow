@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class FactorModelUpdater : public ModelSimpleUpdater{
+class FactorModelUpdater : public Updater{
   public:
     void update(RecDat* rec_dat) override;
     void set_model(FactorModel* model){model_ = model;};

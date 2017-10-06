@@ -1,4 +1,4 @@
-class AsymmetricFactorModelUpdater : public ModelSimpleUpdater{
+class AsymmetricFactorModelUpdater : public Updater{
   %TypeHeaderCode
   #include "models/factor/AsymmetricFactorModelUpdater.h"
   %End

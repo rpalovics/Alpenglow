@@ -334,7 +334,7 @@ TEST_F(TestNearestNeighborModel, offline){
   NearestNeighborModelUpdater updater(&updater_params);
   updater.set_model(&model);
   EXPECT_TRUE(updater.self_test());
-  updater.message(UpdaterMessage:start_of_offline_update);
+  updater.message(UpdaterMessage::start_of_offline_update);
 
   updater.update(create_recdat_p(10,20,30,1));
   updater.update(create_recdat_p(11,20,31,1));
@@ -354,7 +354,7 @@ TEST_F(TestNearestNeighborModel, offline){
       EXPECT_DOUBLE_EQ(0.0,model.prediction(create_recdat_p(20,user,item,1)));
     }
   }
-  updater.message(UpdaterMessage:end_of_offline_update);
+  updater.message(UpdaterMessage::end_of_offline_update);
 
   EXPECT_DOUBLE_EQ(2,model.prediction(create_recdat_p(24,21,31,1)));
   EXPECT_DOUBLE_EQ(2,model.prediction(create_recdat_p(24,21,32,1)));

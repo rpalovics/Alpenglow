@@ -1,4 +1,4 @@
-class SvdppModelUpdater : public ModelSimpleUpdater{
+class SvdppModelUpdater : public Updater{
   %TypeHeaderCode
   #include "models/factor/SvdppModelUpdater.h"
   %End
