@@ -7,5 +7,6 @@ RecommenderData* CompletePastDataGenerator::generate_recommender_data(RecDat*){
     RecDat* rec_dat = recommender_data_iterator_->get(counter);
     train_data->push_back(*rec_dat);
   }
+  cerr << "CPDG size=" << local_recommender_data_.size() << endl;
   return &local_recommender_data_;
 }

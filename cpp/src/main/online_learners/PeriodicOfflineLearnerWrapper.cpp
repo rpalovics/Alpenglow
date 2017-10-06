@@ -14,10 +14,11 @@ void PeriodicOfflineLearnerWrapper::update_model(RecDat* rec_dat){
   if(learn_ and offline_learners_.size()!=0){
     RecommenderData* recommender_data =
          data_generator_->generate_recommender_data(rec_dat);
+    cerr << "POW size=" << recommender_data->size() << endl;
     for(offline_learner:offline_learners_){
       offline_learner->fit(recommender_data);
     }
-  } 
+  } else { cerr << "learn does not run " << learn_ << " " << offline_learners_.size() << endl; }
 }
 
 void PeriodicOfflineLearnerWrapper::clear_model(RecDat* rec_dat){

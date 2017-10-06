@@ -77,6 +77,7 @@ class BatchFactorExperiment(prs.OnlineExperiment):
             base_in_file_name="",
         ))
         online_learner.set_model(model)
+        online_learner.add_offline_learner(offline_learner)
         
         data_generator_parameters = self.parameter_defaults(
             timeframe_length=0,
