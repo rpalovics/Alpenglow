@@ -59,7 +59,7 @@ class BatchFactorExperiment(prs.OnlineExperiment):
             seed=67439852,
             filter_repeats=False,
         ))
-        #negative_sample_generator.add_updater(gradient_computer)
+        negative_sample_generator.add_updater(gradient_computer)
 
         offline_learner = rs.OfflineIteratingOnlineLearnerWrapper(**self.parameter_defaults(
             seed=254938879,
