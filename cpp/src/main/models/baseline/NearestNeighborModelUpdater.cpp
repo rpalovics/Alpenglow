@@ -1,7 +1,10 @@
 #include "NearestNeighborModelUpdater.h"
 
 void NearestNeighborModelUpdater::message(UpdaterMessage message){
-  if (message == UpdaterMessage::end_of_offline_update) end_of_updating(NULL);
+  if (message == UpdaterMessage::end_of_offline_update){
+    model_->active_user_=-1;
+    recompute_similarity();
+  }
 }
 
 void NearestNeighborModelUpdater::update(RecDat* rec_dat){
@@ -21,11 +24,6 @@ void NearestNeighborModelUpdater::update(RecDat* rec_dat){
       last_similarity_recompute_period_ = period;
     }
   }
-}
-
-void NearestNeighborModelUpdater::end_of_updating(RecDat*){
-  model_->active_user_=-1;
-  recompute_similarity();
 }
 
 void NearestNeighborModelUpdater::recompute_similarity(){

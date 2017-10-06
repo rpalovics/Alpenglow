@@ -15,7 +15,7 @@ struct NearestNeighborModelUpdaterParameters {
     period_mode="";
   }
 };
-class NearestNeighborModelUpdater : public ModelSimpleUpdater {
+class NearestNeighborModelUpdater : public Updater {
 public:
   NearestNeighborModelUpdater(NearestNeighborModelUpdaterParameters* params):
     compute_similarity_period_(params->compute_similarity_period),
@@ -26,10 +26,9 @@ public:
   }
   void update(RecDat* rec_dat) override;
   void message(UpdaterMessage message) override;
-  void end_of_updating(RecDat*) override; //offline hasznalathoz
   void set_model(NearestNeighborModel* model){ model_ = model; }
   bool self_test(){
-    bool ok = ModelSimpleUpdater::self_test();
+    bool ok = Updater::self_test();
     if(model_==NULL){ ok=false; cerr << "NearestNeighborModelUpdater::model is not set." << endl; }
     if(period_mode_!="off" and compute_similarity_period_<=0){ ok=false; cerr << "NearestNeighborModelUpdater::compute_similarity_period_ <= 0." << endl; }
     if(!(period_mode_=="time-based" or period_mode_=="samplenum-based" or period_mode_=="off")){ ok=false; cerr << "NearestNeighborModelUpdater::period_mode_ is not set." << endl; }

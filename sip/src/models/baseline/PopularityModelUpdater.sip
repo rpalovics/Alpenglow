@@ -1,5 +1,5 @@
 
-class PopularityModelUpdater : ModelSimpleUpdater{
+class PopularityModelUpdater : Updater{
   %TypeHeaderCode
   #include "models/baseline/PopularityModelUpdater.h"
   %End

@@ -10,7 +10,7 @@ struct LabelFilterParameters{
   string label_file_name;
 };
 
-class LabelFilter : public ModelFilter, public ModelSimpleUpdater {
+class LabelFilter : public ModelFilter, public Updater {
   public:
     LabelFilter(LabelFilterParameters* params){
       label_file_name_ = params->label_file_name;

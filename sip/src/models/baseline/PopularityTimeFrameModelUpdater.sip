@@ -4,7 +4,7 @@ struct PopularityTimeFrameModelUpdaterParameters {
   %End
   double tau;
 };
-class PopularityTimeFrameModelUpdater : public ModelSimpleUpdater {
+class PopularityTimeFrameModelUpdater : public Updater {
   %TypeHeaderCode
   #include "models/baseline/PopularityTimeFrameModelUpdater.h"
   %End

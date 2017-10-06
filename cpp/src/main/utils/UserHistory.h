@@ -14,14 +14,14 @@
 //most azert nem az, mert a modelsimpleupdater nem const recdatot var parameterul, pedig azt is varhatna
 //altalanositasi lehetoseg: type parameter, ami lehet user, item, label, legutobbi esetben labelcontainer alapjan megy az update; user pedig mindenutt entity
 
-class UserHistory/* : public ModelSimpleUpdater*/{
+class UserHistory : public Updater{
   public:
     const vector<const RecDat*>* get_user_history (int user) const; //returns a vector containing the user's recdats in reverse time order
     void delete_user_history(int user); //user history will be NULL
     void delete_all();
     void clear_user_history(int user); //if user history existed, it will be an empty list
     void clear_all();
-    void update(const RecDat*);
+    void update(RecDat*) override;
     void write(ofstream& file){ throw exception(); }//TODO
     void read(ifstream& file){ throw exception(); }//TODO
     ~UserHistory(){

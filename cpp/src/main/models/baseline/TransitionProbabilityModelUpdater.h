@@ -18,7 +18,7 @@ struct TransitionProbabilityModelUpdaterParameters{
   }
 };
 
-class TransitionProbabilityModelUpdater: public ModelSimpleUpdater{
+class TransitionProbabilityModelUpdater: public Updater{
   public:
     TransitionProbabilityModelUpdater(TransitionProbabilityModelUpdaterParameters* params):
       label_transition_mode_(params->label_transition_mode),
@@ -37,7 +37,7 @@ class TransitionProbabilityModelUpdater: public ModelSimpleUpdater{
       model_ = model;
     }
     bool self_test(){
-      bool ok = ModelSimpleUpdater::self_test();
+      bool ok = Updater::self_test();
       if(model_==NULL){ ok=false; cerr << "TransitionProbabilityModelUpdater::model_ is not set." << endl; }
       if(mode_!="symmetric" and mode_!="normal" and mode_!="inverted"){ ok=false; cerr << "TransitionProbabilityModelUpdater::mode should be normal, symmetric or inverted." << endl; }
       return ok;

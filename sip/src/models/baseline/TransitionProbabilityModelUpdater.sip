@@ -9,7 +9,7 @@ struct TransitionProbabilityModelUpdaterParameters{
   TransitionProbabilityModelUpdaterParameters();
 };
 
-class TransitionProbabilityModelUpdater: public ModelSimpleUpdater{
+class TransitionProbabilityModelUpdater: public Updater{
   %TypeHeaderCode
   #include "models/baseline/TransitionProbabilityModelUpdater.h"
   %End

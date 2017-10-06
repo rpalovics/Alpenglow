@@ -192,11 +192,6 @@ models.factor
     :show-inheritance:
 
 
-.. autoclass:: alpenglow.cpp.ModelSimpleUpdater
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 models.combination
 ~~~~~~~~~~~~~~~~~~

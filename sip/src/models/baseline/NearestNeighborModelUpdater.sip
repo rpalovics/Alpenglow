@@ -7,11 +7,11 @@ struct NearestNeighborModelUpdaterParameters {
   NearestNeighborModelUpdaterParameters();
 };
 
-class NearestNeighborModelUpdater : public ModelSimpleUpdater {
+class NearestNeighborModelUpdater : public Updater {
   public:
   NearestNeighborModelUpdater(NearestNeighborModelUpdaterParameters* params);
   void update(RecDat* rec_dat);
-  void end_of_updating(RecDat*);
+  //void message(UpdaterMessage);
   void set_model(NearestNeighborModel* model);
   bool self_test();
 };

@@ -34,7 +34,7 @@ void UserHistory::clear_all(){
   }
 }
 
-void UserHistory::update(const RecDat* rec_dat){
+void UserHistory::update(RecDat* rec_dat){
   int user = rec_dat->user;
   if((int)user_history_.size()<=user){
     user_history_.resize(user+1);

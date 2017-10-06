@@ -38,7 +38,7 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
       experiment_environment_=experiment_environment;
     }
-    void add_simple_updater(ModelSimpleUpdater* model_updater) {
+    void add_simple_updater(Updater* model_updater) {
       model_simple_updaters_.push_back(model_updater);
     }
     void add_gradient_updater(ModelGradientUpdater* model_updater) {
@@ -74,7 +74,7 @@ class ImplicitGradientLearner : public Updater, public Initializable, public INe
     SpMatrix* train_matrix_ = NULL;
     GradientComputer* gradient_computer_ = NULL;
     NegativeSampleGenerator* negative_sample_generator_ = NULL;
-    vector<ModelSimpleUpdater*> model_simple_updaters_;
+    vector<Updater*> model_simple_updaters_;
     vector<ModelGradientUpdater*> model_gradient_updaters_;
     vector<ModelMultiUpdater*> model_multi_updaters_;
     Model* model_;
