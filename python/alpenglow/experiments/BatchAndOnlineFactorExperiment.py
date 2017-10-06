@@ -51,6 +51,13 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
         ))
         batch_updater.set_model(model)
 
+        # objective
+        point_wise = rs.ObjectiveMSE()
+        batch_gradient_computer = rs.GradientComputerPointWise()
+        batch_gradient_computer.set_objective(point_wise)
+        batch_gradient_computer.set_model(model)
+        batch_gradient_computer.add_gradient_updater(batch_updater)
+
         # negative sample generator
         batch_negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=self.parameter_default('batch_negative_rate', 70),
@@ -58,37 +65,42 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
             seed=67439852,
             filter_repeats=False,
         ))
+        batch_negative_sample_generator.add_updater(batch_gradient_computer)
 
-        # objective
-        point_wise = rs.ObjectiveMSE()
-        batch_gradient_computer = rs.GradientComputerPointWise()
-        batch_gradient_computer.set_objective(point_wise)
-        batch_gradient_computer.set_model(model)
+        batch_offline_learner = rs.OfflineIteratingOnlineLearnerWrapper(**self.parameter_defaults(
+            seed=254938879,
+            number_of_iterations=3,
+            shuffle=True,
+        ))
+        batch_offline_learner.add_iterate_updater(batch_negative_sample_generator)
 
-        # learner
-        batch_learner_parameters = self.parameter_defaults(
-            number_of_iterations=9,
-            start_time=-1,
-            period_length=86400,
+        batch_online_learner = rs.PeriodicOfflineLearnerWrapper(**self.parameter_defaults(
             write_model=False,
             read_model=False,
             clear_model=False,
             learn=True,
             base_out_file_name="",
             base_in_file_name="",
+        ))
+        batch_online_learner.set_model(model)
+        batch_online_learner.add_offline_learner(batch_offline_learner)
+        
+        batch_data_generator_parameters = self.parameter_defaults(
             timeframe_length=0,
         )
-
-        if(batch_learner_parameters['timeframe_length']==0):
-            batch_learner_parameters.pop('timeframe_length', None)
-            batch_learner = rs.OfflineImplicitGradientLearner(**batch_learner_parameters)
+        if(batch_data_generator_parameters['timeframe_length']==0):
+            print("Full experiment")
+            batch_data_generator = rs.CompletePastDataGenerator()
         else:
-            batch_learner = rs.PeriodicTimeframeImplicitGradientLearner(**batch_learner_parameters)
-
-        batch_learner.set_model(model)
-        batch_learner.add_gradient_updater(batch_updater)
-        batch_learner.set_gradient_computer(batch_gradient_computer)
-        batch_learner.set_negative_sample_generator(batch_negative_sample_generator)
+            print("Timeframe experiment")
+            batch_data_generator = rs.TimeframeDataGenerator(**batch_data_generator_parameters)
+        batch_online_learner.set_data_generator(batch_data_generator)
+        batch_period_computer = rs.PeriodComputer(**self.parameter_defaults(
+            period_length=86400,
+            start_time=-1,
+            period_mode="time",
+        )) 
+        batch_online_learner.set_period_computer(batch_period_computer)
 
         #
         # online
@@ -118,6 +130,6 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
         ))
         online_negative_sample_generator.add_updater(online_gradient_computer)
 
-        learner = [batch_learner, online_negative_sample_generator]
+        learner = [batch_online_learner, online_negative_sample_generator]
 
         return (model, learner, [], [])

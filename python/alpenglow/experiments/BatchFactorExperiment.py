@@ -83,10 +83,8 @@ class BatchFactorExperiment(prs.OnlineExperiment):
             timeframe_length=0,
         )
         if(data_generator_parameters['timeframe_length']==0):
-            print("Full experiment")
             data_generator = rs.CompletePastDataGenerator()
         else:
-            print("Timeframe experiment")
             data_generator = rs.TimeframeDataGenerator(**data_generator_parameters)
         online_learner.set_data_generator(data_generator)
         period_computer = rs.PeriodComputer(**self.parameter_defaults(
