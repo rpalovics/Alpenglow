@@ -7,7 +7,7 @@ struct PeriodComputerParameters{
   int start_time;
 };
 
-class PeriodComputer : public Updater, public INeedExperimentEnvironment, public Initializable {
+class PeriodComputer : public Updater, public NeedsExperimentEnvironment, public Initializable {
   public:
     PeriodComputer(PeriodComputerParameters* params);
     PeriodComputer();

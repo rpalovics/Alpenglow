@@ -7,7 +7,7 @@
 #include "../filters/ModelFilter.h"
 #include "../models/Model.h"
 #include "../recommender_data/RecommenderData.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../models/RankingScoreIterator.h"
 #include <numeric> 
 #include "../utils/Random.h"
@@ -21,7 +21,7 @@ struct RankComputerParameters{
   }
 };
 
-class RankComputer : public INeedExperimentEnvironment, public Initializable{
+class RankComputer : public NeedsExperimentEnvironment, public Initializable{
   public:
     RankComputer(RankComputerParameters* parameters){
       top_k_=(parameters->top_k==-1?parameters->top_k:parameters->top_k);

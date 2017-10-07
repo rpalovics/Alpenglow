@@ -1,4 +1,4 @@
-class DummyModelFilter : public ModelFilter, public INeedExperimentEnvironment, public Initializable {
+class DummyModelFilter : public ModelFilter, public NeedsExperimentEnvironment, public Initializable {
   %TypeHeaderCode
   #include "filters/DummyModelFilter.h"
   %End

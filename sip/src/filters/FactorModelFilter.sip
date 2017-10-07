@@ -1,4 +1,4 @@
-class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment{
+class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment{
   %TypeHeaderCode
   #include "filters/FactorModelFilter.h"
   %End

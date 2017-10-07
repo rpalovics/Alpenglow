@@ -2,11 +2,11 @@
 #define DUMMY_MODEL_FILTER
 
 #include "ModelFilter.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 
 ///Assuption: vectors users_ and items_ never get shorter
-class DummyModelFilter : public ModelFilter, public INeedExperimentEnvironment, public Initializable {
+class DummyModelFilter : public ModelFilter, public NeedsExperimentEnvironment, public Initializable {
   public:
     DummyModelFilter(){
       last_users_size_ = -1;

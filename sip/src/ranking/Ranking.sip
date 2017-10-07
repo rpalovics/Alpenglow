@@ -5,7 +5,7 @@ struct RankComputerParameters{
   int top_k;
   int random_seed;
 };
-class RankComputer : public INeedExperimentEnvironment, public Initializable {
+class RankComputer : public NeedsExperimentEnvironment, public Initializable {
   %TypeHeaderCode
   #include "ranking/Ranking.h"
   %End

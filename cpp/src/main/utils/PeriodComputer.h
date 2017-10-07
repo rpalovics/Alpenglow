@@ -4,7 +4,7 @@
 #include <string>
 #include "../recommender_data/RecommenderData.h"
 #include "../general_interfaces/Updater.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 
 using namespace std;
@@ -15,7 +15,7 @@ struct PeriodComputerParameters{
   int start_time = -1; //if time<start_time, end_of_period will be false
 };
 
-class PeriodComputer : public Updater, public INeedExperimentEnvironment, public Initializable {
+class PeriodComputer : public Updater, public NeedsExperimentEnvironment, public Initializable {
   public:
     PeriodComputer(PeriodComputerParameters* params){ set_parameters(params); }
     PeriodComputer(){}

@@ -9,7 +9,7 @@ struct UniformNegativeSampleGeneratorParameters{
     int seed;
 };
 
-class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public INeedExperimentEnvironment{
+class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public NeedsExperimentEnvironment{
     %TypeHeaderCode
     #include "negative_sample_generators/UniformNegativeSampleGenerator.h"
     %End

@@ -56,7 +56,7 @@ class MetaGetter(type):
             raise RuntimeError("Could not initialize objects: " + ",".join([str(o) for o in objects]))
 
     def set_experiment_environment(self, online_experiment, objects):
-        objects = [o for o in objects if isinstance(o, pr.INeedExperimentEnvironment)]
+        objects = [o for o in objects if isinstance(o, pr.NeedsExperimentEnvironment)]
         for o in objects:
             online_experiment.inject_experiment_environment_into(o)
 

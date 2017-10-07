@@ -7,7 +7,7 @@
 #include "../utils/MinHeap.h"
 #include "../models/Model.h"
 #include "../filters/ModelFilter.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 #include "../models/TopListRecommender.h"
 
@@ -17,7 +17,7 @@ struct PredictionCreatorParameters{
   int top_k;
   int exclude_known;
 };
-class PredictionCreator : public INeedExperimentEnvironment, public Initializable {
+class PredictionCreator : public NeedsExperimentEnvironment, public Initializable {
  public:
    PredictionCreator(PredictionCreatorParameters* params){
      top_k_ = params->top_k;

@@ -263,7 +263,7 @@ online_learners
 general_interfaces
 ------------------
 
-.. autoclass:: alpenglow.cpp.INeedExperimentEnvironment
+.. autoclass:: alpenglow.cpp.NeedsExperimentEnvironment
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,4 +1,4 @@
-class CompletePastDataGenerator : public DataGenerator, public INeedExperimentEnvironment, public Initializable {
+class CompletePastDataGenerator : public DataGenerator, public NeedsExperimentEnvironment, public Initializable {
   %TypeHeaderCode
   #include "data_generators/CompletePastDataGenerator.h"
   %End

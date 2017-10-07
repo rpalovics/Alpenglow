@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <numeric>
 #include "Logger.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../models/baseline/TransitionProbabilityModel.h"
 #include "../utils/PopContainers.h"
 using namespace std;
@@ -20,7 +20,7 @@ struct TransitionModelLoggerParameters{
     period_length=-1;
   }
 };
-class TransitionModelLogger : public Logger, public INeedExperimentEnvironment, public Initializable{
+class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, public Initializable{
   public:
     TransitionModelLogger(TransitionModelLoggerParameters* params):
       period_length_(params->period_length)

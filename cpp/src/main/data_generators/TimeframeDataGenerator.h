@@ -2,13 +2,13 @@
 #define TIMEFRAME_DATA_GENERATOR
 
 #include "DataGenerator.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 
 struct TimeframeDataGeneratorParameters {
   int timeframe_length = 86400;
 };
-class TimeframeDataGenerator : public DataGenerator, public INeedExperimentEnvironment, public Initializable {
+class TimeframeDataGenerator : public DataGenerator, public NeedsExperimentEnvironment, public Initializable {
   public:
     TimeframeDataGenerator(TimeframeDataGeneratorParameters* params){
       timeframe_length_ = params->timeframe_length;

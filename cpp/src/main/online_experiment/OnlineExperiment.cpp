@@ -15,7 +15,7 @@ void OnlineExperiment::set_recommender_data_iterator(RecommenderDataIterator* re
   experiment_environment_->set_recommender_data_iterator(recommender_data_iterator);
 }
 
-void OnlineExperiment::inject_experiment_environment_into(INeedExperimentEnvironment *object){
+void OnlineExperiment::inject_experiment_environment_into(NeedsExperimentEnvironment *object){
   object->set_experiment_environment(experiment_environment_);
 }
 

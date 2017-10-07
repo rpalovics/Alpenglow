@@ -5,7 +5,7 @@
 
 class ExperimentEnvironment;
 
-class INeedExperimentEnvironment{
+class NeedsExperimentEnvironment{
   public:
     virtual void set_experiment_environment(ExperimentEnvironment*) = 0;
 };

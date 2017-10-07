@@ -2,7 +2,7 @@
 #define SAMPLING_DATA_GENERATOR
 
 #include "DataGenerator.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 
 struct SamplingDataGeneratorParameters {
@@ -11,7 +11,7 @@ struct SamplingDataGeneratorParameters {
   double y = 10; //parameter of arctg random
   double geometric_param = 0.5; //parameter of geometric random
 };
-class SamplingDataGenerator : public DataGenerator, public Initializable, public INeedExperimentEnvironment {
+class SamplingDataGenerator : public DataGenerator, public Initializable, public NeedsExperimentEnvironment {
   public:
     SamplingDataGenerator(SamplingDataGeneratorParameters* params){
       distribution_ = params->distribution;

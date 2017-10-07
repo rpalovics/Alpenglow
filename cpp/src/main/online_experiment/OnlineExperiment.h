@@ -4,11 +4,11 @@
 #include "../recommender_data/RecommenderDataIterator.h"
 #include "../general_interfaces/Updater.h"
 #include "../loggers/Logger.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "ExperimentEnvironment.h"
 
 class ExperimentEnvironment;
-class INeedExperimentEnvironment;
+class NeedsExperimentEnvironment;
 
 struct OnlineExperimentParameters{
   int top_k;
@@ -42,7 +42,7 @@ class OnlineExperiment{
       return ok;
     }
     void run();
-    void inject_experiment_environment_into(INeedExperimentEnvironment *object);
+    void inject_experiment_environment_into(NeedsExperimentEnvironment *object);
   private:
     ExperimentEnvironment* experiment_environment_;
     RecommenderDataIterator* recommender_data_iterator_ = NULL;

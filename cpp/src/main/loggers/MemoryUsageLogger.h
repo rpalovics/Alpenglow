@@ -3,13 +3,13 @@
 
 #include <sys/resource.h>
 #include <iostream>
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../recommender_data/RecommenderDataIterator.h"
 #include "Logger.h"
 
 using namespace std;
 
-class MemoryUsageLogger : public Logger, public Initializable, public INeedExperimentEnvironment{
+class MemoryUsageLogger : public Logger, public Initializable, public NeedsExperimentEnvironment{
   public:
     MemoryUsageLogger(){
       recommender_data_iterator_=NULL;

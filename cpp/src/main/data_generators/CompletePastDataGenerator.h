@@ -2,10 +2,10 @@
 #define COMPLETE_PAST_DATA_GENERATOR
 
 #include "DataGenerator.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 
-class CompletePastDataGenerator : public DataGenerator, public INeedExperimentEnvironment, public Initializable {
+class CompletePastDataGenerator : public DataGenerator, public NeedsExperimentEnvironment, public Initializable {
   public:
     RecommenderData* generate_recommender_data(RecDat*) override;
     void set_experiment_environment(ExperimentEnvironment* experiment_environment){

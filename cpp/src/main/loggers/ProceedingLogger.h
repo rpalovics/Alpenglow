@@ -5,11 +5,11 @@
 #include <iomanip>
 #include "../recommender_data/RecommenderDataIterator.h"
 #include "../general_interfaces/Initializable.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "Logger.h"
 using namespace std;
 
-class ProceedingLogger : public Logger, public Initializable, public INeedExperimentEnvironment {
+class ProceedingLogger : public Logger, public Initializable, public NeedsExperimentEnvironment {
   public:
     ProceedingLogger(){
       recommender_data_iterator_=NULL;

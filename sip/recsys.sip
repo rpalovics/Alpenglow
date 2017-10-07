@@ -38,7 +38,7 @@
 %Include src/online_learners/LearnerPeriodicDelayedWrapper.sip
 %Include src/online_learners/PeriodicOfflineLearnerWrapper.sip
 %Include src/general_interfaces/Initializable.sip
-%Include src/general_interfaces/INeedExperimentEnvironment.sip
+%Include src/general_interfaces/NeedsExperimentEnvironment.sip
 %Include src/general_interfaces/Updater.sip
 %Include src/gradient_computers/GradientComputer.sip
 %Include src/objectives/Objective.sip

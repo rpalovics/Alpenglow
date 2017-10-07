@@ -5,7 +5,7 @@
 #include <algorithm>
 #include "Logger.h"
 #include "../models/baseline/TransitionProbabilityModel.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../utils/PopContainers.h"
 using namespace std;
 
@@ -17,7 +17,7 @@ struct TransitionModelEndLoggerParameters{
     max_length=-1;
   }
 };
-class TransitionModelEndLogger : public Logger, public INeedExperimentEnvironment, public Initializable{
+class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironment, public Initializable{
   public:
     TransitionModelEndLogger(TransitionModelEndLoggerParameters* params){
       model_=NULL;

@@ -7,7 +7,7 @@ struct SamplingDataGeneratorParameters {
   double y;
   double geometric_param;
 };
-class SamplingDataGenerator : public DataGenerator, public Initializable, public INeedExperimentEnvironment {
+class SamplingDataGenerator : public DataGenerator, public Initializable, public NeedsExperimentEnvironment {
   %TypeHeaderCode
   #include "data_generators/SamplingDataGenerator.h"
   %End

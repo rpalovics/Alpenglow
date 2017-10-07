@@ -5,7 +5,7 @@
 #include "ModelFilter.h"
 #include "../models/factor/FactorModel.h"
 #include "../utils/Factors.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 
 
@@ -48,7 +48,7 @@ class FactorFilter{
     vector<pair<int,double>>* upper_bounds_;   
 };
 
-class FactorModelFilter : public ModelFilter, public INeedExperimentEnvironment, public Initializable {
+class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment, public Initializable {
  public:
    FactorModelFilter(){
      user_factor_filter_.set_upper_vector(&user_upper_bounds_);

@@ -20,11 +20,11 @@
 #include "../recommender_data/RecommenderData.h"
 #include <iomanip>
 #include "../negative_sample_generators/NegativeSampleGenerator.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 #include "../general_interfaces/Updater.h"
 
-class ImplicitGradientLearner : public Updater, public Initializable, public INeedExperimentEnvironment{
+class ImplicitGradientLearner : public Updater, public Initializable, public NeedsExperimentEnvironment{
   public:
     ImplicitGradientLearner(){
       model_=NULL;

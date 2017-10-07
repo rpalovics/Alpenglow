@@ -2,7 +2,7 @@
 #define UNIFORM_NEGATIVE_SAMPLE_GENERATOR
 
 #include "NegativeSampleGenerator.h"
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 #include "../utils/Random.h"
 
@@ -20,7 +20,7 @@ struct UniformNegativeSampleGeneratorParameters{
     }
 };
 
-class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public INeedExperimentEnvironment {
+class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public NeedsExperimentEnvironment {
   public:
     UniformNegativeSampleGenerator(UniformNegativeSampleGeneratorParameters* parameters):
       negative_rate_(parameters->negative_rate),

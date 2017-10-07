@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
-#include "../general_interfaces/INeedExperimentEnvironment.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 #include "../models/Model.h"
 #include "Logger.h"
@@ -20,7 +20,7 @@ struct EvaluationLoggerParameters{
   string mode;
   string error_type;
 };
-class EvaluationLogger : public Logger, public INeedExperimentEnvironment, public Initializable{
+class EvaluationLogger : public Logger, public NeedsExperimentEnvironment, public Initializable{
   public:
     EvaluationLogger(EvaluationLoggerParameters* params){
       file_name_ = params->file_name;

@@ -1,4 +1,4 @@
-class ProceedingLogger : public Logger, public Initializable, public INeedExperimentEnvironment {
+class ProceedingLogger : public Logger, public Initializable, public NeedsExperimentEnvironment {
   %TypeHeaderCode
   #include "loggers/ProceedingLogger.h"
   %End

@@ -1,4 +1,4 @@
-class ImplicitGradientLearner : public Updater, public Initializable, public INeedExperimentEnvironment {
+class ImplicitGradientLearner : public Updater, public Initializable, public NeedsExperimentEnvironment {
   %TypeHeaderCode
   #include "online_learners/ImplicitGradientLearner.h"
   %End

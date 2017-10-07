@@ -5,7 +5,7 @@ struct PredictionCreatorParameters{
   int top_k;
   int exclude_known;
 };
-class PredictionCreator : public INeedExperimentEnvironment, public Initializable {
+class PredictionCreator : public NeedsExperimentEnvironment, public Initializable {
   %TypeHeaderCode
   #include "utils/PredictionCreator.h"
   %End

@@ -4,7 +4,7 @@ struct TimeframeDataGeneratorParameters {
   %End
   int timeframe_length;
 };
-class TimeframeDataGenerator : public DataGenerator, public INeedExperimentEnvironment, public Initializable {
+class TimeframeDataGenerator : public DataGenerator, public NeedsExperimentEnvironment, public Initializable {
   public:
     TimeframeDataGenerator(TimeframeDataGeneratorParameters* params);
     RecommenderData* generate_recommender_data(RecDat*);
