@@ -4,6 +4,8 @@
 #include "Observer.h"
 #include <vector>
 
+using namespace std;
+
 class Observable{
   public:
     void attach(Observer* observer){
