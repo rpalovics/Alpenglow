@@ -1,6 +1,8 @@
 import os
 
-extra_cpppath = filter(bool, os.environ['CPATH'].split(os.pathsep))
+extra_cpppath = []
+if 'CPATH' in os.environ:
+    extra_cpppath = filter(bool, os.environ['CPATH'].split(os.pathsep))
 
 env = Environment(
     CXX="g++",

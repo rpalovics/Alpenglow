@@ -17,6 +17,8 @@
 using namespace std;
 using namespace Eigen;
 
+typedef Matrix<double, Dynamic, Dynamic, RowMajor> MatrixXdRM;
+
 struct EigenFactorsParameters{
   int seed;
 };
@@ -27,13 +29,15 @@ class EigenFactors{
     EigenFactors(EigenFactorsParameters *parameters){
       set_parameters(parameters);
     };
+    void write(ofstream& file);
+    void read(ifstream& file);
     void set_parameters(EigenFactorsParameters *parameters){
       seed = parameters->seed;
       rnd = Random(seed);
     }
-    void reinitialize_factors(int dimension, int max_id, double begin_min_, double begin_max_);
-    void resize(int dimension, int max_id, double begin_min_, double begin_max_);
-    MatrixXd factors;
+    void reinitialize_factors(int dimension, int users, double begin_min_, double begin_max_);
+    void resize(int dimension, int users, double begin_min_, double begin_max_);
+    MatrixXdRM factors;
   private:
     Random rnd;
     int seed;

@@ -24,13 +24,21 @@ class EigenFactorModel : public Model, public Initializable {
       begin_max_(parameters->begin_max),
       seed_(parameters->seed)
     {};
-    void add(RecDat* rec_dat) override;
+    void add(RecDat* rec_dat) override{};
     double prediction(RecDat* rec_dat) override;
     void write(ofstream& file) override;
     void read(ifstream& file) override;
     void clear() override;
     bool autocalled_initialize() override { clear(); return true;}
     bool self_test(){return true;}
+    void resize(int users, int items);
+
+    const EigenFactors& get_user_factors(){return user_factors_;}
+    const EigenFactors& get_item_factors(){return item_factors_;}
+    void set_user_factors(const EigenFactors& factors){user_factors_ = factors;}
+    void set_item_factors(const EigenFactors& factors){item_factors_ = factors;}
+    void set_user_factors(const MatrixXdRM& factors){user_factors_.factors = factors;}
+    void set_item_factors(const MatrixXdRM& factors){item_factors_.factors = factors;}
   protected:
     //parameters
     const int dimension_;
@@ -40,11 +48,9 @@ class EigenFactorModel : public Model, public Initializable {
 
     //state
     EigenFactors user_factors_, item_factors_;
-    Eigen::SparseMatrix<double> user_item_matrix_rows_;
-    Eigen::SparseMatrix<double,Eigen::RowMajor> user_item_matrix_cols_;
 
     //friends
-    friend class EigenFactorModelUpdater;
+    FRIEND_TEST(TestEigenFactorModel, testOfflineEigenFactorModel);
 };
 
 #endif
