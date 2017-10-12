@@ -25,6 +25,7 @@
 %Include src/models/factor/SvdppModel.sip
 %Include src/models/factor/SvdppModelUpdater.sip
 %Include src/models/factor/SvdppModelGradientUpdater.sip
+%Include src/models/factor/EigenFactorModel.sip
 %Include src/models/baseline/PopularityModel.sip
 %Include src/models/baseline/PersonalPopularityModel.sip
 %Include src/models/baseline/PersonalPopularityModelUpdater.sip
@@ -77,4 +78,5 @@
 %Include src/offline_evaluators/PrecisionRecallEvaluator.sip
 %Include src/offline_learners/OfflineLearner.sip
 %Include src/offline_learners/OfflineIteratingOnlineLearnerWrapper.sip
+%Include src/offline_learners/OfflineEigenFactorModelALSLearner.sip
 %Include src/offline_evaluators/OfflineRankingComputer.sip
