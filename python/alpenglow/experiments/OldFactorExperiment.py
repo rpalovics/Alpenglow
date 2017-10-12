@@ -9,9 +9,6 @@ class OldFactorExperiment(prs.OnlineExperiment):
     and trains it via stochastic gradient descent. The model is able to train on implicit data
     using negative sample generation, see [X.He2016]_ and the **negative_rate** parameter.
 
-    .. [Koren2009] Koren, Yehuda, Robert Bell, and Chris Volinsky. "Matrix factorization techniques for recommender systems." Computer 42.8 (2009).
-    .. [X.He2016] X. He, H. Zhang, M.-Y. Kan, and T.-S. Chua. Fast matrix factorization for online recommendation with implicit feedback. In SIGIR, pages 549–558, 2016.
-
     Parameters
     ----------
     dimension : int

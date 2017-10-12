@@ -44,6 +44,14 @@ alpenglow.experiments.NearestNeighborExperiment module
     :undoc-members:
     :show-inheritance:
 
+alpenglow.experiments.OldFactorExperiment module
+------------------------------------------------
+
+.. automodule:: alpenglow.experiments.OldFactorExperiment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alpenglow.experiments.PersonalPopularityExperiment module
 ---------------------------------------------------------
 

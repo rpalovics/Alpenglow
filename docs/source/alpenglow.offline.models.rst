@@ -4,6 +4,14 @@ alpenglow.offline.models package
 Submodules
 ----------
 
+alpenglow.offline.models.ALSFactorModel module
+----------------------------------------------
+
+.. automodule:: alpenglow.offline.models.ALSFactorModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alpenglow.offline.models.AsymmetricFactorModel module
 -----------------------------------------------------
 
