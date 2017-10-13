@@ -74,16 +74,26 @@ MatrixXdRM OfflineEigenFactorModelALSLearner::optimize_factors_implicit_(const M
 
 MatrixXdRM OfflineEigenFactorModelALSLearner::optimize_factors_explicit_(const MatrixXdRM &factors1, const SparseMatrix<double> &A){
   int dim = factors1.cols();
-  MatrixXd YTY = factors1.transpose()*factors1;
   MatrixXd kxkLambdadiag = VectorXd::Constant(dim,1,regularization_lambda_*A.nonZeros()).asDiagonal();
-  MatrixXd YTYpLIinv = (YTY+kxkLambdadiag).inverse();
   MatrixXdRM factors2optRM(A.cols(), factors1.cols());
   for (int k=0; k<A.outerSize(); ++k){
-    MatrixXd YTxPU = MatrixXd::Constant(dim,1,0);
-    for (SparseMatrix<double>::InnerIterator it(A,k); it; ++it){
-      YTxPU += factors1.row(it.row()).transpose()*it.value();
+    int nonzeros = 0;
+    if(A.isCompressed()){
+      nonzeros = A.outerIndexPtr()[k+1]-A.outerIndexPtr()[k];
+    } else {
+      nonzeros = A.innerNonZeroPtr()[k];
     }
-    MatrixXd xu = YTYpLIinv*YTxPU;
+
+    MatrixXd YTxPU = MatrixXd::Constant(dim,1,0);
+    MatrixXd YTreduced = MatrixXd::Constant(dim,nonzeros,0);
+    int i=0;
+    for (SparseMatrix<double>::InnerIterator it(A,k); it; ++it){
+      MatrixXd row = factors1.row(it.row()).transpose();
+      YTxPU += row*it.value();
+      YTreduced.col(i) = factors1.row(it.row());
+      i++;
+    }
+    MatrixXd xu = (YTreduced*YTreduced.transpose()+kxkLambdadiag).inverse()*YTxPU;
     factors2optRM.row(k) = xu.transpose();
   }
   return factors2optRM;
@@ -110,8 +120,8 @@ void OfflineEigenFactorModelALSLearner::fit(RecommenderData* recommender_data){
   MatrixXdRM item_factors = model_->get_item_factors().factors;
 
   for(int i=0; i<number_of_iterations_; i++){
-    user_factors = optimize_factors_implicit_(item_factors, AT);
-    item_factors = optimize_factors_implicit_(user_factors, A);
+    user_factors = optimize_factors_(item_factors, AT);
+    item_factors = optimize_factors_(user_factors, A);
   }
   model_->set_user_factors(user_factors);
   model_->set_item_factors(item_factors);

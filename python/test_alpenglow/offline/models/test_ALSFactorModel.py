@@ -42,10 +42,11 @@ class TestALSFactorModel(unittest.TestCase):
         )
 
         model = ALSFactorModel(
+            implicit=0,
             number_of_iterations=10
         )
         model.fit(data)
         predictions = model.predict(data[['user','item']])
 
         err=((np.array(predictions)-1)**2).mean()**(1/2)
-        self.assertAlmostEqual(0.0524353389834, err)
+        self.assertAlmostEqual(0.0269439422057, err)

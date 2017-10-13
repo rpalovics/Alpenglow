@@ -127,7 +127,7 @@ double explicit_err(const MatrixXd &userf, const MatrixXd &itemf, SparseMatrix<d
     {
       err += pow(userf.row(it.row())*itemf.row(it.col()).transpose()-it.value(),2);
     }
-  return pow(err / A.nonZeros(),1.0/2);
+  return pow(err / A.nonZeros(),1.0/2) + LAMBDA*A.nonZeros()*userf.norm() + LAMBDA*A.nonZeros()*itemf.norm();
 }
 
 TEST_F(TestEigenFactorModel, testOfflineEigenFactorModelALSLearner){
