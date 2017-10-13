@@ -23,6 +23,7 @@ class Random{
     double get_linear();
     double get_arctg(double y);
     int get_arctg(double y, int max);
+    int get_discrete(vector<double>& distribution);
     int operator()(int max){return get(max);}
     void write(ofstream& file){file.write(reinterpret_cast<char*>(&state), sizeof state);}
     void read(ifstream& file){file.read(reinterpret_cast<char*>(&state), sizeof state);}

@@ -15,7 +15,6 @@ TEST_F(TestRandom, max){
   EXPECT_LT(random.get(5),5);
   EXPECT_EQ(random.get(1),0);
 }
- //TODO
 TEST_F(TestRandom, seed){
   Random random1(123456);
   Random random2(123456);
@@ -35,7 +34,7 @@ TEST_F(TestRandom, setSeed){
 }
 
 TEST_F(TestRandom, persistence){
-  Random random(123123);
+  Random random(123123); //TODO use stringstream
   random(10);
   random(10);
   random(10);
@@ -115,6 +114,45 @@ TEST_F(TestRandom, get_geometric){
   for(int i=0;i<max;i++){
     EXPECT_LT(theor_distrib[i]*0.8, (double)distrib[i]/all);
     EXPECT_GT(theor_distrib[i]*1.2, (double)distrib[i]/all);
+  }
+}
+
+TEST_F(TestRandom, get_discrete){
+  Random random(3423452);
+  vector<vector<double>> expected_distributions;
+  expected_distributions.push_back({0.5,0.5});
+  expected_distributions.push_back({0.3,0.3,0.4});
+  expected_distributions.push_back({0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1});
+  expected_distributions.push_back({0.4,0.1,0.3,0.2});
+  for(auto& expected_distribution: expected_distributions){
+    vector<int> experienced_distribution(expected_distribution.size());
+    int all = 10000;
+    for(int i=0;i<all;i++){
+      int rand_val = random.get_discrete(expected_distribution);
+      ASSERT_LT(rand_val,expected_distribution.size());
+      experienced_distribution[rand_val]++;
+    }
+    for(int i=0;i<expected_distribution.size();i++){
+      EXPECT_LT(expected_distribution[i]*0.8, (double)experienced_distribution[i]/all);
+      EXPECT_GT(expected_distribution[i]*1.2, (double)experienced_distribution[i]/all);
+    }
+  }
+}
+
+TEST_F(TestRandom, get_discrete_inaccurate){ //sum is less than 1
+  Random random(3423452);
+  vector<vector<double>> expected_distributions;
+  expected_distributions.push_back({0.5});
+  expected_distributions.push_back({0.3,0.3});
+  expected_distributions.push_back({0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1});
+  expected_distributions.push_back({0.4,0.1,0.3});
+  for(auto& expected_distribution: expected_distributions){
+    vector<int> experienced_distribution(expected_distribution.size());
+    int all = 10000;
+    for(int i=0;i<all;i++){
+      int rand_val = random.get_discrete(expected_distribution);
+      ASSERT_LT(rand_val,expected_distribution.size());
+    }
   }
 }
 
