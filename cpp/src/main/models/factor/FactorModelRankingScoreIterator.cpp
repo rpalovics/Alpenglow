@@ -15,7 +15,7 @@ bool FactorModelRankingScoreIterator::has_next(double upper_bound){
   next_bucket_++;
 
   if(upper_bound <= current_bucket->get_bucket_max()*user_factor_norm_){
-    current_scores_ = current_bucket->get_scores(user_factor_);
+    current_scores_ = current_bucket->get_scores(&user_factor_);
     return true;
   } else {
     return false;

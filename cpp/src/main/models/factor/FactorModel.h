@@ -10,7 +10,7 @@
 #include "../SimilarityModel.h"
 #include "../RankingScoreIterator.h"
 #include "../TopListRecommender.h"
-#include "../../ranking/lemp/LempContainer.h"
+#include "../../ranking/lemp/FactorsLempContainer.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;
@@ -97,7 +97,7 @@ class FactorModel
     Factors user_factors_, item_factors_;
     Bias user_bias_, item_bias_;
     Recency *user_recency_, *item_recency_;
-    LempContainer lemp_container;
+    FactorsLempContainer lemp_container;
 
     //other
     //double user_factor_mean();
