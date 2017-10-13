@@ -65,7 +65,9 @@ MatrixXdRM OfflineEigenFactorModelALSLearner::optimize_factors_implicit_(const M
       YTxCUxPU += YTrowT*transf(it.value());
       i++;
     }
-    MatrixXd xu = (YTY + YTxCU * Yreduced + kxkLambdadiag).inverse()*YTxCUxPU;
+    MatrixXd toInvert = YTY + YTxCU * Yreduced + kxkLambdadiag;
+    PartialPivLU<MatrixXd> lu(toInvert);
+    MatrixXd xu = lu.solve(YTxCUxPU);
     factors2optRM.row(k) = xu.transpose();
   }
 
@@ -93,7 +95,7 @@ MatrixXdRM OfflineEigenFactorModelALSLearner::optimize_factors_explicit_(const M
       YTreduced.col(i) = factors1.row(it.row());
       i++;
     }
-    MatrixXd xu = (YTreduced*YTreduced.transpose()+kxkLambdadiag).inverse()*YTxPU;
+    MatrixXd xu = (YTreduced * YTreduced.transpose() + kxkLambdadiag).llt().solve(YTxPU);
     factors2optRM.row(k) = xu.transpose();
   }
   return factors2optRM;

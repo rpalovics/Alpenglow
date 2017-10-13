@@ -103,6 +103,7 @@ if platform == "linux" or platform == "linux2":
         '-mfpmath=sse,387',
         '-Wno-deprecated',
         '-Wno-reorder',
+        '-mfma',
     ]
 elif platform == "darwin":
     platform_specific_flags = [
