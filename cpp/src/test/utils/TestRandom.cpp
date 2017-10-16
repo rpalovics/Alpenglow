@@ -152,6 +152,11 @@ TEST_F(TestRandom, get_discrete_inaccurate){ //sum is less than 1
     for(int i=0;i<all;i++){
       int rand_val = random.get_discrete(expected_distribution);
       ASSERT_LT(rand_val,expected_distribution.size());
+      experienced_distribution[rand_val]++;
+    }
+    for(int i=0;i<expected_distribution.size()-1;i++){
+      EXPECT_LT(expected_distribution[i]*0.8, (double)experienced_distribution[i]/all);
+      EXPECT_GT(expected_distribution[i]*1.2, (double)experienced_distribution[i]/all);
     }
   }
 }
