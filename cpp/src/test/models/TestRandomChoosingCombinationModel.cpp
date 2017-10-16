@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <sstream>
 #include "../../main/models/combination/RandomChoosingCombinedModel.h"
 #include "../../main/models/combination/RandomChoosingCombinedModelExpertUpdater.h"
 
@@ -9,6 +10,10 @@ class DummyModel : public Model {
     int add_counter_ = 0;
     double prediction(RecDat*){ return my_prediction_; }
     double my_prediction_ = 0.5;
+    void read(istream&){ read_counter_++; }
+    int read_counter_ = 0;
+    void write(ostream&){ write_counter_++; }
+    int write_counter_ = 0;
 };
 class TestRandomChoosingCombinedModel : public ::testing::Test { 
   public:
@@ -45,7 +50,7 @@ class TestRandomChoosingCombinedModel : public ::testing::Test {
 
 } //namespace
 
-TEST_F(TestRandomChoosingCombinedModel, add){ //TODO
+TEST_F(TestRandomChoosingCombinedModel, add){
   RandomChoosingCombinedModelParameters params;
   RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
@@ -183,7 +188,23 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_distribution){
   
 }
 TEST_F(TestRandomChoosingCombinedModel, read_write){
-  //TODO
+  RandomChoosingCombinedModelParameters params;
+  RandomChoosingCombinedModel model(&params);
+  model.add_model(&model1);
+  model.add_model(&model2);
+  model.add_model(&model3);
+  model.set_experiment_environment(&experiment_environment);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(model.self_test());
+  stringstream ss;
+  model.write(ss);
+  EXPECT_EQ(1,model1.write_counter_);
+  EXPECT_EQ(1,model2.write_counter_);
+  EXPECT_EQ(1,model3.write_counter_);
+  model.read(ss);
+  EXPECT_EQ(1,model1.read_counter_);
+  EXPECT_EQ(1,model2.read_counter_);
+  EXPECT_EQ(1,model3.read_counter_);
 }
 
 

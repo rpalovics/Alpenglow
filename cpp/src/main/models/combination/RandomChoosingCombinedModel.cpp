@@ -14,5 +14,13 @@ double RandomChoosingCombinedModel::prediction(RecDat* rec_dat){
   }
   return active_model_->prediction(rec_dat);
 }
-void RandomChoosingCombinedModel::write(ostream& file){}
-void RandomChoosingCombinedModel::read(istream& file){}
+void RandomChoosingCombinedModel::write(ostream& file){
+  for(auto model:models_){
+    model->write(file);
+  }
+}
+void RandomChoosingCombinedModel::read(istream& file){
+  for(auto model:models_){
+    model->read(file);
+  }
+}
