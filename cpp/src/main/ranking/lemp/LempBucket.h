@@ -14,7 +14,7 @@ struct LempBucket{
   void erase_item(int id);
   int size() const;
   double get_bucket_max() const;
-  LempBucket* split(int num_to_split);
+  LempBucket split(int num_to_split);
 
   bool operator<(const LempBucket &comp) const {
       if (get_bucket_max() < comp.get_bucket_max()) return true;

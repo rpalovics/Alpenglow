@@ -128,7 +128,6 @@ TEST_F(TestLempContainer, update){
 
   double last_max = std::numeric_limits<double>::max();
   double last_len = std::numeric_limits<double>::max();
-  int j=0;
   for(auto b : container.buckets_){
     EXPECT_LE(b->get_bucket_max(), last_max);
     last_max = b->get_bucket_max();
@@ -174,7 +173,6 @@ TEST_F(TestLempContainer, scheduled_update){
 
   double last_max = std::numeric_limits<double>::max();
   double last_len = std::numeric_limits<double>::max();
-  int j=0;
   for(auto b : container.buckets_){
     EXPECT_LE(b->get_bucket_max(), last_max);
     last_max = b->get_bucket_max();

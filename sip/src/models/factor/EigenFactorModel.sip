@@ -6,6 +6,7 @@ struct EigenFactorModelParameters{
   double begin_min;
   double begin_max;
   int seed;
+  int lemp_bucket_size;
 };
 
 class EigenFactorModel : public Model, public Initializable {

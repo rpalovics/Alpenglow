@@ -1,5 +1,10 @@
 #include "EigenFactorModel.h"
 
+RankingScoreIterator* EigenFactorModel::get_ranking_score_iterator(int u){
+  MatrixXdRM row = user_factors_.factors.row(u);
+  vector<double> user(row.data(), row.data()+row.cols());
+  return new FactorModelRankingScoreIterator(user, &lemp_container_);
+}
 
 double EigenFactorModel::prediction(RecDat* rec_dat){
   return user_factors_.factors.row(rec_dat->user)*item_factors_.factors.row(rec_dat->item).transpose();
@@ -27,7 +32,7 @@ void EigenFactorModel::write(ofstream& file){
   file.write((char*) (&begin_max_), sizeof(begin_max_));
   user_factors_.write(file);
   item_factors_.write(file);
-};
+}
 
 void EigenFactorModel::read(ifstream& file){
   file.read((char*) (&dimension_), sizeof(dimension_));
@@ -36,4 +41,13 @@ void EigenFactorModel::read(ifstream& file){
   file.read((char*) (&begin_max_), sizeof(begin_max_));
   user_factors_.read(file);
   item_factors_.read(file);
-};
+}
+
+void EigenFactorModel::set_user_factors(const MatrixXdRM& factors){
+  user_factors_.factors = factors;
+}
+
+void EigenFactorModel::set_item_factors(const MatrixXdRM& factors){
+  item_factors_.factors = factors;
+  lemp_container_.reinitialize(&item_factors_, lemp_bucket_size_);
+}

@@ -53,12 +53,12 @@ int LempBucket::size() const {
   return item_lengths_.size();
 }
 
-LempBucket* LempBucket::split(int num){
-  LempBucket* new_bucket = new LempBucket();
+LempBucket LempBucket::split(int num){
+  LempBucket new_bucket;
 
-  new_bucket->item_ids_ = vector<int>(item_ids_.end()-num, item_ids_.end());
-  new_bucket->item_lengths_ = vector<double>(item_lengths_.end()-num, item_lengths_.end());
-  new_bucket->item_directions_ = vector<vector<double>>(item_directions_.end()-num, item_directions_.end());
+  new_bucket.item_ids_ = vector<int>(item_ids_.end()-num, item_ids_.end());
+  new_bucket.item_lengths_ = vector<double>(item_lengths_.end()-num, item_lengths_.end());
+  new_bucket.item_directions_ = vector<vector<double>>(item_directions_.end()-num, item_directions_.end());
 
   int new_size = size()-num;
   item_ids_.resize(new_size);

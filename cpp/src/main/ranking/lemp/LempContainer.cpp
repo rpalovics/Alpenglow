@@ -130,7 +130,7 @@ void LempContainer::repair_bucket(multiset<LempBucket*>::iterator bucket, double
 
 void LempContainer::split_bucket(multiset<LempBucket*>::iterator bucket){
   LempBucket* container_bucket = *bucket;
-  LempBucket* new_bucket = container_bucket->split(container_bucket->size()/2);
+  LempBucket* new_bucket = new LempBucket(container_bucket->split(container_bucket->size()/2));
   multiset<LempBucket*>::iterator hint(bucket);
   hint++;
   auto new_pos = buckets_.insert(hint, new_bucket);

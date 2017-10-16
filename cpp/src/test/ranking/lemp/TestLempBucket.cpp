@@ -92,18 +92,18 @@ TEST_F(TestLempBucket, split){
   }
   EXPECT_EQ(vector<int>({6,3,5,2,4,1}), bucket.item_ids_);
 
-  LempBucket* new_bucket = bucket.split(3);
+  LempBucket new_bucket = bucket.split(3);
   EXPECT_EQ(vector<int>({6,3,5}), bucket.item_ids_);
-  EXPECT_EQ(vector<int>({2,4,1}), new_bucket->item_ids_);
+  EXPECT_EQ(vector<int>({2,4,1}), new_bucket.item_ids_);
   EXPECT_EQ(6,bucket.get_bucket_max());
-  EXPECT_EQ(3,new_bucket->get_bucket_max());
+  EXPECT_EQ(3,new_bucket.get_bucket_max());
 
-  LempBucket* new_bucket2 = new_bucket->split(2);
+  LempBucket new_bucket2 = new_bucket.split(2);
 
-  EXPECT_EQ(vector<int>({2}), new_bucket->item_ids_);
-  EXPECT_EQ(vector<int>({4,1}), new_bucket2->item_ids_);
-  EXPECT_EQ(3,new_bucket->get_bucket_max());
-  EXPECT_EQ(2,new_bucket2->get_bucket_max());
+  EXPECT_EQ(vector<int>({2}), new_bucket.item_ids_);
+  EXPECT_EQ(vector<int>({4,1}), new_bucket2.item_ids_);
+  EXPECT_EQ(3,new_bucket.get_bucket_max());
+  EXPECT_EQ(2,new_bucket2.get_bucket_max());
 }
 }
 

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <random>
+#include <utility>
 #include "../../main/models/factor/EigenFactorModel.h"
 #include "../../main/offline_learners/OfflineEigenFactorModelALSLearner.h"
 #include "../../main/utils/EigenFactors.h"
@@ -275,6 +276,49 @@ TEST_F(TestEigenFactorModel, testOfflineEigenFactorModel){
       EXPECT_DOUBLE_EQ(model.prediction(&rd), model2.prediction(&rd));
     }
   }
+}
+
+TEST_F(TestEigenFactorModel, TestEigenFactorModelRanking){
+  EigenFactorModelParameters mparameters;
+  mparameters.dimension = 1;
+  mparameters.lemp_bucket_size = 2;
+  EigenFactorModel model(&mparameters);
+  MatrixXdRM user_factor(2,1);
+  user_factor << 1, -1;
+  MatrixXdRM item_factor(6,1);
+  item_factor << 1,6,2,5,3,4;
+  model.set_user_factors(user_factor);
+  model.set_item_factors(item_factor);
+
+  vector<double> scores;
+  vector<double> items;
+  RankingScoreIterator* it = model.get_ranking_score_iterator(1);
+  while(it->has_next()){
+    int i;
+    double s;
+    tie(i, s) = it->get_next();
+    scores.push_back(s);
+    items.push_back(i);
+  }
+  vector<double> ideal_scores({-6,-5,-4,-3,-2,-1});
+  vector<double> ideal_items({1,3,5,4,2,0});
+  EXPECT_EQ(ideal_scores, scores);
+  EXPECT_EQ(ideal_items, items);
+
+  scores.clear();
+  items.clear();
+  it = model.get_ranking_score_iterator(0);
+  while(it->has_next(2.1)){
+    int i;
+    double s;
+    tie(i, s) = it->get_next();
+    scores.push_back(s);
+    items.push_back(i);
+  }
+  ideal_scores={6,5,4,3};
+  ideal_items={1,3,5,4};
+  EXPECT_EQ(ideal_scores, scores);
+  EXPECT_EQ(ideal_items, items);
 }
 
 int main (int argc, char **argv) {

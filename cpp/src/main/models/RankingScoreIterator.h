@@ -3,10 +3,18 @@
 
 #include <utility>
 #include <limits>
+#include <cmath>
 
 class RankingScoreIterator {
 public:
   virtual bool has_next(double upper_bound)=0;
+  virtual bool has_next(double upper_bound, bool strict){
+    if(!strict){
+      return has_next(upper_bound);
+    } else {
+      return has_next(std::nextafter(upper_bound, std::numeric_limits<double>::max()));
+    }
+  }
   virtual bool has_next(){
     return this->has_next(std::numeric_limits<double>::lowest());
   };
