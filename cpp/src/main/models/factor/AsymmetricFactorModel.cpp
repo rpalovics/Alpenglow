@@ -117,12 +117,12 @@ vector<double> AsymmetricFactorModel::compute_histvector_sum(RecDat* rec_dat, co
    //} //DEBUG
    return sum_vector; //ha lassu, akkor ellenorizni kell, hogy itt masol, vagy kioptimalizalja
 }
-void AsymmetricFactorModel::write(ofstream& file){
+void AsymmetricFactorModel::write(ostream& file){
   user_history_container_.write(file);
   history_item_factors_.write(file);
   item_factors_.write(file);
 }
-void AsymmetricFactorModel::read(ifstream& file){
+void AsymmetricFactorModel::read(istream& file){
   user_history_container_.read(file);
   history_item_factors_.read(file);
   item_factors_.read(file);

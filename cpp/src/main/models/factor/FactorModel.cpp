@@ -88,13 +88,13 @@ double FactorModel::compute_product(RecDat *rec_dat){
   return Util::scalar_product(user_factors_.get(rec_dat->user),item_factors_.get(rec_dat->item));
 }
 
-void FactorModel::write(ofstream& file){
+void FactorModel::write(ostream& file){
   user_factors_.write(file);
   item_factors_.write(file);
   //TODO bias, recency
 }
 
-void FactorModel::read(ifstream& file){
+void FactorModel::read(istream& file){
   user_factors_.read(file);
   item_factors_.read(file);
   //TODO bias, recency

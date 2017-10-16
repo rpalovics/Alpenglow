@@ -8,8 +8,8 @@ class DummyModel: public Model{
   public:
   void add(RecDat* recDat){ add_counter++;}
   double prediction(RecDat* recDat){ return 0; }
-  void write(ofstream& file){write_counter++;}
-  void read(ifstream& file){read_counter++;}
+  void write(ostream& file){write_counter++;}
+  void read(istream& file){read_counter++;}
   void clear(){clear_counter++;}
   int write_counter = 0;
   int read_counter = 0;

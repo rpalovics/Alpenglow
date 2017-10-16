@@ -18,8 +18,8 @@ class RandomChoosingCombinedModel : public Model, public Initializable, public N
     void add_model(Model* model){ models_.push_back(model); }
     void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
-    void write(ofstream& file) override;
-    void read(ifstream& file) override;
+    void write(ostream& file) override;
+    void read(istream& file) override;
     void set_experiment_environment(ExperimentEnvironment* experiment_environment){ experiment_environment_ = experiment_environment; }
     bool self_test(){
       bool ok = Model::self_test();

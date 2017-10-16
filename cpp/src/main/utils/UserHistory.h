@@ -22,8 +22,8 @@ class UserHistory : public Updater{
     void clear_user_history(int user); //if user history existed, it will be an empty list
     void clear_all();
     void update(RecDat*) override;
-    void write(ofstream& file){ throw exception(); }//TODO
-    void read(ifstream& file){ throw exception(); }//TODO
+    void write(ostream& file){ throw exception(); }//TODO
+    void read(istream& file){ throw exception(); }//TODO
     ~UserHistory(){
       delete_all();
     }

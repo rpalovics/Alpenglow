@@ -44,8 +44,8 @@ class AsymmetricFactorModel : public Model{
     };
     void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
-    void write(ofstream& file) override;
-    void read(ifstream& file) override;
+    void write(ostream& file) override;
+    void read(istream& file) override;
     void clear() override;
     virtual ~AsymmetricFactorModel() {}
     bool self_test(){

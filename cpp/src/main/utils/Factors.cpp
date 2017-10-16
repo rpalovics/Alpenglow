@@ -88,7 +88,7 @@ int Factors::get_size() {
   return factors.size();
 }
 
-void Factors::write(ofstream& file) {
+void Factors::write(ostream& file) {
   //count vectors
   int counter = 0;
   for(uint i=0;i<factors.size();i++){
@@ -107,7 +107,7 @@ void Factors::write(ofstream& file) {
   } 
 }
 
-void Factors::read(ifstream& file){
+void Factors::read(istream& file){
   if (file.fail()){
     cerr << "Factors::read file error, did not read anything." << endl;
     return;

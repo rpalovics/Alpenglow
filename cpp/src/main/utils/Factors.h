@@ -55,8 +55,8 @@ class Factors{
     //inline void lin_combine(int idx, double weight);
     void resize(int idx);
     int get_size();
-    void write(ofstream& file);
-    void read(ifstream& file);
+    void write(ostream& file);
+    void read(istream& file);
     void clear();
     size_t get_dimension(){return dimension;}
     vector <int> get_nonnull_indices();

@@ -109,13 +109,13 @@ vector<double> SvdppModel::compute_histvector_sum(RecDat* rec_dat, const vector<
 }
 
 
-void SvdppModel::write(ofstream& file){
+void SvdppModel::write(ostream& file){
   user_factors_.write(file);
   item_factors_.write(file);
   history_item_factors_.write(file);
 }
 
-void SvdppModel::read(ifstream& file){
+void SvdppModel::read(istream& file){
   user_factors_.read(file);
   item_factors_.read(file);  
   history_item_factors_.read(file);

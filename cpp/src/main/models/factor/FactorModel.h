@@ -58,8 +58,8 @@ class FactorModel
     void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
     double similarity(int item1, int item2) override;
-    void write(ofstream& file) override;
-    void read(ifstream& file) override;
+    void write(ostream& file) override;
+    void read(istream& file) override;
     void clear() override;
     void set_user_recency(Recency *recency){user_recency_ = recency;}
     void set_item_recency(Recency *recency){item_recency_ = recency;}

@@ -14,5 +14,5 @@ double RandomChoosingCombinedModel::prediction(RecDat* rec_dat){
   }
   return active_model_->prediction(rec_dat);
 }
-void RandomChoosingCombinedModel::write(ofstream& file){}
-void RandomChoosingCombinedModel::read(ifstream& file){}
+void RandomChoosingCombinedModel::write(ostream& file){}
+void RandomChoosingCombinedModel::read(istream& file){}
