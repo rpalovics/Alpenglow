@@ -6,6 +6,7 @@ except:
 import sipdistutils
 import os
 import os.path
+import sys
 from sys import platform
 
 from distutils.dep_util import newer_group
@@ -103,7 +104,8 @@ if platform == "linux" or platform == "linux2":
         '-mfpmath=sse,387',
         '-Wno-deprecated',
         '-Wno-reorder',
-        '-mfma',
+        # for modern processors
+        # '-mfma',
     ]
 elif platform == "darwin":
     platform_specific_flags = [
@@ -120,6 +122,11 @@ elif platform == "win32":
         '-O2'
     ]
 
+conda_executable_name = sys.executable
+conda_include_dirs = []
+if conda_executable_name[-len("bin/python"):] == "bin/python":
+    conda_include_dirs.append(conda_executable_name[:-len("bin/python")]+"include")
+
 setup(
     name='alpenglow',
     version='0.1.0',
@@ -135,7 +142,7 @@ setup(
                 'cpp/src',
                 'cpp/src/main',
                 'cpp/dep/gtest/include'
-            ],
+            ]+conda_include_dirs,
             extra_compile_args=[
                 '-std=c++11',
                 '-O2',
