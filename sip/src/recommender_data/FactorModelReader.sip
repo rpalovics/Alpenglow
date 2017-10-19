@@ -19,3 +19,11 @@ class FactorModelReader{
 public:
   UserItemFactors read(std::string file_name, int dimension);
 };
+
+class EigenFactorModelReader{
+  %TypeHeaderCode
+  #include "python/cpp_bridge/FactorModelReader.h"
+  %End
+public:
+  UserItemFactors read(std::string file_name);
+};

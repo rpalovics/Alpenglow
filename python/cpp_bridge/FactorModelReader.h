@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "models/factor/FactorModel.h"
+#include "models/factor/EigenFactorModel.h"
 
 using namespace std;
 
@@ -53,6 +54,42 @@ public:
         uifactors.item_factors.push_back(item_vector);
       }
     }
+    return uifactors;
+  }
+};
+
+class EigenFactorModelReader{
+public:
+  UserItemFactors read(string file_name){
+    ifstream ifs(file_name, ios::binary);
+    EigenFactorModelParameters p;
+    EigenFactorModel m(&p);
+    m.read(ifs);
+    ifs.close();
+
+    UserItemFactors uifactors;
+
+    auto &user_factors = m.get_user_factors();
+    auto &item_factors = m.get_item_factors();
+
+    for(uint i=0;i<user_factors.factors.rows();i++){
+      FactorRepr user_vector;
+      user_vector.entity=i;
+      for(int j=0;j<user_factors.factors.cols();j++){
+        user_vector.factors.push_back(user_factors.factors(i,j));
+      }
+      uifactors.user_factors.push_back(user_vector);
+    }
+
+    for(uint i=0;i<item_factors.factors.rows();i++){
+      FactorRepr item_vector;
+      item_vector.entity=i;
+      for(int j=0;j<item_factors.factors.cols();j++){
+        item_vector.factors.push_back(item_factors.factors(i,j));
+      }
+      uifactors.item_factors.push_back(item_vector);
+    }
+
     return uifactors;
   }
 };
