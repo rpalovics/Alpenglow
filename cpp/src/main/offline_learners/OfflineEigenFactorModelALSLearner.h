@@ -2,6 +2,7 @@
 #define OFFLINE_EIGEN_FACTOR_MODEL_ALS_LEARNER_H
 
 #include "OfflineLearner.h"
+#include "../models/factor/FactorModel.h"
 #include "../models/factor/EigenFactorModel.h"
 #include <gtest/gtest_prod.h>
 
@@ -28,6 +29,8 @@ class OfflineEigenFactorModelALSLearner : public OfflineLearner{
     virtual void iterate(){};
     void fit(RecommenderData* recommender_data);
     void set_model(EigenFactorModel* model){ model_ = model; }
+    void set_copy_from_model(FactorModel* model){ copy_from_model_ = model; }
+    void set_copy_to_model(FactorModel* model){ copy_to_model_ = model; }
     bool self_test();
   private:
     //parameters
@@ -43,8 +46,14 @@ class OfflineEigenFactorModelALSLearner : public OfflineLearner{
     MatrixXdRM optimize_factors_implicit_(const MatrixXdRM &factors1, const SparseMatrix<double> &A);
     MatrixXdRM optimize_factors_explicit_(const MatrixXdRM &factors1, const SparseMatrix<double> &A);
 
+    //traditional factor model copy
+    void do_copy_from_model_(FactorModel *model, MatrixXdRM &user_factors, MatrixXdRM &item_factors);
+    void do_copy_to_model_(FactorModel *model, MatrixXdRM &user_factors, MatrixXdRM &item_factors);
+
     //components
     EigenFactorModel* model_ = NULL;
+    FactorModel* copy_from_model_ = NULL;
+    FactorModel* copy_to_model_ = NULL;
 
     //friends
     FRIEND_TEST(TestEigenFactorModel, testOfflineEigenFactorModelALSLearner);

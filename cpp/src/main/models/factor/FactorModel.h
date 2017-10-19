@@ -117,6 +117,7 @@ class FactorModel
     friend class FactorModelUpdater;
     friend class FactorModelFilter;
     friend class FactorToAMFAdapter;
+    friend class OfflineEigenFactorModelALSLearner;
     FRIEND_TEST(TestFactorModel, test);
     FRIEND_TEST(TestFactorModel, similarity);
     FRIEND_TEST(TestFactorModelFilter, test_basic);

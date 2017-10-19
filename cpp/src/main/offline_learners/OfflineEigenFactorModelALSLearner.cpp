@@ -121,10 +121,59 @@ void OfflineEigenFactorModelALSLearner::fit(RecommenderData* recommender_data){
   MatrixXdRM user_factors = model_->get_user_factors().factors;
   MatrixXdRM item_factors = model_->get_item_factors().factors;
 
+  if(copy_from_model_ != NULL){
+    do_copy_from_model_(copy_from_model_, user_factors, item_factors);
+  }
+
   for(int i=0; i<number_of_iterations_; i++){
     user_factors = optimize_factors_(item_factors, AT);
     item_factors = optimize_factors_(user_factors, A);
   }
+
+  if(copy_to_model_ != NULL){
+    do_copy_to_model_(copy_to_model_, user_factors, item_factors);
+  }
+
   model_->set_user_factors(user_factors);
   model_->set_item_factors(item_factors);
 }
+
+void OfflineEigenFactorModelALSLearner::do_copy_from_model_(FactorModel *model, MatrixXdRM &user_factors, MatrixXdRM &item_factors){
+  for(uint i=0; i<model->user_factors_.get_size(); i++){
+    vector<double> *row = model->user_factors_.get(i);
+    if(row != NULL){
+      double* ptr = row->data();
+      user_factors.row(i) = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(ptr,row->size());
+    }
+  }
+  for(uint i=0; i<model->item_factors_.get_size(); i++){
+    vector<double> *row = model->item_factors_.get(i);
+    if(row != NULL){
+      double* ptr = row->data();
+      item_factors.row(i) = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(ptr,row->size());
+    }
+  }
+}
+
+void OfflineEigenFactorModelALSLearner::do_copy_to_model_(FactorModel *model, MatrixXdRM &user_factors, MatrixXdRM &item_factors){
+  vector<double> tmp;
+  MatrixXdRM row;
+  for(uint i=0; i<user_factors.rows(); i++){
+    row = user_factors.row(i);
+    tmp = vector<double>(row.data(), row.data()+row.cols());
+    if(model->user_factors_.get_size() <= i){
+      model->user_factors_.init(i);
+    }
+    model->user_factors_.set(i, &tmp);
+  }
+  for(uint i=0; i<item_factors.rows(); i++){
+    row = item_factors.row(i);
+    tmp = vector<double>(row.data(), row.data()+row.cols());
+    if(model->item_factors_.get_size() <= i){
+      model->item_factors_.init(i);
+    }
+    model->item_factors_.set(i, &tmp);
+    model->lemp_container.schedule_update_item(i);
+  }
+}
+

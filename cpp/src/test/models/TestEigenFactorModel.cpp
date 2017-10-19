@@ -4,6 +4,7 @@
 #include <random>
 #include <utility>
 #include "../../main/models/factor/EigenFactorModel.h"
+#include "../../main/models/factor/FactorModel.h"
 #include "../../main/offline_learners/OfflineEigenFactorModelALSLearner.h"
 #include "../../main/utils/EigenFactors.h"
 
@@ -238,8 +239,14 @@ TEST_F(TestEigenFactorModel, testOfflineEigenFactorModel){
 
   EigenFactorModelParameters mparameters;
   EigenFactorModel model(&mparameters);
+  FactorModelParameters lparameters;
+  lparameters.dimension = 10;
+  lparameters.begin_min = -1;
+  lparameters.begin_max = 1;
+  FactorModel lmodel(&lparameters);
 
   learner.set_model(&model);
+  learner.set_copy_to_model(&lmodel);
   learner.fit(&data);
   auto u_factors = model.get_user_factors();
   auto i_factors = model.get_item_factors();
@@ -247,6 +254,24 @@ TEST_F(TestEigenFactorModel, testOfflineEigenFactorModel){
   EXPECT_EQ(10,u_factors.factors.cols());
   EXPECT_EQ(18,i_factors.factors.rows());
   EXPECT_EQ(10,i_factors.factors.cols());
+
+  //copy to successful
+  RecDat *req = createRecDat(5,5,1,1);
+  EXPECT_EQ(lmodel.prediction(req),model.prediction(req));
+
+  //copy from successful
+  OfflineEigenFactorModelALSLearnerParameters parameters_c;
+  parameters_c.number_of_iterations=0;
+  parameters_c.clear_before_fit=0;
+  OfflineEigenFactorModelALSLearner learner2(&parameters_c);
+
+  EigenFactorModelParameters mparameters_c;
+  EigenFactorModel model_c(&mparameters_c);
+  learner2.set_copy_from_model(&lmodel);
+  learner2.set_model(&model_c);
+  learner.fit(&data);
+  EXPECT_EQ(lmodel.prediction(req),model.prediction(req));
+
 
   ofstream file("tempfile1");
   model.write(file);
