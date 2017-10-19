@@ -1,5 +1,6 @@
 import alpenglow.cpp as pr
-
+import threading
+from collections import defaultdict
 
 class MetaGetter(type):
     """Metaclass of :py:class:`alpenglow.Getter.Getter`. Provides utilities for
@@ -7,11 +8,13 @@ class MetaGetter(type):
     information, see :doc:`/general/memory_management`.
     """
     def __init__(self, a, b, c):
-        self.collect_ = False
-        self.items = []
+        tid = threading.get_ident()
+        self.collect_ = defaultdict(lambda: False)
+        self.items = defaultdict(lambda: [])
 
     def __getattr__(self, name):
         def objectfactory(*args, **kwargs):
+            tid = threading.get_ident()
             retval = None
             if(kwargs == {}):
                 class_ = getattr(pr, name)
@@ -23,19 +26,21 @@ class MetaGetter(type):
                     setattr(paramval, k, v)
                 class_ = getattr(pr, name)
                 retval = class_(paramval)
-            if(self.collect_):
-                self.items.append(retval)
+            if(self.collect_[tid]):
+                self.items[tid].append(retval)
             return retval
         return objectfactory
 
     def collect(self):
-        self.collect_ = True
-        self.items = []
+        tid = threading.get_ident()
+        self.collect_[tid] = True
+        self.items[tid] = []
 
     def get_and_clean(self):
-        items = self.items
-        self.collect_ = False
-        self.items = []
+        tid = threading.get_ident()
+        items = self.items[tid]
+        self.collect_[tid] = False
+        self.items[tid] = []
         return items
 
     def run_self_test(self, i):
