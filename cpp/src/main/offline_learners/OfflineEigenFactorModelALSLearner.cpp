@@ -173,7 +173,7 @@ void OfflineEigenFactorModelALSLearner::do_copy_to_model_(FactorModel *model, Ma
       model->item_factors_.init(i);
     }
     model->item_factors_.set(i, &tmp);
-    model->lemp_container.schedule_update_item(i);
+    model->lemp_container_.schedule_update_item(i);
   }
 }
 

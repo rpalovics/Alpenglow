@@ -17,6 +17,8 @@ public:
     user_factor_norm_ = Util::norm(&user_factor);
   }
 
+  FactorModelRankingScoreIterator(){};
+
   virtual bool has_next(double upper_bound);
   using RankingScoreIterator::has_next;
   virtual pair<int, double> get_next();

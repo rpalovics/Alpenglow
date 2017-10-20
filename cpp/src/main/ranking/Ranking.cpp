@@ -22,6 +22,10 @@ int RankComputer::get_rank_ranking_model(RecDat* rec_dat){
   }
 
   map<int,double> *seen_items = train_matrix_->get(rec_dat->user);
+  map<int,double> empty_seen_items;
+  if(seen_items == NULL){
+    seen_items = &empty_seen_items;
+  }
 
   int better_items_num = 0;
   int equal_items_num = 0;
@@ -57,7 +61,6 @@ int RankComputer::get_rank_ranking_model(RecDat* rec_dat){
     better_items_num += random_.get(equal_items_num+1);
   }
 
-  delete iterator;
   better_items_num = min(top_k_,better_items_num);
   return better_items_num;
 }

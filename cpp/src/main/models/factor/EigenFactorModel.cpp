@@ -3,7 +3,8 @@
 RankingScoreIterator* EigenFactorModel::get_ranking_score_iterator(int u){
   MatrixXdRM row = user_factors_.factors.row(u);
   vector<double> user(row.data(), row.data()+row.cols());
-  return new FactorModelRankingScoreIterator(user, &lemp_container_);
+  ranking_score_iterator_ = FactorModelRankingScoreIterator(user, &lemp_container_);
+  return &ranking_score_iterator_;
 }
 
 double EigenFactorModel::prediction(RecDat* rec_dat){

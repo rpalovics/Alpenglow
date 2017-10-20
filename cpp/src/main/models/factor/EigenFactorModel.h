@@ -62,6 +62,7 @@ class EigenFactorModel
     //state
     EigenFactors user_factors_, item_factors_;
     EigenFactorsLempContainer lemp_container_;
+    FactorModelRankingScoreIterator ranking_score_iterator_;
 
     //friends
     FRIEND_TEST(TestEigenFactorModel, testOfflineEigenFactorModel);

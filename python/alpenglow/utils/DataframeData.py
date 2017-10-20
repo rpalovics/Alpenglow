@@ -32,7 +32,6 @@ class DataframeData(rs.DataframeData):
             rd.eval = _eval
             rd.category = _category
             recdats.append(rd)
-            sip.transferto(rd, None)
         self.add_recdats(recdats)
         super(rs.DataframeData, self).initialize()
 

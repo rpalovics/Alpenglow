@@ -9,7 +9,7 @@ void FactorModelGradientUpdater::update(RecDat* rec_dat, double gradient){
   update_biases(rec_dat,gradient);
   update_factors(rec_dat,gradient);
   
-  model_->lemp_container.schedule_update_item(rec_dat->item);
+  model_->lemp_container_.schedule_update_item(rec_dat->item);
 }
 
 void FactorModelGradientUpdater::update_biases(RecDat* rec_dat, double gradient){
