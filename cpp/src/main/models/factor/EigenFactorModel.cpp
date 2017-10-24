@@ -8,7 +8,11 @@ RankingScoreIterator* EigenFactorModel::get_ranking_score_iterator(int u){
 }
 
 double EigenFactorModel::prediction(RecDat* rec_dat){
-  return user_factors_.factors.row(rec_dat->user)*item_factors_.factors.row(rec_dat->item).transpose();
+  if(rec_dat->user < user_factors_.factors.rows() && rec_dat->item < item_factors_.factors.rows()){
+    return user_factors_.factors.row(rec_dat->user)*item_factors_.factors.row(rec_dat->item).transpose();
+  } else {
+    return 0;
+  }
 }
 
 void EigenFactorModel::resize(int users, int items){
