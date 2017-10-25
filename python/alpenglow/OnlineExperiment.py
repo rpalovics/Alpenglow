@@ -75,8 +75,7 @@ class OnlineExperiment(ParameterDefaults):
         min_time = 0
         max_time = 0
 
-        print("reading data...") if self.verbose else None
-
+        # reading data
         if not isinstance(data, str):
             recommender_data = DataframeData(data, columns=columns)
         else:
@@ -88,8 +87,7 @@ class OnlineExperiment(ParameterDefaults):
         # TODO set max_item, max_user here
         recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
         recommender_data_iterator.set_recommender_data(recommender_data)
-
-        print("data reading finished") if self.verbose else None
+        # data reading finished
 
         top_k = self.parameters['top_k']
         seed = self.parameters["seed"]

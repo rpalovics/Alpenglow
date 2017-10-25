@@ -7,6 +7,7 @@ import sipdistutils
 import os
 import os.path
 import sys
+import numpy
 from sys import platform
 
 from distutils.dep_util import newer_group
@@ -126,7 +127,6 @@ conda_executable_name = sys.executable
 conda_include_dirs = []
 if conda_executable_name[-len("bin/python"):] == "bin/python":
     conda_include_dirs.append(conda_executable_name[:-len("bin/python")]+"include")
-
 setup(
     name='alpenglow',
     version='0.1.0',
@@ -141,7 +141,8 @@ setup(
                 '.',
                 'cpp/src',
                 'cpp/src/main',
-                'cpp/dep/gtest/include'
+                'cpp/dep/gtest/include',
+                numpy.get_include(),
             ]+conda_include_dirs,
             extra_compile_args=[
                 '-std=c++11',
