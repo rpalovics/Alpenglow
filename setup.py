@@ -14,10 +14,12 @@ from distutils.dep_util import newer_group
 from distutils.errors import *
 from distutils.sysconfig import get_config_vars
 import distutils.ccompiler
+import re
 
 # recursively adds .sip files to dependencies
 class custom_build_ext(sipdistutils.build_ext):
     def _find_sip_extra_depends(self, file):
+
         dirname = os.path.dirname(file)
         if(dirname == ""):
             dirname = "."
@@ -27,8 +29,15 @@ class custom_build_ext(sipdistutils.build_ext):
             for s in content.decode().splitlines(False)
             if s.strip().startswith('%Include')
         ]
-        new_depends = set(new_sources)
 
+        new_h_sources = []
+        h_local_regex=re.compile('^\s*#include\s*"([^"]+?)"')
+        new_h_sources = [
+            h 
+            for s in content.decode().splitlines(False)
+            for h in h_local_regex.findall(s)
+        ]
+        new_depends = set(new_sources) | set(new_h_sources)
         for s in new_sources:
             new_depends = new_depends | self._find_sip_extra_depends(s)
 
@@ -105,8 +114,11 @@ if platform == "linux" or platform == "linux2":
         '-mfpmath=sse,387',
         '-Wno-deprecated',
         '-Wno-reorder',
-        # for modern processors
+        # for modern processors:
         # '-mfma',
+        # if you want to eigen to use blas/lapack:
+        # '-DEIGEN_USE_BLAS',
+        # '-DEIGEN_USE_LAPACKE',
     ]
 elif platform == "darwin":
     platform_specific_flags = [
@@ -154,6 +166,11 @@ setup(
                 '-D_LARGEFILE_SOURCE',
                 '-D_FILE_OFFSET_BITS=64'
             ] + platform_specific_flags,
+            libraries=[
+                # if you want to eigen to use blas/lapack:
+                # 'lapack',
+                # 'blas',
+            ]
         ),
     ],
     packages=[

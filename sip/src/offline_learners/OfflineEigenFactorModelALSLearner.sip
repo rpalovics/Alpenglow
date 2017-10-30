@@ -19,5 +19,7 @@ class OfflineEigenFactorModelALSLearner : public OfflineLearner{
     virtual void iterate();
     void fit(RecommenderData* recommender_data);
     void set_model(EigenFactorModel* model);
+    void set_copy_from_model(FactorModel* model);
+    void set_copy_to_model(FactorModel* model);
     bool self_test();
 };
