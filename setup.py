@@ -139,6 +139,9 @@ conda_executable_name = sys.executable
 conda_include_dirs = []
 if conda_executable_name[-len("bin/python"):] == "bin/python":
     conda_include_dirs.append(conda_executable_name[:-len("bin/python")]+"include")
+elif conda_executable_name[-len("python.exe"):] == "python.exe":
+    conda_include_dirs.append(conda_executable_name[:-len("python.exe")]+"Library/include")
+
 setup(
     name='alpenglow',
     version='0.1.0',
