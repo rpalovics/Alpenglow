@@ -31,7 +31,7 @@ class NearestNeighborModel(alpenglow.offline.OfflineModel):
         updater.set_model(model)
 
         learner = rs.OfflineIteratingOnlineLearnerWrapper(
-            seed=0,
+            seed=254938879,
             number_of_iterations=0,
             shuffle=False,
         )

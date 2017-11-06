@@ -38,6 +38,7 @@ class ALSFactorExperiment(alpenglow.OnlineExperiment):
             begin_min=-0.01,
             begin_max=0.01,
             dimension=10,
+            seed=67439852,
         ))
         offline_learner = rs.OfflineEigenFactorModelALSLearner(**self.parameter_defaults(
             number_of_iterations=15,

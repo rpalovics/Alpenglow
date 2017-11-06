@@ -32,7 +32,7 @@ class ALSFactorModel(alpenglow.offline.OfflineModel):
             begin_min=-0.01,
             begin_max=0.01,
             dimension=10,
-            seed=254938879,
+            seed=67439852,
         ))
         learner = rs.OfflineEigenFactorModelALSLearner(**self.parameter_defaults(
             number_of_iterations=3,

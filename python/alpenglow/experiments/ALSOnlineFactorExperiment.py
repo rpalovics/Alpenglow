@@ -48,6 +48,7 @@ class ALSOnlineFactorExperiment(alpenglow.OnlineExperiment):
             begin_min=-0.01,
             begin_max=0.01,
             dimension=10,
+            seed=254938879,
         ))
         model = rs.FactorModel(**self.parameter_defaults(
             begin_min=-0.01,
