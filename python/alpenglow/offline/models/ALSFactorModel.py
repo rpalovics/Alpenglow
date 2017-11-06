@@ -6,9 +6,7 @@ class ALSFactorModel(alpenglow.offline.OfflineModel):
     """ALSFactorModel(dimension=10,begin_min=-0.01,begin_max=0.01,number_of_iterations=3,regularization_lambda=0.0001,alpha=40,implicit=1)
 
     This class implements the well-known matrix factorization recommendation model [Koren2009]_
-    and trains it ALS and iALS [Koren2008iALS]_.
-
-    .. [Koren2008iALS] Hu, Yifan, Yehuda Koren, and Chris Volinsky. "Collaborative filtering for implicit feedback datasets." Data Mining, 2008. ICDM'08. Eighth IEEE International Conference on. Ieee, 2008.
+    and trains it using ALS and iALS [Hu2008]_.
 
     Parameters
     ----------
@@ -21,9 +19,9 @@ class ALSFactorModel(alpenglow.offline.OfflineModel):
     number_of_iterations : double
         Number of times to optimize the user and the item factors for least squares.
     regularization_lambda : double
-        The coefficient lambda for the L2 regularization term, see [Koren2008iALS]_.
-    alpha: double
-        The weight coefficient for nonzero elements in the case of implicit factorization, see [Koren2008iALS]_. 
+        The coefficient for the L2 regularization term. See [Hu2008]_. This number is multiplied by the number of non-zero elements of the user-item rating matrix before being used, to achieve similar magnitude to the one used in traditional SGD.
+    alpha : int
+        The weight coefficient for positive samples in the error formula in the case of implicit factorization. See [Hu2008]_.
     implicit: int
         Whether to treat the data as implicit (and optimize using iALS) or explicit (and optimize using ALS).
     """

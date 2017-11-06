@@ -2,6 +2,41 @@ import alpenglow
 import alpenglow.Getter as rs
 
 class ALSOnlineFactorExperiment(alpenglow.OnlineExperiment):
+    """ALSOnlineFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,number_of_iterations=15,regularization_lambda=1e-3,alpha=40,implicit=1,clear_before_fit=1,period_length=86400)
+
+    Combines ALSFactorExperiment and FactorExperiment by updating 
+    the model periodically with ALS and continously with SGD.
+
+    Parameters
+    ----------
+    dimension : int
+        The latent factor dimension of the factormodel.
+    begin_min : double
+        The factors are initialized randomly, sampling each element uniformly from the interval (begin_min, begin_max).
+    begin_max : double
+        See begin_min.
+    number_of_iterations : double
+        Number of times to optimize the user and the item factors for least squares.
+    regularization_lambda : double
+        The coefficient for the L2 regularization term. See [Hu2008]_. This number is multiplied by the number of non-zero elements of the user-item rating matrix before being used, to achieve similar magnitude to the one used in traditional SGD.
+    alpha : int
+        The weight coefficient for positive samples in the error formula. See [Hu2008]_.
+    implicit : int
+        Valued 1 or 0, indicating whether to run iALS or ALS.
+    clear_before_fit : int
+        Whether to reset the model after each period.
+    period_length : int
+        The period length in seconds.
+    timeframe_length : int
+        The size of historic time interval to iterate over at every batch model retrain. Leave at the default 0 to retrain on everything.
+    online_learning_rate : double
+        The learning rate used in the online stochastic gradient descent updates.
+    online_regularization_rate : double
+        The coefficient for the L2 regularization term for online update.
+    online_negative_rate : int
+        The number of negative samples generated after online each update. Useful for implicit recommendation.
+    """
+
     def _config(self, top_k, seed):
 
         #
