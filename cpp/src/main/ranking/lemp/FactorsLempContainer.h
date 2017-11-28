@@ -9,6 +9,10 @@ using namespace std;
 class FactorsLempContainer : public LempContainer{
 public:
   FactorsLempContainer(Factors *item_factors, int bucket_size);
+  void reinitialize(Factors *item_factors, int bucket_size);
+  void reinitialize(Factors *item_factors){
+    reinitialize(item_factors, bucket_size_);
+  }
 protected:
   vector<tuple<int,double,vector<double>>> factor_to_items(Factors *factor);
   vector<tuple<int,double,vector<double>>> get_factor_items() override;

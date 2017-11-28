@@ -95,6 +95,7 @@ void FactorModel::write(ofstream& file){
 void FactorModel::read(ifstream& file){
   user_factors_.read(file);
   item_factors_.read(file);
+  lemp_container_.reinitialize(&item_factors_);
   //TODO bias, recency
 }
 

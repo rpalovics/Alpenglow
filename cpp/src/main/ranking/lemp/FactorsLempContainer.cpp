@@ -11,6 +11,12 @@ FactorsLempContainer::FactorsLempContainer(Factors* item_factors, int bucket_siz
   rebuild_from_items(items);
 }
 
+void FactorsLempContainer::reinitialize(Factors *item_factors, int bucket_size){
+  item_factors_ = item_factors;
+  auto items = get_factor_items();
+  rebuild_from_items(items);
+}
+
 vector<tuple<int,double,vector<double>>> FactorsLempContainer::factor_to_items(Factors *factor){
   vector<tuple<int,double,vector<double>>> items;
   for(int i=0; i<factor->get_size(); i++){
