@@ -24,7 +24,7 @@ typedef map <int,double> :: iterator RowIterator;
 class SpMatrix{
   public:
     SpMatrix(){clear();};
-    ~SpMatrix(){}; 
+    ~SpMatrix(){clear();}; 
     int size();
     void resize(int row_id);
     void insert(int row_id, int col_id, double value);

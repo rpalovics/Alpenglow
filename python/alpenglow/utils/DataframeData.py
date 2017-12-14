@@ -12,28 +12,16 @@ class DataframeData(rs.DataframeData):
         self.position = 0
         self.df = df
 
-        users = self._get_def_valarray('user')
-        items = self._get_def_valarray('item')
-        ids = list(df.index)
-        scores = self._get_def_valarray('score', 'ones')
-        times = self._get_def_valarray('time', 'arange')
-        evals = self._get_def_valarray('eval', 'ones')
-        categories = self._get_def_valarray('category', 'ones')
+        users = np.array(self._get_def_valarray('user'), dtype=np.intc)
+        items = np.array(self._get_def_valarray('item'), dtype=np.intc)
+        ids = np.array(df.index, dtype=np.intc)
+        scores = np.array(self._get_def_valarray('score', 'ones'), dtype=np.float64)
+        times = np.array(self._get_def_valarray('time', 'arange'), dtype=np.float64)
+        evals = np.array(self._get_def_valarray('eval', 'ones'), dtype=np.intc)
+        categories = np.array(self._get_def_valarray('category', 'ones'), dtype=np.intc)
 
-        indexes = np.arange(len(self.df))
-        recdats = []
-        for (_i, _user, _item, _id, _score, _time, _eval, _category) in zip(indexes, users, items, ids, scores, times, evals, categories):
-            rd = rs.RecDat()
-            rd.user = _user
-            rd.item = _item
-            rd.id = _id
-            rd.score = _score
-            rd.time = _time
-            rd.eval = _eval
-            rd.category = _category
-            recdats.append(rd)
-            sip.transferto(rd, None)
-        self.add_recdats(recdats)
+        self.add_recdats(users,items,ids,scores,times,evals,categories)
+
         super(rs.DataframeData, self).initialize()
 
     def _get_def_valarray(self, name, deftype=None):

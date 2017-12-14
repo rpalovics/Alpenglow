@@ -15,6 +15,7 @@
 ### Installation from source (linux only at the moment)
 - `cd Alpenglow`
 - `conda install libgcc`
+- `conda install -c conda-forge eigen`
 - `pip install .`
 
 ### Getting Started

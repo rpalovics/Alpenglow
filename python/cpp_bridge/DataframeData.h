@@ -8,13 +8,30 @@ using namespace std;
 
 class DataframeData : public RecommenderData {
 public:
-  void add_recdats(vector<RecDat*> rds){
-    for(auto i : rds){
-      rec_data_.push_back(*i);
+  void add_recdats(
+    int size,
+    long *users,
+    long *items,
+    long *ids,
+    double *scores,
+    double *times,
+    long *evals,
+    long *categories
+  )
+  {
+    rec_data_.reserve(size);
+    for(uint i=0; i<size; i++){
+      RecDat d;
+      d.user = users[i];
+      d.item = items[i];
+      d.id = ids[i];
+      d.score = scores[i];
+      d.time = times[i];
+      d.eval = evals[i];
+      d.category = categories[i];
+      rec_data_.push_back(RecDat(d));
     }
   }
-  //int size() override {return rec_data.size();}
-  //RecDat* get(int idx) override {return &(rec_data[idx]);}
 protected:
   bool autocalled_initialize() override {return true;}
 };

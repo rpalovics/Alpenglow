@@ -40,7 +40,7 @@ class ParameterSearch:
         return configurations
 
     def _run_single(self, model, Score, parameters, run_paremeters):
-        model = copy.copy(model)
+        model = copy.deepcopy(model)
         for k in parameters:
             model.set_parameter(k, parameters[k])
         scores = model.run(*run_paremeters[0], **run_paremeters[1])

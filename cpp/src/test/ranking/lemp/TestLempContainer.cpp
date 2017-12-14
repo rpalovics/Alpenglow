@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <algorithm>
-#include "../../../main/ranking/lemp/LempContainer.h"
+#include "../../../main/ranking/lemp/FactorsLempContainer.h"
 #include "../../../main/utils/Util.h"
 
 namespace {
@@ -32,7 +32,7 @@ TEST_F(TestLempContainer, insert_remove){
   factors.resize(100);
   factors.init(0);
 
-  LempContainer container(&factors, 30);
+  FactorsLempContainer container(&factors, 30);
   EXPECT_EQ(1,container.buckets_.size());
   EXPECT_EQ(1,(*container.buckets_.begin())->item_lengths_.size());
 
@@ -43,7 +43,7 @@ TEST_F(TestLempContainer, insert_remove){
 }
 
 TEST_F(TestLempContainer, find_closest_bucket){
-  LempContainer container(&factors, 1);
+  FactorsLempContainer container(&factors, 1);
 
   container.buckets_.clear();
   LempBucket *bucket1 = new LempBucket();
@@ -75,7 +75,7 @@ TEST_F(TestLempContainer, find_closest_bucket){
 }
 
 TEST_F(TestLempContainer, split_on_insert){
-  LempContainer container(&factors, 50);
+  FactorsLempContainer container(&factors, 50);
   factors.resize(1000);
   for(int i=0; i<1000; i++){
     factors.init(i);
@@ -109,7 +109,7 @@ TEST_F(TestLempContainer, update){
     factors.set_rand(i);
   }
 
-  LempContainer container(&factors, bucketsize);
+  FactorsLempContainer container(&factors, bucketsize);
   EXPECT_NE(1, container.buckets_.size());
   int num = 0;
   for(auto b : container.buckets_){
@@ -128,7 +128,6 @@ TEST_F(TestLempContainer, update){
 
   double last_max = std::numeric_limits<double>::max();
   double last_len = std::numeric_limits<double>::max();
-  int j=0;
   for(auto b : container.buckets_){
     EXPECT_LE(b->get_bucket_max(), last_max);
     last_max = b->get_bucket_max();
@@ -157,7 +156,7 @@ TEST_F(TestLempContainer, scheduled_update){
     factors.set_rand(i);
   }
 
-  LempContainer container(&factors, bucketsize);
+  FactorsLempContainer container(&factors, bucketsize);
   EXPECT_NE(1, container.buckets_.size());
   EXPECT_EQ(itemlimit, container.item_buckets_.size());
 
@@ -174,7 +173,6 @@ TEST_F(TestLempContainer, scheduled_update){
 
   double last_max = std::numeric_limits<double>::max();
   double last_len = std::numeric_limits<double>::max();
-  int j=0;
   for(auto b : container.buckets_){
     EXPECT_LE(b->get_bucket_max(), last_max);
     last_max = b->get_bucket_max();

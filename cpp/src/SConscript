@@ -1,5 +1,9 @@
 import os
 
+extra_cpppath = []
+if 'CPATH' in os.environ:
+    extra_cpppath = filter(bool, os.environ['CPATH'].split(os.pathsep))
+
 env = Environment(
     CXX="g++",
     CCFLAGS=[
@@ -18,7 +22,7 @@ env = Environment(
         '-D_LARGEFILE_SOURCE',
         '-D_FILE_OFFSET_BITS=64'
     ],
-    CPPPATH=['#.', '#../dep/gtest/include'],
+    CPPPATH=['#.', '#../dep/gtest/include','#../dep']+extra_cpppath,
     LIBPATH=['#../dep/gtest/build', '/usr/local/lib'],
     LIBS=['gtest', 'pthread']
 )
@@ -29,8 +33,21 @@ objs = env.Object(cpp)
 cpp_test = Glob("test/*/*.cpp")
 cpp_test.extend(Glob("test/*/*/*.cpp"))
 
+AddOption('--test-filter',
+          dest='test-filter',
+          type='string',
+          nargs=1,
+          action='store',
+          metavar='DIR',
+          help='filter to these tests, comma separated (no space)')
+
+test_filter_raw = GetOption('test-filter')
+test_filter = set(test_filter_raw.split(',')) if test_filter_raw is not None else None
+
 for src in cpp_test:
     src_str = str(src)
     relative_path = os.path.relpath(src_str, os.path.commonprefix([src_str, Dir('#').abspath]))
     env.Object(relative_path)
-    env.Program("test/"+os.path.basename(os.path.splitext(relative_path)[0]), [relative_path]+['#../bin/'+str(i) for i in objs])
+    program_name = os.path.basename(os.path.splitext(relative_path)[0])
+    if test_filter is None or program_name in test_filter:
+        env.Program("test/"+program_name, [relative_path]+['#../bin/'+str(i) for i in objs])

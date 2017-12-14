@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "../../main/models/factor/FactorModelRankingScoreIterator.h"
+#include "../../main/ranking/lemp/FactorsLempContainer.h"
 
 namespace {
 class TestFactorModelRankingScoreIterator : public ::testing::Test { 
@@ -30,7 +31,7 @@ TEST_F(TestFactorModelRankingScoreIterator, test){
     factors.set_rand(i);
   }
 
-  LempContainer container(&factors, bucketsize);
+  FactorsLempContainer container(&factors, bucketsize);
 
   std::random_device rd;
   std::mt19937 eng(rd());
@@ -44,7 +45,7 @@ TEST_F(TestFactorModelRankingScoreIterator, test){
   int id;
   double score;
   int num = 0;
-  FactorModelRankingScoreIterator iterator(factors.get(0), &container);
+  FactorModelRankingScoreIterator iterator(*factors.get(0), &container);
   while(iterator.has_next()){
     tie(id,score) = iterator.get_next();
     num++;
@@ -55,7 +56,7 @@ TEST_F(TestFactorModelRankingScoreIterator, test){
   num = 0;
   double bound = -10;
   int maxid = 0;
-  iterator = FactorModelRankingScoreIterator(factors.get(557), &container);
+  iterator = FactorModelRankingScoreIterator(*factors.get(557), &container);
   while(iterator.has_next(bound)){
     tie(id,score) = iterator.get_next();
     if(score > bound){
@@ -83,7 +84,7 @@ TEST_F(TestFactorModelRankingScoreIterator, test2){
     factors.set_rand(i);
   }
 
-  LempContainer container(&factors, bucketsize);
+  FactorsLempContainer container(&factors, bucketsize);
 
   std::random_device rd;
   std::mt19937 eng(rd());
@@ -100,7 +101,7 @@ TEST_F(TestFactorModelRankingScoreIterator, test2){
   int id;
   double score;
   int num = 0;
-  FactorModelRankingScoreIterator iterator(factors.get(0), &container);
+  FactorModelRankingScoreIterator iterator(*factors.get(0), &container);
   while(iterator.has_next()){
     tie(id,score) = iterator.get_next();
     num++;
@@ -111,7 +112,7 @@ TEST_F(TestFactorModelRankingScoreIterator, test2){
   num = 0;
   double bound = -10;
   int maxid = 0;
-  iterator = FactorModelRankingScoreIterator(factors.get(557), &container);
+  iterator = FactorModelRankingScoreIterator(*factors.get(557), &container);
   while(iterator.has_next(bound)){
     tie(id,score) = iterator.get_next();
     if(score > bound){

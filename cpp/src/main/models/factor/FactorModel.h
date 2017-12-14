@@ -10,7 +10,8 @@
 #include "../SimilarityModel.h"
 #include "../RankingScoreIterator.h"
 #include "../TopListRecommender.h"
-#include "../../ranking/lemp/LempContainer.h"
+#include "../../ranking/lemp/FactorsLempContainer.h"
+#include "FactorModelRankingScoreIterator.h"
 #include <gtest/gtest_prod.h>
 
 using namespace std;
@@ -50,7 +51,7 @@ class FactorModel
       max_item_(parameters->max_item),
       use_item_bias_(parameters->use_item_bias),
       use_user_bias_(parameters->use_user_bias),
-      lemp_container(&item_factors_, parameters->lemp_bucket_size)
+      lemp_container_(&item_factors_, parameters->lemp_bucket_size)
     {
       set_parameters(parameters);
     };
@@ -97,7 +98,8 @@ class FactorModel
     Factors user_factors_, item_factors_;
     Bias user_bias_, item_bias_;
     Recency *user_recency_, *item_recency_;
-    LempContainer lemp_container;
+    FactorsLempContainer lemp_container_;
+    FactorModelRankingScoreIterator ranking_score_iterator_;
 
     //other
     //double user_factor_mean();
@@ -117,6 +119,7 @@ class FactorModel
     friend class FactorModelUpdater;
     friend class FactorModelFilter;
     friend class FactorToAMFAdapter;
+    friend class OfflineEigenFactorModelALSLearner;
     FRIEND_TEST(TestFactorModel, test);
     FRIEND_TEST(TestFactorModel, similarity);
     FRIEND_TEST(TestFactorModelFilter, test_basic);

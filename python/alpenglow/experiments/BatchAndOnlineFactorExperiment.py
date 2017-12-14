@@ -3,7 +3,7 @@ import alpenglow as prs
 
 
 class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
-    """BatchAndOnlineFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,batch_learning_rate=0.05,batch_regularization_rate=0.0,batch_negative_rate=70,online_learning_rate=0.05,online_regularization_rate=0.0,online_negative_rate=100)
+    """BatchAndOnlineFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,batch_learning_rate=0.05,batch_regularization_rate=0.0,batch_negative_rate=70,online_learning_rate=0.05,online_regularization_rate=0.0,online_negative_rate=100,period_length=86400)
 
     Combines BatchFactorExperiment and FactorExperiment by updating 
     the model both in batch and continously.
@@ -27,7 +27,7 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
     online_learning_rate : double
         The learning rate used in the online stochastic gradient descent updates.
     online_regularization_rate : double
-        The coefficient for the L2 regularization term for online updata.
+        The coefficient for the L2 regularization term for online update.
     online_negative_rate : int
         The number of negative samples generated after online each update. Useful for implicit recommendation.
     """
