@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
-#include <fstream>
 #include <math.h>
 #include <vector>
 #include <utility>
@@ -29,8 +28,8 @@ class EigenFactors{
     EigenFactors(EigenFactorsParameters *parameters){
       set_parameters(parameters);
     };
-    void write(ofstream& file);
-    void read(ifstream& file);
+    void write(ostream& file);
+    void read(istream& file);
     void set_parameters(EigenFactorsParameters *parameters){
       seed = parameters->seed;
       rnd = Random(seed);

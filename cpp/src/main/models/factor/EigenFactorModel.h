@@ -38,8 +38,8 @@ class EigenFactorModel
     {};
     void add(RecDat* rec_dat) override{};
     double prediction(RecDat* rec_dat) override;
-    void write(ofstream& file) override;
-    void read(ifstream& file) override;
+    void write(ostream& file) override;
+    void read(istream& file) override;
     void clear() override;
     bool autocalled_initialize() override { clear(); return true;}
     bool self_test(){return true;}

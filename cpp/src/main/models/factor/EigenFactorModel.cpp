@@ -30,7 +30,7 @@ void EigenFactorModel::clear(){
 }
 
 
-void EigenFactorModel::write(ofstream& file){
+void EigenFactorModel::write(ostream& file){
   file.write((char*) (&dimension_), sizeof(dimension_));
   file.write((char*) (&seed_), sizeof(seed_));
   file.write((char*) (&begin_min_), sizeof(begin_min_));
@@ -39,7 +39,7 @@ void EigenFactorModel::write(ofstream& file){
   item_factors_.write(file);
 }
 
-void EigenFactorModel::read(ifstream& file){
+void EigenFactorModel::read(istream& file){
   file.read((char*) (&dimension_), sizeof(dimension_));
   file.read((char*) (&seed_), sizeof(seed_));
   file.read((char*) (&begin_min_), sizeof(begin_min_));

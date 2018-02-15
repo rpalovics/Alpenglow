@@ -26,13 +26,13 @@ void EigenFactors::resize(int dimension, int users, double begin_min, double beg
   }
 }
 
-void EigenFactors::write(ofstream& file){
+void EigenFactors::write(ostream& file){
   typename MatrixXdRM::Index rows=factors.rows(), cols=factors.cols();
   file.write((char*) (&rows), sizeof(typename MatrixXdRM::Index));
   file.write((char*) (&cols), sizeof(typename MatrixXdRM::Index));
   file.write((char*) factors.data(), rows*cols*sizeof(typename MatrixXdRM::Scalar) );
 };
-void EigenFactors::read(ifstream& file){
+void EigenFactors::read(istream& file){
   factors = MatrixXdRM();
   typename MatrixXdRM::Index rows=0, cols=0;
   file.read((char*) (&rows),sizeof(typename MatrixXdRM::Index));
