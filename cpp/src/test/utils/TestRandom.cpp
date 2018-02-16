@@ -59,7 +59,7 @@ TEST_F(TestRandom, distribution){
   for(int i=0;i<100000;i++){
     distrib[random(distrib.size())]++;
   }
-  for(int i=0;i<distrib.size();i++){
+  for(uint i=0;i<distrib.size();i++){
     EXPECT_LT(100000/10*0.9,distrib[i]);
     EXPECT_GT(100000/10*1.1,distrib[i]);
   }
@@ -71,7 +71,7 @@ TEST_F(TestRandom, get_linear){
   for(int i=0;i<20000000;i++){
     distrib[random.get_linear(distrib.size())]++;
   }
-  for(int i=0;i<distrib.size();i++){
+  for(uint i=0;i<distrib.size();i++){
     EXPECT_LT(2*i+0.8, distrib[i]/(double)distrib[0]);
     EXPECT_GT(2*i+1.2, distrib[i]/(double)distrib[0]);
   }
@@ -91,7 +91,7 @@ TEST_F(TestRandom, get_arctg){
   for(int i = 0; i < distrsize;i++) {
     theor_distrib[i]= atan((double)(i+1)*y/distrsize)/atan(y)-atan((double)i*y/distrsize)/atan(y);
   }
-  for(int i=0;i<distrib.size();i++){
+  for(uint i=0;i<distrib.size();i++){
     EXPECT_LT(theor_distrib[i]*0.7, (double)distrib[i]/all);
     EXPECT_GT(theor_distrib[i]*1.3, (double)distrib[i]/all);
   }
@@ -132,7 +132,7 @@ TEST_F(TestRandom, get_discrete){
       ASSERT_LT(rand_val,expected_distribution.size());
       experienced_distribution[rand_val]++;
     }
-    for(int i=0;i<expected_distribution.size();i++){
+    for(uint i=0;i<expected_distribution.size();i++){
       EXPECT_LT(expected_distribution[i]*0.8, (double)experienced_distribution[i]/all);
       EXPECT_GT(expected_distribution[i]*1.2, (double)experienced_distribution[i]/all);
     }
@@ -154,7 +154,7 @@ TEST_F(TestRandom, get_discrete_inaccurate){ //sum is less than 1
       ASSERT_LT(rand_val,expected_distribution.size());
       experienced_distribution[rand_val]++;
     }
-    for(int i=0;i<expected_distribution.size()-1;i++){
+    for(uint i=0;i<expected_distribution.size()-1;i++){
       EXPECT_LT(expected_distribution[i]*0.8, (double)experienced_distribution[i]/all);
       EXPECT_GT(expected_distribution[i]*1.2, (double)experienced_distribution[i]/all);
     }

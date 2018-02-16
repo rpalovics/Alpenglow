@@ -32,9 +32,9 @@ void LempContainer::rebuild_from_items(vector<tuple<int,double,vector<double>>> 
   });
 
   int step = bucket_size_/2;
-  for(int i=0; i<items.size(); i+=step){
+  for(int i=0; (int)i<items.size(); i+=step){
     auto start = items.begin()+i;
-    auto end = (i+step < items.size()) ? start + step : items.end();
+    auto end = (i+step < (int)items.size()) ? start + step : items.end();
 
     LempBucket* new_bucket = new LempBucket();
     // the bucket goes at the end anyways, but we need the iterator

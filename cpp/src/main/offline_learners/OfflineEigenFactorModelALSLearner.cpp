@@ -139,14 +139,14 @@ void OfflineEigenFactorModelALSLearner::fit(RecommenderData* recommender_data){
 }
 
 void OfflineEigenFactorModelALSLearner::do_copy_from_model_(FactorModel *model, MatrixXdRM &user_factors, MatrixXdRM &item_factors){
-  for(uint i=0; i<model->user_factors_.get_size(); i++){
+  for(int i=0; i<model->user_factors_.get_size(); i++){
     vector<double> *row = model->user_factors_.get(i);
     if(row != NULL){
       double* ptr = row->data();
       user_factors.row(i) = Eigen::Map<Eigen::VectorXd, Eigen::Unaligned>(ptr,row->size());
     }
   }
-  for(uint i=0; i<model->item_factors_.get_size(); i++){
+  for(int i=0; i<model->item_factors_.get_size(); i++){
     vector<double> *row = model->item_factors_.get(i);
     if(row != NULL){
       double* ptr = row->data();
@@ -161,7 +161,7 @@ void OfflineEigenFactorModelALSLearner::do_copy_to_model_(FactorModel *model, Ma
   for(uint i=0; i<user_factors.rows(); i++){
     row = user_factors.row(i);
     tmp = vector<double>(row.data(), row.data()+row.cols());
-    if(model->user_factors_.get_size() <= i){
+    if(model->user_factors_.get_size() <= (int)i){
       model->user_factors_.init(i);
     }
     model->user_factors_.set(i, &tmp);
@@ -169,7 +169,7 @@ void OfflineEigenFactorModelALSLearner::do_copy_to_model_(FactorModel *model, Ma
   for(uint i=0; i<item_factors.rows(); i++){
     row = item_factors.row(i);
     tmp = vector<double>(row.data(), row.data()+row.cols());
-    if(model->item_factors_.get_size() <= i){
+    if(model->item_factors_.get_size() <= (int)i){
       model->item_factors_.init(i);
     }
     model->item_factors_.set(i, &tmp);

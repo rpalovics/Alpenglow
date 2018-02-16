@@ -21,10 +21,10 @@ vector<pair<int,double>> ToplistFromRankingScoreRecommender::get_top_list(int us
 
     toplist.push(pair);
 
-    if(toplist.size() > k){
+    if((int)toplist.size() > k){
       toplist.pop();
     }
-    if(toplist.size() == k){
+    if((int)toplist.size() == k){
       double current_lowest_toplist_score = get<1>(toplist.top());
       if(current_lowest_toplist_score > limit){
         limit = current_lowest_toplist_score;
