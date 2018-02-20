@@ -8,27 +8,24 @@
 /**
    Iterator-like interface for the purpose of making toplist and rank computation faster.
 
-   Description of indended usage TODO
-   Example usage TODO
-   Example implementation TODO
+   Example usage is in class RankComputer.
 */
 class RankingScoreIterator {
 public:
   //upper_bound->lower_bound
-  //lehet hazudni? Ha azt mondom, van ilyen score, de nincs, hibas lesz a kiertekeles?
   /**
-     Returns true if there is at least one item for the user having a score higher than or equal to upper_bound.
+     Returns false if the iterator can guarantee that there is no item for the user having a score higher than or equal to upper_bound.
 
      @param upper_bound the scores will be compared to the bound
-     @return true if there is an item for the user that has a higher or equal score 
+     @return false if guaranteed that there is no item for the user that has a higher or equal score 
   */
   virtual bool has_next(double upper_bound)=0;
   /**
-     Returns true if there is at least one item for the user having a score higher than or equal to upper_bound, depending on the strict parameter.
+     Returns false if the iterator can guarantee that there is no item for the user having a score higher than or equal to upper_bound, depending on the strict parameter.
 
      @param upper_bound the scores will be compared to the bound
      @param strict true means excluding equal scored items
-     @return true if there is an item for the user that has a higher (or equal) score
+     @return false if guaranteed that there is no item for the user that has a higher (or equal) score
   */
   virtual bool has_next(double upper_bound, bool strict){
     if(!strict){
