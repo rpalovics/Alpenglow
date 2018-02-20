@@ -25,6 +25,7 @@ struct MemoryRankingLoggerParameters{
   %End
   double min_time;
   std::string out_file;
+  bool memory_log;
 };
 
 class MemoryRankingLogger : public Logger /NoDefaultCtors/{
