@@ -12,26 +12,25 @@
 */
 class RankingScoreIterator {
 public:
-  //upper_bound->lower_bound
   /**
-     Returns false if the iterator can guarantee that there is no item for the user having a score higher than or equal to upper_bound.
+     Returns false if the iterator can guarantee that there is no item for the user having a score higher than or equal to lower_bound.
 
-     @param upper_bound the scores will be compared to the bound
+     @param lower_bound the scores will be compared to the bound
      @return false if guaranteed that there is no item for the user that has a higher or equal score 
   */
-  virtual bool has_next(double upper_bound)=0;
+  virtual bool has_next(double lower_bound)=0;
   /**
-     Returns false if the iterator can guarantee that there is no item for the user having a score higher than or equal to upper_bound, depending on the strict parameter.
+     Returns false if the iterator can guarantee that there is no item for the user having a score higher than or equal to lower_bound, depending on the strict parameter.
 
-     @param upper_bound the scores will be compared to the bound
+     @param lower_bound the scores will be compared to the bound
      @param strict true means excluding equal scored items
      @return false if guaranteed that there is no item for the user that has a higher (or equal) score
   */
-  virtual bool has_next(double upper_bound, bool strict){
+  virtual bool has_next(double lower_bound, bool strict){
     if(!strict){
-      return has_next(upper_bound);
+      return has_next(lower_bound);
     } else {
-      return has_next(std::nextafter(upper_bound, std::numeric_limits<double>::max()));
+      return has_next(std::nextafter(lower_bound, std::numeric_limits<double>::max()));
     }
   }
   /**
@@ -49,7 +48,7 @@ public:
   */
   virtual std::pair<int, double> get_next()=0;
   /**
-     Number of items that can be get from the iterator 
+     Number of items that are known by the model 
 
      @return number of items
   */
