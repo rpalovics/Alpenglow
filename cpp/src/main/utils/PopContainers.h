@@ -16,15 +16,13 @@ using namespace std;
 
 class PopContainer{
   public:
-    PopContainer(){};
-    ~PopContainer(){};
     void increase(int item);
     void reduce(int item);
     void resize(int item);
     int get(int item);
     void clear(){popularities.clear();};
   private:
-    vector <int> popularities;
+    vector<int> popularities;
 };
 
 class TopPopContainer{

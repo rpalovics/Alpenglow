@@ -49,6 +49,7 @@ class TestTransitionEndLogger : public ::testing::Test {
 }
 
 TEST_F(TestTransitionProbabilityModel, test){
+  //data
   vector<RecDat> timeline;
   timeline.push_back(create_recdat(0,10,20,1));
   timeline.push_back(create_recdat(1,10,10,1));
@@ -56,17 +57,18 @@ TEST_F(TestTransitionProbabilityModel, test){
   timeline.push_back(create_recdat(3,10,10,1));
   timeline.push_back(create_recdat(4,10,20,1));
   timeline.push_back(create_recdat(5,10,30,1));
+  timeline.push_back(create_recdat(5,20,20,1)); //another user
   timeline.push_back(create_recdat(6,10,20,1));
   timeline.push_back(create_recdat(7,10,30,1));
   timeline.push_back(create_recdat(8,10,20,1));
   timeline.push_back(create_recdat(9,10,30,1));
   timeline.push_back(create_recdat(10,10,20,1));
   //statistics: a 20-as itemet 3-szor a 30-as, 2-szer a 10-es kovette
-  timeline.push_back(create_recdat(10,20,20,1));
-  //statistics: a 20-as itemet 3-szor a 10-es, 2-szer a 30-as kovette
+  //statistics: a 10-es itemet 2-szor a 20-as, 0-szor a 30-es kovette
+  //statistics: a 30-as itemet 3-szor a 20-as, 0-szor a 10-es kovette
+
   TransitionProbabilityModel model;
   TransitionProbabilityModelUpdaterParameters params;
-  params.filter_freq_updates = false; //default: do not do any filtering
   TransitionProbabilityModelUpdater updater(&params);
   updater.set_model(&model);
   EXPECT_TRUE(model.self_test());

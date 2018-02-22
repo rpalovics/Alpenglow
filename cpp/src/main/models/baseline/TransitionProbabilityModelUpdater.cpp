@@ -7,13 +7,13 @@ void TransitionProbabilityModelUpdater::update(RecDat* rec_dat){
 
 bool TransitionProbabilityModelUpdater::init_user(RecDat* rec_dat){
   int user = rec_dat->user;
-  if((int)model_->last_entities_.size()<=user){
-    model_->last_entities_.resize(user+1,-1);
+  if((int)model_->lastly_visited_entities_.size()<=user){
+    model_->lastly_visited_entities_.resize(user+1,-1);
     if(recording_last_item_is_necessary()) last_items_.resize(user+1,-1);
   }
-  if(model_->last_entities_[user]==-1){
+  if(model_->lastly_visited_entities_[user]==-1){
     int last_entity=item2entity(rec_dat->item);
-    model_->last_entities_[user]=last_entity;
+    model_->lastly_visited_entities_[user]=last_entity;
     if(recording_last_item_is_necessary()) last_items_[user]=rec_dat->item;
     return true;
   }
@@ -22,7 +22,7 @@ bool TransitionProbabilityModelUpdater::init_user(RecDat* rec_dat){
 void TransitionProbabilityModelUpdater::update_frequencies(RecDat* rec_dat){
   int item = rec_dat->item;
   int user = rec_dat->user;
-  int last_entity = model_->last_entities_[user];
+  int last_entity = model_->lastly_visited_entities_[user];
   if(!filter_freq_updates_ or rec_dat->eval!=0){
     if(mode_=="normal" or mode_=="symmetric"){
       increase_transition(last_entity,item);
@@ -33,7 +33,7 @@ void TransitionProbabilityModelUpdater::update_frequencies(RecDat* rec_dat){
       increase_transition(entity,last_item);
     }
   }
-  model_->last_entities_[user]=item2entity(item);
+  model_->lastly_visited_entities_[user]=item2entity(item);
   if (recording_last_item_is_necessary()) last_items_[user]=rec_dat->item;
 }
 void TransitionProbabilityModelUpdater::increase_transition(int from, int to){
