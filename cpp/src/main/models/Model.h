@@ -9,7 +9,6 @@ using namespace std;
 
 class Model{
   public:
-    Model() {}
     virtual void add(RecDat* rec_dat){} //called only before gradient update
     virtual double prediction(RecDat* rec_dat) = 0;
     virtual void write(ostream& file) { throw exception(); }
