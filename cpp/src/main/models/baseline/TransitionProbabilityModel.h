@@ -29,6 +29,7 @@ class TransitionProbabilityModel
   public:
     double prediction(RecDat* rec_dat) override;
     RankingScoreIterator* get_ranking_score_iterator(int user) override;
+    void clear() override { transition_frequencies_.clear(); lastly_visited_entities_.clear();}
     bool self_test(){
       bool ok = Model::self_test();
       return ok;

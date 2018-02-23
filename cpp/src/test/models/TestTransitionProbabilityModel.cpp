@@ -94,6 +94,28 @@ TEST_F(TestTransitionProbabilityModel, test_prediction){
   EXPECT_EQ(log(2+1), model.prediction(&rec_dat));
   rec_dat = create_recdat(30,30,30,1);
   EXPECT_EQ(0, model.prediction(&rec_dat));
+  
+  model.clear();
+  //repeating the whole process
+  rec_dat = create_recdat(30,10,30,1);
+  EXPECT_EQ(0, model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,20,30,1);
+  EXPECT_EQ(0, model.prediction(&rec_dat));
+  for(RecDat rec_dat : timeline){
+    updater.update(&rec_dat);
+  }
+  rec_dat = create_recdat(30,10,10,1);
+  EXPECT_EQ(log(2+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,10,30,1);
+  EXPECT_EQ(log(3+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,20,10,1);
+  EXPECT_EQ(log(2+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,20,30,1);
+  EXPECT_EQ(log(3+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,30,20,1);
+  EXPECT_EQ(log(2+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,30,30,1);
+  EXPECT_EQ(0, model.prediction(&rec_dat));
 }
 
 TEST_F(TestTransitionProbabilityModel, test_rsi){
