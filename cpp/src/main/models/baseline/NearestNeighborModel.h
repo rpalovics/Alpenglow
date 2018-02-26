@@ -9,19 +9,11 @@
 #include "../../recommender_data/macros.h"
 
 struct NearestNeighborModelParameters {
-  double gamma;
-  string norm;
-  string direction;
-  double gamma_threshold;
-  int num_of_neighbors;
-
-  NearestNeighborModelParameters(){
-    gamma=-1;
-    norm="";
-    direction="";
-    gamma_threshold=-1;
-    num_of_neighbors=-1;
-  }
+  double gamma=-1;
+  string norm="";
+  string direction="";
+  double gamma_threshold=-1;
+  int num_of_neighbors=-1;
 };
 class NearestNeighborModel : public Model , public ModelFilter {
   public:
@@ -32,10 +24,8 @@ class NearestNeighborModel : public Model , public ModelFilter {
       norm_type_(params->direction==""?"num":params->norm),
       direction_(params->direction==""?"forward":params->direction)
     {
-      active_user_=-1;
       weights_.push_back(1.0);
     }
-    void add(RecDat* rec_dat) override {}
     double prediction(RecDat* rec_dat) override;
     vector<pair<int,double>>* get_personalized_items(int user) override;
     bool self_test(){
@@ -63,7 +53,7 @@ class NearestNeighborModel : public Model , public ModelFilter {
     vector<vector<pair<ITEM,double>>> similarities_;
     vector<pair<ITEM,SCORE>> active_user_filter_;
     vector<SCORE> active_user_predictions_;
-    int active_user_;
+    int active_user_ = -1;
     vector<double> weights_;
 
     //other
