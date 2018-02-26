@@ -1,6 +1,7 @@
 #include "TransitionProbabilityModelUpdater.h"
 
 void TransitionProbabilityModelUpdater::update(RecDat* rec_dat){
+  model_->active_user_=-1; //invalidating toplist
   bool first_occurence_of_user = init_user(rec_dat);
   if(!first_occurence_of_user) update_frequencies(rec_dat);
 }

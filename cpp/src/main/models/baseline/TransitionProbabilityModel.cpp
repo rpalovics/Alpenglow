@@ -21,8 +21,13 @@ map<int,int>* TransitionProbabilityModel::get_frequency_map(int user){
 }
 
 RankingScoreIterator* TransitionProbabilityModel::get_ranking_score_iterator(int user){
-  auto actual_frequency_map = get_frequency_map(user);
-  ranking_score_iterator_.set_up(actual_frequency_map);
+  if(user==active_user_){
+    ranking_score_iterator_.reinit();
+  } else {
+    auto actual_frequency_map = get_frequency_map(user);
+    ranking_score_iterator_.set_up(actual_frequency_map);
+    active_user_=user;
+  }
   return &ranking_score_iterator_;
 }
 

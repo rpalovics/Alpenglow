@@ -14,6 +14,7 @@ public:
   pair<int, double> get_next() override;
   void set_up(map<int,int>* actual_frequency_map);
   void clear(){counter_=0;current_scores_.clear();}
+  void reinit(){counter_=0;}
   int unique_items_num(){ throw exception(); } //should not be called as all scores are nonnegatives
 private:
   vector<pair<int,double>> current_scores_;
@@ -37,6 +38,7 @@ class TransitionProbabilityModel
     vector<map<int,int>> transition_frequencies_;
     vector<int> lastly_visited_entities_;
     TransitionProbabilityModelRankingScoreIterator ranking_score_iterator_;
+    int active_user_=-1;
     //int get_frequency_sum(int user);
     //vector<int> frequency_sums_; //TransitionModelLogger szamara
     friend class TransitionModelEndLogger;
