@@ -59,22 +59,3 @@ pair<int, double> TransitionProbabilityModelRankingScoreIterator::get_next(){
 //  if((int)frequency_sums_.size()<=last_item) return NULL;
 //  return frequency_sums_[last_item];
 //}
-
-//deprecated, use RankingScoreIterator
-//ez hatekonysagnovelo filter, ezert az active fuggvenyt nem kell megirni
-vector<pair<int,double>>* TransitionProbabilityModel::get_personalized_items(int user){
-  filter_.clear();
-  auto actual_frequency_map = get_frequency_map(user);
-  if(actual_frequency_map==NULL) return &filter_;//empty list
-
-  for(auto frequency = actual_frequency_map->begin();frequency!=actual_frequency_map->end();frequency++){
-    filter_.push_back(make_pair(frequency->first,log(frequency->second+1)));
-  }
-  sort(
-      filter_.begin(),
-      filter_.end(),
-      [](pair<int,double> a, pair<int,double> b) -> bool
-         { return (a.second) > (b.second); }
-      );
-  return &filter_;
-}

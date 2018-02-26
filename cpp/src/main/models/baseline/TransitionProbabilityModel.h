@@ -3,7 +3,6 @@
 
 #include <exception>
 #include "../Model.h"
-#include "../../filters/ModelFilter.h"
 #include "../../utils/SpMatrix.h"
 #include "../RankingScoreIterator.h"
 #include <gtest/gtest_prod.h>
@@ -23,8 +22,7 @@ private:
 
 class TransitionProbabilityModel
   : public Model,
-    virtual public RankingScoreIteratorProvider,
-    public ModelFilter //deprecated in favor of RankingScoreIteratorProvider
+    virtual public RankingScoreIteratorProvider
 {
   public:
     double prediction(RecDat* rec_dat) override;
@@ -34,20 +32,17 @@ class TransitionProbabilityModel
       bool ok = Model::self_test();
       return ok;
     }
-    vector<pair<int,double>>* get_personalized_items(int user) override; //deprecated, use get_ranking_score_iterator
   private:
     map<int,int>* get_frequency_map(int user);
-    //int get_frequency_sum(int user);
     vector<map<int,int>> transition_frequencies_;
     vector<int> lastly_visited_entities_;
     TransitionProbabilityModelRankingScoreIterator ranking_score_iterator_;
+    //int get_frequency_sum(int user);
     //vector<int> frequency_sums_; //TransitionModelLogger szamara
     friend class TransitionModelEndLogger;
     friend class TransitionModelLogger;
     friend class TransitionProbabilityModelUpdater;
     FRIEND_TEST(TestTransitionEndLogger, test);
-
-    vector<pair<int,double>> filter_; //deprecated
 };
 
 

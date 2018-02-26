@@ -1,4 +1,4 @@
-class TransitionProbabilityModel: public Model, public ModelFilter{
+class TransitionProbabilityModel: public Model{
   %TypeHeaderCode
   #include "models/baseline/TransitionProbabilityModel.h"
   %End

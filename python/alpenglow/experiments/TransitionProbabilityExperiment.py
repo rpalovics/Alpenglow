@@ -22,4 +22,4 @@ class TransitionProbabilityExperiment(prs.OnlineExperiment):
         ))
         updater.set_model(model)
 
-        return (model, updater, [model], [])
+        return (model, updater, [], [])
