@@ -10,7 +10,7 @@ struct NearestNeighborModelParameters {
   NearestNeighborModelParameters();
 };
 
-class NearestNeighborModel : public Model , public ModelFilter {
+class NearestNeighborModel : public Model {
   %TypeHeaderCode
   #include "models/baseline/NearestNeighborModel.h"
   %End
@@ -18,6 +18,5 @@ class NearestNeighborModel : public Model , public ModelFilter {
     NearestNeighborModel(NearestNeighborModelParameters* params);
     void add(RecDat* rec_dat);
     double prediction(RecDat* rec_dat);
-    //vector<pair<int,double>>* get_personalized_items(int user) override;
     bool self_test();
 };
