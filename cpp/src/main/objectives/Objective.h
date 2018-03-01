@@ -21,20 +21,20 @@
 
 class ObjectivePointWise{
   public:
-    ObjectivePointWise(){};
-    virtual double get_gradient(RecPred * rec_pred) = 0;
+    virtual ~ObjectivePointWise(){}
+    virtual double get_gradient(RecPred* rec_pred) = 0;
 };
 
 
 class ObjectivePairWise{
   public:
-    ObjectivePairWise(){}; 
-    virtual pair <double,double> get_gradient(RecPred * rec_pred1, RecPred* rec_pred2)=0;
+    virtual ~ObjectivePairWise(){}
+    virtual pair<double,double> get_gradient(RecPred* rec_pred1, RecPred* rec_pred2)=0;
 };
 
 class ObjectiveListWise{
   public:
-    ObjectiveListWise(){};
-    virtual vector <double>  get_gradient(vector <RecPred> * predictions)=0;
+    virtual ~ObjectiveListWise(){}
+    virtual vector<double>  get_gradient(vector<RecPred>* predictions)=0;
 };
 #endif

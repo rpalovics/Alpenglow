@@ -11,6 +11,7 @@ using namespace std;
 
 struct RandomChoosingCombinedModelParameters{
 };
+//TODO RSIProvider: if the actual model isn't, then return NULL
 class RandomChoosingCombinedModel : public Model, public Initializable, public NeedsExperimentEnvironment {
   public:
     RandomChoosingCombinedModel(RandomChoosingCombinedModelParameters* params){
