@@ -38,16 +38,16 @@ void NearestNeighborModel::recompute_prediction(int user){
     for(const auto& similarity_pair : similar_items){
       ITEM j = similarity_pair.first;
       double similarity = similarity_pair.second;
-      SCORE initial_pred = GET_VECTORMAP(active_user_predictions_,j,-1);
-      if(initial_pred==-1){ nonzero_items_.push_back(j); }
+      SCORE initial_pred = GET_VECTORMAP(active_user_predictions_,j,0.0);
+      if(initial_pred==0){ nonzero_items_.push_back(j); }
       ADD_VECTORMAP(active_user_predictions_,j,weights_[weight_index]*similarity);
-      //cerr << "prediction visited_item" << visited_item << " j" << j << " s" << similarity << " w" << weights_[weight_index] << " p" << GET_VECTORMAP(active_user_predictions_,j,0) << endl;
     }
   }
   
 }
 
 void NearestNeighborModelRankingScoreIterator::set_up(vector<SCORE>& predictions, vector<ITEM>& active_items){
+  clear();
   for(auto& item : active_items){
     double prediction = GET_VECTORMAP(predictions,item,0.0);
     current_scores_.push_back(make_pair(item,prediction));
@@ -67,8 +67,3 @@ bool NearestNeighborModelRankingScoreIterator::has_next(double bound){
 pair<int, double> NearestNeighborModelRankingScoreIterator::get_next(){
   return current_scores_.at(counter_++);
 }
-
-//deprecated
-//vector<pair<int,double>>* NearestNeighborModel::get_personalized_items(int user){
-//  return NULL;
-//}

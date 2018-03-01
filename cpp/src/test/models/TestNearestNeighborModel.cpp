@@ -318,6 +318,18 @@ TEST_F(TestNearestNeighborModel, both2){
   //  }
   //}
 
+  vector<int> users = {20, 21};
+  for (auto user : users){
+    auto rsi = model.get_ranking_score_iterator(user);
+    map<int,int> rsi_items;
+    while(rsi->has_next()){
+      int item;
+      double score;
+      tie(item,score) = rsi->get_next();
+      EXPECT_EQ(0,rsi_items[item]); //each items should occur only once in the iterator
+      rsi_items[item]=1;
+    }
+  }
 }
 
 TEST_F(TestNearestNeighborModel, offline){
