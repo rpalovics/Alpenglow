@@ -8,9 +8,7 @@ using namespace std;
 
 class ObjectiveListRank : public ObjectiveListWise{
   public:
-    ObjectiveListRank(){};
-    ~ObjectiveListRank(){};
-    vector <double> get_gradient(vector <RecPred> * _predictions);
+    vector<double> get_gradient(vector<RecPred>* predictions);
   private:
     void clear();
     void compute_norms();
@@ -22,7 +20,7 @@ class ObjectiveListRank : public ObjectiveListWise{
       return sigmoid(x) * ( 1 - sigmoid(x));
     };
     double prediction_norm, score_norm;
-    vector <RecPred> * predictions;
-    vector <double> gradients, predictions_exp, scores_exp;
+    vector<RecPred>* predictions;
+    vector<double> gradients, predictions_exp, scores_exp;
 };
 #endif

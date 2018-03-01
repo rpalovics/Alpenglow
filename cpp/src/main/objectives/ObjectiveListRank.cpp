@@ -1,6 +1,6 @@
 #include "ObjectiveListRank.h"
 
-vector <double> ObjectiveListRank::get_gradient(vector <RecPred> * _predictions){
+vector<double> ObjectiveListRank::get_gradient(vector<RecPred>* _predictions){
   predictions = _predictions;
   clear();
   compute_gradients();

@@ -1,28 +1,13 @@
 #ifndef OBJECTIVE
 #define OBJECTIVE
 
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <math.h>
-#include <vector>
-#include <map>
-#include <utility>
-#include <algorithm>
-#include <cmath>
-#include <limits>
-#include "../utils/SpMatrix.h"
 #include "../recommender_data/RecommenderData.h"
 
 
 class ObjectivePointWise{
   public:
     virtual ~ObjectivePointWise(){}
-    virtual double get_gradient(RecPred* rec_pred) = 0;
+    virtual double get_gradient(RecPred* rec_pred)=0;
 };
 
 
