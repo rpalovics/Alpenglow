@@ -12,10 +12,10 @@ public:
   bool has_next(double bound) override;
   pair<int, double> get_next() override;
   void set_up(map<int,int>* actual_frequency_map);
-  void clear(){counter_=0;current_scores_.clear();}
   void reinit(){counter_=0;}
   int unique_items_num(){ throw exception(); } //should not be called as all scores are nonnegatives
 private:
+  void clear(){counter_=0;current_scores_.clear();}
   vector<pair<int,double>> current_scores_;
   int counter_;
 };
