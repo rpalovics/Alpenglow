@@ -9,7 +9,6 @@
 
 class TransitionProbabilityModelRankingScoreIterator : public RankingScoreIterator{
 public:
-  TransitionProbabilityModelRankingScoreIterator(){}
   bool has_next(double bound) override;
   pair<int, double> get_next() override;
   void set_up(map<int,int>* actual_frequency_map);
