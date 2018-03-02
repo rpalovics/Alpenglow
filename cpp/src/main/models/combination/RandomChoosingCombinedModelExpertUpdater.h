@@ -50,7 +50,9 @@ public:
       ok=false;
       cerr<<"RandomchoosingCombinedModelExpertUpdater::loss_type=" << loss_type_ << " is not implemented." << endl;
     }
-    //TODO test if evaluators.size=models.size
+    if(evaluators_.size()!=model_->models_.size()){
+      ok=false;
+    }
     return ok;
   }
 
@@ -61,14 +63,9 @@ protected:
       weight=1.0;
     }
     //TODO create evaluators
-    //for(auto model:model_->models){
-    //  RankingScoreIteratorProvider* rsi = dynamic_cast<RankingScoreIteratorProvider*>(model);
-    //  iterator_models_.push_back(rsi);
-    //}
     return true;
   }
 private:
-  //vector<RankingScoreIteratorProvider*> iterator_models_;
   RandomChoosingCombinedModel* model_ = NULL;
   vector<Evaluator*> evaluators_;
   double eta_ = 0;
