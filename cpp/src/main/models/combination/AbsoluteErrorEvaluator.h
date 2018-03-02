@@ -6,7 +6,7 @@
 
 class AbsoluteErrorEvaluator : public Evaluator {
 public:
-  virtual double get_loss(RecDat* rec_dat);
+  double get_loss(RecDat* rec_dat) override;
   void set_model(Model* model){ model_=model; }
   bool self_test(){
     bool ok=true;
