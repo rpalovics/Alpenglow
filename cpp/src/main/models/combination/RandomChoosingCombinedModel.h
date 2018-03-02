@@ -47,6 +47,7 @@ class RandomChoosingCombinedModel : public Model, public Initializable, public N
     Random* random_ = NULL;
     ExperimentEnvironment* experiment_environment_ = NULL;
   FRIEND_TEST(TestRandomChoosingCombinedModel, prediction_distribution);
+  friend class RandomChoosingCombinedModelExpertUpdater;
 };
 
 

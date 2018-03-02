@@ -49,8 +49,8 @@ class TestRandomChoosingCombinedModel : public ::testing::Test {
 };
 class DummyEvaluator : public Evaluator {
   public:
-    double get_score(RecDat*){ return my_score_; }
-    double my_score_ = 0.5;
+    double get_loss(RecDat*){ return my_loss_; }
+    double my_loss_ = 0.5;
 };
 class TestRandomChoosingCombinedModelExpertUpdater : public ::testing::Test { 
   public:
@@ -102,7 +102,7 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
   vector<Evaluator*> evaluators;
   for(int i=0;i<3;i++){
     DummyEvaluator* evaluator = new DummyEvaluator;
-    evaluator->my_score_ = i+1;
+    evaluator->my_loss_ = i+1;
     evaluators.push_back(evaluator);
   }
   updater.set_evaluators(evaluators);
@@ -123,8 +123,6 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
   }
   EXPECT_GT(predictions[1],predictions[2]);
   EXPECT_GT(predictions[2],predictions[3]);
-  for(auto pred:predictions){ cerr << pred << " "; }
-  cerr << endl;
 }
 
 TEST_F(TestRandomChoosingCombinedModel, add){

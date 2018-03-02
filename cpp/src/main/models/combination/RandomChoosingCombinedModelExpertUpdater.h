@@ -5,6 +5,9 @@
 #include "Evaluator.h"
 #include "../ModelUpdater.h"
 #include <gtest/gtest_prod.h>
+#include <numeric>
+
+using namespace std;
 
 struct RandomChoosingCombinedModelExpertUpdaterParameters{
   double eta = 0.1;
@@ -53,6 +56,10 @@ public:
 
 protected:
   bool autocalled_initialize(){
+    if(!model_->is_initialized()) return false;
+    for(auto& weight:model_->distribution_){
+      weight=1.0;
+    }
     //TODO create evaluators
     //for(auto model:model_->models){
     //  RankingScoreIteratorProvider* rsi = dynamic_cast<RankingScoreIteratorProvider*>(model);
