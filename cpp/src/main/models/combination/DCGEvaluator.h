@@ -4,6 +4,7 @@
 #include "../Model.h"
 #include "Evaluator.h"
 class DCGEvaluator : public Evaluator {
+public:
   double get_score(RecDat* rec_dat) override;
   void set_model(Model* model){ model_=model; }
   bool self_test(){
