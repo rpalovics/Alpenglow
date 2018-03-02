@@ -100,12 +100,31 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
   RandomChoosingCombinedModelExpertUpdater updater(&updater_params);
   updater.set_model(&model);
   vector<Evaluator*> evaluators;
-  for(int i=0;i++;i<3){ evaluators.push_back(new DummyEvaluator); }
+  for(int i=0;i<3;i++){
+    DummyEvaluator* evaluator = new DummyEvaluator;
+    evaluator->my_score_ = i+1;
+    evaluators.push_back(evaluator);
+  }
   updater.set_evaluators(evaluators);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(updater.initialize());
   EXPECT_TRUE(model.self_test());
   EXPECT_TRUE(updater.self_test());
+  updater.update(create_rec_dat(1,2,10.0,1));
+  updater.update(create_rec_dat(1,3,10.0,1));
+  updater.update(create_rec_dat(1,4,10.0,1));
+  updater.update(create_rec_dat(1,5,10.0,1));
+  vector<int> predictions(4);
+  for(int i=0;i<1000;i++){
+    double prediction = model.prediction(create_rec_dat(1,5,10.0,1));
+    EXPECT_LT(prediction,4.0);
+    EXPECT_GE(prediction,0.0);
+    predictions[prediction]++;
+  }
+  EXPECT_GT(predictions[1],predictions[2]);
+  EXPECT_GT(predictions[2],predictions[3]);
+  for(auto pred:predictions){ cerr << pred << " "; }
+  cerr << endl;
 }
 
 TEST_F(TestRandomChoosingCombinedModel, add){
@@ -240,7 +259,7 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_distribution){
     ASSERT_LT(pred,3);
     experienced_distribution[pred]++; 
   }
-  for(int i=0;i<expected_distribution.size();i++){
+  for(uint i=0;i<expected_distribution.size();i++){
     EXPECT_NEAR(expected_distribution[i], (double)experienced_distribution[i]/all,0.05);
   }
   
