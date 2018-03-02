@@ -47,6 +47,7 @@ public:
       ok=false;
       cerr<<"RandomchoosingCombinedModelExpertUpdater::loss_type=" << loss_type_ << " is not implemented." << endl;
     }
+    //TODO test if evaluators.size=models.size
     return ok;
   }
 

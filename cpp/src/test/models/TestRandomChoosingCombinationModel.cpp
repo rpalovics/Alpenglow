@@ -47,8 +47,66 @@ class TestRandomChoosingCombinedModel : public ::testing::Test {
       }
     }
 };
+class DummyEvaluator : public Evaluator {
+  public:
+    double get_score(RecDat*){ return my_score_; }
+    double my_score_ = 0.5;
+};
+class TestRandomChoosingCombinedModelExpertUpdater : public ::testing::Test { 
+  public:
+    DummyModel model1, model2, model3;
+    vector<RecDat*> rec_dats;
+    ExperimentEnvironment experiment_environment;
+    OnlineExperimentParameters experiment_parameters;
+    TestRandomChoosingCombinedModelExpertUpdater(){}
+    virtual ~TestRandomChoosingCombinedModelExpertUpdater(){}
+    virtual void SetUp(){
+      model1.my_prediction_ = 1;
+      model2.my_prediction_ = 2;
+      model3.my_prediction_ = 3;
+      experiment_parameters.random_seed = 231243;
+      experiment_environment.set_parameters(&experiment_parameters);
+    }
+    RecDat* create_rec_dat(int user, int item, double time, double score){
+      RecDat* rec_dat = new RecDat;
+      rec_dat -> user = user;
+      rec_dat -> item = item;
+      rec_dat -> time = time;
+      rec_dat -> id = rec_dats.size();
+      rec_dat -> category = 0;
+      rec_dat -> score = score;
+      rec_dats.push_back(rec_dat);
+      return rec_dat;
+    }
+    virtual void TearDown(){
+      for (vector<RecDat*>::iterator it = rec_dats.begin();it!=rec_dats.end();it++){
+        delete *it;
+      }
+    }
+};
 
 } //namespace
+
+TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
+  RandomChoosingCombinedModelParameters params;
+  RandomChoosingCombinedModel model(&params);
+  model.add_model(&model1);
+  model.add_model(&model2);
+  model.add_model(&model3);
+  model.set_experiment_environment(&experiment_environment);
+  RandomChoosingCombinedModelExpertUpdaterParameters updater_params;
+  updater_params.eta=0.1;
+  updater_params.loss_type="other";
+  RandomChoosingCombinedModelExpertUpdater updater(&updater_params);
+  updater.set_model(&model);
+  vector<Evaluator*> evaluators;
+  for(int i=0;i++;i<3){ evaluators.push_back(new DummyEvaluator); }
+  updater.set_evaluators(evaluators);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(updater.initialize());
+  EXPECT_TRUE(model.self_test());
+  EXPECT_TRUE(updater.self_test());
+}
 
 TEST_F(TestRandomChoosingCombinedModel, add){
   RandomChoosingCombinedModelParameters params;

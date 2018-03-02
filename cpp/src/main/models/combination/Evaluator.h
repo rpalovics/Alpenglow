@@ -5,8 +5,7 @@
 class Evaluator {
 public:
   virtual double get_score(RecDat*)=0;
-  virtual double get_cumulative_score(RecDat*)=0;
-  virtual double get_and_add_score(RecDat*)=0;
+  virtual ~Evaluator(){}
 };
 
 #endif
