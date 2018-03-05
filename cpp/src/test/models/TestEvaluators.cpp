@@ -47,11 +47,13 @@ class TestDCGEvaluator : public ::testing::Test {
     DummyModel2 model;
     DCGEvaluator evaluator;
     vector<RecDat*> rec_dats;
+    vector<int> items;
     TestDCGEvaluator(){}
     virtual ~TestDCGEvaluator(){}
     virtual void SetUp(){
       for(int i=1;i<10;i++){
         model.my_predictions_.push_back(1.0/i);
+        items.push_back(i);
       }
     }
     virtual void TearDown(){
@@ -88,8 +90,23 @@ TEST_F(TestAbsoluteErrorEvaluator, test){
 
 TEST_F(TestDCGEvaluator, test){
   evaluator.set_model(&model);
+  evaluator.set_items(&items);
   ASSERT_TRUE(evaluator.self_test());
-  //TODO
+  for(int item : items){
+    RecDat* rec_dat = create_rec_dat(10,item,10,10);
+    double x = evaluator.get_score(rec_dat);
+    int rank = 1.0/model.prediction(rec_dat);
+    double dcg = 1.0/log(rank+1);
+    EXPECT_DOUBLE_EQ(dcg,x);
+  }
+  std::random_shuffle(model.my_predictions_.begin(),model.my_predictions_.end());
+  for(int item : items){
+    RecDat* rec_dat = create_rec_dat(10,item,10,10);
+    double x = evaluator.get_score(rec_dat);
+    int rank = 1.0/model.prediction(rec_dat);
+    double dcg = 1.0/log(rank+1);
+    EXPECT_DOUBLE_EQ(dcg,x);
+  }
 }
 
 int main (int argc, char **argv) {
