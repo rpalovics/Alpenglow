@@ -45,7 +45,6 @@ class DummyModel2 : public Model {
 class TestDCGEvaluator : public ::testing::Test { 
   public:
     DummyModel2 model;
-    DCGEvaluator evaluator;
     vector<RecDat*> rec_dats;
     vector<int> items;
     TestDCGEvaluator(){}
@@ -89,6 +88,9 @@ TEST_F(TestAbsoluteErrorEvaluator, test){
 }
 
 TEST_F(TestDCGEvaluator, test){
+  DCGEvaluatorParameters params;
+  params.top_k=10;
+  DCGEvaluator evaluator(&params);
   evaluator.set_model(&model);
   evaluator.set_items(&items);
   ASSERT_TRUE(evaluator.self_test());
