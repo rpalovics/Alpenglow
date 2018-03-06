@@ -44,12 +44,14 @@ class DummyModel2 : public Model {
 };
 class TestDCGEvaluator : public ::testing::Test { 
   public:
+    ExperimentEnvironment experiment_environment;
     DummyModel2 model;
     vector<RecDat*> rec_dats;
     vector<int> items;
     TestDCGEvaluator(){}
     virtual ~TestDCGEvaluator(){}
     virtual void SetUp(){
+      model.my_predictions_.push_back(0);
       for(int i=1;i<10;i++){
         model.my_predictions_.push_back(1.0/i);
         items.push_back(i);
@@ -92,21 +94,26 @@ TEST_F(TestDCGEvaluator, test){
   params.top_k=10;
   DCGEvaluator evaluator(&params);
   evaluator.set_model(&model);
-  evaluator.set_items(&items);
+  evaluator.set_experiment_environment(&experiment_environment);
+  ASSERT_TRUE(evaluator.initialize());
   ASSERT_TRUE(evaluator.self_test());
   for(int item : items){
-    RecDat* rec_dat = create_rec_dat(10,item,10,10);
-    double x = evaluator.get_score(rec_dat);
-    int rank = 1.0/model.prediction(rec_dat);
-    double dcg = 1.0/log(rank+1);
-    EXPECT_DOUBLE_EQ(dcg,x);
+    RecDat* rec_dat = create_rec_dat(9,item,9,9);
+    experiment_environment.update(rec_dat);
   }
-  std::random_shuffle(model.my_predictions_.begin(),model.my_predictions_.end());
   for(int item : items){
     RecDat* rec_dat = create_rec_dat(10,item,10,10);
     double x = evaluator.get_score(rec_dat);
-    int rank = 1.0/model.prediction(rec_dat);
-    double dcg = 1.0/log(rank+1);
+    int rank = round(1.0/model.prediction(rec_dat));
+    double dcg = log(2.0)/log(rank+1);
+    EXPECT_DOUBLE_EQ(dcg,x);
+  }
+  std::random_shuffle(model.my_predictions_.begin()+1,model.my_predictions_.end());
+  for(int item : items){
+    RecDat* rec_dat = create_rec_dat(10,item,10,10);
+    double x = evaluator.get_score(rec_dat);
+    int rank = round(1.0/model.prediction(rec_dat));
+    double dcg = log(2.0)/log(rank+1);
     EXPECT_DOUBLE_EQ(dcg,x);
   }
 }
