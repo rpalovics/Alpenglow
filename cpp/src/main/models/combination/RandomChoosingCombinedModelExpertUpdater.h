@@ -1,6 +1,8 @@
 #ifndef RANDOM_CHOOSING_COMBINED_MODEL_EXPERT_UPDATER
 #define RANDOM_CHOOSING_COMBINED_MODEL_EXPERT_UPDATER
 
+#include "DCGEvaluator.h"
+#include "AbsoluteErrorEvaluator.h"
 #include "RandomChoosingCombinedModel.h"
 #include "Evaluator.h"
 #include "../ModelUpdater.h"
@@ -11,6 +13,7 @@ using namespace std;
 
 struct RandomChoosingCombinedModelExpertUpdaterParameters{
   double eta = 0.1;
+  int top_k = 100;
   string loss_type = ""; //abs, dcg, mrr, other
 };
 
@@ -21,6 +24,7 @@ class RandomChoosingCombinedModelExpertUpdater
 public:
   RandomChoosingCombinedModelExpertUpdater(RandomChoosingCombinedModelExpertUpdaterParameters* params)
   : eta_(params->eta),
+    top_k_(params->top_k),
     loss_type_(params->loss_type)
   {}
   ~RandomChoosingCombinedModelExpertUpdater(){
@@ -62,14 +66,33 @@ protected:
     for(auto& weight:model_->distribution_){
       weight=1.0;
     }
-    //TODO create evaluators
+    if(loss_type_=="abs"){
+      for(auto model:model_->models_){
+        AbsoluteErrorEvaluator* evaluator = new AbsoluteErrorEvaluator;
+        evaluator->set_model(model);
+        evaluators_.push_back(evaluator);
+      }
+    }
+    if(loss_type_=="dcg"){
+      for(auto model:model_->models_){
+        DCGEvaluatorParameters params;
+        params.top_k = top_k_;
+        DCGEvaluator* evaluator = new DCGEvaluator(&params);
+        evaluator->set_model(model);
+        evaluator->set_experiment_environment(experiment_environment_); //TODO
+        evaluators_.push_back(evaluator);
+      }
+    }
+    //TODO create MRR evaluators
     return true;
   }
 private:
   RandomChoosingCombinedModel* model_ = NULL;
   vector<Evaluator*> evaluators_;
   double eta_ = 0;
+  int top_k_ = 100;
   string loss_type_ = "";
+  ExperimentEnvironment* experiment_environment_ = NULL;
 };
 
 
