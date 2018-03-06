@@ -1,13 +1,15 @@
 #ifndef RANDOM_CHOOSING_COMBINED_MODEL_EXPERT_UPDATER
 #define RANDOM_CHOOSING_COMBINED_MODEL_EXPERT_UPDATER
 
+#include <gtest/gtest_prod.h>
+#include <numeric>
 #include "DCGEvaluator.h"
 #include "AbsoluteErrorEvaluator.h"
 #include "RandomChoosingCombinedModel.h"
 #include "Evaluator.h"
 #include "../ModelUpdater.h"
-#include <gtest/gtest_prod.h>
-#include <numeric>
+#include "../../general_interfaces/Initializable.h"
+#include "../../general_interfaces/NeedsExperimentEnvironment.h"
 
 using namespace std;
 
@@ -19,7 +21,8 @@ struct RandomChoosingCombinedModelExpertUpdaterParameters{
 
 class RandomChoosingCombinedModelExpertUpdater
   : public Updater,
-  public Initializable
+  public Initializable,
+  public NeedsExperimentEnvironment 
 {
 public:
   RandomChoosingCombinedModelExpertUpdater(RandomChoosingCombinedModelExpertUpdaterParameters* params)
@@ -40,9 +43,10 @@ public:
     evaluators_ = evaluators;
   }
   void set_model(RandomChoosingCombinedModel* model){model_ = model; }
+  void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
   void update(RecDat* rec_dat);
   bool self_test(){
-    bool ok = true;
+    bool ok = dcg_eval_self_test_result_;
     if(model_==NULL){
       ok=false;
       cerr<<"RandomChoosingCombinedModelExpertUpdater::model is not set."<<endl;
@@ -79,7 +83,9 @@ protected:
         params.top_k = top_k_;
         DCGEvaluator* evaluator = new DCGEvaluator(&params);
         evaluator->set_model(model);
-        evaluator->set_experiment_environment(experiment_environment_); //TODO
+        evaluator->set_experiment_environment(experiment_environment_);
+        evaluator->initialize();
+        dcg_eval_self_test_result_ &= evaluator->self_test();
         evaluators_.push_back(evaluator);
       }
     }
@@ -92,6 +98,7 @@ private:
   double eta_ = 0;
   int top_k_ = 100;
   string loss_type_ = "";
+  bool dcg_eval_self_test_result_ = true;
   ExperimentEnvironment* experiment_environment_ = NULL;
 };
 

@@ -87,6 +87,37 @@ class TestRandomChoosingCombinedModelExpertUpdater : public ::testing::Test {
 
 } //namespace
 
+TEST_F(TestRandomChoosingCombinedModelExpertUpdater, abs_err){
+  RandomChoosingCombinedModelParameters params;
+  RandomChoosingCombinedModel model(&params);
+  model.add_model(&model1);
+  model.add_model(&model2);
+  model.add_model(&model3);
+  model.set_experiment_environment(&experiment_environment);
+  RandomChoosingCombinedModelExpertUpdaterParameters updater_params;
+  updater_params.eta=0.1;
+  updater_params.loss_type="abs";
+  RandomChoosingCombinedModelExpertUpdater updater(&updater_params);
+  updater.set_model(&model);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(updater.initialize());
+  EXPECT_TRUE(model.self_test());
+  EXPECT_TRUE(updater.self_test());
+  updater.update(create_rec_dat(1,2,10.0,1.7));
+  updater.update(create_rec_dat(1,3,10.0,1.7));
+  updater.update(create_rec_dat(1,4,10.0,1.7));
+  updater.update(create_rec_dat(1,5,10.0,1.7));
+  //1______1.7__2___________3 --> err of 2 < err of 1 < err of 3
+  vector<int> predictions(4);
+  for(int i=0;i<1000;i++){
+    double prediction = model.prediction(create_rec_dat(1,5,10.0,1));
+    ASSERT_LT(prediction,4.0);
+    ASSERT_GE(prediction,0.0);
+    predictions[prediction]++;
+  }
+  EXPECT_GT(predictions[2],predictions[1]);
+  EXPECT_GT(predictions[1],predictions[3]);
+}
 TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
   RandomChoosingCombinedModelParameters params;
   RandomChoosingCombinedModel model(&params);
