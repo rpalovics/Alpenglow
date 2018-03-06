@@ -118,6 +118,43 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, abs_err){
   EXPECT_GT(predictions[2],predictions[1]);
   EXPECT_GT(predictions[1],predictions[3]);
 }
+TEST_F(TestRandomChoosingCombinedModelExpertUpdater, dcg_err){
+  RandomChoosingCombinedModelParameters params;
+  RandomChoosingCombinedModel model(&params);
+  model.add_model(&model1);
+  model.add_model(&model2);
+  model.add_model(&model3);
+  model.set_experiment_environment(&experiment_environment);
+  RandomChoosingCombinedModelExpertUpdaterParameters updater_params;
+  updater_params.eta=0.1;
+  updater_params.loss_type="dcg";
+  RandomChoosingCombinedModelExpertUpdater updater(&updater_params);
+  updater.set_model(&model);
+  updater.set_experiment_environment(&experiment_environment);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(updater.initialize());
+  EXPECT_TRUE(model.self_test());
+  EXPECT_TRUE(updater.self_test());
+  updater.update(create_rec_dat(1,2,10.0,1));
+  updater.update(create_rec_dat(1,3,10.0,1));
+  updater.update(create_rec_dat(1,4,10.0,1));
+  updater.update(create_rec_dat(1,5,10.0,1));
+  experiment_environment.update(create_rec_dat(1,2,10.0,1));
+  experiment_environment.update(create_rec_dat(1,3,10.0,1));
+  experiment_environment.update(create_rec_dat(1,4,10.0,1));
+  experiment_environment.update(create_rec_dat(1,5,10.0,1));
+  vector<int> predictions(4);
+  for(int i=0;i<90000;i++){
+    double prediction = model.prediction(create_rec_dat(2,5,10.0,1));
+    ASSERT_LT(prediction,4.0);
+    ASSERT_GE(prediction,0.0);
+    predictions[prediction]++;
+  }
+  for(int i=1;i<4;i++){
+    EXPECT_NEAR(30000,predictions[i],1000);
+  }
+
+}
 TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
   RandomChoosingCombinedModelParameters params;
   RandomChoosingCombinedModel model(&params);
