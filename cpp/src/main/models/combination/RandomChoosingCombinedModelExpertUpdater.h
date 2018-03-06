@@ -54,7 +54,7 @@ public:
     if(loss_type_!="other" && loss_type_!="abs" && loss_type_!="dcg" && loss_type_!="mrr"){
       ok=false;
     }
-    if(loss_type_!="other" and loss_type_!="abs"){
+    if(loss_type_!="other" and loss_type_!="abs" and loss_type_!="dcg"){
       ok=false;
       cerr<<"RandomchoosingCombinedModelExpertUpdater::loss_type=" << loss_type_ << " is not implemented." << endl;
     }
