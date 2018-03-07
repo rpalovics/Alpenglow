@@ -36,6 +36,7 @@
 %Include src/models/baseline/NearestNeighborModel.sip
 %Include src/models/baseline/NearestNeighborModelUpdater.sip
 %Include src/models/combination/CombinedModel.sip
+%Include src/models/combination/RandomChoosingCombinedModel.sip
 %Include src/online_learners/ImplicitGradientLearner.sip
 %Include src/online_learners/LearnerPeriodicDelayedWrapper.sip
 %Include src/online_learners/PeriodicOfflineLearnerWrapper.sip
