@@ -8,9 +8,9 @@ double RandomChoosingCombinedModel::prediction(RecDat* rec_dat){
   if(rec_dat->id != last_id_ or rec_dat->user!=last_user_ or rec_dat->time !=last_timestamp_){
     active_model_id_ = random_->get_discrete(distribution_);
     active_model_ = models_[active_model_id_];
-    rec_dat->id = last_id_;
-    rec_dat->user = last_user_;
-    rec_dat->time = last_timestamp_;
+    last_id_ = rec_dat->id;
+    last_user_ = rec_dat->user;
+    last_timestamp_ = rec_dat->time;
   }
   return active_model_->prediction(rec_dat);
 }

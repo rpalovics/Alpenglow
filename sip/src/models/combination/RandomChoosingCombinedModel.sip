@@ -2,6 +2,7 @@ struct RandomChoosingCombinedModelParameters{
   %TypeHeaderCode
   #include "models/combination/RandomChoosingCombinedModel.h"
   %End
+  int x;
 };
 class RandomChoosingCombinedModel : public Model, public Initializable, public NeedsExperimentEnvironment {
     %TypeHeaderCode
@@ -16,4 +17,6 @@ class RandomChoosingCombinedModel : public Model, public Initializable, public N
     //void read(istream& file) override;
     void set_experiment_environment(ExperimentEnvironment* experiment_environment);
     bool self_test();
+    protected:
+    bool autocalled_initialize();
 };
