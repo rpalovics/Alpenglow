@@ -17,18 +17,29 @@ data = pd.read_csv(
 
 class MyExperiment(ag.OnlineExperiment):
     '''
-       This sample experiment contains a combined model. The combined model constists of a popularity model and a factor model. The prediction of the combined model is the equally weighted sum of the prediction of the popularity model and the factor model, pred_comb=0.5*pred_pop+0.5*pred_factor.
+        Sample exponentially weighted forecaster experiment. The experiment combined four models, a popularity model, a factor model and two models that predict always 0.
+        The exponentially weighted forecaster algorithm is described in
+        Stoltz, G. 2005. Incomplete information and internal regret in prediction of individual sequences. Ph.D. Dissertation, Chapter 2.
     '''
     def _config(self, top_k, seed):
-        model = rs.CombinedModel(**self.parameter_defaults(
-            los_file_name="my_log_file",
-            log_frequency=100000,
-            use_user_weights=False,
+        model = rs.RandomChoosingCombinedModel(**self.parameter_defaults(
+            x=3,
         ))
+        updater = rs.RandomChoosingCombinedModelExpertUpdater(**self.parameter_defaults(
+            eta=0.1,
+            top_k=top_k,
+            loss_type="abs",
+        ))
+        updater.set_model(model)
         pop_model = rs.PopularityModel()
         model.add_model(pop_model)
         pop_updater = rs.PopularityModelUpdater()
         pop_updater.set_model(pop_model)
+
+        pop_model2 = rs.PopularityModel() #not updated popularity model, predicts 0 for all items and users
+        model.add_model(pop_model2)
+        pop_model3 = rs.PopularityModel() #not updated popularity model, predicts 0 for all items and users
+        model.add_model(pop_model3)
 
         factor_model = rs.FactorModel(**self.parameter_defaults(
             begin_min=-0.01,
@@ -58,7 +69,7 @@ class MyExperiment(ag.OnlineExperiment):
         ))
         negative_sample_generator.add_updater(gradient_computer)
 
-        return (model, [pop_updater, negative_sample_generator], [], [])
+        return (model, [updater, pop_updater, negative_sample_generator], [], [])
 
 experiment = MyExperiment(top_k=100, seed=254938879)
 rankings = experiment.run(data, verbose=True)
@@ -67,4 +78,5 @@ day_groups = (rankings['time']-rankings['time'].min())//86400
 daily_avg = rankings['dcg'].groupby(day_groups).mean()
 plt.figure()
 daily_avg.plot()
-plt.savefig("sumexperiment.png")
+plt.savefig("exp_weighted_experiment.png")
+
