@@ -14,7 +14,7 @@ data = pd.read_csv(
     nrows=100000
 )
 
-popularity_model_experiment = alpenglow.experiments.PopularityModelExperiment(top_k=100, seed=254938879)
+popularity_model_experiment = alpenglow.experiments.PopularityExperiment(top_k=100, seed=254938879)
 pop_rankings = popularity_model_experiment.run(data, verbose=True)
 pop_rankings['dcg'] = ag.evaluation.DcgScore(pop_rankings)
 day_groups = (pop_rankings['time']-pop_rankings['time'].min())//86400
@@ -23,7 +23,7 @@ plt.figure()
 pop_daily_avg.plot()
 plt.savefig("popularity.png")
 
-factor_model_experiment = alpenglow.experiments.FactorModelExperiment(
+factor_model_experiment = alpenglow.experiments.FactorExperiment(
     top_k=100,
     seed=254938879,
     dimension=10,
@@ -44,7 +44,7 @@ pd.concat([
 ], axis=1).plot()
 plt.savefig("popvsfac.png")
 
-param = ag.ThreadedParameterSearch(factor_model_experiment, ag.evaluation.DcgScore, threads=5)
+param = ag.utils.ThreadedParameterSearch(factor_model_experiment, ag.evaluation.DcgScore, threads=5)
 param.set_parameter_values("learning_rate", [0.09, 0.11, 0.14, 0.17, 0.2])
 results = param.run(data, verbose=True)
 results.set_index('learning_rate').plot()
