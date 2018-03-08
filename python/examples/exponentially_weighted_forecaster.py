@@ -22,9 +22,7 @@ class MyExperiment(ag.OnlineExperiment):
         Stoltz, G. 2005. Incomplete information and internal regret in prediction of individual sequences. Ph.D. Dissertation, Chapter 2.
     '''
     def _config(self, top_k, seed):
-        model = rs.RandomChoosingCombinedModel(**self.parameter_defaults(
-            x=3,
-        ))
+        model = rs.RandomChoosingCombinedModel()
         updater = rs.RandomChoosingCombinedModelExpertUpdater(**self.parameter_defaults(
             eta=0.1,
             top_k=top_k,

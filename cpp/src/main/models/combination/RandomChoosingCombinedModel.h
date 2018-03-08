@@ -9,14 +9,9 @@
 
 using namespace std;
 
-struct RandomChoosingCombinedModelParameters{
-  int x;
-};
 //TODO RSIProvider: if the actual model isn't, then return NULL
 class RandomChoosingCombinedModel : public Model, public Initializable, public NeedsExperimentEnvironment {
   public:
-    RandomChoosingCombinedModel(RandomChoosingCombinedModelParameters* params){
-    }
     void add_model(Model* model){ models_.push_back(model); }
     void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
