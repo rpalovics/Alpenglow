@@ -88,8 +88,7 @@ class TestRandomChoosingCombinedModelExpertUpdater : public ::testing::Test {
 } //namespace
 
 TEST_F(TestRandomChoosingCombinedModelExpertUpdater, abs_err){
-  RandomChoosingCombinedModelParameters params;
-  RandomChoosingCombinedModel model(&params);
+  RandomChoosingCombinedModel model;
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -119,8 +118,7 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, abs_err){
   EXPECT_GT(predictions[1],predictions[3]);
 }
 TEST_F(TestRandomChoosingCombinedModelExpertUpdater, dcg_err){
-  RandomChoosingCombinedModelParameters params;
-  RandomChoosingCombinedModel model(&params);
+  RandomChoosingCombinedModel model;
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -156,8 +154,7 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, dcg_err){
 
 }
 TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
-  RandomChoosingCombinedModelParameters params;
-  RandomChoosingCombinedModel model(&params);
+  RandomChoosingCombinedModel model;
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -194,8 +191,7 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
 }
 
 TEST_F(TestRandomChoosingCombinedModel, add){
-  RandomChoosingCombinedModelParameters params;
-  RandomChoosingCombinedModel model(&params);
+  RandomChoosingCombinedModel model;
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -216,8 +212,7 @@ TEST_F(TestRandomChoosingCombinedModel, add){
   EXPECT_EQ(3,model3.add_counter_);
 }
 TEST_F(TestRandomChoosingCombinedModel, prediction_id_change){
-  RandomChoosingCombinedModelParameters params;
-  RandomChoosingCombinedModel model(&params);
+  RandomChoosingCombinedModel model;
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -238,8 +233,7 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_id_change){
 }
 
 TEST_F(TestRandomChoosingCombinedModel, prediction_user_change){
-  RandomChoosingCombinedModelParameters params;
-  RandomChoosingCombinedModel model(&params);
+  RandomChoosingCombinedModel model;
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -262,8 +256,7 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_user_change){
 }
 
 TEST_F(TestRandomChoosingCombinedModel, prediction_item_change){
-  RandomChoosingCombinedModelParameters params;
-  RandomChoosingCombinedModel model(&params);
+  RandomChoosingCombinedModel model;
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -290,8 +283,7 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_item_change){
 }
 
 TEST_F(TestRandomChoosingCombinedModel, prediction_distribution){
-  RandomChoosingCombinedModelParameters params;
-  RandomChoosingCombinedModel model(&params);
+  RandomChoosingCombinedModel model;
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -331,8 +323,7 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_distribution){
   
 }
 TEST_F(TestRandomChoosingCombinedModel, read_write){
-  RandomChoosingCombinedModelParameters params;
-  RandomChoosingCombinedModel model(&params);
+  RandomChoosingCombinedModel model;
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
