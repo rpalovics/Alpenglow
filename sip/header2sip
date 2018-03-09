@@ -1,0 +1,2 @@
+typeheadercode=alma; cat ../cpp/src/main/models/Model.h | sed "s|//.*||" | sed "s/#.*//" | sed "s/using.*//" | sed -r "s/class([^{].*)\{/class\1{\n${typeheadercode}/" | sed -r "s/\(([^)])\)/param/"; cat src/models/Model.sip | grep -v "^//"
+
