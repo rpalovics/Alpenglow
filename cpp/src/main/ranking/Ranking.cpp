@@ -3,7 +3,7 @@
 #include <utility>
 
 int RankComputer::get_rank(RecDat* rec_dat){
-  if(ranking_model_!=NULL){
+  if(ranking_model_!=NULL && model_filter_==NULL){
     return get_rank_ranking_model(rec_dat);
   } else {
     return get_rank_bruteforce(rec_dat);
