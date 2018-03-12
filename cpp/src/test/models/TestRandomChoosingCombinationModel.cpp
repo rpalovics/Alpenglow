@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <sstream>
 #include "../../main/models/combination/RandomChoosingCombinedModel.h"
+#include "../../main/models/baseline/TransitionProbabilityModel.h"
 #include "../../main/models/combination/RandomChoosingCombinedModelExpertUpdater.h"
 
 namespace {
@@ -188,6 +189,27 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
   }
   EXPECT_GT(predictions[1],predictions[2]);
   EXPECT_GT(predictions[2],predictions[3]);
+}
+
+TEST_F(TestRandomChoosingCombinedModel, rsi){
+  RandomChoosingCombinedModel model;
+  model.add_model(&model1);
+  model.add_model(&model2);
+  model.add_model(&model3);
+  model.set_experiment_environment(&experiment_environment);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(model.self_test());
+  model.prediction(create_rec_dat(10,10,10.0,1));
+  EXPECT_EQ(NULL,model.get_ranking_score_iterator(10));
+
+  RandomChoosingCombinedModel model2;
+  TransitionProbabilityModel trans_model;
+  model2.add_model(&trans_model);
+  model2.set_experiment_environment(&experiment_environment);
+  EXPECT_TRUE(model2.initialize());
+  EXPECT_TRUE(model2.self_test());
+  model2.prediction(create_rec_dat(10,10,10.0,1));
+  EXPECT_TRUE(NULL!=model2.get_ranking_score_iterator(10));
 }
 
 TEST_F(TestRandomChoosingCombinedModel, add){
