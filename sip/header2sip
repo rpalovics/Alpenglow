@@ -1,2 +1,25 @@
-typeheadercode=alma; cat ../cpp/src/main/models/Model.h | sed "s|//.*||" | sed "s/#.*//" | sed "s/using.*//" | sed -r "s/class([^{].*)\{/class\1{\n${typeheadercode}/" | sed -r "s/\(([^)])\)/param/" | sed -r "s/[\t ]*\{.*\}/;/" | sed '/^\s*$/d'; cat src/models/Model.sip | grep -v "^//"
-#works if the header does not have multiline function definitions or function definitions including {}-s.
+typeheadercode=TYPEHEADERCODE
+for file in src/main/models/Model.h src/main/models/baseline/PopularityModel.h src/main/models/baseline/NearestNeighborModel.h src/main/models/baseline/PopularityModelUpdater.h src/main/models/baseline/NearestNeighborModelUpdater.h src/main/models/baseline/PopularityTimeFrameModelUpdater.h
+
+  do
+    cat ../cpp/$file \
+    | sed "s|//.*||" \
+    | sed "s/#.*//" \
+    | sed "s/using.*//" \
+    | vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
+    | sed -r "s/class([^{].*)\{/class\1{\n${typeheadercode}/" \
+    | sed -r "s/struct([^{].*)\{/struct\1{\n${typeheadercode}/" \
+    | grep -v "stream" \
+    | sed "s/override//g" \
+    | sed '/^\s*$/d'
+    echo
+    cat $(echo $file | sed "s/main//" | sed "s/h$/sip/" ) | grep -v "^//"
+  done
+
+#TODO
+#document the script above
+#remove protected and private parts (except if a line contains "override", test befor removing that keyword) (PopularityModel)
+#remove initial values and constructors from parameter structs (NearestNeighborModel)
+#multiline initialization lists (NearestNeighborModel)
+#insert std:: before strings
+#comment out UpdaterMessage lines
