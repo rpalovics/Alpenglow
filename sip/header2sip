@@ -1,25 +1,40 @@
 typeheadercode=TYPEHEADERCODE
 for file in src/main/models/Model.h src/main/models/baseline/PopularityModel.h src/main/models/baseline/NearestNeighborModel.h src/main/models/baseline/PopularityModelUpdater.h src/main/models/baseline/NearestNeighborModelUpdater.h src/main/models/baseline/PopularityTimeFrameModelUpdater.h
+do
+  cat ../cpp/$file \
+  | sed "s|//.*||" \
+  | sed "s/#.*//" \
+  | sed "s/using.*//" \
+  | sed '/^\s*$/d' \
+  | vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
+  | tr -d "\a" \
+  | sed -r "s/^([^)]+)[[:space:]]*=[^;]*;/\1;/" \
+  | sed -r "s/class([^{].*)\{/class\1{\n${typeheadercode}/" \
+  | sed -r "s/struct([^{].*)\{/struct\1{\n${typeheadercode}/" \
+  | grep -v "stream" \
+  | sed "s/override//g" 
+  echo
+  cat $(echo $file | sed "s/main//" | sed "s/h$/sip/" ) | grep -v "^//"
+done
 
-  do
-    cat ../cpp/$file \
-    | sed "s|//.*||" \
-    | sed "s/#.*//" \
-    | sed "s/using.*//" \
-    | vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
-    | sed -r "s/class([^{].*)\{/class\1{\n${typeheadercode}/" \
-    | sed -r "s/struct([^{].*)\{/struct\1{\n${typeheadercode}/" \
-    | grep -v "stream" \
-    | sed "s/override//g" \
-    | sed '/^\s*$/d'
-    echo
-    cat $(echo $file | sed "s/main//" | sed "s/h$/sip/" ) | grep -v "^//"
-  done
+#documentation
+# remove comments
+# remove macros
+# remove using...
+# remove empty lines
+# remove function definitions
+# remove bell characters inserted by vim
+# remove initial field values (e.g. int x = -1; )
+# insert typeheadercode into classes
+# insert typeheadercode into structs
+# remove functions that use c++ streams - that are not sip compatible yet
+# remove override keywords
 
 #TODO
-#document the script above
-#remove protected and private parts (except if a line contains "override", test befor removing that keyword) (PopularityModel)
-#remove initial values and constructors from parameter structs (NearestNeighborModel)
+#remove protected and private parts (except if a line contains "override", test before removing that keyword) (PopularityModel)
 #multiline initialization lists (NearestNeighborModel)
 #insert std:: before strings
 #comment out UpdaterMessage lines
+
+
+exit 0
