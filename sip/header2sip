@@ -5,6 +5,7 @@ cat ../cpp/$file \
 | sed "s/#.*//" \
 | sed "s/using.*//" \
 | sed '/^\s*$/d' \
+| python remove_initlist.py \
 | vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
 | tr -d "\a" \
 | sed -r "s/^([^)]+)[[:space:]]*=[^;]*;/\1;/" \
@@ -23,6 +24,7 @@ cat $(echo $file | sed "s/main//" | sed "s/h$/sip/" ) | grep -v "^//"
 # remove macros
 # remove using...
 # remove empty lines
+# remove initialization lists
 # remove function definitions
 # remove bell characters inserted by vim
 # remove initial field values (e.g. int x = -1; )
