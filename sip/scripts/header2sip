@@ -1,23 +1,91 @@
-typeheadercode=TYPEHEADERCODE
-file=$(echo $1 | sed -r "s|.*cpp/||")
-cat ../cpp/$file \
-| sed "s|//.*||" \
-| sed "s/#.*//" \
-| sed "s/using.*//" \
-| sed '/^\s*$/d' \
-| python remove_initlist.py \
-| vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
-| tr -d "\a" \
-| sed -r "s/^([^)]+)[[:space:]]*=[^;]*;/\1;/" \
-| sed -r "s/class([^{].*)\{/class\1{\n${typeheadercode}/" \
-| sed -r "s/struct([^{].*)\{/struct\1{\n${typeheadercode}/" \
-| sed -r "s/[[:space:]]string/ std::string/" \
-| sed -r "s|^(.*UpdaterMessage)|//\1|" \
-| sed -r "s|^(.*stream)|//\1|" \
-| python remove_private.py \
-| sed "s/override//g" 
-echo
-cat $(echo $file | sed "s/main//" | sed "s/h$/sip/" ) | grep -v "^//"
+#!/bin/bash
+if [ "$#" -eq 0 ]
+then
+  echo "Usage:"
+  echo "header2sip filename [overwrite]"
+  echo "Convert c++ header to sip file and write to the standard output. If overwrite is set, the appropriate sip file will be (over)written instead of writing to the standard output."
+  echo
+  echo "header2sip filename compare"
+  echo "Convert c++ header to sip file and compare side-to-side with the appropriate sip file. The diff will be written to the standard output."
+  echo
+  #echo "header2sip directory [overwrite]"
+  #echo "Find all c++ header files (.h files) in the directory and convert them. If overwrite is set, the appropriate sip file[s] will be (over)written and containing dirs will be created if needed instead of writing to the standard output."
+  #echo
+  echo "header2sip"
+  echo "Show this help and exit."
+  exit
+fi
+if [ "$#" -ge 1 ]
+then
+  if [ -f $1 ]
+  then
+    mode="file"
+  #else if [ -d $1 ]
+  #then
+  #  mode="dir"
+  else
+    echo "The first parameter must be a file or a directory."
+    exit 1
+  fi#; fi
+fi
+compare="no"
+overwrite="no"
+if [ "$#" -ge 2 ]
+then
+  if [ "$2" == "overwrite" ]
+  then
+    overwrite="yes"
+  else if [ "$2" == "compare" ]
+  then
+    compare="yes"
+  else
+    echo "The second parameter must be 'overwrite' or 'compare' if given."
+    exit 1
+  fi; fi
+fi
+
+script_dir=$(dirname $0)
+tempfile=$(mktemp)
+
+file_name_list="$1" #TODO create file list
+for file in $file_name_list
+do
+  local_file_path=$(echo $file | sed -r "s|.*main/||")
+  cat $file \
+  | sed "s|//.*||" \
+  | sed "s/#.*//" \
+  | sed "s/using.*//" \
+  | sed '/^\s*$/d' \
+  | python $script_dir/remove_initlist.py \
+  | vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
+  | tr -d "\a" \
+  | sed -r "s/^([^)]+)[[:space:]]*=[^;]*;/\1;/" \
+  | sed -r "s/class([^{].*)\{/class\1{\nTYPEHEADERCODE/" \
+  | sed -r "s/struct([^{].*)\{/struct\1{\nTYPEHEADERCODE/" \
+  | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
+  | sed -r "s/[[:space:]]string/ std::string/" \
+  | sed -r "s|^(.*UpdaterMessage)|//\1|" \
+  | sed -r "s|^(.*stream)|//\1|" \
+  | python $script_dir/remove_private.py \
+  | sed "s/override//g" > $tempfile
+
+  sipfilename=$(echo $file | sed -r "s/cpp/sip/" | sed -r "s|main/||" | sed "s/.h/.sip/")
+  if [ $overwrite = "yes" ]
+  then
+    echo "Sorry, not implemented."
+    echo "cp $tempfile $sipfilename"
+  else if [ $compare = "yes" ]
+  then
+    diff --side-by-side $tempfile $sipfilename
+  else
+    cat $tempfile
+  fi; fi
+done
+
+rm $tempfile
+
+exit 0
+
 
 #documentation
 # remove comments
@@ -30,6 +98,7 @@ cat $(echo $file | sed "s/main//" | sed "s/h$/sip/" ) | grep -v "^//"
 # remove initial field values (e.g. int x = -1; )
 # insert typeheadercode into classes
 # insert typeheadercode into structs
+# TYPEHEADERCODE -> real code
 # string -> std::string (fail on std:: string)
 # UpdaterMessage: comment out
 # iofstream: comment out
@@ -38,7 +107,6 @@ cat $(echo $file | sed "s/main//" | sed "s/h$/sip/" ) | grep -v "^//"
 # remove override keywords
 
 #TODO
-#multiline initialization lists (NearestNeighborModel)
+#typeheadercode replacement
 
 
-exit 0
