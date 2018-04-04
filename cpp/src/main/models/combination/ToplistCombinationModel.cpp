@@ -36,7 +36,12 @@ RankingScoreIterator* ToplistCombinationModel::get_ranking_score_iterator(int us
   return NULL; //TODO
 }
 
-void ToplistCombinationModel::generate_random_values_for_toplists(){}
+void ToplistCombinationModel::generate_random_values_for_toplists(){
+  random_model_indices_.clear();
+  for(int i=0;i<experiment_environment_->get_top_k();i++){
+    random_model_indices_.push_back(random_->get_discrete(distribution_));
+  }
+}
 void ToplistCombinationModel::compute_score_map(){}
 void ToplistCombinationModel::compute_last_occ_of_models(){}
 bool ToplistCombinationModel::test_top_k(){return false;}

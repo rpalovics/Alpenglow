@@ -49,6 +49,7 @@ class TestToplistCombinationModel : public ::testing::Test {
       }
     }
 };
+/*
 //class DummyEvaluator : public Evaluator {
 //  public:
 //    double get_loss(RecDat*){ return my_loss_; }
@@ -86,8 +87,38 @@ class TestToplistCombinationModel : public ::testing::Test {
 //      }
 //    }
 //};
+*/
 
 } //namespace
+
+TEST_F(TestToplistCombinationModel, generate_random_values_for_toplists){
+  ToplistCombinationModel model;
+  model.add_model(&model1);
+  model.add_model(&model2);
+  model.add_model(&model3);
+  model.set_experiment_environment(&experiment_environment);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(model.self_test());
+  model.distribution_ = {0.5,0.1,0.4};
+
+  vector<int> model_counter;
+  model_counter.resize(model.models_.size());
+  for(int x=0;x<100;x++){
+    model.generate_random_values_for_toplists();
+    EXPECT_EQ(experiment_environment.get_top_k(),model.random_model_indices_.size());
+
+    for(auto index : model.random_model_indices_){
+      ASSERT_LT(index,model.models_.size());
+      ASSERT_GE(index,0);
+      model_counter[index]++;
+    }
+  }
+  for(uint i = 0; i<model_counter.size();i++){
+    int expected_freq = model.distribution_[i]*experiment_environment.get_top_k()*100;
+    EXPECT_NEAR(expected_freq,model_counter[i],100);
+  }
+
+}
 
 //TEST_F(TestToplistCombinationModelExpertUpdater, abs_err){
 //  ToplistCombinationModel model;

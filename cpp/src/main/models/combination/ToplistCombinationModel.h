@@ -42,6 +42,7 @@ protected:
   }
 private:
   void generate_random_values_for_toplists();
+  vector<int> random_model_indices_;
   void compute_score_map();
   map<int,double> scores_;
   void compute_last_occ_of_models();
@@ -59,7 +60,7 @@ private:
   Random* random_ = NULL;
   int top_k_ = -1;
   ExperimentEnvironment* experiment_environment_ = NULL;
-  //FRIEND_TEST(TestRandomChoosingCombinedModel, prediction_distribution);
+  FRIEND_TEST(TestToplistCombinationModel, generate_random_values_for_toplists);
   //friend class RandomChoosingCombinedModelExpertUpdater;
 };
 
