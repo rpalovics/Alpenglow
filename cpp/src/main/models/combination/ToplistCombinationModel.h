@@ -35,22 +35,29 @@ public:
 protected:
   bool autocalled_initialize(){
     random_=experiment_environment_->get_random();
+    top_k_=experiment_environment_->get_top_k();
     distribution_.clear(); //should not be called twice, but...
     distribution_.resize(models_.size(),1.0/models_.size());
-    active_model_id_=0;
-    active_model_=models_[0];
     return true;
   }
 private:
+  void generate_random_values_for_toplists();
+  void compute_score_map();
+  map<int,double> scores_;
+  void compute_last_occ_of_models();
+  bool test_top_k();
+  void compute_toplists();
+  void merge_toplists();
+
   vector<Model*> models_;
-  vector<RankingScoreIteratorProvider*> rsip_models_;
+  vector<RankingScoreIteratorProvider*> rsip_models_; //TODO ez kell?
   vector<double> distribution_;
-  int active_model_id_ = -1;
-  Model* active_model_=NULL;
+  //cache
   double last_timestamp_ = -1;
   int last_user_ = -1;
   int last_id_ = -1;
   Random* random_ = NULL;
+  int top_k_ = -1;
   ExperimentEnvironment* experiment_environment_ = NULL;
   //FRIEND_TEST(TestRandomChoosingCombinedModel, prediction_distribution);
   //friend class RandomChoosingCombinedModelExpertUpdater;
