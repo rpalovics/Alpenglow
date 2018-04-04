@@ -9,6 +9,7 @@
 #include "../recommender_data/RecommenderData.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../models/RankingScoreIterator.h"
+#include "../models/TopListRecommender.h"
 #include <numeric> 
 #include "../utils/Random.h"
 
@@ -27,7 +28,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable{
       top_k_=(parameters->top_k==-1?parameters->top_k:parameters->top_k);
       random_.set(parameters->random_seed);
     }
-    void set_model(Model* model){ model_ = model; } 
+    void set_model(Model* model){ model_ = model;} 
     void set_model_filter(ModelFilter* model_filter){ model_filter_ = model_filter; }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_ = train_matrix; }
     void set_top_pop_container(TopPopContainer* popularity_sorted_container){ popularity_sorted_container_ = popularity_sorted_container; }
@@ -60,11 +61,17 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable{
         ranking_model_ = ranking_model;
       }
 
+      TopListRecommender* toplist_model = dynamic_cast<TopListRecommender*>(model_);
+      if(toplist_model){
+        toplist_model_ = toplist_model;
+      }
+
       
       return true;
     }
     int get_rank_bruteforce(RecDat*);
     int get_rank_ranking_model(RecDat*);
+    int get_rank_toplist_model(RecDat*);
     void itemlist_init(RecDat* rec_dat);
     bool itemlist_next(RecDat* rec_dat);
     int itemlist_index_;
@@ -74,6 +81,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable{
     vector<pair<int,double>>* itemlist_ = NULL;
     Model* model_ = NULL;
     RankingScoreIteratorProvider* ranking_model_ = NULL;
+    TopListRecommender* toplist_model_ = NULL;
     SpMatrix* train_matrix_ = NULL;
     TopPopContainer* popularity_sorted_container_ = NULL;
     ModelFilter* model_filter_ = NULL;
