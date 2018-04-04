@@ -46,6 +46,7 @@ private:
   void compute_score_map();
   map<int,double> scores_;
   void compute_last_occ_of_models();
+  vector<int> last_occ_of_models_;
   bool test_top_k();
   void compute_toplists();
   void merge_toplists();
@@ -61,6 +62,7 @@ private:
   int top_k_ = -1;
   ExperimentEnvironment* experiment_environment_ = NULL;
   FRIEND_TEST(TestToplistCombinationModel, generate_random_values_for_toplists);
+  FRIEND_TEST(TestToplistCombinationModel, compute_last_occ_of_models);
   //friend class RandomChoosingCombinedModelExpertUpdater;
 };
 

@@ -91,6 +91,37 @@ class TestToplistCombinationModel : public ::testing::Test {
 
 } //namespace
 
+TEST_F(TestToplistCombinationModel, compute_last_occ_of_models){
+  ToplistCombinationModel model;
+  model.add_model(&model1);
+  model.add_model(&model2);
+  model.add_model(&model3);
+  model.set_experiment_environment(&experiment_environment);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(model.self_test());
+
+  model.random_model_indices_ = {2,1,0, 0,1,2, 1,2,2,2};
+  model.compute_last_occ_of_models();
+  ASSERT_EQ(3,model.last_occ_of_models_.size());
+  EXPECT_EQ(3,model.last_occ_of_models_[0]);
+  EXPECT_EQ(6,model.last_occ_of_models_[1]);
+  EXPECT_EQ(9,model.last_occ_of_models_[2]);
+
+  model.random_model_indices_ = {0,1,2, 2,1,2, 1,2,2,1};
+  model.compute_last_occ_of_models();
+  ASSERT_EQ(3,model.last_occ_of_models_.size());
+  EXPECT_EQ(0,model.last_occ_of_models_[0]);
+  EXPECT_EQ(9,model.last_occ_of_models_[1]);
+  EXPECT_EQ(8,model.last_occ_of_models_[2]);
+
+  model.random_model_indices_ = {2,1,2, 2,1,2, 1,2,2,1};
+  model.compute_last_occ_of_models();
+  ASSERT_EQ(3,model.last_occ_of_models_.size());
+  EXPECT_EQ(11,model.last_occ_of_models_[0]);
+  EXPECT_EQ(9,model.last_occ_of_models_[1]);
+  EXPECT_EQ(8,model.last_occ_of_models_[2]);
+
+}
 TEST_F(TestToplistCombinationModel, generate_random_values_for_toplists){
   ToplistCombinationModel model;
   model.add_model(&model1);
