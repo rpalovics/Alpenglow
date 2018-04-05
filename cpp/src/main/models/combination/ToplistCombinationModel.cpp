@@ -12,7 +12,7 @@ double ToplistCombinationModel::prediction(RecDat* rec_dat){
   }
   generate_random_values_for_toplists();
   compute_last_occ_of_models();
-  if (!test_top_k()) return 0; //toplist should be cleared? Not exactly.
+  if (!test_top_k(rec_dat)) return 0; //toplist should be cleared? Not exactly.
   compute_toplists();
   merge_toplists();
   last_id_ = rec_dat->id;
@@ -45,12 +45,18 @@ void ToplistCombinationModel::generate_random_values_for_toplists(){
 void ToplistCombinationModel::compute_score_map(){}
 void ToplistCombinationModel::compute_last_occ_of_models(){
   last_occ_of_models_.clear();
-  last_occ_of_models_.resize(models_.size(),top_k_+1);
+  last_occ_of_models_.resize(models_.size(),-1);
   for(uint i=0;i<random_model_indices_.size();i++){
     int model = random_model_indices_[i];
     last_occ_of_models_[model]=i;
   }
 }
-bool ToplistCombinationModel::test_top_k(){return false;}
+bool ToplistCombinationModel::test_top_k(RecDat* rec_dat){
+  for(uint i=0;i<models_.size();i++){
+    int rank = rank_computers_[i]->get_rank(rec_dat);
+    if(rank<=last_occ_of_models_[i]) return true;
+  }
+  return false;
+}
 void ToplistCombinationModel::compute_toplists(){}
 void ToplistCombinationModel::merge_toplists(){}

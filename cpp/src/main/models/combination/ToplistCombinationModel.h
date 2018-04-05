@@ -7,6 +7,7 @@
 #include "../RankingScoreIterator.h"
 #include "../../general_interfaces/Initializable.h"
 #include "../../general_interfaces/NeedsExperimentEnvironment.h"
+#include "../../ranking/Ranking.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ public:
   bool self_test(){
     bool ok = Model::self_test();
     if(models_.size()==0) ok=false;
+    for(auto rank_computer : rank_computers_) ok &= rank_computer->self_test();
     return ok;
   }
   void add(RecDat* rec_dat) override;
@@ -32,13 +34,28 @@ public:
   void write(ostream& file) override;
   void read(istream& file) override;
   RankingScoreIterator* get_ranking_score_iterator(int user) override;
+  ~ToplistCombinationModel(){
+    for(auto rank_computer: rank_computers_){ delete rank_computer; }
+    rank_computers_.clear();
+  }
 protected:
   bool autocalled_initialize(){
     random_=experiment_environment_->get_random();
     top_k_=experiment_environment_->get_top_k();
     distribution_.clear(); //should not be called twice, but...
     distribution_.resize(models_.size(),1.0/models_.size());
-    return true;
+    bool ok = true;
+    for(auto model : models_){
+      RankComputerParameters rank_computer_params;
+      rank_computer_params.top_k=top_k_;
+      rank_computer_params.random_seed=19263435; //TODO get rid of random seed here, RankComputer should use the common random object
+      RankComputer* rank_computer = new RankComputer(&rank_computer_params);
+      rank_computers_.push_back(rank_computer);
+      rank_computer->set_experiment_environment(experiment_environment_);
+      rank_computer->set_model(model);
+      ok &= rank_computer->initialize();
+    }
+    return ok;
   }
 private:
   void generate_random_values_for_toplists();
@@ -47,12 +64,13 @@ private:
   map<int,double> scores_;
   void compute_last_occ_of_models();
   vector<int> last_occ_of_models_;
-  bool test_top_k();
+  bool test_top_k(RecDat*);
   void compute_toplists();
   void merge_toplists();
 
   vector<Model*> models_;
   vector<RankingScoreIteratorProvider*> rsip_models_; //TODO ez kell?
+  vector<RankComputer*> rank_computers_;
   vector<double> distribution_;
   //cache
   double last_timestamp_ = -1;
@@ -63,6 +81,7 @@ private:
   ExperimentEnvironment* experiment_environment_ = NULL;
   FRIEND_TEST(TestToplistCombinationModel, generate_random_values_for_toplists);
   FRIEND_TEST(TestToplistCombinationModel, compute_last_occ_of_models);
+  FRIEND_TEST(TestToplistCombinationModel, test_top_k);
   //friend class RandomChoosingCombinedModelExpertUpdater;
 };
 

@@ -9,12 +9,19 @@ class DummyModel : public Model {
   public:
     void add(RecDat*){ add_counter_++; }
     int add_counter_ = 0;
-    double prediction(RecDat*){ return my_prediction_; }
-    double my_prediction_ = 0.5;
     void read(istream&){ read_counter_++; }
     int read_counter_ = 0;
     void write(ostream&){ write_counter_++; }
     int write_counter_ = 0;
+    int valid_item_rank = 0;
+    double prediction(RecDat* rec_dat){
+      //toplist: 1, 2, 3, ..., valid_item_rank, 0, valid_item_rank+2, ...
+      //scores: 1, 0.5, 0.333, ..., 1/n, 1/(n+1), 1/(n+2), ...
+      //cerr << "item " << rec_dat->item << " valid item " << valid_item_rank << endl;
+      if (rec_dat->item==valid_item_rank+1) return 0;
+      if (rec_dat->item==0) return 1.0/(valid_item_rank+1);
+      return 1.0/rec_dat->item;
+    }
 };
 class TestToplistCombinationModel : public ::testing::Test { 
   public:
@@ -25,9 +32,6 @@ class TestToplistCombinationModel : public ::testing::Test {
     TestToplistCombinationModel(){}
     virtual ~TestToplistCombinationModel(){}
     virtual void SetUp(){
-      model1.my_prediction_ = 1;
-      model2.my_prediction_ = 2;
-      model3.my_prediction_ = 3;
       experiment_parameters.random_seed = 231243;
       experiment_parameters.top_k = 10;
       experiment_environment.set_parameters(&experiment_parameters);
@@ -91,6 +95,44 @@ class TestToplistCombinationModel : public ::testing::Test {
 
 } //namespace
 
+TEST_F(TestToplistCombinationModel, test_top_k){
+  ToplistCombinationModel model;
+  model.add_model(&model1);
+  model.add_model(&model2);
+  model.add_model(&model3);
+  model.set_experiment_environment(&experiment_environment);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(model.self_test());
+  RecDat rec_dat;
+  rec_dat.time = 10;
+  rec_dat.user = 5;
+  rec_dat.score = 1;
+  for(int i=0;i<20;i++){
+    rec_dat.id = i;
+    rec_dat.item = i;
+    experiment_environment.update(&rec_dat);
+  }
+  rec_dat.user = 1;
+  rec_dat.item = 0;
+
+  model1.valid_item_rank = 3;
+  model2.valid_item_rank = 11;
+  model3.valid_item_rank = 11;
+  model.last_occ_of_models_ = {-1,4,9};
+  EXPECT_FALSE(model.test_top_k(&rec_dat));
+
+  model1.valid_item_rank = 11;
+  model2.valid_item_rank = 3;
+  model3.valid_item_rank = 11;
+  model.last_occ_of_models_ = {-1,4,9};
+  EXPECT_TRUE(model.test_top_k(&rec_dat));
+
+  model1.valid_item_rank = 11;
+  model2.valid_item_rank = 6;
+  model3.valid_item_rank = 10;
+  model.last_occ_of_models_ = {-1,4,9};
+  EXPECT_FALSE(model.test_top_k(&rec_dat));
+}
 TEST_F(TestToplistCombinationModel, compute_last_occ_of_models){
   ToplistCombinationModel model;
   model.add_model(&model1);
@@ -117,7 +159,7 @@ TEST_F(TestToplistCombinationModel, compute_last_occ_of_models){
   model.random_model_indices_ = {2,1,2, 2,1,2, 1,2,2,1};
   model.compute_last_occ_of_models();
   ASSERT_EQ(3,model.last_occ_of_models_.size());
-  EXPECT_EQ(11,model.last_occ_of_models_[0]);
+  EXPECT_EQ(-1,model.last_occ_of_models_[0]);
   EXPECT_EQ(9,model.last_occ_of_models_[1]);
   EXPECT_EQ(8,model.last_occ_of_models_[2]);
 
