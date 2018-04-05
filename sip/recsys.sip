@@ -19,6 +19,7 @@
 %Include src/models/ModelUpdater.sip
 %Include src/models/SimilarityModel.sip
 %Include src/models/MassPredictor.sip
+%Include src/models/ExternalModel.sip
 %Include src/models/factor/FactorModel.sip
 %Include src/models/factor/FactorModelGradientUpdater.sip
 %Include src/models/factor/AsymmetricFactorModel.sip
@@ -87,4 +88,5 @@
 %Include src/offline_learners/OfflineLearner.sip
 %Include src/offline_learners/OfflineIteratingOnlineLearnerWrapper.sip
 %Include src/offline_learners/OfflineEigenFactorModelALSLearner.sip
+%Include src/offline_learners/OfflineExternalModelLearner.sip
 %Include src/offline_evaluators/OfflineRankingComputer.sip

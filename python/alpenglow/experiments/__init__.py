@@ -10,3 +10,4 @@ from .BatchFactorExperiment import *
 from .BatchAndOnlineFactorExperiment import *
 from .ALSFactorExperiment import *
 from .ALSOnlineFactorExperiment import *
+from .ExternalModelExperiment import *
