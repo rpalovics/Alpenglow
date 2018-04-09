@@ -74,11 +74,11 @@ void MinHeap::insert(RecDat rec_dat)
 }
 
 RecDat MinHeap::get_min(){
-  //if(_vector.size()>0){
+  if(_vector.size()>0){
     return _vector[0];
-  //} else {
-  //  throw exception();
-  //}
+  } else {
+    throw exception();
+  }
 }
     
 void MinHeap::delete_min(){
