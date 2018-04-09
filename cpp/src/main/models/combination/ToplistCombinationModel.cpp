@@ -10,10 +10,13 @@ double ToplistCombinationModel::prediction(RecDat* rec_dat){
     compute_score_map();
     return scores_[rec_dat->item]; //TODO return 0 if item is not in the map
   }
-  generate_random_values_for_toplists();
-  compute_last_occ_of_models();
+  if(!random_values_generated_){
+    generate_random_values_for_toplists();
+    compute_last_occ_of_models();
+    random_values_generated_ = true;
+  }
   if (!test_top_k(rec_dat)) return 0; //toplist should be cleared? Not exactly.
-  compute_toplists();
+  compute_toplists(rec_dat);
   merge_toplists();
   last_id_ = rec_dat->id;
   last_user_ = rec_dat->user;
@@ -58,5 +61,18 @@ bool ToplistCombinationModel::test_top_k(RecDat* rec_dat){
   }
   return false;
 }
-void ToplistCombinationModel::compute_toplists(){}
+void ToplistCombinationModel::compute_toplists(RecDat* rec_dat){
+  toplists_.clear();
+  toplists_.resize(models_.size());
+  for(uint i=0;i<toplists_.size();i++){
+    toplists_[i].resize(last_occ_of_models_[i]+1);
+  }
+  for(uint i=0;i<toplist_creators_.size();i++){
+    vector<RecDat>* toplist = toplist_creators_[i]->run(rec_dat);
+    for(uint j=0;j<toplists_[i].size();j++){
+      toplists_[i][j].first = toplist->at(j).item;
+      toplists_[i][j].second = toplist->at(j).score;
+    }
+  }
+}
 void ToplistCombinationModel::merge_toplists(){}
