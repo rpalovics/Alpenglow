@@ -14,8 +14,8 @@
 using namespace std;
 
 struct PredictionCreatorParameters{
-  int top_k;
-  int exclude_known;
+  int top_k = -1;
+  int exclude_known = -1;
 };
 class PredictionCreator : public NeedsExperimentEnvironment, public Initializable {
  public:
@@ -65,7 +65,7 @@ class PredictionCreator : public NeedsExperimentEnvironment, public Initializabl
    ModelFilter* filter_;
    SpMatrix* train_matrix_;
    SpMatrix dummy_train_matrix_;
-   int top_k_; //TODO const
+   int top_k_;
    int exclude_known_;
 };
 
@@ -112,10 +112,10 @@ struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParamet
 class PredictionCreatorPersonalized: public PredictionCreator{
   public:
     PredictionCreatorPersonalized(PredictionCreatorParameters * params):PredictionCreator(params){
-      min_heap_ = new MinHeap(params->top_k); //TODO use utils/Toplist
+      min_heap_ = new MinHeap(); //TODO use utils/Toplist
     };
     vector<RecDat>* run(RecDat* rec_dat);
-    bool self_test(){ return PredictionCreator::self_test(); }
+    bool self_test(){ return PredictionCreator::self_test() && min_heap_->self_test(); }
   protected:
     bool autocalled_initialize() override {
       if (!parent_is_initialized_){
@@ -126,6 +126,7 @@ class PredictionCreatorPersonalized: public PredictionCreator{
       if(ranking_model){
         ranking_model_ = ranking_model;
       }
+      min_heap_->set_top_k(top_k_);
       return true;
     }
   private:
