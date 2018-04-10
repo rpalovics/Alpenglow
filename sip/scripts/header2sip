@@ -69,11 +69,10 @@ do
   | python $script_dir/remove_private.py \
   | sed "s/override//g" > $tempfile
 
-  sipfilename=$(echo $file | sed -r "s/cpp/sip/" | sed -r "s|main/||" | sed "s/.h/.sip/")
+  sipfilename=$(echo $file | sed -r "s/cpp/sip/" | sed -r "s|main/||" | sed "s/.h$/.sip/")
   if [ $overwrite = "yes" ]
   then
-    echo "Sorry, not implemented."
-    echo "cp $tempfile $sipfilename"
+    cp $tempfile $sipfilename
   else if [ $compare = "yes" ]
   then
     diff --side-by-side $tempfile $sipfilename
@@ -108,5 +107,8 @@ exit 0
 
 #TODO
 #typeheadercode replacement
+#typeheadercode, protected parts: RandomChoosingCombinedModel, ToplistCombModel
+#RSI: ToplistCombModel
+#RandomChoosingCombinedModelExpUpd: constructor+init list
 
 

@@ -9,6 +9,7 @@ struct RandomChoosingCombinedModelExpertUpdaterParameters{
 
 class RandomChoosingCombinedModelExpertUpdater
   : public Updater,
+  public WMSUpdater,
   public Initializable,
   public NeedsExperimentEnvironment 
 {
@@ -18,9 +19,9 @@ class RandomChoosingCombinedModelExpertUpdater
 public:
   RandomChoosingCombinedModelExpertUpdater(RandomChoosingCombinedModelExpertUpdaterParameters* params);
   ~RandomChoosingCombinedModelExpertUpdater();
-  //void set_evaluators(vector<Evaluator*> evaluators); //TODO
-  void set_model(RandomChoosingCombinedModel* model);
-  void set_experiment_environment(ExperimentEnvironment* experiment_environment);
+  //void set_evaluators(vector<Evaluator*> evaluators);
+  void set_wms(WeightedModelStructure* model);
+  void set_experiment_environment(ExperimentEnvironment* experiment_environment)  ;
   void update(RecDat* rec_dat);
   bool self_test();
   protected:
