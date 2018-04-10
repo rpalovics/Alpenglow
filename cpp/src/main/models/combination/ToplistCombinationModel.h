@@ -14,6 +14,19 @@
 
 using namespace std;
 
+class ToplistCombinationModelRankingScoreIterator : public RankingScoreIterator{
+public:
+  bool has_next(double bound) override;
+  pair<int, double> get_next() override;
+  void set_up(vector<pair<int,double>> toplist){ counter_ = 0; current_scores_ = toplist; }
+  void reinit(){counter_=0;}
+  int unique_items_num(){ throw exception(); } //should not be called as all scores are nonnegative
+private:
+  void clear(){counter_=0;current_scores_.clear();}
+  vector<pair<int,double>> current_scores_;
+  int counter_;
+};
+
 class ToplistCombinationModel
  : public Model,
    virtual public RankingScoreIteratorProvider,
@@ -71,6 +84,7 @@ protected:
     return ok;
   }
 private:
+  ToplistCombinationModelRankingScoreIterator rsi_;
   void recompute_predictions(RecDat* rec_dat);
   bool random_values_generated_ = false;
   void generate_random_values_for_toplists();

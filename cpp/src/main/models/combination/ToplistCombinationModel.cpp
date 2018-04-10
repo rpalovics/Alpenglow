@@ -39,11 +39,6 @@ void ToplistCombinationModel::read(istream& file){
   }
 }
 
-RankingScoreIterator* ToplistCombinationModel::get_ranking_score_iterator(int user){
-  if(user!=last_user_) throw exception(); //prediction should be called first, the parameter here is user, not recdat, we can't update state fields properly
-  return NULL; //TODO
-}
-
 void ToplistCombinationModel::generate_random_values_for_toplists(){
   random_model_indices_.clear();
   for(int i=0;i<experiment_environment_->get_top_k();i++){
@@ -104,4 +99,19 @@ void ToplistCombinationModel::merge_toplists(){
     model_counters[active_model] = model_counter;
     model_counters[active_model]++;
   }
+}
+
+RankingScoreIterator* ToplistCombinationModel::get_ranking_score_iterator(int user){
+  if(random_values_generated_) return NULL; //prediction was called, but toplist is not generated
+  if(user!=last_user_) throw exception(); //prediction should be called first, the parameter here is user, not recdat, we can't update state fields properly
+  rsi_.set_up(toplist_);
+  return &rsi_;
+}
+
+bool ToplistCombinationModelRankingScoreIterator::has_next(double bound){
+  return ( (int)current_scores_.size() > counter_ &&
+           current_scores_[counter_].second >= bound );
+}
+pair<int, double> ToplistCombinationModelRankingScoreIterator::get_next(){
+  return current_scores_.at(counter_++);
 }
