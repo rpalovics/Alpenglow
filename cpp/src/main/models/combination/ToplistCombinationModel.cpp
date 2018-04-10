@@ -6,22 +6,27 @@ void ToplistCombinationModel::add(RecDat* rec_dat){
   }
 }
 double ToplistCombinationModel::prediction(RecDat* rec_dat){
-  if(rec_dat->id == last_id_ and rec_dat->user==last_user_ and rec_dat->time ==last_timestamp_){
-    compute_score_map();
-    return scores_[rec_dat->item]; //TODO return 0 if item is not in the map
+  if(rec_dat->id != last_id_ or rec_dat->user!=last_user_ or rec_dat->time !=last_timestamp_){
+    scores_.clear();
+    recompute_predictions(rec_dat);
   }
+  if(scores_.find(rec_dat->item)==scores_.end()) return 0;
+  else return scores_[rec_dat->item];
+}
+void ToplistCombinationModel::recompute_predictions(RecDat* rec_dat){
   if(!random_values_generated_){
     generate_random_values_for_toplists();
     compute_last_occ_of_models();
     random_values_generated_ = true;
   }
-  if (!test_top_k(rec_dat)) return 0; //toplist should be cleared? Not exactly.
+  if (!test_top_k(rec_dat)) return;
   compute_toplists(rec_dat);
   merge_toplists();
+  compute_score_map();
   last_id_ = rec_dat->id;
   last_user_ = rec_dat->user;
   last_timestamp_ = rec_dat->time;
-  return 0; //TODO find index of the item, return 1/(index+1)
+  random_values_generated_ = false;
 }
 void ToplistCombinationModel::write(ostream& file){
   for(auto model:models_){
@@ -45,7 +50,13 @@ void ToplistCombinationModel::generate_random_values_for_toplists(){
     random_model_indices_.push_back(random_->get_discrete(distribution_));
   }
 }
-void ToplistCombinationModel::compute_score_map(){}
+void ToplistCombinationModel::compute_score_map(){
+  for(uint i=0;i<toplist_.size();i++){
+    int item = toplist_[i].first;
+    double score = 1.0/(i+1);
+    scores_.insert(make_pair(item,score));
+  }
+}
 void ToplistCombinationModel::compute_last_occ_of_models(){
   last_occ_of_models_.clear();
   last_occ_of_models_.resize(models_.size(),-1);
@@ -75,4 +86,22 @@ void ToplistCombinationModel::compute_toplists(RecDat* rec_dat){
     }
   }
 }
-void ToplistCombinationModel::merge_toplists(){}
+void ToplistCombinationModel::merge_toplists(){
+  toplist_.clear();
+  vector<int> model_counters(models_.size());
+  set<int> used_items;
+  for(uint i=0;i<random_model_indices_.size();i++){
+    int active_model = random_model_indices_[i];
+    int model_counter = model_counters[active_model]; //skip used items
+    while(model_counters[active_model]<toplists_[active_model].size()){
+      int possible_item = toplists_[active_model][model_counter].first;
+      if(used_items.find(possible_item)==used_items.end()) break;
+      model_counter++;
+    }
+    auto toplist_element = toplists_[active_model][model_counter];
+    used_items.insert(toplist_element.first);
+    toplist_.push_back(toplist_element);
+    model_counters[active_model] = model_counter;
+    model_counters[active_model]++;
+  }
+}

@@ -104,6 +104,101 @@ class TestToplistCombinationModel : public ::testing::Test {
 
 } //namespace
 
+TEST_F(TestToplistCombinationModel, prediction){
+  ToplistCombinationModel model;
+  model.add_model(&model11);
+  model.add_model(&model12);
+  model.add_model(&model13);
+  model.set_experiment_environment(&experiment_environment);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(model.self_test());
+  RecDat rec_dat;
+  rec_dat.time = 10;
+  rec_dat.user = 5;
+  rec_dat.score = 1;
+  for(int i=0;i<20;i++){
+    rec_dat.id = i;
+    rec_dat.item = i;
+    experiment_environment.update(&rec_dat);
+  }
+  model.distribution_ = {1.0,0.0,0.0};
+  model11.predictions = {0,0,0,0,0, 9,8,7,6,5, 1,2,3,4,0, 0,0,0,0.01,0.1};
+  model12.predictions = {1,2,3,4,5, 0,0,0,0,0, 9,8,7,6,0, 0,0,0,0,0};
+  model13.predictions = {1,2,3,4,5, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0};
+  rec_dat.user = 1;
+
+  rec_dat.item = 0; EXPECT_EQ(0.0,model.prediction(&rec_dat));
+  rec_dat.item = 5; EXPECT_EQ(1.0,model.prediction(&rec_dat));
+  rec_dat.item = 6; EXPECT_EQ(0.5,model.prediction(&rec_dat));
+  rec_dat.item = 19; EXPECT_NE(0.0,model.prediction(&rec_dat));
+  rec_dat.item = 18; EXPECT_EQ(0.0,model.prediction(&rec_dat));
+}
+
+TEST_F(TestToplistCombinationModel, merge_toplists){
+  ToplistCombinationModel model;
+  model.add_model(&model1);
+  model.add_model(&model2);
+  model.add_model(&model3);
+  model.set_experiment_environment(&experiment_environment);
+  EXPECT_TRUE(model.initialize());
+  EXPECT_TRUE(model.self_test());
+  RecDat rec_dat;
+  rec_dat.time = 10;
+  rec_dat.user = 5;
+  rec_dat.score = 1;
+  for(int i=0;i<20;i++){
+    rec_dat.id = i;
+    rec_dat.item = i;
+    experiment_environment.update(&rec_dat);
+  }
+  rec_dat.user = 1;
+  rec_dat.item = 0;
+  model.random_model_indices_ = {2,1,0, 0,1,2, 1,2,2,2};
+  model.last_occ_of_models_ = {3,6,9};
+  model.toplists_.resize(3);
+  for(int i=0;i<4;i++) model.toplists_[0].push_back(make_pair(i,10.0-i));
+  for(int i=0;i<7;i++) model.toplists_[1].push_back(make_pair(10+i,10.0-i));
+  for(int i=0;i<10;i++) model.toplists_[2].push_back(make_pair(20+i,10.0-i));
+  model.merge_toplists();
+  ASSERT_EQ(10,model.toplist_.size());
+  EXPECT_EQ(20,model.toplist_[0].first);
+  EXPECT_EQ(10.0,model.toplist_[0].second);
+  EXPECT_EQ(10,model.toplist_[1].first);
+  EXPECT_EQ(10.0,model.toplist_[1].second);
+  EXPECT_EQ(0,model.toplist_[2].first);
+  EXPECT_EQ(10.0,model.toplist_[2].second);
+
+  EXPECT_EQ(1,model.toplist_[3].first);
+  EXPECT_EQ(9.0,model.toplist_[3].second);
+  EXPECT_EQ(11,model.toplist_[4].first);
+  EXPECT_EQ(9.0,model.toplist_[4].second);
+  EXPECT_EQ(21,model.toplist_[5].first);
+  EXPECT_EQ(9.0,model.toplist_[5].second);
+
+  EXPECT_EQ(12,model.toplist_[6].first);
+  EXPECT_EQ(8.0,model.toplist_[6].second);
+  EXPECT_EQ(22,model.toplist_[7].first);
+  EXPECT_EQ(8.0,model.toplist_[7].second);
+  EXPECT_EQ(23,model.toplist_[8].first);
+  EXPECT_EQ(7.0,model.toplist_[8].second);
+  EXPECT_EQ(24,model.toplist_[9].first);
+  EXPECT_EQ(6.0,model.toplist_[9].second);
+
+  model.random_model_indices_ = {2,1,0, 0,1,2, 1,2,2,2};
+  model.last_occ_of_models_ = {3,6,9};
+  model.toplists_.clear();
+  model.toplists_.resize(3);
+  for(int i=0;i<4;i++) model.toplists_[0].push_back(make_pair(i,10.0-i));
+  for(int i=0;i<7;i++) model.toplists_[1].push_back(make_pair(i,10.0-i));
+  for(int i=0;i<10;i++) model.toplists_[2].push_back(make_pair(i,10.0-i));
+  model.merge_toplists();
+  ASSERT_EQ(10,model.toplist_.size());
+  for(int i=0;i<10;i++){
+    EXPECT_EQ(i,model.toplist_[i].first);
+    EXPECT_EQ(10.0-i,model.toplist_[i].second);
+  }
+}
+
 TEST_F(TestToplistCombinationModel, compute_toplists){
   ToplistCombinationModel model;
   model.add_model(&model11);

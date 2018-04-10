@@ -2,6 +2,7 @@
 #define TOPLIST_COMBINATION_MODEL
 
 #include <vector>
+#include <set>
 #include <gtest/gtest_prod.h>
 #include "../Model.h"
 #include "../RankingScoreIterator.h"
@@ -70,6 +71,7 @@ protected:
     return ok;
   }
 private:
+  void recompute_predictions(RecDat* rec_dat);
   bool random_values_generated_ = false;
   void generate_random_values_for_toplists();
   vector<int> random_model_indices_;
@@ -81,6 +83,7 @@ private:
   void compute_toplists(RecDat* rec_dat);
   vector<vector<pair<int,double>>> toplists_; //models->toplist->(item,score)
   void merge_toplists();
+  vector<pair<int,double>> toplist_;
 
   vector<Model*> models_;
   vector<RankComputer*> rank_computers_;
@@ -98,6 +101,8 @@ private:
   FRIEND_TEST(TestToplistCombinationModel, compute_last_occ_of_models);
   FRIEND_TEST(TestToplistCombinationModel, test_top_k);
   FRIEND_TEST(TestToplistCombinationModel, compute_toplists);
+  FRIEND_TEST(TestToplistCombinationModel, merge_toplists);
+  FRIEND_TEST(TestToplistCombinationModel, prediction);
   //friend class RandomChoosingCombinedModelExpertUpdater;
 };
 
