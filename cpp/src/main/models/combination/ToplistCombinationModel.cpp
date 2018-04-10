@@ -1,7 +1,7 @@
 #include "ToplistCombinationModel.h"
 
 void ToplistCombinationModel::add(RecDat* rec_dat){
-  for(auto model:models_){
+  for(auto model:wms_.models_){
     model->add(rec_dat);
   }
 }
@@ -29,12 +29,12 @@ void ToplistCombinationModel::recompute_predictions(RecDat* rec_dat){
   random_values_generated_ = false;
 }
 void ToplistCombinationModel::write(ostream& file){
-  for(auto model:models_){
+  for(auto model:wms_.models_){
     model->write(file);
   }
 }
 void ToplistCombinationModel::read(istream& file){
-  for(auto model:models_){
+  for(auto model:wms_.models_){
     model->read(file);
   }
 }
@@ -42,7 +42,7 @@ void ToplistCombinationModel::read(istream& file){
 void ToplistCombinationModel::generate_random_values_for_toplists(){
   random_model_indices_.clear();
   for(int i=0;i<experiment_environment_->get_top_k();i++){
-    random_model_indices_.push_back(random_->get_discrete(distribution_));
+    random_model_indices_.push_back(random_->get_discrete(wms_.distribution_));
   }
 }
 void ToplistCombinationModel::compute_score_map(){
@@ -54,14 +54,14 @@ void ToplistCombinationModel::compute_score_map(){
 }
 void ToplistCombinationModel::compute_last_occ_of_models(){
   last_occ_of_models_.clear();
-  last_occ_of_models_.resize(models_.size(),-1);
+  last_occ_of_models_.resize(wms_.models_.size(),-1);
   for(uint i=0;i<random_model_indices_.size();i++){
     int model = random_model_indices_[i];
     last_occ_of_models_[model]=i;
   }
 }
 bool ToplistCombinationModel::test_top_k(RecDat* rec_dat){
-  for(uint i=0;i<models_.size();i++){
+  for(uint i=0;i<wms_.models_.size();i++){
     int rank = rank_computers_[i]->get_rank(rec_dat);
     if(rank<=last_occ_of_models_[i]) return true;
   }
@@ -69,7 +69,7 @@ bool ToplistCombinationModel::test_top_k(RecDat* rec_dat){
 }
 void ToplistCombinationModel::compute_toplists(RecDat* rec_dat){
   toplists_.clear();
-  toplists_.resize(models_.size());
+  toplists_.resize(wms_.models_.size());
   for(uint i=0;i<toplists_.size();i++){
     toplists_[i].resize(last_occ_of_models_[i]+1);
   }
@@ -83,7 +83,7 @@ void ToplistCombinationModel::compute_toplists(RecDat* rec_dat){
 }
 void ToplistCombinationModel::merge_toplists(){
   toplist_.clear();
-  vector<int> model_counters(models_.size());
+  vector<int> model_counters(wms_.models_.size());
   set<int> used_items;
   for(uint i=0;i<random_model_indices_.size();i++){
     int active_model = random_model_indices_[i];

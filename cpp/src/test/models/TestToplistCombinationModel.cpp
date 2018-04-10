@@ -121,7 +121,7 @@ TEST_F(TestToplistCombinationModel, prediction){
     rec_dat.item = i;
     experiment_environment.update(&rec_dat);
   }
-  model.distribution_ = {1.0,0.0,0.0};
+  model.wms_.distribution_ = {1.0,0.0,0.0};
   model11.predictions = {0,0,0,0,0, 9,8,7,6,5, 1,2,3,4,0, 0,0,0,0.01,0.1};
   model12.predictions = {1,2,3,4,5, 0,0,0,0,0, 9,8,7,6,0, 0,0,0,0,0};
   model13.predictions = {1,2,3,4,5, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0};
@@ -337,22 +337,22 @@ TEST_F(TestToplistCombinationModel, generate_random_values_for_toplists){
   model.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(model.self_test());
-  model.distribution_ = {0.5,0.1,0.4};
+  model.wms_.distribution_ = {0.5,0.1,0.4};
 
   vector<int> model_counter;
-  model_counter.resize(model.models_.size());
+  model_counter.resize(model.wms_.models_.size());
   for(int x=0;x<100;x++){
     model.generate_random_values_for_toplists();
     EXPECT_EQ(experiment_environment.get_top_k(),model.random_model_indices_.size());
 
     for(auto index : model.random_model_indices_){
-      ASSERT_LT(index,model.models_.size());
+      ASSERT_LT(index,model.wms_.models_.size());
       ASSERT_GE(index,0);
       model_counter[index]++;
     }
   }
   for(uint i = 0; i<model_counter.size();i++){
-    int expected_freq = model.distribution_[i]*experiment_environment.get_top_k()*100;
+    int expected_freq = model.wms_.distribution_[i]*experiment_environment.get_top_k()*100;
     EXPECT_NEAR(expected_freq,model_counter[i],100);
   }
 
@@ -495,7 +495,7 @@ TEST_F(TestToplistCombinationModel, add){
 //  vector<int> experienced_distribution(3);
 //  //distribution: 0.1 0.7 0.2
 //  vector<double> expected_distribution = {0.1,0.7,0.2};
-//  model.distribution_ = expected_distribution;
+//  model.wms_.distribution_ = expected_distribution;
 //  //id change -> generate new model
 //  for(int i=0;i<all;i++){
 //    uint pred = model.prediction(create_rec_dat(2,3,10.0,1))-1;
@@ -509,7 +509,7 @@ TEST_F(TestToplistCombinationModel, add){
 //  experienced_distribution.clear();
 //  experienced_distribution.resize(3,0);
 //  //distribution: 0.3 0.3 0.1 (->0.3 0.3 0.4)
-//  model.distribution_ = {0.3,0.3,0.1};
+//  model.wms_.distribution_ = {0.3,0.3,0.1};
 //  expected_distribution = {0.3,0.3,0.4};
 //  //id change -> generate new model
 // 

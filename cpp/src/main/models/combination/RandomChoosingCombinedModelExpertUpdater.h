@@ -21,6 +21,7 @@ struct RandomChoosingCombinedModelExpertUpdaterParameters{
 
 class RandomChoosingCombinedModelExpertUpdater
   : public Updater,
+  public WMSUpdater,
   public Initializable,
   public NeedsExperimentEnvironment 
 {
@@ -42,7 +43,7 @@ public:
     }
     evaluators_ = evaluators;
   }
-  void set_model(RandomChoosingCombinedModel* model){model_ = model; }
+  void set_wms(WeightedModelStructure* model){model_ = model; }
   void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
   void update(RecDat* rec_dat);
   bool self_test(){
@@ -93,7 +94,7 @@ protected:
     return true;
   }
 private:
-  RandomChoosingCombinedModel* model_ = NULL;
+  WeightedModelStructure* model_ = NULL;
   vector<Evaluator*> evaluators_;
   double eta_ = 0;
   int top_k_ = 100;

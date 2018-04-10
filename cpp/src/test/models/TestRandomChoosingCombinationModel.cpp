@@ -98,7 +98,8 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, abs_err){
   updater_params.eta=0.1;
   updater_params.loss_type="abs";
   RandomChoosingCombinedModelExpertUpdater updater(&updater_params);
-  updater.set_model(&model);
+  //updater.set_model(&model);
+  model.inject_wms_into(&updater);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(updater.initialize());
   EXPECT_TRUE(model.self_test());
@@ -128,7 +129,8 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, dcg_err){
   updater_params.eta=0.1;
   updater_params.loss_type="dcg";
   RandomChoosingCombinedModelExpertUpdater updater(&updater_params);
-  updater.set_model(&model);
+  //updater.set_model(&model);
+  model.inject_wms_into(&updater);
   updater.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(updater.initialize());
@@ -164,7 +166,8 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
   updater_params.eta=0.1;
   updater_params.loss_type="other";
   RandomChoosingCombinedModelExpertUpdater updater(&updater_params);
-  updater.set_model(&model);
+  //updater.set_model(&model);
+  model.inject_wms_into(&updater);
   vector<Evaluator*> evaluators;
   for(int i=0;i<3;i++){
     DummyEvaluator* evaluator = new DummyEvaluator;
@@ -316,7 +319,7 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_distribution){
   vector<int> experienced_distribution(3);
   //distribution: 0.1 0.7 0.2
   vector<double> expected_distribution = {0.1,0.7,0.2};
-  model.distribution_ = expected_distribution;
+  model.wms_.distribution_ = expected_distribution;
   //id change -> generate new model
   for(int i=0;i<all;i++){
     uint pred = model.prediction(create_rec_dat(2,3,10.0,1))-1;
@@ -330,7 +333,7 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_distribution){
   experienced_distribution.clear();
   experienced_distribution.resize(3,0);
   //distribution: 0.3 0.3 0.1 (->0.3 0.3 0.4)
-  model.distribution_ = {0.3,0.3,0.1};
+  model.wms_.distribution_ = {0.3,0.3,0.1};
   expected_distribution = {0.3,0.3,0.4};
   //id change -> generate new model
  
