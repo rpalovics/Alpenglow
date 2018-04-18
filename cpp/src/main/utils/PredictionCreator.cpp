@@ -52,7 +52,7 @@ void PredictionCreatorGlobal::process_line(vector<pair<int,double> >* sorted_as,
 }
 
 vector<RecDat>* PredictionCreatorPersonalized::run(RecDat* rec_dat){
-  if(ranking_model_ != NULL){
+  if(ranking_model_ != NULL && filter_ == NULL){
     return run_ranking_model(rec_dat);
   } else {
     return run_bruteforce(rec_dat);
