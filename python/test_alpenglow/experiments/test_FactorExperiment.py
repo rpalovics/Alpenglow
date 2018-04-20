@@ -4,7 +4,7 @@ import alpenglow.experiments
 import alpenglow.evaluation
 import pandas as pd
 import math
-
+import numpy as np
 
 class TestFactorExperiment:
     def test_factorExperiment(self):
@@ -87,6 +87,7 @@ class TestFactorExperiment:
             on=['record_id', 'item'],
             how="left"
         )
+        assert np.all(preds.drop_duplicates('record_id').user.values == data[data['eval']==1].user.values)
         preds_hits = (
             preds_joined
             .fillna(0)

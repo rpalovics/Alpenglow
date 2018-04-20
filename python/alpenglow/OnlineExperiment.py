@@ -43,7 +43,21 @@ class OnlineExperiment(ParameterDefaults):
         if("top_k" not in self.parameters):
             self.parameters["top_k"] = 100
 
-    def run(self, data, experimentType=None, columns={}, verbose=True, out_file=None, exclude_known=False, initialize_all=False, max_item=-1, max_user=-1, calculate_toplists=False):
+    def run(self,
+        data,
+        experimentType=None,
+        columns={},
+        verbose=True,
+        out_file=None,
+        exclude_known=False,
+        initialize_all=False,
+        max_item=-1,
+        max_user=-1,
+        calculate_toplists=False,
+        max_time=0,
+        memory_log=True,
+        shuffle_same_time=True
+        ):
         """
         Parameters
         ----------
@@ -60,9 +74,13 @@ class OnlineExperiment(ParameterDefaults):
         exclude_known: bool
             If set to True, a user's previosly seen items are excluded from the toplist evaluation. The :code:`eval` columns of the input data should be set accordingly.
         calculate_toplists: bool or list
-            Whether to actually compute the toplists or just the ranks (the latter is faster). It can be specified on a record-by-record basis, by giving a list of booleans as parameter. The calculated toplists can be acquired after the experiment's end by using :code:`get_predictions`.
-
-
+            Whether to actually compute the toplists or just the ranks (the latter is faster). It can be specified on a record-by-record basis, by giving a list of booleans as parameter. The calculated toplists can be acquired after the experiment's end by using :code:`get_predictions`. Setting this to non-False implies shuffle_same_time=False
+        max_time : int
+            Stop the experiment at this timestamp.
+        memory_log : bool
+            Whether to log the results to memory (to be used optionally with out_file)
+        shuffle_same_time : bool
+            Whether to shuffle records with the same timestamp randomly.
 
         Returns
         -------
@@ -85,7 +103,11 @@ class OnlineExperiment(ParameterDefaults):
                 max_time=max_time
             )
         # TODO set max_item, max_user here
-        recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
+        recommender_data_iterator = None
+        if not shuffle_same_time or calculate_toplists is not False:
+            recommender_data_iterator = rs.SimpleIterator()
+        else:
+            recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
         recommender_data_iterator.set_recommender_data(recommender_data)
         # data reading finished
 
@@ -212,7 +234,7 @@ class OnlineExperiment(ParameterDefaults):
                 'item': preds.items,
                 'rank': preds.ranks,
                 'prediction': preds.scores,
-            }).sort_values(['time', 'user','rank'])[['record_id', 'time', 'user', 'item', 'rank', 'prediction']]
+            }).sort_values(['record_id'])[['record_id', 'time', 'user', 'item', 'rank', 'prediction']]
             return preds_df
         else:
             return None
