@@ -11,6 +11,7 @@ OfflinePredictions OfflineRankingComputer::compute(){
       preds.users.push_back(user);
       preds.items.push_back(predicted_rd.item);
       preds.ranks.push_back(rank);
+      preds.scores.push_back(predicted_rd.score);
 
       rank++;
     }

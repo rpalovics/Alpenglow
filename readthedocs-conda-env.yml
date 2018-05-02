@@ -8,7 +8,7 @@ dependencies:
 - certifi=2018.4.16=py36_0
 - eigen=3.3.5=0
 - ncurses=5.9=10
-- numpy=1.14.5=py36_blas_openblashd3ea46f_201
+- numpy=1.14.5
 - openblas=0.2.20=8
 - openssl=1.0.2o=0
 - pandas=0.23.3=py36_0
@@ -29,4 +29,3 @@ dependencies:
 - libgcc-ng=7.2.0=hdf63c60_3
 - libgfortran=3.0.0=1
 - libstdcxx-ng=7.2.0=hdf63c60_3
-

@@ -39,6 +39,7 @@ class BatchFactorExperiment(prs.OnlineExperiment):
             begin_max=0.01,
             dimension=10,
             initialize_all=False,
+            seed=254938879,
         ))
 
         updater = rs.FactorModelGradientUpdater(**self.parameter_defaults(
@@ -78,7 +79,7 @@ class BatchFactorExperiment(prs.OnlineExperiment):
         ))
         online_learner.set_model(model)
         online_learner.add_offline_learner(offline_learner)
-        
+
         data_generator_parameters = self.parameter_defaults(
             timeframe_length=0,
         )

@@ -12,6 +12,7 @@ struct OfflinePredictions{
   std::vector<int> users;
   std::vector<int> items;
   std::vector<int> ranks;
+  std::vector<double> scores;
 };
 
 class OfflineRankingComputer{

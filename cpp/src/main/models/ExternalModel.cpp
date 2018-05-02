@@ -5,6 +5,7 @@ void ExternalModel::read_predictions(string file_name){
     ifstream file(file_name);
     unordered_map<int, map<int, int>> lists;
     int user, item, pos;
+    double score;
     while (file >> user >> item >> pos) {
       lists[user][pos]=item;
     }
@@ -33,8 +34,10 @@ vector<pair<int,double>> ExternalModel::get_top_list(int user, int k, const map<
     if(listfind != toplists_.end()){
       vector<pair<int,double>> return_list;
       return_list.reserve(listfind->second.size());
+      uint ix=1;
       for(int item : listfind->second){
-        return_list.push_back({item, 1});
+        return_list.push_back({item, 1/ix});
+        ix++;
       }
       return return_list;
     } else {

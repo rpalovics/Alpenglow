@@ -153,6 +153,7 @@ class OfflineModel(ParameterDefaults):
         preds_df = pd.DataFrame({
             'user': preds.users,
             'item': preds.items,
-            'rank': preds.ranks
-        }).sort_values(['user', 'rank'])[['user', 'item', 'rank']]
+            'rank': preds.ranks,
+            'score': preds.scores,
+        }).sort_values(['user', 'rank'])[['user', 'item', 'rank', 'score']]
         return preds_df

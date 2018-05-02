@@ -11,6 +11,7 @@ struct OfflinePredictions{
   vector<int> users;
   vector<int> items;
   vector<int> ranks;
+  vector<double> scores;
 };
 
 class OfflineRankingComputer{
