@@ -52,6 +52,8 @@ class FactorModel(alpenglow.offline.OfflineModel):
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
             negative_rate=0,
             initialize_all=False,
+            seed=67439852,
+            filter_repeats=False,
             max_item=-1
         ))
         negative_sample_generator.set_train_matrix(matrix)
