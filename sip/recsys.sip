@@ -76,6 +76,7 @@
 %Include src/utils/PredictionCreator.sip
 %Include src/utils/Random.sip
 %Include src/utils/PeriodComputer.sip
+%Include src/utils/SparseAttributeContainer.sip
 %Include src/ranking/Ranking.sip
 %Include src/filters/ModelFilter.sip
 %Include src/filters/AvailabilityFilter.sip
