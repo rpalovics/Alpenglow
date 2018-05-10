@@ -103,7 +103,9 @@ int RankComputer::get_rank_bruteforce(RecDat* rec_dat){
     else if (fake_score == score) same_scored_itemnum++;
     if(rank == top_k_) break;
   }
-  if(same_scored_itemnum!=0) rank+=random_.get(same_scored_itemnum+1);
+  if(same_scored_itemnum!=0){
+    rank+=random_.get(same_scored_itemnum+1);
+  }
   rank=min(top_k_,rank);
   return rank;
 }

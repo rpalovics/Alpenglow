@@ -3,20 +3,19 @@
 #include <sstream>
 #include <iostream>
 
-unordered_map<int, double> SparseAttributeContainer::get_attributes(int id){
+const unordered_map<int, double>& SparseAttributeContainer::get_attributes(int id){
   auto loc = attributes_.find(id);
   if(loc != attributes_.end()){
     return loc->second;
   } else {
-    unordered_map<int,double> tmp;
-    return tmp;
+    return empty_map_;
   }
 }
 
 void SparseAttributeContainer::add_row(int id, vector<int> indexes, vector<double> values){
   unordered_map<int, double> attribute_row;
   int maxind = -1;
-  for(int i=0; i<indexes.size(); i++){
+  for(uint i=0; i<indexes.size(); i++){
     attribute_row.insert({indexes[i], values[i]});
     if(indexes[i] > maxind){
       maxind = indexes[i];

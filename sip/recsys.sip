@@ -29,6 +29,8 @@
 %Include src/models/factor/SvdppModelUpdater.sip
 %Include src/models/factor/SvdppModelGradientUpdater.sip
 %Include src/models/factor/EigenFactorModel.sip
+%Include src/models/factor/FmModel.sip
+%Include src/models/factor/FmModelUpdater.sip
 %Include src/models/baseline/PopularityModel.sip
 %Include src/models/baseline/PersonalPopularityModel.sip
 %Include src/models/baseline/PersonalPopularityModelUpdater.sip

@@ -6,6 +6,18 @@ The classes in this module are usually not used directly, but instead through th
 loggers
 -------
 
+.. autoclass:: alpenglow.cpp.InputLoggerParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.InputLogger
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.Logger
     :members:
     :undoc-members:
@@ -165,12 +177,6 @@ online_learners
     :show-inheritance:
 
 
-.. autoclass:: alpenglow.cpp.ImplicitGradientLearner
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
 .. autoclass:: alpenglow.cpp.LearnerPeriodicDelayedWrapperParameters
     :members:
     :undoc-members:
@@ -324,6 +330,24 @@ utils
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.SparseAttributeContainerParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.SparseAttributeContainer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.FileSparseAttributeContainer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.PredictionCreatorParameters
     :members:
     :undoc-members:
@@ -432,6 +456,18 @@ recommender_data
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.RandomIteratorParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.RandomIterator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.RecDat
     :members:
     :undoc-members:
@@ -481,6 +517,12 @@ recommender_data
 
 
 .. autoclass:: alpenglow.cpp.EigenFactorModelReader
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.SimpleIterator
     :members:
     :undoc-members:
     :show-inheritance:
@@ -579,6 +621,18 @@ models.baseline
 models.factor
 ~~~~~~~~~~~~~
 
+.. autoclass:: alpenglow.cpp.FmModelParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.FmModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.SvdppModelParameters
     :members:
     :undoc-members:
@@ -663,6 +717,18 @@ models.factor
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.FmModelUpdaterParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.FmModelUpdater
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.EigenFactorModelParameters
     :members:
     :undoc-members:
@@ -670,6 +736,75 @@ models.factor
 
 
 .. autoclass:: alpenglow.cpp.EigenFactorModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+models.combination
+~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: alpenglow.cpp.WeightedModelStructure
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.WMSUpdater
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.ToplistCombinationModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.RandomChoosingCombinedModelExpertUpdaterParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.RandomChoosingCombinedModelExpertUpdater
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.Evaluator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.CombinedModelParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.CombinedModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.RandomChoosingCombinedModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.ExternalModelParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.ExternalModel
     :members:
     :undoc-members:
     :show-inheritance:
@@ -766,6 +901,18 @@ offline_learners
 
 
 .. autoclass:: alpenglow.cpp.OfflineLearner
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.OfflineExternalModelLearnerParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.OfflineExternalModelLearner
     :members:
     :undoc-members:
     :show-inheritance:

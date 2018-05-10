@@ -13,7 +13,7 @@ struct SparseAttributeContainerParameters{
 
 class SparseAttributeContainer {
 public:
-  unordered_map<int, double> get_attributes(int id);
+  const unordered_map<int, double>& get_attributes(int id);
   int get_max_attribute_index(){
     return max_attribute_index_;
   }
@@ -21,6 +21,7 @@ protected:
   int max_attribute_index_ = -1;
   unordered_map<int, unordered_map<int,double>> attributes_;
   void add_row(int id, vector<int> indexes, vector<double> values);
+  unordered_map<int,double> empty_map_;
 };
 
 class FileSparseAttributeContainer : public SparseAttributeContainer{
