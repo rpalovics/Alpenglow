@@ -113,6 +113,7 @@ class PredictionCreatorPersonalized: public PredictionCreator{
   public:
     PredictionCreatorPersonalized(PredictionCreatorParameters * params):PredictionCreator(params){
       min_heap_ = new MinHeap(); //TODO use utils/Toplist
+      min_heap_->set_top_k(top_k_); //should be called only in init, but init is not called in offline
     };
     vector<RecDat>* run(RecDat* rec_dat);
     bool self_test(){ return PredictionCreator::self_test() && min_heap_->self_test(); }
