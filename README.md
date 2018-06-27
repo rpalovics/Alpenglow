@@ -45,6 +45,7 @@ day = 86400
 averages = rankings['dcg'].groupby((rankings['time']-rankings['time'].min())//day).mean()
 plt.plot(averages)
 ```
+- Online documentation: https://alpenglow.readthedocs.io/en/latest/
 
 ### Development
 - For faster recompilation, use `export CC="ccache cc"`
