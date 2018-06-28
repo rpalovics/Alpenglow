@@ -118,4 +118,20 @@ exit 0
 #RSI: ToplistCombModel
 #RandomChoosingCombinedModelExpUpd: constructor+init list
 
-
+#generate all during compilation <- first step: sync existing and generated files
+#data_generators
+#filters
+#general_interfaces
+#gradient_computers
+#loggers
+#models
+#negative_sample_generators
+#objectives
+#offline_evaluators
+#offline_learners
+#online_experiment
+#online_learners
+#ranking
+#recommender_data
+#statistics
+#utils
