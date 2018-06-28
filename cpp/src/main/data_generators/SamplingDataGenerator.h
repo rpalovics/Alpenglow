@@ -39,7 +39,7 @@ class SamplingDataGenerator : public DataGenerator, public Initializable, public
       return ok;
     }
   protected:
-    bool autocalled_initialize(){
+    bool autocalled_initialize() override {
       if(recommender_data_iterator_==NULL){ recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator(); }
       random_ = experiment_environment_->get_random();
       return true;

@@ -20,7 +20,7 @@ class CompletePastDataGenerator : public DataGenerator, public NeedsExperimentEn
       return ok;
     }
   protected:
-    bool autocalled_initialize(){
+    bool autocalled_initialize() override {
       if(recommender_data_iterator_==NULL){ recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator(); }
       return true;
     }
