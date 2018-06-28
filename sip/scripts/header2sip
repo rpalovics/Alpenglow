@@ -8,9 +8,9 @@ then
   echo "header2sip filename compare"
   echo "Convert c++ header to sip file and compare side-to-side with the appropriate sip file. The diff will be written to the standard output."
   echo
-  #echo "header2sip directory [overwrite]"
-  #echo "Find all c++ header files (.h files) in the directory and convert them. If overwrite is set, the appropriate sip file[s] will be (over)written and containing dirs will be created if needed instead of writing to the standard output."
-  #echo
+  echo "header2sip directory [compare|overwrite]"
+  echo "Find all c++ header files (.h files) in the directory and convert them. If overwrite is set, the appropriate sip file[s] will be (over)written and containing dirs will be created if needed instead of writing to the standard output."
+  echo
   echo "header2sip"
   echo "Show this help and exit."
   exit
@@ -20,13 +20,13 @@ then
   if [ -f $1 ]
   then
     mode="file"
-  #else if [ -d $1 ]
-  #then
-  #  mode="dir"
+  else if [ -d $1 ]
+  then
+    mode="dir"
   else
     echo "The first parameter must be a file or a directory."
     exit 1
-  fi#; fi
+  fi; fi
 fi
 compare="no"
 overwrite="no"
@@ -47,7 +47,13 @@ fi
 script_dir=$(dirname $0)
 tempfile=$(mktemp)
 
-file_name_list="$1" #TODO create file list
+if [ $mode = "file" ]
+then
+  file_name_list="$1"
+else #mode=dir
+  file_name_list=$(find $1 -name "*.h")
+  echo $file_name_list
+fi
 for file in $file_name_list
 do
   local_file_path=$(echo $file | sed -r "s|.*main/||")
@@ -72,6 +78,7 @@ do
   sipfilename=$(echo $file | sed -r "s/cpp/sip/" | sed -r "s|main/||" | sed "s/.h$/.sip/")
   if [ $overwrite = "yes" ]
   then
+    mkdir -p $(dirname $sipfilename)
     cp $tempfile $sipfilename
   else if [ $compare = "yes" ]
   then
