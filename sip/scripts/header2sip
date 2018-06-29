@@ -11,6 +11,9 @@ then
   echo "header2sip directory [compare|overwrite]"
   echo "Find all c++ header files (.h files) in the directory and convert them. If overwrite is set, the appropriate sip file[s] will be (over)written and containing dirs will be created if needed instead of writing to the standard output."
   echo
+  echo "header2sip directory autoconvert"
+  echo "Find all files in the directory that contain the string "SIP_AUTOCONVERT" and convert them (over)writing the appropriate sip files."
+  echo
   echo "header2sip"
   echo "Show this help and exit."
   exit
@@ -38,10 +41,15 @@ then
   else if [ "$2" == "compare" ]
   then
     compare="yes"
+  else if [ "$2" == "autoconvert" ]
+  then
+    mode="autoconvert"
+    overwrite="yes"
   else
-    echo "The second parameter must be 'overwrite' or 'compare' if given."
+    echo "The second parameter must be 'overwrite', 'compare' or 'autoconvert' if given."
+    echo "Run without parameters for help."
     exit 1
-  fi; fi
+  fi; fi; fi
 fi
 
 script_dir=$(dirname $0)
@@ -50,11 +58,16 @@ tempfile=$(mktemp)
 if [ $mode = "file" ]
 then
   file_name_list="$1"
-else #mode=dir
+else if [ $mode = "dir" ]
+then
   file_name_list=$(find $1 -name "*.h")
-  echo "Input files:"
-  echo "$file_name_list"
-fi
+else #mode=autoconvert
+  file_name_list=$(grep -rl "SIP_AUTOCONVERT" $1)
+fi; fi
+
+echo "Input files:"
+echo "$file_name_list"
+
 for file in $file_name_list
 do
   local_file_path=$(echo $file | sed -r "s|.*main/||")
@@ -71,8 +84,8 @@ do
   | sed -r "s/^([^)]+)[[:space:]]*=[^;]*;/\1;/" \
   | python $script_dir/remove_private.py \
   | tr '\n' '\r' \
-  | sed -r "s/class([^{].*)\{/class\1{\nTYPEHEADERCODE/" \
-  | sed -r "s/struct([^{].*)\{/struct\1{\nTYPEHEADERCODE/" \
+  | sed -r "s/struct([^{]*)\{/struct\1{\nTYPEHEADERCODE/" \
+  | sed -r "s/class([^{]*)\{/class\1{\nTYPEHEADERCODE/" \
   | tr '\r' '\n' \
   | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
   | sed -r "s/[[:space:]]string/ std::string/" \

@@ -1,6 +1,8 @@
 #ifndef RANDOM_CHOOSING_COMBINED_MODEL
 #define RANDOM_CHOOSING_COMBINED_MODEL
 
+//SIP_AUTOCONVERT
+
 #include <vector>
 #include <gtest/gtest_prod.h>
 #include "WeightedModelStructure.h"

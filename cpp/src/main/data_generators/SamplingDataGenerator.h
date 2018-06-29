@@ -1,6 +1,8 @@
 #ifndef SAMPLING_DATA_GENERATOR
 #define SAMPLING_DATA_GENERATOR
 
+//SIP_AUTOCONVERT
+
 #include "DataGenerator.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
