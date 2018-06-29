@@ -120,6 +120,15 @@ exit 0
 #typeheadercode, protected parts: RandomChoosingCombinedModel, ToplistCombModel
 #RSI: ToplistCombModel
 #RandomChoosingCombinedModelExpUpd: constructor+init list
+#comment out lines containing complicated vector types (example: filters)
+#vector: keep vector<int> but convert to std::vector<int>
+#import extra sip code provided in header (example: filters, general_interfaces)
+#comment out enums
+#filename blacklist (list of regex, leave out matching files)
+#python error (remove initlist line 12, NeedsExperimentEnvironment)
+#/Abstract/ (example: GradientComputer)
+#/NoDefaultCtors/ (example: OnlinePredictor)
+#remove repeated ;-s (example: ConditionalMetaLogger, PredictionLogger)
 
 #generate all during compilation <- first step: sync existing and generated files
 # OK data_generators
