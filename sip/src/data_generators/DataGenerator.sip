@@ -1,4 +1,4 @@
-class DataGenerator{
+class DataGenerator {
   %TypeHeaderCode
   #include "data_generators/DataGenerator.h"
   %End

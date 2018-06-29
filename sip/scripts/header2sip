@@ -52,7 +52,8 @@ then
   file_name_list="$1"
 else #mode=dir
   file_name_list=$(find $1 -name "*.h")
-  echo $file_name_list
+  echo "Input files:"
+  echo "$file_name_list"
 fi
 for file in $file_name_list
 do
@@ -66,14 +67,15 @@ do
   | vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
   | tr -d "\a" \
   | sed -r "s/^([^)]+)[[:space:]]*=[^;]*;/\1;/" \
+  | python $script_dir/remove_private.py \
   | sed -r "s/class([^{].*)\{/class\1{\nTYPEHEADERCODE/" \
   | sed -r "s/struct([^{].*)\{/struct\1{\nTYPEHEADERCODE/" \
   | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
   | sed -r "s/[[:space:]]string/ std::string/" \
   | sed -r "s|^(.*UpdaterMessage)|//\1|" \
   | sed -r "s|^(.*stream)|//\1|" \
-  | python $script_dir/remove_private.py \
-  | sed "s/override//g" > $tempfile
+  | sed "s/override//g" \
+  | sed -r "s/[[:space:]]*;/;/" > $tempfile
 
   sipfilename=$(echo $file | sed -r "s/cpp/sip/" | sed -r "s|main/||" | sed "s/.h$/.sip/")
   if [ $overwrite = "yes" ]
@@ -102,6 +104,7 @@ exit 0
 # remove function definitions
 # remove bell characters inserted by vim
 # remove initial field values (e.g. int x = -1; )
+# remove private and protected parts (except override functions)
 # insert typeheadercode into classes
 # insert typeheadercode into structs
 # TYPEHEADERCODE -> real code
@@ -109,8 +112,8 @@ exit 0
 # UpdaterMessage: comment out
 # iofstream: comment out
 # remove functions that use c++ streams - that are not sip compatible yet
-# remove private and protected parts (except override functions)
 # remove override keywords
+# remove extra spaces before ;
 
 #TODO
 #typeheadercode replacement
@@ -119,7 +122,7 @@ exit 0
 #RandomChoosingCombinedModelExpUpd: constructor+init list
 
 #generate all during compilation <- first step: sync existing and generated files
-# TODO data_generators
+# OK data_generators
 # TODO filters
 # TODO general_interfaces
 # TODO gradient_computers
