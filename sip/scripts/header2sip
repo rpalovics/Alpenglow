@@ -70,8 +70,10 @@ do
   | tr -d "\a" \
   | sed -r "s/^([^)]+)[[:space:]]*=[^;]*;/\1;/" \
   | python $script_dir/remove_private.py \
+  | tr '\n' '\r' \
   | sed -r "s/class([^{].*)\{/class\1{\nTYPEHEADERCODE/" \
   | sed -r "s/struct([^{].*)\{/struct\1{\nTYPEHEADERCODE/" \
+  | tr '\r' '\n' \
   | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
   | sed -r "s/[[:space:]]string/ std::string/" \
   | sed -r "s|^(.*RankingScoreIterator)|//\1|" \
@@ -110,8 +112,10 @@ exit 0
 # remove bell characters inserted by vim
 # remove initial field values (e.g. int x = -1; )
 # remove private and protected parts (except override functions)
+# prepare for anchestors listed in multiple lines
 # insert typeheadercode into classes
 # insert typeheadercode into structs
+# (undo) prepare for anchestors listed in multiple lines
 # TYPEHEADERCODE -> real code
 # string -> std::string (fail on std:: string)
 # UpdaterMessage: comment out
@@ -123,7 +127,6 @@ exit 0
 #TODO
 #typeheadercode, protected parts: RandomChoosingCombinedModel, ToplistCombModel
 #RSI: ToplistCombModel
-#RandomChoosingCombinedModelExpUpd: constructor+init list
 #comment out lines containing complicated vector types (example: filters)
 #vector: keep vector<int> but convert to std::vector<int>
 #import extra sip code provided in header (example: filters, general_interfaces)
