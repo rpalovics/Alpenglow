@@ -1,6 +1,8 @@
 #ifndef TOPLIST_COMBINATION_MODEL
 #define TOPLIST_COMBINATION_MODEL
 
+//SIP_AUTOCONVERT
+
 #include <vector>
 #include <set>
 #include <gtest/gtest_prod.h>
@@ -58,7 +60,7 @@ public:
   }
   void inject_wms_into(WMSUpdater* object){ object->set_wms(&wms_); }
 protected:
-  bool autocalled_initialize(){
+  bool autocalled_initialize() override {
     random_=experiment_environment_->get_random();
     top_k_=experiment_environment_->get_top_k();
     wms_.distribution_.clear(); //should not be called twice, but...
