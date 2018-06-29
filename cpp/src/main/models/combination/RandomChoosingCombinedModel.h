@@ -35,7 +35,7 @@ public:
   RankingScoreIterator* get_ranking_score_iterator(int user) override;
   void inject_wms_into(WMSUpdater* object){ object->set_wms(&wms_); }
 protected:
-  bool autocalled_initialize(){
+  bool autocalled_initialize() override {
     random_=experiment_environment_->get_random();
     wms_.distribution_.clear(); //should not be called twice, but...
     wms_.distribution_.resize(wms_.models_.size(),1.0/wms_.models_.size());

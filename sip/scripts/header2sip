@@ -63,6 +63,8 @@ do
   | sed "s/#.*//" \
   | sed "s/using.*//" \
   | sed '/^\s*$/d' \
+  | sed '/^.*friend class.*$/d' \
+  | sed '/^.*FRIEND_TEST.*$/d' \
   | python $script_dir/remove_initlist.py \
   | vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
   | tr -d "\a" \
@@ -72,10 +74,11 @@ do
   | sed -r "s/struct([^{].*)\{/struct\1{\nTYPEHEADERCODE/" \
   | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
   | sed -r "s/[[:space:]]string/ std::string/" \
+  | sed -r "s|^(.*RankingScoreIterator)|//\1|" \
   | sed -r "s|^(.*UpdaterMessage)|//\1|" \
   | sed -r "s|^(.*stream)|//\1|" \
   | sed "s/override//g" \
-  | sed -r "s/[[:space:]]*;/;/" > $tempfile
+  | sed -r "s/[[:space:]]*;([[:space:]]*;)*/;/" > $tempfile
 
   sipfilename=$(echo $file | sed -r "s/cpp/sip/" | sed -r "s|main/||" | sed "s/.h$/.sip/")
   if [ $overwrite = "yes" ]
@@ -100,6 +103,8 @@ exit 0
 # remove macros
 # remove using...
 # remove empty lines
+# remove friend class declarations
+# remove friend test declarations
 # remove initialization lists
 # remove function definitions
 # remove bell characters inserted by vim
@@ -113,10 +118,9 @@ exit 0
 # iofstream: comment out
 # remove functions that use c++ streams - that are not sip compatible yet
 # remove override keywords
-# remove extra spaces before ;
+# remove extra spaces before ; and extra ;-s
 
 #TODO
-#typeheadercode replacement
 #typeheadercode, protected parts: RandomChoosingCombinedModel, ToplistCombModel
 #RSI: ToplistCombModel
 #RandomChoosingCombinedModelExpUpd: constructor+init list
@@ -128,7 +132,6 @@ exit 0
 #python error (remove initlist line 12, NeedsExperimentEnvironment)
 #/Abstract/ (example: GradientComputer)
 #/NoDefaultCtors/ (example: OnlinePredictor)
-#remove repeated ;-s (example: ConditionalMetaLogger, PredictionLogger)
 
 #generate all during compilation <- first step: sync existing and generated files
 # OK data_generators
