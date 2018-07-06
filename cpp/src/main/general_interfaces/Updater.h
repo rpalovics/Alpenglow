@@ -1,6 +1,8 @@
 #ifndef UPDATER_H
 #define UPDATER_H
 
+//SIP_AUTOCONVERT
+
 #include "../recommender_data/RecommenderData.h"
 
 enum class UpdaterMessage{

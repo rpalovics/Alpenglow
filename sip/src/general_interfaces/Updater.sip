@@ -1,8 +1,7 @@
 //enum class UpdaterMessage{
-//  start_of_fit,
-//  end_of_fit,
-//  start_of_implicit_update_cycle,
-//  end_of_implicit_update_cycle
+//  %TypeHeaderCode
+//  #include "general_interfaces/Updater.h"
+//  %End
 //};
 class Updater{
   %TypeHeaderCode

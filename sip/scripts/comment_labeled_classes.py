@@ -1,6 +1,8 @@
 import sys
 import re
 
+# TODO kikupalni ezt a barkacsmunkat. Ejnye. Legalabb a zarojeleket lehetne szamolni, a kommentek es stringek figyelembevetelevel.
+
 if __name__ == "__main__":
   commenting = False
   for line in sys.stdin:

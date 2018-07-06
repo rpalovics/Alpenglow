@@ -87,6 +87,7 @@ do
   | sed -r "s/struct([^{]*)\{/struct\1{\nTYPEHEADERCODE/g" \
   | sed -r "s/class([^{]*)\{/class\1{\nTYPEHEADERCODE/g" \
   | sed -r "s/class([^{]*public RankingScoreIterator([^A-Z][^{]*)?)\{/COMMENTOUTTHISCLASS class\1{/g" \
+  | sed -r "s/(enum[[:space:]]+class)/COMMENTOUTTHISCLASS\1/g" \
   | tr '\r' '\n' \
   | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
   | sed -r "s/[[:space:]]string/ std::string/" \
@@ -131,8 +132,10 @@ exit 0
 # remove initial field values (e.g. int x = -1; )
 # remove private and protected parts (except override functions)
 # prepare for anchestors listed in multiple lines
-# insert typeheadercode into classes
 # insert typeheadercode into structs
+# insert typeheadercode into classes
+# comment label to RSI classes
+# comment label to enum class
 # (undo) prepare for anchestors listed in multiple lines
 # TYPEHEADERCODE -> real code
 # string -> std::string (fail on std:: string)
@@ -140,13 +143,13 @@ exit 0
 # iofstream: comment out
 # remove functions that use c++ streams - that are not sip compatible yet
 # remove override keywords
+# comment labeled classes
+# remove comment label
+# remove extra ///////
 # remove extra spaces before ; and extra ;-s
 
 #TODO
-#typeheadercode, protected parts: RandomChoosingCombinedModel, ToplistCombModel
-#RSI: ToplistCombModel
 #comment out lines containing complicated vector types (example: filters)
-#vector: keep vector<int> but convert to std::vector<int>
 #import extra sip code provided in header (example: filters, general_interfaces)
 #comment out enums
 #filename blacklist (list of regex, leave out matching files)
