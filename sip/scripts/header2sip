@@ -76,6 +76,7 @@ do
   | sed "s/#.*//" \
   | sed "s/using.*//" \
   | sed '/^\s*$/d' \
+  | sed -r "s/class([^{]*);//g" \
   | sed '/^.*friend class.*$/d' \
   | sed '/^.*FRIEND_TEST.*$/d' \
   | python $script_dir/remove_initlist.py \
@@ -124,6 +125,7 @@ exit 0
 # remove macros
 # remove using...
 # remove empty lines
+# remove forward class declarations
 # remove friend class declarations
 # remove friend test declarations
 # remove initialization lists
@@ -151,9 +153,8 @@ exit 0
 #TODO
 #comment out lines containing complicated vector types (example: filters)
 #import extra sip code provided in header (example: filters, general_interfaces)
-#comment out enums
 #filename blacklist (list of regex, leave out matching files)
-#python error (remove initlist line 12, NeedsExperimentEnvironment)
+# WORKING python error (remove initlist line 12, NeedsExperimentEnvironment)
 #/Abstract/ (example: GradientComputer)
 #/NoDefaultCtors/ (example: OnlinePredictor)
 

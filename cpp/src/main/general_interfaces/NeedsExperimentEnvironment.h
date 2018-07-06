@@ -1,6 +1,8 @@
 #ifndef I_NEEDEXPERIMENTENVIRONMENT
 #define I_NEEDEXPERIMENTENVIRONMENT
 
+//SIP_AUTOCONVERT
+
 #include "../online_experiment/ExperimentEnvironment.h"
 
 class ExperimentEnvironment;
