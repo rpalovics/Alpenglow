@@ -1,10 +1,11 @@
 #ifndef OFFLINE_EVALUATOR
 #define OFFLINE_EVALUATOR
 
+//SIP_AUTOCONVERT
+
 using namespace std;
-class OfflineEvaluator{
+class OfflineEvaluator{ //SIP_ABSTRACT
   public:
-    OfflineEvaluator(){}
     virtual ~OfflineEvaluator(){}
     virtual void evaluate()=0;
     bool self_test(){

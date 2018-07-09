@@ -72,6 +72,7 @@ for file in $file_name_list
 do
   local_file_path=$(echo $file | sed -r "s|.*main/||")
   cat $file \
+  | sed -r "s|\{[[:space:]]*//SIP_ABSTRACT| /Abstract/{|" \
   | sed "s|//.*||" \
   | sed "s/#.*//" \
   | sed "s/using.*//" \
@@ -121,6 +122,7 @@ exit 0
 
 
 #documentation
+# //SIP_ABSTRACT -> /Abstract/
 # remove comments
 # remove macros
 # remove using...
@@ -156,7 +158,6 @@ exit 0
 #import extra sip code provided in the header (example: filters, general_interfaces)
 #import documentation provided in the header (example: Initalizable, general_interfaces)
 #filename blacklist (list of regex, leave out matching files)
-#/Abstract/ (example: GradientComputer)
 #/NoDefaultCtors/ (example: OnlinePredictor)
 #GradientComputers???
 

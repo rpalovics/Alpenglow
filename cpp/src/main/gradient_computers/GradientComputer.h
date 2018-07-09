@@ -1,6 +1,8 @@
 #ifndef GRADIENT_COMPUTER
 #define GRADIENT_COMPUTER
 
+//SIP_AUTOCONVERT
+
 #include <iostream>
 #include "../recommender_data/RecommenderData.h"
 #include "../objectives/Objective.h"
@@ -11,7 +13,7 @@
 using namespace std;
 
 //TODO one level?
-class GradientComputer : public Updater{
+class GradientComputer : public Updater{ //SIP_ABSTRACT
   public:
     void set_model(Model* model){model_=model;}
     void add_gradient_updater(ModelGradientUpdater* gradient_updater){ 
