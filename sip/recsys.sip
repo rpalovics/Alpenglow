@@ -41,7 +41,6 @@
 %Include src/models/combination/RandomChoosingCombinedModelExpertUpdater.sip
 %Include src/models/combination/Evaluator.sip
 %Include src/models/combination/WeightedModelStructure.sip
-%Include src/online_learners/ImplicitGradientLearner.sip
 %Include src/online_learners/LearnerPeriodicDelayedWrapper.sip
 %Include src/online_learners/PeriodicOfflineLearnerWrapper.sip
 %Include src/general_interfaces/Initializable.sip

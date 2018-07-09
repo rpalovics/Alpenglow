@@ -92,7 +92,7 @@ do
   | tr '\r' '\n' \
   | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
   | sed -r "s/[[:space:]]string/ std::string/" \
-  | sed -r "s/[[:space:]]vector<int>/ std::vector<int>/" \
+  | sed -r "s/[[:space:]]vector</ std::vector</" \
   | sed -r "s|^(.*RankingScoreIterator)|//\1|" \
   | sed -r "s|^(.*UpdaterMessage)|//\1|" \
   | sed -r "s|^(.*stream)|//\1|" \
@@ -141,6 +141,7 @@ exit 0
 # (undo) prepare for anchestors listed in multiple lines
 # TYPEHEADERCODE -> real code
 # string -> std::string (fail on std:: string)
+# vector -> std::vector (fail on std:: vector)
 # UpdaterMessage: comment out
 # iofstream: comment out
 # remove functions that use c++ streams - that are not sip compatible yet
@@ -151,12 +152,13 @@ exit 0
 # remove extra spaces before ; and extra ;-s
 
 #TODO
-#comment out lines containing complicated vector types (example: filters)
-#import extra sip code provided in header (example: filters, general_interfaces)
+#Filters: comment out some functions
+#import extra sip code provided in the header (example: filters, general_interfaces)
+#import documentation provided in the header (example: Initalizable, general_interfaces)
 #filename blacklist (list of regex, leave out matching files)
-# WORKING python error (remove initlist line 12, NeedsExperimentEnvironment)
 #/Abstract/ (example: GradientComputer)
 #/NoDefaultCtors/ (example: OnlinePredictor)
+#GradientComputers???
 
 #generate all during compilation <- first step: sync existing and generated files
 # OK data_generators

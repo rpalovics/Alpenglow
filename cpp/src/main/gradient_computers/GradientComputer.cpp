@@ -1,16 +1,5 @@
 #include "GradientComputer.h"
 
-vector<pair<RecDat*,double> >* GradientComputerPointWise::get_next_gradient(){
-  //get next sample
-  RecDat* rec_dat = &(*train_data_it);
-  train_data_it++;
-  double gradient = get_gradient(rec_dat);
-  //gradient_vector
-  gradient_vector.clear();
-  gradient_vector.push_back(make_pair(rec_dat,gradient));
-  return &gradient_vector;
-}
-
 double GradientComputerPointWise::get_gradient(RecDat* rec_dat){
   //compute prediction
   RecPred rec_pred;
