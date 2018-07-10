@@ -1,6 +1,8 @@
 #ifndef PROCEEDING_LOGGER
 #define PROCEEDING_LOGGER
 
+//SIP_AUTOCONVERT
+
 #include <iostream>
 #include <iomanip>
 #include "../recommender_data/RecommenderDataIterator.h"
@@ -11,10 +13,7 @@ using namespace std;
 
 class ProceedingLogger : public Logger, public Initializable, public NeedsExperimentEnvironment {
   public:
-    ProceedingLogger(){
-      recommender_data_iterator_=NULL;
-    }
-    virtual void run(RecDat* rec_dat) override {
+    void run(RecDat* rec_dat) override {
       int counter = recommender_data_iterator_->get_counter();
       if(counter % frequency_ == 0){
         cerr << setprecision(4) << int((double)counter/(double)size_ * 100) <<"%-";
@@ -41,8 +40,8 @@ class ProceedingLogger : public Logger, public Initializable, public NeedsExperi
       return true;
     }
   private:
-    ExperimentEnvironment* experiment_environment_;
-    RecommenderDataIterator* recommender_data_iterator_;
+    ExperimentEnvironment* experiment_environment_ = NULL;
+    RecommenderDataIterator* recommender_data_iterator_ = NULL;
     int frequency_;
     int size_;
 };

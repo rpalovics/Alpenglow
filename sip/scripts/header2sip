@@ -159,7 +159,6 @@ exit 0
 #import extra sip code provided in the header (example: filters, general_interfaces)
 #import documentation provided in the header (example: Initalizable, general_interfaces)
 #filename blacklist (list of regex, leave out matching files)
-#/NoDefaultCtors/ (example: OnlinePredictor)
 
 #generate all during compilation <- first step: sync existing and generated files
 # OK data_generators

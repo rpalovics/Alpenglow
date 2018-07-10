@@ -11,7 +11,7 @@ if __name__ == "__main__":
       state_in = True
       class_header = True
       private_part = True
-      private_type = "private:\n"
+      private_type = "  private:\n"
       private_written = True
     struct_first_line = "struct" in line
     if struct_first_line:
@@ -21,11 +21,11 @@ if __name__ == "__main__":
       private_part = False
     if state_in and "protected" in line:
       private_part = True
-      private_type = "protected:\n"
+      private_type = "  protected:\n"
       private_written = False
     if state_in and "private" in line:
       private_part = True
-      private_type = "private:\n"
+      private_type = "  private:\n"
       private_written = False
     end_of_class = "};" in line
     if end_of_class :

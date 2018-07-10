@@ -1,6 +1,8 @@
 #ifndef LIST_CONDITIONAL_META_LOGGER
 #define LIST_CONDITIONAL_META_LOGGER
 
+//SIP_AUTOCONVERT
+
 #include "ConditionalMetaLogger.h"
 #include <vector>
 

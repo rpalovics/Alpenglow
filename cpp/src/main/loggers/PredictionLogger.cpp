@@ -1,7 +1,7 @@
 #include "PredictionLogger.h"
 
 
-void PredictionLogger::run(RecDat * rd){
+void PredictionLogger::run(RecDat* rd){
   vector<RecDat>* top_predictions = prediction_creator->run(rd);
   for(uint ii=0; ii<top_predictions->size(); ii++){
     predictions_.ids.push_back(rd->id);

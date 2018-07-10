@@ -1,6 +1,8 @@
 #ifndef LOGGER
 #define LOGGER
 
+//SIP_AUTOCONVERT
+
 #include "../recommender_data/RecommenderData.h"
 using namespace std;
 
