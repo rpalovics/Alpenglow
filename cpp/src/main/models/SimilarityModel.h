@@ -1,6 +1,8 @@
 #ifndef SIMILARITY_MODEL
 #define SIMILARITY_MODEL
 
+//SIP_AUTOCONVERT
+
 class SimilarityModel{
   public:
     SimilarityModel(){}

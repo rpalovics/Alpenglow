@@ -5,7 +5,7 @@
 //public:
 //  bool has_next(double bound);
 //  pair<int, double> get_next();
-//  void set_up(vector<pair<int,double>> toplist);
+//  void set_up(std::vector<pair<int,double>> toplist);
 //  void reinit();
 //  int unique_items_num();
 //};

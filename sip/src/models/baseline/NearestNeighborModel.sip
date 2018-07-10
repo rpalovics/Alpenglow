@@ -5,7 +5,7 @@
 //public:
 //  bool has_next(double bound);
 //  pair<int, double> get_next();
-//  void set_up(vector<SCORE>& predictions, std::vector<ITEM>& active_items);
+//  void set_up(std::vector<SCORE>& predictions, std::vector<ITEM>& active_items);
 //  void reinit();
 //  int unique_items_num();
 //};

@@ -93,8 +93,8 @@ do
   | sed -r "s/(enum[[:space:]]+class)/COMMENTOUTTHISCLASS\1/g" \
   | tr '\r' '\n' \
   | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
-  | sed -r "s/[[:space:]]string/ std::string/" \
-  | sed -r "s/[[:space:]]vector</ std::vector</" \
+  | sed -r "s/([([:space:]])string/\1std::string/g" \
+  | sed -r "s/([([:space:]])vector</\1std::vector</g" \
   | sed -r "s|^(.*RankingScoreIterator)|//\1|" \
   | sed -r "s|^(.*UpdaterMessage)|//\1|" \
   | sed -r "s|^(.*stream)|//\1|" \

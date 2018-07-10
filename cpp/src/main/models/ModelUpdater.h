@@ -1,6 +1,8 @@
 #ifndef MODELUPDATER
 #define MODELUPDATER
 
+//SIP_AUTOCONVERT
+
 #include <vector>
 #include "../recommender_data/RecommenderData.h"
 #include "../models/Model.h"
