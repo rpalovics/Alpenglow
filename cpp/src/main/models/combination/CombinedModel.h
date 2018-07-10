@@ -1,6 +1,8 @@
 #ifndef COMBINED_MODEL
 #define COMBINED_MODEL
 
+//SIP_AUTOCONVERT
+
 #include <vector>
 #include "../Model.h"
 

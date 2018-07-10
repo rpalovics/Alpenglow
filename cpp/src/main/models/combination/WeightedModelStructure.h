@@ -1,6 +1,8 @@
 #ifndef WEIGHTED_MODEL_STRUCTURE
 #define WEIGHTED_MODEL_STRUCTURE
 
+//SIP_AUTOCONVERT
+
 #include <vector>
 #include "../Model.h"
 

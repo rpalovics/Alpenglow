@@ -1,6 +1,8 @@
 #ifndef EVALUATOR
 #define EVALUATOR
 
+//SIP_AUTOCONVERT
+
 #include "../../recommender_data/RecommenderData.h"
 class Evaluator {
 public:

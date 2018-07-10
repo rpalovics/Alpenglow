@@ -2,8 +2,8 @@ struct WeightedModelStructure{
   %TypeHeaderCode
   #include "models/combination/WeightedModelStructure.h"
   %End
-//  vector<Model*> models_;
-//  vector<double> distribution_;
+  std::vector<Model*> models_;
+  std::vector<double> distribution_;
   bool is_initialized();
 };
 class WMSUpdater{
