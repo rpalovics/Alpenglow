@@ -4,7 +4,6 @@ struct ListConditionalMetaLoggerParameters{
   %End
   std::vector<int> should_run_vector;
 };
-
 class ListConditionalMetaLogger : public ConditionalMetaLogger{
   %TypeHeaderCode
   #include "loggers/ListConditionalMetaLogger.h"

@@ -4,8 +4,6 @@
 #include "Logger.h"
 #include "../utils/PredictionCreator.h"
 
-//SIP_AUTOCONVERT
-
 struct OnlinePredictions{
   vector<int> ids;
   vector<int> times;
@@ -15,9 +13,11 @@ struct OnlinePredictions{
   vector<double> scores;
 };
 
-class PredictionLogger : public Logger{ //SIP_NODEFAULTCTORS
+class PredictionLogger : public Logger{
   public:
-    void run(RecDat* recDat);
+    PredictionLogger(){};
+    ~PredictionLogger(){};
+    void run(RecDat * recDat);
     void set_prediction_creator(PredictionCreator* prediction_creator_){prediction_creator = prediction_creator_;}
     bool self_test(){
       bool ok = true;
@@ -32,7 +32,7 @@ class PredictionLogger : public Logger{ //SIP_NODEFAULTCTORS
     }
   private:
     OnlinePredictions predictions_;
-    PredictionCreator* prediction_creator=NULL;
+    PredictionCreator * prediction_creator=NULL;
     ofstream  ofs;
     FRIEND_TEST(TestPredictionLogger, test);
 };

@@ -17,6 +17,6 @@ public:
 //  void read(istream& file);
 //  RankingScoreIterator* get_ranking_score_iterator(int user);
   void inject_wms_into(WMSUpdater* object);
-protected:
+  protected:
   bool autocalled_initialize();
 };

@@ -17,6 +17,6 @@ class SamplingDataGenerator : public DataGenerator, public Initializable, public
     void set_experiment_environment(ExperimentEnvironment* experiment_environment);
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool self_test();
-protected:
+  protected:
     bool autocalled_initialize();
 };
