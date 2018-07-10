@@ -4,13 +4,16 @@
 #include "Logger.h"
 #include "../utils/PredictionCreator.h"
 
+//SIP_AUTOCONVERT
+
 struct OnlinePredictorParameters{
-  double min_time, time_frame;
+  double min_time;
+  double time_frame;
   string file_name;
 };
 
 
-class OnlinePredictor : public Logger{
+class OnlinePredictor : public Logger{ //SIP_NODEFAULTCTORS
  public:
    OnlinePredictor(OnlinePredictorParameters* params){set_parameters(params);};
    void run(RecDat* rec_dat) override;
