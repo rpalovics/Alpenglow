@@ -1,6 +1,8 @@
 #ifndef PERSONAL_POPULARITY_MODEL
 #define PERSONAL_POPULARITY_MODEL
 
+//SIP_AUTOCONVERT
+
 #include <vector>
 #include <map>
 #include "../Model.h"

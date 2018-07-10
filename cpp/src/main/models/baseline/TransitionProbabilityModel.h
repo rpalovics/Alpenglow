@@ -1,6 +1,8 @@
 #ifndef TRANSITION_PROBABILITY_MODEL
 #define TRANSITION_PROBABILITY_MODEL
 
+//SIP_AUTOCONVERT
+
 #include <exception>
 #include "../Model.h"
 #include "../../utils/SpMatrix.h"
@@ -21,8 +23,8 @@ private:
 };
 
 class TransitionProbabilityModel
-  : public Model,
-    virtual public RankingScoreIteratorProvider
+  : public Model
+  , virtual public RankingScoreIteratorProvider
 {
   public:
     double prediction(RecDat* rec_dat) override;

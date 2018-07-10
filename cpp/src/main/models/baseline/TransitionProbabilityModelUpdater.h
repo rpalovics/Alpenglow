@@ -1,6 +1,8 @@
 #ifndef TRANSITION_PROBABILITY_MODEL_UPDATER
 #define TRANSITION_PROBABILITY_MODEL_UPDATER
 
+//SIP_AUTOCONVERT
+
 #include "../ModelUpdater.h"
 #include "TransitionProbabilityModel.h"
 #include "../../utils/LabelContainer.h"

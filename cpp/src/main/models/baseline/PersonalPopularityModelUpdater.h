@@ -1,6 +1,8 @@
 #ifndef PERSONAL_POPULARITY_UPDATER
 #define PERSONAL_POPULATITY_UPDATER
 
+//SIP_AUTOCONVERT
+
 #include "PersonalPopularityModel.h"
 #include "../ModelUpdater.h"
 #include <vector>

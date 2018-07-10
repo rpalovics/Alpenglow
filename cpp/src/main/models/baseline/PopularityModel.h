@@ -1,6 +1,8 @@
 #ifndef POPULARITY_MODEL
 #define POPULARITY_MODEL
 
+//SIP_AUTOCONVERT
+
 #include <vector>
 #include "../Model.h"
 #include "../../utils/PopContainers.h"

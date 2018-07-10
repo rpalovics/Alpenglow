@@ -3,12 +3,10 @@ struct TransitionProbabilityModelUpdaterParameters{
   #include "models/baseline/TransitionProbabilityModelUpdater.h"
   %End
   bool filter_freq_updates;
-  std::string mode;
+  std::string mode; 
   bool label_transition_mode;
   std::string label_file_name;
-  TransitionProbabilityModelUpdaterParameters();
 };
-
 class TransitionProbabilityModelUpdater: public Updater{
   %TypeHeaderCode
   #include "models/baseline/TransitionProbabilityModelUpdater.h"

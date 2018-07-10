@@ -1,6 +1,8 @@
 #ifndef POPULARITY_TIMEFRAME_UPDATER
 #define POPULARITY_TIMEFRAME_UPDATER
 
+//SIP_AUTOCONVERT
+
 #include <queue>
 #include <vector>
 #include "../ModelUpdater.h"
