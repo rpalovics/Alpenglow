@@ -1,6 +1,8 @@
 #ifndef NEAREST_NEIGHBOR_MODEL_UPDATER
 #define NEAREST_NEIGHBOR_MODEL_UPDATER
 
+//SIP_AUTOCONVERT
+
 #include <iostream>
 #include "../../recommender_data/macros.h"
 #include "../ModelUpdater.h"

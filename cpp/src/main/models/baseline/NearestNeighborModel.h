@@ -31,8 +31,8 @@ struct NearestNeighborModelParameters {
   int num_of_neighbors=-1;
 };
 class NearestNeighborModel
-  : public Model,
-    virtual public RankingScoreIteratorProvider
+  : public Model
+  , virtual public RankingScoreIteratorProvider
 {
 public:
   NearestNeighborModel(NearestNeighborModelParameters* params):

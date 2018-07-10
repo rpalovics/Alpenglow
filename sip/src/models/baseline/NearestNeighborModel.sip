@@ -21,7 +21,7 @@ struct NearestNeighborModelParameters {
 };
 class NearestNeighborModel
   : public Model
-//    virtual public RankingScoreIteratorProvider
+//  , virtual public RankingScoreIteratorProvider
 {
   %TypeHeaderCode
   #include "models/baseline/NearestNeighborModel.h"
