@@ -1,6 +1,8 @@
 #ifndef NEAREST_NEIGHBOR_MODEL
 #define NEAREST_NEIGHBOR_MODEL
 
+//SIP_AUTOCONVERT
+
 #include <iostream>
 #include <gtest/gtest_prod.h>
 #include "../Model.h"

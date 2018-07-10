@@ -4,7 +4,7 @@ class Model{
   %End
   public:
     Model();
-    virtual void add(RecDat * rec_dat) = 0;
+    virtual void add(RecDat * rec_dat);
     virtual double prediction(RecDat * rec_dat) = 0;
     // virtual void write(std::ofstream& file);
     // virtual void read(std::ifstream& file);

@@ -162,11 +162,11 @@ exit 0
 
 #generate all during compilation <- first step: sync existing and generated files
 # OK data_generators
-# TODO filters
-# TODO general_interfaces
-# TODO gradient_computers
-# TODO loggers
-# TODO models
+# TODO filters //remove extra functions, add extra sip code
+# TODO general_interfaces //add extra sip code, import documentation
+# ok gradient_computers
+# ok loggers
+# TODO models 
 # TODO negative_sample_generators
 # TODO objectives
 # TODO offline_evaluators
