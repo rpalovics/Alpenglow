@@ -4,6 +4,8 @@
 #include "Logger.h"
 #include "../utils/PredictionCreator.h"
 
+//SIP_OVERWRITE
+
 struct OnlinePredictions{
   vector<int> ids;
   vector<int> times;
@@ -13,10 +15,10 @@ struct OnlinePredictions{
   vector<double> scores;
 };
 
-class PredictionLogger : public Logger{
+class PredictionLogger : public Logger{ //SIP_NODEFAULTCTORS
   public:
-    PredictionLogger(){};
-    ~PredictionLogger(){};
+    PredictionLogger(){}
+    ~PredictionLogger(){}
     void run(RecDat * recDat);
     void set_prediction_creator(PredictionCreator* prediction_creator_){prediction_creator = prediction_creator_;}
     bool self_test(){
