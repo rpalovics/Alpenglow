@@ -3,7 +3,5 @@ class ObjectiveMSE : public ObjectivePointWise{
   #include "objectives/ObjectiveMSE.h"
   %End
   public:
-    ObjectiveMSE();
-    ~ObjectiveMSE();
-    double get_gradient (RecPred  * rec_pred);
+    double get_gradient(RecPred* rec_pred);
 };

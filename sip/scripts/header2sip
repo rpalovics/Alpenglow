@@ -98,6 +98,7 @@ do
   | sed -r "s|^(.*RankingScoreIterator)|//\1|" \
   | sed -r "s|^(.*UpdaterMessage)|//\1|" \
   | sed -r "s|^(.*stream)|//\1|" \
+  | sed -r "s|^(.*pair<)|//\1|" \
   | sed "s/override//g" \
   | python $script_dir/comment_labeled_classes.py \
   | sed "s/COMMENTOUTTHISCLASS//g" \
@@ -124,6 +125,7 @@ exit 0
 
 #documentation
 # //SIP_ABSTRACT -> /Abstract/
+# //SIP_NODEFAULTCTORS -> /NoDefaultCtors/
 # remove comments
 # remove macros
 # remove using...
@@ -143,10 +145,11 @@ exit 0
 # comment label to enum class
 # (undo) prepare for anchestors listed in multiple lines
 # TYPEHEADERCODE -> real code
-# string -> std::string (fail on std:: string)
-# vector -> std::vector (fail on std:: vector)
+# string -> std::string (fails on std:: string)
+# vector -> std::vector (fails on std:: vector)
 # UpdaterMessage: comment out
 # iofstream: comment out
+# pair template: comment out
 # remove functions that use c++ streams - that are not sip compatible yet
 # remove override keywords
 # comment labeled classes

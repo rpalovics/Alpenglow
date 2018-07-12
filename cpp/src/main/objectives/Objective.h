@@ -1,6 +1,8 @@
 #ifndef OBJECTIVE
 #define OBJECTIVE
 
+//SIP_AUTOCONVERT
+
 #include "../recommender_data/RecommenderData.h"
 
 
@@ -11,7 +13,7 @@ class ObjectivePointWise{
 };
 
 
-class ObjectivePairWise{
+class ObjectivePairWise{ //SIP_ABSTRACT
   public:
     virtual ~ObjectivePairWise(){}
     virtual pair<double,double> get_gradient(RecPred* rec_pred1, RecPred* rec_pred2)=0;

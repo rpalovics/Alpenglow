@@ -1,6 +1,8 @@
 #ifndef OBJECTIVE_MSE
 #define OBJECTIVE_MSE
 
+//SIP_AUTOCONVERT
+
 #include "Objective.h"
 
 
