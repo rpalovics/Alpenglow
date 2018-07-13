@@ -2,6 +2,12 @@
 //  %TypeHeaderCode
 //  #include "general_interfaces/Updater.h"
 //  %End
+//  start_of_offline_update, 
+//  end_of_offline_update,
+//  start_of_offline_iterations, 
+//  end_of_offline_iterations,
+//  start_of_implicit_update_cycle, 
+//  end_of_implicit_update_cycle
 //};
 class Updater{
   %TypeHeaderCode

@@ -70,8 +70,10 @@ echo "$file_name_list"
 
 for file in $file_name_list
 do
+  echo "Processing file $file"
   local_file_path=$(echo $file | sed -r "s|.*main/||")
   cat $file \
+  | python $script_dir/sipdoc.py \
   | sed "s|//SIP_AUTOCONVERT.*||" \
   | vim -E +'%s/\v\/\/(SIP_)@!.*//' +%p -cq! /dev/stdin \
   | sed -r "s|\{[[:space:]]*//SIP_ABSTRACT| /Abstract/{|" \
@@ -79,9 +81,9 @@ do
   | sed "s/#.*//" \
   | sed "s/using.*//" \
   | sed '/^\s*$/d' \
-  | sed -r "s/class([^{]*);//g" \
-  | sed '/^.*friend class.*$/d' \
-  | sed '/^.*FRIEND_TEST.*$/d' \
+  | sed -r "s/^\s*class([^{]*);//g" \
+  | sed '/^\s*friend class.*$/d' \
+  | sed '/^\s*FRIEND_TEST.*$/d' \
   | python $script_dir/remove_initlist.py \
   | vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
   | tr -d "\a" \
@@ -92,7 +94,8 @@ do
   | sed -r "s/class([^{]*)\{/class\1{\nTYPEHEADERCODE/g" \
   | sed -r "s/class([^{]*public RankingScoreIterator([^A-Z][^{]*)?)\{/COMMENTOUTTHISCLASS class\1{/g" \
   | sed -r "s/(enum[[:space:]]+class)/COMMENTOUTTHISCLASS\1/g" \
-  | tr '\r' '\n' \
+  | sed "s|\r\r*|\r|g" \
+  | tr '\r' '\n'\
   | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
   | sed -r "s/([([:space:]])string/\1std::string/g" \
   | sed -r "s/([([:space:]])vector</\1std::vector</g" \
@@ -100,7 +103,7 @@ do
   | sed -r "s|^(.*UpdaterMessage)|//\1|" \
   | sed -r "s|^(.*stream)|//\1|" \
   | sed -r "s|^(.*pair<)|//\1|" \
-  | sed "s/override//g" \
+  | sed -r "s/^(.*\(.*\))\s*override\s*;/\1;/g"\
   | python $script_dir/comment_labeled_classes.py \
   | sed "s/COMMENTOUTTHISCLASS//g" \
   | sed "s|///*|//|g" \
@@ -156,13 +159,12 @@ exit 0
 # remove override keywords
 # comment labeled classes
 # remove comment label
+# /** doc */ -> sipdoc
 # remove extra ///////
 # remove extra spaces before ; and extra ;-s
 
 #TODO
 #Filters: comment out some functions
-#import extra sip code provided in the header (example: filters, general_interfaces, offline_evaluators/OffRankingComp)
-#import documentation provided in the header (example: Initalizable, general_interfaces)
 #filename blacklist (list of regex, leave out matching files)
 #RandomChoosingCombinedModelExpertUpdater: brackets after constructor
 

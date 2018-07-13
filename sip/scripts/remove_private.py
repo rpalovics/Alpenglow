@@ -1,15 +1,17 @@
 import sys
+import re
 
 if __name__ == "__main__":
   state_in = False #in struct or in class
+  nonc_part = False #sip methodcode or docstring
 
   for line in sys.stdin:
     #sys.stderr.write("DEBUG: got line: " + line)
-    class_header = False
-    class_first_line = "class" in line
-    if class_first_line:
+    if "%Docstring" in line or "MethodCode" in line:
+      nonc_part = True
+    class_header = re.match("\s*class", line)
+    if class_header:
       state_in = True
-      class_header = True
       private_part = True
       private_type = "  private:\n"
       private_written = True
@@ -30,12 +32,10 @@ if __name__ == "__main__":
     end_of_class = "};" in line
     if end_of_class :
       state_in = False
-    override_method = "override" in line
+    override_method = "override" in line or "virtual" in line
     #sys.stderr.write("DEBUG: state_in=" +str(state_in)+", private_part="+str(private_part)+"\n\n")
     decision = False
-    if not state_in or class_header:
-      decision = True
-    elif not private_part :
+    if not state_in or class_header or nonc_part or not private_part :
       decision = True
     elif override_method :
       if not private_written :
@@ -44,3 +44,5 @@ if __name__ == "__main__":
       decision = True
     if decision :
       sys.stdout.write(line)
+    if "%End" in line:
+      nonc_part = False
