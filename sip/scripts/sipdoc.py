@@ -9,8 +9,8 @@ if __name__ == "__main__":
     if start_doc:
       #sys.stderr.write("DEBUG: start doc\n")
       doc = True
-    end_doc = re.match("\s*\*/", line)
-    if doc and end_doc:
+    end_doc = doc and re.match("\s*\*/", line)
+    if end_doc:
       #sys.stderr.write("DEBUG: end doc\n")
       doc = False
     if start_doc :

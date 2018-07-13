@@ -74,6 +74,7 @@ do
   local_file_path=$(echo $file | sed -r "s|.*main/||")
   cat $file \
   | python $script_dir/sipdoc.py \
+  | python $script_dir/sipcode.py \
   | sed "s|//SIP_AUTOCONVERT.*||" \
   | vim -E +'%s/\v\/\/(SIP_)@!.*//' +%p -cq! /dev/stdin \
   | sed -r "s|\{[[:space:]]*//SIP_ABSTRACT| /Abstract/{|" \
