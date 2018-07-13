@@ -1,6 +1,8 @@
 #ifndef PRECISION_RECALL_EVALUATOR
 #define PRECISION_RECALL_EVALUATOR
 
+//SIP_AUTOCONVERT
+
 #include <string>
 #include <gtest/gtest_prod.h>
 #include "../models/Model.h"

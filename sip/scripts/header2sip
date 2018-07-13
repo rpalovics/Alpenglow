@@ -72,9 +72,10 @@ for file in $file_name_list
 do
   local_file_path=$(echo $file | sed -r "s|.*main/||")
   cat $file \
+  | sed "s|//SIP_AUTOCONVERT.*||" \
+  | vim -E +'%s/\v\/\/(SIP_)@!.*//' +%p -cq! /dev/stdin \
   | sed -r "s|\{[[:space:]]*//SIP_ABSTRACT| /Abstract/{|" \
   | sed -r "s|\{[[:space:]]*//SIP_NODEFAULTCTORS| /NoDefaultCtors/{|" \
-  | sed "s|//.*||" \
   | sed "s/#.*//" \
   | sed "s/using.*//" \
   | sed '/^\s*$/d' \
@@ -124,9 +125,10 @@ exit 0
 
 
 #documentation
+# remove // comments (do not remove //SIP_ comments)
+# remove //SIP_AUTOCONVERT
 # //SIP_ABSTRACT -> /Abstract/
 # //SIP_NODEFAULTCTORS -> /NoDefaultCtors/
-# remove comments
 # remove macros
 # remove using...
 # remove empty lines
@@ -159,7 +161,7 @@ exit 0
 
 #TODO
 #Filters: comment out some functions
-#import extra sip code provided in the header (example: filters, general_interfaces)
+#import extra sip code provided in the header (example: filters, general_interfaces, offline_evaluators/OffRankingComp)
 #import documentation provided in the header (example: Initalizable, general_interfaces)
 #filename blacklist (list of regex, leave out matching files)
 #RandomChoosingCombinedModelExpertUpdater: brackets after constructor
