@@ -1,3 +1,4 @@
+
 struct NearestNeighborModelUpdaterParameters {
   %TypeHeaderCode
   #include "models/baseline/NearestNeighborModelUpdater.h"
@@ -17,3 +18,4 @@ public:
   void set_model(NearestNeighborModel* model);
   bool self_test();
 };
+

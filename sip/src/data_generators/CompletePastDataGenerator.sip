@@ -1,3 +1,4 @@
+
 class CompletePastDataGenerator : public DataGenerator, public NeedsExperimentEnvironment, public Initializable {
   %TypeHeaderCode
   #include "data_generators/CompletePastDataGenerator.h"
@@ -10,3 +11,4 @@ class CompletePastDataGenerator : public DataGenerator, public NeedsExperimentEn
   protected:
     bool autocalled_initialize();
 };
+

@@ -1,3 +1,4 @@
+
 class PersonalPopularityModel : public Model{
   %TypeHeaderCode
   #include "models/baseline/PersonalPopularityModel.h"
@@ -5,3 +6,4 @@ class PersonalPopularityModel : public Model{
   public:
     double prediction(RecDat* rec_dat);
 };
+

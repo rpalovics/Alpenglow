@@ -1,3 +1,4 @@
+
 struct CombinedModelParameters{
   %TypeHeaderCode
   #include "models/combination/CombinedModel.h"
@@ -17,3 +18,4 @@ class CombinedModel : public Model {
     double prediction(RecDat* rec_dat);
     void add(RecDat* rec_dat);
 };
+

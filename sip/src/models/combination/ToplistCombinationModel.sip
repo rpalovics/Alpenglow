@@ -1,3 +1,4 @@
+
 // class ToplistCombinationModelRankingScoreIterator : public RankingScoreIterator{
 //  %TypeHeaderCode
 //  #include "models/combination/ToplistCombinationModel.h"
@@ -9,6 +10,7 @@
 //  void reinit();
 //  int unique_items_num();
 //};
+
 class ToplistCombinationModel
  : public Model,
 //   virtual public RankingScoreIteratorProvider,
@@ -32,3 +34,4 @@ public:
   protected:
   bool autocalled_initialize();
 };
+

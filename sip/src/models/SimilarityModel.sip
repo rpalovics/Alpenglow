@@ -1,3 +1,4 @@
+
 class SimilarityModel{
   %TypeHeaderCode
   #include "models/SimilarityModel.h"
@@ -8,3 +9,4 @@ class SimilarityModel{
     virtual double similarity(int item1, int item2)=0;
     bool self_test();
 };
+

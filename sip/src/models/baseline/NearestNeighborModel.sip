@@ -1,3 +1,4 @@
+
 // class NearestNeighborModelRankingScoreIterator : public RankingScoreIterator {
 //  %TypeHeaderCode
 //  #include "models/baseline/NearestNeighborModel.h"
@@ -31,4 +32,6 @@ public:
   double prediction(RecDat* rec_dat);
 //  RankingScoreIterator* get_ranking_score_iterator(int user);
   bool self_test();
+
 };
+

@@ -1,12 +1,12 @@
+
 class DummyModelFilter : public ModelFilter, public NeedsExperimentEnvironment, public Initializable {
   %TypeHeaderCode
   #include "filters/DummyModelFilter.h"
   %End
   public:
-    DummyModelFilter();
     void run(RecDat* rec_dat);
-    //vector<pair<int,double> >* get_global_users();
-    //vector<pair<int,double> >* get_global_items();
+//    std::vector<pair<int,double> >* get_global_users();
+//    std::vector<pair<int,double> >* get_global_items();
     void set_experiment_environment(ExperimentEnvironment* experiment_environment);
     void set_users(std::vector<int>* users);
     void set_users(VectorInt);
@@ -22,3 +22,4 @@ class DummyModelFilter : public ModelFilter, public NeedsExperimentEnvironment, 
   protected:
     bool autocalled_initialize();
 };
+

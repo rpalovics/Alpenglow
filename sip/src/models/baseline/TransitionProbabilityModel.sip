@@ -1,3 +1,4 @@
+
 // class TransitionProbabilityModelRankingScoreIterator : public RankingScoreIterator{
 //  %TypeHeaderCode
 //  #include "models/baseline/TransitionProbabilityModel.h"
@@ -9,6 +10,7 @@
 //  void reinit();
 //  int unique_items_num();
 //};
+
 class TransitionProbabilityModel
   : public Model
 //  , virtual public RankingScoreIteratorProvider
@@ -22,3 +24,4 @@ class TransitionProbabilityModel
     void clear();
     bool self_test();
 };
+

@@ -1,3 +1,4 @@
+
 class Evaluator {
   %TypeHeaderCode
   #include "models/combination/Evaluator.h"
@@ -8,3 +9,4 @@ public:
   virtual ~Evaluator();
   bool self_test();
 };
+

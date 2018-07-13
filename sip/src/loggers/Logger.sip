@@ -1,3 +1,4 @@
+
 class Logger{
   %TypeHeaderCode
   #include "loggers/Logger.h"
@@ -8,3 +9,4 @@ class Logger{
     virtual void run(RecDat* rec_dat)=0;
     bool self_test();
 };
+

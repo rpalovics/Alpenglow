@@ -1,9 +1,10 @@
-class AvailabilityFilter : ModelFilter {
+
+class AvailabilityFilter : public ModelFilter {
   %TypeHeaderCode
   #include "filters/AvailabilityFilter.h"
   %End
   %Docstring
-    This is the docstring for AvailabilityFilter. This filter filters the set of available items based on (time,itemId,duration) triplets. These have to be preloaded before using this filter.
+    This is the docstring for AvailabilityFilter. This filter filters the set of available items based on (time,itemId,duration) triplets. These have to be preloaded before 
 
     Sample code
 
@@ -18,15 +19,14 @@ class AvailabilityFilter : ModelFilter {
 
     .. code-block:: python
       :linenos:
-      
+
       # this is python code
       f = rs.AvailabilityFilter()
       f.add_availability(10,1,10) #item 1 is available in the time interval (10,20)
-
   %End
-  public:
-    virtual void run(RecDat* rec_dat);
-    %Docstring
+public:
+  virtual void run(RecDat* rec_dat);
+  %Docstring
       run(rec_dat)
       Summary line.
 
@@ -43,11 +43,10 @@ class AvailabilityFilter : ModelFilter {
       -------
       bool
           Description of return value
-    %End
-    virtual std::vector<std::pair<int,double>>* get_global_items();
-    virtual bool active(RecDat*);
-
-    virtual ~AvailabilityFilter();
-    bool self_test();
-    virtual void add_availability(double time, int id, int duration);
+  %End
+//  virtual std::vector<pair<int,double>>* get_global_items();
+  virtual bool active(RecDat*);
+  bool self_test();
+  void add_availability(double time, int id, int duration);
 };
+

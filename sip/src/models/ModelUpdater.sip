@@ -1,3 +1,4 @@
+
 class ModelGradientUpdater {
   %TypeHeaderCode
   #include "models/ModelUpdater.h"
@@ -9,6 +10,7 @@ class ModelGradientUpdater {
     virtual void end_of_updating_cycle(RecDat*);
     bool self_test();
 };
+
 class ModelMultiUpdater {
   %TypeHeaderCode
   #include "models/ModelUpdater.h"
@@ -17,3 +19,4 @@ class ModelMultiUpdater {
     virtual void update(std::vector<RecDat>* rec_dats) = 0;
     bool self_test();
 };
+

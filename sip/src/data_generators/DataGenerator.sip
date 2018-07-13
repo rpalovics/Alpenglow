@@ -1,3 +1,4 @@
+
 class DataGenerator {
   %TypeHeaderCode
   #include "data_generators/DataGenerator.h"
@@ -5,3 +6,4 @@ class DataGenerator {
   public:
     virtual RecommenderData* generate_recommender_data(RecDat*)=0;
 };
+

@@ -1,3 +1,4 @@
+
 class ConditionalMetaLogger : public Logger{
   %TypeHeaderCode
   #include "loggers/ConditionalMetaLogger.h"
@@ -8,3 +9,4 @@ class ConditionalMetaLogger : public Logger{
     virtual void set_logger(Logger* logger);
     bool self_test();
 };
+

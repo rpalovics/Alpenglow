@@ -1,3 +1,4 @@
+
 struct WeightedModelStructure{
   %TypeHeaderCode
   #include "models/combination/WeightedModelStructure.h"
@@ -6,6 +7,7 @@ struct WeightedModelStructure{
   std::vector<double> distribution_;
   bool is_initialized();
 };
+
 class WMSUpdater{
   %TypeHeaderCode
   #include "models/combination/WeightedModelStructure.h"
@@ -13,3 +15,4 @@ class WMSUpdater{
 public:
   virtual void set_wms(WeightedModelStructure* wms)=0;
 };
+

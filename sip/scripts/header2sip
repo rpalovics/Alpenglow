@@ -79,9 +79,11 @@ do
   | vim -E +'%s/\v\/\/(SIP_)@!.*//' +%p -cq! /dev/stdin \
   | sed -r "s|\{[[:space:]]*//SIP_ABSTRACT| /Abstract/{|" \
   | sed -r "s|\{[[:space:]]*//SIP_NODEFAULTCTORS| /NoDefaultCtors/{|" \
-  | sed "s/#.*//" \
+  | sed "s/#include.*//" \
+  | sed "s/#ifndef.*//" \
+  | sed "s/#endif.*//" \
+  | sed "s/#define.*//" \
   | sed "s/using.*//" \
-  | sed '/^\s*$/d' \
   | sed -r "s/^\s*class([^{]*);//g" \
   | sed '/^\s*friend class.*$/d' \
   | sed '/^\s*FRIEND_TEST.*$/d' \
@@ -95,7 +97,6 @@ do
   | sed -r "s/class([^{]*)\{/class\1{\nTYPEHEADERCODE/g" \
   | sed -r "s/class([^{]*public RankingScoreIterator([^A-Z][^{]*)?)\{/COMMENTOUTTHISCLASS class\1{/g" \
   | sed -r "s/(enum[[:space:]]+class)/COMMENTOUTTHISCLASS\1/g" \
-  | sed "s|\r\r*|\r|g" \
   | tr '\r' '\n'\
   | sed -r "s|TYPEHEADERCODE|  %TypeHeaderCode\n  #include \"$local_file_path\"\n  %End|g" \
   | sed -r "s/([([:space:]])string/\1std::string/g" \
@@ -108,6 +109,8 @@ do
   | python $script_dir/comment_labeled_classes.py \
   | sed "s/COMMENTOUTTHISCLASS//g" \
   | sed "s|///*|//|g" \
+  | sed 's/^\s*$//' \
+  | cat -s \
   | sed -r "s/[[:space:]]*;([[:space:]]*;)*/;/" > $tempfile
 
   sipfilename=$(echo $file | sed -r "s/cpp/sip/" | sed -r "s|main/||" | sed "s/.h$/.sip/")

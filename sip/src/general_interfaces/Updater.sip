@@ -1,3 +1,4 @@
+
 //enum class UpdaterMessage{
 //  %TypeHeaderCode
 //  #include "general_interfaces/Updater.h"
@@ -18,3 +19,4 @@ class Updater{
 //    virtual void message(UpdaterMessage message);
     bool self_test();
 };
+

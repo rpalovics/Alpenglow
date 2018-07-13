@@ -1,6 +1,8 @@
 #ifndef MODELFILTER
 #define MODELFILTER
 
+//SIP_AUTOCONVERT
+
 #include "../recommender_data/RecommenderData.h"
 #include "../models/Model.h"
 

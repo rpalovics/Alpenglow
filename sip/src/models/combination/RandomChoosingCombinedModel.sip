@@ -1,3 +1,4 @@
+
 class RandomChoosingCombinedModel
  : public Model,
 //   virtual public RankingScoreIteratorProvider,
@@ -20,3 +21,4 @@ public:
   protected:
   bool autocalled_initialize();
 };
+

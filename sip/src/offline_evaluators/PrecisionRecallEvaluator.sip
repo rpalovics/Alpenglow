@@ -1,3 +1,4 @@
+
 struct PrecisionRecallEvaluatorParameters{
   %TypeHeaderCode
   #include "offline_evaluators/PrecisionRecallEvaluator.h"
@@ -7,6 +8,7 @@ struct PrecisionRecallEvaluatorParameters{
   std::string test_file_type;
   int time;
 };
+
 class PrecisionRecallEvaluator : public OfflineEvaluator{
   %TypeHeaderCode
   #include "offline_evaluators/PrecisionRecallEvaluator.h"
@@ -20,3 +22,4 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
     virtual void evaluate();
     bool self_test();
 };
+

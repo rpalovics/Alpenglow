@@ -1,3 +1,4 @@
+
 struct OnlinePredictorParameters{
   %TypeHeaderCode
   #include "loggers/OnlinePredictor.h"
@@ -6,6 +7,7 @@ struct OnlinePredictorParameters{
   double time_frame;
   std::string file_name;
 };
+
 class OnlinePredictor : public Logger /NoDefaultCtors/{
   %TypeHeaderCode
   #include "loggers/OnlinePredictor.h"
@@ -16,3 +18,4 @@ class OnlinePredictor : public Logger /NoDefaultCtors/{
    void set_prediction_creator(PredictionCreator* prediction_creator);
    bool self_test();
 };
+

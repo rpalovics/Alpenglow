@@ -1,3 +1,4 @@
+
 struct PopularityTimeFrameModelUpdaterParameters{
   %TypeHeaderCode
   #include "models/baseline/PopularityTimeFrameModelUpdater.h"
@@ -15,3 +16,4 @@ class PopularityTimeFrameModelUpdater : public Updater {
     void update(RecDat* rec_dat);
     bool self_test();
 };
+

@@ -1,3 +1,4 @@
+
 class ProceedingLogger : public Logger, public Initializable, public NeedsExperimentEnvironment {
   %TypeHeaderCode
   #include "loggers/ProceedingLogger.h"
@@ -10,3 +11,4 @@ class ProceedingLogger : public Logger, public Initializable, public NeedsExperi
   protected:
     bool autocalled_initialize();
 };
+

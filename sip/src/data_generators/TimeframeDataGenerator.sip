@@ -1,3 +1,4 @@
+
 struct TimeframeDataGeneratorParameters {
   %TypeHeaderCode
   #include "data_generators/TimeframeDataGenerator.h"
@@ -17,3 +18,4 @@ class TimeframeDataGenerator : public DataGenerator, public NeedsExperimentEnvir
   protected:
     bool autocalled_initialize();
 };
+

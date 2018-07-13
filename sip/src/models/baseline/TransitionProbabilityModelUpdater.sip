@@ -1,3 +1,4 @@
+
 struct TransitionProbabilityModelUpdaterParameters{
   %TypeHeaderCode
   #include "models/baseline/TransitionProbabilityModelUpdater.h"
@@ -7,6 +8,7 @@ struct TransitionProbabilityModelUpdaterParameters{
   bool label_transition_mode;
   std::string label_file_name;
 };
+
 class TransitionProbabilityModelUpdater: public Updater{
   %TypeHeaderCode
   #include "models/baseline/TransitionProbabilityModelUpdater.h"
@@ -17,3 +19,4 @@ class TransitionProbabilityModelUpdater: public Updater{
     void set_model(TransitionProbabilityModel* model);
     bool self_test();
 };
+

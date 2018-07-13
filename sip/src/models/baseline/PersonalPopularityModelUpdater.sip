@@ -1,3 +1,4 @@
+
 class PersonalPopularityModelUpdater : public Updater{
   %TypeHeaderCode
   #include "models/baseline/PersonalPopularityModelUpdater.h"
@@ -8,3 +9,4 @@ class PersonalPopularityModelUpdater : public Updater{
     void update(RecDat* rec_dat);
     bool self_test();
 };
+

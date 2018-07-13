@@ -1,3 +1,4 @@
+
 class OfflineEvaluator /Abstract/{
   %TypeHeaderCode
   #include "offline_evaluators/OfflineEvaluator.h"
@@ -7,3 +8,4 @@ class OfflineEvaluator /Abstract/{
     virtual void evaluate()=0;
     bool self_test();
 };
+

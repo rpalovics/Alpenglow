@@ -1,3 +1,4 @@
+
 struct SamplingDataGeneratorParameters {
   %TypeHeaderCode
   #include "data_generators/SamplingDataGenerator.h"
@@ -20,3 +21,4 @@ class SamplingDataGenerator : public DataGenerator, public Initializable, public
   protected:
     bool autocalled_initialize();
 };
+
