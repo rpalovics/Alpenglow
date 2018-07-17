@@ -85,6 +85,7 @@ do
   | sed "s/#define.*//" \
   | sed "s/using.*//" \
   | sed -r "s/^\s*class([^{]*);//g" \
+  | sed -r "s/^\s*struct([^{]*);//g" \
   | sed '/^\s*friend class.*$/d' \
   | sed '/^\s*FRIEND_TEST.*$/d' \
   | python $script_dir/remove_initlist.py \
@@ -105,6 +106,8 @@ do
   | sed -r "s|^(.*UpdaterMessage)|//\1|" \
   | sed -r "s|^(.*stream)|//\1|" \
   | sed -r "s|^(.*pair<)|//\1|" \
+  | sed -r "s|^(.*map<)|//\1|" \
+  | sed -r "s|^([[:space:]]*typedef)|//\1|" \
   | sed -r "s/^(.*\(.*\))\s*override\s*;/\1;/g"\
   | python $script_dir/comment_labeled_classes.py \
   | sed "s/COMMENTOUTTHISCLASS//g" \
@@ -140,6 +143,7 @@ exit 0
 # remove using...
 # remove empty lines
 # remove forward class declarations
+# remove forward struct declarations
 # remove friend class declarations
 # remove friend test declarations
 # remove initialization lists
@@ -159,6 +163,7 @@ exit 0
 # UpdaterMessage: comment out
 # iofstream: comment out
 # pair template: comment out
+# comment out typedefs
 # remove functions that use c++ streams - that are not sip compatible yet
 # remove override keywords
 # comment labeled classes
