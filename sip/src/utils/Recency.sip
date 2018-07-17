@@ -1,3 +1,4 @@
+
 class Recency{
   %TypeHeaderCode
   #include "utils/Recency.h"
@@ -27,3 +28,4 @@ class PowerLawRecency : public Recency{
     double get(int entity, double actual_time);
     void update(int entity, double actual_time);
 };
+

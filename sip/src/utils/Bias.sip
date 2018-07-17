@@ -1,3 +1,4 @@
+
 class Bias{
   %TypeHeaderCode
   #include "utils/Bias.h"
@@ -10,3 +11,4 @@ class Bias{
     void init(int entity);
     void clear();
 };
+

@@ -1,6 +1,8 @@
 #ifndef BIAS
 #define BIAS
 
+//SIP_AUTOCONVERT
+
 #include <vector>
 #include <iostream>
 

@@ -1,6 +1,8 @@
 #ifndef PERIOD_COMPUTER
 #define PERIOD_COMPUTER
 
+//SIP_AUTOCONVERT
+
 #include <string>
 #include "../recommender_data/RecommenderData.h"
 #include "../general_interfaces/Updater.h"

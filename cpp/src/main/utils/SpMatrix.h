@@ -1,6 +1,8 @@
 #ifndef SPMATRIX
 #define SPMATRIX
 
+//SIP_AUTOCONVERT
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -22,7 +24,7 @@ class SpMatrix{
     void increase(int row_id, int col_id, double value);
     void erase(int row_id, int col_id);
     double get(int row_id, int col_id);
-    MatrixRow* get(int row_id);
+    map<int,double>* get(int row_id);
     void clear();
     void read_from_file(string file_name);
     void write_into_file(string file_name);

@@ -1,6 +1,8 @@
 #ifndef RANDOM
 #define RANDOM
 
+//SIP_AUTOCONVERT
+
 #include <gtest/gtest_prod.h>
 #include <fstream>
 #include <cmath>

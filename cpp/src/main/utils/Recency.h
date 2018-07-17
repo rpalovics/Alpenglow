@@ -1,6 +1,8 @@
 #ifndef RECENCY
 #define RECENCY
 
+//SIP_AUTOCONVERT
+
 #include <map>
 #include <cmath>
 #include <stdio.h>
