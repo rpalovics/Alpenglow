@@ -6,7 +6,7 @@ In this tutorial we are going to learn the basic concepts of using Alpenglow by 
 The data
 --------
 
-You can find the dataset at http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset. This is a processed version of the (30M dataset)[http://info.ilab.sztaki.hu/~fbobee/alpenglow/recoded_online_id_artist_first_filtered], where we
+You can find the dataset at http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset. This is a processed version of the  [30M dataset](http://info.ilab.sztaki.hu/~fbobee/alpenglow/recoded_online_id_artist_first_filtered), where we
 
 - only keep users above a certain activity threshold
 - only keep the first events of listening sessions
