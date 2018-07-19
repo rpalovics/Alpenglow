@@ -12,6 +12,14 @@ alpenglow\.evaluation\.DcgScore module
     :undoc-members:
     :show-inheritance:
 
+alpenglow\.evaluation\.RrScore module
+--------------------------------------
+
+.. automodule:: alpenglow.evaluation.RrScore
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alpenglow\.evaluation\.MseScore module
 --------------------------------------
 
