@@ -6,7 +6,7 @@ In this tutorial we are going to learn the basic concepts of using Alpenglow by 
 The data
 --------
 
-You can find the dataset [todo]. This is a processed version of the 30M dataset [todo], where we
+You can find the dataset at http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset. This is a processed version of the  [30M dataset](http://info.ilab.sztaki.hu/~fbobee/alpenglow/recoded_online_id_artist_first_filtered), where we
 
 - only keep users above a certain activity threshold
 - only keep the first events of listening sessions
@@ -109,7 +109,7 @@ Putting it all together:
 	from alpenglow.evaluation import DcgScore
 	from alpenglow.experiments import PopularityExperiment
 
-	data = pd.read_csv('data')
+	data = pd.read_csv('data', nrows=200000)
 
 	pop_experiment = PopularityExperiment(
 	    top_k=100,
@@ -117,7 +117,7 @@ Putting it all together:
 	)
 	results = pop_experiment.run(data, verbose=True)
 	results['dcg'] = DcgScore(results)
-	results['dcg'].groupby((results['time']-results['time'].min())//86400).mean().plot()
+	daily_avg_dcg = results['dcg'].groupby((results['time']-results['time'].min())//86400).mean()
 
 	plt.plot(daily_avg_dcg,"o-", label="popularity")
 	plt.title('popularity model performance')
@@ -139,7 +139,7 @@ We can run the :python:`FactorModelExperiment` similarly to the popularity model
 	)
 	mf_results = mf_experiment.run(data, verbose=True)
 	mf_results['dcg'] = DcgScore(mf_results)
-	mf_daily_avg = mf_results['dcg'].groupby((mf_results['time']-mf_results['time'].min())//86400).mean().plot()
+	mf_daily_avg = mf_results['dcg'].groupby((mf_results['time']-mf_results['time'].min())//86400).mean()
 
 	plt.plot(mf_daily_avg,"o-", label="factorization")
 	plt.title('factor model performance')
