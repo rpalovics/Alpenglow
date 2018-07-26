@@ -1,6 +1,6 @@
 conda:
     file: readthedocs-conda-env.yml
 python:
-    version: 3.5
+    version: 3.6.5
 python:
     pip_install: true
