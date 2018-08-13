@@ -1,36 +1,47 @@
 #ifndef RANDOM_ITERATOR
 #define RANDOM_ITERATOR
-#include "RecommenderData.h"
-#include "../utils/Random.h"
 
-class RandomIterator{
+#include "RecommenderData.h"
+#include <gtest/gtest_prod.h>
+#include "RecommenderDataIterator.h"
+#include "../utils/Util.h"
+#include "../utils/Random.h"
+#include <algorithm>
+
+using namespace std;
+
+//SIP_AUTOCONVERT
+
+struct RandomIteratorParameters{
+  int seed;
+  bool shuffle = true;
+};
+
+class RandomIterator : public RecommenderDataIterator {
   public:
-    RandomIterator(RecommenderData* recommender_data, int seed){
-      shuffled_data_.resize(recommender_data->size());
-      for(int i=0;i<recommender_data->size();i++){
-        shuffled_data_[i]=recommender_data->get(i);
+    RandomIterator(RecommenderData* recommender_data, int seed, bool shuffle);
+    RandomIterator(RandomIteratorParameters* params){
+      seed_ = params->seed;
+      shuffle_ = params->shuffle;
+    }
+    RecDat* next();
+    RecDat* get(int index) const override;
+    RecDat* get_future(int index) const override;
+    double get_following_timestamp() const override;
+    RecDat* get_actual() override;
+    void restart(){
+      if(shuffle_) {
+        random_shuffle(shuffled_data_.begin(),shuffled_data_.end(),random_);
       }
-      random_.set(seed);
-      counter_=0;
-    };
-    void shuffle(){
-      counter_=0;
-      random_shuffle(shuffled_data_.begin(),shuffled_data_.end(),random_);
-    };
-    RecDat* next(){
-      return shuffled_data_[counter_++];
-    };
-    bool has_next(){
-      return counter_ < shuffled_data_.size();
-    };
-    bool restart(){
       counter_ = 0;
-      return true;
-    };
+    }
   private:
-    Random random_;
+    bool autocalled_initialize() override;
     vector<RecDat*> shuffled_data_;
-    uint counter_;
+    int seed_;
+    Random random_;
+    bool shuffle_;
+    bool parent_is_initialized_ = false;
 };
 
 
