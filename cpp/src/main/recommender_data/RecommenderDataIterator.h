@@ -20,6 +20,7 @@ public:
   virtual RecDat* get_future(int index) const = 0; //index'th sample from recommender_data, getting sample from future is allowed
   virtual int size() const { return recommender_data_->size(); } //number of samples
   virtual double get_following_timestamp() const = 0; //returns timestamp of the following sample, returns -1 in case of last sample
+  virtual void restart() { counter_ = 0; }
   virtual ~RecommenderDataIterator() {}
 protected:
   bool autocalled_initialize() override {

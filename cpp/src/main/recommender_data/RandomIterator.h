@@ -23,9 +23,8 @@ class RandomIterator{
     bool has_next(){
       return counter_ < shuffled_data_.size();
     };
-    bool restart(){
+    void restart(){
       counter_ = 0;
-      return true;
     };
   private:
     Random random_;
