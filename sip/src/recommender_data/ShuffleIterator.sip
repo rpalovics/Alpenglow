@@ -11,13 +11,13 @@ class ShuffleIterator : public RecommenderDataIterator {
   %End
   public:
     ShuffleIterator(RecommenderData* data, int seed);
+    
     ShuffleIterator(ShuffleIteratorParameters* params);
     RecDat* next();
-    RecDat* get(int index) const ;
-    RecDat* get_future(int index) const ;
-    double get_following_timestamp() const ;
+    RecDat* get(int index) const;
     RecDat* get_actual();
-  private:
+    RecDat* get_future(int index) const;
+    double get_following_timestamp() const;
+  protected:
     bool autocalled_initialize();
 };
-

@@ -12,7 +12,6 @@
 %Include src/recommender_data/AttributeContainer.sip
 %Include src/recommender_data/ShuffleIterator.sip
 %Include src/recommender_data/SimpleIterator.sip
-%Include src/recommender_data/RandomIterator.sip
 %Include src/recommender_data/DataframeData.sip
 %Include src/recommender_data/FactorModelReader.sip
 %Include src/models/Model.sip
@@ -58,7 +57,6 @@
 %Include src/data_generators/SamplingDataGenerator.sip
 %Include src/data_generators/TimeframeDataGenerator.sip
 %Include src/loggers/Logger.sip
-%Include src/loggers/InputLogger.sip
 %Include src/loggers/ProceedingLogger.sip
 %Include src/loggers/InterruptLogger.sip
 %Include src/loggers/MemoryRankingLogger.sip

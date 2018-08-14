@@ -13,8 +13,6 @@
 #include "../utils/Random.h"
 #include <algorithm>
 
-//SIP_AUTOCONVERT
-
 using namespace std;
 
 struct ShuffleIteratorParameters{
@@ -27,13 +25,13 @@ class ShuffleIterator : public RecommenderDataIterator {
     ShuffleIterator(ShuffleIteratorParameters* params){
       seed_ = params->seed;
     }
+    bool autocalled_initialize() override;
     RecDat* next();
     RecDat* get(int index) const override;
     RecDat* get_future(int index) const override;
     double get_following_timestamp() const override;
     RecDat* get_actual() override;
   private:
-    bool autocalled_initialize() override;
     FRIEND_TEST(TestRecommenderDataIterator, iterator);
     vector<RecDat*> shuffled_data_;
     int seed_;
