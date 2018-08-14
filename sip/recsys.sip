@@ -11,6 +11,7 @@
 %Include src/recommender_data/RecommenderDataIterator.sip
 %Include src/recommender_data/AttributeContainer.sip
 %Include src/recommender_data/ShuffleIterator.sip
+%Include src/recommender_data/RandomIterator.sip
 %Include src/recommender_data/SimpleIterator.sip
 %Include src/recommender_data/DataframeData.sip
 %Include src/recommender_data/FactorModelReader.sip
