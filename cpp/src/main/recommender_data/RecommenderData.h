@@ -51,7 +51,8 @@ class RecommenderData : public Initializable {
     vector<int>* get_all_items();
     vector<int>* get_all_users();
     void clear();
-    virtual ~RecommenderData(){};
+    virtual ~RecommenderData(){}
+    bool self_test(){ return size()>0; }
   protected:
     bool autocalled_initialize() override { return true; }
     vector<RecDat> rec_data_;
