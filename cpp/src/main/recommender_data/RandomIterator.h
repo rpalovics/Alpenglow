@@ -9,6 +9,10 @@
 #include "RecommenderDataIterator.h"
 #include "../utils/Random.h"
 
+struct RandomIteratorParameters{
+  int seed;
+  string shuffle_mode = "auto_shuffle";
+};
 class RandomIterator : public RecommenderDataIterator {
   public:
     RandomIterator(RecommenderData* recommender_data, int seed, string shuffle_mode){
@@ -19,7 +23,11 @@ class RandomIterator : public RecommenderDataIterator {
         cerr << "RandomIterator: initialization was no successful." << endl;
         throw 0;
       }
-    };
+    }
+    RandomIterator(RandomIteratorParameters* params){
+      random_.set(params->seed);
+      shuffle_mode_=params->shuffle_mode;
+    }
     RecDat* next();
     void restart();
     void shuffle();
