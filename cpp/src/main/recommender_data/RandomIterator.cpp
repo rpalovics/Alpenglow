@@ -22,3 +22,24 @@ void RandomIterator::restart(){
 void RandomIterator::shuffle() {
   random_shuffle(shuffled_data_.begin(),shuffled_data_.end(),random_);
 };
+double RandomIterator::get_following_timestamp() const {
+  if(counter_ < recommender_data_->size()){
+    RecDat* next = shuffled_data_[counter_];
+    return next->time;
+  } else {
+    return -1;
+  }
+}
+
+bool RandomIterator::autocalled_initialize() {
+  if(!parent_is_initialized_){
+    parent_is_initialized_=RecommenderDataIterator::autocalled_initialize();
+    if(!parent_is_initialized_) return false;
+  }
+  shuffled_data_.resize(recommender_data_->size());
+  for(int i=0;i<recommender_data_->size();i++){
+    shuffled_data_[i]=recommender_data_->get(i);
+  }
+  restart();
+  return true;
+}

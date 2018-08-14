@@ -18,5 +18,6 @@ RecommenderData* SamplingDataGenerator::generate_recommender_data(RecDat*){
     RecDat* sample = recommender_data_iterator_->get(index_of_sample);
     train_data->push_back(*sample);
   }
+  if (!local_recommender_data_.initialize()) throw 0;
   return &local_recommender_data_;
 }
