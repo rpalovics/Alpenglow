@@ -45,7 +45,8 @@ TEST_F(TestRandomIterator, iterator) {
     recData[3].user=3;
     recData[4].user=4;
     rd.set_rec_data(recData);
-    RandomIterator it(&rd, 123124);
+    rd.initialize();
+    RandomIterator it(&rd, 123124, "manual_shuffle");
     EXPECT_TRUE(it.has_next());
     it.next();
     it.next();
@@ -55,6 +56,7 @@ TEST_F(TestRandomIterator, iterator) {
     it.next();
     EXPECT_FALSE(it.has_next());
     it.shuffle();
+    it.restart();
     EXPECT_TRUE(it.has_next());
     it.next();
     it.next();
@@ -80,7 +82,8 @@ TEST_F(TestRandomIterator, shuffle) {
     recData[1].user=1;
     recData[2].user=2;
     rd.set_rec_data(recData);
-    RandomIterator it(&rd, 123124);
+    rd.initialize();
+    RandomIterator it(&rd, 123124, "manual_shuffle");
     int counter[3][3];
     for(int ii=0;ii<3;ii++){
       for(int jj=0;jj<3;jj++){
@@ -89,6 +92,7 @@ TEST_F(TestRandomIterator, shuffle) {
     }
     for(int ii=0;ii<3000;ii++){
       it.shuffle();
+      it.restart();
       for(int jj=0;jj<3;jj++){
         RecDat* rec_dat = it.next();
         counter[jj][rec_dat->user]++;
