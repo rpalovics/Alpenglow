@@ -19,6 +19,7 @@
 %Include src/models/ModelUpdater.sip
 %Include src/models/SimilarityModel.sip
 %Include src/models/MassPredictor.sip
+%Include src/models/ExternalModel.sip
 %Include src/models/factor/FactorModel.sip
 %Include src/models/factor/FactorModelGradientUpdater.sip
 %Include src/models/factor/AsymmetricFactorModel.sip
@@ -28,6 +29,8 @@
 %Include src/models/factor/SvdppModelUpdater.sip
 %Include src/models/factor/SvdppModelGradientUpdater.sip
 %Include src/models/factor/EigenFactorModel.sip
+%Include src/models/factor/FmModel.sip
+%Include src/models/factor/FmModelUpdater.sip
 %Include src/models/baseline/PopularityModel.sip
 %Include src/models/baseline/PersonalPopularityModel.sip
 %Include src/models/baseline/PersonalPopularityModelUpdater.sip
@@ -75,6 +78,7 @@
 %Include src/utils/PredictionCreator.sip
 %Include src/utils/Random.sip
 %Include src/utils/PeriodComputer.sip
+%Include src/utils/SparseAttributeContainer.sip
 %Include src/ranking/Ranking.sip
 %Include src/filters/ModelFilter.sip
 %Include src/filters/AvailabilityFilter.sip
@@ -87,4 +91,5 @@
 %Include src/offline_learners/OfflineLearner.sip
 %Include src/offline_learners/OfflineIteratingOnlineLearnerWrapper.sip
 %Include src/offline_learners/OfflineEigenFactorModelALSLearner.sip
+%Include src/offline_learners/OfflineExternalModelLearner.sip
 %Include src/offline_evaluators/OfflineRankingComputer.sip

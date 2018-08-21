@@ -3,11 +3,30 @@
 #include <utility>
 
 int RankComputer::get_rank(RecDat* rec_dat){
-  if(ranking_model_!=NULL){
+  // Model filters aren't handled yet.
+  // If the model is an instance ToplistFromRankingScoreRecommender,
+  // we evaluate it as RankingScoreIteratorProvider.
+  ToplistFromRankingScoreRecommender* tfrsr_model = dynamic_cast<ToplistFromRankingScoreRecommender*>(model_);
+  if(toplist_model_!=NULL && tfrsr_model==NULL && model_filter_==NULL){
+    return get_rank_toplist_model(rec_dat);
+  } else if(ranking_model_!=NULL && model_filter_==NULL){
     return get_rank_ranking_model(rec_dat);
   } else {
     return get_rank_bruteforce(rec_dat);
   }
+}
+
+int RankComputer::get_rank_toplist_model(RecDat* rec_dat){
+  vector<pair<int,double>> list = toplist_model_->get_top_list(rec_dat->user, top_k_, train_matrix_);
+  int i=0;
+  for(auto t : list){
+    int item = get<0>(t);
+    if(item == rec_dat->item){
+      return i;
+    }
+    i++;
+  }
+  return top_k_;
 }
 
 int RankComputer::get_rank_ranking_model(RecDat* rec_dat){
@@ -84,7 +103,9 @@ int RankComputer::get_rank_bruteforce(RecDat* rec_dat){
     else if (fake_score == score) same_scored_itemnum++;
     if(rank == top_k_) break;
   }
-  if(same_scored_itemnum!=0) rank+=random_.get(same_scored_itemnum+1);
+  if(same_scored_itemnum!=0){
+    rank+=random_.get(same_scored_itemnum+1);
+  }
   rank=min(top_k_,rank);
   return rank;
 }

@@ -44,10 +44,26 @@ alpenglow\.experiments\.BatchFactorExperiment module
     :undoc-members:
     :show-inheritance:
 
+alpenglow\.experiments\.ExternalModelExperiment module
+------------------------------------------------------
+
+.. automodule:: alpenglow.experiments.ExternalModelExperiment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alpenglow\.experiments\.FactorExperiment module
 -----------------------------------------------
 
 .. automodule:: alpenglow.experiments.FactorExperiment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+alpenglow\.experiments\.FmExperiment module
+-------------------------------------------
+
+.. automodule:: alpenglow.experiments.FmExperiment
     :members:
     :undoc-members:
     :show-inheritance:

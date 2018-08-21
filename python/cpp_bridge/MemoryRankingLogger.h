@@ -25,6 +25,7 @@ struct RankingLogs{
 struct MemoryRankingLoggerParameters{
   double min_time;
   string out_file="";
+  bool memory_log;
 };
 
 class MemoryRankingLogger : public Logger{
@@ -35,6 +36,8 @@ class MemoryRankingLogger : public Logger{
       if(params->out_file != ""){
         ofs.open(params->out_file.c_str());
       }
+
+      memory_log_ = params->memory_log;
     }
     ~MemoryRankingLogger(){}
     void set_model(Model* model){ model_ = model; }
@@ -52,8 +55,9 @@ class MemoryRankingLogger : public Logger{
         log.user = rec_dat->user;
         log.score = rec_dat->score;
         log.id = rec_dat->id;
-
-        logs_->logs.push_back(log);
+        if(memory_log_){
+          logs_->logs.push_back(log);
+        }
 
         if(ofs.is_open()){
           ofs 
@@ -73,6 +77,7 @@ class MemoryRankingLogger : public Logger{
     double min_time_;
     Model* model_;
     RankComputer* rank_computer_;
+    bool memory_log_;
 };
 
 #endif

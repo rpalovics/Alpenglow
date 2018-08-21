@@ -65,13 +65,13 @@ class OnlineExperiment(ParameterDefaults):
             The input data, see :doc:`/getting_started/3-five_minute_tutorial`. If this parameter is a string, it has to be in the format specified by :code:`experimentType`.
         experimentType : str
             The format of the input file if :code:`data` is a string
-        columns: dict
+        columns : dict
             Optionally the mapping of the input DataFrame's columns' names to the expected ones.
-        verbose: bool
+        verbose : bool
             Whether to write information about the experiment while running
-        out_file: str
+        out_file : str
             If set, the results of the experiment are also written to the file located at :code:`out_file`.
-        exclude_known: bool
+        exclude_known : bool
             If set to True, a user's previosly seen items are excluded from the toplist evaluation. The :code:`eval` columns of the input data should be set accordingly.
         calculate_toplists: bool or list
             Whether to actually compute the toplists or just the ranks (the latter is faster). It can be specified on a record-by-record basis, by giving a list of booleans as parameter. The calculated toplists can be acquired after the experiment's end by using :code:`get_predictions`. Setting this to non-False implies shuffle_same_time=False
@@ -84,14 +84,13 @@ class OnlineExperiment(ParameterDefaults):
 
         Returns
         -------
-        bool
-          Description of return value
+        DataFrame
+          Results DataFrame if memory_log=True, empty DataFrame otherwise
 
         """
         rs.collect()
         self.verbose = verbose
         min_time = 0
-        max_time = 0
 
         # reading data
         if not isinstance(data, str):
@@ -191,7 +190,7 @@ class OnlineExperiment(ParameterDefaults):
             proceeding_logger.set_data_iterator(recommender_data_iterator)
             online_experiment.add_logger(proceeding_logger)
 
-        ranking_logger = self._get_ranking_logger(top_k, min_time, self.parameter_default('out_file', out_file))
+        ranking_logger = self._get_ranking_logger(top_k, min_time, self.parameter_default('out_file', out_file), memory_log)
         ranking_logger.set_model(model)
         ranking_logger.set_rank_computer(rank_computer)
 
@@ -239,14 +238,18 @@ class OnlineExperiment(ParameterDefaults):
         else:
             return None
 
-    def _get_ranking_logger(self, top_k, min_time, out_file):
+    def _get_ranking_logger(self, top_k, min_time, out_file, memory_log):
         if out_file is None:
             out_file = ""
         else:
             print("logging to file " + out_file) if self.verbose else None
         self.ranking_logs = rs.RankingLogs()
         self.ranking_logs.top_k = top_k
-        self.ranking_logger = rs.MemoryRankingLogger(min_time=min_time, out_file=out_file)
+        self.ranking_logger = rs.MemoryRankingLogger(
+            min_time=min_time,
+            out_file=out_file,
+            memory_log=memory_log
+        )
         self.ranking_logger.set_ranking_logs(self.ranking_logs)
         return self.ranking_logger
 

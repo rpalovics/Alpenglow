@@ -24,14 +24,33 @@ class DummyModel : public Model {
     void add(RecDat* recDat){
     }
 };
+
+class DummyToplistModel : public Model, public TopListRecommender {
+  public:
+    DummyToplistModel(){}
+    double prediction(RecDat* rec_dat) override {
+      return 0;
+    }
+    void add(RecDat* recDat){}
+    vector<pair<int,double>> get_top_list(int user, int k, SpMatrix *exclude) override {
+      if(user == 1){
+        return {{1,0},{2,0},{3,0},{4,0},{5,0}};
+      } else if(user == 2){
+        return {{5,0},{4,0},{3,0},{2,0},{1,0}};
+      } else if(user == 3){
+        return {{7,0},{6,0},{1,0}};
+      }
+    }
+};
+
 namespace {
 
 class TestRankComputer : public ::testing::Test  {
 public:
   RankComputer * rankComputer;
   SpMatrix trainMatrix;
-  OnlineRecommender * recommender;
   DummyModel model;
+  DummyToplistModel toplist_model;
   vector<int> items;
   vector<int> itemMap;
   TopPopContainer pop;
@@ -42,15 +61,12 @@ public:
     // You can do clean-up work that doesn't throw exceptions here.
   }
   virtual void SetUp(){
-    recommender = new OnlineRecommender;
-    recommender->set_model(&model);
     RankComputerParameters parameters;
-    parameters.topK = 6;
+    parameters.top_k = 6;
     parameters.random_seed = 1231232;
     rankComputer = new RankComputer(&parameters);
     rankComputer->set_train_matrix(&trainMatrix);
-    rankComputer->set_recommender(recommender);
-    //rankComputer->set_items(&items); //TODO is the items vector necessary at all?
+    rankComputer->set_model(&model);
     rankComputer->set_top_pop_container(&pop);
     srand(34723892);
     learn(createRecDat(2,0,0.0));
@@ -65,7 +81,6 @@ public:
     learn(createRecDat(2,9,0.0));
   }
   virtual void TearDown(){
-    delete recommender;
     delete rankComputer;
   }
   RecDat* createRecDat(int user, int item, double score){
@@ -84,8 +99,8 @@ public:
     trainMatrix.update(recDat->user,recDat->item,recDat->score);
   }
 };
-//class TestTopListCreator : public ::testing::Test  {
-//public:
+// class TestTopListCreator : public ::testing::Test  {
+// public:
 //  TopListCreator * topListCreator;
 //  SpMatrix trainMatrix;
 //  OnlineRecommender * recommender;
@@ -137,7 +152,7 @@ public:
 //    itemMap[recDat->item]=1;
 //    trainMatrix.update(recDat->user,recDat->item,recDat->score);
 //  }
-//};
+// };
 
 }
 TEST_F(TestRankComputer,rank) {
@@ -166,9 +181,11 @@ TEST_F(TestRankComputer,rank) {
   //cerr << "7: " << rankComputer->get_rank(createRecDat(2,7,0.0)) << endl;
   //cerr << "1: " << rankComputer->get_rank(createRecDat(2,1,0.0)) << endl;
 }
+
 TEST_F(TestRankComputer,threshold){
   EXPECT_EQ(6,rankComputer->get_rank(createRecDat(2,1,0.0)));
 }
+
 TEST_F(TestRankComputer,random){
   int rank = rankComputer->get_rank(createRecDat(2,0,0.0));
   EXPECT_LE(1,rank);
@@ -192,6 +209,24 @@ TEST_F(TestRankComputer,random){
   EXPECT_LE(6,rank);
   EXPECT_GE(8,rank);
 }
+
+TEST_F(TestRankComputer,testTopListRanks){
+    RankComputerParameters parameters;
+    parameters.top_k = 5;
+    parameters.random_seed = 1231232;
+    rankComputer = new RankComputer(&parameters);
+    rankComputer->set_train_matrix(&trainMatrix);
+    rankComputer->set_model(&toplist_model);
+    rankComputer->set_top_pop_container(&pop);
+    rankComputer->initialize();
+    
+    EXPECT_EQ(0,rankComputer->get_rank(createRecDat(1,1,0.0)));
+    EXPECT_EQ(5,rankComputer->get_rank(createRecDat(1,10,0.0)));
+    EXPECT_EQ(5,rankComputer->get_rank(createRecDat(3,2,0.0)));
+    EXPECT_EQ(1,rankComputer->get_rank(createRecDat(3,6,0.0)));
+    EXPECT_EQ(2,rankComputer->get_rank(createRecDat(2,3,0.0)));
+}
+
 //TEST_F(TestTopListCreator,test) {
 //  /*
 //      scores[9]=0.8;

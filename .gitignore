@@ -12,3 +12,4 @@ python/alpenglow/cpp.*.so
 cpp/bin
 cpp/dep/*
 !cpp/dep/empty
+python/test_alpenglow/tmp/*
