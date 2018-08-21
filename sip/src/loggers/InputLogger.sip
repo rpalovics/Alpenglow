@@ -12,6 +12,7 @@ class InputLogger : public Logger, public Initializable  /NoDefaultCtors/{
   public:
     InputLogger(InputLoggerParameters* params);
     void run(RecDat* rec_dat);
+    bool self_test();
   protected:
     bool autocalled_initialize();
 };
