@@ -5,8 +5,8 @@ import pandas as pd
 import sip
 
 
-class SameShuffle(ParameterDefaults):
-    """SameShuffle(seed=254938879,shuffle_mode=complete,input_file,output_file)
+class DataShuffler(ParameterDefaults):
+    """DataShuffler(seed=254938879,shuffle_mode=complete,input_file,output_file)
 
     This class is for shuffling datasets.
 
@@ -62,7 +62,7 @@ class SameShuffle(ParameterDefaults):
         data_shuffle_experiment.set_recommender_data_iterator(recommender_data_iterator)
 
         data_logger = rs.InputLogger(**self.parameter_defaults(
-            output_file="random_output_file_2",
+            output_file="",
         ))
         data_shuffle_experiment.add_logger(data_logger)
 

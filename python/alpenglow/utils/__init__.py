@@ -3,4 +3,4 @@ from .DataframeData import *
 from .FactorModelReader import *
 from .ParameterSearch import *
 from .ThreadedParameterSearch import *
-from .SameShuffle import *
+from .DataShuffler import *
