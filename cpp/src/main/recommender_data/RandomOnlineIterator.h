@@ -11,34 +11,25 @@
 
 struct RandomOnlineIteratorParameters{
   int seed;
-  string shuffle_mode = "auto_shuffle";
 };
 class RandomOnlineIterator : public RecommenderDataIterator {
   public:
-    RandomOnlineIterator(RecommenderData* recommender_data, int seed, string shuffle_mode){
-      recommender_data_ = recommender_data;
-      random_.set(seed);
-      shuffle_mode_ = shuffle_mode;
-      if (!initialize()){
-        cerr << "RandomOnlineIterator: initialization was no successful." << endl;
-        throw 0;
-      }
-    }
     RandomOnlineIterator(RandomOnlineIteratorParameters* params){
       random_.set(params->seed);
-      shuffle_mode_=params->shuffle_mode;
+    }
+    ~RandomOnlineIterator(){
+      for(RecDat* rec_dat : shuffled_data_){
+        delete rec_dat;
+      }
     }
     RecDat* next();
-    void restart();
-    void shuffle();
     RecDat* get_actual();
     RecDat* get(int index) const;
     RecDat* get_future(int index) const;
     double get_following_timestamp() const;
   private:
     Random random_;
-    vector<RecDat*> shuffled_data_;
-    string shuffle_mode_ = "auto_shuffle"; //auto_shuffle or manual_shuffle
+    vector<RecDat*> shuffled_data_; //RecDat* for const correctness argh.
 
     bool autocalled_initialize() override;
     bool parent_is_initialized_ = false;

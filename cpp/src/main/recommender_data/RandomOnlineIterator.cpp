@@ -15,13 +15,6 @@ RecDat* RandomOnlineIterator::get_future(int index) const {
 RecDat* RandomOnlineIterator::next(){
   return shuffled_data_[counter_++];
 };
-void RandomOnlineIterator::restart(){
-  if(shuffle_mode_ == "auto_shuffle") shuffle();
-  counter_ = 0;
-};
-void RandomOnlineIterator::shuffle() {
-  //random_shuffle(shuffled_data_.begin(),shuffled_data_.end(),random_);
-};
 double RandomOnlineIterator::get_following_timestamp() const {
   if(counter_ < recommender_data_->size()){
     RecDat* next = shuffled_data_[counter_];
@@ -38,8 +31,12 @@ bool RandomOnlineIterator::autocalled_initialize() {
   }
   shuffled_data_.resize(recommender_data_->size());
   for(int i=0;i<recommender_data_->size();i++){
-    shuffled_data_[i]=recommender_data_->get(i);
+    shuffled_data_[i]=new RecDat(*recommender_data_->get(i));
   }
-  restart();
+  random_shuffle(shuffled_data_.begin(),shuffled_data_.end(),random_);
+  for(int i=0;i<recommender_data_->size();i++){
+    shuffled_data_[i]->time=recommender_data_->get(i)->time;
+  }
+  counter_=0;
   return true;
 }
