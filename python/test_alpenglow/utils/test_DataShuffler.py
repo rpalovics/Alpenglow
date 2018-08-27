@@ -56,4 +56,25 @@ class TestDataShuffler(unittest.TestCase):
         output_timestamps = list(map(lambda x : int(x.split()[0]),output_file_lines))
         assert input_timestamps == output_timestamps
         self.clean()
+    def test__full_shuffle_keep_timestamps(self):
+        self.clean()
+        c = DataShuffler(
+            input_file="python/test_alpenglow/test_data_5",
+            output_file="python/test_alpenglow/tmp/datashuffler_output_file_3",
+            shuffle_mode="complete_online",
+            seed=17463232
+        )
+        c.run()
+        input_file=open("python/test_alpenglow/test_data_5")
+        input_file_lines=input_file.readlines()
+        output_file=open("python/test_alpenglow/tmp/datashuffler_output_file_3")
+        output_file_lines=output_file.readlines()
+        assert input_file_lines != output_file_lines
+        assert len(input_file_lines) == len(output_file_lines)
+        output_file_lines_sorted = sorted(output_file_lines, key=lambda x : int(x.split()[3]))
+        assert input_file_lines != output_file_lines_sorted
+        input_timestamps  = list(map(lambda x : int(x.split()[0]), input_file_lines))
+        output_timestamps = list(map(lambda x : int(x.split()[0]),output_file_lines))
+        assert input_timestamps == output_timestamps
+        self.clean()
 

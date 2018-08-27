@@ -44,6 +44,8 @@ class DataShuffler(ParameterDefaults):
         recommender_data_iterator = None
         if self.parameters['shuffle_mode'] == "same_timestamp" :
             recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
+        elif self.parameters['shuffle_mode'] == "complete_online" :
+            recommender_data_iterator = rs.RandomOnlineIterator(seed=self.parameters["seed"])
         else:
             recommender_data_iterator = rs.RandomIterator(seed=self.parameters["seed"])
         recommender_data_iterator.set_recommender_data(recommender_data)
