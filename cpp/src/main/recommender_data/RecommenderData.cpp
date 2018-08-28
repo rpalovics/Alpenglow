@@ -88,6 +88,20 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
       rec_data_.push_back(rec_dat); 
     }
   }
+  if (type == "online_id_noeval") {
+    while (ifs >> t >> user >> item >> id >> score) {
+      if (t>=max_time_ && max_time_>0) break;
+      RecDat rec_dat;
+      rec_dat.user = user;
+      rec_dat.item = item;
+      rec_dat.time = t;
+      rec_dat.id = id;
+      rec_dat.score = score;
+      rec_dat.eval=1;
+      //rec_dat.location.location_id = 0;
+      rec_data_.push_back(rec_dat); 
+    }
+  }
   if (type == "online_attribute") {
     id = 0;
     while (ifs >> t >> user >> item >> score >> eval) {
