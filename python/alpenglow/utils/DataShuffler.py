@@ -20,15 +20,19 @@ class DataShuffler(ParameterDefaults):
         Input file name.
     output_file : string
         Output file name.
+    data_format : string
+        Input file format. Available values: online, online_id, online_id_noeval, online_attribute, offline, offlineTimestamp, category. See RecommenderData.cpp for details. Default: online_id.
     """
 
     def __init__(self, **parameters):
         super().__init__(**parameters)
-        self.used_parameters = set(['seed', 'shuffle_mode'])
+        self.used_parameters = set(['seed', 'shuffle_mode', 'data_format'])
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
         if("shuffle_mode" not in self.parameters):
             self.parameters["shuffle_mode"] = "complete"
+        if("data_format" not in self.parameters):
+            self.parameters["data_format"] = "online_id"
 
     def run(self):
         rs.collect()
@@ -37,7 +41,7 @@ class DataShuffler(ParameterDefaults):
         # reading data
         recommender_data = rs.LegacyRecommenderData(
             file_name=self.parameters['input_file'],
-            type="online_id",
+            type=self.parameters["data_format"],
             max_time=0
         )
         self.used_parameters.add("input_file")
