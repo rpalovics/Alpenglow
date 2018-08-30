@@ -20,14 +20,14 @@ class TestDataShuffler(unittest.TestCase):
     def test__full_shuffle(self):
         self.clean()
         c = DataShuffler(
-            input_file="python/test_alpenglow/test_data_4",
+            input_file="python/test_alpenglow/test_data_5",
             output_file="python/test_alpenglow/tmp/datashuffler_output_file_1",
             shuffle_mode="complete",
-            data_format="online_id",
+            data_format="online_id_noeval",
             seed=17463232
         )
         c.run()
-        input_file=open("python/test_alpenglow/test_data_4")
+        input_file=open("python/test_alpenglow/test_data_5")
         input_file_lines=input_file.readlines()
         output_file=open("python/test_alpenglow/tmp/datashuffler_output_file_1")
         output_file_lines=output_file.readlines()
@@ -42,7 +42,7 @@ class TestDataShuffler(unittest.TestCase):
             input_file="python/test_alpenglow/test_data_5",
             output_file="python/test_alpenglow/tmp/datashuffler_output_file_2",
             shuffle_mode="same_timestamp",
-            data_format="online_id",
+            data_format="online_id_noeval",
             seed=17463232
         )
         c.run()
@@ -64,7 +64,7 @@ class TestDataShuffler(unittest.TestCase):
             input_file="python/test_alpenglow/test_data_5",
             output_file="python/test_alpenglow/tmp/datashuffler_output_file_3",
             shuffle_mode="complete_online",
-            data_format="online_id",
+            data_format="online_id_noeval",
             seed=17463232
         )
         c.run()
