@@ -48,8 +48,15 @@ TEST_F(TestInputLogger, test) {
   rec_dat.score = 1;
   rec_dat.eval = 0;
   logger.run(&rec_dat);
+  rec_dat.time = 1390214039;
+  rec_dat.user = 1;
+  rec_dat.item = 2;
+  rec_dat.id = 3;
+  rec_dat.score = 1;
+  rec_dat.eval = 0;
+  logger.run(&rec_dat);
   std::string out_string = out_stringstream.str();
-  EXPECT_EQ("0 1 2 0 1 1\n1 1 2 2 1 0\n1 1 2 3 1 0\n", out_string);
+  EXPECT_EQ("0 1 2 0 1 1\n1 1 2 2 1 0\n1 1 2 3 1 0\n1390214039 1 2 3 1 0\n", out_string);
 }
 
 

@@ -19,7 +19,7 @@ class InputLogger : public Logger, public Initializable { //SIP_NODEFAULTCTORS
       output_file_name_ = params->output_file;
     }
     void run(RecDat* rec_dat) override {
-      *output_stream_ << rec_dat->time << " " << rec_dat->user << " " << rec_dat->item << " " << rec_dat->id << " " << rec_dat->score << " " << rec_dat->eval << endl;
+      *output_stream_ << (int) rec_dat->time << " " << rec_dat->user << " " << rec_dat->item << " " << rec_dat->id << " " << rec_dat->score << " " << rec_dat->eval << endl;
     }
     bool self_test(){
       return output_stream_!=NULL;
