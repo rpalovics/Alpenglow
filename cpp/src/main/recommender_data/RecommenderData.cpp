@@ -47,6 +47,10 @@ void RecommenderData::clear(){
 
 void LegacyRecommenderData::read_from_file(string file_name, string type){
   ifstream ifs(file_name.c_str());
+  if (ifs.fail()){
+    cerr << "WARNING: (LegacyRecommenderData) Could not open the input file." << endl;
+    cerr << "Input file name is '" << file_name << "'" << endl;
+  }
   read_from_file_core(ifs,type);
 }
 void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
@@ -208,5 +212,8 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
     }
   }
   // cerr << "read OK, size: " << rec_data_.size() << endl;
+  if (rec_data_.size() == 0) {
+    cerr << "WARNING: (LegacyRecommenderData) Size of rec_data_ is 0." << endl;
+  }
 }
 
