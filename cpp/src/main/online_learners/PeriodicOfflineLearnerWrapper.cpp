@@ -30,7 +30,7 @@ void PeriodicOfflineLearnerWrapper::read_model(RecDat* rec_dat){
     string file_name = base_in_file_name_ + "_" + to_string(period_num);
     ifstream ifs(file_name.c_str(), ios::binary);
     if(ifs.fail()){
-      cerr << "Unable to open input file for model " << period_num << endl;
+      cerr << "Unable to open input file '" << file_name << "' for model " << period_num << endl;
       return;
     }
     model_->read(ifs);
@@ -43,7 +43,7 @@ void PeriodicOfflineLearnerWrapper::write_model(RecDat* rec_dat){
     string file_name = base_out_file_name_ + "_" + to_string(period_num);
     ofstream ofs(file_name.c_str(), ios::binary);
     if(ofs.fail()){
-      cerr << "Unable to open output file for model " << period_num << endl;
+      cerr << "Unable to open output file '" << file_name << "' for model " << period_num << endl;
       return;
     }
     model_->write(ofs);
