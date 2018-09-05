@@ -3,7 +3,7 @@ import alpenglow as prs
 
 
 class FactorExperiment(prs.OnlineExperiment):
-    """FactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=0.0)
+    """FactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=100)
 
     This class implements an online version of the well-known matrix factorization recommendation model [Koren2009]_
     and trains it via stochastic gradient descent. The model is able to train on implicit data
