@@ -14,9 +14,11 @@
 
 ### Installation from source (linux only at the moment)
 - `cd Alpenglow`
-- `conda install libgcc`
+- `conda install libgcc sip pytest`
+- `pip install numpy pandas`
 - `conda install -c conda-forge eigen`
 - `pip install .`
+
 
 ### Getting Started
 
