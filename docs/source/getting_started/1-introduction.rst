@@ -27,6 +27,7 @@ Installing from source on Linux
 	cd Alpenglow
 	conda install libgcc sip pytest
 	pip install numpy pandas
+	conda install -c conda-forge eigen
 	pip install .
 
 Development
