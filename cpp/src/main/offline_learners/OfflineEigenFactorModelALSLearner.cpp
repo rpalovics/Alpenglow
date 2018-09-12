@@ -113,8 +113,17 @@ void OfflineEigenFactorModelALSLearner::fit(RecommenderData* recommender_data){
   if(clear_before_fit_){
     model_->clear();
   }
+
   SparseMatrix<double> A = recommender_data_to_spmat_(recommender_data);
   SparseMatrix<double> AT = A.transpose();
+
+  vector<bool> seen_users(A.rows());
+  vector<bool> seen_items(A.cols());
+  vector<RecDat> *rec_data = recommender_data->get_rec_data();
+  for(RecDat &r : *rec_data){
+    seen_users[r.user] = true;
+    seen_items[r.item] = true;
+  }
 
   model_->resize(A.rows(), A.cols());
 
@@ -124,7 +133,7 @@ void OfflineEigenFactorModelALSLearner::fit(RecommenderData* recommender_data){
   if(copy_from_model_ != NULL){
     do_copy_from_model_(copy_from_model_, user_factors, item_factors);
   }
-
+  
   for(int i=0; i<number_of_iterations_; i++){
     user_factors = optimize_factors_(item_factors, AT);
     item_factors = optimize_factors_(user_factors, A);
@@ -134,8 +143,8 @@ void OfflineEigenFactorModelALSLearner::fit(RecommenderData* recommender_data){
     do_copy_to_model_(copy_to_model_, user_factors, item_factors);
   }
 
-  model_->set_user_factors(user_factors);
-  model_->set_item_factors(item_factors);
+  model_->set_user_factors(user_factors, seen_users);
+  model_->set_item_factors(item_factors, seen_items);
 }
 
 void OfflineEigenFactorModelALSLearner::do_copy_from_model_(FactorModel *model, MatrixXdRM &user_factors, MatrixXdRM &item_factors){

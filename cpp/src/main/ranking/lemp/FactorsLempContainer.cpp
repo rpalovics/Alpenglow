@@ -23,9 +23,13 @@ vector<tuple<int,double,vector<double>>> FactorsLempContainer::factor_to_items(F
     vector<double> *f = factor->get(i);
     if(f!=NULL){
       double norm = Util::norm(f);
-      vector<double> f_copy(*f);
-      Util::multiply_vector(1/norm, &f_copy);
-      items.push_back(make_tuple(i, norm, f_copy));
+      if(norm == 0){
+        items.push_back(make_tuple(i, 0, vector<double>(f->size(),0)));
+      } else {
+        vector<double> f_copy(*f);
+        Util::multiply_vector(1/norm, &f_copy);
+        items.push_back(make_tuple(i, norm, f_copy));
+      }
     }
   }
   return items;

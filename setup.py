@@ -114,6 +114,7 @@ if platform == "linux" or platform == "linux2":
         '-mfpmath=sse,387',
         '-Wno-deprecated',
         '-Wno-reorder',
+        '-msse2'
         # for modern processors:
         # '-mfma',
         # if you want to eigen to use blas/lapack:
@@ -132,7 +133,8 @@ elif platform == "win32":
         '-Dor=||',
         '-Duint="unsigned int"',
         '-DMEMORY_USAGE_LOGGER',
-        '-O2'
+        '-O2',
+        '-fp=strict'
     ]
 
 conda_executable_name = sys.executable
