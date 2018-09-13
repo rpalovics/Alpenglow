@@ -27,14 +27,14 @@ class TestDataShuffler(unittest.TestCase):
             seed=17463232
         )
         c.run()
-        input_file=open("python/test_alpenglow/test_data_5")
-        input_file_lines=input_file.readlines()
-        output_file=open("python/test_alpenglow/tmp/datashuffler_output_file_1")
-        output_file_lines=output_file.readlines()
-        assert input_file_lines != output_file_lines
-        assert len(input_file_lines) == len(output_file_lines)
-        output_file_lines_sorted = sorted(output_file_lines, key=lambda x : int(x.split()[3]))
-        assert input_file_lines == output_file_lines_sorted
+        with open("python/test_alpenglow/test_data_5") as input_file:
+            input_file_lines=input_file.readlines()
+            with open("python/test_alpenglow/tmp/datashuffler_output_file_1") as output_file:
+                output_file_lines=output_file.readlines()
+                assert input_file_lines != output_file_lines
+                assert len(input_file_lines) == len(output_file_lines)
+                output_file_lines_sorted = sorted(output_file_lines, key=lambda x : int(x.split()[3]))
+                assert input_file_lines == output_file_lines_sorted
         self.clean()
     def test__same_timestamp(self):
         self.clean()
@@ -46,17 +46,17 @@ class TestDataShuffler(unittest.TestCase):
             seed=17463232
         )
         c.run()
-        input_file=open("python/test_alpenglow/test_data_5")
-        input_file_lines=input_file.readlines()
-        output_file=open("python/test_alpenglow/tmp/datashuffler_output_file_2")
-        output_file_lines=output_file.readlines()
-        assert input_file_lines != output_file_lines
-        assert len(input_file_lines) == len(output_file_lines)
-        output_file_lines_sorted = sorted(output_file_lines, key=lambda x : int(x.split()[3]))
-        assert input_file_lines == output_file_lines_sorted
-        input_timestamps  = list(map(lambda x : int(x.split()[0]), input_file_lines))
-        output_timestamps = list(map(lambda x : int(x.split()[0]),output_file_lines))
-        assert input_timestamps == output_timestamps
+        with open("python/test_alpenglow/test_data_5") as input_file:
+            input_file_lines=input_file.readlines()
+            with open("python/test_alpenglow/tmp/datashuffler_output_file_2") as output_file:
+                output_file_lines=output_file.readlines()
+                assert input_file_lines != output_file_lines
+                assert len(input_file_lines) == len(output_file_lines)
+                output_file_lines_sorted = sorted(output_file_lines, key=lambda x : int(x.split()[3]))
+                assert input_file_lines == output_file_lines_sorted
+                input_timestamps  = list(map(lambda x : int(x.split()[0]), input_file_lines))
+                output_timestamps = list(map(lambda x : int(x.split()[0]),output_file_lines))
+                assert input_timestamps == output_timestamps
         self.clean()
     def test__full_shuffle_keep_timestamps(self):
         self.clean()
@@ -68,16 +68,16 @@ class TestDataShuffler(unittest.TestCase):
             seed=17463232
         )
         c.run()
-        input_file=open("python/test_alpenglow/test_data_5")
-        input_file_lines=input_file.readlines()
-        output_file=open("python/test_alpenglow/tmp/datashuffler_output_file_3")
-        output_file_lines=output_file.readlines()
-        assert input_file_lines != output_file_lines
-        assert len(input_file_lines) == len(output_file_lines)
-        output_file_lines_sorted = sorted(output_file_lines, key=lambda x : int(x.split()[3]))
-        assert input_file_lines != output_file_lines_sorted
-        input_timestamps  = list(map(lambda x : int(x.split()[0]), input_file_lines))
-        output_timestamps = list(map(lambda x : int(x.split()[0]),output_file_lines))
-        assert input_timestamps == output_timestamps
+        with open("python/test_alpenglow/test_data_5") as input_file:
+            input_file_lines=input_file.readlines()
+            with open("python/test_alpenglow/tmp/datashuffler_output_file_3") as output_file:
+                output_file_lines=output_file.readlines()
+                assert input_file_lines != output_file_lines
+                assert len(input_file_lines) == len(output_file_lines)
+                output_file_lines_sorted = sorted(output_file_lines, key=lambda x : int(x.split()[3]))
+                assert input_file_lines != output_file_lines_sorted
+                input_timestamps  = list(map(lambda x : int(x.split()[0]), input_file_lines))
+                output_timestamps = list(map(lambda x : int(x.split()[0]),output_file_lines))
+                assert input_timestamps == output_timestamps
         self.clean()
 
