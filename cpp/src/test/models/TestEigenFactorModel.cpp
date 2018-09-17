@@ -312,8 +312,8 @@ TEST_F(TestEigenFactorModel, TestEigenFactorModelRanking){
   user_factor << 1, -1;
   MatrixXdRM item_factor(6,1);
   item_factor << 1,6,2,5,3,4;
-  model.set_user_factors(user_factor);
-  model.set_item_factors(item_factor);
+  model.set_user_factors(user_factor, vector<bool>(2, true));
+  model.set_item_factors(item_factor, vector<bool>(6, true));
 
   vector<double> scores;
   vector<double> items;
