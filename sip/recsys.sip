@@ -7,6 +7,34 @@
 %Include std/map.sip
 %Include std/pair.sip
 
+std::string __compiler;
+std::string __stdlib;
+%ModuleCode
+	#include <ciso646>
+	
+	#if defined(_LIBCPP_VERSION)
+		std::string __stdlib = "libc++";
+	#elif defined(__GLIBCPP__) || defined(__GLIBCXX__)
+		std::string __stdlib = "libstdc++";
+	#elif defined(_MSC_VER)
+		std::string __stdlib = "msvc";
+	#else
+		std::string __stdlib = "unknown";
+	#endif
+
+	#if defined(__clang__)
+		std::string __compiler = "clang";
+	#elif defined(__GNUC__) || defined(__GNUG__)
+		std::string __compiler = "gcc";
+	#elif defined(_MSC_VER)
+		std::string __compiler = "msvc";
+	#elif defined(__MINGW32__)
+		std::string __compiler = "mingw";
+	#else
+		std::string __compiler = "unknown";
+	#endif
+%End
+
 %Include src/recommender_data/RecommenderData.sip
 %Include src/recommender_data/RecommenderDataIterator.sip
 %Include src/recommender_data/AttributeContainer.sip

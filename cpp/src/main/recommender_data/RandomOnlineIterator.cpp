@@ -33,7 +33,7 @@ bool RandomOnlineIterator::autocalled_initialize() {
   for(int i=0;i<recommender_data_->size();i++){
     shuffled_data_[i]=new RecDat(*recommender_data_->get(i));
   }
-  random_shuffle(shuffled_data_.begin(),shuffled_data_.end(),random_);
+  random_.random_shuffle(shuffled_data_.begin(),shuffled_data_.end());
   for(int i=0;i<recommender_data_->size();i++){
     shuffled_data_[i]->time=recommender_data_->get(i)->time;
   }

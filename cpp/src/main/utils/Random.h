@@ -29,6 +29,15 @@ class Random{
     int operator()(int max){return get(max);}
     void write(ofstream& file){file.write(reinterpret_cast<char*>(&state), sizeof state);}
     void read(ifstream& file){file.read(reinterpret_cast<char*>(&state), sizeof state);}
+    template<class RandomIt >
+    void random_shuffle( RandomIt first, RandomIt last ){
+      typename std::iterator_traits<RandomIt>::difference_type i, n;
+      n = last - first;
+      for (i = n-1; i > 0; --i) {
+        using std::swap;
+        swap(first[i], first[(*this)(i+1)]);
+      }
+    };
   private:
     unsigned long long state=67439852;
     static const int multiplier = 48271;
