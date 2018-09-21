@@ -20,9 +20,18 @@ void EigenFactorsLempContainer::reinitialize(EigenFactors* item_factors, int buc
 vector<tuple<int,double,vector<double>>> EigenFactorsLempContainer::factor_to_items(EigenFactors *factor){
   vector<tuple<int,double,vector<double>>> items;
   for(uint i=0; i<item_factors_->factors.rows(); i++){
+    if(!item_factors_->seen[i]){
+      continue;
+    }
     double norm = item_factors_->factors.row(i).norm();
-    MatrixXdRM row = item_factors_->factors.row(i)/norm;
-    vector<double> unit_vec = vector<double>(row.data(), row.data()+row.cols());
+    vector<double> unit_vec;
+    if(norm == 0){
+      unit_vec = vector<double>(item_factors_->factors.row(i).cols(), 0);
+    } else {
+      MatrixXdRM row;
+      row = item_factors_->factors.row(i)/norm;
+      unit_vec = vector<double>(row.data(), row.data()+row.cols());
+    }
     items.push_back(make_tuple(i, norm, unit_vec));
   }
   return items;

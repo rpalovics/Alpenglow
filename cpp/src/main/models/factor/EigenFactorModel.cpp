@@ -48,11 +48,13 @@ void EigenFactorModel::read(istream& file){
   item_factors_.read(file);
 }
 
-void EigenFactorModel::set_user_factors(const MatrixXdRM& factors){
+void EigenFactorModel::set_user_factors(const MatrixXdRM& factors, vector<bool> seen){
   user_factors_.factors = factors;
+  user_factors_.seen = seen;
 }
 
-void EigenFactorModel::set_item_factors(const MatrixXdRM& factors){
+void EigenFactorModel::set_item_factors(const MatrixXdRM& factors, vector<bool> seen){
   item_factors_.factors = factors;
+  item_factors_.seen = seen;
   lemp_container_.reinitialize(&item_factors_, lemp_bucket_size_);
 }

@@ -4,10 +4,10 @@ except:
     from distutils.core import setup, Extension
 
 import sipdistutils
+import pkg_resources
 import os
 import os.path
 import sys
-import numpy
 from sys import platform
 
 from distutils.dep_util import newer_group
@@ -55,6 +55,7 @@ class custom_build_ext(sipdistutils.build_ext):
 
     def build_extension(self, ext):
         self._add_ext_extra_depends(ext)
+        ext.include_dirs.append(pkg_resources.resource_filename('numpy', 'core/include'))
         return sipdistutils.build_ext.build_extension(self, ext)
 
 # monkey pach to force distutils to compile in parallel
@@ -114,6 +115,7 @@ if platform == "linux" or platform == "linux2":
         '-mfpmath=sse,387',
         '-Wno-deprecated',
         '-Wno-reorder',
+        '-msse2'
         # for modern processors:
         # '-mfma',
         # if you want to eigen to use blas/lapack:
@@ -132,7 +134,8 @@ elif platform == "win32":
         '-Dor=||',
         '-Duint="unsigned int"',
         '-DMEMORY_USAGE_LOGGER',
-        '-O2'
+        '-O2',
+        '-fp=strict'
     ]
 
 conda_executable_name = sys.executable
@@ -146,6 +149,7 @@ setup(
     name='alpenglow',
     version='0.1.0',
     install_requires=['numpy', 'pandas'],
+    setup_requires=['numpy'],
     ext_modules=[
         Extension(
             "alpenglow.cpp",
@@ -157,7 +161,6 @@ setup(
                 'cpp/src',
                 'cpp/src/main',
                 'cpp/dep/gtest/include',
-                numpy.get_include(),
             ]+conda_include_dirs,
             extra_compile_args=[
                 '-std=c++11',

@@ -25,7 +25,8 @@ Installing from source on Linux
 .. code-block:: bash
 
 	cd Alpenglow
-	conda install libgcc
+	conda install libgcc sip
+	conda install -c conda-forge eigen
 	pip install .
 
 Development

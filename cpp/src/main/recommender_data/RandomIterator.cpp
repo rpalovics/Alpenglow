@@ -20,7 +20,7 @@ void RandomIterator::restart(){
   counter_ = 0;
 };
 void RandomIterator::shuffle() {
-  random_shuffle(shuffled_data_.begin(),shuffled_data_.end(),random_);
+  random_.random_shuffle(shuffled_data_.begin(),shuffled_data_.end());
 };
 double RandomIterator::get_following_timestamp() const {
   if(counter_ < recommender_data_->size()){

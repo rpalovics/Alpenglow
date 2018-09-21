@@ -37,6 +37,7 @@ class EigenFactors{
     void reinitialize_factors(int dimension, int users, double begin_min_, double begin_max_);
     void resize(int dimension, int users, double begin_min_, double begin_max_);
     MatrixXdRM factors;
+    vector<bool> seen;
   private:
     Random rnd;
     int seed;

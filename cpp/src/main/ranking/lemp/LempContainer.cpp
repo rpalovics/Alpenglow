@@ -28,7 +28,7 @@ void LempContainer::rebuild_from_items(vector<tuple<int,double,vector<double>>> 
     items.begin(),
     items.end(),
     [](const tuple<int,double,vector<double>> & t1, const tuple<int,double,vector<double>> & t2){ 
-      return get<1>(t1) > get<1>(t2); 
+      return get<1>(t1) > get<1>(t2);
   });
 
   int step = bucket_size_/2;
