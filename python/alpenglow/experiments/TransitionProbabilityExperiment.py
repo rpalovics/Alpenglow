@@ -16,9 +16,9 @@ class TransitionProbabilityExperiment(prs.OnlineExperiment):
         model = rs.TransitionProbabilityModel()
         updater = rs.TransitionProbabilityModelUpdater(**self.parameter_defaults(
           filter_freq_updates=False,
-          mode_="normal",
-          label_transition_mode_=False,
-          label_file_name_=""
+          mode="normal",
+          label_transition_mode=False,
+          label_file_name=""
         ))
         updater.set_model(model)
 
