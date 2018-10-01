@@ -3,7 +3,7 @@ import alpenglow as prs
 
 
 class SvdppExperiment(prs.OnlineExperiment):
-    """SvdppExperiment(begin_min=-0.01,begin_max=0.01,dimension=10,use_sigmoid=False,norm_type="exponential",gamma=0.8,user_vector_weight=0.5,history_weight=0.5)
+    """SvdppExperiment(begin_min=-0.01,begin_max=0.01,dimension=10,learning_rate=0.05,negative_rate=20,use_sigmoid=False,norm_type="exponential",gamma=0.8,user_vector_weight=0.5,history_weight=0.5)
 
     This class implements an online version of the SVD++ model [Koren2008]_
     The model is able to train on implicit data using negative sample generation, see [X.He2016]_ and the **negative_rate** parameter.
