@@ -1,22 +1,50 @@
-language: python
-#Based on: https://conda.io/docs/user-guide/tasks/use-conda-with-travis-ci.html
-python:
-  # We don't actually use the Travis Python, but this keeps it organized.
-  - "3.5"
-install:
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  # Useful for debugging any issues with conda
-  - conda info -a
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION libgcc sip
-  - source activate test-environment
-  - conda install -c conda-forge eigen
-  - pip install .
-  - pip install pytest
-
-script:
-  - pytest
+jobs:
+  include:
+    #- name: "cpp unit tests"
+    #  language: cpp
+    #  before_install:
+    #    - pushd cpp/dep
+    #    #eigen
+    #    - wget http://bitbucket.org/eigen/eigen/get/3.3.5.tar.gz
+    #    - tar -xzf 3.3.5.tar.gz
+    #    - rm 3.3.5.tar.gz
+    #    - mkdir eigen
+    #    - mv eigen-eigen-b3f3d4950030 eigen/eigen3
+    #    - export CPATH="$CPATH:$(pwd)/eigen"
+    #    #gtest
+    #    - wget https://github.com/google/googletest/archive/release-1.7.0.zip
+    #    - unzip -q release-1.7.0.zip
+    #    - rm -rf gtest
+    #    - mv googletest-release-1.7.0 gtest
+    #    - rm release-1.7.0.zip
+    #    - cd gtest
+    #    - GTEST_DIR=`pwd`
+    #    - mkdir build
+    #    - cd build
+    #    - g++ -isystem ${GTEST_DIR}/include -I${GTEST_DIR} -pthread -c ${GTEST_DIR}/src/gtest-all.cc
+    #    - ar -rv libgtest.a gtest-all.o
+    #    - popd
+    #    - cd cpp/src
+    #  install: scons -j10
+    #  script: ./run_tests.sh
+    - name: "python integration tests"
+      language: python
+      python:
+        # We don't actually use the Travis Python, but this keeps it organized.
+        - "3.5"
+      install:
+        - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+        - bash miniconda.sh -b -p $HOME/miniconda
+        - export PATH="$HOME/miniconda/bin:$PATH"
+        - hash -r
+        - conda config --set always_yes yes --set changeps1 no
+        - conda update -q conda
+        # Useful for debugging any issues with conda
+        - conda info -a
+        - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION libgcc sip
+        - source activate test-environment
+        - conda install -c conda-forge eigen
+        - pip install .
+        - pip install pytest
+      script:
+        - pytest
