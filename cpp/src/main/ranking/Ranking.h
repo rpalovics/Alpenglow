@@ -50,7 +50,13 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable{
     int get_rank(RecDat*);
   protected:
     bool autocalled_initialize() override {
-      if(train_matrix_==NULL) train_matrix_=experiment_environment_->get_train_matrix();
+      if(train_matrix_==NULL){
+        if(experiment_environment_->do_exclude_known()){
+          train_matrix_=experiment_environment_->get_train_matrix();
+        } else {
+          train_matrix_=&empty_matrix_;
+        }
+      }
       if(popularity_sorted_container_==NULL){
         popularity_sorted_container_=experiment_environment_->get_popularity_sorted_container();
       }
@@ -83,6 +89,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable{
     RankingScoreIteratorProvider* ranking_model_ = NULL;
     TopListRecommender* toplist_model_ = NULL;
     SpMatrix* train_matrix_ = NULL;
+    SpMatrix empty_matrix_;
     TopPopContainer* popularity_sorted_container_ = NULL;
     ModelFilter* model_filter_ = NULL;
     ExperimentEnvironment* experiment_environment_ = NULL;

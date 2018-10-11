@@ -56,6 +56,6 @@ class TestExternalModelExperiment:
             in_name_base="python/test_alpenglow/tmp/batch",
             mode='read'
         )
-        res = experiment.run(data)
+        res = experiment.run(data, exclude_known=True)
         print(res['rank'].isnull().value_counts())
         assert (~res['rank'].isnull()).astype(np.int64).sum() == 1
