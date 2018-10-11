@@ -151,7 +151,7 @@ TEST_F(TestTransitionProbabilityModel, test_rsi){
   double item_score;
   int item_id;
   vector<int> users = {10, 20};
-  for(user : users){
+  for(int user : users){
     rsi = model.get_ranking_score_iterator(user);
     EXPECT_TRUE(rsi->has_next());
     tie(item_id, item_score) = rsi->get_next();
