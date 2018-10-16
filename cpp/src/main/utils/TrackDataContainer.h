@@ -8,7 +8,7 @@
 #include <vector>
 
 struct TrackDataContainerParameters {
-  std::string file_name;
+  std::string file_name = "";
 };
 
 class TrackDataContainer {

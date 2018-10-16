@@ -38,9 +38,9 @@ protected:
 };
 
 TEST_F(TestTrackDataContainer, test1) {
-  std::string file_name("/mnt/idms/pszalai/sandbox/testfiles/TestTrackDataContainer");
+  //std::string file_name("");
   TrackDataContainerParameters tdcp;
-  tdcp.file_name = file_name;
+  //tdcp.file_name = file_name;
   TrackDataContainerToTest tdc(&tdcp);
   std::vector<std::vector<int> > v = tdc.get_data(10000009);
   std::cout << "get data done " << std::endl;
