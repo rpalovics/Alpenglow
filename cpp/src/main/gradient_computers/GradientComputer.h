@@ -12,7 +12,6 @@
 
 using namespace std;
 
-//TODO one level?
 class GradientComputer : public Updater{ //SIP_ABSTRACT
   public:
     void set_model(Model* model){model_=model;}
