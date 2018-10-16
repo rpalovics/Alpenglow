@@ -11,7 +11,10 @@
 
 ### Requirements
 - Anaconda + Python 3.5 or 3.6 environment
-
+### Conda package:
+[![Conda Version](https://img.shields.io/conda/vn/conda-forge/alpenglow.svg)](https://anaconda.org/conda-forge/alpenglow) [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/alpenglow.svg)](https://anaconda.org/conda-forge/alpenglow) [![Linux](https://img.shields.io/circleci/project/github/conda-forge/alpenglow-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/alpenglow-feedstock)
+[![OSX](https://img.shields.io/travis/conda-forge/alpenglow-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/alpenglow-feedstock)
+[![Windows](https://img.shields.io/appveyor/ci/conda-forge/alpenglow-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/alpenglow-feedstock/branch/master)
 ### Installation from conda repositories
 - `conda install -c conda-forge alpenglow`
 
