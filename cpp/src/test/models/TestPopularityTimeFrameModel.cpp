@@ -32,6 +32,40 @@ TEST_F(TestPopularityTimeFrameModel, test){
   PopularityTimeFrameModelUpdater updater(&params);
   updater.set_model(&model);
 
+  for(int i=0;i<5;i++){
+    RecDat* rec_dat = create_rec_dat(i,i%2,2);
+    updater.update(rec_dat); //00011
+  }
+  double pred0 = model.prediction(create_rec_dat(10,0,5));
+  double pred1 = model.prediction(create_rec_dat(10,1,5));
+  EXPECT_GT(pred0,pred1);
+
+  for(int i=0;i<5;i++){
+    RecDat* rec_dat = create_rec_dat(i,i%2+1,9);
+    updater.update(rec_dat); //11122
+  }
+  pred0 = model.prediction(create_rec_dat(10,0,10));
+  pred1 = model.prediction(create_rec_dat(10,1,10));
+  double pred2 = model.prediction(create_rec_dat(10,2,10));
+  EXPECT_GT(pred1,pred0);
+  EXPECT_GT(pred0,pred2);
+
+  RecDat* rec_dat = create_rec_dat(5,3,15);
+  updater.update(rec_dat); //3
+  pred0 = model.prediction(create_rec_dat(10,0,16));
+  pred1 = model.prediction(create_rec_dat(10,1,16));
+  pred2 = model.prediction(create_rec_dat(10,2,16));
+  double pred3 = model.prediction(create_rec_dat(10,3,16));
+  EXPECT_GT(pred1,pred2);
+  EXPECT_GT(pred2,pred3);
+  EXPECT_GT(pred3,pred0);
+  EXPECT_EQ(0,pred0);
+
+  for(int i = 4; i<15; i++){
+    double pred = model.prediction(create_rec_dat(10,i,16));
+    EXPECT_EQ(0,pred);
+  }
+
 }
 
 
