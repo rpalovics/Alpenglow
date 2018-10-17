@@ -6,7 +6,11 @@ class PopularityTimeframeExperiment(prs.OnlineExperiment):
     """PopularityTimeframeExperiment(tau=86400)
 
     Time-aware version of PopularityModel, which only considers the last 
-    **tau** time interval when calculating popularities.
+    **tau** time interval when calculating popularities. Note that the
+    time window ends at the timestamp of the last updating sample. The
+    model does not take into consideration the timestamp of the sample
+    for that the prediction is computed.
+
 
     Parameters
     ----------

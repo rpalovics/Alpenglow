@@ -11,16 +11,15 @@
 
 using namespace std;
 struct PopularityTimeFrameModelUpdaterParameters{
-  double tau;
-  PopularityTimeFrameModelUpdaterParameters(){
-    tau=-1;
-  }
+  double tau = -1;
 };
 class PopularityTimeFrameModelUpdater : public Updater {
+/**
+  Time-aware updater for PopularityModel, which only considers the last tau time interval when calculating popularities. Note that the time window ends at the timestamp of the last updating sample. the timestamp of the sample in the prediction call is not considered.
+*/
   public:
     PopularityTimeFrameModelUpdater(PopularityTimeFrameModelUpdaterParameters* params){
       tau_ = params->tau;
-      model_ = NULL;
     }
     void set_model(PopularityModel* model){model_ = model;};
     void update(RecDat* rec_dat) override;
@@ -33,7 +32,7 @@ class PopularityTimeFrameModelUpdater : public Updater {
   private:
     double tau_;
     queue<RecDat*> time_frame_data_;
-    PopularityModel* model_;
+    PopularityModel* model_ = NULL;
 };
 
 #endif
