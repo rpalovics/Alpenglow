@@ -7,17 +7,11 @@
 #include "../utils/Random.h"
 
 struct UniformNegativeSampleGeneratorParameters{
-    double negative_rate; 
-    bool initialize_all;
-    int max_item;
-    bool filter_repeats;
+    double negative_rate = -1; 
+    bool initialize_all = false;
+    int max_item = -1;
+    bool filter_repeats = false;
     int seed=67439852;
-    UniformNegativeSampleGeneratorParameters(){
-      negative_rate=-1;
-      initialize_all=false;
-      max_item=-1;
-      filter_repeats=false;
-    }
 };
 
 class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public NeedsExperimentEnvironment {
