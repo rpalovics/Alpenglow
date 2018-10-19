@@ -12,7 +12,8 @@ class DataframeData : public RecommenderData {
   		SIP_PYOBJECT* scores /In/,
   		SIP_PYOBJECT* times /In/,
   		SIP_PYOBJECT* evals /In/,
-  		SIP_PYOBJECT* categories /In/
+  		SIP_PYOBJECT* categories /In/,
+  		SIP_PYOBJECT* blacklists /In/
   	);
 	%MethodCode
 		Py_BEGIN_ALLOW_THREADS //for sip 3.x compatibility this is required
@@ -80,6 +81,14 @@ class DataframeData : public RecommenderData {
 			categories_ptr = (long*)PyArray_DATA(categories);
 		}
 		
+		long *blacklists_ptr = NULL;
+		PyObject *blacklists = PyArray_FROM_OTF(a6, NPY_LONG, NPY_ARRAY_C_CONTIGUOUS | NPY_ARRAY_ENSUREARRAY);
+		if(blacklists == NULL){
+			Py_XDECREF(blacklists);
+		} else {
+			blacklists_ptr = (long*)PyArray_DATA(blacklists);
+		}
+		
 		// Call the function
 		if(users_ptr != NULL 
 			&& items_ptr != NULL 
@@ -88,8 +97,9 @@ class DataframeData : public RecommenderData {
 			&& times_ptr != NULL
 			&& evals_ptr != NULL
 			&& categories_ptr != NULL
+			&& blacklists_ptr != NULL
 		){
-			sipCpp->add_recdats(PyArray_SIZE(users), users_ptr, items_ptr, ids_ptr, scores_ptr, times_ptr, evals_ptr, categories_ptr);
+			sipCpp->add_recdats(PyArray_SIZE(users), users_ptr, items_ptr, ids_ptr, scores_ptr, times_ptr, evals_ptr, categories_ptr, blacklists_ptr);
 		}
 
 	    SIP_UNBLOCK_THREADS

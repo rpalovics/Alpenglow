@@ -26,6 +26,7 @@ struct RecDat{
   double time;
   int user,item,eval;
   int category;
+  int blacklist;
   // std::vector<std::vector<int>> *attributes;
   //bool operator<(const RecDat& rec_dat) const { return score < rec_dat.score; }
   //bool operator>(const RecDat& rec_dat) const { return score > rec_dat.score; }

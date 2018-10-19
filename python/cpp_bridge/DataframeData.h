@@ -16,7 +16,8 @@ public:
     double *scores,
     double *times,
     long *evals,
-    long *categories
+    long *categories,
+    long *blacklists
   )
   {
     rec_data_.reserve(size);
@@ -29,6 +30,7 @@ public:
       d.time = times[i];
       d.eval = evals[i];
       d.category = categories[i];
+      d.blacklist = blacklists[i];
       rec_data_.push_back(RecDat(d));
     }
   }

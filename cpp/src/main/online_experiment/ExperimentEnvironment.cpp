@@ -23,7 +23,7 @@ void ExperimentEnvironment::update(RecDat* rec_dat){
     PUT_VECTORMAP(user_map_,user,true);
     users_.push_back(user);
   }
-  if(train_matrix_.get(user,item)==0){
+  if(train_matrix_.get(user,item)==0 && !rec_dat->blacklist){
     item_new_for_user_=true;
     train_matrix_.update(user,item,score);
   }

@@ -19,8 +19,9 @@ class DataframeData(rs.DataframeData):
         times = np.array(self._get_def_valarray('time', 'arange'), dtype=np.float64)
         evals = np.array(self._get_def_valarray('eval', 'ones'), dtype=np.intc)
         categories = np.array(self._get_def_valarray('category', 'ones'), dtype=np.intc)
+        blacklists = np.array(self._get_def_valarray('blacklist', 'ones'), dtype=np.intc)
 
-        self.add_recdats(users,items,ids,scores,times,evals,categories)
+        self.add_recdats(users,items,ids,scores,times,evals,categories,blacklists)
 
         super(rs.DataframeData, self).initialize()
 
