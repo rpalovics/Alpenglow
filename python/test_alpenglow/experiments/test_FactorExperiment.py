@@ -119,3 +119,42 @@ class TestFactorExperiment:
             exclude_known=False
         )
         assert list(facRankings2["rank"].fillna(101)) != desired_ranks
+
+
+    def test_factorExperiment_4(self):
+        data = pd.read_csv(
+            "python/test_alpenglow/test_data_4",
+            sep=' ',
+            header=None,
+            names=['time', 'user', 'item', 'id', 'score', 'eval']
+        )
+        data_delayed = data.copy()
+        data_delayed['time'] += int(data['time'].mean())
+        data_duplicated = pd.concat([data, data_delayed], axis=0, ignore_index=True).sort_values('time')
+        data_duplicated['blacklist'] = np.random.randint(0, 2, len(data_duplicated))
+
+        data['eval']=True
+        factorExperiment = alpenglow.experiments.FactorExperiment(
+            top_k=100,
+            seed=254938879,
+            dimension=10,
+            learning_rate=0.1,
+            negative_rate=10
+        )
+        facRankings = factorExperiment.run(
+            data_duplicated,
+            verbose=True,
+            calculate_toplists=True,
+            exclude_known=True
+        )
+        preds = factorExperiment.get_predictions()
+        groups = sorted(list(preds.sort_values('time').groupby('record_id')), key=lambda r: r[1]['time'].iloc[0])
+        blacklisted = set()
+        for key, df in list(groups):
+            orig_record = data_duplicated.loc[key]
+            print(orig_record)
+            predpairs = set([(orig_record['user'], i) for i in df['item'].values])
+            assert len(predpairs & blacklisted) == 0
+
+            if(orig_record['blacklist']):
+                blacklisted.add((orig_record['user'], orig_record['item']))
