@@ -80,7 +80,8 @@ class SvdppModel : public Model {
         cerr << "SvdppModel::dimension_ <= 0." << endl;
       }
       if(norm_type_!="disabled" and norm_type_!="constant" and norm_type_!="recency" and norm_type_!="exponential" and norm_type_!="youngest"){ ok=false; cerr << "AsymmetricFactorModel::norm_type is not properly set, it should be one of the following: disabled, constant, recency, exponential, youngest." << endl; }
-      if(norm_type_=="exponential" and gamma_==-1){ ok=false; cerr << "SvdppModel::gamma it not set." << endl; }
+      if(norm_type_=="exponential" and gamma_==-1){ ok=false; cerr << "SvdppModel::gamma is not set." << endl; }
+      if(norm_type_=="exponential" and gamma_==1){ ok=false; cerr << "SvdppModel::gamma==1. Hint: consider norm_type=constant." << endl; }
       if(user_vector_weight_==-1 or history_weight_==-1){ cerr << "WARNING: SvdppModel::user_vector_weight or SvdppModel::history_weight is not set." << endl; }
       if(user_vector_weight_==0){ cerr << "SvdppModel::user_vector_weight_=0 makes model identical to AsymmetricFactorModel." << endl; }
       if(history_weight_==0){ cerr << "SvdppModel::history_weight_=0 makes model identical to FactorModel." << endl; }
