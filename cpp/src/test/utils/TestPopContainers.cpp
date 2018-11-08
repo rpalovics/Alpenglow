@@ -169,114 +169,114 @@ TEST_F(TestTopPopContainer, get_item) {
   EXPECT_EQ(2, container.get_item(3));
 }
 
-TEST_F(TestTopPopContainer, reduceAndSize) {
-  container.increase(5);
-  container.increase(1);
-  container.increase(5);
-  container.increase(1);
-  container.increase(3);
-  container.increase(3);
-  container.increase(10);
-  container.increase(3);
-  container.increase(11);
-  container.increase(1);
-
-  EXPECT_EQ(5, container.size());
-
-  container.reduce(3);
-
-  EXPECT_EQ(5, container.size());
-  EXPECT_EQ(1, container.get(0).first);
-  EXPECT_EQ(3, container.get(0).second);
-
-  container.reduce(3);
-  container.reduce(1);
-  
-  EXPECT_EQ(5, container.size());
-  EXPECT_EQ(1, container.get(0).first);
-  EXPECT_EQ(2, container.get(0).second);
-  EXPECT_EQ(5, container.get(1).first);
-  EXPECT_EQ(2, container.get(1).second);
-  EXPECT_EQ(3, container.get(2).first);
-  EXPECT_EQ(1, container.get(2).second);
-  EXPECT_EQ(10, container.get(3).first);
-  EXPECT_EQ(1, container.get(3).second);
-  EXPECT_EQ(11, container.get(4).first);
-  EXPECT_EQ(1, container.get(4).second);
-
-  container.reduce(10);
-
-  EXPECT_EQ(4, container.size());
-  EXPECT_EQ(11, container.get(3).first);
-  EXPECT_EQ(1, container.get(3).second);
-  EXPECT_EQ(0, container.get(4).first);
-  EXPECT_EQ(0, container.get(4).second);
-}
-
-TEST_F(TestTopPopContainer, get_normed) {
-  container.increase(5);
-  container.increase(1);
-  container.increase(5);
-  container.increase(1);
-  container.increase(3);
-  container.increase(3);
-  container.increase(8);
-  container.increase(3);
-  container.increase(9);
-  container.increase(1);
-
-  EXPECT_EQ(3, container.get_normed(0).first);
-  EXPECT_EQ(1, container.get_normed(0).second);
-  EXPECT_EQ(1, container.get_normed(1).first);
-  EXPECT_EQ(1, container.get_normed(1).second);
-  EXPECT_EQ(5, container.get_normed(2).first);
-  EXPECT_EQ(1/3.0, container.get_normed(2).second);
-  EXPECT_EQ(8, container.get_normed(3).first);
-  EXPECT_EQ(1/4.0, container.get_normed(3).second);
-  EXPECT_EQ(9, container.get_normed(4).first);
-  EXPECT_EQ(1/4.0, container.get_normed(4).second);
-  EXPECT_EQ(0, container.get_normed(5).first);
-  EXPECT_EQ(0, container.get_normed(5).second);
-}
-
-TEST_F(TestTopPopContainer, get_recommendation) {
-  container.increase(1);
-  container.increase(3);
-  container.increase(4);
-  container.increase(3);
-  container.increase(3);
-  container.increase(7);
-  container.increase(7);
-  container.increase(1);
- 
-  map<int, double>* recommendation = container.get_recommendation(3);
-  EXPECT_EQ(3, recommendation->size());
-  map<int,double>::iterator it=recommendation->find(3);
-  EXPECT_EQ(3, it->second);
-  it=recommendation->find(1);
-  EXPECT_EQ(2, it->second);
-  it=recommendation->find(7);
-  EXPECT_EQ(2, it->second);
-}
-
-TEST_F(TestTopPopContainer, treshold) {
-  //Threshold is N. If order of the first N element has changed after last call of get, get_normed or get_recommendation, has_changed returns true. 
-  container.set_threshold(3);
-  container.get(0);
-  EXPECT_FALSE(container.has_changed());
-
-  container.increase(1);
-  container.increase(2);
-  container.increase(2);
-  EXPECT_TRUE(container.has_changed());
-
-  container.get(0);
-  EXPECT_FALSE(container.has_changed());
-
-  container.reduce(2);
-  container.reduce(2);
-  EXPECT_TRUE(container.has_changed());
-}
+//TEST_F(TestTopPopContainer, reduceAndSize) {
+//  container.increase(5);
+//  container.increase(1);
+//  container.increase(5);
+//  container.increase(1);
+//  container.increase(3);
+//  container.increase(3);
+//  container.increase(10);
+//  container.increase(3);
+//  container.increase(11);
+//  container.increase(1);
+//
+//  EXPECT_EQ(5, container.size());
+//
+//  container.reduce(3);
+//
+//  EXPECT_EQ(5, container.size());
+//  EXPECT_EQ(1, container.get(0).first);
+//  EXPECT_EQ(3, container.get(0).second);
+//
+//  container.reduce(3);
+//  container.reduce(1);
+//  
+//  EXPECT_EQ(5, container.size());
+//  EXPECT_EQ(1, container.get(0).first);
+//  EXPECT_EQ(2, container.get(0).second);
+//  EXPECT_EQ(5, container.get(1).first);
+//  EXPECT_EQ(2, container.get(1).second);
+//  EXPECT_EQ(3, container.get(2).first);
+//  EXPECT_EQ(1, container.get(2).second);
+//  EXPECT_EQ(10, container.get(3).first);
+//  EXPECT_EQ(1, container.get(3).second);
+//  EXPECT_EQ(11, container.get(4).first);
+//  EXPECT_EQ(1, container.get(4).second);
+//
+//  container.reduce(10);
+//
+//  EXPECT_EQ(4, container.size());
+//  EXPECT_EQ(11, container.get(3).first);
+//  EXPECT_EQ(1, container.get(3).second);
+//  EXPECT_EQ(0, container.get(4).first);
+//  EXPECT_EQ(0, container.get(4).second);
+//}
+//
+//TEST_F(TestTopPopContainer, get_normed) {
+//  container.increase(5);
+//  container.increase(1);
+//  container.increase(5);
+//  container.increase(1);
+//  container.increase(3);
+//  container.increase(3);
+//  container.increase(8);
+//  container.increase(3);
+//  container.increase(9);
+//  container.increase(1);
+//
+//  EXPECT_EQ(3, container.get_normed(0).first);
+//  EXPECT_EQ(1, container.get_normed(0).second);
+//  EXPECT_EQ(1, container.get_normed(1).first);
+//  EXPECT_EQ(1, container.get_normed(1).second);
+//  EXPECT_EQ(5, container.get_normed(2).first);
+//  EXPECT_EQ(1/3.0, container.get_normed(2).second);
+//  EXPECT_EQ(8, container.get_normed(3).first);
+//  EXPECT_EQ(1/4.0, container.get_normed(3).second);
+//  EXPECT_EQ(9, container.get_normed(4).first);
+//  EXPECT_EQ(1/4.0, container.get_normed(4).second);
+//  EXPECT_EQ(0, container.get_normed(5).first);
+//  EXPECT_EQ(0, container.get_normed(5).second);
+//}
+//
+//TEST_F(TestTopPopContainer, get_recommendation) {
+//  container.increase(1);
+//  container.increase(3);
+//  container.increase(4);
+//  container.increase(3);
+//  container.increase(3);
+//  container.increase(7);
+//  container.increase(7);
+//  container.increase(1);
+// 
+//  map<int, double>* recommendation = container.get_recommendation(3);
+//  EXPECT_EQ(3, recommendation->size());
+//  map<int,double>::iterator it=recommendation->find(3);
+//  EXPECT_EQ(3, it->second);
+//  it=recommendation->find(1);
+//  EXPECT_EQ(2, it->second);
+//  it=recommendation->find(7);
+//  EXPECT_EQ(2, it->second);
+//}
+//
+//TEST_F(TestTopPopContainer, treshold) {
+//  //Threshold is N. If order of the first N element has changed after last call of get, get_normed or get_recommendation, has_changed returns true. 
+//  container.set_threshold(3);
+//  container.get(0);
+//  EXPECT_FALSE(container.has_changed());
+//
+//  container.increase(1);
+//  container.increase(2);
+//  container.increase(2);
+//  EXPECT_TRUE(container.has_changed());
+//
+//  container.get(0);
+//  EXPECT_FALSE(container.has_changed());
+//
+//  container.reduce(2);
+//  container.reduce(2);
+//  EXPECT_TRUE(container.has_changed());
+//}
 
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);

@@ -33,10 +33,10 @@ void TopPopContainer::increase(int item){
   } 
 }
 
-void TopPopContainer::reduce(int item){
-  popularities[idxs[item]]--;
-  swap_down(item);
-}
+//void TopPopContainer::reduce(int item){
+//  popularities[idxs[item]]--;
+//  swap_down(item);
+//}
 
 pair <int,double> TopPopContainer::get(int idx){
    changed=false;
@@ -48,28 +48,28 @@ pair <int,double> TopPopContainer::get(int idx){
    return p;
 }
 
-pair <int,double> TopPopContainer::get_normed(int idx){
-   changed=false;
-   pair <int,double> p;
-   if(idx<(int)names.size()){
-     p.first=names[idx];
-     while (idx!=0 && popularities[idx-1]==popularities[idx]){
-       idx--;
-     }
-     p.second=1/(double)(idx+1);
-   }
-   return p;
-}
-
-map <int,double> * TopPopContainer::get_recommendation(int num){
-  changed=false;
-  map <int,double> * rec = new map <int,double>;
-  if(num>(int)names.size()) num=names.size();
-  for(int ii=0; ii<num; ii++){
-    rec->insert(make_pair(names[ii],popularities[ii]));
-  }
-  return rec;
-}
+//pair <int,double> TopPopContainer::get_normed(int idx){
+//   changed=false;
+//   pair <int,double> p;
+//   if(idx<(int)names.size()){
+//     p.first=names[idx];
+//     while (idx!=0 && popularities[idx-1]==popularities[idx]){
+//       idx--;
+//     }
+//     p.second=1/(double)(idx+1);
+//   }
+//   return p;
+//}
+//
+//map <int,double> * TopPopContainer::get_recommendation(int num){
+//  changed=false;
+//  map <int,double> * rec = new map <int,double>;
+//  if(num>(int)names.size()) num=names.size();
+//  for(int ii=0; ii<num; ii++){
+//    rec->insert(make_pair(names[ii],popularities[ii]));
+//  }
+//  return rec;
+//}
 
 
 void TopPopContainer::swap_up(int item){
