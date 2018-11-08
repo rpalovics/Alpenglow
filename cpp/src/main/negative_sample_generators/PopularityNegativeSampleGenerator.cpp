@@ -1,6 +1,6 @@
 #include "PopularityNegativeSampleGenerator.h"
 
-vector<int> * PopularityNegativeSampleGenerator::generate(RecDat* rec_dat){
+vector<int>* PopularityNegativeSampleGenerator::generate(RecDat* rec_dat){
   samples.clear();
   //create map of unavailable items
   vector<int> unavailable_items_map;
