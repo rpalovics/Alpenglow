@@ -174,14 +174,17 @@ TEST_F(TestTopPopContainer, get_item) {
 }
 
 TEST_F(TestTopPopContainer, get_item_huge) {
-  int max_item = 1000000;
+  int max_item = 50000;
   for(int i=0;i<max_item;i++){
     container.increase(i);
   }
+  cerr << "first part ok" << endl;
   Random random(2238823);
-  for(int i=0;i<5000000;i++){
-    container.increase(random.get(max_item));
+  for(int i=0;i<1000000;i++){
+    container.increase(random.get(max_item*3));
+    if (!(i%1000)) cerr << i/10000 << "% ";
   }
+  cerr << endl;
   container.get_item(0);
   container.get_item(1);
   container.get_item(2);
