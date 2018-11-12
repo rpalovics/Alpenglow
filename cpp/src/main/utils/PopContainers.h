@@ -14,6 +14,7 @@
 
 using namespace std;
 
+//SIP_AUTOCONVERT
 class PopContainer{
   public:
     void increase(int item);
