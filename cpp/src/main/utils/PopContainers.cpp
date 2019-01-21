@@ -1,109 +1,71 @@
 #include "PopContainers.h"
 
-
 void PopContainer::increase(int item){
   resize(item);
-  popularities[item]++;
+  popularities_[item]++;
 }
 
 void PopContainer::reduce(int item){
-  popularities[item]--;
+  popularities_[item]--;
 }
 
 void PopContainer::resize(int item){
-  if((int)popularities.size()<item+1) popularities.resize(item+1);
+  if((int)popularities_.size()<item+1) popularities_.resize(item+1);
 }
 
 int PopContainer::get(int item){ 
-  if((int)popularities.size()<item+1) return 0;
-  else return popularities[item];
+  if((int)popularities_.size()<item+1) return 0;
+  else return popularities_[item];
 }
 
-void TopPopContainer::increase(int item){ 
-  if((int)idxs.size()<item+1){
-    idxs.resize(item+1,-1);
+// TopPopContainer
+
+void TopPopContainer::increase(int item) { 
+  if ((int)idxs_.size()<item+1) {
+    idxs_.resize(item+1,-1);
   }
-  if(idxs[item]==-1){
-    popularities.push_back(1);
-    names.push_back(item);
-    idxs[item]=popularities.size()-1;
-  } else{
-    popularities[idxs[item]]++;
-    swap_up(item);
+  int idx = -1;
+  int popularity = -1;
+  if (-1 == idxs_[item]) {
+    popularity = 1;
+    top_list_.push_back(item);
+    popularities_.push_back(popularity);
+    idx = top_list_.size()-1;
+    idxs_[item] = idx;
+  } else {
+    int original_idx = idxs_[item];
+    int original_popularity = popularities_[original_idx];
+    idx = popularity_boundaries_[original_popularity];
+    swap_positions(original_idx,idx); //move item to the head of items having the same popularity
+    popularities_[idx]++;
+    popularity = original_popularity+1;
+    if(popularities_.size()<=idx+1 or
+        popularities_[idx+1]!=original_popularity){ //was the only item having original_popularity
+      popularity_boundaries_.erase(original_popularity);
+    } else {
+      popularity_boundaries_[original_popularity]++;
+    }
   } 
+  if (popularity_boundaries_.find(popularity)==popularity_boundaries_.end()){
+    popularity_boundaries_[popularity]=idx;
+  }
 }
-
-//void TopPopContainer::reduce(int item){
-//  popularities[idxs[item]]--;
-//  swap_down(item);
-//}
 
 pair <int,double> TopPopContainer::get(int idx){
-   changed=false;
-   pair <int,double> p;
-   if(idx<(int)names.size()){
-     p.first=names[idx];
-     p.second=popularities[idx];
-   }
-   return p;
-}
-
-//pair <int,double> TopPopContainer::get_normed(int idx){
-//   changed=false;
-//   pair <int,double> p;
-//   if(idx<(int)names.size()){
-//     p.first=names[idx];
-//     while (idx!=0 && popularities[idx-1]==popularities[idx]){
-//       idx--;
-//     }
-//     p.second=1/(double)(idx+1);
-//   }
-//   return p;
-//}
-//
-//map <int,double> * TopPopContainer::get_recommendation(int num){
-//  changed=false;
-//  map <int,double> * rec = new map <int,double>;
-//  if(num>(int)names.size()) num=names.size();
-//  for(int ii=0; ii<num; ii++){
-//    rec->insert(make_pair(names[ii],popularities[ii]));
-//  }
-//  return rec;
-//}
-
-
-void TopPopContainer::swap_up(int item){
-  while(idxs[item]!=0 && popularities[idxs[item]]>popularities[idxs[item]-1]){
-    int idx=idxs[item];
-    swap(idx,idx-1,&names);
-    swap(idx,idx-1,&popularities);
-    idxs[item]--;
-    idxs[names[idx]]++;
+  pair <int,double> p;
+  if(idx<(int)top_list_.size()){
+    p.first=top_list_[idx];
+    p.second=popularities_[idx];
   }
+  return p;
 }
 
-void TopPopContainer::swap_down(int item){
-  while(idxs[item]!=(int)popularities.size()-1 && popularities[idxs[item]+1]>popularities[idxs[item]]){  
-    int idx=idxs[item];
-    swap(idx,idx+1,&names);
-    swap(idx,idx+1,&popularities);
-    idxs[item]++;
-    idxs[names[idx]]--; 
-  }
-  squeeze(item);
-}
-
-void TopPopContainer::squeeze(int item){
-  if(popularities[idxs[item]]==0){
-    idxs[item]=-1;
-    popularities.pop_back();
-    names.pop_back();
-  }
-}
-
-void TopPopContainer::swap(int idx1, int idx2, vector <int> * vec){
-   int buffer=(*vec)[idx1];
-   (*vec)[idx1]=(*vec)[idx2];
-   (*vec)[idx2]=buffer;
-   if(idx1<threshold) changed=true;
+void TopPopContainer::swap_positions(int idx1, int idx2){
+  ///swaps two items in the toplist that have identical popularity
+  int item1 = top_list_[idx1];
+  int item2 = top_list_[idx2];
+  top_list_[idx1]=item2;
+  top_list_[idx2]=item1;
+  idxs_[item1]=idx2;
+  idxs_[item2]=idx1;
 }
