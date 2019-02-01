@@ -80,10 +80,9 @@ inline bool compare_rec_dat2(RecDat a, RecDat b){
 class PredictionCreatorGlobal: public PredictionCreator{
   public:
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params):PredictionCreator(params){
-      min_heap_ = new Toplist<RecDat,compare_rec_dat2>(params->top_k); //TODO use utils/Toplist
       initial_threshold_ = (uint)params->initial_threshold;
     };
-    virtual ~PredictionCreatorGlobal(){ delete min_heap_; }
+    virtual ~PredictionCreatorGlobal(){}
     vector<RecDat>* run(RecDat* rec_dat);
     bool self_test(){
       bool OK = PredictionCreator::self_test(); 
@@ -96,7 +95,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
   
   private:
     //Toplist<RecDat,compare_rec_dat2> min_heap_new_;
-    Toplist<RecDat,compare_rec_dat2>* min_heap_;
+    Toplist<RecDat,compare_rec_dat2> min_heap_;
     uint initial_threshold_;
     //void process_row(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
     //void process_column(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
