@@ -35,6 +35,29 @@ TEST_F(TestToplist, dummy) {
   EXPECT_TRUE(heap.self_test());
 }
 
+TEST_F(TestToplist, samescore) {
+  Toplist<RecDat,compare_rec_dat> toplist(10);
+  RecDat rec_dat;
+  rec_dat.user = 1;
+  rec_dat.item = 0;
+  rec_dat.time = 10;
+  rec_dat.score = 2.3;
+  for (int i=0;i<15;i++) {
+    rec_dat.item = i;
+    toplist.insert(rec_dat);
+  }
+  vector<int> output_items(10);
+  for (int i=0;i<10;i++) {
+    int item = toplist.get_min().item;
+    ASSERT_LT(item,10);
+    output_items[item]++;
+    toplist.delete_min();
+  }
+  for (int i=0;i<10;i++) {
+    EXPECT_EQ(1,output_items[i]);
+  }
+}
+
 TEST_F(TestToplist, insert){
   Toplist<RecDat,compare_rec_dat> heap(50);
   EXPECT_TRUE(heap.self_test());
