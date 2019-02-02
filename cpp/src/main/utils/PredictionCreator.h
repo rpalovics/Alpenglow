@@ -81,6 +81,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
   public:
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params):PredictionCreator(params){
       initial_threshold_ = (uint)params->initial_threshold;
+      min_heap_.set_max_length(params->top_k);
     };
     virtual ~PredictionCreatorGlobal(){}
     vector<RecDat>* run(RecDat* rec_dat);
