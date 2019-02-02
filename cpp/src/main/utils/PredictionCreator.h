@@ -74,9 +74,9 @@ struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
   int initial_threshold; //TODO initial_threshold
 };
 
-inline bool compare_rec_dat2(RecDat a, RecDat b){
+namespace { inline bool compare_rec_dat(RecDat a, RecDat b){
   return a.score > b.score;
-}
+}}
 class PredictionCreatorGlobal: public PredictionCreator{
   public:
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params):PredictionCreator(params){
@@ -95,8 +95,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
     }
   
   private:
-    //Toplist<RecDat,compare_rec_dat2> min_heap_new_;
-    Toplist<RecDat,compare_rec_dat2> min_heap_;
+    Toplist<RecDat,::compare_rec_dat> min_heap_;
     uint initial_threshold_;
     //void process_row(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
     //void process_column(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
