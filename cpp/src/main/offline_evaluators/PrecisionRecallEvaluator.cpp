@@ -20,11 +20,16 @@ void PrecisionRecallEvaluator::evaluate(){
   cout << "recall_avg=" << recall_avg << endl;
 
 }
+namespace {
+bool compare_rec_dat(RecDat a, RecDat b){
+  return a.score > b.score;
+}
+} //namesapce
 int PrecisionRecallEvaluator::compute_true_positive(int user){
   RecDat rec_dat;
   rec_dat.user = user;
   rec_dat.time = time_;
-  MinHeap top_list(cutoff_);
+  Toplist<RecDat,::compare_rec_dat> top_list(cutoff_);
   for(uint i=0;i<train_items_->size();i++){
     pair<int, double> value = train_items_->at(i);
     if(top_list.size()==cutoff_ and value.second < top_list.get_min().score){
