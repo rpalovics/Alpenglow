@@ -32,10 +32,12 @@ bool compare_rec_dat(RecDat a, RecDat b){
 
 TEST_F(TestToplist, dummy) {
   Toplist<int,compare_func > heap(3);
+  EXPECT_TRUE(heap.self_test());
 }
 
 TEST_F(TestToplist, insert){
   Toplist<RecDat,compare_rec_dat> heap(50);
+  EXPECT_TRUE(heap.self_test());
   RecDat recDat;
   recDat.user = 1;
   recDat.item = 2;
@@ -86,6 +88,7 @@ TEST_F(TestToplist, insert){
 
 TEST_F(TestToplist, topK){
   Toplist<RecDat,compare_rec_dat> heap(3);
+  EXPECT_TRUE(heap.self_test());
   RecDat recDat;
   recDat.user = 1;
   recDat.item = 2;
@@ -138,6 +141,7 @@ TEST_F(TestToplist, topK){
 #define maxtime 10000000
 TEST_F(TestToplist, small){
   Toplist<RecDat,compare_rec_dat> heap(10);
+  EXPECT_TRUE(heap.self_test());
   RecDat recDat;
   recDat.user =1;
   recDat.item=2;
@@ -150,6 +154,7 @@ TEST_F(TestToplist, small){
 
 TEST_F(TestToplist, medium){
   Toplist<RecDat,compare_rec_dat> heap(100);
+  EXPECT_TRUE(heap.self_test());
   RecDat recDat;
   recDat.user =1;
   recDat.item=2;
@@ -162,6 +167,7 @@ TEST_F(TestToplist, medium){
 
 TEST_F(TestToplist, medium2){
   Toplist<RecDat,compare_rec_dat> heap(1000);
+  EXPECT_TRUE(heap.self_test());
   RecDat recDat;
   recDat.user =1;
   recDat.item=2;
@@ -174,6 +180,7 @@ TEST_F(TestToplist, medium2){
 
 TEST_F(TestToplist, large){
   Toplist<RecDat,compare_rec_dat> heap(10000);
+  EXPECT_TRUE(heap.self_test());
   RecDat recDat;
   recDat.user =1;
   recDat.item=2;

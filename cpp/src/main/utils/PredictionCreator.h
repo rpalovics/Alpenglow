@@ -86,7 +86,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
     virtual ~PredictionCreatorGlobal(){}
     vector<RecDat>* run(RecDat* rec_dat);
     bool self_test(){
-      bool OK = PredictionCreator::self_test(); 
+      bool OK = PredictionCreator::self_test() && min_heap_.self_test(); 
       if(initial_threshold_ < 0){
         OK = false;
         cerr << "Invalid value initial_threshold=" << initial_threshold_ << " is set in PredictionCreatorGlobal." << endl;

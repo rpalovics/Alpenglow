@@ -45,8 +45,17 @@ class Toplist{
         heap_->pop();
       }
     }
+    bool self_test(){
+      bool ok = true;
+      if (heap_ == NULL) ok = false;
+      if (max_length_ == 0) {
+        ok = false;
+        cerr << "Toplist::max_length_ is not set." << endl;
+      }
+      return ok;
+    }
   private:
-    priority_queue<T,vector<T>,bool(*)(T,T) >* heap_;
+    priority_queue<T,vector<T>,bool(*)(T,T) >* heap_ = NULL;
     int max_length_ = -1;
 };
 #endif
