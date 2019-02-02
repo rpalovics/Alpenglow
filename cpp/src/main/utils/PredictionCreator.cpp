@@ -65,17 +65,17 @@ vector<RecDat>* PredictionCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ 
   RecDat fake_rec_dat = *rec_dat; //TODO lehet NULL
   vector<pair<int,double>>* sorted_items = filter_->get_personalized_items(rec_dat->user);
   for(auto item_bound: *sorted_items){
-    if(min_heap_->size()==top_k_ and item_bound.second!=-1 and item_bound.second<min_heap_->get_min().score){ break; } //all consecutive items have lower prediction
+    if(min_heap_.size()==top_k_ and item_bound.second!=-1 and item_bound.second<min_heap_.get_min().score){ break; } //all consecutive items have lower prediction
     if(exclude_known_==1 and train_matrix_->get(rec_dat->user, item_bound.first)!=0){ continue; } //invalid item, not new for the user
     fake_rec_dat.item = item_bound.first;
     fake_rec_dat.score = model_->prediction(&fake_rec_dat);
-    min_heap_->insert(fake_rec_dat);
+    min_heap_.insert(fake_rec_dat);
   }
 
-  top_predictions_.resize(min_heap_->size()); //TODO ez legyen a heapben megirva
-  for(int ii=(int)min_heap_->size()-1; ii>=0; ii--){
-    top_predictions_[ii]=min_heap_->get_min();
-    min_heap_->delete_min();
+  top_predictions_.resize(min_heap_.size()); //TODO ez legyen a heapben megirva
+  for(int ii=(int)min_heap_.size()-1; ii>=0; ii--){
+    top_predictions_[ii]=min_heap_.get_min();
+    min_heap_.delete_min();
   }
   return &top_predictions_;
 }

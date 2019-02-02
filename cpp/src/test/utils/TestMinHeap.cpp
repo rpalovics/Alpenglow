@@ -1,6 +1,7 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include "../../main/utils/MinHeap.h"
+#include "../../main/utils/Toplist.h"
 #include "../../main/utils/Random.h"
 
 
@@ -21,6 +22,30 @@ public:
 };
 
 }
+
+bool compare_rec_dat(RecDat a, RecDat b){
+  return a.score > b.score;
+}
+
+//TEST_F(TestMinHeap, compare) {
+//  MinHeap heap(10);
+//  Toplist<RecDat,compare_rec_dat> toplist(10);
+//  RecDat rec_dat;
+//  rec_dat.user = 1;
+//  rec_dat.item = 0;
+//  rec_dat.time = 10;
+//  rec_dat.score = 2.3;
+//  for (int i=0;i<15;i++) {
+//    rec_dat.item = i;
+//    heap.insert(rec_dat);
+//    toplist.insert(rec_dat);
+//  }
+//  for (int i=0;i<10;i++) {
+//    EXPECT_EQ(heap.get_min().item,toplist.get_min().item);
+//    heap.delete_min();
+//    toplist.delete_min();
+//  }
+//}
 
 TEST_F(TestMinHeap, dummy) {
   MinHeap heap(3);

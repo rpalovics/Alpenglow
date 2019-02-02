@@ -4,7 +4,6 @@
 #include <climits>
 #include <iostream>
 #include <gtest/gtest_prod.h>
-#include "../utils/MinHeap.h"
 #include "../utils/Toplist.h"
 #include "../models/Model.h"
 #include "../filters/ModelFilter.h"
@@ -116,11 +115,10 @@ struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParamet
 class PredictionCreatorPersonalized: public PredictionCreator{
   public:
     PredictionCreatorPersonalized(PredictionCreatorParameters * params):PredictionCreator(params){
-      min_heap_ = new MinHeap(); //TODO use utils/Toplist
-      min_heap_->set_top_k(top_k_); //should be called only in init, but init is not called in offline
+      min_heap_.set_max_length(top_k_);
     };
     vector<RecDat>* run(RecDat* rec_dat);
-    bool self_test(){ return PredictionCreator::self_test() && min_heap_->self_test(); }
+    bool self_test(){ return PredictionCreator::self_test() && min_heap_.self_test(); }
   protected:
     bool autocalled_initialize() override {
       if (!parent_is_initialized_){
@@ -131,11 +129,11 @@ class PredictionCreatorPersonalized: public PredictionCreator{
       if(ranking_model){
         ranking_model_ = ranking_model;
       }
-      min_heap_->set_top_k(top_k_);
+      min_heap_.set_max_length(top_k_);
       return true;
     }
   private:
-    MinHeap* min_heap_;
+    Toplist<RecDat,::compare_rec_dat> min_heap_;
     TopListRecommender *ranking_model_ = NULL;
     vector<RecDat>* run_bruteforce(RecDat* rec_dat);
     vector<RecDat>* run_ranking_model(RecDat* rec_dat);
