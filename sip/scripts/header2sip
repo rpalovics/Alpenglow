@@ -91,6 +91,7 @@ do
   | python $script_dir/remove_initlist.py \
   | vim -E +"%normal t(f{d%a;" +%p -cq! /dev/stdin \
   | tr -d "\a" \
+  | sed '/template/,+1 d' \
   | sed -r "s/^([^)]+)[[:space:]]*=[^;]*;/\1;/" \
   | python $script_dir/remove_private.py \
   | tr '\n' '\r' \
@@ -111,6 +112,7 @@ do
   | sed -r "s/^(.*\(.*\))\s*override\s*;/\1;/g"\
   | python $script_dir/comment_labeled_classes.py \
   | sed "s/COMMENTOUTTHISCLASS//g" \
+  | grep -v "SIP_REMOVE" \
   | sed "s|///*|//|g" \
   | sed 's/^\s*$//' \
   | cat -s \
@@ -149,6 +151,7 @@ exit 0
 # remove initialization lists
 # remove function definitions
 # remove bell characters inserted by vim
+# remove templates (ex. Random.h)
 # remove initial field values (e.g. int x = -1; )
 # remove private and protected parts (except override functions)
 # prepare for anchestors listed in multiple lines
