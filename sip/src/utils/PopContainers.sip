@@ -15,13 +15,9 @@ class TopPopContainer{
   #include "utils/PopContainers.h"
   %End
   public:
-    void increase( int item);
-
-//    pair<int,double> get(int idx);
-
+    void increase(int item); 
+//    pair<int,double> get(int idx); 
     int get_item(int idx);
-
     int size();
-
 };
 

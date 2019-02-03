@@ -4,11 +4,13 @@ struct PopularityTimeFrameModelUpdaterParameters{
   #include "models/baseline/PopularityTimeFrameModelUpdater.h"
   %End
   double tau;
-  PopularityTimeFrameModelUpdaterParameters();
 };
 class PopularityTimeFrameModelUpdater : public Updater {
   %TypeHeaderCode
   #include "models/baseline/PopularityTimeFrameModelUpdater.h"
+  %End
+  %Docstring
+  Time-aware updater for PopularityModel, which only considers the last tau time interval when calculating popularities. Note that the time window ends at the timestamp of the last updating sample. the timestamp of the sample in the prediction call is not considered.
   %End
   public:
     PopularityTimeFrameModelUpdater(PopularityTimeFrameModelUpdaterParameters* params);
