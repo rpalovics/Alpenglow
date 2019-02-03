@@ -62,7 +62,7 @@ else if [ $mode = "dir" ]
 then
   file_name_list=$(find $1 -name "*.h")
 else #mode=autoconvert
-  file_name_list=$(grep -rl "SIP_AUTOCONVERT" $1)
+  file_name_list=$(grep -rl "SIP_AUTOCONVERT" $1 | egrep "^.*[.]h$")
 fi; fi
 
 echo "Input files:"
