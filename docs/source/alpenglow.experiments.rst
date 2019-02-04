@@ -1,123 +1,123 @@
-alpenglow\.experiments package
-==============================
+alpenglow.experiments package
+=============================
 
 Submodules
 ----------
 
-alpenglow\.experiments\.ALSFactorExperiment module
---------------------------------------------------
+alpenglow.experiments.ALSFactorExperiment module
+------------------------------------------------
 
 .. automodule:: alpenglow.experiments.ALSFactorExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.ALSOnlineFactorExperiment module
---------------------------------------------------------
+alpenglow.experiments.ALSOnlineFactorExperiment module
+------------------------------------------------------
 
 .. automodule:: alpenglow.experiments.ALSOnlineFactorExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.AsymmetricFactorExperiment module
----------------------------------------------------------
+alpenglow.experiments.AsymmetricFactorExperiment module
+-------------------------------------------------------
 
 .. automodule:: alpenglow.experiments.AsymmetricFactorExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.BatchAndOnlineFactorExperiment module
--------------------------------------------------------------
+alpenglow.experiments.BatchAndOnlineFactorExperiment module
+-----------------------------------------------------------
 
 .. automodule:: alpenglow.experiments.BatchAndOnlineFactorExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.BatchFactorExperiment module
-----------------------------------------------------
+alpenglow.experiments.BatchFactorExperiment module
+--------------------------------------------------
 
 .. automodule:: alpenglow.experiments.BatchFactorExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.ExternalModelExperiment module
-------------------------------------------------------
+alpenglow.experiments.ExternalModelExperiment module
+----------------------------------------------------
 
 .. automodule:: alpenglow.experiments.ExternalModelExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.FactorExperiment module
------------------------------------------------
+alpenglow.experiments.FactorExperiment module
+---------------------------------------------
 
 .. automodule:: alpenglow.experiments.FactorExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.FmExperiment module
--------------------------------------------
+alpenglow.experiments.FmExperiment module
+-----------------------------------------
 
 .. automodule:: alpenglow.experiments.FmExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.NearestNeighborExperiment module
---------------------------------------------------------
+alpenglow.experiments.NearestNeighborExperiment module
+------------------------------------------------------
 
 .. automodule:: alpenglow.experiments.NearestNeighborExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.OldFactorExperiment module
---------------------------------------------------
+alpenglow.experiments.OldFactorExperiment module
+------------------------------------------------
 
 .. automodule:: alpenglow.experiments.OldFactorExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.PersonalPopularityExperiment module
------------------------------------------------------------
+alpenglow.experiments.PersonalPopularityExperiment module
+---------------------------------------------------------
 
 .. automodule:: alpenglow.experiments.PersonalPopularityExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.PopularityExperiment module
----------------------------------------------------
+alpenglow.experiments.PopularityExperiment module
+-------------------------------------------------
 
 .. automodule:: alpenglow.experiments.PopularityExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.PopularityTimeframeExperiment module
-------------------------------------------------------------
+alpenglow.experiments.PopularityTimeframeExperiment module
+----------------------------------------------------------
 
 .. automodule:: alpenglow.experiments.PopularityTimeframeExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.SvdppExperiment module
-----------------------------------------------
+alpenglow.experiments.SvdppExperiment module
+--------------------------------------------
 
 .. automodule:: alpenglow.experiments.SvdppExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.experiments\.TransitionProbabilityExperiment module
---------------------------------------------------------------
+alpenglow.experiments.TransitionProbabilityExperiment module
+------------------------------------------------------------
 
 .. automodule:: alpenglow.experiments.TransitionProbabilityExperiment
     :members:

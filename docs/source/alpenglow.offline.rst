@@ -1,5 +1,5 @@
-alpenglow\.offline package
-==========================
+alpenglow.offline package
+=========================
 
 Subpackages
 -----------
@@ -12,8 +12,8 @@ Subpackages
 Submodules
 ----------
 
-alpenglow\.offline\.OfflineModel module
----------------------------------------
+alpenglow.offline.OfflineModel module
+-------------------------------------
 
 .. automodule:: alpenglow.offline.OfflineModel
     :members:

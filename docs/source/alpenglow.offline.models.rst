@@ -1,51 +1,51 @@
-alpenglow\.offline\.models package
-==================================
+alpenglow.offline.models package
+================================
 
 Submodules
 ----------
 
-alpenglow\.offline\.models\.ALSFactorModel module
--------------------------------------------------
+alpenglow.offline.models.ALSFactorModel module
+----------------------------------------------
 
 .. automodule:: alpenglow.offline.models.ALSFactorModel
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.offline\.models\.AsymmetricFactorModel module
---------------------------------------------------------
+alpenglow.offline.models.AsymmetricFactorModel module
+-----------------------------------------------------
 
 .. automodule:: alpenglow.offline.models.AsymmetricFactorModel
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.offline\.models\.FactorModel module
-----------------------------------------------
+alpenglow.offline.models.FactorModel module
+-------------------------------------------
 
 .. automodule:: alpenglow.offline.models.FactorModel
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.offline\.models\.NearestNeighborModel module
--------------------------------------------------------
+alpenglow.offline.models.NearestNeighborModel module
+----------------------------------------------------
 
 .. automodule:: alpenglow.offline.models.NearestNeighborModel
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.offline\.models\.PopularityModel module
---------------------------------------------------
+alpenglow.offline.models.PopularityModel module
+-----------------------------------------------
 
 .. automodule:: alpenglow.offline.models.PopularityModel
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.offline\.models\.SvdppModel module
----------------------------------------------
+alpenglow.offline.models.SvdppModel module
+------------------------------------------
 
 .. automodule:: alpenglow.offline.models.SvdppModel
     :members:

@@ -14,24 +14,24 @@ Subpackages
 Submodules
 ----------
 
-alpenglow\.Getter module
-------------------------
+alpenglow.Getter module
+-----------------------
 
 .. automodule:: alpenglow.Getter
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.OnlineExperiment module
-----------------------------------
+alpenglow.OnlineExperiment module
+---------------------------------
 
 .. automodule:: alpenglow.OnlineExperiment
     :members:
     :undoc-members:
     :show-inheritance:
 
-alpenglow\.ParameterDefaults module
------------------------------------
+alpenglow.ParameterDefaults module
+----------------------------------
 
 .. automodule:: alpenglow.ParameterDefaults
     :members:
