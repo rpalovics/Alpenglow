@@ -4,7 +4,7 @@
 #include <climits>
 #include <iostream>
 #include <gtest/gtest_prod.h>
-#include "../utils/MinHeap.h"
+#include "../utils/Toplist.h"
 #include "../models/Model.h"
 #include "../filters/ModelFilter.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
@@ -73,16 +73,19 @@ struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
   int initial_threshold; //TODO initial_threshold
 };
 
+namespace { inline bool compare_rec_dat(RecDat a, RecDat b){
+  return a.score > b.score;
+}}
 class PredictionCreatorGlobal: public PredictionCreator{
   public:
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params):PredictionCreator(params){
-      min_heap_ = new MinHeap(params->top_k); //TODO use utils/Toplist
       initial_threshold_ = (uint)params->initial_threshold;
+      min_heap_.set_max_length(params->top_k);
     };
-    virtual ~PredictionCreatorGlobal(){ delete min_heap_; }
+    virtual ~PredictionCreatorGlobal(){}
     vector<RecDat>* run(RecDat* rec_dat);
     bool self_test(){
-      bool OK = PredictionCreator::self_test(); 
+      bool OK = PredictionCreator::self_test() && min_heap_.self_test(); 
       if(initial_threshold_ < 0){
         OK = false;
         cerr << "Invalid value initial_threshold=" << initial_threshold_ << " is set in PredictionCreatorGlobal." << endl;
@@ -91,7 +94,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
     }
   
   private:
-    MinHeap* min_heap_;
+    Toplist<RecDat,::compare_rec_dat> min_heap_;
     uint initial_threshold_;
     //void process_row(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
     //void process_column(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
@@ -112,11 +115,10 @@ struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParamet
 class PredictionCreatorPersonalized: public PredictionCreator{
   public:
     PredictionCreatorPersonalized(PredictionCreatorParameters * params):PredictionCreator(params){
-      min_heap_ = new MinHeap(); //TODO use utils/Toplist
-      min_heap_->set_top_k(top_k_); //should be called only in init, but init is not called in offline
+      min_heap_.set_max_length(top_k_);
     };
     vector<RecDat>* run(RecDat* rec_dat);
-    bool self_test(){ return PredictionCreator::self_test() && min_heap_->self_test(); }
+    bool self_test(){ return PredictionCreator::self_test() && min_heap_.self_test(); }
   protected:
     bool autocalled_initialize() override {
       if (!parent_is_initialized_){
@@ -127,11 +129,11 @@ class PredictionCreatorPersonalized: public PredictionCreator{
       if(ranking_model){
         ranking_model_ = ranking_model;
       }
-      min_heap_->set_top_k(top_k_);
+      min_heap_.set_max_length(top_k_);
       return true;
     }
   private:
-    MinHeap* min_heap_;
+    Toplist<RecDat,::compare_rec_dat> min_heap_;
     TopListRecommender *ranking_model_ = NULL;
     vector<RecDat>* run_bruteforce(RecDat* rec_dat);
     vector<RecDat>* run_ranking_model(RecDat* rec_dat);

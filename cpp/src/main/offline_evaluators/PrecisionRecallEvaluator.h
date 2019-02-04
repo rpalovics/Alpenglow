@@ -7,7 +7,7 @@
 #include <gtest/gtest_prod.h>
 #include "../models/Model.h"
 #include "../filters/ModelFilter.h"
-#include "../utils/MinHeap.h"
+#include "../utils/Toplist.h"
 #include "OfflineEvaluator.h"
 
 using namespace std;

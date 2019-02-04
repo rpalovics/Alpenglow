@@ -4,9 +4,12 @@
 #include<exception>
 #include<queue>
 #include<iostream>
-#include"SortPairDescendingBySecond.h"
 
 using namespace std;
+
+// Helper class for generating a top list of max_length.
+// The second template parameter should be true exactly if the first variable is
+// strictly larger than the second.
 
 template<typename T,bool (*f)(T,T)>
 class Toplist{
@@ -29,7 +32,7 @@ class Toplist{
       return heap_->top();
     }
     void insert(T t){
-      if(heap_->size()<max_length_ or !f(heap_->top(),t)){
+      if(heap_->size()<max_length_ or f(t,heap_->top())){
         heap_->push(t);
       } 
       if(heap_->size()>max_length_) delete_min();
@@ -45,8 +48,17 @@ class Toplist{
         heap_->pop();
       }
     }
+    bool self_test(){
+      bool ok = true;
+      if (heap_ == NULL) ok = false;
+      if (max_length_ == 0) {
+        ok = false;
+        cerr << "Toplist::max_length_ is not set." << endl;
+      }
+      return ok;
+    }
   private:
-    priority_queue<T,vector<T>,bool(*)(T,T) >* heap_;
+    priority_queue<T,vector<T>,bool(*)(T,T) >* heap_ = NULL;
     int max_length_ = -1;
 };
 #endif
