@@ -83,7 +83,7 @@ do
   | sed "s/#ifndef.*//" \
   | sed "s/#endif.*//" \
   | sed "s/#define.*//" \
-  | sed "s/using.*//" \
+  | sed "s/^using.*//" \
   | sed -r "s/^\s*class([^{]*);//g" \
   | sed -r "s/^\s*struct([^{]*);//g" \
   | sed '/^\s*friend class.*$/d' \
