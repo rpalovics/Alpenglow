@@ -4,7 +4,7 @@ class AvailabilityFilter : public ModelFilter {
   #include "filters/AvailabilityFilter.h"
   %End
   %Docstring
-    This is the docstring for AvailabilityFilter. This filter filters the set of available items based on (time,itemId,duration) triplets. These have to be preloaded before 
+    This is the docstring for AvailabilityFilter. This filter filters the set of available items based on (time,itemId,duration) triplets. These have to be preloaded before using this filter.
 
     Sample code
 
