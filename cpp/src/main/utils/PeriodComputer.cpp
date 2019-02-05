@@ -2,7 +2,7 @@
 bool PeriodComputer::end_of_period() const {
   return timestamp_ > start_time_ and end_of_period_;
 }
-void PeriodComputer::update(RecDat* rec_dat){
+void PeriodComputer::update(RecDat*){
   double following_timestamp;
   bool middle_of_experiment = true;
   if ( period_mode_=="time" ){
