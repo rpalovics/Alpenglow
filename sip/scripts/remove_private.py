@@ -9,13 +9,13 @@ if __name__ == "__main__":
     #sys.stderr.write("DEBUG: got line: " + line)
     if "%Docstring" in line or "MethodCode" in line:
       nonc_part = True
-    class_header = re.match("\s*class", line)
+    class_header = re.match("\s*class\s", line) and not nonc_part
     if class_header:
       state_in = True
       private_part = True
       private_type = "  private:\n"
       private_written = True
-    struct_first_line = "struct" in line
+    struct_first_line = "struct" in line and not nonc_part
     if struct_first_line:
       state_in = True
       private_part = False
@@ -29,10 +29,10 @@ if __name__ == "__main__":
       private_part = True
       private_type = "  private:\n"
       private_written = False
-    end_of_class = "};" in line
+    end_of_class = "};" in line and not nonc_part
     if end_of_class :
       state_in = False
-    override_method = "override" in line or "virtual" in line
+    override_method = "override" in line or "virtual" in line and not nonc_part
     #sys.stderr.write("DEBUG: state_in=" +str(state_in)+", private_part="+str(private_part)+"\n\n")
     decision = False
     if not state_in or class_header or nonc_part or not private_part :
