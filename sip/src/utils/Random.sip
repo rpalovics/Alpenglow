@@ -12,7 +12,7 @@ class Random{
     The initial state value can be set through the parameter of the constructor,
     or using the :py:meth:`set()` function.
 
-    Most of the functions are available without a max parameter providing a
+    Most of the functions are available without the max parameter providing a
     double value between [0,1) with a similar distribution as the discrete
     functions.
   %End
@@ -81,7 +81,7 @@ class Random{
       Get a pseudorandom value between 0 and max-1 with geometric distribution.
 
       Probability of smaller values is larger. The largest possible value is max-1.
-      The probability of value i is approximately (1-prob)*prob^i.
+      The probability of value i is proportional to (1-prob)*prob^i`.
 
       Parameters
       ----------
@@ -123,8 +123,9 @@ class Random{
       get_discrete(std::vector<double>& distribution)
       Get a pseudorandom value following a given discrete distribution.
 
-      The sum of the values in the given vector should be near to 1.
-      If the sum is more or less, the probability of the largest values will differ from the specified probability.
+      The sum of the values in the given vector should be 1.
+      If the sum is more or less, the probability of the largest value(s) will differ from the specified probability.
+      The values should be non-negative.
 
       Parameters
       ----------
