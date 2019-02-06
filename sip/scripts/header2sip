@@ -112,6 +112,7 @@ do
   | sed -r "s/^(.*\(.*\))\s*override\s*;/\1;/g"\
   | python $script_dir/comment_labeled_classes.py \
   | sed "s/COMMENTOUTTHISCLASS//g" \
+  | sed -r "s|; //SIP_THROW (.*)$| throw \1;|" \
   | grep -v "SIP_REMOVE" \
   | sed "s|///*|//|g" \
   | sed 's/^\s*$//' \
