@@ -24,13 +24,33 @@ struct OnlineExperimentParameters{
 };
 
 class OnlineExperiment{
+  /**
+  The central class of the experiment.
+  Calls the loggers and updaters for each sample, and updates experiment_environment.
+
+  //See anatomy_of_experiment for details. //TODO
+  See :py:class:`alpenglow.OnlineExperiment.OnlineExperiment`.
+  */
   public:
     OnlineExperiment(OnlineExperimentParameters* parameters);
     ~OnlineExperiment();
     void add_logger(Logger* logger){loggers_.push_back(logger);}
+    /**
+    Add a logger instance.
+    Loggers will be called for each sample before updating the environment and calling updaters.
+    */
     void add_end_logger(Logger* logger){end_loggers_.push_back(logger);}
+    /**
+    Add a logger instance, that will be called once at the end of the experiment.
+    */
     void add_updater(Updater* updater){ updaters_.push_back(updater); }
+    /**
+    Add an updater. Updaters will be called for each sample after updting the environment.
+    */
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
+    /**
+    Set the dataset of the experiment.
+    */
     bool self_test(){
       bool ok = true;
       if(recommender_data_iterator_ == NULL){
@@ -44,6 +64,9 @@ class OnlineExperiment{
       return ok;
     }
     void run(); //SIP_THROW (PythonKeyboardInterruptException) /ReleaseGIL/
+    /**
+    Run the experiment.
+    */
     void inject_experiment_environment_into(NeedsExperimentEnvironment *object);
   private:
     ExperimentEnvironment* experiment_environment_;
