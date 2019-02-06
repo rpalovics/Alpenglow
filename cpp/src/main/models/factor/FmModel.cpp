@@ -2,10 +2,10 @@
 #include "../../utils/Util.h"
 
 void FmModel::add(RecDat* rec_dat){
-  if(seen_users_.size() <= rec_dat->user){
+  if((int)seen_users_.size() <= rec_dat->user){
     seen_users_.resize(rec_dat->user+1, false);
   }
-  if(seen_items_.size() <= rec_dat->item){
+  if((int)seen_items_.size() <= rec_dat->item){
     seen_items_.resize(rec_dat->item+1, false);
   }
   if(!seen_users_[rec_dat->user] && user_attributes_==NULL){
@@ -19,10 +19,10 @@ void FmModel::add(RecDat* rec_dat){
 }
 
 bool FmModel::can_predict_(RecDat* rec_dat){
-  if(seen_items_.size() <= rec_dat->item || !seen_items_[rec_dat->item]){
+  if((int)seen_items_.size() <= rec_dat->item || !seen_items_[rec_dat->item]){
     return false;
   }
-  if(seen_users_.size() <= rec_dat->user || !seen_users_[rec_dat->user]){
+  if((int)seen_users_.size() <= rec_dat->user || !seen_users_[rec_dat->user]){
     return false;
   }
   return true;

@@ -88,7 +88,7 @@ void ToplistCombinationModel::merge_toplists(){
   for(uint i=0;i<random_model_indices_.size();i++){
     int active_model = random_model_indices_[i];
     int model_counter = model_counters[active_model]; //skip used items
-    while(model_counters[active_model]<toplists_[active_model].size()){
+    while((int)model_counters[active_model]<toplists_[active_model].size()){
       int possible_item = toplists_[active_model][model_counter].first;
       if(used_items.find(possible_item)==used_items.end()) break;
       model_counter++;

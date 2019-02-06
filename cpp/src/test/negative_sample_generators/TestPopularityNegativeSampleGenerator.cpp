@@ -34,19 +34,19 @@ public:
       RecDat* recDat = iterator->next();
       trainMatrix.insert(recDat->user,recDat->item,recDat->score);
       pop.increase(recDat->item);
-      if(itemMap.size()<recDat->item+1) itemMap.resize(recDat->item+1,false);
+      if((int)itemMap.size()<recDat->item+1) itemMap.resize(recDat->item+1,false);
       if(itemMap[recDat->item]==false) items.push_back(recDat->item);
       itemMap[recDat->item]=true;
     }
   }
   bool subset(vector<int> set, vector<int> subset){
     //True if subset is subset of set.
-    for(int subindex=0; subindex<subset.size(); subindex++){
+    for(uint subindex=0; subindex<subset.size(); subindex++){
       int index;
-      for(index=0; index<set.size();index++){
+      for(index=0; index<(int)set.size();index++){
         if(subset[subindex]==set[index]){break;}
       }
-      if(index==set.size()) return false;
+      if(index==(int)set.size()) return false;
     }
     return true;
   }
@@ -96,7 +96,7 @@ TEST_F(TestPopularityNegativeSampleGenerator,general) {
     vector<int>* samples = generator.generate(&recDat);
     EXPECT_EQ(3,samples->size());
     EXPECT_TRUE(subset(items,*samples));
-    for(int j=0;j<samples->size();j++){
+    for(uint j=0;j<samples->size();j++){
       if (samples->at(j)==1) counter++;
     }
   }    

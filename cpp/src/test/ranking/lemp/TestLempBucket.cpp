@@ -58,7 +58,7 @@ TEST_F(TestLempBucket, insert_remove){
   }
   double last_len = std::numeric_limits<double>::max();
   sort(lens.begin(), lens.end(), std::greater<double>());
-  for(int i=0; i<bucket2.item_lengths_.size(); i++){
+  for(uint i=0; i<bucket2.item_lengths_.size(); i++){
     EXPECT_LE(bucket2.item_lengths_[i], last_len);
     EXPECT_EQ(bucket2.item_lengths_[i], lens[i]);
     last_len = bucket2.item_lengths_[i];

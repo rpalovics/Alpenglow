@@ -326,7 +326,7 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_distribution){
     ASSERT_LT(pred,3);
     experienced_distribution[pred]++; 
   }
-  for(int i=0;i<expected_distribution.size();i++){
+  for(uint i=0;i<expected_distribution.size();i++){
     EXPECT_NEAR(expected_distribution[i], (double)experienced_distribution[i]/all,0.05);
   }
 

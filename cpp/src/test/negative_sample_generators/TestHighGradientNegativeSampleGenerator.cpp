@@ -67,7 +67,7 @@ TEST_F(TestHighGradientNegativeSampleGenerator,general1) {
     vector<int>* samples = generator.generate(&rec_dat);
     int size = samples->size();
     EXPECT_EQ(3, size);
-    for(int j=0;j<samples->size();j++){
+    for(uint j=0;j<samples->size();j++){
       ASSERT_LT(samples->at(j),15);
       item_map[samples->at(j)]++;
     }
@@ -110,7 +110,7 @@ TEST_F(TestHighGradientNegativeSampleGenerator,general2) {
     vector<int>* samples = generator.generate(&rec_dat);
     int size = samples->size();
     EXPECT_EQ(4, size);
-    for(int j=0;j<samples->size();j++){
+    for(uint j=0;j<samples->size();j++){
       ASSERT_LT(samples->at(j),15);
       item_map[samples->at(j)]++;
     }

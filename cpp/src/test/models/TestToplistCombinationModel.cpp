@@ -26,7 +26,7 @@ class DummyModel : public Model {
 class DummyModel2 : public Model {
   public:
     double prediction(RecDat* rec_dat){
-      if (rec_dat->item>=predictions.size()) return 0;
+      if (rec_dat->item>=(int)predictions.size()) return 0;
       return predictions[rec_dat->item];
     }
     vector<double> predictions;

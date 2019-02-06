@@ -30,7 +30,7 @@ class TestTransitionEndLogger : public ::testing::Test {
     virtual void SetUp(){
     }
     virtual void TearDown(){
-      for(int i=0;i<rec_dat_container_.size();i++){
+      for(uint i=0;i<rec_dat_container_.size();i++){
         delete rec_dat_container_[i];
       }
     }
@@ -246,7 +246,7 @@ TEST_F(TestTransitionEndLogger, test){
   expected_lines.push_back("7 9 0 7,14 9,9 8,8 6,6 5,5");// 4,4 3,3 2,2 1,1");
   expected_lines.push_back("8 1 0 7,8");
   expected_lines.push_back("9 1 0 7,8"); 
-  for(int i=0;i<expected_lines.size();i++){
+  for(uint i=0;i<expected_lines.size();i++){
     string actual_line;
     std::getline(ss,actual_line);
     EXPECT_EQ(expected_lines[i],actual_line);

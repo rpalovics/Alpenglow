@@ -28,7 +28,7 @@ public:
   }
   bool in(int element, vector<int> list){
     //element is in list
-    for(int i=0; i<list.size(); i++){
+    for(uint i=0; i<list.size(); i++){
       if(list[i]==element) return true;
     }
     return false;

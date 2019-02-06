@@ -41,7 +41,7 @@ void HighGradientNegativeSampleGenerator::generate_all(){
 }
 void HighGradientNegativeSampleGenerator::choose_best(){
   sort(local_samples_.begin(),local_samples_.end(),sort_pair_descending_by_second<int>);
-  for(int i=0;i<negative_rate_ && i<local_samples_.size();i++){
+  for(int i=0;i<negative_rate_ && i<(int)local_samples_.size();i++){
     samples.push_back(local_samples_[i].first);
   }
 }
