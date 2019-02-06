@@ -1,6 +1,8 @@
 #ifndef ONLINE_EXPERIMENT
 #define ONLINE_EXPERIMENT
 
+//SIP_AUTOCONVERT
+
 #include "../recommender_data/RecommenderDataIterator.h"
 #include "../general_interfaces/Updater.h"
 #include "../loggers/Logger.h"
@@ -41,7 +43,7 @@ class OnlineExperiment{
       }
       return ok;
     }
-    void run();
+    void run(); //SIP_THROW (PythonKeyboardInterruptException) /ReleaseGIL/
     void inject_experiment_environment_into(NeedsExperimentEnvironment *object);
   private:
     ExperimentEnvironment* experiment_environment_;
