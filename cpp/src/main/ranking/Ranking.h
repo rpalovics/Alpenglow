@@ -28,6 +28,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable{
       top_k_=(parameters->top_k==-1?parameters->top_k:parameters->top_k);
       random_.set(parameters->random_seed);
     }
+    virtual ~RankComputer(){}
     void set_model(Model* model){ model_ = model;} 
     void set_model_filter(ModelFilter* model_filter){ model_filter_ = model_filter; }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_ = train_matrix; }

@@ -10,6 +10,7 @@
 
 class ModelGradientUpdater {
   public:
+    virtual ~ModelGradientUpdater(){}
     virtual void update(RecDat * rec_dat, double gradient) = 0;
     virtual void message(UpdaterMessage message){}
     virtual void beginning_of_updating_cycle(RecDat*){} //before the first update call for any gradient updater, the parameter is the positive sample

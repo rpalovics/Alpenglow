@@ -15,6 +15,7 @@ enum class UpdaterMessage{
 };
 class Updater{
   public:
+    virtual ~Updater(){}
     virtual void update(RecDat* rec_dat)=0;
     virtual void message(UpdaterMessage message){}
     bool self_test(){
