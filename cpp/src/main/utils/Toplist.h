@@ -32,10 +32,10 @@ class Toplist{
       return heap_->top();
     }
     void insert(T t){
-      if(heap_->size()<max_length_ or f(t,heap_->top())){
+      if((int)heap_->size()<max_length_ or f(t,heap_->top())){
         heap_->push(t);
       } 
-      if(heap_->size()>max_length_) delete_min();
+      if((int)heap_->size()>max_length_) delete_min();
     }
     int const size() const{
       return heap_->size();

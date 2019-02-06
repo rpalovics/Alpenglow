@@ -4,12 +4,12 @@ vector<int>* PopularityNegativeSampleGenerator::generate(RecDat* rec_dat){
   samples.clear();
   //create map of unavailable items
   vector<int> unavailable_items_map;
-  for(int i=0;i<items->size();i++){ //set item_map size
-    if(unavailable_items_map.size()<items->at(i)+1) unavailable_items_map.resize(items->at(i)+1,false);
+  for(uint i=0;i<items->size();i++){ //set item_map size
+    if((int)unavailable_items_map.size()<items->at(i)+1) unavailable_items_map.resize(items->at(i)+1,false);
   }
   //get sum of popularity distribution
   int sum_of_popularity = 0;
-  for(int i=0;i<items->size();i++){
+  for(uint i=0;i<items->size();i++){
     int popularity = pop_container->get(items->at(i));
     sum_of_popularity+=popularity;
   }

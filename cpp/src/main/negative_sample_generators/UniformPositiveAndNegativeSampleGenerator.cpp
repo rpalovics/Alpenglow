@@ -14,7 +14,7 @@ void UniformPositiveAndNegativeSampleGenerator::set_parameters(UniformPositiveAn
   if(initialize_all){
     max_item=parameters->max_item;
     items=new vector<int>(max_item+1);
-    for(int i=0;i<items->size();i++){items->at(i)=i;}
+    for(uint i=0;i<items->size();i++){items->at(i)=i;}
   }
   distribution_ = parameters->distribution;
   if(distribution_==""){
@@ -32,9 +32,9 @@ void UniformPositiveAndNegativeSampleGenerator::set_parameters(UniformPositiveAn
 
 vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecDat * rec_dat, string type){
   vector <int> * history = NULL;
-  if(type == "item" and item_histories_.size() > rec_dat->item and item_histories_[rec_dat->item]!= NULL)
+  if(type == "item" and (int)item_histories_.size() > rec_dat->item and item_histories_[rec_dat->item]!= NULL)
     history = item_histories_[rec_dat->item];
-  if(type == "user" and user_histories_.size() > rec_dat->user and user_histories_[rec_dat->user]!= NULL)
+  if(type == "user" and (int)user_histories_.size() > rec_dat->user and user_histories_[rec_dat->user]!= NULL)
     history = user_histories_[rec_dat->user];
   if(history != NULL){
     int history_size = history->size();
@@ -42,7 +42,7 @@ vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecD
       double p = get_positive_rate(history_size);
       int num = (int) p;
       if(random_.get() < p-(int)p) num++;
-      for(uint ii=0; ii < num; ii++){ 
+      for(int ii=0; ii < num; ii++){ 
         int index = 0;
         if(distribution_ == "uniform")
           index = random_.get(history_size);
@@ -65,7 +65,7 @@ vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecD
       }
     }
     else{
-      for(uint ii=0; ii<history_size; ii++){
+      for(int ii=0; ii<history_size; ii++){
        if (type == "user") {
          user_positive_samples.push_back(history->at(ii));
          user_positive_relevances.push_back(history_size - 1 - ii);
@@ -136,10 +136,10 @@ vector<RecDat>*  UniformPositiveAndNegativeSampleGenerator::get_implicit_train_d
 void UniformPositiveAndNegativeSampleGenerator::update(RecDat* rec_dat){
   int user = rec_dat->user;
   int item = rec_dat->item;
-  if(item_histories_.size()<=item){ item_histories_.resize(item+1); }
+  if((int)item_histories_.size()<=item){ item_histories_.resize(item+1); }
   if(item_histories_[item]==NULL){ item_histories_[item] = new vector<int>; }
   item_histories_[item]->push_back(user);
-  if(user_histories_.size()<=user){ user_histories_.resize(user+1); }
+  if((int)user_histories_.size()<=user){ user_histories_.resize(user+1); }
   if(user_histories_[user]==NULL){ user_histories_[user] = new vector<int>; }
   user_histories_[user]->push_back(item);
 

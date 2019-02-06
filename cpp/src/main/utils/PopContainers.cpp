@@ -39,7 +39,7 @@ void TopPopContainer::increase(int item) {
     swap_positions(original_idx,idx); //move item to the head of items having the same popularity
     popularities_[idx]++;
     popularity = original_popularity+1;
-    if(popularities_.size()<=idx+1 or
+    if((int)popularities_.size()<=idx+1 or
         popularities_[idx+1]!=original_popularity){ //was the only item having original_popularity
       popularity_boundaries_.erase(original_popularity);
     } else {

@@ -54,7 +54,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     bool autocalled_initialize() override {
       if(initialize_all_){ //TODO initialize all kozos parameter legyen
         items_=new vector<int>(max_item_+1);
-        for(int i=0;i<items_->size();i++){items_->at(i)=i;}
+        for(uint i=0;i<items_->size();i++){items_->at(i)=i;}
       }
       if(items_==NULL){ items_=experiment_environment_->get_items(); }
       if(train_matrix_==NULL){ train_matrix_=experiment_environment_->get_train_matrix(); }

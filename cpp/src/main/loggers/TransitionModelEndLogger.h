@@ -45,7 +45,7 @@ class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironmen
             [](pair<int,int> a, pair<int,int> b) -> bool
                { return (a.second) > (b.second); }
             );
-        for(uint index=0;index<to_items.size() and index<max_length_;index++){
+        for(int index=0;index<(int)to_items.size() and index<max_length_;index++){
           ofs << " " << to_items[index].first << "," << to_items[index].second;
         }
         ofs << endl;
