@@ -40,6 +40,7 @@ class DummyToplistModel : public Model, public TopListRecommender {
       } else if(user == 3){
         return {{7,0},{6,0},{1,0}};
       }
+      throw exception(); //never happens
     }
 };
 

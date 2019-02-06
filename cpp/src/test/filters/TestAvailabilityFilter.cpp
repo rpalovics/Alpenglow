@@ -45,7 +45,7 @@ TEST_F(TestAvailabilityFilter, test){
 	d.time = 20;
 	filter.run(&d);
 	EXPECT_EQ(3, filter.get_global_items()->size());
-	auto items = filter.get_global_items();
+	/*auto items =*/ filter.get_global_items();
 	auto expected_set = set<pair<int,double>>({
 		make_pair(1,-1.0),
 		make_pair(2,-1.0),

@@ -79,6 +79,7 @@ vector <int> * UniformPositiveAndNegativeSampleGenerator::generate_positive(RecD
   if(type == "user") return &user_positive_samples;
   else return &item_positive_samples;
   } 
+  /* else (history==NULL) */ throw exception(); //never happens
 }
 
 

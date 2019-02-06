@@ -16,7 +16,7 @@ struct UniformPositiveAndNegativeSampleGeneratorParameters{
     string sample_num_type;
 };
 
-class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator, public Updater {
+class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator {
   public: 
     UniformPositiveAndNegativeSampleGenerator(UniformPositiveAndNegativeSampleGeneratorParameters * parameters){
       set_parameters(parameters);
