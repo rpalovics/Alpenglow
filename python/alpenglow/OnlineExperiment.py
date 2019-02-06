@@ -101,25 +101,24 @@ class OnlineExperiment(ParameterDefaults):
                 type=experimentType,
                 max_time=max_time
             )
-        # TODO set max_item, max_user here
+        # TODO get max_item, max_user here
         recommender_data_iterator = None
         if not shuffle_same_time or calculate_toplists is not False:
             recommender_data_iterator = rs.SimpleIterator()
         else:
             recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
         recommender_data_iterator.set_recommender_data(recommender_data)
+        # string attribute_container_name = getPot("set_attribute_container", "");
+        # if(attribute_container_name.length()==0) cerr << "WARNING: no attribute container was set into RecommenderData." << endl;
+        # else {
+        #   InlineAttributeReader* attribute_container = jinja.get<InlineAttributeReader>(attribute_container_name);
+        #   recommender_data->set_attribute_container(attribute_container);
+        # }
         # data reading finished
 
+        #create experiment
         top_k = self.parameters['top_k']
-        seed = self.parameters["seed"]
-
-        (model, learner, filters, loggers) = self._config(top_k, seed)
-
-        rank_computer = rs.RankComputer(top_k=top_k, random_seed=43211234)
-        rank_computer.set_model(model)
-
-        for f in filters:
-            rank_computer.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
+        seed = self.parameters['seed']
 
         online_experiment = rs.OnlineExperiment(
             random_seed=seed,
@@ -132,22 +131,32 @@ class OnlineExperiment(ParameterDefaults):
             max_user=max_user
         )
 
-        if type(learner) == list:
-          for obj in learner:
-            online_experiment.add_updater(obj)
-        else:
-          online_experiment.add_updater(learner)
+        #set data
         online_experiment.set_recommender_data_iterator(recommender_data_iterator)
 
-        # string attribute_container_name = getPot("set_attribute_container", "");
-        # if(attribute_container_name.length()==0) cerr << "WARNING: no attribute container was set into RecommenderData." << endl;
-        # else {
-        #   InlineAttributeReader* attribute_container = jinja.get<InlineAttributeReader>(attribute_container_name);
-        #   recommender_data->set_attribute_container(attribute_container);
-        # }
+        #get components
+        (model, learner, filters, loggers) = self._config(top_k, seed)
 
+        #set loggers
         for l in loggers:
             online_experiment.add_logger(l)
+
+        interrupt_logger = rs.InterruptLogger()
+        online_experiment.add_logger(interrupt_logger)
+
+        if(verbose):
+            proceeding_logger = rs.ProceedingLogger()
+            proceeding_logger.set_data_iterator(recommender_data_iterator)
+            online_experiment.add_logger(proceeding_logger)
+
+        rank_computer = rs.RankComputer(top_k=top_k, random_seed=43211234)
+        rank_computer.set_model(model)
+        ranking_logger = self._get_ranking_logger(top_k, min_time, self.parameter_default('out_file', out_file), memory_log)
+        ranking_logger.set_model(model)
+        ranking_logger.set_rank_computer(rank_computer)
+        for f in filters:
+            rank_computer.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
+        online_experiment.add_logger(ranking_logger)
 
         if type(calculate_toplists) is not bool or calculate_toplists:
             print('logging predictions') if self.verbose else None
@@ -182,20 +191,14 @@ class OnlineExperiment(ParameterDefaults):
         else:
             self.predictions = None
 
-        interrupt_logger = rs.InterruptLogger()
-        online_experiment.add_logger(interrupt_logger)
+        if type(learner) == list:
+          for obj in learner:
+            online_experiment.add_updater(obj)
+        else:
+          online_experiment.add_updater(learner)
 
-        if(verbose):
-            proceeding_logger = rs.ProceedingLogger()
-            proceeding_logger.set_data_iterator(recommender_data_iterator)
-            online_experiment.add_logger(proceeding_logger)
 
-        ranking_logger = self._get_ranking_logger(top_k, min_time, self.parameter_default('out_file', out_file), memory_log)
-        ranking_logger.set_model(model)
-        ranking_logger.set_rank_computer(rank_computer)
-
-        online_experiment.add_logger(ranking_logger)
-
+        #clean, initialize, test
         created_objects = rs.get_and_clean()
         rs.set_experiment_environment(online_experiment, created_objects)
         rs.initialize_all(created_objects)
