@@ -148,8 +148,8 @@ elif conda_executable_name[-len("python.exe"):] == "python.exe":
 setup(
     name='alpenglow',
     version='0.1.0',
-    install_requires=['numpy', 'pandas'],
-    setup_requires=['numpy'],
+    install_requires=['numpy', 'pandas'] if not 'READTHEDOCS' in os.environ else [],
+    setup_requires=['numpy'] if not 'READTHEDOCS' in os.environ else [],
     ext_modules=[
         Extension(
             "alpenglow.cpp",
