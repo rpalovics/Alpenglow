@@ -4,6 +4,7 @@ class ModelGradientUpdater {
   #include "models/ModelUpdater.h"
   %End
   public:
+    virtual ~ModelGradientUpdater();
     virtual void update(RecDat * rec_dat, double gradient) = 0;
 //    virtual void message(UpdaterMessage message);
     virtual void beginning_of_updating_cycle(RecDat*);
