@@ -14,13 +14,28 @@ enum class UpdaterMessage{
   end_of_implicit_update_cycle
 };
 class Updater{
+  /**
+    Interface for updaters.
+
+    Updater instances can be set into
+    :py:class:`alpenglow.cpp.OnlineExperiment` using the
+    `add_updater()` function. The :py:meth:`update` function is called for each sample.
+  */
   public:
     virtual ~Updater(){}
     virtual void update(RecDat* rec_dat)=0;
+    /**
+      update(RecDat* rec_dat)
+      Function called by :py:class:`alpenglow.cpp.OnlineExperiment` for each
+      sample.
+    */
     virtual void message(UpdaterMessage message){}
     bool self_test(){
       return true;
     }
+    /**
+      Returns true.
+    */
 };
 
 #endif
