@@ -20,10 +20,7 @@ class Updater{
 
     :py:class:`alpenglow.cpp.OnlineExperiment` notifies objects about the
     progress of simulation time through the :py:meth:`update` function of this
-    interface.
-    :py:class:`alpenglow.cpp.OnlineExperiment` accepts `Updater` instances
-    through its `add_updater()` function. During the online experiment,
-    it calls the :py:meth:`update()` function for each sample.
+    interface that are added into it through its `add_updater()` function.
   */
   public:
     virtual ~Updater(){}
