@@ -15,19 +15,28 @@ enum class UpdaterMessage{
 };
 class Updater{
   /**
-    Interface for updaters.
+    Updater of an associated :py:class:`alpenglow.cpp.Model` instance or other
+    object of the simulation.
 
-    Updater instances can be set into
-    :py:class:`alpenglow.cpp.OnlineExperiment` using the
-    `add_updater()` function. The :py:meth:`update` function is called for each sample.
+    :py:class:`alpenglow.cpp.OnlineExperiment` notifies objects about the
+    progress of simulation time through the :py:meth:`update` function of this
+    interface.
+    :py:class:`alpenglow.cpp.OnlineExperiment` accepts `Updater` instances
+    through its `add_updater()` function. During the online experiment,
+    it calls the :py:meth:`update()` function for each sample.
   */
   public:
     virtual ~Updater(){}
     virtual void update(RecDat* rec_dat)=0;
     /**
       update(RecDat* rec_dat)
-      Function called by :py:class:`alpenglow.cpp.OnlineExperiment` for each
-      sample.
+      
+      Updates the associated model or other object of the simulation.
+
+      Parameters
+      ----------
+      rec_dat : RecDat*
+         The newest available sample of the experiment.
     */
     virtual void message(UpdaterMessage message){}
     bool self_test(){
