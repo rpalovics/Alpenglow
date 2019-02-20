@@ -20,11 +20,17 @@ env = Environment(
         '-lpthread',
         '-msse3',
         '-D_LARGEFILE_SOURCE',
-        '-D_FILE_OFFSET_BITS=64'
+        '-D_FILE_OFFSET_BITS=64',
+        '-fprofile-arcs',
+        '-ftest-coverage'
+    ],
+    LDFLAGS=[
+        '-lgcov',
+        '-fprofile-arcs'
     ],
     CPPPATH=['#.', '#../dep/gtest/include','#../dep']+extra_cpppath,
     LIBPATH=['#../dep/gtest/build', '/usr/local/lib'],
-    LIBS=['gtest', 'pthread']
+    LIBS=['gtest', 'pthread', 'gcov']
 )
 cpp = Glob("main/*/*.cpp")
 cpp.extend(Glob("main/*/*/*.cpp"))
