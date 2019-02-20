@@ -1,0 +1,44 @@
+#!/bin/bash
+set -e
+
+# Step 1: Clean all build files
+rm -r ../bin
+ 
+# Step 2: Re-compile whole project, including tests
+scons -j20
+ 
+# Step 3: Generate initial coverage information
+lcov --no-external -b . -c -i -d ../bin/main -o .coverage.wtest.base
+ 
+# Step 4: Run all tests:
+./run_tests.sh
+ 
+# Step 5: Generate coverage based on executed tests
+lcov --no-external -b . -c -d ../bin/main -o .coverage.wtest.run
+ 
+# Step 6: Merge coverage tracefiles
+lcov -a .coverage.wtest.base -a .coverage.wtest.run  -o .coverage.total
+ 
+# Step 8: Filtering, removing test-files and main.cpp
+#lcov -r .coverage.total "`pwd`/build/main.cpp" -o .coverage.total
+#lcov -e .coverage.total "`pwd`/main/*" -o .coverage.total
+ 
+# Extra:  Replace /build/ with /src/ to unify directories
+sed -i 's/\/bin\//\/src\//g' .coverage.total
+ 
+# Extra: Clear up previous data, create html folder
+if [[ -d ./html/ ]] ; then
+    rm -rf ./html/*
+else
+    mkdir html
+fi
+ 
+# Step 9: Generate webpage
+genhtml -o ./html/ .coverage.total
+ 
+# Extra: Preserve coverage file in coveragehistory folder
+#[[ -d ./coveragehistory/ ]] || mkdir coveragehistory
+#cp .coverage.total ./coveragehistory/`date +'%Y.%m.%d-coverage'`
+ 
+# Cleanup
+rm .coverage.*
