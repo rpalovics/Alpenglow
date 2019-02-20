@@ -9,8 +9,8 @@ env = Environment(
     CCFLAGS=[
         '-std=c++11',
         '-Wall',
-        # '-O3',
-        '-ggdb',
+        #'-O3',
+        #'-ggdb',
         '-fPIC',
         '-Wno-deprecated',
         '-Wno-reorder',
@@ -20,18 +20,39 @@ env = Environment(
         '-lpthread',
         '-msse3',
         '-D_LARGEFILE_SOURCE',
-        '-D_FILE_OFFSET_BITS=64',
-        '-fprofile-arcs',
-        '-ftest-coverage'
+        '-D_FILE_OFFSET_BITS=64'
+        #, '-fprofile-arcs',
+        #'-ftest-coverage'
     ],
-    LDFLAGS=[
-        '-lgcov',
-        '-fprofile-arcs'
-    ],
+    #LDFLAGS=[
+    #    '-lgcov',
+    #    '-fprofile-arcs'
+    #],
     CPPPATH=['#.', '#../dep/gtest/include','#../dep']+extra_cpppath,
     LIBPATH=['#../dep/gtest/build', '/usr/local/lib'],
-    LIBS=['gtest', 'pthread', 'gcov']
+    LIBS=[
+      'gtest',
+      'pthread'
+      #, 'gcov'
+    ]
 )
+
+#documentation: compile in profile mode using
+#scons [-j30] -Q mode=coverage
+#available modes: coverage, debug (default), optimized
+mode = ARGUMENTS.get('mode', 'debug')
+
+if mode=="debug":
+  env.Append(CCFLAGS = '-ggdb')
+if mode=="optimized":
+  env.Append(CCFLAGS = '-O3')
+if mode=="coverage":
+  env.Append(CCFLAGS = '-fprofile-arcs')
+  env.Append(CCFLAGS = '-ftest-coverage')
+  env.Append(LIBS = 'gcov')
+  env.Append(LDFLAGS='-lgcov')
+  env.Append(LDFLAGS='-fprofile-arcs')
+
 cpp = Glob("main/*/*.cpp")
 cpp.extend(Glob("main/*/*/*.cpp"))
 objs = env.Object(cpp)
