@@ -5,7 +5,7 @@ set -e
 rm -r ../bin
  
 # Step 2: Re-compile whole project, including tests
-scons -j20
+scons -j20 -Q "mode=coverage"
  
 # Step 3: Generate initial coverage information
 lcov --no-external -b . -c -i -d ../bin/main -o .coverage.wtest.base
