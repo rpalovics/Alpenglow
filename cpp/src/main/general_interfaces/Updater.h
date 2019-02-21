@@ -15,12 +15,20 @@ enum class UpdaterMessage{
 };
 class Updater{
   /**
-    Updater of an associated :py:class:`alpenglow.cpp.Model` instance or other
-    object of the simulation.
+    Interface for updating :py:class:`alpenglow.cpp.Model` instances or other
+    objects of the simulation.
+    Objects may implement this interface themselves or have one or more
+    associated Updater types.
 
-    :py:class:`alpenglow.cpp.OnlineExperiment` notifies objects about the
-    progress of simulation time through the :py:meth:`update` function of this
-    interface that are added into it through its `add_updater()` function.
+    Examples:
+    * :py:class:`alpenglow.cpp.TransitionProbabilityModel` and :py:class:`alpenglow.cpp.TransitionProbabilityModelUpdater`
+    * :py:class:`alpenglow.cpp.PopularityModel` has two updating algorithms:
+      * :py:class:`alpenglow.cpp.PopularityModelUpdater`
+      * :py:class:`alpenglow.cpp.PopularityTimeframeModelUpdater`
+    * :py:class:`alpenglow.cpp.PeriodComputer` implements the Updater interface
+
+    In the online experiment, updaters are organized into a chain.
+    See :py:class:`alpenglow.cpp.OnineExperiment` for details.
   */
   public:
     virtual ~Updater(){}
@@ -36,6 +44,16 @@ class Updater{
          The newest available sample of the experiment.
     */
     virtual void message(UpdaterMessage message){}
+    ///**
+    //  message(UpdaterMessage message)
+    //  
+    //  TODO describe messaging system
+
+    //  Parameters
+    //  ----------
+    //  message : UpdaterMessage
+    //     The event.
+    //*/
     bool self_test(){
       return true;
     }

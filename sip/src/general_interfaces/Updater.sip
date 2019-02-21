@@ -15,15 +15,20 @@ class Updater{
   #include "general_interfaces/Updater.h"
   %End
   %Docstring
-    Updater of an associated :py:class:`alpenglow.cpp.Model` instance or other
-    object of the simulation.
+    Interface for updating :py:class:`alpenglow.cpp.Model` instances or other
+    objects of the simulation.
+    Objects may implement this interface themselves or have one or more
+    associated Updater types.
 
-    :py:class:`alpenglow.cpp.OnlineExperiment` notifies objects about the
-    progress of simulation time through the :py:meth:`update` function of this
-    interface.
-    :py:class:`alpenglow.cpp.OnlineExperiment` accepts `Updater` instances
-    through its `add_updater()` function. During the online experiment,
-    it calls the :py:meth:`update()` function for each sample.
+    Examples:
+    * :py:class:`alpenglow.cpp.TransitionProbabilityModel` and :py:class:`alpenglow.cpp.TransitionProbabilityModelUpdater`
+    * :py:class:`alpenglow.cpp.PopularityModel` has two updating algorithms:
+      * :py:class:`alpenglow.cpp.PopularityModelUpdater`
+      * :py:class:`alpenglow.cpp.PopularityTimeframeModelUpdater`
+    * :py:class:`alpenglow.cpp.PeriodComputer` implements the Updater interface
+
+    In the online experiment, updaters are organized into a chain.
+    See :py:class:`alpenglow.cpp.OnineExperiment` for details.
   %End
   public:
     virtual ~Updater();
@@ -39,6 +44,7 @@ class Updater{
          The newest available sample of the experiment.
   %End
 //    virtual void message(UpdaterMessage message);
+
     bool self_test();
   %Docstring
       Returns true.
