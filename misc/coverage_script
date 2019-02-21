@@ -1,4 +1,5 @@
 #!/bin/bash
+#source: https://swarminglogic.com/jotting/2014_05_lcov
 set -e
 pushd ../cpp/src
 
