@@ -31,7 +31,7 @@ class OnlineExperiment{
 
   * calls loggers that are set using :py:meth:`add_logger`,
   * updates the environment and common statistics, see :py:class:`alpenglow.cpp.ExperimentEnvironment`,
-  * calls the updaters that are set using :py:math:`add_updater`.
+  * calls the updaters that are set using :py:meth:`add_updater`.
 
   At the end of the experiment, it calls end loggers that are set using :py:meth:`add_end_logger`.
 
@@ -108,9 +108,9 @@ class OnlineExperiment{
     /**
       Runs the experiment.
     */
-    void inject_experiment_environment_into(NeedsExperimentEnvironment *object);
+    void inject_experiment_environment_into(NeedsExperimentEnvironment* object);
     /**
-      inject_experiment_environment_into(NeedsExperimentEnvironment *object)
+      inject_experiment_environment_into(NeedsExperimentEnvironment* object)
       Sets the experiment environment into another object that requires it.
 
       In the online experiment, this method is automatically called with all the
