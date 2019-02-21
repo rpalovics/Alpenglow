@@ -21,14 +21,16 @@ class Updater{
     associated Updater types.
 
     Examples:
+
     * :py:class:`alpenglow.cpp.TransitionProbabilityModel` and :py:class:`alpenglow.cpp.TransitionProbabilityModelUpdater`
     * :py:class:`alpenglow.cpp.PopularityModel` has two updating algorithms:
-      * :py:class:`alpenglow.cpp.PopularityModelUpdater`
-      * :py:class:`alpenglow.cpp.PopularityTimeframeModelUpdater`
+     * :py:class:`alpenglow.cpp.PopularityModelUpdater`
+     * :py:class:`alpenglow.cpp.PopularityTimeframeModelUpdater`
     * :py:class:`alpenglow.cpp.PeriodComputer` implements the Updater interface
 
     In the online experiment, updaters are organized into a chain.
     See :py:class:`alpenglow.cpp.OnineExperiment` for details.
+    //here we should link add_updater function
   */
   public:
     virtual ~Updater(){}
