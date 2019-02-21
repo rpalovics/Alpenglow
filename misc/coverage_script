@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+pushd ../cpp/src
 
 # Step 1: Clean all build files
 rm -r ../bin
@@ -42,3 +43,4 @@ genhtml -o ./html/ .coverage.total
  
 # Cleanup
 rm .coverage.*
+popd
