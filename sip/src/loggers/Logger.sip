@@ -4,7 +4,7 @@ class Logger{
   #include "loggers/Logger.h"
   %End
   %Docstring
-    Interface for evaluating the model and logging results, statistics, siumlation data, debug info etc.
+    Interface for evaluating the model and logging results, statistics, simulation data, debug info etc.
 
     In the online experiment, :py:class:`alpenglow.cpp.OnineExperiment` calls
     loggers for each sample and at the end of the experiment. See
@@ -17,7 +17,7 @@ class Logger{
   %Docstring
     run(RecDat* rec_dat)
 
-    Evaluates the model and logs results, statistics, siumlation data, debug info etc.
+    Evaluates the model and logs results, statistics, simulation data, debug info etc.
 
     In the online experiment, :py:class:`alpenglow.cpp.OnlineExperiment` calls this method.
     It is not allowed to modify the model or other simulation objects through this function.
