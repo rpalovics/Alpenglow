@@ -37,7 +37,7 @@ env = Environment(
     ]
 )
 
-#documentation: compile in profile mode using
+#documentation: compile in coverage mode using
 #scons [-j30] -Q mode=coverage
 #available modes: coverage, debug (default), optimized
 mode = ARGUMENTS.get('mode', 'debug')
