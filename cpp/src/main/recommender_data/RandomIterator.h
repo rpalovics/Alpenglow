@@ -71,6 +71,9 @@ public:
     if (shuffle_mode_ != "auto_shuffle" and shuffle_mode_ != "manual_shuffle") ok=false;
     return ok;
   }
+  /**
+    Tests if the class is set up correctly.
+  */
 protected:
   bool autocalled_initialize() override;
   /**

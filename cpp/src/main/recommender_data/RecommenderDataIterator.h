@@ -18,6 +18,7 @@ class RecommenderDataIterator : public Initializable {
   Implementations assume that the data is already sorted by time.
 */
 public:
+  virtual ~RecommenderDataIterator(){}
   void set_recommender_data(RecommenderData* data){ recommender_data_=data; }
   /**
     set_recommender_data(RecommenderData* data)
@@ -112,12 +113,14 @@ public:
   /**
     Restarts the iterator.
   */
-  virtual ~RecommenderDataIterator(){}
   bool self_test(){
     bool ok = true;
     if (recommender_data_ == NULL) ok=false;
     return ok;
   }
+  /**
+    Tests if the class is set up correctly.
+  */
 protected:
   bool autocalled_initialize() override {
     return recommender_data_->is_initialized();
