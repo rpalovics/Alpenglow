@@ -108,6 +108,7 @@ public:
     Restarts the iterator.
   %End
   virtual ~RecommenderDataIterator();
+  bool self_test();
   protected:
   bool autocalled_initialize();
 };

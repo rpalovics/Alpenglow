@@ -113,11 +113,16 @@ public:
     Restarts the iterator.
   */
   virtual ~RecommenderDataIterator(){}
+  bool self_test(){
+    bool ok = true;
+    if (recommender_data_ == NULL) ok=false;
+    return ok;
+  }
 protected:
   bool autocalled_initialize() override {
     return recommender_data_->is_initialized();
   }
-  RecommenderData* recommender_data_;
+  RecommenderData* recommender_data_ = NULL;
   int counter_; //index of next element
 };
 
