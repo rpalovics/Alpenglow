@@ -13,26 +13,49 @@ struct RandomOnlineIteratorParameters{
   int seed;
 };
 class RandomOnlineIterator : public RecommenderDataIterator {
-  public:
-    RandomOnlineIterator(RandomOnlineIteratorParameters* params){
-      random_.set(params->seed);
+/**
+  This RecommenderDataIterator shuffles the samples keeping the timestamps
+  ordered and serves them in a fixed random order. Note that the samples are
+  modified, the nth sample of the random order gets the timestamp of the nth
+  sample of the original data.
+*/
+public:
+  RandomOnlineIterator(RandomOnlineIteratorParameters* params){
+    random_.set(params->seed);
+  }
+  ~RandomOnlineIterator(){
+    for(RecDat* rec_dat : shuffled_data_){
+      delete rec_dat;
     }
-    ~RandomOnlineIterator(){
-      for(RecDat* rec_dat : shuffled_data_){
-        delete rec_dat;
-      }
-    }
-    RecDat* next();
-    RecDat* get_actual();
-    RecDat* get(int index) const;
-    RecDat* get_future(int index) const;
-    double get_following_timestamp() const;
-  private:
-    Random random_;
-    vector<RecDat*> shuffled_data_; //RecDat* for const correctness argh.
+  }
+  RecDat* next();
+  /**
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.next()`
+  */
+  RecDat* get_actual();
+  /**
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
+  */
+  RecDat* get(int index) const;
+  /**
+    get(int index)
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get()`
+  */
+  RecDat* get_future(int index) const;
+  /**
+    get_future(int index)
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_future()`
+  */
+  double get_following_timestamp() const;
+  /**
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_following_timestamp()`
+  */
+private:
+  Random random_;
+  vector<RecDat*> shuffled_data_; //RecDat* for const correctness argh.
 
-    bool autocalled_initialize() override;
-    bool parent_is_initialized_ = false;
+  bool autocalled_initialize() override;
+  bool parent_is_initialized_ = false;
 };
 
 
