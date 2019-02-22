@@ -27,7 +27,7 @@ public:
   ShuffleIterator(ShuffleIteratorParameters* params){
     seed_ = params->seed;
   }
-  RecDat* next();
+  RecDat* next() override;
   /**
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.next()`
   */
