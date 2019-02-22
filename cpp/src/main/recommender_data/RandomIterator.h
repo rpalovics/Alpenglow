@@ -14,6 +14,13 @@ struct RandomIteratorParameters {
   string shuffle_mode = "auto_shuffle";
 };
 class RandomIterator : public RecommenderDataIterator {
+/**
+  RecommenderDataIterator class that completely shuffles data. Note that the
+  timestamps won't stay in increasing order, that may cause faults in some
+  time-dependent models.
+
+  Sample offline usage: :py:class:`alpenglow.cpp.OfflineIteratingOnlineLearnerWrapper`
+*/
 public:
   RandomIterator(RecommenderData* recommender_data, int seed, string shuffle_mode){
     recommender_data_ = recommender_data;
@@ -29,19 +36,46 @@ public:
     random_.set(params->seed);
     shuffle_mode_=params->shuffle_mode;
   }
-  RecDat* next();
-  void restart();
+  RecDat* next() override;
+  /**
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.next()`
+  */
+  void restart() override;
+  /**
+    Restarts the iterator. In auto_shuffle mode it also reshuffles the dataset.
+  */
   void shuffle();
-  RecDat* get_actual();
-  RecDat* get(int index) const;
-  RecDat* get_future(int index) const;
-  double get_following_timestamp() const;
+  /**
+    Reshuffles the dataset.
+  */
+  RecDat* get(int index) const override;
+  /**
+    get(int index)
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get()`
+  */
+  RecDat* get_future(int index) const override;
+  /**
+    get_future(int index)
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_future()`
+  */
+  double get_following_timestamp() const override;
+  /**
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_following_timestamp()`
+  */
+  RecDat* get_actual() override;
+  /**
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
+  */
+protected:
+  bool autocalled_initialize() override;
+  /**
+    See :py:meth:`alpenglow.cpp.Initializable.autocalled_initialize()`.
+  */
 private:
   Random random_;
   vector<RecDat*> shuffled_data_;
   string shuffle_mode_ = "auto_shuffle"; //auto_shuffle or manual_shuffle
 
-  bool autocalled_initialize() override;
   bool parent_is_initialized_ = false;
 };
 
