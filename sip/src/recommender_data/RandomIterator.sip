@@ -50,6 +50,7 @@ public:
   %Docstring
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
   %End
+  bool self_test();
   protected:
   bool autocalled_initialize();
   %Docstring

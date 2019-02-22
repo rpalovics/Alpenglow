@@ -66,6 +66,11 @@ public:
   /**
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
   */
+  bool self_test(){
+    bool ok = RecommenderDataIterator::self_test();
+    if (shuffle_mode_ != "auto_shuffle" and shuffle_mode_ != "manual_shuffle") ok=false;
+    return ok;
+  }
 protected:
   bool autocalled_initialize() override;
   /**
