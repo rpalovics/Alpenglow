@@ -109,7 +109,7 @@ do
   | sed -r "s|^(.*pair<)|//\1|" \
   | sed -r "s|^(.*map<)|//\1|" \
   | sed -r "s|^([[:space:]]*typedef)|//\1|" \
-  | sed -r "s/^(.*\(.*\))\s*override\s*;/\1;/g"\
+  | sed -r "s/^(.*\(.*\)(\sconst)?)\s*override\s*;/\1;/g"\
   | python $script_dir/comment_labeled_classes.py \
   | sed "s/COMMENTOUTTHISCLASS//g" \
   | sed -r "s|; //SIP_THROW (.*)$| throw \1;|" \
