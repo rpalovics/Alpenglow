@@ -22,22 +22,42 @@ struct ShuffleIteratorParameters{
 };
 
 class ShuffleIterator : public RecommenderDataIterator {
-  public:
-    ShuffleIterator(RecommenderData* data, int seed);
-    ShuffleIterator(ShuffleIteratorParameters* params){
-      seed_ = params->seed;
-    }
-    RecDat* next();
-    RecDat* get(int index) const override;
-    RecDat* get_future(int index) const override;
-    double get_following_timestamp() const override;
-    RecDat* get_actual() override;
-  protected:
-    bool autocalled_initialize() override;
-  private:
-    FRIEND_TEST(TestRecommenderDataIterator, iterator);
-    vector<RecDat*> shuffled_data_;
-    int seed_;
-    bool parent_is_initialized_ = false;
+public:
+  ShuffleIterator(RecommenderData* data, int seed);
+  ShuffleIterator(ShuffleIteratorParameters* params){
+    seed_ = params->seed;
+  }
+  RecDat* next();
+  /**
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.next()`
+  */
+  RecDat* get(int index) const override;
+  /**
+    get(int index)
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get()`
+  */
+  RecDat* get_future(int index) const override;
+  /**
+    get_future(int index)
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_future()`
+  */
+  double get_following_timestamp() const override;
+  /**
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_following_timestamp()`
+  */
+  RecDat* get_actual() override;
+  /**
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
+  */
+protected:
+  bool autocalled_initialize() override;
+  /**
+    See :py:meth:`alpenglow.cpp.Initializable.autocalled_initialize()`
+  */
+private:
+  FRIEND_TEST(TestRecommenderDataIterator, iterator);
+  vector<RecDat*> shuffled_data_;
+  int seed_;
+  bool parent_is_initialized_ = false;
 };
 #endif
