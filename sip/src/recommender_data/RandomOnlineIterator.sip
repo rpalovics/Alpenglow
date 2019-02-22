@@ -9,15 +9,38 @@ class RandomOnlineIterator : public RecommenderDataIterator {
   %TypeHeaderCode
   #include "recommender_data/RandomOnlineIterator.h"
   %End
-  public:
-    RandomOnlineIterator(RandomOnlineIteratorParameters* params);
-    ~RandomOnlineIterator();
-    RecDat* next();
-    RecDat* get_actual();
-    RecDat* get(int index) const;
-    RecDat* get_future(int index) const;
-    double get_following_timestamp() const;
+  %Docstring
+  This RecommenderDataIterator shuffles the samples keeping the timestamps
+  ordered and serves them in a fixed random order. Note that the samples are
+  modified, the nth sample of the random order gets the timestamp of the nth
+  sample of the original data.
+  %End
+public:
+  RandomOnlineIterator(RandomOnlineIteratorParameters* params);
+  ~RandomOnlineIterator();
+  RecDat* next();
+  %Docstring
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.next()`
+  %End
+  RecDat* get_actual();
+  %Docstring
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
+  %End
+  RecDat* get(int index) const;
+  %Docstring
+    get(int index)
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get()`
+  %End
+  RecDat* get_future(int index) const;
+  %Docstring
+    get_future(int index)
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_future()`
+  %End
+  double get_following_timestamp() const;
+  %Docstring
+    See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_following_timestamp()`
+  %End
   private:
-    bool autocalled_initialize();
+  bool autocalled_initialize();
 };
 

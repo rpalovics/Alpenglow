@@ -51,6 +51,9 @@ public:
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
   %End
   bool self_test();
+  %Docstring
+    Tests if the class is set up correctly.
+  %End
   protected:
   bool autocalled_initialize();
   %Docstring

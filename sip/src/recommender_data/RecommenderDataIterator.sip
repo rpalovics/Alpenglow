@@ -13,6 +13,7 @@ class RecommenderDataIterator : public Initializable {
   Implementations assume that the data is already sorted by time.
   %End
 public:
+  virtual ~RecommenderDataIterator();
   void set_recommender_data(RecommenderData* data);
   %Docstring
     set_recommender_data(RecommenderData* data)
@@ -107,8 +108,10 @@ public:
   %Docstring
     Restarts the iterator.
   %End
-  virtual ~RecommenderDataIterator();
   bool self_test();
+  %Docstring
+    Tests if the class is set up correctly.
+  %End
   protected:
   bool autocalled_initialize();
 };
