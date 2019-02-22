@@ -1,3 +1,4 @@
+
 struct ShuffleIteratorParameters{
   %TypeHeaderCode
   #include "recommender_data/ShuffleIterator.h"
@@ -11,13 +12,13 @@ class ShuffleIterator : public RecommenderDataIterator {
   %End
   public:
     ShuffleIterator(RecommenderData* data, int seed);
-    
     ShuffleIterator(ShuffleIteratorParameters* params);
     RecDat* next();
     RecDat* get(int index) const;
-    RecDat* get_actual();
     RecDat* get_future(int index) const;
     double get_following_timestamp() const;
+    RecDat* get_actual();
   protected:
     bool autocalled_initialize();
 };
+

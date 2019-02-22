@@ -1,10 +1,12 @@
-/*
- * ShuffleIterator.h
- * Egy RecommenderData peldany elemei kozul az egyezo idobelyegueket megkeveri.
- * Ezutan az adatokat mindig ebben a sorrendben szolgalja ki.
- */
+///*
+// * ShuffleIterator.h
+// * Egy RecommenderData peldany elemei kozul az egyezo idobelyegueket megkeveri.
+// * Ezutan az adatokat mindig ebben a sorrendben szolgalja ki.
+// */
 #ifndef  SHUFFLE_ITERATOR
 #define  SHUFFLE_ITERATOR
+
+//SIP_AUTOCONVERT
 
 #include "RecommenderData.h"
 #include <gtest/gtest_prod.h>
@@ -25,12 +27,13 @@ class ShuffleIterator : public RecommenderDataIterator {
     ShuffleIterator(ShuffleIteratorParameters* params){
       seed_ = params->seed;
     }
-    bool autocalled_initialize() override;
     RecDat* next();
     RecDat* get(int index) const override;
     RecDat* get_future(int index) const override;
     double get_following_timestamp() const override;
     RecDat* get_actual() override;
+  protected:
+    bool autocalled_initialize() override;
   private:
     FRIEND_TEST(TestRecommenderDataIterator, iterator);
     vector<RecDat*> shuffled_data_;
