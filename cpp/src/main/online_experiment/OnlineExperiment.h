@@ -1,5 +1,5 @@
-#ifndef EXPERIMENT_ENVIRONMENT_H
-#define EXPERIMENT_ENVIRONMENT_H
+#ifndef ONLINE_EXPERIMENT_H
+#define ONLINE_EXPERIMENT_H
 
 //SIP_AUTOCONVERT
 
@@ -126,4 +126,4 @@ class OnlineExperiment{
     vector<Logger*> end_loggers_;
 };
 
-#endif /* EXPERIMENT_ENVIRONMENT_H */
+#endif /* ONLINE_EXPERIMENT_H */

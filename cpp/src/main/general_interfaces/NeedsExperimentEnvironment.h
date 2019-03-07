@@ -1,5 +1,5 @@
-#ifndef EXPERIMENT_ENVIRONMENT_H
-#define EXPERIMENT_ENVIRONMENT_H
+#ifndef NEEDS_EXPERIMENT_ENVIRONMENT_H
+#define NEEDS_EXPERIMENT_ENVIRONMENT_H
 
 //SIP_AUTOCONVERT
 
@@ -12,4 +12,4 @@ class NeedsExperimentEnvironment{
     virtual void set_experiment_environment(ExperimentEnvironment*) = 0;
 };
 
-#endif /* EXPERIMENT_ENVIRONMENT_H */
+#endif /* NEEDS_EXPERIMENT_ENVIRONMENT_H */

@@ -1,5 +1,5 @@
-#ifndef   FRIEND CLASS _RANDOM_CHOOSING_COMBINED_MODEL;
-#define   FRIEND CLASS _RANDOM_CHOOSING_COMBINED_MODEL;
+#ifndef W_M_S_UPDATER_H
+#define W_M_S_UPDATER_H
 
 //SIP_AUTOCONVERT
 
@@ -22,4 +22,4 @@ public:
   virtual void set_wms(WeightedModelStructure* wms)=0;
 };
 
-#endif /*   FRIEND CLASS _RANDOM_CHOOSING_COMBINED_MODEL; */
+#endif /* W_M_S_UPDATER_H */
