@@ -74,16 +74,22 @@ TEST_F(TestSimpleIterator, get) {
     EXPECT_EQ(8, (it.get_future(2))->item);
 }
 
-//disabled function
-//TEST_F(TestSimpleIterator, matrix) {
-//    RecDats recData;
-//    recData.push_back(createRecDat(2,3,10.0,1.0));
-//    recData.push_back(createRecDat(1,6,10.0,1.0));
-//    recData.push_back(createRecDat(2,8,10.0,1.0));
-//    rd.set_rec_data(recData);
-//    SimpleIterator it(&rd);
-//    EXPECT_EQ(rd.matrix(),it.matrix());
-//}
+TEST_F(TestSimpleIterator, future) {
+    RecDats recData;
+    recData.push_back(createRecDat(2,3,10.0,1.0));
+    recData.push_back(createRecDat(1,6,10.0,1.0));
+    recData.push_back(createRecDat(2,8,10.0,1.0));
+    rd.set_rec_data(recData);
+    SimpleIterator it(&rd);
+    ASSERT_EQ(3,it.size());
+    EXPECT_THROW(it.get(1),std::runtime_error);
+    EXPECT_THROW(it.get(2),std::runtime_error);
+    it.next();
+    it.next();
+    EXPECT_NO_THROW(it.get(0));
+    EXPECT_NO_THROW(it.get(1));
+    EXPECT_THROW(it.get(2),std::runtime_error);
+}
 
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
