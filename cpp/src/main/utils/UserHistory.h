@@ -1,6 +1,6 @@
 #ifndef USER_HISTORY
 #define USER_HISTORY
-#include<exception>
+#include <stdexcept>
 
 #include "../recommender_data/RecommenderData.h"
 #include "../models/ModelUpdater.h"
@@ -22,8 +22,8 @@ class UserHistory : public Updater{
     void clear_user_history(int user); //if user history existed, it will be an empty list
     void clear_all();
     void update(RecDat*) override;
-    void write(ostream& file){ throw exception(); }//TODO
-    void read(istream& file){ throw exception(); }//TODO
+    void write(ostream& file){ throw logic_error("Not implemented."); }//TODO
+    void read(istream& file){ throw logic_error("Not implemented."); }//TODO
     ~UserHistory(){
       delete_all();
     }
