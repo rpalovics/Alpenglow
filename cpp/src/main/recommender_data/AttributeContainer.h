@@ -1,5 +1,5 @@
-#ifndef //TEMPLATE CLASS INHERITED FROM TEMPLATE CLASS
-#define //TEMPLATE CLASS INHERITED FROM TEMPLATE CLASS
+#ifndef INLINE_ATTRIBUTE_READER_H
+#define INLINE_ATTRIBUTE_READER_H
 #include <exception>
 #include <iostream>
 #include <fstream>
@@ -77,4 +77,4 @@ class GeneralAttributeContainer : public AttributeContainer<Attribute>{
     }
 };
 
-#endif /* //TEMPLATE CLASS INHERITED FROM TEMPLATE CLASS */
+#endif /* INLINE_ATTRIBUTE_READER_H */

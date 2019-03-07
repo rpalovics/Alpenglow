@@ -1,5 +1,5 @@
-#ifndef ENUM CLASS _UPDATER_MESSAGE{
-#define ENUM CLASS _UPDATER_MESSAGE{
+#ifndef UPDATER_H
+#define UPDATER_H
 
 //SIP_AUTOCONVERT
 
@@ -65,4 +65,4 @@ class Updater{
     */
 };
 
-#endif /* ENUM CLASS _UPDATER_MESSAGE{ */
+#endif /* UPDATER_H */
