@@ -3,6 +3,7 @@
 
 #include "OfflineLearner.h"
 #include "../models/ExternalModel.h"
+#include <stdexcept>
 #include <gtest/gtest_prod.h>
 
 using namespace std;

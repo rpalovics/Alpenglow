@@ -22,7 +22,7 @@ void OfflineExternalModelLearner::fit(RecommenderData* recommender_data){
   } else if(mode_=="read"){
     model_->read_predictions(in_name_base_ + "_" + to_string(call_number_) + "_predictions.dat");
   } else {
-     throw exception();
+     throw runtime_error("Wrong mode_ value.");
   }
 
   call_number_++;

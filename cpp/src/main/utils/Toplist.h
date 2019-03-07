@@ -1,7 +1,7 @@
 #ifndef TOPLIST
 #define TOPLIST
 
-#include<exception>
+#include<stdexcept>
 #include<queue>
 #include<iostream>
 
@@ -28,7 +28,7 @@ class Toplist{
       max_length_=max_length;
     }
     const T get_min() const {
-      if(size()==0) throw exception();
+      if(size()==0) throw runtime_error("Accessing head of empty toplist.");
       return heap_->top();
     }
     void insert(T t){
