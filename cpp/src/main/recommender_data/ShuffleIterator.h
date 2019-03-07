@@ -14,6 +14,7 @@
 #include "../utils/Util.h"
 #include "../utils/Random.h"
 #include <algorithm>
+#include <stdexcept>
 
 using namespace std;
 

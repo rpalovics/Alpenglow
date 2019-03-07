@@ -1,5 +1,6 @@
 #ifndef SIMPLEITERATOR_H_
 #define SIMPLEITERATOR_H_
+#include <stdexcept>
 #include "RecommenderDataIterator.h"
 
 //SIP_AUTOCONVERT

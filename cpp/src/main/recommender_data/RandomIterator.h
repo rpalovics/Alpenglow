@@ -4,7 +4,7 @@
 //SIP_AUTOCONVERT
 
 #include <string>
-#include <exception>
+#include <stdexcept>
 #include "RecommenderData.h"
 #include "RecommenderDataIterator.h"
 #include "../utils/Random.h"
@@ -22,17 +22,16 @@ class RandomIterator : public RecommenderDataIterator {
   Sample offline usage: :py:class:`alpenglow.cpp.OfflineIteratingOnlineLearnerWrapper`
 */
 public:
-  RandomIterator(RecommenderData* recommender_data, int seed, string shuffle_mode){
+  RandomIterator(RecommenderData* recommender_data, int seed, string shuffle_mode){ //offline usage
     recommender_data_ = recommender_data;
     random_.set(seed);
     shuffle_mode_ = shuffle_mode;
     bool init_success = initialize();
     if (!init_success){
-      cerr << "RandomIterator: initialization was not successful." << endl;
-      throw 0;
+      throw runtime_error("Initialization was not successful.");
     }
   }
-  RandomIterator(RandomIteratorParameters* params){
+  RandomIterator(RandomIteratorParameters* params){ //online usage
     random_.set(params->seed);
     shuffle_mode_=params->shuffle_mode;
   }

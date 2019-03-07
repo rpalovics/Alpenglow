@@ -13,7 +13,7 @@ RecDat* SimpleIterator::get_actual(){
 }
 
 RecDat* SimpleIterator::get(int index) const {
-  if(index>=counter_) throw exception();
+  if(index>=counter_) throw runtime_error("Attempted to access future.");
   return recommender_data_->get(index);
 }
 

@@ -4,7 +4,7 @@
 //SIP_AUTOCONVERT
 
 #include <string>
-#include <exception>
+#include <stdexcept>
 #include "RecommenderData.h"
 #include "RecommenderDataIterator.h"
 #include "../utils/Random.h"

@@ -5,7 +5,7 @@ RecDat* RandomIterator::get_actual(){
 }
 
 RecDat* RandomIterator::get(int index) const {
-  if(index>=counter_) throw exception();
+  if(index>=counter_) throw runtime_error("Attempted to access future.");
   return shuffled_data_[index];
 }
 
