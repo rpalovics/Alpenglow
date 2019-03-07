@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for file in $(find ../cpp/src/main -name "*.h" -a ! -name "*macros.h" -a ! -name "*SortPair*")
+for file in $(find ../cpp/src/main -name "*.h" -a ! -name "*macros.h" -a ! -name "*SortPair*" -a ! -name "*StringSplitter*")
 #for file in ../cpp/src/main/data_generators/TimeframeDataGenerator.h ../cpp/src/main/models/Model.h ../cpp/src/main/general_interfaces/Initializable.h
 do
   standard_guard=$(egrep "^ *class [^;]*$" $file | grep -v "enum" | head -1 | sed -r "s/^[[:space:]]*class[[:space:]]+([a-zA-Z]+)([^a-zA-Z].*)?$/\1_h/" | sed -r "s/([A-Z])/_\1/g" | sed -r "s/^_//" | tr [a-z] [A-Z])
