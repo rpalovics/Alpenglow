@@ -1,5 +1,5 @@
-#ifndef CLASS _EIGEN_FACTOR_MODEL
-#define CLASS _EIGEN_FACTOR_MODEL
+#ifndef EIGEN_FACTOR_MODEL_H
+#define EIGEN_FACTOR_MODEL_H
 
 #include <unordered_map>
 #include <eigen3/Eigen/SparseCore>
@@ -74,4 +74,4 @@ class EigenFactorModel
     FRIEND_TEST(TestEigenFactorModel, testOfflineEigenFactorModel);
 };
 
-#endif /* CLASS _EIGEN_FACTOR_MODEL */
+#endif /* EIGEN_FACTOR_MODEL_H */

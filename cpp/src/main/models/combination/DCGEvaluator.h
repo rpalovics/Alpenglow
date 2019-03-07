@@ -1,5 +1,5 @@
-#ifndef CLASS _D_C_G_EVALUATOR
-#define CLASS _D_C_G_EVALUATOR
+#ifndef D_C_G_EVALUATOR_H
+#define D_C_G_EVALUATOR_H
 
 #include "../Model.h"
 #include "Evaluator.h"
@@ -49,4 +49,4 @@ private:
   RankComputer* rank_computer_ = NULL;
 };
 
-#endif /* CLASS _D_C_G_EVALUATOR */
+#endif /* D_C_G_EVALUATOR_H */
