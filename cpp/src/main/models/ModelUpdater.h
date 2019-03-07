@@ -1,5 +1,5 @@
-#ifndef MODELUPDATER
-#define MODELUPDATER
+#ifndef MODEL_GRADIENT_UPDATER_H
+#define MODEL_GRADIENT_UPDATER_H
 
 //SIP_AUTOCONVERT
 
@@ -30,4 +30,4 @@ class ModelMultiUpdater {
     }
 };
 
-#endif
+#endif /* MODEL_GRADIENT_UPDATER_H */

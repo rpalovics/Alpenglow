@@ -1,5 +1,5 @@
-#ifndef EXPERIMENT_ENVIRONMENT
-#define EXPERIMENT_ENVIRONMENT
+#ifndef EXPERIMENT_ENVIRONMENT_H
+#define EXPERIMENT_ENVIRONMENT_H
 
 #include <vector>
 #include "../utils/SpMatrix.h"
@@ -164,4 +164,4 @@ class ExperimentEnvironment{
 };
 
 
-#endif
+#endif /* EXPERIMENT_ENVIRONMENT_H */

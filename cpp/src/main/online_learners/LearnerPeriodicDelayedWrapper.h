@@ -1,5 +1,5 @@
-#ifndef PERIODIC_DELAYED_LEARNER_WRAPPER
-#define PERIODIC_DELAYED_LEARNER_WRAPPER
+#ifndef LEARNER_PERIODIC_DELAYED_WRAPPER_H
+#define LEARNER_PERIODIC_DELAYED_WRAPPER_H
 
 
 #include "../general_interfaces/Updater.h"
@@ -46,4 +46,4 @@ class LearnerPeriodicDelayedWrapper : public Updater{
     Updater* wrapped_learner_;
 };
 
-#endif
+#endif /* LEARNER_PERIODIC_DELAYED_WRAPPER_H */

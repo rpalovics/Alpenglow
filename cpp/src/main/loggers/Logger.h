@@ -1,5 +1,5 @@
-#ifndef LOGGER
-#define LOGGER
+#ifndef LOGGER_H
+#define LOGGER_H
 
 //SIP_AUTOCONVERT
 
@@ -41,4 +41,4 @@ class Logger{
 };
 
 
-#endif
+#endif /* LOGGER_H */

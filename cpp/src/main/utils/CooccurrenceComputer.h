@@ -1,5 +1,5 @@
-#ifndef COOCCURRENCE_COMPUTER
-#define COOCCURRENCE_COMPUTER
+#ifndef COOCCURRENCE_COMPUTER_H
+#define COOCCURRENCE_COMPUTER_H
 
 #include <iostream>
 #include <fstream>
@@ -27,4 +27,4 @@ private:
 };
 
 
-#endif
+#endif /* COOCCURRENCE_COMPUTER_H */

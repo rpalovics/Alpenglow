@@ -1,5 +1,5 @@
-#ifndef PRECISION_RECALL_EVALUATOR
-#define PRECISION_RECALL_EVALUATOR
+#ifndef PRECISION_RECALL_EVALUATOR_H
+#define PRECISION_RECALL_EVALUATOR_H
 
 //SIP_AUTOCONVERT
 
@@ -67,4 +67,4 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
 };
 
 
-#endif
+#endif /* PRECISION_RECALL_EVALUATOR_H */

@@ -68,4 +68,4 @@ class Averaging : public Distribution{
     void write_into_file(string out_file); 
 };
 
-#endif
+#endif /* DISTRIBUTION_H */

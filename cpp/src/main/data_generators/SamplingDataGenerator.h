@@ -1,5 +1,5 @@
-#ifndef SAMPLING_DATA_GENERATOR
-#define SAMPLING_DATA_GENERATOR
+#ifndef SAMPLING_DATA_GENERATOR_H
+#define SAMPLING_DATA_GENERATOR_H
 
 //SIP_AUTOCONVERT
 
@@ -57,4 +57,4 @@ class SamplingDataGenerator : public DataGenerator, public Initializable, public
     Random* random_ = NULL;
 };
 
-#endif
+#endif /* SAMPLING_DATA_GENERATOR_H */

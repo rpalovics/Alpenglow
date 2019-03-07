@@ -1,5 +1,5 @@
-#ifndef OFFLINE_LEARNER
-#define OFFLINE_LEARNER
+#ifndef OFFLINE_LEARNER_H
+#define OFFLINE_LEARNER_H
 
 #include "../recommender_data/RecommenderData.h"
 
@@ -14,4 +14,4 @@ class OfflineLearner{
  protected:
 };
 
-#endif
+#endif /* OFFLINE_LEARNER_H */

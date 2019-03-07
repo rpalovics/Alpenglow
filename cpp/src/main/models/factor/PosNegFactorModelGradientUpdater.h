@@ -1,5 +1,5 @@
-#ifndef POSNEG_FACTOR_MODEL_GRADIENT_UPDATER
-#define POSNEG_FACTOR_MODEL_GRADIENT_UPDATER
+#ifndef POS_NEG_FACTOR_MODEL_GRADIENT_UPDATER_H
+#define POS_NEG_FACTOR_MODEL_GRADIENT_UPDATER_H
 
 #include "../ModelUpdater.h"
 #include "FactorModel.h"
@@ -83,4 +83,4 @@ class PosNegFactorModelGradientUpdater : public ModelGradientUpdater{
     void update_biases(RecDat* rec_dat, double gradient);
 };
 
-#endif
+#endif /* POS_NEG_FACTOR_MODEL_GRADIENT_UPDATER_H */

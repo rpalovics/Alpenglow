@@ -1,5 +1,5 @@
-#ifndef USER_TOPLIST_EVALUATOR
-#define USER_TOPLIST_EVALUATOR
+#ifndef OFFLINE_USER_TOPLIST_EVALUATOR_H
+#define OFFLINE_USER_TOPLIST_EVALUATOR_H
 #include <fstream>
 #include "OfflineEvaluator.h"
 #include "../recommender_data/macros.h"
@@ -37,4 +37,4 @@ class OfflineUserToplistEvaluator : public OfflineEvaluator{
 };
 
 
-#endif
+#endif /* OFFLINE_USER_TOPLIST_EVALUATOR_H */

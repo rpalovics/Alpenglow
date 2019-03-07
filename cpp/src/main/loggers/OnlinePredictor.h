@@ -1,5 +1,5 @@
-#ifndef ONLINE_PREDICTOR
-#define ONLINE_PREDICTOR
+#ifndef ONLINE_PREDICTOR_H
+#define ONLINE_PREDICTOR_H
 #include <gtest/gtest_prod.h>
 #include "Logger.h"
 #include "../utils/PredictionCreator.h"
@@ -33,4 +33,4 @@ class OnlinePredictor : public Logger{ //SIP_NODEFAULTCTORS
    FRIEND_TEST(TestOnlinePredictor, test);
 };
 
-#endif
+#endif /* ONLINE_PREDICTOR_H */

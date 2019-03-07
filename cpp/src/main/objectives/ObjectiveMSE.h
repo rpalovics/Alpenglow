@@ -1,5 +1,5 @@
-#ifndef OBJECTIVE_MSE
-#define OBJECTIVE_MSE
+#ifndef OBJECTIVE_M_S_E_H
+#define OBJECTIVE_M_S_E_H
 
 //SIP_AUTOCONVERT
 
@@ -11,4 +11,4 @@ class ObjectiveMSE : public ObjectivePointWise{
     double get_gradient(RecPred* rec_pred);
 };
 
-#endif
+#endif /* OBJECTIVE_M_S_E_H */

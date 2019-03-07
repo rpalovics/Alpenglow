@@ -1,5 +1,5 @@
-#ifndef A_FACTOR_MODEL_UPDATER
-#define A_FACTOR_MODEL_UPDATER
+#ifndef ASYMMETRIC_FACTOR_MODEL_UPDATER_H
+#define ASYMMETRIC_FACTOR_MODEL_UPDATER_H
 
 #include "../ModelUpdater.h"
 #include "AsymmetricFactorModel.h"
@@ -22,5 +22,4 @@ class AsymmetricFactorModelUpdater : public Updater{
     AsymmetricFactorModel* model_;
 };
 
-#endif
-
+#endif /* ASYMMETRIC_FACTOR_MODEL_UPDATER_H */

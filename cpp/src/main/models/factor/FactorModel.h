@@ -1,5 +1,5 @@
-#ifndef FACTOR_MODEL
-#define FACTOR_MODEL
+#ifndef FACTOR_MODEL_H
+#define FACTOR_MODEL_H
 
 #include <unordered_map>
 #include "../../utils/Factors.h"
@@ -129,4 +129,4 @@ class FactorModel
     FRIEND_TEST(TestFactorModelFilter, test_all);
 };
 
-#endif
+#endif /* FACTOR_MODEL_H */

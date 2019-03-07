@@ -1,5 +1,5 @@
-#ifndef HIGH_PRED_NEGSAMPLEGENERATOR
-#define HIGH_PRED_NEGSAMPLEGENERATOR
+#ifndef HIGH_GRADIENT_NEGATIVE_SAMPLE_GENERATOR_H
+#define HIGH_GRADIENT_NEGATIVE_SAMPLE_GENERATOR_H
 
 #include "NegativeSampleGenerator.h"
 #include "../utils/SortPairDescendingBySecond.h"
@@ -92,4 +92,4 @@ class HighGradientNegativeSampleGenerator : public NegativeSampleGenerator {
 
 
 
-#endif
+#endif /* HIGH_GRADIENT_NEGATIVE_SAMPLE_GENERATOR_H */

@@ -1,5 +1,5 @@
-#ifndef PROCEEDING_LOGGER
-#define PROCEEDING_LOGGER
+#ifndef PROCEEDING_LOGGER_H
+#define PROCEEDING_LOGGER_H
 
 //SIP_AUTOCONVERT
 
@@ -46,4 +46,4 @@ class ProceedingLogger : public Logger, public Initializable, public NeedsExperi
     int size_;
 };
 
-#endif
+#endif /* PROCEEDING_LOGGER_H */

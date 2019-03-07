@@ -1,5 +1,5 @@
-#ifndef OFFLINE_TOPLIST_EVALUATOR
-#define OFFLINE_TOPLIST_EVALUATOR
+#ifndef OFFLINE_TOP_LIST_EVALUATOR_H
+#define OFFLINE_TOP_LIST_EVALUATOR_H
 #include <gtest/gtest_prod.h>
 #include "OfflineEvaluator.h"
 #include "../utils/PredictionCreator.h"
@@ -33,5 +33,4 @@ class OfflineTopListEvaluator : public OfflineEvaluator {
     ofstream  ofs;
 };
 
-#endif
-
+#endif /* OFFLINE_TOP_LIST_EVALUATOR_H */

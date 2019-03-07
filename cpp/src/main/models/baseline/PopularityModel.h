@@ -1,5 +1,5 @@
-#ifndef POPULARITY_MODEL
-#define POPULARITY_MODEL
+#ifndef POPULARITY_MODEL_H
+#define POPULARITY_MODEL_H
 
 //SIP_AUTOCONVERT
 
@@ -20,4 +20,4 @@ class PopularityModel : public Model {
     friend class PopularityTimeFrameModelUpdater;
 };
 
-#endif
+#endif /* POPULARITY_MODEL_H */

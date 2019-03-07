@@ -1,5 +1,5 @@
-#ifndef OBJECTIVESIGMOIDMSE_H_
-#define OBJECTIVESIGMOIDMSE_H_
+#ifndef OBJECTIVE_SIGMOID_M_S_E_H
+#define OBJECTIVE_SIGMOID_M_S_E_H
 
 #include "../utils/Util.h"
 #include "Objective.h"
@@ -10,4 +10,4 @@ public:
 };
 
 
-#endif /* OBJECTIVESIGMOIDMSE_H_ */
+#endif /* OBJECTIVE_SIGMOID_M_S_E_H */

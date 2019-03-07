@@ -33,4 +33,4 @@ class ExternalModel : public Model, public TopListRecommender{
     unordered_map<int, vector<int>> toplists_;
 };
 
-#endif
+#endif /* EXTERNAL_MODEL_H */

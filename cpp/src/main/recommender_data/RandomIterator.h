@@ -1,5 +1,5 @@
-#ifndef RANDOM_ITERATOR
-#define RANDOM_ITERATOR
+#ifndef RANDOM_ITERATOR_H
+#define RANDOM_ITERATOR_H
 
 //SIP_AUTOCONVERT
 
@@ -87,4 +87,4 @@ private:
 };
 
 
-#endif
+#endif /* RANDOM_ITERATOR_H */

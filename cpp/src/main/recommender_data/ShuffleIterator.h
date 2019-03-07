@@ -1,10 +1,10 @@
+#ifndef SHUFFLE_ITERATOR_H
+#define SHUFFLE_ITERATOR_H
 ///*
 // * ShuffleIterator.h
 // * Egy RecommenderData peldany elemei kozul az egyezo idobelyegueket megkeveri.
 // * Ezutan az adatokat mindig ebben a sorrendben szolgalja ki.
 // */
-#ifndef  SHUFFLE_ITERATOR
-#define  SHUFFLE_ITERATOR
 
 //SIP_AUTOCONVERT
 
@@ -61,4 +61,4 @@ private:
   int seed_;
   bool parent_is_initialized_ = false;
 };
-#endif
+#endif /* SHUFFLE_ITERATOR_H */

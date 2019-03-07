@@ -1,5 +1,5 @@
-#ifndef GLOBAL_NEGATIVE_AND_POSITIVE_SAMPLE_GENERATOR
-#define GLOBAL_NEGATIVE_AND_POSITIVEsSAMPLE_GENERATOR
+#ifndef GLOBAL_POSITIVE_AND_NEGATIVE_SAMPLE_GENERATOR_H
+#define GLOBAL_POSITIVE_AND_NEGATIVE_SAMPLE_GENERATOR_H
 
 #include <gtest/gtest_prod.h>
 #include "../utils/Random.h"
@@ -43,4 +43,4 @@ class GlobalPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator 
     string decay_type;
 };
 
-#endif
+#endif /* GLOBAL_POSITIVE_AND_NEGATIVE_SAMPLE_GENERATOR_H */

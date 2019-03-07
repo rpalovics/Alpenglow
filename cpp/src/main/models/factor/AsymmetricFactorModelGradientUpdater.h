@@ -1,5 +1,5 @@
-#ifndef A_FACTOR_MODEL_GRADIENT_UPDATER
-#define A_FACTOR_MODEL_GRADIENT_UPDATER
+#ifndef ASYMMETRIC_FACTOR_MODEL_GRADIENT_UPDATER_H
+#define ASYMMETRIC_FACTOR_MODEL_GRADIENT_UPDATER_H
 
 #include <iomanip>
 #include "../ModelUpdater.h"
@@ -52,4 +52,4 @@ class AsymmetricFactorModelGradientUpdater : public ModelGradientUpdater{
     vector<double> cumulated_histvector_updates_;
 };
 
-#endif
+#endif /* ASYMMETRIC_FACTOR_MODEL_GRADIENT_UPDATER_H */

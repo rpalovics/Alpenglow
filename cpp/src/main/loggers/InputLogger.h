@@ -1,5 +1,5 @@
-#ifndef INPUT_LOGGER
-#define INPUT_LOGGER
+#ifndef INPUT_LOGGER_H
+#define INPUT_LOGGER_H
 
 //SIP_AUTOCONVERT
 
@@ -37,4 +37,4 @@ class InputLogger : public Logger, public Initializable { //SIP_NODEFAULTCTORS
   FRIEND_TEST(TestInputLogger, test);
 };
 
-#endif
+#endif /* INPUT_LOGGER_H */

@@ -1,5 +1,5 @@
-#ifndef PREDICTION_CREATOR
-#define PREDICTION_CREATOR
+#ifndef PREDICTION_CREATOR_H
+#define PREDICTION_CREATOR_H
 //TODO rename to toplistcreator/globaltoplistcreator/usertoplistcreator
 #include <climits>
 #include <iostream>
@@ -140,5 +140,4 @@ class PredictionCreatorPersonalized: public PredictionCreator{
     bool parent_is_initialized_ = false;
 };
 
-#endif
-
+#endif /* PREDICTION_CREATOR_H */

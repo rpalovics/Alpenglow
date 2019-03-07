@@ -1,5 +1,5 @@
-#ifndef EVALUATOR
-#define EVALUATOR
+#ifndef EVALUATOR_H
+#define EVALUATOR_H
 
 //SIP_AUTOCONVERT
 
@@ -12,4 +12,4 @@ public:
   bool self_test(){ return true; }
 };
 
-#endif
+#endif /* EVALUATOR_H */

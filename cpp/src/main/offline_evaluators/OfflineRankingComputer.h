@@ -31,4 +31,4 @@ class OfflineRankingComputer{
     PredictionCreatorPersonalized* toplist_creator_;
 };
 
-#endif
+#endif /* OFFLINE_RANKING_COMPUTER_H */

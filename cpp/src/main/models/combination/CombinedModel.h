@@ -1,5 +1,5 @@
-#ifndef COMBINED_MODEL
-#define COMBINED_MODEL
+#ifndef COMBINED_MODEL_H
+#define COMBINED_MODEL_H
 
 //SIP_AUTOCONVERT
 
@@ -42,4 +42,4 @@ class CombinedModel : public Model {
     friend class CombinedSingleLayerModelGradientUpdater;
 };
 
-#endif
+#endif /* COMBINED_MODEL_H */

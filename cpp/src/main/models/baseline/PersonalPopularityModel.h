@@ -1,5 +1,5 @@
-#ifndef PERSONAL_POPULARITY_MODEL
-#define PERSONAL_POPULARITY_MODEL
+#ifndef PERSONAL_POPULARITY_MODEL_H
+#define PERSONAL_POPULARITY_MODEL_H
 
 //SIP_AUTOCONVERT
 
@@ -26,4 +26,4 @@ class PersonalPopularityModel : public Model{
     FRIEND_TEST(TestPersonalPopularityModel, update);
 };
 
-#endif
+#endif /* PERSONAL_POPULARITY_MODEL_H */

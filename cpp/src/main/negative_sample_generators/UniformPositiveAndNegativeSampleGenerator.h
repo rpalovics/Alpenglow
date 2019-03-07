@@ -1,5 +1,5 @@
-#ifndef UNIFORM_NEGATIVE_AND_POSITIVE_SAMPLE_GENERATOR
-#define UNIFORM_NEGATIVE_AND_POSITIVE_SAMPLE_GENERATOR
+#ifndef UNIFORM_POSITIVE_AND_NEGATIVE_SAMPLE_GENERATOR_H
+#define UNIFORM_POSITIVE_AND_NEGATIVE_SAMPLE_GENERATOR_H
 
 #include <gtest/gtest_prod.h>
 #include "../utils/Random.h"
@@ -79,4 +79,4 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
     string sample_num_type_;
 };
 
-#endif
+#endif /* UNIFORM_POSITIVE_AND_NEGATIVE_SAMPLE_GENERATOR_H */

@@ -1,5 +1,5 @@
-#ifndef UNIFORM_NEGATIVE_SAMPLE_GENERATOR
-#define UNIFORM_NEGATIVE_SAMPLE_GENERATOR
+#ifndef UNIFORM_NEGATIVE_SAMPLE_GENERATOR_H
+#define UNIFORM_NEGATIVE_SAMPLE_GENERATOR_H
 
 #include "NegativeSampleGenerator.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
@@ -70,4 +70,4 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     const int max_item_;
 };
 
-#endif
+#endif /* UNIFORM_NEGATIVE_SAMPLE_GENERATOR_H */

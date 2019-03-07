@@ -1,5 +1,5 @@
-#ifndef MODEL
-#define MODEL
+#ifndef MODEL_H
+#define MODEL_H
 
 #include "../recommender_data/RecommenderData.h"
 #include <stdexcept>
@@ -20,4 +20,4 @@ class Model{
     bool self_test(){ return true; }
 };
 
-#endif
+#endif /* MODEL_H */

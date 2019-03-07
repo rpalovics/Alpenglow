@@ -1,5 +1,5 @@
-#ifndef TRANSITION_LOGGER_END_LOGGER
-#define TRANSITION_LOGGER_END_LOGGER
+#ifndef TRANSITION_MODEL_END_LOGGER_H
+#define TRANSITION_MODEL_END_LOGGER_H
 
 #include <fstream>
 #include <algorithm>
@@ -74,4 +74,4 @@ class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironmen
 };
 
 
-#endif
+#endif /* TRANSITION_MODEL_END_LOGGER_H */

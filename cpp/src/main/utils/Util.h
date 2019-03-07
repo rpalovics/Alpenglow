@@ -1,5 +1,5 @@
-#ifndef UTIL_H_
-#define UTIL_H_
+#ifndef UTIL_H
+#define UTIL_H
 
 #include <vector>
 #include <cmath>
@@ -74,4 +74,4 @@ public:
   }
 };
 
-#endif /* UTIL_H_ */
+#endif /* UTIL_H */

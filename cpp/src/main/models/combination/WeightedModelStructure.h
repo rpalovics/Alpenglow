@@ -1,5 +1,5 @@
-#ifndef WEIGHTED_MODEL_STRUCTURE
-#define WEIGHTED_MODEL_STRUCTURE
+#ifndef   FRIEND CLASS _RANDOM_CHOOSING_COMBINED_MODEL;
+#define   FRIEND CLASS _RANDOM_CHOOSING_COMBINED_MODEL;
 
 //SIP_AUTOCONVERT
 
@@ -22,4 +22,4 @@ public:
   virtual void set_wms(WeightedModelStructure* wms)=0;
 };
 
-#endif
+#endif /*   FRIEND CLASS _RANDOM_CHOOSING_COMBINED_MODEL; */

@@ -1,5 +1,5 @@
-#ifndef PERIOD_COMPUTER
-#define PERIOD_COMPUTER
+#ifndef PERIOD_COMPUTER_H
+#define PERIOD_COMPUTER_H
 
 //SIP_AUTOCONVERT
 
@@ -124,4 +124,4 @@ class PeriodComputer : public Updater, public NeedsExperimentEnvironment, public
     int start_time_ = -1;
 };
 
-#endif
+#endif /* PERIOD_COMPUTER_H */

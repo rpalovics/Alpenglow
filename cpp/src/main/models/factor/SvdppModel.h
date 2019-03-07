@@ -1,5 +1,5 @@
-#ifndef SVDMODEL
-#define SVDMODEL
+#ifndef SVDPP_MODEL_H
+#define SVDPP_MODEL_H
 
 #include <unordered_map>
 #include <stdexcept>
@@ -132,4 +132,4 @@ class SvdppModel : public Model {
     //FRIEND_TEST(TestSvdppModelFilter, test_all);
 };
 
-#endif
+#endif /* SVDPP_MODEL_H */

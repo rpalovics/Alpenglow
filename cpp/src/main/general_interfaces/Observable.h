@@ -1,5 +1,5 @@
-#ifndef OBSERVABLE
-#define OBSERVABLE
+#ifndef OBSERVABLE_H
+#define OBSERVABLE_H
 
 #include "Observer.h"
 #include <vector>
@@ -20,4 +20,4 @@ class Observable{
     vector<Observer*> observers_;
 };
 
-#endif
+#endif /* OBSERVABLE_H */

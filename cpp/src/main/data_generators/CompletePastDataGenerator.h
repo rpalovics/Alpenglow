@@ -1,5 +1,5 @@
-#ifndef COMPLETE_PAST_DATA_GENERATOR
-#define COMPLETE_PAST_DATA_GENERATOR
+#ifndef COMPLETE_PAST_DATA_GENERATOR_H
+#define COMPLETE_PAST_DATA_GENERATOR_H
 
 //SIP_AUTOCONVERT
 
@@ -32,4 +32,4 @@ class CompletePastDataGenerator : public DataGenerator, public NeedsExperimentEn
     RecommenderData local_recommender_data_;
 };
 
-#endif
+#endif /* COMPLETE_PAST_DATA_GENERATOR_H */

@@ -1,5 +1,5 @@
-#ifndef PREDICTION_LOGGER
-#define PREDICTION_LOGGER
+#ifndef PREDICTION_LOGGER_H
+#define PREDICTION_LOGGER_H
 #include <gtest/gtest_prod.h>
 #include "Logger.h"
 #include "../utils/PredictionCreator.h"
@@ -39,4 +39,4 @@ class PredictionLogger : public Logger{ //SIP_NODEFAULTCTORS
     FRIEND_TEST(TestPredictionLogger, test);
 };
 
-#endif
+#endif /* PREDICTION_LOGGER_H */

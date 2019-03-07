@@ -1,5 +1,5 @@
-#ifndef FACTOR_MODEL_RANKING_ITERATOR_H
-#define FACTOR_MODEL_RANKING_ITERATOR_H
+#ifndef FACTOR_MODEL_RANKING_SCORE_ITERATOR_H
+#define FACTOR_MODEL_RANKING_SCORE_ITERATOR_H
 
 #include "../RankingScoreIterator.h"
 #include "../../ranking/lemp/LempContainer.h"
@@ -31,4 +31,4 @@ protected:
   vector<pair<int,double>> current_scores_;
 };
 
-#endif
+#endif /* FACTOR_MODEL_RANKING_SCORE_ITERATOR_H */

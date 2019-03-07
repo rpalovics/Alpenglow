@@ -1,5 +1,5 @@
-#ifndef LABEL_CONTAINER
-#define LABEL_CONTAINER
+#ifndef LABEL_CONTAINER_H
+#define LABEL_CONTAINER_H
 
 #include<iostream>
 #include<vector>
@@ -19,4 +19,4 @@ class LabelContainer{
     vector<vector<ENTITY> > labels;
 };
 
-#endif
+#endif /* LABEL_CONTAINER_H */

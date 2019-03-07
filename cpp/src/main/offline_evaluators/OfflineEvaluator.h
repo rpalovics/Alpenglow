@@ -1,5 +1,5 @@
-#ifndef OFFLINE_EVALUATOR
-#define OFFLINE_EVALUATOR
+#ifndef OFFLINE_EVALUATOR_H
+#define OFFLINE_EVALUATOR_H
 
 //SIP_AUTOCONVERT
 
@@ -15,4 +15,4 @@ class OfflineEvaluator{ //SIP_ABSTRACT
 };
 
 
-#endif
+#endif /* OFFLINE_EVALUATOR_H */

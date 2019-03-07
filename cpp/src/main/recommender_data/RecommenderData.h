@@ -1,5 +1,5 @@
-#ifndef RECOMMENDER_DATA
-#define RECOMMENDER_DATA
+#ifndef /* _RECOMMENDER_DATA CLASS
+#define /* _RECOMMENDER_DATA CLASS
 /* RecommenderData class
    
    RecommenderData reads scrobble files and stores RecDats.
@@ -100,4 +100,4 @@ class LegacyRecommenderData : public RecommenderData {
     InlineAttributeReader* attribute_container_;
 };
 
-#endif
+#endif /* /* _RECOMMENDER_DATA CLASS */

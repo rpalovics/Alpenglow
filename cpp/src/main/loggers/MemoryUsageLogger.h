@@ -1,5 +1,5 @@
-#ifndef MEMORY_USAGE_LOGGER
-#define MEMORY_USAGE_LOGGER
+#ifndef MEMORY_USAGE_LOGGER_H
+#define MEMORY_USAGE_LOGGER_H
 
 #include <sys/resource.h>
 #include <iostream>
@@ -51,4 +51,4 @@ class MemoryUsageLogger : public Logger, public Initializable, public NeedsExper
     int size_;
 };
 
-#endif
+#endif /* MEMORY_USAGE_LOGGER_H */

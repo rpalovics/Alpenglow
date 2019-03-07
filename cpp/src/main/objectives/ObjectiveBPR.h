@@ -1,5 +1,5 @@
-#ifndef OBJECTIVE_BPR
-#define OBJECTIVE_BPR
+#ifndef OBJECTIVE_B_P_R_H
+#define OBJECTIVE_B_P_R_H
 
 #include "Objective.h"
 
@@ -10,4 +10,4 @@ class ObjectiveBPR : public ObjectivePairWise{
     pair <double,double> get_gradient(RecPred* rec_pred1, RecPred* rec_pred2);
 };
 
-#endif
+#endif /* OBJECTIVE_B_P_R_H */

@@ -1,5 +1,5 @@
-#ifndef FACTOR_MODEL_UPDATER
-#define FACTOR_MODEL_UPDATER
+#ifndef FACTOR_MODEL_UPDATER_H
+#define FACTOR_MODEL_UPDATER_H
 
 #include "../ModelUpdater.h"
 #include "FactorModel.h"
@@ -14,5 +14,4 @@ class FactorModelUpdater : public Updater{
     FactorModel* model_;
 };
 
-#endif
-
+#endif /* FACTOR_MODEL_UPDATER_H */

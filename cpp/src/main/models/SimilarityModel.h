@@ -1,5 +1,5 @@
-#ifndef SIMILARITY_MODEL
-#define SIMILARITY_MODEL
+#ifndef SIMILARITY_MODEL_H
+#define SIMILARITY_MODEL_H
 
 //SIP_AUTOCONVERT
 
@@ -12,4 +12,4 @@ class SimilarityModel{
 };
 
 
-#endif
+#endif /* SIMILARITY_MODEL_H */

@@ -1,5 +1,5 @@
-#ifndef POPULARITY_NEGATIVE_SAMPLE_GENERATOR
-#define POPULARITY_NEGATIVE_SAMPLE_GENERATOR
+#ifndef POPULARITY_NEGATIVE_SAMPLE_GENERATOR_H
+#define POPULARITY_NEGATIVE_SAMPLE_GENERATOR_H
 
 #include "NegativeSampleGenerator.h"
 #include "../utils/PopContainers.h"
@@ -31,4 +31,4 @@ class PopularityNegativeSampleGenerator: public NegativeSampleGenerator{
 };
 
 
-#endif
+#endif /* POPULARITY_NEGATIVE_SAMPLE_GENERATOR_H */

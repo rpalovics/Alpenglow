@@ -1,5 +1,5 @@
-#ifndef OBJECTIVE_LIST_RANK
-#define OBJECTIVE_LIST_RANK
+#ifndef OBJECTIVE_LIST_RANK_H
+#define OBJECTIVE_LIST_RANK_H
 
 #include <vector>
 #include "Objective.h"
@@ -23,4 +23,4 @@ class ObjectiveListRank : public ObjectiveListWise{
     vector<RecPred>* predictions;
     vector<double> gradients, predictions_exp, scores_exp;
 };
-#endif
+#endif /* OBJECTIVE_LIST_RANK_H */

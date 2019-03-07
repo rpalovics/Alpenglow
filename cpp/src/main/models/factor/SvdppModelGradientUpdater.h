@@ -1,5 +1,5 @@
-#ifndef SVD_MODEL_GRADIENT_UPDATER
-#define SVD_MODEL_GRADIENT_UPDATER
+#ifndef SVDPP_MODEL_GRADIENT_UPDATER_H
+#define SVDPP_MODEL_GRADIENT_UPDATER_H
 
 #include "../ModelUpdater.h"
 #include "SvdppModel.h"
@@ -47,4 +47,4 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
     vector<double> cumulated_histvector_updates_;
 };
 
-#endif
+#endif /* SVDPP_MODEL_GRADIENT_UPDATER_H */

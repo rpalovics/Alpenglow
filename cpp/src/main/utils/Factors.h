@@ -1,5 +1,5 @@
-#ifndef FACTORS
-#define FACTORS
+#ifndef FACTORS_H
+#define FACTORS_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -95,4 +95,4 @@ void Factors::lin_combine(int idx, double weight, vector<double>* other){
 //  }
 //}
 
-#endif
+#endif /* FACTORS_H */

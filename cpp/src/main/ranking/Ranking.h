@@ -1,5 +1,5 @@
-#ifndef RANKING
-#define RANKING
+#ifndef RANK_COMPUTER_H
+#define RANK_COMPUTER_H
 
 
 #include "../utils/SpMatrix.h"
@@ -98,4 +98,4 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable{
     int top_k_;
 };
 
-#endif
+#endif /* RANK_COMPUTER_H */

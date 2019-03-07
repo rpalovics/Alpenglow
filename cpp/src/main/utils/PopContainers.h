@@ -1,5 +1,5 @@
-#ifndef POP_H
-#define POP_H
+#ifndef POP_CONTAINER_H
+#define POP_CONTAINER_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -140,4 +140,4 @@ class TopPopContainer{
     map<int,int> popularity_boundaries_;
 };
 
-#endif
+#endif /* POP_CONTAINER_H */

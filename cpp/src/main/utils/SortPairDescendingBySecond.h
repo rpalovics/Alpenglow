@@ -1,4 +1,3 @@
-
 #ifndef sorter
 #define sorter
 #include <utility>

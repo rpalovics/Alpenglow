@@ -1,5 +1,5 @@
-#ifndef RECENCY
-#define RECENCY
+#ifndef RECENCY_H
+#define RECENCY_H
 
 //SIP_AUTOCONVERT
 
@@ -37,4 +37,4 @@ class PowerLawRecency : public Recency{
     double exponent_;
 };
 
-#endif
+#endif /* RECENCY_H */

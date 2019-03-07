@@ -1,5 +1,5 @@
-#ifndef PERIODIC_OFFLINE_LEARNER_WRAPPER
-#define PERIODIC_OFFLINE_LEARNER_WRAPPER
+#ifndef PERIODIC_OFFLINE_LEARNER_WRAPPER_H
+#define PERIODIC_OFFLINE_LEARNER_WRAPPER_H
 
 #include "../general_interfaces/Updater.h"
 #include "../offline_learners/OfflineLearner.h"
@@ -66,4 +66,4 @@ class PeriodicOfflineLearnerWrapper : public Updater {
     void update_model(RecDat*);
 };
 
-#endif
+#endif /* PERIODIC_OFFLINE_LEARNER_WRAPPER_H */

@@ -35,4 +35,4 @@ class TrackDataContainer {
 };
 
 
-#endif
+#endif /* TRACK_DATA_CONTAINER_H */

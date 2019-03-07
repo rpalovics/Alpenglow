@@ -24,4 +24,4 @@ protected:
   FRIEND_TEST(TestLempContainer, scheduled_update);
 };
 
-#endif
+#endif /* EIGEN_FACTORS_LEMP_CONTAINER_H */

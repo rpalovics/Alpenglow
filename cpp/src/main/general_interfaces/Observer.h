@@ -1,5 +1,5 @@
-#ifndef OBSERVER
-#define OBSERVER
+#ifndef OBSERVER_H
+#define OBSERVER_H
 
 class Observer{
   public:
@@ -13,4 +13,4 @@ class Observer{
     int notified_;
 };
 
-#endif
+#endif /* OBSERVER_H */

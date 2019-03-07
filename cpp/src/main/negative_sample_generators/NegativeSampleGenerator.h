@@ -1,5 +1,5 @@
-#ifndef NEGATIVESAMPLEGENERATOR
-#define NEGATIVESAMPLEGENERATOR
+#ifndef NEGATIVE_SAMPLE_GENERATOR_H
+#define NEGATIVE_SAMPLE_GENERATOR_H
 
 #include <sstream>
 #include <math.h>
@@ -37,4 +37,4 @@ class NegativeSampleGenerator : public Updater{
 };
 
 
-#endif
+#endif /* NEGATIVE_SAMPLE_GENERATOR_H */

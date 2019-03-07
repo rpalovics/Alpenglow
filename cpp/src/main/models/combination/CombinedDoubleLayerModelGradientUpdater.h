@@ -1,5 +1,5 @@
-#ifndef DOUBLE_LAYER_MODELUPDATER 
-#define DOUBLE_LAYER_MODELUPDATER
+#ifndef COMBINED_DOUBLE_LAYER_MODEL_GRADIENT_UPDATER_H
+#define COMBINED_DOUBLE_LAYER_MODEL_GRADIENT_UPDATER_H
 
 #include <vector>
 #include "../ModelUpdater.h"
@@ -38,4 +38,4 @@ class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
     double start_combination_learning_time;
 };
 
-#endif
+#endif /* COMBINED_DOUBLE_LAYER_MODEL_GRADIENT_UPDATER_H */

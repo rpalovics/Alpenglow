@@ -1,5 +1,5 @@
-#ifndef SIMPLEITERATOR_H_
-#define SIMPLEITERATOR_H_
+#ifndef SIMPLE_ITERATOR_H
+#define SIMPLE_ITERATOR_H
 #include <stdexcept>
 #include "RecommenderDataIterator.h"
 
@@ -40,4 +40,4 @@ public:
   */
 };
 
-#endif
+#endif /* SIMPLE_ITERATOR_H */

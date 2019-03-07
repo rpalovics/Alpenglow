@@ -1,5 +1,5 @@
-#ifndef OFFLINE_EXTERNAL_MODEL_LEARNER_PARAMETERS_H
-#define OFFLINE_EXTERNAL_MODEL_LEARNER_PARAMETERS_H
+#ifndef OFFLINE_EXTERNAL_MODEL_LEARNER_H
+#define OFFLINE_EXTERNAL_MODEL_LEARNER_H
 
 #include "OfflineLearner.h"
 #include "../models/ExternalModel.h"
@@ -31,4 +31,4 @@ class OfflineExternalModelLearner : public OfflineLearner{
     int call_number_=1;
 };
 
-#endif
+#endif /* OFFLINE_EXTERNAL_MODEL_LEARNER_H */

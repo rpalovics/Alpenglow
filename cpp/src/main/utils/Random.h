@@ -1,5 +1,5 @@
-#ifndef RANDOM
-#define RANDOM
+#ifndef RANDOM_H
+#define RANDOM_H
 
 //SIP_AUTOCONVERT
 
@@ -204,4 +204,4 @@ class Random{
 
 
 
-#endif
+#endif /* RANDOM_H */

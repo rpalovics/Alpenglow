@@ -1,5 +1,5 @@
-#ifndef POPULARITY_TIMEFRAME_UPDATER
-#define POPULARITY_TIMEFRAME_UPDATER
+#ifndef POPULARITY_TIME_FRAME_MODEL_UPDATER_H
+#define POPULARITY_TIME_FRAME_MODEL_UPDATER_H
 
 //SIP_AUTOCONVERT
 
@@ -35,4 +35,4 @@ class PopularityTimeFrameModelUpdater : public Updater {
     PopularityModel* model_ = NULL;
 };
 
-#endif
+#endif /* POPULARITY_TIME_FRAME_MODEL_UPDATER_H */

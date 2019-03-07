@@ -1,5 +1,5 @@
-#ifndef ABSOLUTE_ERROR_EVALUATOR
-#define ABSOLUTE_ERROR_EVALUATOR
+#ifndef ABSOLUTE_ERROR_EVALUATOR_H
+#define ABSOLUTE_ERROR_EVALUATOR_H
 
 #include "Evaluator.h"
 #include "../Model.h"
@@ -16,4 +16,4 @@ public:
 private:
   Model* model_ = NULL;
 };
-#endif
+#endif /* ABSOLUTE_ERROR_EVALUATOR_H */

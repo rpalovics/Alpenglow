@@ -1,5 +1,5 @@
-#ifndef TOPLIST
-#define TOPLIST
+#ifndef // _HELPER CLASS FOR GENERATING A TOP LIST OF MAX_LENGTH.
+#define // _HELPER CLASS FOR GENERATING A TOP LIST OF MAX_LENGTH.
 
 #include<stdexcept>
 #include<queue>
@@ -61,4 +61,4 @@ class Toplist{
     priority_queue<T,vector<T>,bool(*)(T,T) >* heap_ = NULL;
     int max_length_ = -1;
 };
-#endif
+#endif /* // _HELPER CLASS FOR GENERATING A TOP LIST OF MAX_LENGTH. */

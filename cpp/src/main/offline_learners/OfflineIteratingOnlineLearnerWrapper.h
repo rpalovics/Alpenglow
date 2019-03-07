@@ -1,5 +1,5 @@
-#ifndef OFFLINE_ITERATING_ONLINE_LEARNER_WRAPPER_H_
-#define OFFLINE_ITERATING_ONLINE_LEARNER_WRAPPER_H_
+#ifndef OFFLINE_ITERATING_ONLINE_LEARNER_WRAPPER_H
+#define OFFLINE_ITERATING_ONLINE_LEARNER_WRAPPER_H
 
 #include "OfflineLearner.h"
 #include "../utils/Random.h"
@@ -45,5 +45,4 @@ class OfflineIteratingOnlineLearnerWrapper : public OfflineLearner {
   bool shuffle_;
 };
 
-#endif
-
+#endif /* OFFLINE_ITERATING_ONLINE_LEARNER_WRAPPER_H */

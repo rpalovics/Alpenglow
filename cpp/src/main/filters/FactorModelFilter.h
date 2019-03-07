@@ -1,5 +1,5 @@
-#ifndef FACTORmodel_FILTER
-#define FACTORmodel_FILTER
+#ifndef FACTOR_FILTER_H
+#define FACTOR_FILTER_H
 
 #include <algorithm>
 #include "ModelFilter.h"
@@ -97,4 +97,4 @@ class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment,
 };
 
 
-#endif
+#endif /* FACTOR_FILTER_H */

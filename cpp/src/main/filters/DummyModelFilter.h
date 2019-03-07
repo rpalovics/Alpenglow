@@ -1,5 +1,5 @@
-#ifndef DUMMY_MODEL_FILTER
-#define DUMMY_MODEL_FILTER
+#ifndef DUMMY_MODEL_FILTER_H
+#define DUMMY_MODEL_FILTER_H
 
 //SIP_AUTOCONVERT
 
@@ -52,4 +52,4 @@ class DummyModelFilter : public ModelFilter, public NeedsExperimentEnvironment, 
 
 
 
-#endif
+#endif /* DUMMY_MODEL_FILTER_H */

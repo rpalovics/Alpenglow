@@ -1,5 +1,5 @@
-#ifndef OBJECTIVE
-#define OBJECTIVE
+#ifndef OBJECTIVE_POINT_WISE_H
+#define OBJECTIVE_POINT_WISE_H
 
 //SIP_AUTOCONVERT
 
@@ -24,4 +24,4 @@ class ObjectiveListWise{
     virtual ~ObjectiveListWise(){}
     virtual vector<double>  get_gradient(vector<RecPred>* predictions)=0;
 };
-#endif
+#endif /* OBJECTIVE_POINT_WISE_H */

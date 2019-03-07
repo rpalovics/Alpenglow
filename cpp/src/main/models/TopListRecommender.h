@@ -21,4 +21,4 @@ public:
   vector<pair<int,double>> get_top_list(int user, int k, SpMatrix *exclude) override;
 };
 
-#endif
+#endif /* TOP_LIST_RECOMMENDER_H */

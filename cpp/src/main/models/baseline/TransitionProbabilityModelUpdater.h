@@ -1,5 +1,5 @@
-#ifndef TRANSITION_PROBABILITY_MODEL_UPDATER
-#define TRANSITION_PROBABILITY_MODEL_UPDATER
+#ifndef TRANSITION_PROBABILITY_MODEL_UPDATER_H
+#define TRANSITION_PROBABILITY_MODEL_UPDATER_H
 
 //SIP_AUTOCONVERT
 
@@ -55,4 +55,4 @@ class TransitionProbabilityModelUpdater: public Updater{
     inline bool recording_last_item_is_necessary() const;
 };
 
-#endif
+#endif /* TRANSITION_PROBABILITY_MODEL_UPDATER_H */

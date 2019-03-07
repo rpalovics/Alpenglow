@@ -1,5 +1,5 @@
-#ifndef ATTRIBUTE_CONTAINER
-#define ATTRIBUTE_CONTAINER
+#ifndef //TEMPLATE CLASS INHERITED FROM TEMPLATE CLASS
+#define //TEMPLATE CLASS INHERITED FROM TEMPLATE CLASS
 #include <exception>
 #include <iostream>
 #include <fstream>
@@ -77,4 +77,4 @@ class GeneralAttributeContainer : public AttributeContainer<Attribute>{
     }
 };
 
-#endif
+#endif /* //TEMPLATE CLASS INHERITED FROM TEMPLATE CLASS */

@@ -1,5 +1,5 @@
-#ifndef RANKING_SCORE_ITERATOR
-#define RANKING_SCORE_ITERATOR
+#ifndef    _EXAMPLE USAGE IS IN CLASS _RANK_COMPUTER.
+#define    _EXAMPLE USAGE IS IN CLASS _RANK_COMPUTER.
 
 #include <utility>
 #include <limits>
@@ -71,4 +71,4 @@ public:
   virtual RankingScoreIterator* get_ranking_score_iterator(int user)=0;
 };
 
-#endif
+#endif /*    _EXAMPLE USAGE IS IN CLASS _RANK_COMPUTER. */

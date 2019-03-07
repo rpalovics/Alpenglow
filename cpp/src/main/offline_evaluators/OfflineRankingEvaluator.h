@@ -1,5 +1,5 @@
-#ifndef OFFLINE_RANKING_EVALUATOR
-#define OFFLINE_RANKING_EVALUATOR
+#ifndef OFFLINE_RANKING_EVALUATOR_H
+#define OFFLINE_RANKING_EVALUATOR_H
 #include <fstream>
 #include "../offline_evaluators/OfflineEvaluator.h"
 #include "../recommender_data/macros.h"
@@ -79,4 +79,4 @@ class OfflineRankingEvaluator : public OfflineEvaluator{
 };
 
 
-#endif
+#endif /* OFFLINE_RANKING_EVALUATOR_H */

@@ -1,5 +1,5 @@
-#ifndef MODELFILTER
-#define MODELFILTER
+#ifndef MODEL_FILTER_H
+#define MODEL_FILTER_H
 
 //SIP_AUTOCONVERT
 
@@ -38,4 +38,4 @@ public:
   }
 };
 
-#endif
+#endif /* MODEL_FILTER_H */

@@ -1,5 +1,5 @@
-#ifndef LIST_CONDITIONAL_META_LOGGER
-#define LIST_CONDITIONAL_META_LOGGER
+#ifndef LIST_CONDITIONAL_META_LOGGER_H
+#define LIST_CONDITIONAL_META_LOGGER_H
 
 //SIP_AUTOCONVERT
 
@@ -23,4 +23,4 @@ class ListConditionalMetaLogger : public ConditionalMetaLogger{
     int position=0;
 };
 
-#endif
+#endif /* LIST_CONDITIONAL_META_LOGGER_H */

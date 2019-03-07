@@ -1,10 +1,10 @@
+#ifndef RECOMMENDER_DATA_ITERATOR_H
+#define RECOMMENDER_DATA_ITERATOR_H
 /*
  * RecommenderDataIterator.h
  * RecommenderData should be accessed through iterator. An iterator object can shuffle order of rec_dats, but if the data is iterated repeatedly, the iterator must give rec_dats in the same order.
  */
 
-#ifndef RECOMMENDERDATAITERATOR_H_
-#define RECOMMENDERDATAITERATOR_H_
 
 //SIP_AUTOCONVERT
 
@@ -130,4 +130,4 @@ protected:
 };
 
 
-#endif /* RECOMMENDERDATAITERATOR_H_ */
+#endif /* RECOMMENDER_DATA_ITERATOR_H */

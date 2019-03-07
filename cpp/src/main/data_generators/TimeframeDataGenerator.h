@@ -1,5 +1,5 @@
-#ifndef TIMEFRAME_DATA_GENERATOR
-#define TIMEFRAME_DATA_GENERATOR
+#ifndef TIMEFRAME_DATA_GENERATOR_H
+#define TIMEFRAME_DATA_GENERATOR_H
 
 //SIP_AUTOCONVERT
 
@@ -39,4 +39,4 @@ class TimeframeDataGenerator : public DataGenerator, public NeedsExperimentEnvir
     RecommenderData local_recommender_data_;
 };
 
-#endif
+#endif /* TIMEFRAME_DATA_GENERATOR_H */

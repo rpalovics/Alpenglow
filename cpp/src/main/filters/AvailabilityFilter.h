@@ -67,4 +67,4 @@ protected:
   FRIEND_TEST(TestAvailabilityFilter, test);
 };
 
-#endif
+#endif /* AVAILABILITY_FILTER_H */

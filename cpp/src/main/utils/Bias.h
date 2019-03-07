@@ -1,5 +1,5 @@
-#ifndef BIAS
-#define BIAS
+#ifndef BIAS_H
+#define BIAS_H
 
 //SIP_AUTOCONVERT
 
@@ -27,4 +27,4 @@ class Bias{
     std::vector <double> biases;
 };
 
-#endif
+#endif /* BIAS_H */

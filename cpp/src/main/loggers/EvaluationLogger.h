@@ -1,5 +1,5 @@
-#ifndef EVALUATION_LOGGER
-#define EVALUATION_LOGGER
+#ifndef EVALUATION_LOGGER_H
+#define EVALUATION_LOGGER_H
 
 #include <fstream>
 #include <iostream>
@@ -101,4 +101,4 @@ class EvaluationLogger : public Logger, public NeedsExperimentEnvironment, publi
 };
 
 
-#endif
+#endif /* EVALUATION_LOGGER_H */

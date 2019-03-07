@@ -1,5 +1,5 @@
-#ifndef GRADIENT_COMPUTER
-#define GRADIENT_COMPUTER
+#ifndef GRADIENT_COMPUTER_H
+#define GRADIENT_COMPUTER_H
 
 //SIP_AUTOCONVERT
 
@@ -97,4 +97,4 @@ class GradientComputerPointWise : public GradientComputer{
 //     bool has_next_;
 // };
 
-#endif
+#endif /* GRADIENT_COMPUTER_H */

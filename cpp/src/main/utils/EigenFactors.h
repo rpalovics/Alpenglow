@@ -42,4 +42,4 @@ class EigenFactors{
     Random rnd;
     int seed;
 };
-#endif
+#endif /* EIGEN_FACTORS_H */

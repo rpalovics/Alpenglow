@@ -1,5 +1,5 @@
-#ifndef FACTOR_MODEL_GRADIENT_UPDATER
-#define FACTOR_MODEL_GRADIENT_UPDATER
+#ifndef FACTOR_MODEL_GRADIENT_UPDATER_H
+#define FACTOR_MODEL_GRADIENT_UPDATER_H
 
 #include "../ModelUpdater.h"
 #include "FactorModel.h"
@@ -64,4 +64,4 @@ class FactorModelGradientUpdater : public ModelGradientUpdater{
     void update_biases(RecDat* rec_dat, double gradient);
 };
 
-#endif
+#endif /* FACTOR_MODEL_GRADIENT_UPDATER_H */

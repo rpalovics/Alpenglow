@@ -28,5 +28,4 @@ class FmModelUpdater : public Updater{
     FmModel* model_ = NULL;
 };
 
-#endif
-
+#endif /* FM_MODEL_UPDATER_H */

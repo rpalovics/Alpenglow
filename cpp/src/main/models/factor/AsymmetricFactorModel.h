@@ -1,5 +1,5 @@
-#ifndef A_FACTOR_MODEL
-#define A_FACTOR_MODEL
+#ifndef ASYMMETRIC_FACTOR_MODEL_H
+#define ASYMMETRIC_FACTOR_MODEL_H
 
 #include "../../utils/Factors.h"
 #include "../../utils/Util.h"
@@ -95,4 +95,4 @@ class AsymmetricFactorModel : public Model{
     FRIEND_TEST(TestAsymmetricFactorModel, test_weights);
 };
 
-#endif
+#endif /* ASYMMETRIC_FACTOR_MODEL_H */

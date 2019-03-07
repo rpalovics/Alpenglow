@@ -1,5 +1,5 @@
-#ifndef USER_HISTORY
-#define USER_HISTORY
+#ifndef USER_HISTORY_H
+#define USER_HISTORY_H
 #include <stdexcept>
 
 #include "../recommender_data/RecommenderData.h"
@@ -33,4 +33,4 @@ class UserHistory : public Updater{
 
 
 
-#endif
+#endif /* USER_HISTORY_H */

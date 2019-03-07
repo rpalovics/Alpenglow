@@ -73,4 +73,4 @@ protected:
   FRIEND_TEST(TestLempContainer, scheduled_update);
 };
 
-#endif
+#endif /* LEMP_CONTAINER_H */

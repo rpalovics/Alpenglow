@@ -83,4 +83,4 @@ class FmModel : public Model, public Initializable
     FRIEND_TEST(TestFmModel, test);
 };
 
-#endif
+#endif /* FM_MODEL_H */

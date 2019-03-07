@@ -1,5 +1,5 @@
-#ifndef POPULARITY_UPDATER
-#define POPULARITY_UPDATER
+#ifndef POPULARITY_MODEL_UPDATER_H
+#define POPULARITY_MODEL_UPDATER_H
 
 //SIP_AUTOCONVERT
 
@@ -28,4 +28,4 @@ class PopularityModelUpdater : public Updater {
 
 
 
-#endif
+#endif /* POPULARITY_MODEL_UPDATER_H */

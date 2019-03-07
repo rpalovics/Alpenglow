@@ -1,5 +1,5 @@
-#ifndef SPMATRIX
-#define SPMATRIX
+#ifndef SP_MATRIX_H
+#define SP_MATRIX_H
 
 //SIP_AUTOCONVERT
 
@@ -34,4 +34,4 @@ class SpMatrix{
     vector<MatrixRow*>  matrix_;
 };
 
-#endif
+#endif /* SP_MATRIX_H */

@@ -1,5 +1,5 @@
-#ifndef LEMP_BUCKET_H
-#define LEMP_BUCKET_H
+#ifndef 
+#define 
 
 #include <vector>
 
@@ -31,4 +31,4 @@ struct LempBucket{
   vector<pair<int,double>> get_scores(vector<double> *user_factor);
 };
 
-#endif
+#endif /*  */

@@ -1,5 +1,5 @@
-#ifndef LABEL_FILTER
-#define LABEL_FILTER
+#ifndef LABEL_FILTER_H
+#define LABEL_FILTER_H
 
 #include "ModelFilter.h"
 #include "../utils/LabelContainer.h"
@@ -42,4 +42,4 @@ class LabelFilter : public ModelFilter, public Updater {
 };
 
 
-#endif
+#endif /* LABEL_FILTER_H */
