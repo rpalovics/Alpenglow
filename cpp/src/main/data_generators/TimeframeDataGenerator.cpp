@@ -10,6 +10,6 @@ RecommenderData* TimeframeDataGenerator::generate_recommender_data(RecDat*){
     if(rec_dat->time<=timeframe_begin) break;
     train_data->push_back(*rec_dat);
   }
-  if (!local_recommender_data_.initialize()) throw 0;
+  if (!local_recommender_data_.initialize()) throw runtime_error("Initialization of local_recommender_data was unsuccesful.");
   return &local_recommender_data_;
 }

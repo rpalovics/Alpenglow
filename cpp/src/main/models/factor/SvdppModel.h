@@ -2,6 +2,7 @@
 #define SVDMODEL
 
 #include <unordered_map>
+#include <stdexcept>
 #include "../../utils/Factors.h"
 #include "../../utils/Util.h"
 #include "../../utils/UserHistory.h"

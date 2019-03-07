@@ -103,7 +103,7 @@ void ToplistCombinationModel::merge_toplists(){
 
 RankingScoreIterator* ToplistCombinationModel::get_ranking_score_iterator(int user){
   if(random_values_generated_) return NULL; //prediction was called, but toplist is not generated
-  if(user!=last_user_) throw exception(); //prediction should be called first, the parameter here is user, not recdat, we can't update state fields properly
+  if(user!=last_user_) throw runtime_error("prediction should be called first, the parameter here is user, not recdat, we can't update state fields properly");
   rsi_.set_up(toplist_);
   return &rsi_;
 }

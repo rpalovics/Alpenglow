@@ -6,6 +6,7 @@
 #include "../../utils/SpMatrix.h"
 #include "../../utils/UserHistory.h"
 #include "../Model.h"
+#include <stdexcept>
 #include <gtest/gtest_prod.h>
 
 using namespace std;

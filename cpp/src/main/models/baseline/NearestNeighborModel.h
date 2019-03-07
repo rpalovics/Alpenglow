@@ -17,7 +17,7 @@ public:
   pair<int, double> get_next() override;
   void set_up(vector<SCORE>& predictions, vector<ITEM>& active_items);
   void reinit(){counter_=0;}
-  int unique_items_num(){ throw exception(); } //should not be called as all scores are nonnegatives
+  int unique_items_num() override { throw runtime_error("Should not be called as all scores are nonnegatives."); }
 private:
   void clear(){counter_=0;current_scores_.clear();}
   vector<pair<int,double>> current_scores_;

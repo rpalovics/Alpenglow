@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <set>
+#include <stdexcept>
 #include <gtest/gtest_prod.h>
 #include "WeightedModelStructure.h"
 #include "../Model.h"
@@ -23,7 +24,7 @@ public:
   pair<int, double> get_next() override;
   void set_up(vector<pair<int,double>> toplist){ counter_ = 0; current_scores_ = toplist; }
   void reinit(){counter_=0;}
-  int unique_items_num(){ throw exception(); } //should not be called as all scores are nonnegative
+  int unique_items_num(){ throw runtime_error("should not be called as all scores are nonnegative"); }
 private:
   void clear(){counter_=0;current_scores_.clear();}
   vector<pair<int,double>> current_scores_;
