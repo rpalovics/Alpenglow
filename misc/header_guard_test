@@ -1,14 +1,34 @@
 #!/bin/bash
 
+overwrite=no
+testing=yes
+if [ $# -ge 1 ]
+then
+  if [ $1 == "overwrite" ]
+  then
+    overwrite=yes
+    testing=no
+  else
+    echo "Usage:"
+    echo "Test header guards:"
+    echo "$0"
+    echo "Overwrite nonstandard header guards:"
+    echo "$0 overwrite"
+    exit -1
+  fi
+fi
+
 for file in $(find ../cpp/src/main -name "*.h" -a ! -name "*macros.h" -a ! -name "*SortPair*" -a ! -name "*LempBucket*")
 #for file in ../cpp/src/main/data_generators/TimeframeDataGenerator.h ../cpp/src/main/models/Model.h ../cpp/src/main/general_interfaces/Initializable.h
 do
+  ok=yes
   standard_guard=$(egrep "^ *class [^;]*$" $file | grep -v "enum" | head -1 | sed -r "s/^[[:space:]]*class[[:space:]]+([a-zA-Z]+)([^a-zA-Z].*)?$/\1_h/" | sed -r "s/([A-Z])/_\1/g" | sed -r "s/^_//" | tr [a-z] [A-Z])
   standard_guards="$standard_guards$standard_guard\n"
   standard_header=$(echo -e "#ifndef $standard_guard\n#define $standard_guard\n")
   actual_header=$(head -2 $file)
   if [ x"$standard_header" != x"$actual_header" ]
   then
+    ok=no
     failed_files="$failed_files$file\n"
     echo error: $file "("$actual_header")" "->" $standard_guard
   fi
@@ -16,19 +36,48 @@ do
   actual_footer=$(tail -1 $file)
   if [ x"$standard_footer" != x"$actual_footer" ]
   then
+    ok=no
     footer_failed_files="$footer_failed_files$file\n"
   fi
-  #overwriting
-  head -n-1 $file | tail -n+3 > tmp
-  echo -e "$standard_header" > ${file}
-  cat tmp >> ${file}
-  echo -e "$standard_footer" >> ${file}
+  if [ $overwrite == "yes" -a $ok == "no" ]
+  then #overwriting
+    head -n-1 $file | tail -n+3 > tmp
+    echo -e "$standard_header" > ${file}
+    cat tmp >> ${file}
+    echo -e "$standard_footer" >> ${file}
+  fi
 done
-rm tmp
+if [ -e tmp ]
+then
+  rm tmp
+fi
 
-echo Failed files:
-echo -e $failed_files
-echo Footer failed files:
-echo -e $footer_failed_files
-echo Duplicated guards:
-echo -e "$standard_guards" | sort | uniq -d
+if [ $testing == "yes" ]
+then
+  ok=yes
+  if [ x$failed_files != x"" ]
+  then
+    ok=no
+    echo Failed files:
+    echo -e $failed_files
+  fi
+  if [ x$footer_failed_files != x"" ]
+  then
+    ok=no
+    echo Footer failed files:
+    echo -e $footer_failed_files
+  fi
+  duplicated_guards=$(echo -e "$standard_guards" | sort | uniq -d)
+  if [ x$duplicated_guards != x"" ]
+  then
+    ok=no
+    echo Duplicated guards:
+    echo x"$duplicated_guards"x
+  fi
+  if [ $ok = yes ]
+  then
+    exit 0
+  else
+    exit 1
+  fi
+fi
