@@ -73,9 +73,6 @@ struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
   int initial_threshold; //TODO initial_threshold
 };
 
-namespace { inline bool compare_rec_dat(RecDat a, RecDat b){
-  return a.score > b.score;
-}}
 class PredictionCreatorGlobal: public PredictionCreator{
   public:
     PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params):PredictionCreator(params){
@@ -94,7 +91,10 @@ class PredictionCreatorGlobal: public PredictionCreator{
     }
   
   private:
-    Toplist<RecDat,::compare_rec_dat> min_heap_;
+    inline static bool compare_rec_dat(RecDat a, RecDat b){
+      return a.score > b.score;
+    }
+    Toplist<RecDat,compare_rec_dat> min_heap_;
     uint initial_threshold_;
     //void process_row(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
     //void process_column(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
@@ -133,7 +133,10 @@ class PredictionCreatorPersonalized: public PredictionCreator{
       return true;
     }
   private:
-    Toplist<RecDat,::compare_rec_dat> min_heap_;
+    inline static bool compare_rec_dat(RecDat a, RecDat b){
+      return a.score > b.score;
+    }
+    Toplist<RecDat,compare_rec_dat> min_heap_;
     TopListRecommender *ranking_model_ = NULL;
     vector<RecDat>* run_bruteforce(RecDat* rec_dat);
     vector<RecDat>* run_ranking_model(RecDat* rec_dat);
