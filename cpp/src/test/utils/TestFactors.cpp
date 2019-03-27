@@ -1,7 +1,7 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include <fstream>
-#include <stdio.h>
+#include <cstdio>
 #include "../../main/utils/Factors.h"
 
 

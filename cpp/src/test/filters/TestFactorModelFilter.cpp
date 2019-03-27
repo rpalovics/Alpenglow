@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <stdio.h>
+#include <cstdio>
 #include <fstream>
 #include "../../main/filters/FactorModelFilter.h"
 #include "../../main/utils/Factors.h"

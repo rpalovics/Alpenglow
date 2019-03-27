@@ -1,8 +1,8 @@
 #ifndef FACTORS_H
 #define FACTORS_H
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <iostream>
 #include <fstream>
 #include <math.h>

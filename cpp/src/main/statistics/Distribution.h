@@ -1,15 +1,15 @@
 #ifndef DISTRIBUTION_H
 #define DISTRIBUTION_H
 
-#include<iostream>
-#include<fstream>
-#include<sstream>
-#include<math.h>
-#include<stdio.h>
-#include<map>
-#include<stdlib.h>
-#include<vector>
-#include<utility>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <math.h>
+#include <cstdio>
+#include <map>
+#include <cstdlib>
+#include <vector>
+#include <utility>
 
 using namespace std;
 

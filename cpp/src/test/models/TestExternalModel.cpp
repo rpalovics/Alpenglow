@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <stdio.h>
+#include <cstdio>
 #include <fstream>
 #include "../../main/models/ExternalModel.h"
 #include "../../main/offline_learners/OfflineExternalModelLearner.h"

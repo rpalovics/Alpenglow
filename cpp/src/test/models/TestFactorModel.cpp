@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <stdio.h>
+#include <cstdio>
 #include <fstream>
 #include "../../main/models/factor/FactorModel.h"
 #include "../../main/models/factor/FactorModelGradientUpdater.h"

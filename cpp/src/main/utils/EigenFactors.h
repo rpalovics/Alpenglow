@@ -1,8 +1,8 @@
 #ifndef EIGEN_FACTORS_H
 #define EIGEN_FACTORS_H
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <cstdlib>
+#include <cstdio>
 #include <iostream>
 #include <math.h>
 #include <vector>

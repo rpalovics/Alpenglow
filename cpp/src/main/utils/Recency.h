@@ -5,7 +5,7 @@
 
 #include <map>
 #include <cmath>
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 
 class Recency{
