@@ -151,7 +151,7 @@ The default parameters are chosen to perform generally well. However, the best c
 
 .. code-block:: python
 
-	mf_parameter_search = ag.ThreadedParameterSearch(mf_experiment, DcgScore, threads=4)
+	mf_parameter_search = ag.utils.ThreadedParameterSearch(mf_experiment, DcgScore, threads=4)
 	mf_parameter_search.set_parameter_values('negative_rate', np.linspace(10, 100, 4))
 
 The :python:`ThreadedParameterSearch` instance wraps around an :python:`OnlineExperiment` instance. With each call to the function :python:`set_parameter_values`, we can set a new dimension for the grid search, which runs the experiments in parallel accoring to the given :python:`threads` parameter. We can start the hyperparameter search similar to the experiment itself: by calling :python:`run()`.
