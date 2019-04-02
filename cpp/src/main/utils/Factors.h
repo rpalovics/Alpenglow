@@ -16,10 +16,10 @@
 using namespace std;
 
 struct FactorsParameters{
-  double begin_max;
-  double begin_min;
-  double dimension;
-  int seed;
+  double begin_max = 0.1;
+  double begin_min = -0.1;
+  double dimension = 0;
+  int seed = 1234;
 };
 
 class Factors{
@@ -76,8 +76,8 @@ class Factors{
   private:
     Random rnd;
     vector <vector<double>*> factors;
-    double begin_min, begin_max;
-    int dimension;
+    double begin_min = -0.1, begin_max = 0.1;
+    int dimension = 0;
 };
 
 void Factors::lin_combine(int idx, double weight, vector<double>* other){
