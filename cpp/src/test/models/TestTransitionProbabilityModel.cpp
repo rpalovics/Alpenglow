@@ -150,7 +150,7 @@ TEST_F(TestTransitionProbabilityModel, test_rsi){
   RankingScoreIterator* rsi;
   double item_score;
   int item_id;
-  vector<int> users = {10, 20};
+  vector<int> users = {10, 20, 20};
   for(int user : users){
     rsi = model.get_ranking_score_iterator(user);
     EXPECT_TRUE(rsi->has_next());
@@ -174,6 +174,10 @@ TEST_F(TestTransitionProbabilityModel, test_rsi){
   EXPECT_EQ(20,item_id);
   EXPECT_DOUBLE_EQ(log(2+1),item_score);
   EXPECT_FALSE(rsi->has_next());
+
+
+  EXPECT_ANY_THROW(rsi->unique_items_num());
+
 }
 
 TEST_F(TestTransitionEndLogger, test){
