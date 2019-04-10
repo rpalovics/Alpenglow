@@ -136,6 +136,50 @@ TEST_F(TestNearestNeighborModel, weights){
 
 }
 
+TEST_F(TestNearestNeighborModel, norm_sum){
+  NearestNeighborModelParameters params;
+  params.gamma = 1;
+  //params.norm = "num"; //default: num
+  params.direction = "forward";
+  params.gamma_threshold = 0;
+  params.num_of_neighbors = 10; //a 10 legkozelebbi (leghasonlobb itemet vesszuk figyelembe)
+  NearestNeighborModel model(&params);
+  EXPECT_TRUE(model.self_test());
+  NearestNeighborModelUpdaterParameters updater_params;
+  updater_params.compute_similarity_period = 10; //10 sec utan szamolja ujra a similarityt
+  NearestNeighborModelUpdater updater(&updater_params);
+  updater.set_model(&model);
+  EXPECT_TRUE(updater.self_test());
+  updater.update(create_recdat_p(10,20,30,1));
+  updater.update(create_recdat_p(11,20,31,1));
+  updater.update(create_recdat_p(12,20,32,1));
+  updater.update(create_recdat_p(13,20,33,1));
+  updater.update(create_recdat_p(14,20,34,1));
+  updater.update(create_recdat_p(15,21,30,1));
+  updater.update(create_recdat_p(16,21,31,1));
+  updater.update(create_recdat_p(17,21,32,1));
+  //updater.update(create_recdat_p(18,21,33,1));
+  //updater.update(create_recdat_p(19,21,34,1));
+
+  for(auto user : users){
+    for(auto item : items){
+      EXPECT_DOUBLE_EQ(0.0,model.prediction(create_recdat_p(20,user,item,1)));
+    }
+  }
+  updater.update(create_recdat_p(22,20,35,1));
+
+  EXPECT_DOUBLE_EQ(1.5,model.prediction(create_recdat_p(24,21,33,1)));
+  EXPECT_DOUBLE_EQ(1.5,model.prediction(create_recdat_p(24,21,34,1)));
+  EXPECT_DOUBLE_EQ(1.5,model.prediction(create_recdat_p(24,21,35,1)));
+
+  //for (auto x:model.similarities_){
+  //  cerr << "xxx" << endl;
+  //  for (auto y:x){
+  //    cerr << y.first << " " << y.second << endl;
+  //  }
+  //}
+
+}
 TEST_F(TestNearestNeighborModel, test2){
   NearestNeighborModelParameters params;
   params.gamma = 1;
@@ -318,7 +362,7 @@ TEST_F(TestNearestNeighborModel, both2){
   //  }
   //}
 
-  vector<int> users = {20, 21};
+  vector<int> users = {20, 21, 21};
   for (auto user : users){
     auto rsi = model.get_ranking_score_iterator(user);
     map<int,int> rsi_items;
@@ -329,6 +373,7 @@ TEST_F(TestNearestNeighborModel, both2){
       EXPECT_EQ(0,rsi_items[item]); //each items should occur only once in the iterator
       rsi_items[item]=1;
     }
+    EXPECT_ANY_THROW(rsi->unique_items_num());
   }
 }
 
