@@ -118,6 +118,109 @@ TEST_F(TestTransitionProbabilityModel, test_prediction){
   EXPECT_EQ(0, model.prediction(&rec_dat));
 }
 
+TEST_F(TestTransitionProbabilityModel, test_inverted){
+  //data
+  vector<RecDat> timeline;
+  timeline.push_back(create_recdat(0,10,20,1));
+  timeline.push_back(create_recdat(1,10,10,1));
+  timeline.push_back(create_recdat(2,10,20,1));
+  timeline.push_back(create_recdat(3,10,10,1));
+  timeline.push_back(create_recdat(4,10,20,1));
+  timeline.push_back(create_recdat(5,10,30,1));
+  timeline.push_back(create_recdat(5,20,20,1)); //another user
+  timeline.push_back(create_recdat(6,10,20,1));
+  timeline.push_back(create_recdat(7,10,30,1));
+  timeline.push_back(create_recdat(8,10,20,1));
+  timeline.push_back(create_recdat(9,10,30,1));
+  timeline.push_back(create_recdat(10,10,20,1));
+  timeline.push_back(create_recdat(11,30,10,1)); //another user
+  //statistics: a 20-as itemet 3-szor a 30-as, 2-szer a 10-es kovette
+  //statistics: a 10-es itemet 2-szor a 20-as, 0-szor a 30-as kovette
+  //statistics: a 30-as itemet 3-szor a 20-as, 0-szor a 10-es kovette
+  //inverted statistics: a 10-es itemet 2-szer a 20-as elozte meg
+  //a 20-as itemet 2-szer a 10-es, 3-szor a 30-as elozte meg
+  //a 30-as itemet 3-szor a 20-as elozte meg
+
+  TransitionProbabilityModel model;
+  TransitionProbabilityModelUpdaterParameters params;
+  params.mode = "inverted";
+  TransitionProbabilityModelUpdater updater(&params);
+  updater.set_model(&model);
+  EXPECT_TRUE(model.self_test());
+  EXPECT_TRUE(updater.self_test());
+  RecDat rec_dat;
+  rec_dat = create_recdat(30,10,30,1);
+  EXPECT_EQ(0, model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,20,30,1);
+  EXPECT_EQ(0, model.prediction(&rec_dat));
+  for(RecDat rec_dat : timeline){
+    updater.update(&rec_dat);
+  }
+  rec_dat = create_recdat(30,10,10,1);
+  EXPECT_EQ(log(2+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,10,30,1);
+  EXPECT_EQ(log(3+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,20,10,1);
+  EXPECT_EQ(log(2+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,20,30,1);
+  EXPECT_EQ(log(3+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,30,20,1);
+  EXPECT_EQ(log(2+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,30,30,1);
+  EXPECT_EQ(0, model.prediction(&rec_dat));
+}
+TEST_F(TestTransitionProbabilityModel, test_symmetric){
+  //data
+  vector<RecDat> timeline;
+  timeline.push_back(create_recdat(0,10,20,1));
+  timeline.push_back(create_recdat(1,10,10,1));
+  timeline.push_back(create_recdat(2,10,20,1));
+  timeline.push_back(create_recdat(3,10,10,1));
+  timeline.push_back(create_recdat(4,10,20,1));
+  timeline.push_back(create_recdat(5,10,30,1));
+  timeline.push_back(create_recdat(5,20,20,1)); //another user
+  timeline.push_back(create_recdat(6,10,20,1));
+  timeline.push_back(create_recdat(7,10,30,1));
+  timeline.push_back(create_recdat(8,10,20,1));
+  timeline.push_back(create_recdat(9,10,30,1));
+  timeline.push_back(create_recdat(10,10,20,1));
+  timeline.push_back(create_recdat(11,30,10,1)); //another user
+  //statistics: a 20-as itemet 3-szor a 30-as, 2-szer a 10-es kovette
+  //statistics: a 10-es itemet 2-szor a 20-as, 0-szor a 30-as kovette
+  //statistics: a 30-as itemet 3-szor a 20-as, 0-szor a 10-es kovette
+  //inverted statistics: a 10-es itemet 2-szer a 20-as elozte meg
+  //a 20-as itemet 2-szer a 10-es, 3-szor a 30-as elozte meg
+  //a 30-as itemet 3-szor a 20-as elozte meg
+
+  TransitionProbabilityModel model;
+  TransitionProbabilityModelUpdaterParameters params;
+  params.mode = "symmetric";
+  TransitionProbabilityModelUpdater updater(&params);
+  updater.set_model(&model);
+  EXPECT_TRUE(model.self_test());
+  EXPECT_TRUE(updater.self_test());
+  RecDat rec_dat;
+  rec_dat = create_recdat(30,10,30,1);
+  EXPECT_EQ(0, model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,20,30,1);
+  EXPECT_EQ(0, model.prediction(&rec_dat));
+  for(RecDat rec_dat : timeline){
+    updater.update(&rec_dat);
+  }
+  rec_dat = create_recdat(30,10,10,1);
+  EXPECT_EQ(log(4+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,10,30,1);
+  EXPECT_EQ(log(6+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,20,10,1);
+  EXPECT_EQ(log(4+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,20,30,1);
+  EXPECT_EQ(log(6+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,30,20,1);
+  EXPECT_EQ(log(4+1), model.prediction(&rec_dat));
+  rec_dat = create_recdat(30,30,30,1);
+  EXPECT_EQ(0, model.prediction(&rec_dat));
+}
+
 TEST_F(TestTransitionProbabilityModel, test_rsi){
   //data
   vector<RecDat> timeline;
