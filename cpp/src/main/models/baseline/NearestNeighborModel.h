@@ -39,7 +39,7 @@ public:
     gamma_(params->gamma),
     gamma_threshold_(params->gamma_threshold),
     num_of_neighbors_(params->num_of_neighbors),
-    norm_type_(params->direction==""?"num":params->norm),
+    norm_type_(params->norm==""?"num":params->norm),
     direction_(params->direction==""?"forward":params->direction)
   {}
   double prediction(RecDat* rec_dat) override;
