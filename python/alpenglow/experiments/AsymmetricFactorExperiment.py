@@ -5,9 +5,10 @@ import alpenglow as prs
 class AsymmetricFactorExperiment(prs.OnlineExperiment):
     """AsymmetricFactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=20,cumulative_item_updates=True,norm_type="exponential",gamma=0.8)
     
-    Implements the recommendation model introduced in [Paterek2007]_.
+    Implements the recommendation model introduced in [Koren2008]_.
 
     .. [Paterek2007] Arkadiusz Paterek. „Improving regularized singular value decomposition for collaborative filtering”. In: Proc. KDD Cup Workshop at SIGKDD’07, 13th ACM Int. Conf. on Knowledge Discovery and Data Mining. San Jose, CA, USA, 2007, pp. 39–42.
+    .. [Koren2008] Koren, Yehuda. "Factorization meets the neighborhood: a multifaceted collaborative filtering model." Proceedings of the 14th ACM SIGKDD international conference on Knowledge discovery and data mining. ACM, 2008.
 
     Parameters
     ----------
