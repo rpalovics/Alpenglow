@@ -1,7 +1,6 @@
 #include "OnlineExperiment.h"
 
 OnlineExperiment::OnlineExperiment(OnlineExperimentParameters* parameters){
-  srand(parameters->random_seed);
   experiment_environment_ = new ExperimentEnvironment();
   experiment_environment_->set_parameters(parameters);
 }
