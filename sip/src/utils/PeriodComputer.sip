@@ -3,6 +3,9 @@ struct PeriodComputerParameters {
   %TypeHeaderCode
   #include "utils/PeriodComputer.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.PeriodComputer`. See documentation there.
+  %End
   std::string period_mode; 
 
   int period_length;

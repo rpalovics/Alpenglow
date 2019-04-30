@@ -14,6 +14,9 @@ struct NearestNeighborModelParameters {
   %TypeHeaderCode
   #include "models/baseline/NearestNeighborModel.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.NearestNeighborModel`. See documentation there.
+  %End
   double gamma;
   std::string norm;
   std::string direction;

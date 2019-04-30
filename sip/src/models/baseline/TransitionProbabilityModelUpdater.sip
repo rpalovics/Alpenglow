@@ -3,6 +3,9 @@ struct TransitionProbabilityModelUpdaterParameters {
   %TypeHeaderCode
   #include "models/baseline/TransitionProbabilityModelUpdater.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.TransitionProbabilityModelUpdater`. See documentation there.
+  %End
   bool filter_freq_updates;
   std::string mode; 
   bool label_transition_mode;

@@ -95,7 +95,8 @@ do
   | sed -r "s/^([^)]+)[[:space:]]*=[^;]*;/\1;/" \
   | python $script_dir/remove_private.py \
   | tr '\n' '\r' \
-  | sed -r "s/struct([^{]*)\{/struct\1{\nTYPEHEADERCODE/g" \
+  | sed -r "s/struct([^{]*)\{/struct\1{\rTYPEHEADERCODE/g" \
+  | sed -r "s/(struct ([^{]*)Parameters \{\rTYPEHEADERCODE)/\1\n  %Docstring\n  Constructor parameter struct for :py:class:\`alpenglow.cpp.\2\`. See documentation there.\n  %End/g" \
   | sed -r "s/class([^{]*)\{/class\1{\nTYPEHEADERCODE/g" \
   | sed -r "s/class([^{]*public RankingScoreIterator([^A-Z][^{]*)?)\{/COMMENTOUTTHISCLASS class\1{/g" \
   | sed -r "s/(enum[[:space:]]+class)/COMMENTOUTTHISCLASS\1/g" \

@@ -3,6 +3,9 @@ struct OnlinePredictorParameters {
   %TypeHeaderCode
   #include "loggers/OnlinePredictor.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.OnlinePredictor`. See documentation there.
+  %End
   double min_time;
   double time_frame;
   std::string file_name;

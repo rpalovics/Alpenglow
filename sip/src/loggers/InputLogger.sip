@@ -3,6 +3,9 @@ struct InputLoggerParameters {
   %TypeHeaderCode
   #include "loggers/InputLogger.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.InputLogger`. See documentation there.
+  %End
   std::string output_file;
 };
 class InputLogger : public Logger, public Initializable  /NoDefaultCtors/{

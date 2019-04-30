@@ -3,6 +3,9 @@ struct PopularityTimeFrameModelUpdaterParameters {
   %TypeHeaderCode
   #include "models/baseline/PopularityTimeFrameModelUpdater.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.PopularityTimeFrameModelUpdater`. See documentation there.
+  %End
   double tau;
 };
 class PopularityTimeFrameModelUpdater : public Updater {

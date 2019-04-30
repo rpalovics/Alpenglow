@@ -3,6 +3,9 @@ struct SamplingDataGeneratorParameters {
   %TypeHeaderCode
   #include "data_generators/SamplingDataGenerator.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.SamplingDataGenerator`. See documentation there.
+  %End
   std::string distribution;
   int number_of_samples;
   double y; 

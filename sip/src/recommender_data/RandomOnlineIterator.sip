@@ -3,6 +3,9 @@ struct RandomOnlineIteratorParameters {
   %TypeHeaderCode
   #include "recommender_data/RandomOnlineIterator.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.RandomOnlineIterator`. See documentation there.
+  %End
   int seed;
 };
 class RandomOnlineIterator : public RecommenderDataIterator {

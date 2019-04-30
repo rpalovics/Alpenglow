@@ -3,6 +3,9 @@ struct PrecisionRecallEvaluatorParameters {
   %TypeHeaderCode
   #include "offline_evaluators/PrecisionRecallEvaluator.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.PrecisionRecallEvaluator`. See documentation there.
+  %End
   int cutoff;
   std::string test_file_name;
   std::string test_file_type;

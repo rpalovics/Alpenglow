@@ -3,6 +3,9 @@ struct OnlineExperimentParameters {
   %TypeHeaderCode
   #include "online_experiment/OnlineExperiment.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.OnlineExperiment`. See documentation there.
+  %End
   int top_k;
   int min_time;
   int max_time;

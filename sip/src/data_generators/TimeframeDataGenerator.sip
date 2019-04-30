@@ -3,6 +3,9 @@ struct TimeframeDataGeneratorParameters {
   %TypeHeaderCode
   #include "data_generators/TimeframeDataGenerator.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.TimeframeDataGenerator`. See documentation there.
+  %End
   int timeframe_length;
 };
 class TimeframeDataGenerator : public DataGenerator, public NeedsExperimentEnvironment, public Initializable {

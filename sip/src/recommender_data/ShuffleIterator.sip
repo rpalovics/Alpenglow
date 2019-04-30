@@ -3,6 +3,9 @@ struct ShuffleIteratorParameters {
   %TypeHeaderCode
   #include "recommender_data/ShuffleIterator.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.ShuffleIterator`. See documentation there.
+  %End
   int seed;
 };
 

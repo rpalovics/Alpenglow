@@ -3,6 +3,9 @@ struct NearestNeighborModelUpdaterParameters {
   %TypeHeaderCode
   #include "models/baseline/NearestNeighborModelUpdater.h"
   %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.NearestNeighborModelUpdater`. See documentation there.
+  %End
   int compute_similarity_period;
   std::string period_mode;
   NearestNeighborModelUpdaterParameters();
