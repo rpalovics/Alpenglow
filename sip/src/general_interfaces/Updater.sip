@@ -24,15 +24,12 @@ class Updater{
 
     * :py:class:`alpenglow.cpp.TransitionProbabilityModel` and :py:class:`alpenglow.cpp.TransitionProbabilityModelUpdater`
     * :py:class:`alpenglow.cpp.PopularityModel` has two updating algorithms:
-
-      * :py:class:`alpenglow.cpp.PopularityModelUpdater`
-      * :py:class:`alpenglow.cpp.PopularityTimeframeModelUpdater`
-
+     * :py:class:`alpenglow.cpp.PopularityModelUpdater`
+     * :py:class:`alpenglow.cpp.PopularityTimeframeModelUpdater`
     * :py:class:`alpenglow.cpp.PeriodComputer` implements the Updater interface
 
-
     In the online experiment, updaters are organized into a chain.
-    See :py:class:`alpenglow.cpp.OnlineExperiment` for details.
+    See  :doc:`/general/anatomy_of_experiment` for details.
 
   %End
   public:
