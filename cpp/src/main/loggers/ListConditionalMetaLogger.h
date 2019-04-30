@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct ListConditionalMetaLoggerParameters{
+struct ListConditionalMetaLoggerParameters {
   vector<int> should_run_vector;
 };
 

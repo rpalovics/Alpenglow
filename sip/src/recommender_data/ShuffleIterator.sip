@@ -1,5 +1,5 @@
 
-struct ShuffleIteratorParameters{
+struct ShuffleIteratorParameters {
   %TypeHeaderCode
   #include "recommender_data/ShuffleIterator.h"
   %End

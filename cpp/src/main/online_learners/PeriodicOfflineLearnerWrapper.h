@@ -7,7 +7,7 @@
 #include "../data_generators/DataGenerator.h"
 #include "../models/Model.h"
 
-struct PeriodicOfflineLearnerWrapperParameters{
+struct PeriodicOfflineLearnerWrapperParameters {
   bool read_model = false;
   string base_in_file_name = "";
   bool write_model = false;

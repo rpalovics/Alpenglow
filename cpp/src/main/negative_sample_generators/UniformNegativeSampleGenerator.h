@@ -6,7 +6,7 @@
 #include "../general_interfaces/Initializable.h"
 #include "../utils/Random.h"
 
-struct UniformNegativeSampleGeneratorParameters{
+struct UniformNegativeSampleGeneratorParameters {
     double negative_rate = -1; 
     bool initialize_all = false;
     int max_item = -1;

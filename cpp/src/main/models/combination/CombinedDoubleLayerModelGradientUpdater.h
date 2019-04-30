@@ -7,7 +7,7 @@
 
 using namespace std;
 
-struct CombinedDoubleLayerModelGradientUpdaterParameters{
+struct CombinedDoubleLayerModelGradientUpdaterParameters {
   double learning_rate;
   double regularization_rate;
   double global_learning_rate;

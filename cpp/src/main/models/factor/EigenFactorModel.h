@@ -13,7 +13,7 @@
 
 using namespace std;
 
-struct EigenFactorModelParameters{
+struct EigenFactorModelParameters {
   int dimension=10;
   double begin_min=-0.01;
   double begin_max=0.01;

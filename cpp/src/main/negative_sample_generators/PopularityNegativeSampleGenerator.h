@@ -5,7 +5,7 @@
 #include "../utils/PopContainers.h"
 #include "../recommender_data/RecommenderDataIterator.h"
 
-struct PopularityNegativeSampleGeneratorParameters{
+struct PopularityNegativeSampleGeneratorParameters {
   int negative_rate;
   int seed;
 };

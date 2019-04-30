@@ -3,7 +3,7 @@
 
 #include "../utils/PredictionCreator.h"
 
-struct OfflineRankingComputerParameters{
+struct OfflineRankingComputerParameters {
   int top_k;
 };
 

@@ -1,5 +1,5 @@
 
-struct RandomOnlineIteratorParameters{
+struct RandomOnlineIteratorParameters {
   %TypeHeaderCode
   #include "recommender_data/RandomOnlineIterator.h"
   %End

@@ -6,7 +6,7 @@
 #include "../models/ModelUpdater.h"
 #include <gtest/gtest_prod.h>
 
-struct LabelFilterParameters{
+struct LabelFilterParameters {
   string label_file_name;
 };
 

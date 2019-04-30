@@ -29,7 +29,7 @@ class AttributeContainer : public InlineAttributeReader{ //abstract interface
     }
 };
 
-struct GeneralAttributeContainerParameters{
+struct GeneralAttributeContainerParameters {
   string filename;
 };
 template<typename Attribute>

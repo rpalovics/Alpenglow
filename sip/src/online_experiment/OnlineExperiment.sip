@@ -1,5 +1,5 @@
 
-struct OnlineExperimentParameters{
+struct OnlineExperimentParameters {
   %TypeHeaderCode
   #include "online_experiment/OnlineExperiment.h"
   %End

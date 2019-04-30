@@ -1,5 +1,5 @@
 
-struct TransitionProbabilityModelUpdaterParameters{
+struct TransitionProbabilityModelUpdaterParameters {
   %TypeHeaderCode
   #include "models/baseline/TransitionProbabilityModelUpdater.h"
   %End

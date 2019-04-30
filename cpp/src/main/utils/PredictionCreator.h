@@ -13,7 +13,7 @@
 
 using namespace std;
 
-struct PredictionCreatorParameters{
+struct PredictionCreatorParameters {
   int top_k = -1;
   int exclude_known = -1;
 };
@@ -69,7 +69,7 @@ class PredictionCreator : public NeedsExperimentEnvironment, public Initializabl
    int exclude_known_;
 };
 
-struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters{
+struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters {
   int initial_threshold; //TODO initial_threshold
 };
 
@@ -110,7 +110,7 @@ class PredictionCreatorGlobal: public PredictionCreator{
     FRIEND_TEST(TestPredictionCreatorGlobal, exclude_known);
 };
 
-struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParameters{
+struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParameters {
 };
 class PredictionCreatorPersonalized: public PredictionCreator{
   public:

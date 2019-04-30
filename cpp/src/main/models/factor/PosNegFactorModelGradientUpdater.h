@@ -6,7 +6,7 @@
 
 using namespace std;
 
-struct PosNegFactorModelGradientUpdaterParameters{
+struct PosNegFactorModelGradientUpdaterParameters {
   bool turn_off_user_factor_updates; //turns off user vector updates at all
   bool turn_off_item_factor_updates;
   bool turn_off_user_bias_updates; //turns off user bias updates at all

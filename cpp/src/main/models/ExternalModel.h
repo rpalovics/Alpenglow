@@ -9,7 +9,7 @@
 
 using namespace std;
 
-struct ExternalModelParameters{
+struct ExternalModelParameters {
   string mode;
 };
 

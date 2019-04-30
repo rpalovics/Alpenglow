@@ -17,7 +17,7 @@ class Recency{
   private:
 };
 
-struct PowerLawRecencyParameters{
+struct PowerLawRecencyParameters {
   double delta_t;
   double exponent;
 };

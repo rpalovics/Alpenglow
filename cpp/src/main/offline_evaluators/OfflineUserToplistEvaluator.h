@@ -7,7 +7,7 @@
 #include "../utils/PredictionCreator.h"
 
 using namespace std;
-struct OfflineUserToplistEvaluatorParameters{ //TODO jinjactor
+struct OfflineUserToplistEvaluatorParameters { //TODO jinjactor
   string test_file_name;
   string test_file_type;
   string output_file_name;

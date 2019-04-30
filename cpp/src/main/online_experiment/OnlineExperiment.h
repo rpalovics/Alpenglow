@@ -12,7 +12,7 @@
 class ExperimentEnvironment;
 class NeedsExperimentEnvironment;
 
-struct OnlineExperimentParameters{
+struct OnlineExperimentParameters {
   int top_k;
   int min_time;
   int max_time;

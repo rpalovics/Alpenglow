@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct OfflineExternalModelLearnerParameters{
+struct OfflineExternalModelLearnerParameters {
   string mode;
   string out_name_base;
   string in_name_base;

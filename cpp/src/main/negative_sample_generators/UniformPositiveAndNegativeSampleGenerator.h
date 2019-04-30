@@ -6,7 +6,7 @@
 #include "../models/ModelUpdater.h"
 #include "NegativeSampleGenerator.h"
 
-struct UniformPositiveAndNegativeSampleGeneratorParameters{ 
+struct UniformPositiveAndNegativeSampleGeneratorParameters { 
     double positive_rate,negative_rate,decay;
     bool initialize_all;
     int max_item;

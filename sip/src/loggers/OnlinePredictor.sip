@@ -1,5 +1,5 @@
 
-struct OnlinePredictorParameters{
+struct OnlinePredictorParameters {
   %TypeHeaderCode
   #include "loggers/OnlinePredictor.h"
   %End

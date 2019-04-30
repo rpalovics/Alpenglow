@@ -7,7 +7,7 @@
 
 using namespace std;
 
-struct AsymmetricFactorModelGradientUpdaterParameters{
+struct AsymmetricFactorModelGradientUpdaterParameters {
   double learning_rate;
   //TODO regularization rate?
   bool cumulative_item_updates;

@@ -3,7 +3,7 @@
 
 #include "NegativeSampleGenerator.h"
 #include "../utils/SortPairDescendingBySecond.h"
-struct HighGradientNegativeSampleGeneratorParameters{
+struct HighGradientNegativeSampleGeneratorParameters {
   int negative_rate;
   int full_negative_rate;
   bool initialize_all;

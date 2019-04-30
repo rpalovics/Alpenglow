@@ -1,5 +1,5 @@
 
-struct CombinedModelParameters{
+struct CombinedModelParameters {
   %TypeHeaderCode
   #include "models/combination/CombinedModel.h"
   %End

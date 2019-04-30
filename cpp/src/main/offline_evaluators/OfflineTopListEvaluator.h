@@ -5,7 +5,7 @@
 #include "../utils/PredictionCreator.h"
 //TODO rename global toplist evaluator
 
-struct OfflineTopListEvaluatorParameters{
+struct OfflineTopListEvaluatorParameters {
   string file_name;
 };
 

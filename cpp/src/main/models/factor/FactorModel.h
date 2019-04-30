@@ -17,7 +17,7 @@
 using namespace std;
 
 
-struct FactorModelParameters{
+struct FactorModelParameters {
   int dimension;
   double begin_min, begin_max;
   bool use_sigmoid;

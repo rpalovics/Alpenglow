@@ -18,7 +18,7 @@
 
 using namespace std;
 
-struct ShuffleIteratorParameters{
+struct ShuffleIteratorParameters {
   int seed;
 };
 

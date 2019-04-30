@@ -12,7 +12,7 @@
 using namespace std;
 
 
-struct AsymmetricFactorModelParameters{
+struct AsymmetricFactorModelParameters {
   int dimension;
   double begin_min, begin_max;
   bool initialize_all, use_sigmoid;

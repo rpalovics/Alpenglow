@@ -7,7 +7,7 @@
 
 using namespace std;
 
-struct SparseAttributeContainerParameters{
+struct SparseAttributeContainerParameters {
 
 };
 

@@ -6,7 +6,7 @@
 #include <exception>
 #include <queue>
 using namespace std;
-struct LearnerPeriodicDelayedWrapperParameters{
+struct LearnerPeriodicDelayedWrapperParameters {
   double period=-1;
   double delay=-1;
 };

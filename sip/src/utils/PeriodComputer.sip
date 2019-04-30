@@ -1,5 +1,5 @@
 
-struct PeriodComputerParameters{
+struct PeriodComputerParameters {
   %TypeHeaderCode
   #include "utils/PeriodComputer.h"
   %End

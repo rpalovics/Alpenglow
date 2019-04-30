@@ -5,7 +5,7 @@
 #include "../utils/Random.h"
 #include "NegativeSampleGenerator.h"
 
-struct GlobalPositiveAndNegativeSampleGeneratorParameters{ 
+struct GlobalPositiveAndNegativeSampleGeneratorParameters { 
     double positive_rate,negative_rate,decay;
     bool initialize_all;
     int max_item;

@@ -11,7 +11,7 @@
 
 using namespace std;
 
-struct PeriodComputerParameters{
+struct PeriodComputerParameters {
   string period_mode = "time"; //"samplenum": we treat sample counter as time
   ///**
   //  Available values: `time`, `samplenum`.

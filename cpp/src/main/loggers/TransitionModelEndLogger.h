@@ -9,7 +9,7 @@
 #include "../utils/PopContainers.h"
 using namespace std;
 
-struct TransitionModelEndLoggerParameters{
+struct TransitionModelEndLoggerParameters {
   string log_file_name; //output format: track len_of_list popularity track1 track2 ... track_max_length
   int max_length;
   TransitionModelEndLoggerParameters(){

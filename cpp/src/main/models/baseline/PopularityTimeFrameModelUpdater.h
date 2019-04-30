@@ -10,7 +10,7 @@
 #include <gtest/gtest_prod.h>
 
 using namespace std;
-struct PopularityTimeFrameModelUpdaterParameters{
+struct PopularityTimeFrameModelUpdaterParameters {
   double tau = -1;
 };
 class PopularityTimeFrameModelUpdater : public Updater {

@@ -9,7 +9,7 @@
 #include "RecommenderDataIterator.h"
 #include "../utils/Random.h"
 
-struct RandomOnlineIteratorParameters{
+struct RandomOnlineIteratorParameters {
   int seed;
 };
 class RandomOnlineIterator : public RecommenderDataIterator {

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-struct FactorModelGradientUpdaterParameters{
+struct FactorModelGradientUpdaterParameters {
   bool turn_off_user_factor_updates;
   bool turn_off_item_factor_updates;
   bool turn_off_user_bias_updates;

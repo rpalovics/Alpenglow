@@ -7,7 +7,7 @@
 #include "TransitionProbabilityModel.h"
 #include "../../utils/LabelContainer.h"
 
-struct TransitionProbabilityModelUpdaterParameters{
+struct TransitionProbabilityModelUpdaterParameters {
   bool filter_freq_updates = false;
   string mode = ""; //old codes: -1: normal; 0: inverted; 1: symmetric
   bool label_transition_mode = false;

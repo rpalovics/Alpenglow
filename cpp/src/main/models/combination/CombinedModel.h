@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct CombinedModelParameters{
+struct CombinedModelParameters {
   string log_file_name;
   int log_frequency;
   bool use_user_weights;

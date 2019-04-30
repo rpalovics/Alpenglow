@@ -62,7 +62,7 @@ class RecommenderData : public Initializable {
     vector<int> users_;
 };
 
-struct LegacyRecommenderDataParameters{
+struct LegacyRecommenderDataParameters {
   string file_name = "";
   string type = "online";
   int max_time = 0;

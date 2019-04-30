@@ -1,5 +1,5 @@
 
-struct PopularityTimeFrameModelUpdaterParameters{
+struct PopularityTimeFrameModelUpdaterParameters {
   %TypeHeaderCode
   #include "models/baseline/PopularityTimeFrameModelUpdater.h"
   %End

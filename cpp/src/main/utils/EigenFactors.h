@@ -18,7 +18,7 @@ using namespace Eigen;
 
 typedef Matrix<double, Dynamic, Dynamic, RowMajor> MatrixXdRM;
 
-struct EigenFactorsParameters{
+struct EigenFactorsParameters {
   int seed;
 };
 

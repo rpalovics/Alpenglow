@@ -9,7 +9,7 @@
 
 
 //TODO should be compatible with the offline environment
-struct DCGEvaluatorParameters{
+struct DCGEvaluatorParameters {
   int top_k = 100;
 };
 class DCGEvaluator

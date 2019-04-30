@@ -6,7 +6,7 @@
 
 using namespace std;
 
-struct SvdppModelGradientUpdaterParameters{
+struct SvdppModelGradientUpdaterParameters {
   double learning_rate;
   bool cumulative_item_updates;
   //double regularization_rate; //not implemented

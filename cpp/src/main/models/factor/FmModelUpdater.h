@@ -6,7 +6,7 @@
 
 using namespace std;
 
-struct FmModelUpdaterParameters{
+struct FmModelUpdaterParameters {
   double learning_rate;
 };
 

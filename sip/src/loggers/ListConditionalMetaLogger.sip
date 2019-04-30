@@ -1,5 +1,5 @@
 
-struct ListConditionalMetaLoggerParameters{
+struct ListConditionalMetaLoggerParameters {
   %TypeHeaderCode
   #include "loggers/ListConditionalMetaLogger.h"
   %End

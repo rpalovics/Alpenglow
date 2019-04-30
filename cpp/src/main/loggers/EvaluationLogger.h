@@ -14,7 +14,7 @@
 //kiertekeles mse eseten negativ mintakra is
 //kiertekeles dcg-vel
 
-struct EvaluationLoggerParameters{
+struct EvaluationLoggerParameters {
   string file_name;
   int timeframe;
   string mode;

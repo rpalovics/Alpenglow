@@ -13,7 +13,7 @@
 #include <numeric> 
 #include "../utils/Random.h"
 
-struct RankComputerParameters{
+struct RankComputerParameters {
   int top_k;
   int random_seed;
   RankComputerParameters(){

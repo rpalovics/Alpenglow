@@ -10,7 +10,7 @@
 #include "../utils/PopContainers.h"
 using namespace std;
 
-struct TransitionModelLoggerParameters{
+struct TransitionModelLoggerParameters {
   string toplist_length_logfile_basename; //output format: track toplist_len
   string timeline_logfile_name;
   int period_length;

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct OfflineEigenFactorModelALSLearnerParameters{
+struct OfflineEigenFactorModelALSLearnerParameters {
   double number_of_iterations=3;
   double regularization_lambda=0.00001;
   double alpha=40;

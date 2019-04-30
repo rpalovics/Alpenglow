@@ -15,7 +15,7 @@
 
 using namespace std;
 
-struct FactorsParameters{
+struct FactorsParameters {
   double begin_max = 0.1;
   double begin_min = -0.1;
   double dimension = 0;

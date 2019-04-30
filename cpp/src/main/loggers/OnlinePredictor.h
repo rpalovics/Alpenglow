@@ -6,7 +6,7 @@
 
 //SIP_AUTOCONVERT
 
-struct OnlinePredictorParameters{
+struct OnlinePredictorParameters {
   double min_time;
   double time_frame;
   string file_name;

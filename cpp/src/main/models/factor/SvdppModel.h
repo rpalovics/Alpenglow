@@ -14,7 +14,7 @@ using namespace std;
 
 /// SVD++ algorithm
 
-struct SvdppModelParameters{
+struct SvdppModelParameters {
   int dimension;
   double begin_min, begin_max;
   bool initialize_all, use_sigmoid;

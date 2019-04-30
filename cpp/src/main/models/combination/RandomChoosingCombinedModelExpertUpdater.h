@@ -13,7 +13,7 @@
 
 using namespace std;
 
-struct RandomChoosingCombinedModelExpertUpdaterParameters{
+struct RandomChoosingCombinedModelExpertUpdaterParameters {
   double eta = 0.1;
   int top_k = 100;
   string loss_type = ""; //abs, dcg, mrr, other

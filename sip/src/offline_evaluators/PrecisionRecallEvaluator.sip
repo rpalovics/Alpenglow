@@ -1,5 +1,5 @@
 
-struct PrecisionRecallEvaluatorParameters{
+struct PrecisionRecallEvaluatorParameters {
   %TypeHeaderCode
   #include "offline_evaluators/PrecisionRecallEvaluator.h"
   %End

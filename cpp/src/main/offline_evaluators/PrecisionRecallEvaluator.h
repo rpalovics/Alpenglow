@@ -12,7 +12,7 @@
 
 using namespace std;
 
-struct PrecisionRecallEvaluatorParameters{
+struct PrecisionRecallEvaluatorParameters {
   int cutoff;
   string test_file_name;
   string test_file_type;
