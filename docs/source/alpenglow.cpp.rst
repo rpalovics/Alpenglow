@@ -9,6 +9,8 @@ Filters
 -------
 This is the filters header file.
 
+
+
 .. autoclass:: alpenglow.cpp.DummyModelFilter
     :members:
     :undoc-members:
@@ -32,9 +34,11 @@ This is the filters header file.
     :undoc-members:
     :show-inheritance:
 
-
-offline_evaluators
+Offline evaluators
 ------------------
+This is the offline_evaluators header file.
+
+
 
 .. autoclass:: alpenglow.cpp.PrecisionRecallEvaluatorParameters
     :members:
@@ -71,9 +75,11 @@ offline_evaluators
     :undoc-members:
     :show-inheritance:
 
-
-recommender_data
+Recommender data
 ----------------
+This is the recommender_data header file.
+
+
 
 .. autoclass:: alpenglow.cpp.RandomOnlineIteratorParameters
     :members:
@@ -188,9 +194,11 @@ recommender_data
     :undoc-members:
     :show-inheritance:
 
-
-utils
+Utils
 -----
+This is the utils header file.
+
+
 
 .. autoclass:: alpenglow.cpp.PeriodComputerParameters
     :members:
@@ -305,9 +313,11 @@ utils
     :undoc-members:
     :show-inheritance:
 
-
-gradient_computers
+Gradient computers
 ------------------
+This is the gradient_computers header file.
+
+
 
 .. autoclass:: alpenglow.cpp.GradientComputer
     :members:
@@ -320,9 +330,11 @@ gradient_computers
     :undoc-members:
     :show-inheritance:
 
-
-objectives
+Objectives
 ----------
+This is the objectives header file.
+
+
 
 .. autoclass:: alpenglow.cpp.ObjectiveMSE
     :members:
@@ -347,9 +359,11 @@ objectives
     :undoc-members:
     :show-inheritance:
 
-
-general_interfaces
+General interfaces
 ------------------
+This is the general_interfaces header file.
+
+
 
 .. autoclass:: alpenglow.cpp.Initializable
     :members:
@@ -368,9 +382,11 @@ general_interfaces
     :undoc-members:
     :show-inheritance:
 
-
-negative_sample_generators
+Negative sample generators
 --------------------------
+This is the negative_sample_generators header file.
+
+
 
 .. autoclass:: alpenglow.cpp.UniformNegativeSampleGeneratorParameters
     :members:
@@ -389,9 +405,11 @@ negative_sample_generators
     :undoc-members:
     :show-inheritance:
 
-
-offline_learners
+Offline learners
 ----------------
+This is the offline_learners header file.
+
+
 
 .. autoclass:: alpenglow.cpp.OfflineIteratingOnlineLearnerWrapperParameters
     :members:
@@ -434,9 +452,11 @@ offline_learners
     :undoc-members:
     :show-inheritance:
 
-
-loggers
+Loggers
 -------
+This is the loggers header file.
+
+
 
 .. autoclass:: alpenglow.cpp.OnlinePredictions
     :members:
@@ -533,9 +553,11 @@ loggers
     :undoc-members:
     :show-inheritance:
 
-
-online_experiment
+Online experiment
 -----------------
+This is the online_experiment header file.
+
+
 
 .. autoclass:: alpenglow.cpp.OnlineExperimentParameters
     :members:
@@ -554,12 +576,16 @@ online_experiment
     :undoc-members:
     :show-inheritance:
 
-
-models
+Models
 ------
+This is the models header file.
 
-models.factor
-~~~~~~~~~~~~~
+
+Models.factor
+-------------
+This is the models/factor header file.
+
+
 
 .. autoclass:: alpenglow.cpp.EigenFactorModelParameters
     :members:
@@ -680,9 +706,11 @@ models.factor
     :undoc-members:
     :show-inheritance:
 
+Models.baseline
+---------------
+This is the models/baseline header file.
 
-models.baseline
-~~~~~~~~~~~~~~~
+
 
 .. autoclass:: alpenglow.cpp.TransitionProbabilityModel
     :members:
@@ -761,9 +789,11 @@ models.baseline
     :undoc-members:
     :show-inheritance:
 
+Models.combination
+------------------
+This is the models/combination header file.
 
-models.combination
-~~~~~~~~~~~~~~~~~~
+
 
 .. autoclass:: alpenglow.cpp.ToplistCombinationModel
     :members:
@@ -860,9 +890,11 @@ models.combination
     :undoc-members:
     :show-inheritance:
 
-
-data_generators
+Data generators
 ---------------
+This is the data_generators header file.
+
+
 
 .. autoclass:: alpenglow.cpp.DataGenerator
     :members:
@@ -899,9 +931,11 @@ data_generators
     :undoc-members:
     :show-inheritance:
 
-
-online_learners
+Online learners
 ---------------
+This is the online_learners header file.
+
+
 
 .. autoclass:: alpenglow.cpp.LearnerPeriodicDelayedWrapperParameters
     :members:
@@ -926,9 +960,11 @@ online_learners
     :undoc-members:
     :show-inheritance:
 
-
-ranking
+Ranking
 -------
+This is the ranking header file.
+
+
 
 .. autoclass:: alpenglow.cpp.RankComputerParameters
     :members:
