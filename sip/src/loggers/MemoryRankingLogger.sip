@@ -26,6 +26,8 @@ struct MemoryRankingLoggerParameters{
   double min_time;
   std::string out_file;
   bool memory_log;
+  int top_k;
+  int random_seed;
 };
 
 class MemoryRankingLogger : public Logger

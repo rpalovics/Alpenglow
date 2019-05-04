@@ -149,13 +149,10 @@ class OnlineExperiment(ParameterDefaults):
             proceeding_logger.set_data_iterator(recommender_data_iterator)
             online_experiment.add_logger(proceeding_logger)
 
-        rank_computer = rs.RankComputer(top_k=top_k, random_seed=43211234)
-        rank_computer.set_model(model)
         ranking_logger = self._get_ranking_logger(top_k, min_time, self.parameter_default('out_file', out_file), memory_log)
         ranking_logger.set_model(model)
-        ranking_logger.set_rank_computer(rank_computer)
         for f in filters:
-            rank_computer.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
+            ranking_logger.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
         online_experiment.add_logger(ranking_logger)
 
         if type(calculate_toplists) is not bool or calculate_toplists:
@@ -251,7 +248,9 @@ class OnlineExperiment(ParameterDefaults):
         self.ranking_logger = rs.MemoryRankingLogger(
             min_time=min_time,
             out_file=out_file,
-            memory_log=memory_log
+            memory_log=memory_log,
+            top_k=top_k,
+            random_seed=43211234
         )
         self.ranking_logger.set_ranking_logs(self.ranking_logs)
         return self.ranking_logger
