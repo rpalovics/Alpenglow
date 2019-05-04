@@ -2,7 +2,7 @@
 #define FACTOR_MODEL_RANKING_SCORE_ITERATOR_H
 
 #include "../RankingScoreIterator.h"
-#include "../../ranking/lemp/LempContainer.h"
+#include "lemp/LempContainer.h"
 #include <utility>
 
 using namespace std;

@@ -10,7 +10,7 @@
 #include "../SimilarityModel.h"
 #include "../RankingScoreIterator.h"
 #include "../TopListRecommender.h"
-#include "../../ranking/lemp/FactorsLempContainer.h"
+#include "lemp/FactorsLempContainer.h"
 #include "FactorModelRankingScoreIterator.h"
 #include <gtest/gtest_prod.h>
 

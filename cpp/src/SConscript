@@ -55,10 +55,12 @@ if mode=="coverage":
 
 cpp = Glob("main/*/*.cpp")
 cpp.extend(Glob("main/*/*/*.cpp"))
+cpp.extend(Glob("main/*/*/*/*.cpp"))
 objs = env.Object(cpp)
 
 cpp_test = Glob("test/*/*.cpp")
 cpp_test.extend(Glob("test/*/*/*.cpp"))
+cpp_test.extend(Glob("test/*/*/*/*.cpp"))
 
 AddOption('--test-filter',
           dest='test-filter',

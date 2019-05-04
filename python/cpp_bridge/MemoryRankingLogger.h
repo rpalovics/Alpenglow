@@ -2,7 +2,7 @@
 #define MEMORY_RANKING_LOGGER_H
 
 #include "models/Model.h"
-#include "ranking/Ranking.h"
+#include "utils/Ranking.h"
 #include "loggers/Logger.h"
 #include <vector>
 #include <fstream>

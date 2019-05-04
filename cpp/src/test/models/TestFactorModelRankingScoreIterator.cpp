@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "../../main/models/factor/FactorModelRankingScoreIterator.h"
-#include "../../main/ranking/lemp/FactorsLempContainer.h"
+#include "../../main/models/factor/lemp/FactorsLempContainer.h"
 
 namespace {
 class TestFactorModelRankingScoreIterator : public ::testing::Test { 

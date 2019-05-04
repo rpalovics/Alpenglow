@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <limits>
 #include "LempBucket.h"
-#include "../../utils/Util.h"
+#include "../../../utils/Util.h"
 
 vector<pair<int,double>> LempBucket::get_scores(vector<double> *user_factor){
   vector<pair<int,double>> scores;

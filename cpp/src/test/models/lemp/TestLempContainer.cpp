@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <algorithm>
-#include "../../../main/ranking/lemp/FactorsLempContainer.h"
+#include "../../../main/models/factor/lemp/FactorsLempContainer.h"
 #include "../../../main/utils/Util.h"
 
 namespace {

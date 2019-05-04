@@ -9,7 +9,7 @@
 #include "../RankingScoreIterator.h"
 #include "FactorModelRankingScoreIterator.h"
 #include "../TopListRecommender.h"
-#include "../../ranking/lemp/EigenFactorsLempContainer.h"
+#include "lemp/EigenFactorsLempContainer.h"
 
 using namespace std;
 

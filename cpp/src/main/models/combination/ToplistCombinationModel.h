@@ -12,7 +12,7 @@
 #include "../RankingScoreIterator.h"
 #include "../../general_interfaces/Initializable.h"
 #include "../../general_interfaces/NeedsExperimentEnvironment.h"
-#include "../../ranking/Ranking.h"
+#include "../../utils/Ranking.h"
 #include "../../utils/PredictionCreator.h"
 #include "../../filters/DummyModelFilter.h"
 
