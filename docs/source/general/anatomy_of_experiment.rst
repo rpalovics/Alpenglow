@@ -57,6 +57,8 @@ As these two is available for any objects in the experiment, we omit the connect
 Time-frame based popularity experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. image: class_diagram_poptf.png
+
 
 Matrix factorization experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
