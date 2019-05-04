@@ -14,17 +14,17 @@
 #include "../utils/Random.h"
 
 struct RankComputerParameters {
-  int top_k;
-  int random_seed;
-  RankComputerParameters(){
-    top_k = -1;
-    random_seed = -1;
-  }
+  int top_k = -1;
+  int random_seed = -1;
 };
 
-class RankComputer : public NeedsExperimentEnvironment, public Initializable{
+class RankComputer : public NeedsExperimentEnvironment, public Initializable {
   public:
+    RankComputer(){}
     RankComputer(RankComputerParameters* parameters){
+      set_parameters(parameters);
+    }
+    void set_parameters(RankComputerParameters* parameters){
       top_k_=(parameters->top_k==-1?parameters->top_k:parameters->top_k);
       random_.set(parameters->random_seed);
     }
