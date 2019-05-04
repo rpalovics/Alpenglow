@@ -72,6 +72,7 @@ In most of the cases, one can use the pre-built experiments in :py:mod:`alpenglo
     import alpenglow
     import pandas as pd
     
+    
     cpp.collect() #see general/memory usage
     
     #data
@@ -92,26 +93,29 @@ In most of the cases, one can use the pre-built experiments in :py:mod:`alpenglo
         memory_log = True
     )
     logger1.set_model(model)
+    ranking_logs = cpp.RankingLogs() #TODO get rid of these 3 lines
+    ranking_logs.top_k = 100
+    logger1.set_ranking_logs(ranking_logs)
     logger2 = cpp.ProceedingLogger()
     logger3 = cpp.MemoryUsageLogger()
     
-    #online_experiment&experiment_environment
+    #online_experiment
+    #Class experiment_environment is created inside.
     online_experiment = cpp.OnlineExperiment(
         random_seed=12345,
         top_k=100,
         exclude_known=True,
         initialize_all=False
     )
-    
-    online_experiment.set_recommender_data_iterator(data)
     online_experiment.add_logger(logger1)
     online_experiment.add_logger(logger2)
     online_experiment.add_logger(logger3)
     online_experiment.add_updater(updater)
+    online_experiment.set_recommender_data_iterator(data)
     
-    #clean, initialize, test
+    #clean, initialize, test (see general/cpp api)
     objects = cpp.get_and_clean()
-    cpp.set_experiment_environment(online_experiment, objects) #inject dependency
+    cpp.set_experiment_environment(online_experiment, objects)
     cpp.initialize_all(objects)
     for i in objects:
         cpp.run_self_test(i)
