@@ -46,26 +46,90 @@ The experiment finishes when there are no more samples in the time series.
 
  .. _DAG: https://en.wikipedia.org/wiki/Directed_acyclic_graph
 
-Code samples
+Examples
 ------------
 
-In what follows, we give an object diagram for a few experiments.
-The depenedency injection mechanism in our python framework sets automatically :py:class:`alpenglow.cpp.ExperimentEnvironment` to objects that require it (see :py:mod:`alpenglow.Getter` for details).
+In what follows, we give object diagrams for a few experiments.
+
+The depenedency injection mechanism in our python framework sets automatically :py:class:`alpenglow.cpp.ExperimentEnvironment` to objects that require it (see :py:mod:`alpenglow.Getter` and :py:class:`alpenglow.cpp.NeedsExperimentEnvironment` for details).
 Through this class, the experiment data (:py:class:`alpenglow.cpp.RecommenderDataIterator`) is also accessible.
-As these two is available for any objects in the experiment, we omit the connections between these two and other objects.
+As these two are available for any objects in the experiment, we omit the connections between these two and other objects.
 
 Time-frame based popularity experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image: class_diagram_poptf.png
+.. image:: class_diagram_poptf.png
 
+The python code that builds this experiment is the following.
+Note that most of the connections on the UML diagram correspond to a :py:meth:`set_xxxx()` or an :py:meth:`add_yyyy()` call.
+
+This code is mostly for illustration.
+In most of the cases, one can use the pre-built experiments in :py:mod:`alpenglow.experiments`, see :py:class:`alpenglow.experiments.PopularityTimeframeExperiment`.
+
+.. code-block:: python
+
+    from alpenglow.Getter import Getter as cpp
+    import alpenglow
+    import pandas as pd
+    
+    cpp.collect() #see general/memory usage
+    
+    #data
+    data_python = pd.read_csv("http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset")
+    data_cpp_bridge = alpenglow.DataframeData(data_python)
+    data = cpp.ShuffleIterator(seed=12345)
+    data.set_recommender_data(data_cpp_bridge)
+    
+    #recommender: model+updater
+    model = cpp.PopularityModel()
+    updater = cpp.PopularityTimeFrameModelUpdater(
+        tau = 86400
+    )
+    updater.set_model(model)
+    
+    #loggers: evaluation&statistics
+    logger1 = cpp.MemoryRankingLogger(
+        memory_log = True
+    )
+    logger1.set_model(model)
+    logger2 = cpp.ProceedingLogger()
+    logger3 = cpp.MemoryUsageLogger()
+    
+    #online_experiment&experiment_environment
+    online_experiment = cpp.OnlineExperiment(
+        random_seed=12345,
+        top_k=100,
+        exclude_known=True,
+        initialize_all=False
+    )
+    
+    online_experiment.set_recommender_data_iterator(data)
+    online_experiment.add_logger(logger1)
+    online_experiment.add_logger(logger2)
+    online_experiment.add_logger(logger3)
+    online_experiment.add_updater(updater)
+    
+    #clean, initialize, test
+    objects = cpp.get_and_clean()
+    cpp.set_experiment_environment(online_experiment, objects) #inject dependency
+    cpp.initialize_all(objects)
+    for i in objects:
+        cpp.run_self_test(i)
+    
+    #run the experiment
+    online_experiment.run()
+    
+    result = logger1.get_ranking_logs()
 
 Matrix factorization experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+See :py:class:`alpenglow.experiments.MatrixFactorizationExperiment`.
+
+TODO
 
 Combined model experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-
+TODO
 
