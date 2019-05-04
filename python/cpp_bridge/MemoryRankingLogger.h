@@ -51,9 +51,8 @@ class MemoryRankingLogger
       model_ = model;
       rank_computer_.set_model(model);
     }
-    void set_rank_computer(RankComputer* rank_computer_){ cerr << "MemRankLogger: dont call that" << endl; }
     void set_ranking_logs(RankingLogs* logs){ logs_=logs; } //TODO
-    //const RankingLogs* get_ranking_logs() const { return *logs_; } //TODO
+    const RankingLogs* get_ranking_logs() const { return logs_; } //TODO
 
     void set_model_filter(ModelFilter* model_filter){ rank_computer_.set_model_filter(model_filter); }
     void set_train_matrix(SpMatrix* train_matrix){ rank_computer_.set_train_matrix(train_matrix); }
