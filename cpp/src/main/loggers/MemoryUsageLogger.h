@@ -1,6 +1,8 @@
 #ifndef MEMORY_USAGE_LOGGER_H
 #define MEMORY_USAGE_LOGGER_H
 
+//SIP_AUTOCONVERT
+
 #include <sys/resource.h>
 #include <iostream>
 #include "../general_interfaces/NeedsExperimentEnvironment.h"

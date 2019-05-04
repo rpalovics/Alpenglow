@@ -98,6 +98,7 @@ std::string __stdlib;
 %Include src/loggers/ListConditionalMetaLogger.sip
 %Include src/loggers/PredictionLogger.sip
 %Include src/loggers/InputLogger.sip
+%Include src/loggers/MemoryUsageLogger.sip
 %Include src/online_experiment/OnlineExperiment.sip
 %Include src/online_experiment/ExperimentEnvironment.sip
 %Include src/utils/SpMatrix.sip
