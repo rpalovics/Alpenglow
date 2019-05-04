@@ -23,28 +23,28 @@ struct RankingLogs{
 };
 
 struct MemoryRankingLoggerParameters{
-  double min_time;
+  double min_time = 0;
   string out_file="";
-  bool memory_log;
+  bool memory_log = true;
 };
 
-class MemoryRankingLogger : public Logger{
+class MemoryRankingLogger
+  : public Logger
+//  , public NeedsExperimentEnvironment
+//  , public Initializable
+  {
   public:
     MemoryRankingLogger(MemoryRankingLoggerParameters* params){
       min_time_=params->min_time;
-
       if(params->out_file != ""){
         ofs.open(params->out_file.c_str());
       }
-
       memory_log_ = params->memory_log;
     }
-    ~MemoryRankingLogger(){}
     void set_model(Model* model){ model_ = model; }
     void set_rank_computer(RankComputer* rank_computer){ rank_computer_ = rank_computer; }
-    void set_ranking_logs(RankingLogs* logs){
-      logs_=logs;
-    }
+    void set_ranking_logs(RankingLogs* logs){ logs_=logs; }
+
     void run(RecDat* rec_dat){
       if(rec_dat->time >= min_time_ && rec_dat->eval==1){
         RankingLog log;
@@ -73,10 +73,10 @@ class MemoryRankingLogger : public Logger{
     }
   private:
     ofstream ofs;
-    RankingLogs* logs_;
+    RankingLogs* logs_ = NULL;
     double min_time_;
-    Model* model_;
-    RankComputer* rank_computer_;
+    Model* model_ = NULL;
+    RankComputer* rank_computer_ = NULL;
     bool memory_log_;
 };
 
