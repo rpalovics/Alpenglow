@@ -11,7 +11,11 @@ struct OnlinePredictorParameters {
   std::string file_name;
 };
 
-class OnlinePredictor : public Logger /NoDefaultCtors/{
+class OnlinePredictor
+ : public Logger
+ , public NeedsExperimentEnvironment
+ , public Initializable
+  /NoDefaultCtors/{
   %TypeHeaderCode
   #include "loggers/OnlinePredictor.h"
   %End
@@ -20,5 +24,6 @@ class OnlinePredictor : public Logger /NoDefaultCtors/{
    void run(RecDat* rec_dat);
    void set_prediction_creator(PredictionCreator* prediction_creator);
    bool self_test();
+   void set_experiment_environment(ExperimentEnvironment* experiment_environment);
 };
 

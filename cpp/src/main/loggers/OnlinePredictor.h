@@ -3,17 +3,23 @@
 #include <gtest/gtest_prod.h>
 #include "Logger.h"
 #include "../utils/PredictionCreator.h"
+#include "../general_interfaces/Initializable.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 
 //SIP_AUTOCONVERT
 
 struct OnlinePredictorParameters {
-  double min_time;
-  double time_frame;
-  string file_name;
+  double min_time = -1;
+  double time_frame = -1;
+  string file_name = "";
 };
 
 
-class OnlinePredictor : public Logger{ //SIP_NODEFAULTCTORS
+class OnlinePredictor
+ : public Logger
+ , public NeedsExperimentEnvironment
+ , public Initializable
+ { //SIP_NODEFAULTCTORS
  public:
    OnlinePredictor(OnlinePredictorParameters* params){set_parameters(params);};
    void run(RecDat* rec_dat) override;
@@ -23,6 +29,14 @@ class OnlinePredictor : public Logger{ //SIP_NODEFAULTCTORS
      if(prediction_creator_==NULL){ OK=false; }
      return OK;
    }
+   void set_experiment_environment(ExperimentEnvironment* experiment_environment){
+     experiment_environment_=experiment_environment;
+   }
+ protected:
+   bool autocalled_initialize(){
+     if (min_time_<0) min_time_ = experiment_environment_->get_min_time();
+     return true;
+   }
  private:
    void set_parameters(OnlinePredictorParameters* params);
    bool do_predict(RecDat* rec_dat);
@@ -30,6 +44,7 @@ class OnlinePredictor : public Logger{ //SIP_NODEFAULTCTORS
    double min_time_, time_frame_;
    int actual_time_frame_, past_time_frame_;
    ofstream ofs_;
+   ExperimentEnvironment* experiment_environment_ = NULL;
    FRIEND_TEST(TestOnlinePredictor, test);
 };
 
