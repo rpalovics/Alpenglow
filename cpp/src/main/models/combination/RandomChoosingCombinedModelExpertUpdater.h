@@ -15,7 +15,7 @@ using namespace std;
 
 struct RandomChoosingCombinedModelExpertUpdaterParameters {
   double eta = 0.1;
-  int top_k = 100;
+  int top_k = -1;
   string loss_type = ""; //abs, dcg, mrr, other
 };
 
@@ -80,6 +80,7 @@ protected:
     }
     if(loss_type_=="dcg"){
       for(auto model:model_->models_){
+        if (top_k_<0) top_k_=experiment_environment_->get_top_k();
         DCGEvaluatorParameters params;
         params.top_k = top_k_;
         DCGEvaluator* evaluator = new DCGEvaluator(&params);
@@ -97,7 +98,7 @@ private:
   WeightedModelStructure* model_ = NULL;
   vector<Evaluator*> evaluators_;
   double eta_ = 0;
-  int top_k_ = 100;
+  int top_k_ = -1;
   string loss_type_ = "";
   bool dcg_eval_self_test_result_ = true;
   ExperimentEnvironment* experiment_environment_ = NULL;
