@@ -26,6 +26,8 @@ void ExperimentEnvironment::update(RecDat* rec_dat){
   if(train_matrix_.get(user,item)==0){
     item_new_for_user_=true;
     train_matrix_.update(user,item,score);
+  } else {
+    item_new_for_user_=false;
   }
   popularity_sorted_container_.increase(item);
   popularity_container_.increase(item);
