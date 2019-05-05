@@ -41,6 +41,7 @@ class MemoryRankingLogger : public Logger
     MemoryRankingLogger(MemoryRankingLoggerParameters* params);
     void set_model(Model* model);
     void set_ranking_logs(RankingLogs* logs);
+    const RankingLogs* get_ranking_logs() const;
     void run(RecDat* rec_dat);
     void set_model_filter(ModelFilter* model_filter);
     void set_train_matrix(SpMatrix* train_matrix);
