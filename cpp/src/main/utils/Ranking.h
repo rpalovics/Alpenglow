@@ -25,7 +25,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
       set_parameters(parameters);
     }
     void set_parameters(RankComputerParameters* parameters){
-      top_k_=(parameters->top_k==-1?parameters->top_k:parameters->top_k);
+      top_k_=parameters->top_k;
       random_.set(parameters->random_seed);
     }
     virtual ~RankComputer(){}
@@ -62,6 +62,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
         popularity_sorted_container_=experiment_environment_->get_popularity_sorted_container();
       }
       if(items_==NULL) items_ = experiment_environment_->get_items();
+      if(top_k_<0) top_k_=experiment_environment_->get_top_k();
 
       RankingScoreIteratorProvider* ranking_model = dynamic_cast<RankingScoreIteratorProvider*>(model_);
       if(ranking_model){
