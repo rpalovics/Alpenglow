@@ -16,14 +16,14 @@ In our implementation, the central class that manages the process described abov
 The data, the evaluators and the training algorithms are set into this class, using the appropriate function.
 They have to implement the appropriate interfaces, as depicted on the UML class diagram.
 
-.. image:: class_diagram_common.png
+.. image:: class_diagram_common_color.png
 
 The data must implement the interface :py:class:`alpenglow.cpp.RecommenderDataIterator`.
 This class behaves like an iterator, but provides random access availability to the time series also.
 In the preconfigured experiments, we normally use :py:class:`alpenglow.cpp.ShuffleIterator` that randomizes the order of the events having identical timestamp.
 Use :py:class:`alpenglow.cpp.SimpleIterator` to avoid shuffling.
 
-.. image:: sequence_of_experiment.png
+.. image:: sequence_of_experiment_color.png
 
 The function call sequence of :py:meth:`OnlineExperiment.run()` that runs the online experiment is depicted on the sequence diagram.
 The recommender model is not depicted here, although loggers and updaters may access it as necessary.
@@ -58,7 +58,7 @@ As these two are available for any objects in the experiment, we omit the connec
 Time-frame based popularity experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. image:: class_diagram_poptf.png
+.. image:: class_diagram_poptf_color.png
 
 The python code that builds this experiment is the following.
 Note that most of the connections on the UML diagram correspond to a :py:meth:`set_xxxx()` or an :py:meth:`add_yyyy()` call.
@@ -130,10 +130,10 @@ Matrix factorization experiment
 
 See :py:class:`alpenglow.experiments.MatrixFactorizationExperiment`.
 
-TODO
+.. image:: class_diagram_factor_color.png
 
 Combined model experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-TODO
+.. image:: class_diagram_combined_color.png
 
