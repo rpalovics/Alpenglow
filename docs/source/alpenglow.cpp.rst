@@ -260,6 +260,18 @@ This is the utils header file.
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.RankComputerParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.RankComputer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.Bias
     :members:
     :undoc-members:
@@ -513,6 +525,12 @@ This is the loggers header file.
 
 
 .. autoclass:: alpenglow.cpp.OnlinePredictor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.MemoryUsageLogger
     :members:
     :undoc-members:
     :show-inheritance:
@@ -964,15 +982,3 @@ Ranking
 -------
 This is the ranking header file.
 
-
-
-.. autoclass:: alpenglow.cpp.RankComputerParameters
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.RankComputer
-    :members:
-    :undoc-members:
-    :show-inheritance:
