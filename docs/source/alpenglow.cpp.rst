@@ -512,6 +512,18 @@ This is the loggers header file.
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.TransitionModelLoggerParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.TransitionModelLogger
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.Logger
     :members:
     :undoc-members:
@@ -862,6 +874,18 @@ This is the models/combination header file.
 
 
 .. autoclass:: alpenglow.cpp.Evaluator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.CombinedDoubleLayerModelGradientUpdaterParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.CombinedDoubleLayerModelGradientUpdater
     :members:
     :undoc-members:
     :show-inheritance:
