@@ -13,26 +13,17 @@ using namespace std;
 //SIP_AUTOCONVERT
 
 struct TransitionModelLoggerParameters {
-  string toplist_length_logfile_basename; //output format: track toplist_len
-  string timeline_logfile_name;
-  int period_length;
-  TransitionModelLoggerParameters(){
-    toplist_length_logfile_basename="";
-    timeline_logfile_name="";
-    period_length=-1;
-  }
+  string toplist_length_logfile_basename = ""; //output format: track toplist_len
+  string timeline_logfile_name = "";
+  int period_length = -1;
 };
 class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, public Initializable{ //SIP_NODEFAULTCTORS
   public:
     TransitionModelLogger(TransitionModelLoggerParameters* params):
       period_length_(params->period_length)
     {
-      model_=NULL;
-      pop_container_=NULL;
-      train_matrix_=NULL;
       toplist_length_logfile_basename_=params->toplist_length_logfile_basename;
       timeline_logfile_name_=params->timeline_logfile_name;
-      last_period_num_=0;
     }
     void run(RecDat* rec_dat) override {
       int period_num = (int)rec_dat->time/period_length_;
@@ -66,55 +57,16 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
     string timeline_logfile_name_;
     const int period_length_;
     //state
-    int last_period_num_;
+    int last_period_num_ = 0;
     //other
     ofstream timeline_file_;
-    ExperimentEnvironment* experiment_environment_;
-    TransitionProbabilityModel* model_;
-    PopContainer* pop_container_;
-    SpMatrix* train_matrix_;
-    void write_eval_statistics(RecDat* rec_dat){ 
-      if(rec_dat->eval==0) return;
-      int user = rec_dat->user;
-      int item = rec_dat->item;
-      auto actual_frequency_map = model_->get_frequency_map(user);
-      vector<pair<int,int>> filtered_sorted_frequency_list = compute_toplist(actual_frequency_map, rec_dat);
-      int toplist_length = filtered_sorted_frequency_list.size();
-      int from_pop = accumulate(filtered_sorted_frequency_list.begin(),filtered_sorted_frequency_list.end(),0.0,[](double a, pair<int,int> b){ return a+b.second; });
-      int to_pop = pop_container_->get(item);
-      double actual_prediction = model_->prediction(rec_dat);
-      int first_score = (filtered_sorted_frequency_list.size()==0?0:filtered_sorted_frequency_list[0].second); //TODO ez most freq, nem score
-      int second_score = (filtered_sorted_frequency_list.size()<2?0:filtered_sorted_frequency_list[1].second); //TODO ez most freq, nem score
-      int last_score = (filtered_sorted_frequency_list.size()<101?0:filtered_sorted_frequency_list[99].second); //TODO top_k szerint kene, 100 bele van egetve
-      timeline_file_ << (int)rec_dat->time << " " << rec_dat->eval << " " << rec_dat->id << " " << item << " " << toplist_length << " " << from_pop << " " << to_pop << " " << actual_prediction << " " << first_score << " " << second_score << " " << last_score << endl;
-    }
-    vector<pair<int,int>> compute_toplist(map<int,int>* actual_frequency_map, RecDat* rec_dat){
-      vector<pair<int,int>> toplist;
-      if (actual_frequency_map==NULL) return toplist; //empty list
-      int user = rec_dat->user;
-      for (auto& frequency : *actual_frequency_map){
-        if(train_matrix_->get(user,frequency.first)<1){
-          toplist.push_back(frequency);
-        }
-      }
-      sort(
-          toplist.begin(),
-          toplist.end(),
-          [](pair<int,int> a, pair<int,int> b) -> bool
-             { return (a.second) > (b.second); }
-          );
-      return toplist;
-    }
-    void write_toplist_lengths(RecDat* rec_dat){
-      string filename=toplist_length_logfile_basename_+"_"+to_string(last_period_num_);
-      ofstream ofs(filename.c_str());
-      for(uint item=0;item<model_->transition_frequencies_.size();item++){
-        int out_degree = model_->transition_frequencies_[item].size();
-        //int popularity = pop_container_->get(item);
-        ofs << item << " " << out_degree;// << " " << popularity;
-        ofs << endl;
-      }
-    }
+    ExperimentEnvironment* experiment_environment_ = NULL;
+    TransitionProbabilityModel* model_ = NULL;
+    PopContainer* pop_container_ = NULL;
+    SpMatrix* train_matrix_ = NULL;
+    void write_eval_statistics(RecDat* rec_dat);
+    vector<pair<int,int>> compute_toplist(map<int,int>* actual_frequency_map, RecDat* rec_dat);
+    void write_toplist_lengths(RecDat* rec_dat);
 };
 
 
