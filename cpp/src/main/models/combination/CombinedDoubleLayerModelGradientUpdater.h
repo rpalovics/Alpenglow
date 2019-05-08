@@ -29,6 +29,11 @@ class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
     }
     void set_model(CombinedModel* model_){ model = model_; }
     void update(RecDat* rec_dat, double gradient);
+    bool self_test(){
+      bool ok = ModelGradientUpdater::self_test();
+      if (model == NULL) ok=false;
+      return ok;
+    }
   private:
     CombinedModel* model = NULL;
     double learning_rate, regularization_rate, global_learning_rate, global_regularization_rate;
