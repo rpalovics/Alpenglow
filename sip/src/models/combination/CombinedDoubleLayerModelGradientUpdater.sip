@@ -21,5 +21,6 @@ class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
     CombinedDoubleLayerModelGradientUpdater(CombinedDoubleLayerModelGradientUpdaterParameters* params);
     void set_model(CombinedModel* model_);
     void update(RecDat* rec_dat, double gradient);
+    bool self_test();
 };
 
