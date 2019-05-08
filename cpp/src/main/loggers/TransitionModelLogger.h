@@ -10,6 +10,8 @@
 #include "../utils/PopContainers.h"
 using namespace std;
 
+//SIP_AUTOCONVERT
+
 struct TransitionModelLoggerParameters {
   string toplist_length_logfile_basename; //output format: track toplist_len
   string timeline_logfile_name;
@@ -20,7 +22,7 @@ struct TransitionModelLoggerParameters {
     period_length=-1;
   }
 };
-class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, public Initializable{
+class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, public Initializable{ //SIP_NODEFAULTCTORS
   public:
     TransitionModelLogger(TransitionModelLoggerParameters* params):
       period_length_(params->period_length)
