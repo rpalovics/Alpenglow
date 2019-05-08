@@ -5,15 +5,17 @@
 #include "../ModelUpdater.h"
 #include "CombinedModel.h"
 
+//SIP_AUTOCONVERT
+
 using namespace std;
 
 struct CombinedDoubleLayerModelGradientUpdaterParameters {
-  double learning_rate;
-  double regularization_rate;
-  double global_learning_rate;
-  double global_regularization_rate;
-  bool always_learn;
-  double start_combination_learning_time;
+  double learning_rate = 0.05;
+  double regularization_rate = 0.0;
+  double global_learning_rate = 0.05;
+  double global_regularization_rate = 0.0;
+  bool always_learn = true;
+  double start_combination_learning_time = 0;
 };
 class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
   public:
@@ -23,16 +25,12 @@ class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
       global_regularization_rate = params->global_regularization_rate;
       global_learning_rate = params->global_learning_rate;
       always_learn = params->always_learn;
-      model = NULL;
       start_combination_learning_time = params->start_combination_learning_time;
     }
-    ~CombinedDoubleLayerModelGradientUpdater(){};
-    void set_model(CombinedModel* model_){
-      model = model_;
-    }
-    void update(RecDat * rec_dat, double gradient);
+    void set_model(CombinedModel* model_){ model = model_; }
+    void update(RecDat* rec_dat, double gradient);
   private:
-    CombinedModel * model;
+    CombinedModel* model = NULL;
     double learning_rate, regularization_rate, global_learning_rate, global_regularization_rate;
     bool always_learn;
     double start_combination_learning_time;

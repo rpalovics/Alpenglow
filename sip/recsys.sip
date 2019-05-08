@@ -70,6 +70,7 @@ std::string __stdlib;
 %Include src/models/baseline/NearestNeighborModel.sip
 %Include src/models/baseline/NearestNeighborModelUpdater.sip
 %Include src/models/combination/CombinedModel.sip
+%Include src/models/combination/CombinedDoubleLayerModelGradientUpdater.sip
 %Include src/models/combination/ToplistCombinationModel.sip
 %Include src/models/combination/RandomChoosingCombinedModel.sip
 %Include src/models/combination/RandomChoosingCombinedModelExpertUpdater.sip

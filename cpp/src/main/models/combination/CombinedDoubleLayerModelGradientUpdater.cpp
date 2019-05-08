@@ -1,6 +1,6 @@
 #include "CombinedDoubleLayerModelGradientUpdater.h"
 
-void CombinedDoubleLayerModelGradientUpdater::update(RecDat * rec_dat, double gradient){ //double layer
+void CombinedDoubleLayerModelGradientUpdater::update(RecDat* rec_dat, double gradient){ //double layer
   if(rec_dat->time>start_combination_learning_time){ //learn combination when models are stable
     vector<double> model_predictions(model->models.size());
     for(uint ii=0; ii<model_predictions.size(); ii++){
