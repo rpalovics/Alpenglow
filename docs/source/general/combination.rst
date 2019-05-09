@@ -2,14 +2,19 @@ Model combination
 =================
 
 While some model combination methods are implemented in Alpenglow, there are no preconfigured combined experiments.
-Here is a simple example of containing the linear combination of three models trained with SGD.
+Here is an example that contains the linear combination of three models.
+The combination weights are trained with SGD.
 
 .. image:: class_diagram_combined_color.png
 
-The code is quite long and building experiments this way is error-prone.
+The code below is quite long and building experiments this way is error-prone, but currently no graphical building tool is implemented.
 The typical fault is to miss some :py:meth:`add_xxxx()` or :py:meth:`set_xxxx()`.
-Sometimes the result is blatantly invalid and cached by the :py:meth:`self_test()` call (see the last few lines).
+Sometimes the result is blatantly invalid and catched by the :py:meth:`self_test()` call (see the last few lines).
 However, sometimes you can end up with hard-to-debug segfaults or invalid results.
+
+The order of :py:meth:`online_experiment.add_updater()` calls is important.
+In the updating phase, the order of :py:meth:`update()` calls is indentical to the order here.
+This way the combination weights are updated first, then the individual models.
 
 .. code-block:: python
 
