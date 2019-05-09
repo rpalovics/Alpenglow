@@ -15,6 +15,7 @@ Welcome to Alpenglow's documentation!
    :caption: General information:
 
    general/anatomy_of_experiment
+   general/combination
       
 ..    general/python_api
 ..    general/cpp_api
