@@ -46,14 +46,14 @@ class ExperimentEnvironment{
       int
           The top list length in the current experiment. Note that not all classes consider this value.
     */
-    int get_min_time() const { return min_time_; } //TODO is this parameter in use?
+    int get_min_time() const { return min_time_; }
     /**
       Returns
       -------
       int
           The beginning timestamp of evaluation. Elements in the time series before that timestamp will not be evaluated. Note that not all evaluator classes consider this value.
     */
-    int get_max_time() const { return max_time_; } //TODO is this parameter in use?
+    int get_max_time() const { return max_time_; }
     /**
       Returns
       -------
