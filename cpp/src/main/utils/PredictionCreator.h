@@ -56,7 +56,7 @@ class PredictionCreator : public NeedsExperimentEnvironment, public Initializabl
    bool autocalled_initialize() override {
      if(train_matrix_ == NULL) train_matrix_=experiment_environment_->get_train_matrix();
      if(top_k_ == -1) top_k_=experiment_environment_->get_top_k();
-     if(exclude_known_ == -1) exclude_known_=experiment_environment_->do_exclude_known();
+     if(exclude_known_ == -1) exclude_known_=experiment_environment_->get_exclude_known();
      return true;
    }
    ExperimentEnvironment* experiment_environment_;

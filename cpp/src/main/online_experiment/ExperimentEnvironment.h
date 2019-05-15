@@ -60,7 +60,7 @@ class ExperimentEnvironment{
       int
           The last timestamp of evaluation. Elements in the time series after that timestamp will not be evaluated. Note that not all evaluator classes consider this value.  //The experiment will be terminated. //TODO should be, but it isn't.
     */
-    bool do_exclude_known() const { return exclude_known_; }
+    bool get_exclude_known() const { return exclude_known_; }
     /**
        Returns
        -------

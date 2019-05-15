@@ -52,7 +52,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
   protected:
     bool autocalled_initialize() override {
       if(train_matrix_==NULL){
-        if(experiment_environment_->do_exclude_known()){
+        if(experiment_environment_->get_exclude_known()){
           train_matrix_=experiment_environment_->get_train_matrix();
         } else {
           train_matrix_=&empty_matrix_;

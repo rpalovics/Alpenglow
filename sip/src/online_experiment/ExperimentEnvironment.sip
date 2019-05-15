@@ -46,7 +46,7 @@ class ExperimentEnvironment{
       int
           The last timestamp of evaluation. Elements in the time series after that timestamp will not be evaluated. Note that not all evaluator classes consider this value.  
   %End
-    bool do_exclude_known() const;
+    bool get_exclude_known() const;
   %Docstring
        Returns
        -------
