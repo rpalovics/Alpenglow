@@ -8,6 +8,8 @@ void ExperimentEnvironment::set_parameters(OnlineExperimentParameters* params){
   max_time_ = params->max_time;
   exclude_known_ = params->exclude_known;
   initialize_all_ = params->initialize_all;
+  max_user_ = params->max_user;
+  max_item_ = params->max_item;
   random_.set(params->random_seed);
 }
 void ExperimentEnvironment::update(RecDat* rec_dat){

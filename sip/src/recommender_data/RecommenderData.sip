@@ -43,6 +43,8 @@ class RecommenderData : public Initializable{
     SpMatrix* get_full_matrix();
     std::vector<int>* get_all_items();
     std::vector<int>* get_all_users();
+    int get_max_user();
+    int get_max_item();
     void clear();
 
 

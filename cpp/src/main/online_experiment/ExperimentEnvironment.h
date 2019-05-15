@@ -67,6 +67,27 @@ class ExperimentEnvironment{
        bool
            Whether each user-item pair should be evaluated only at the first occurrence, i.e., known user-item pairs should not be evaluated at repeated occurrences.
     */
+    bool do_initialize_all() const { return initialize_all_; }
+    /**
+       Returns
+       -------
+       bool
+           Whether all the users and items exist from the beginning of the experiment, or they appear only when they are mentioned first in a sample. If set, recode the dataset so that the users and items are numbered starting 0 or 1 continuously. Skipped ids are treated as existing too.
+    */
+    int get_max_user() const { return max_user_; }
+    /**
+       Returns
+       -------
+       int
+          The maximal user id int the whole experiment.  Use together with initialize_all=true.
+    */
+    int get_max_item() const { return max_item_; }
+    /**
+       Returns
+       -------
+       int
+          The maximal item id int the whole experiment.  Use together with initialize_all=true.
+    */
 
     //common objects
     RecommenderDataIterator* get_recommender_data_iterator() const { return recommender_data_iterator_; } //TODO const
@@ -148,6 +169,8 @@ class ExperimentEnvironment{
     int max_time_;
     bool exclude_known_;
     bool initialize_all_;
+    int max_user_;
+    int max_item_;
 
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
     Random random_;

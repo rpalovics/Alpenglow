@@ -51,8 +51,6 @@ class OnlineExperiment(ParameterDefaults):
         out_file=None,
         exclude_known=False,
         initialize_all=False,
-        max_item=-1,
-        max_user=-1,
         calculate_toplists=False,
         max_time=0,
         memory_log=True,
@@ -90,7 +88,7 @@ class OnlineExperiment(ParameterDefaults):
         """
         rs.collect()
         self.verbose = verbose
-        min_time = 0
+        min_time = 0 #TODO: start eval at this time
 
         # reading data
         if not isinstance(data, str):
@@ -101,7 +99,9 @@ class OnlineExperiment(ParameterDefaults):
                 type=experimentType,
                 max_time=max_time
             )
-        # TODO get max_item, max_user here
+        recommender_data.initialize() #read in data -> can find max user, max item
+        max_user = recommender_data.get_max_user()
+        max_item = recommender_data.get_max_item()
         recommender_data_iterator = None
         if not shuffle_same_time or calculate_toplists is not False:
             recommender_data_iterator = rs.SimpleIterator()
@@ -119,6 +119,7 @@ class OnlineExperiment(ParameterDefaults):
         #create experiment
         top_k = self.parameters['top_k']
         seed = self.parameters['seed']
+
 
         online_experiment = rs.OnlineExperiment(
             random_seed=seed,

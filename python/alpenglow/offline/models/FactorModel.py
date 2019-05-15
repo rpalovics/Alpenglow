@@ -32,7 +32,7 @@ class FactorModel(alpenglow.offline.OfflineModel):
             begin_max=0.01,
             dimension=10,
             initialize_all=False,
-            seed=254938879,
+            seed=self.parameter_default('factor_seed', 67439852),
         ))
 
         updater = rs.FactorModelGradientUpdater(**self.parameter_defaults(
@@ -57,7 +57,7 @@ class FactorModel(alpenglow.offline.OfflineModel):
         negative_sample_generator.add_updater(gradient_computer)
 
         learner = rs.OfflineIteratingOnlineLearnerWrapper(**self.parameter_defaults(
-            seed=254938879,
+            seed=self.parameter_default('learner_seed', 254938879),
             number_of_iterations=9,
             shuffle=True,
         ))

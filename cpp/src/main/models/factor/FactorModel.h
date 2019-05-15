@@ -6,6 +6,7 @@
 #include "../../utils/Util.h"
 #include "../../utils/Bias.h"
 #include "../../utils/Recency.h"
+#include "../../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../Model.h"
 #include "../SimilarityModel.h"
 #include "../RankingScoreIterator.h"
@@ -16,27 +17,25 @@
 
 using namespace std;
 
-
 struct FactorModelParameters {
-  int dimension;
-  double begin_min, begin_max;
-  bool use_sigmoid;
-  bool use_item_bias, use_user_bias;
-  bool initialize_all;
-  int max_item, max_user;
+  int dimension = 10;
+  double begin_min = -0.1;
+  double begin_max = 0.1;
+  bool use_sigmoid = false;
+  bool use_item_bias = false;
+  bool use_user_bias = false;
+  int initialize_all = -1;
+  int max_item = -1;
+  int max_user = -1;
   int seed=67439852;
   int lemp_bucket_size = 64;
-  FactorModelParameters(){ //setting all to jinjactor default value
-    dimension=-1;begin_min=-1;begin_max=-1;
-    use_sigmoid=false;use_item_bias=false;use_user_bias=false;
-    initialize_all=false;max_item=-1;max_user=-1;
-  }
 };
 
 class FactorModel 
   : public Model, 
     public SimilarityModel,
     public Initializable,
+    public NeedsExperimentEnvironment,
     virtual public RankingScoreIteratorProvider,
     public ToplistFromRankingScoreRecommender
 {
@@ -55,7 +54,6 @@ class FactorModel
     {
       set_parameters(parameters);
     };
-    //~FactorModel() { delete user_factors; delete item_factors; }
     void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
     double similarity(int item1, int item2) override;
@@ -64,7 +62,8 @@ class FactorModel
     void clear() override;
     void set_user_recency(Recency *recency){user_recency_ = recency;}
     void set_item_recency(Recency *recency){item_recency_ = recency;}
-    bool self_test(){ //Ezek egyike sem feltetlen hiba, esetleg kevesbe szigoruva kene tenni.
+    RankingScoreIterator* get_ranking_score_iterator(int u) override;
+    bool self_test(){ //Not all are not fatal errors, should be less strict
       bool ok = Model::self_test() and SimilarityModel::self_test();
       if(initialize_all_ and (max_user_==-1 or max_item_==-1)){
         ok = false;
@@ -80,38 +79,47 @@ class FactorModel
       }
       return ok;
     }
+    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
+      experiment_environment_ = experiment_environment;
+    }
     
-    RankingScoreIterator* get_ranking_score_iterator(int u) override;
   protected:
     //parameters
     const int dimension_;
     const double begin_min_;
     const double begin_max_;
     const bool use_sigmoid_;
-    const bool initialize_all_;
-    const int max_user_;
-    const int max_item_;
+    int initialize_all_;
+    int max_user_;
+    int max_item_;
     const bool use_item_bias_;
     const bool use_user_bias_;
 
     //state
     Factors user_factors_, item_factors_;
     Bias user_bias_, item_bias_;
-    Recency *user_recency_, *item_recency_;
+    Recency *user_recency_ = NULL, *item_recency_ = NULL;
     FactorsLempContainer lemp_container_;
     FactorModelRankingScoreIterator ranking_score_iterator_;
 
     //other
-    //double user_factor_mean();
-    //double item_factor_mean();
+    ExperimentEnvironment* experiment_environment_ = NULL;
     bool autocalled_initialize() override {
+      if (initialize_all_==-1) { //not set -> get common value from expenv
+        if (experiment_environment_==NULL) return false; //no common container
+        initialize_all_=experiment_environment_->do_initialize_all();
+        if (initialize_all_){
+          if (max_user_==-1) max_user_=experiment_environment_->get_max_user();
+          if (max_item_==-1) max_item_=experiment_environment_->get_max_item();
+        }
+      }
       clear();
       return true;
     }
-    void set_parameters(FactorModelParameters * parameters);
-    double compute_product(RecDat * rec_dat);
-    double compute_user_bias(RecDat * rec_dat);
-    double compute_item_bias(RecDat * rec_dat);
+    void set_parameters(FactorModelParameters* parameters);
+    double compute_product(RecDat* rec_dat);
+    double compute_user_bias(RecDat* rec_dat);
+    double compute_item_bias(RecDat* rec_dat);
 
     //friends
     friend class FactorModelGradientUpdater;

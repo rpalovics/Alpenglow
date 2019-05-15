@@ -50,6 +50,14 @@ class RecommenderData : public Initializable {
     SpMatrix* get_full_matrix();
     vector<int>* get_all_items();
     vector<int>* get_all_users();
+    int get_max_user(){
+      get_all_users(); //fills vector
+      return *(max_element(users_.begin(),users_.end()));
+    }
+    int get_max_item(){
+      get_all_items(); //fills vector
+      return *(max_element(items_.begin(),items_.end()));
+    }
     void clear();
     virtual ~RecommenderData(){}
     bool self_test(){ return size()>0; }
