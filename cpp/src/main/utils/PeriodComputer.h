@@ -112,7 +112,7 @@ class PeriodComputer : public Updater, public NeedsExperimentEnvironment, public
     }
   private:
     ExperimentEnvironment* experiment_environment_ = NULL;
-    RecommenderDataIterator* recommender_data_iterator_ = NULL;
+    const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     //state
     bool end_of_period_ = false;
     int period_num_ = 0; 

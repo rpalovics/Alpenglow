@@ -35,7 +35,7 @@ class TimeframeDataGenerator : public DataGenerator, public NeedsExperimentEnvir
   private:
     int timeframe_length_ = 86400;
     ExperimentEnvironment* experiment_environment_ = NULL;
-    RecommenderDataIterator* recommender_data_iterator_ = NULL;
+    const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     RecommenderData local_recommender_data_;
 };
 

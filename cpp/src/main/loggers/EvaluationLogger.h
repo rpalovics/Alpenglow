@@ -67,7 +67,7 @@ class EvaluationLogger : public Logger, public NeedsExperimentEnvironment, publi
     string error_type_;
     ofstream output_file_; 
     Model* model_;
-    RecommenderDataIterator* recommender_data_iterator_;
+    const RecommenderDataIterator* recommender_data_iterator_;
     //state
     int end_of_timeframe_;
     int beginning_of_timeframe_;

@@ -41,7 +41,7 @@ class ProceedingLogger : public Logger, public Initializable, public NeedsExperi
     }
   private:
     ExperimentEnvironment* experiment_environment_ = NULL;
-    RecommenderDataIterator* recommender_data_iterator_ = NULL;
+    const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     int frequency_;
     int size_;
 };

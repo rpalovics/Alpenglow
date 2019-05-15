@@ -75,7 +75,7 @@ class ExperimentEnvironment{
           The maximal item id int the whole experiment.  Use together with initialize_all=true.
   %End
 
-    RecommenderDataIterator* get_recommender_data_iterator() const;
+    const RecommenderDataIterator* get_recommender_data_iterator() const;
   %Docstring
       Returns
       -------

@@ -52,7 +52,7 @@ class SamplingDataGenerator : public DataGenerator, public Initializable, public
     double y_ = 10;
     double geometric_param_ = 0.5;
     ExperimentEnvironment* experiment_environment_ = NULL;
-    RecommenderDataIterator* recommender_data_iterator_ = NULL;
+    const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     RecommenderData local_recommender_data_;
     Random* random_ = NULL;
 };

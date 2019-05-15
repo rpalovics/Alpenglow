@@ -90,7 +90,7 @@ class ExperimentEnvironment{
     */
 
     //common objects
-    RecommenderDataIterator* get_recommender_data_iterator() const { return recommender_data_iterator_; } //TODO const
+    const RecommenderDataIterator* get_recommender_data_iterator() const { return recommender_data_iterator_; } //TODO const
     /**
       Returns
       -------

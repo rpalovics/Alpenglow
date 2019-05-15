@@ -48,7 +48,7 @@ class MemoryUsageLogger : public Logger, public Initializable, public NeedsExper
     }
   private:
     ExperimentEnvironment* experiment_environment_;
-    RecommenderDataIterator* recommender_data_iterator_;
+    const RecommenderDataIterator* recommender_data_iterator_;
     int frequency_;
     int size_;
 };

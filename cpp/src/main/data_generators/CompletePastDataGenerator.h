@@ -28,7 +28,7 @@ class CompletePastDataGenerator : public DataGenerator, public NeedsExperimentEn
     }
   private:
     ExperimentEnvironment* experiment_environment_ = NULL;
-    RecommenderDataIterator* recommender_data_iterator_ = NULL;
+    const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     RecommenderData local_recommender_data_;
 };
 
