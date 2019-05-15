@@ -50,7 +50,7 @@ class RecommenderData : public Initializable {
     SpMatrix* get_full_matrix();
     vector<int>* get_all_items();
     vector<int>* get_all_users();
-    int get_max_user(){
+    int get_max_user_id(){
       get_all_users(); //fills vector
       return *(max_element(users_.begin(),users_.end()));
     }

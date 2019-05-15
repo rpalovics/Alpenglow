@@ -74,7 +74,7 @@ class ExperimentEnvironment{
        bool
            Whether all the users and items exist from the beginning of the experiment, or they appear only when they are mentioned first in a sample. If set, recode the dataset so that the users and items are numbered starting 0 or 1 continuously. Skipped ids are treated as existing too.
     */
-    int get_max_user() const { return max_user_; }
+    int get_max_user_id() const { return max_user_; }
     /**
        Returns
        -------
