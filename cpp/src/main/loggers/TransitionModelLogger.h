@@ -16,6 +16,7 @@ struct TransitionModelLoggerParameters {
   string toplist_length_logfile_basename = ""; //output format: track toplist_len
   string timeline_logfile_name = "";
   int period_length = -1;
+  int top_k = -1;
 };
 class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, public Initializable{ //SIP_NODEFAULTCTORS
   public:
@@ -24,6 +25,8 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
     {
       toplist_length_logfile_basename_=params->toplist_length_logfile_basename;
       timeline_logfile_name_=params->timeline_logfile_name;
+      top_k_=params->top_k;
+      last_period_num_=0;
     }
     void run(RecDat* rec_dat) override {
       int period_num = (int)rec_dat->time/period_length_;
@@ -48,6 +51,7 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
     bool autocalled_initialize() override {
       if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
       if (train_matrix_==NULL) train_matrix_=experiment_environment_->get_train_matrix();
+      if (top_k_<0) top_k_=experiment_environment_->get_top_k();
       timeline_file_.open(timeline_logfile_name_);
       return true;
     }
@@ -56,6 +60,7 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
     string toplist_length_logfile_basename_;
     string timeline_logfile_name_;
     const int period_length_;
+    int top_k_;
     //state
     int last_period_num_ = 0;
     //other
