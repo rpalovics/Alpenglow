@@ -13,7 +13,7 @@ class Initializable {
     If the init of the parent was succesful, but the children failed, then the children has to store the success of the parent and omit calling the initialization of the parent later.
   %End
 public:
-  bool is_initialized();
+  bool is_initialized() const;
   %Docstring
       Returns
       -------
