@@ -9,6 +9,7 @@ struct TransitionModelLoggerParameters {
   std::string toplist_length_logfile_basename; 
   std::string timeline_logfile_name;
   int period_length;
+  int top_k;
 };
 class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, public Initializable /NoDefaultCtors/{
   %TypeHeaderCode

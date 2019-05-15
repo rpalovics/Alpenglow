@@ -61,7 +61,7 @@ public:
   /**
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_following_timestamp()`
   */
-  RecDat* get_actual() override;
+  RecDat* get_actual() const override;
   /**
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
   */

@@ -25,7 +25,7 @@ public:
   %Docstring
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.next()`
   %End
-  RecDat* get_actual();
+  RecDat* get_actual() const;
   %Docstring
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
   %End

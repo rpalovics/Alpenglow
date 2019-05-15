@@ -1,6 +1,6 @@
 #include "RandomOnlineIterator.h"
 
-RecDat* RandomOnlineIterator::get_actual(){
+RecDat* RandomOnlineIterator::get_actual() const {
   return shuffled_data_[counter_-1];
 }
 

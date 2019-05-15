@@ -48,7 +48,7 @@ public:
     int
         Index of the actual sample.
   %End
-  virtual RecDat* get_actual() = 0; 
+  virtual RecDat* get_actual() const = 0; 
   %Docstring
     Returns
     ------

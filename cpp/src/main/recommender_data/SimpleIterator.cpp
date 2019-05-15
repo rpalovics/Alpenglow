@@ -8,7 +8,7 @@
 RecDat* SimpleIterator::next() {
   return recommender_data_->get(counter_++);
 }
-RecDat* SimpleIterator::get_actual(){
+RecDat* SimpleIterator::get_actual() const {
   return recommender_data_->get(counter_-1);
 }
 

@@ -18,7 +18,7 @@ public:
     get(int index)
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get()`
   %End
-  RecDat* get_actual();
+  RecDat* get_actual() const;
   %Docstring
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
   %End

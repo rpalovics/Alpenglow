@@ -28,25 +28,25 @@ public:
       delete rec_dat;
     }
   }
-  RecDat* next();
+  RecDat* next() override;
   /**
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.next()`
   */
-  RecDat* get_actual();
+  RecDat* get_actual() const override;
   /**
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
   */
-  RecDat* get(int index) const;
+  RecDat* get(int index) const override;
   /**
     get(int index)
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get()`
   */
-  RecDat* get_future(int index) const;
+  RecDat* get_future(int index) const override;
   /**
     get_future(int index)
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_future()`
   */
-  double get_following_timestamp() const;
+  double get_following_timestamp() const override;
   /**
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_following_timestamp()`
   */

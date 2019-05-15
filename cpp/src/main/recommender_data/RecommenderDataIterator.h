@@ -52,7 +52,7 @@ public:
     int
         Index of the actual sample.
   */
-  virtual RecDat* get_actual() = 0; //get actual sample
+  virtual RecDat* get_actual() const = 0; //get actual sample
   /**
     Returns
     ------

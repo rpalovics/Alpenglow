@@ -10,7 +10,7 @@ RecDat* ShuffleIterator::next() {
   return shuffled_data_[counter_++];
 }
 
-RecDat* ShuffleIterator::get_actual(){
+RecDat* ShuffleIterator::get_actual() const {
   return shuffled_data_[counter_-1];
 }
 

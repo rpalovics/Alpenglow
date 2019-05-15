@@ -25,7 +25,7 @@ public:
     get(int index)
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get()`
   */
-  RecDat* get_actual() override;
+  RecDat* get_actual() const override;
   /**
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
   */
