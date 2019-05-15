@@ -54,7 +54,7 @@ class RecommenderData : public Initializable {
       get_all_users(); //fills vector
       return *(max_element(users_.begin(),users_.end()));
     }
-    int get_max_item(){
+    int get_max_item_id(){
       get_all_items(); //fills vector
       return *(max_element(items_.begin(),items_.end()));
     }

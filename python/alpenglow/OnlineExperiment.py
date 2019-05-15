@@ -101,7 +101,7 @@ class OnlineExperiment(ParameterDefaults):
             )
         recommender_data.initialize() #read in data -> can find max user, max item
         max_user = recommender_data.get_max_user_id()
-        max_item = recommender_data.get_max_item()
+        max_item = recommender_data.get_max_item_id()
         recommender_data_iterator = None
         if not shuffle_same_time or calculate_toplists is not False:
             recommender_data_iterator = rs.SimpleIterator()

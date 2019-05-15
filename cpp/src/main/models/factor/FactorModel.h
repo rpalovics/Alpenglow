@@ -110,7 +110,7 @@ class FactorModel
         initialize_all_=experiment_environment_->do_initialize_all();
         if (initialize_all_){
           if (max_user_==-1) max_user_=experiment_environment_->get_max_user_id();
-          if (max_item_==-1) max_item_=experiment_environment_->get_max_item();
+          if (max_item_==-1) max_item_=experiment_environment_->get_max_item_id();
         }
       }
       clear();

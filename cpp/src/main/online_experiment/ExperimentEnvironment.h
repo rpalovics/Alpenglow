@@ -81,7 +81,7 @@ class ExperimentEnvironment{
        int
           The maximal user id int the whole experiment.  Use together with initialize_all=true.
     */
-    int get_max_item() const { return max_item_; }
+    int get_max_item_id() const { return max_item_; }
     /**
        Returns
        -------
