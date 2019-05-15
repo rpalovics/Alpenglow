@@ -67,7 +67,7 @@ class ExperimentEnvironment{
        bool
            Whether each user-item pair should be evaluated only at the first occurrence, i.e., known user-item pairs should not be evaluated at repeated occurrences.
     */
-    bool do_initialize_all() const { return initialize_all_; }
+    bool get_initialize_all() const { return initialize_all_; }
     /**
        Returns
        -------
