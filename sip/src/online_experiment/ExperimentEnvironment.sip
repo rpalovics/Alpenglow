@@ -97,14 +97,14 @@ class ExperimentEnvironment{
       bool
           Whether the current item is new for the current user, i.e., this is the first occurrence of this user-item pair in the time series. Note that the value is updated only when the loggers had been called already.
   %End
-    std::vector<int>* get_items();
+    const std::vector<int>* get_items() const;
   %Docstring
       Returns
       -------
       std::vector<int>*
           A pointer to the list of known items. In the online experiment, the list is updated by this class for each sample after the call of the loggers and before the call to the updaters.
   %End
-    std::vector<int>* get_users();
+    const std::vector<int>* get_users() const;
   %Docstring
       Returns
       -------
