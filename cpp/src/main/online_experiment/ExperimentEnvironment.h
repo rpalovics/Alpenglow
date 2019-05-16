@@ -134,14 +134,14 @@ class ExperimentEnvironment{
       SpMatrix*
           A pointer to the current training data in a sparse matrix form.
     */
-    PopContainer* get_popularity_container() { return &popularity_container_; } //TODO const
+    const PopContainer* get_popularity_container() const { return &popularity_container_; }
     /**
       Returns
       -------
       PopContainer*
           A pointer to a container containing the popularity statistics of known items.
     */
-    TopPopContainer* get_popularity_sorted_container() { return &popularity_sorted_container_; } //TODO const
+    const TopPopContainer* get_popularity_sorted_container() const { return &popularity_sorted_container_; }
     /**
       Returns
       -------

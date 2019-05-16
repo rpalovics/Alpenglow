@@ -27,7 +27,7 @@ class PopContainer{
       item : int
           The item.
   %End
-    int get(int item);
+    int get(int item) const;
   %Docstring
       get(int item)
       Returns the popularity value of the item.
@@ -79,9 +79,9 @@ class TopPopContainer{
       increase(int item)
       Increases the popularity of the item.
   %End
-//    pair<int,double> get(int idx);
+//    pair<int,double> get(int idx) const;
 
-    int get_item(int idx);
+    int get_item(int idx) const;
   %Docstring
       get_item(int index)
       Returns the index'th item from the popularity toplist.
@@ -96,7 +96,7 @@ class TopPopContainer{
       int
           The appropriate item from the toplist.
   %End
-    int size();
+    int size() const;
   %Docstring
       Returns the length of the complete toplist, i.e. the number of items having at least a popularity of 1.
 

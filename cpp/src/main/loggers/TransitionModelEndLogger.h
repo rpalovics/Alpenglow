@@ -68,7 +68,7 @@ class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironmen
   private:
     ExperimentEnvironment* experiment_environment_;
     TransitionProbabilityModel* model_;
-    PopContainer* pop_container_;
+    const PopContainer* pop_container_;
     string log_file_name_;
     int max_length_;
 };

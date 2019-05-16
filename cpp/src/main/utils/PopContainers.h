@@ -40,7 +40,7 @@ class PopContainer{
       item : int
           The item.
 */
-    int get(int item);
+    int get(int item) const;
 /**
       get(int item)
       Returns the popularity value of the item.
@@ -93,7 +93,7 @@ class TopPopContainer{
       increase(int item)
       Increases the popularity of the item.
 */
-    pair<int,double> get(int idx);
+    pair<int,double> get(int idx) const;
 ///**
 //      get(int index)
 //      Returns the index'th item from the popularity toplist and its popularity.
@@ -108,7 +108,7 @@ class TopPopContainer{
 //      pair<int,double>
 //          The item and its popularity value.
 //*/
-    int get_item(int idx){return top_list_[idx];} 
+    int get_item(int idx) const {return top_list_[idx];} 
 /**
       get_item(int index)
       Returns the index'th item from the popularity toplist.
@@ -123,7 +123,7 @@ class TopPopContainer{
       int
           The appropriate item from the toplist.
 */
-    int size(){return top_list_.size();} 
+    int size() const {return top_list_.size();} 
 /**
       Returns the length of the complete toplist, i.e. the number of items having at least a popularity of 1.
 

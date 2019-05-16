@@ -22,7 +22,7 @@ class PopularityNegativeSampleGenerator: public NegativeSampleGenerator{
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator_){recommender_data_iterator=recommender_data_iterator_;}
     void set_items(vector<int>* items_){items=items_;}
   private:
-    PopContainer *pop_container;
+    const PopContainer *pop_container;
     vector<int>* items;
     SpMatrix* train_matrix;
     RecommenderDataIterator* recommender_data_iterator;

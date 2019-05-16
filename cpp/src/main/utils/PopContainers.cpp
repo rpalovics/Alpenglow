@@ -13,7 +13,7 @@ void PopContainer::resize(int item){
   if((int)popularities_.size()<item+1) popularities_.resize(item+1);
 }
 
-int PopContainer::get(int item){ 
+int PopContainer::get(int item) const { 
   if((int)popularities_.size()<item+1) return 0;
   else return popularities_[item];
 }
@@ -51,7 +51,7 @@ void TopPopContainer::increase(int item) {
   }
 }
 
-pair <int,double> TopPopContainer::get(int idx){
+pair <int,double> TopPopContainer::get(int idx) const {
   pair <int,double> p;
   if(idx<(int)top_list_.size()){
     p.first=top_list_[idx];
