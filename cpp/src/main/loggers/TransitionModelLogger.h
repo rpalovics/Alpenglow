@@ -68,7 +68,7 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
     ExperimentEnvironment* experiment_environment_ = NULL;
     TransitionProbabilityModel* model_ = NULL;
     PopContainer* pop_container_ = NULL;
-    SpMatrix* train_matrix_ = NULL;
+    const SpMatrix* train_matrix_ = NULL;
     void write_eval_statistics(RecDat* rec_dat);
     vector<pair<int,int>> compute_toplist(map<int,int>* actual_frequency_map, RecDat* rec_dat);
     void write_toplist_lengths(RecDat* rec_dat);

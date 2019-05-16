@@ -12,7 +12,7 @@ class SpMatrix {
   %End
   public:
     ~SpMatrix();
-    int size();
+    int size() const;
   %Docstring
       Returns
       -------
@@ -94,7 +94,7 @@ class SpMatrix {
       col_id : int
         The index of the column.
   %End
-    double get(int row_id, int col_id);
+    double get(int row_id, int col_id) const;
   %Docstring
       get(int row_id, int col_id)
 
@@ -113,7 +113,7 @@ class SpMatrix {
       double
         The value of (row_id,col_id) or 0 if no value.
   %End
-//    map<int,double>* get(int row_id);
+//    const map<int,double>* get(int row_id) const; 
 
     void clear();
   %Docstring
@@ -134,7 +134,7 @@ class SpMatrix {
       file_name : std::string
         The name of the file to read from.
   %End
-    void write_into_file(std::string file_name);
+    void write_into_file(std::string file_name) const;
   %Docstring
       write_into_file(std::string file_name)
 
@@ -147,7 +147,7 @@ class SpMatrix {
       file_name : std::string
         The name of the file to write into.
   %End
-    int row_size(int row_id);
+    int row_size(int row_id) const;
   %Docstring
       row_size(int row_id)
 
@@ -164,7 +164,7 @@ class SpMatrix {
       int
           The size of the row or 0 if the row doesn't exist.
   %End
-    bool has_value(int row_id,int col_id);
+    bool has_value(int row_id,int col_id) const;
   %Docstring
       has_value(int row_id, int col_id)
 

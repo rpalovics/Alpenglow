@@ -17,13 +17,13 @@ void SpMatrix::read_from_file(string data_file){
 
 void SpMatrix::insert(int row_id, int col_id, double value){
   resize(row_id);
-  MatrixRow* row=get(row_id);
+  MatrixRow* row=get_writable(row_id);
   row->insert(make_pair(col_id,value));
 }
 
 void SpMatrix::update(int row_id,int col_id, double value){
   resize(row_id);
-  MatrixRow* row=get(row_id);
+  MatrixRow* row=get_writable(row_id);
   RowIterator it=row->find(col_id);
   if(it!=row->end()) it->second=value;
   else row->insert(make_pair(col_id,value));
@@ -31,7 +31,7 @@ void SpMatrix::update(int row_id,int col_id, double value){
 
 void SpMatrix::increase(int row_id,int col_id, double value){
   resize(row_id);
-  MatrixRow* row = get(row_id);
+  MatrixRow* row = get_writable(row_id);
   RowIterator it = row->find(col_id);
   if(it!=row->end()) it->second+=value;
   else row->insert(make_pair(col_id,value));
@@ -44,14 +44,14 @@ void SpMatrix::resize(int row_id){
   }
 }
 
-int SpMatrix::size(){
+int SpMatrix::size() const {
   return (int) matrix_.size();
 }
 
-double SpMatrix::get(int row_id, int col_id){
-  MatrixRow* row = get(row_id);
+double SpMatrix::get(int row_id, int col_id) const {
+  const MatrixRow* row = get(row_id);
   if(row!=NULL){
-    RowIterator ri = row->find(col_id);
+    auto ri = row->find(col_id);
     if(ri!=row->end()) return ri->second;
     else return 0;
   }
@@ -59,26 +59,29 @@ double SpMatrix::get(int row_id, int col_id){
 }
 
 
-MatrixRow* SpMatrix::get(int row_id){
+MatrixRow* SpMatrix::get_writable(int row_id) const {
   if(size()>row_id) return matrix_[row_id];
   else return NULL;
 }
+const MatrixRow* SpMatrix::get(int row_id) const {
+  return get_writable(row_id);
+}
 
-int SpMatrix::row_size(int row_id){
+int SpMatrix::row_size(int row_id) const {
   if(size()>row_id){
-    MatrixRow* row =get(row_id);
+    const MatrixRow* row =get(row_id);
     if(row!=NULL) return (int) row->size();
     else return 0;
   }  
   else return 0;
 }
 
-void SpMatrix::write_into_file(string file_name){
+void SpMatrix::write_into_file(string file_name) const {
   ofstream ofs(file_name.c_str());
   for(int row_id=0; row_id<size(); row_id++){
-    MatrixRow* row = get(row_id);
+    const MatrixRow* row = get(row_id);
     if(row!=NULL){
-      for(RowIterator ri = row->begin(); ri!=row->end(); ri++){
+      for(auto ri = row->begin(); ri!=row->end(); ri++){
         int col_id=ri->first;
         double value=ri->second;
         ofs << row_id << " " << col_id << " " << value << endl;
@@ -88,15 +91,15 @@ void SpMatrix::write_into_file(string file_name){
 }
 
 void SpMatrix::erase(int row_id, int col_id){
-  MatrixRow* row = get(row_id);
+  MatrixRow* row = get_writable(row_id);
   if(row!=NULL){
     RowIterator ri = row->find(col_id);
     if(ri!=row->end()) row->erase(ri);    
   }
 }
 
-bool SpMatrix::has_value(int row_id,int col_id){
-  MatrixRow* row =  get(row_id);
+bool SpMatrix::has_value(int row_id,int col_id) const {
+  const MatrixRow* row =  get(row_id);
   if(row==NULL) return false;
   else if (row->find(col_id)==row->end()) return false;
   else return true;

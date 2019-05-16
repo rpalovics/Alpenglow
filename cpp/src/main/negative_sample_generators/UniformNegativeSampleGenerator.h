@@ -79,7 +79,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     const vector<int>* items_ = NULL;
     vector<int> indices_;
     vector<int>* local_items_ = NULL;
-    SpMatrix* train_matrix_ = NULL; 
+    const SpMatrix* train_matrix_ = NULL; 
     ExperimentEnvironment* experiment_environment_ = NULL;
     Random rnd_;
     const double negative_rate_;

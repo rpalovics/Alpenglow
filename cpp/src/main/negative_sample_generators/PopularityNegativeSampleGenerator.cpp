@@ -14,8 +14,8 @@ vector<int>* PopularityNegativeSampleGenerator::generate(RecDat* rec_dat){
     sum_of_popularity+=popularity;
   }
   //remove positive items from availability map
-  MatrixRow* user_activity = train_matrix->get(rec_dat->user);
-  for(RowIterator it = user_activity->begin();it!=user_activity->end();it++){
+  const MatrixRow* user_activity = train_matrix->get(rec_dat->user);
+  for(auto it = user_activity->begin();it!=user_activity->end();it++){
     int positive_item = it->first;
     unavailable_items_map[positive_item]=true;
     sum_of_popularity-= pop_container->get(positive_item);

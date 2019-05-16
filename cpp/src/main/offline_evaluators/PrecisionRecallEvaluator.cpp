@@ -41,10 +41,10 @@ int PrecisionRecallEvaluator::compute_true_positive(int user){
     top_list.insert(rec_dat);
   }
   int true_positive = 0;
-  map<int, double>* positive = test_data_.get_full_matrix()->get(user);
+  const map<int, double>* positive = test_data_.get_full_matrix()->get(user);
   for(;top_list.size()>0;top_list.delete_min()){
     rec_dat = top_list.get_min();
-    map<int, double>::iterator it = positive->find(rec_dat.item);
+    auto it = positive->find(rec_dat.item);
     if(it!=positive->end()) true_positive++;
   } 
   return true_positive;

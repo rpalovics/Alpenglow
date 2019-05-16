@@ -22,9 +22,6 @@ class PredictionCreator : public NeedsExperimentEnvironment, public Initializabl
    PredictionCreator(PredictionCreatorParameters* params){
      top_k_ = params->top_k;
      exclude_known_ = params->exclude_known;
-     train_matrix_ = NULL;
-     model_ = NULL;
-     filter_ = NULL;
    }
    virtual ~PredictionCreator(){}
    virtual vector<RecDat>* run(RecDat* rec_dat)=0; 
@@ -61,9 +58,9 @@ class PredictionCreator : public NeedsExperimentEnvironment, public Initializabl
    }
    ExperimentEnvironment* experiment_environment_;
    vector<RecDat> top_predictions_;
-   Model* model_;
-   ModelFilter* filter_;
-   SpMatrix* train_matrix_;
+   Model* model_ = NULL;
+   ModelFilter* filter_ = NULL;
+   const SpMatrix* train_matrix_ = NULL;
    SpMatrix dummy_train_matrix_;
    int top_k_;
    int exclude_known_;

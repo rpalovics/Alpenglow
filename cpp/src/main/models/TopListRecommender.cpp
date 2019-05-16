@@ -3,14 +3,15 @@
 #include <limits>
 #include <queue>
 
-vector<pair<int,double>> ToplistFromRankingScoreRecommender::get_top_list(int user, int k, SpMatrix *exclude){
+vector<pair<int,double>> ToplistFromRankingScoreRecommender::get_top_list(
+    int user, int k, const SpMatrix *exclude){
   //reverse toplist as a heap
   auto comparator = [](pair<int,double> const &t1, pair<int,double> const &t2) {
     return get<1>(t1) > get<1>(t2);
   };
   priority_queue<pair<int,double>, vector<pair<int,double>>, decltype(comparator)> toplist(comparator);
 
-  map<int,double> *exclude_items = exclude->get(user);
+  const map<int,double> *exclude_items = exclude->get(user);
   RankingScoreIterator* iterator = get_ranking_score_iterator(user);
   double limit = std::numeric_limits<double>::lowest();
   while(iterator->has_next(limit)){

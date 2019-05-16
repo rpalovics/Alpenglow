@@ -127,7 +127,7 @@ class ExperimentEnvironment{
       vector<int>*
           A pointer to the list of known users.
     */
-    SpMatrix* get_train_matrix() { return &train_matrix_; } //TODO const
+    const SpMatrix* get_train_matrix() const { return &train_matrix_; }
     /**
       Returns
       -------

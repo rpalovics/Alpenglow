@@ -90,7 +90,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
     Model* model_ = NULL;
     RankingScoreIteratorProvider* ranking_model_ = NULL;
     TopListRecommender* toplist_model_ = NULL;
-    SpMatrix* train_matrix_ = NULL;
+    const SpMatrix* train_matrix_ = NULL;
     SpMatrix empty_matrix_;
     TopPopContainer* popularity_sorted_container_ = NULL;
     ModelFilter* model_filter_ = NULL;

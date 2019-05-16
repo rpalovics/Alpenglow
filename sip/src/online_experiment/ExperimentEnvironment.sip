@@ -111,7 +111,7 @@ class ExperimentEnvironment{
       std::vector<int>*
           A pointer to the list of known users.
   %End
-    SpMatrix* get_train_matrix();
+    const SpMatrix* get_train_matrix() const;
   %Docstring
       Returns
       -------

@@ -40,7 +40,7 @@ int RankComputer::get_rank_ranking_model(RecDat* rec_dat){
     return get_rank_bruteforce(rec_dat);
   }
 
-  map<int,double> *seen_items = train_matrix_->get(rec_dat->user);
+  const map<int,double> *seen_items = train_matrix_->get(rec_dat->user);
   map<int,double> empty_seen_items;
   if(seen_items == NULL){
     seen_items = &empty_seen_items;

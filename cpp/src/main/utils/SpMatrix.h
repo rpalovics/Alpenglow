@@ -21,7 +21,7 @@ class SpMatrix {
 */
   public:
     ~SpMatrix(){clear();} 
-    int size();
+    int size() const;
     /**
       Returns
       -------
@@ -103,7 +103,7 @@ class SpMatrix {
       col_id : int
         The index of the column.
     */
-    double get(int row_id, int col_id);
+    double get(int row_id, int col_id) const;
     /**
       get(int row_id, int col_id)
 
@@ -122,7 +122,7 @@ class SpMatrix {
       double
         The value of (row_id,col_id) or 0 if no value.
     */
-    map<int,double>* get(int row_id);
+    const map<int,double>* get(int row_id) const; //TODO const
     ///**
     //  map<int,double>* get(int row_id)
 
@@ -153,7 +153,7 @@ class SpMatrix {
       file_name : string
         The name of the file to read from.
     */
-    void write_into_file(string file_name);
+    void write_into_file(string file_name) const;
     /**
       write_into_file(string file_name)
 
@@ -166,7 +166,7 @@ class SpMatrix {
       file_name : string
         The name of the file to write into.
     */
-    int row_size(int row_id);
+    int row_size(int row_id) const;
     /**
       row_size(int row_id)
 
@@ -183,7 +183,7 @@ class SpMatrix {
       int
           The size of the row or 0 if the row doesn't exist.
     */
-    bool has_value(int row_id,int col_id);
+    bool has_value(int row_id,int col_id) const;
     /**
       has_value(int row_id, int col_id)
 
@@ -200,6 +200,7 @@ class SpMatrix {
           Whether the matrix has value at (row_id,col_id).
     */
   private:    
+    MatrixRow* get_writable(int row_id) const;
     vector<MatrixRow*> matrix_;
 };
 

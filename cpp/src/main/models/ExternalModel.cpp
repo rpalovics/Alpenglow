@@ -24,7 +24,7 @@ void ExternalModel::add(RecDat* rec_dat){}
 
 double ExternalModel::prediction(RecDat* rec_dat){return 0;}
 
-vector<pair<int,double>> ExternalModel::get_top_list(int user, int k, SpMatrix *exclude){
+vector<pair<int,double>> ExternalModel::get_top_list(int user, int k, const SpMatrix *exclude){
   if(mode_ == "write"){
     requested_users_.insert(user);
     return vector<pair<int,double>>();

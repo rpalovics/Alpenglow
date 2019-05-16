@@ -81,7 +81,7 @@ vector<RecDat>* PredictionCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ 
 }
 
 vector<RecDat>* PredictionCreatorPersonalized::run_ranking_model(RecDat* rec_dat){
-  SpMatrix *matrix = train_matrix_;
+  const SpMatrix *matrix = train_matrix_;
   if(!exclude_known_){
     matrix = &dummy_train_matrix_;
   }

@@ -10,7 +10,7 @@ using namespace std;
 class TopListRecommender{
 public:
   //id, score
-  virtual vector<pair<int,double>> get_top_list(int user, int k, SpMatrix *exclude) = 0;
+  virtual vector<pair<int,double>> get_top_list(int user, int k, const SpMatrix *exclude) = 0;
 };
 
 class ToplistFromRankingScoreRecommender
@@ -18,7 +18,7 @@ class ToplistFromRankingScoreRecommender
   public virtual RankingScoreIteratorProvider
 {
 public:
-  vector<pair<int,double>> get_top_list(int user, int k, SpMatrix *exclude) override;
+  vector<pair<int,double>> get_top_list(int user, int k, const SpMatrix *exclude) override;
 };
 
 #endif /* TOP_LIST_RECOMMENDER_H */
