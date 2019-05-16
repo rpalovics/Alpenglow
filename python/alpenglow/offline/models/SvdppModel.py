@@ -52,7 +52,9 @@ class SvdppModel(alpenglow.offline.OfflineModel):
         gradient_computer.add_gradient_updater(gradient_updater)
 
         negative_sample_generator = rs.UniformNegativeSampleGenerator(**self.parameter_defaults(
-            negative_rate=9
+            negative_rate=9,
+            initialize_all=False,
+            max_item=-1
         ))
         negative_sample_generator.set_train_matrix(matrix)
         negative_sample_generator.set_items(items)

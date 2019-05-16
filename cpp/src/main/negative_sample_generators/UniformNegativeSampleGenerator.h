@@ -8,7 +8,7 @@
 
 struct UniformNegativeSampleGeneratorParameters {
     double negative_rate = -1; 
-    bool initialize_all = false; //TODO int
+    int initialize_all = -1;
     int max_item = -1;
     bool filter_repeats = false;
     int seed=67439852;
@@ -55,6 +55,14 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     }
   protected:
     bool autocalled_initialize() override {
+      if(experiment_environment_==NULL && (
+          initialize_all_==-1
+          || initialize_all_ && max_item_==-1
+          || !initialize_all_ && items_==NULL
+          || train_matrix_==NULL
+          )){
+        return false;
+      }
       if(initialize_all_==-1){
         initialize_all_=experiment_environment_->get_initialize_all();
       }
@@ -72,7 +80,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     vector<int> indices_;
     vector<int>* local_items_ = NULL;
     SpMatrix* train_matrix_ = NULL; 
-    ExperimentEnvironment* experiment_environment_;
+    ExperimentEnvironment* experiment_environment_ = NULL;
     Random rnd_;
     const double negative_rate_;
     const bool filter_repeats_;
