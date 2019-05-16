@@ -8,7 +8,7 @@
 
 struct UniformNegativeSampleGeneratorParameters {
     double negative_rate = -1; 
-    bool initialize_all = false;
+    bool initialize_all = false; //TODO int
     int max_item = -1;
     bool filter_repeats = false;
     int seed=67439852;
@@ -23,6 +23,9 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
       max_item_(parameters->max_item),
       rnd_(parameters->seed)
     {}
+    ~UniformNegativeSampleGenerator(){
+      if(local_items_!=NULL) delete local_items_;
+    }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_=train_matrix; }
     void set_items(vector<int>* items){ if(!initialize_all_) items_=items; }
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
@@ -52,22 +55,29 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     }
   protected:
     bool autocalled_initialize() override {
+      if(initialize_all_==-1){
+        initialize_all_=experiment_environment_->get_initialize_all();
+      }
       if(initialize_all_){ //TODO initialize all kozos parameter legyen
-        items_=new vector<int>(max_item_+1);
-        for(uint i=0;i<items_->size();i++){items_->at(i)=i;}
+        if (max_item_==-1) max_item_=experiment_environment_->get_max_item_id();
+        local_items_ = new vector<int>(max_item_+1);
+        for(uint i=0;i<local_items_->size();i++){local_items_->at(i)=i;}
+        items_=local_items_;
       }
       if(items_==NULL){ items_=experiment_environment_->get_items(); }
       if(train_matrix_==NULL){ train_matrix_=experiment_environment_->get_train_matrix(); }
       return true;
     }
-    vector<int>* items_ = NULL;
+    const vector<int>* items_ = NULL;
+    vector<int> indices_;
+    vector<int>* local_items_ = NULL;
     SpMatrix* train_matrix_ = NULL; 
     ExperimentEnvironment* experiment_environment_;
     Random rnd_;
     const double negative_rate_;
     const bool filter_repeats_;
-    const bool initialize_all_;
-    const int max_item_;
+    int initialize_all_;
+    int max_item_;
 };
 
 #endif /* UNIFORM_NEGATIVE_SAMPLE_GENERATOR_H */

@@ -53,7 +53,7 @@ int RankComputer::get_rank_ranking_model(RecDat* rec_dat){
     //even unitialized items are better
     //however we only count them if they don't appear in the matrix
     for(uint i=iterator->unique_items_num(); i<items_->size(); i++){
-      int &item = (*items_)[i];
+      const int& item = (*items_)[i];
       if(item != rec_dat->item && seen_items->find(item) == seen_items->end()){
         better_items_num += 1;
       }

@@ -7,7 +7,7 @@ void FactorModelFilter::set_model(FactorModel* model){
   item_factor_filter_.set_factors(&model_->item_factors_,&model_->user_factors_);
 }
 
-void FactorModelFilter::set_users(vector<int>* users){
+void FactorModelFilter::set_users(const vector<int>* users){
   users_ = users;
   if(items_!=NULL){
     user_factor_filter_.set_entities(users_,items_);
@@ -15,7 +15,7 @@ void FactorModelFilter::set_users(vector<int>* users){
   }
 }
 
-void FactorModelFilter::set_items(vector<int>* items){
+void FactorModelFilter::set_items(const vector<int>* items){
   items_ = items;
   if(users_!=NULL){
     user_factor_filter_.set_entities(users_,items_);
@@ -44,7 +44,7 @@ void FactorModelFilter::compute_biases(){
   }
 }
 
-void FactorModelFilter::compute_bias(vector<pair<int,double> >* bounds, Bias& biases, vector<int>* entities, vector<pair<int,double> >* other_bounds){
+void FactorModelFilter::compute_bias(vector<pair<int,double> >* bounds, Bias& biases, const vector<int>* entities, vector<pair<int,double> >* other_bounds){
     for(uint ii=0;ii<bounds->size();ii++){
       bounds->at(ii).second+=biases.get(bounds->at(ii).first);
     }
@@ -92,7 +92,7 @@ void FactorFilter::set_factors(Factors* factors, Factors* other_factors){
   other_factors_ = other_factors;
 }
 
-void FactorFilter::set_entities(vector<int>* entities, vector<int>* other_entities){
+void FactorFilter::set_entities(const vector<int>* entities, const vector<int>* other_entities){
   entities_ = entities;
   other_entities_ = other_entities;
 }

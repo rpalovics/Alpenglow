@@ -36,7 +36,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
     void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
       experiment_environment_=experiment_environment;
     }
-    void set_items(vector<int> *items){
+    void set_items(const vector<int> *items){
       items_ = items;
     }
     bool self_test(){
@@ -85,7 +85,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
     int itemlist_index_;
     int itemlist_max_index_;
     int itemlist_positive_item_;
-    vector<int> *items_ = NULL;
+    const vector<int>* items_ = NULL;
     vector<pair<int,double>>* itemlist_ = NULL;
     Model* model_ = NULL;
     RankingScoreIteratorProvider* ranking_model_ = NULL;

@@ -97,7 +97,7 @@ class ExperimentEnvironment{
       RecommenderDataIterator*
           A pointer to the data iterator containing the time series of the experiment. 
     */
-    Random* get_random() { return &random_; }
+    Random* get_random() { return &random_; } //TODO const function, non-const return val
     /**
       Returns
       -------

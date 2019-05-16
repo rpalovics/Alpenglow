@@ -42,8 +42,8 @@ class DummyModelFilter : public ModelFilter, public NeedsExperimentEnvironment, 
     }
   private:
     ExperimentEnvironment* experiment_environment_;
-    vector<int>* users_ = NULL;
-    vector<int>* items_ = NULL;
+    const vector<int>* users_ = NULL;
+    const vector<int>* items_ = NULL;
     int last_users_size_ = -1;
     int last_items_size_ = -1;
     vector<pair<int,double>> user_filter_;
