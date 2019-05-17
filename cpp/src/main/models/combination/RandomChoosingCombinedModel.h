@@ -24,7 +24,6 @@ public:
     wms_.models_.push_back(model);
     rsip_models_.push_back(dynamic_cast<RankingScoreIteratorProvider*>(model));
   }
-  void set_experiment_environment(ExperimentEnvironment* experiment_environment){ experiment_environment_ = experiment_environment; }
   bool self_test(){
     bool ok = Model::self_test();
     if(wms_.models_.size()==0) ok=false;
@@ -57,7 +56,6 @@ private:
   int last_user_ = -1;
   int last_id_ = -1;
   Random* random_ = NULL;
-  ExperimentEnvironment* experiment_environment_ = NULL;
   FRIEND_TEST(TestRandomChoosingCombinedModel, prediction_distribution);
   friend class RandomChoosingCombinedModelExpertUpdater;
 };

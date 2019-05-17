@@ -27,6 +27,12 @@ class ExperimentEnvironment{
       objects are not allowed to modify this class or the statistic containers,
       even if they have non-const access (exception: the common Random).
     */
+    ExperimentEnvironment(){
+      random_ = new Random();
+    }
+    ~ExperimentEnvironment(){
+      delete random_;
+    }
     void set_parameters(OnlineExperimentParameters* params);
     /**
         Sets the parameters of the experiment. Called by :py:class:`alpenglow.cpp.OnlineExperiment`.
@@ -97,7 +103,7 @@ class ExperimentEnvironment{
       RecommenderDataIterator*
           A pointer to the data iterator containing the time series of the experiment. 
     */
-    Random* get_random() { return &random_; } //TODO const function, non-const return val
+    Random* get_random() const { return random_; } //TODO const function, non-const return val
     /**
       Returns
       -------
@@ -173,7 +179,7 @@ class ExperimentEnvironment{
     int max_item_;
 
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
-    Random random_;
+    Random* random_ = NULL;
 
     //updatable components
     bool item_new_for_user_;

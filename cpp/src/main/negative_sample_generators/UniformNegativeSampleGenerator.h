@@ -28,9 +28,6 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_=train_matrix; }
     void set_items(vector<int>* items){ if(!initialize_all_) items_=items; }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
-      experiment_environment_=experiment_environment;
-    }
       
     vector<int>* generate(RecDat* rec_dat);
     bool self_test(){
@@ -80,7 +77,6 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     vector<int> indices_;
     vector<int>* local_items_ = NULL;
     const SpMatrix* train_matrix_ = NULL; 
-    ExperimentEnvironment* experiment_environment_ = NULL;
     Random rnd_;
     const double negative_rate_;
     const bool filter_repeats_;

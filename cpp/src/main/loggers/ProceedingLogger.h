@@ -22,7 +22,6 @@ class ProceedingLogger : public Logger, public Initializable, public NeedsExperi
         cerr << "OK" << endl;
       }
     }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_data_iterator(RecommenderDataIterator* recommender_data_iterator){recommender_data_iterator_ = recommender_data_iterator; }
     bool self_test(){
       bool OK = Logger::self_test();
@@ -40,7 +39,6 @@ class ProceedingLogger : public Logger, public Initializable, public NeedsExperi
       return true;
     }
   private:
-    ExperimentEnvironment* experiment_environment_ = NULL;
     const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     int frequency_;
     int size_;

@@ -29,9 +29,6 @@ class OnlinePredictor
      if(prediction_creator_==NULL){ OK=false; }
      return OK;
    }
-   void set_experiment_environment(ExperimentEnvironment* experiment_environment){
-     experiment_environment_=experiment_environment;
-   }
  protected:
    bool autocalled_initialize(){
      if (min_time_<0) min_time_ = experiment_environment_->get_min_time();
@@ -44,7 +41,6 @@ class OnlinePredictor
    double min_time_, time_frame_;
    int actual_time_frame_, past_time_frame_;
    ofstream ofs_;
-   ExperimentEnvironment* experiment_environment_ = NULL;
    FRIEND_TEST(TestOnlinePredictor, test);
 };
 

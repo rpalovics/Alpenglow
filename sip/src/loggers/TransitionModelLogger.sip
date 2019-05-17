@@ -18,7 +18,6 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
   public:
     TransitionModelLogger(TransitionModelLoggerParameters* params);
     void run(RecDat* rec_dat);
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment);
     void set_pop_container(PopContainer* pop_container);
     void set_model(TransitionProbabilityModel* model);
     void set_train_matrix(SpMatrix* train_matrix);

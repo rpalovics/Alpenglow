@@ -33,9 +33,6 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
     void set_model_filter(ModelFilter* model_filter){ model_filter_ = model_filter; }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_ = train_matrix; }
     void set_top_pop_container(TopPopContainer* popularity_sorted_container){ popularity_sorted_container_ = popularity_sorted_container; }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
-      experiment_environment_=experiment_environment;
-    }
     void set_items(const vector<int> *items){
       items_ = items;
     }
@@ -94,7 +91,6 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
     SpMatrix empty_matrix_;
     const TopPopContainer* popularity_sorted_container_ = NULL;
     ModelFilter* model_filter_ = NULL;
-    ExperimentEnvironment* experiment_environment_ = NULL;
     Random random_;
     int top_k_;
 };

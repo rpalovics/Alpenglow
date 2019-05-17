@@ -79,9 +79,6 @@ class FactorModel
       }
       return ok;
     }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
-      experiment_environment_ = experiment_environment;
-    }
     
   protected:
     //parameters
@@ -103,7 +100,6 @@ class FactorModel
     FactorModelRankingScoreIterator ranking_score_iterator_;
 
     //other
-    ExperimentEnvironment* experiment_environment_ = NULL;
     bool autocalled_initialize() override {
       if (initialize_all_==-1) { //not set -> get common value from expenv
         if (experiment_environment_==NULL) return false; //no common container

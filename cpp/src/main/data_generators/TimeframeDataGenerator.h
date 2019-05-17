@@ -16,9 +16,6 @@ class TimeframeDataGenerator : public DataGenerator, public NeedsExperimentEnvir
       timeframe_length_ = params->timeframe_length;
     }
     RecommenderData* generate_recommender_data(RecDat*) override;
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
-      experiment_environment_ = experiment_environment;
-    }
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
      recommender_data_iterator_ = recommender_data_iterator;
     }
@@ -34,7 +31,6 @@ class TimeframeDataGenerator : public DataGenerator, public NeedsExperimentEnvir
     }
   private:
     int timeframe_length_ = 86400;
-    ExperimentEnvironment* experiment_environment_ = NULL;
     const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     RecommenderData local_recommender_data_;
 };

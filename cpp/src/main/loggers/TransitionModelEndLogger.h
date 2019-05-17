@@ -51,7 +51,6 @@ class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironmen
         ofs << endl;
       }
     }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_pop_container(PopContainer* pop_container){ pop_container_ = pop_container; }
     void set_model(TransitionProbabilityModel* model){ model_ = model; }
     bool self_test(){
@@ -66,7 +65,6 @@ class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironmen
       return true;
     }
   private:
-    ExperimentEnvironment* experiment_environment_;
     TransitionProbabilityModel* model_;
     const PopContainer* pop_container_;
     string log_file_name_;

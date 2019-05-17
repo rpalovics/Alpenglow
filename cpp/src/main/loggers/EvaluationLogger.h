@@ -34,7 +34,6 @@ class EvaluationLogger : public Logger, public NeedsExperimentEnvironment, publi
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
       recommender_data_iterator_ = recommender_data_iterator;
     }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_model(Model* model){
       model_ = model;
     }
@@ -71,7 +70,6 @@ class EvaluationLogger : public Logger, public NeedsExperimentEnvironment, publi
     //state
     int end_of_timeframe_;
     int beginning_of_timeframe_;
-    ExperimentEnvironment* experiment_environment_;
     double compute_avg_error_on_timeframe(RecDat* rec_dat){
       int direction = (timeframe_>0) ? 1 : -1;
       int index = recommender_data_iterator_->get_counter(); //TODO docs: cant evaluate far future...

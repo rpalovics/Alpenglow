@@ -44,7 +44,6 @@ public:
     evaluators_ = evaluators;
   }
   void set_wms(WeightedModelStructure* model){model_ = model; }
-  void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
   void update(RecDat* rec_dat);
   bool self_test(){
     bool ok = dcg_eval_self_test_result_;
@@ -101,7 +100,6 @@ private:
   int top_k_ = -1;
   string loss_type_ = "";
   bool dcg_eval_self_test_result_ = true;
-  ExperimentEnvironment* experiment_environment_ = NULL;
 };
 
 

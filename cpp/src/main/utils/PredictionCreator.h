@@ -28,7 +28,6 @@ class PredictionCreator : public NeedsExperimentEnvironment, public Initializabl
    void set_model(Model* model){model_=model;}
    void set_filter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
    void set_train_matrix(SpMatrix *train_matrix){train_matrix_ = train_matrix; }
-   void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; }
    bool self_test(){
      bool OK = true;
      if(model_==NULL){
@@ -56,7 +55,6 @@ class PredictionCreator : public NeedsExperimentEnvironment, public Initializabl
      if(exclude_known_ == -1) exclude_known_=experiment_environment_->get_exclude_known();
      return true;
    }
-   ExperimentEnvironment* experiment_environment_;
    vector<RecDat> top_predictions_;
    Model* model_ = NULL;
    ModelFilter* filter_ = NULL;

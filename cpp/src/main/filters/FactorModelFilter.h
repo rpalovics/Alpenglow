@@ -65,7 +65,6 @@ class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment,
    void set_users(const vector<int>* users);
    void set_items(const vector<int>* items);
    void set_model(FactorModel* model);
-   void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {experiment_environment_=experiment_environment; }
    bool self_test(){
       bool OK = ModelFilter::self_test();
       if(!user_factor_filter_.self_test()){ OK=false; }
@@ -92,7 +91,6 @@ class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment,
    FactorModel* model_;
    const vector<int>* users_;
    const vector<int>* items_;
-   ExperimentEnvironment* experiment_environment_;
    FactorFilter user_factor_filter_, item_factor_filter_;
    vector<pair<int,double>> user_upper_bounds_;   
    vector<pair<int,double>> item_upper_bounds_;   

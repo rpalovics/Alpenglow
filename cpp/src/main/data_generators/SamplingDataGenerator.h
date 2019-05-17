@@ -22,9 +22,6 @@ class SamplingDataGenerator : public DataGenerator, public Initializable, public
       geometric_param_ = params->geometric_param;
     }
     RecommenderData* generate_recommender_data(RecDat*) override;
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment){
-      experiment_environment_ = experiment_environment;
-    }
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
      recommender_data_iterator_ = recommender_data_iterator;
     }
@@ -51,7 +48,6 @@ class SamplingDataGenerator : public DataGenerator, public Initializable, public
     int number_of_samples_ = 0;
     double y_ = 10;
     double geometric_param_ = 0.5;
-    ExperimentEnvironment* experiment_environment_ = NULL;
     const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     RecommenderData local_recommender_data_;
     Random* random_ = NULL;

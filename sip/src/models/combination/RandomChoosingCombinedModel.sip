@@ -10,7 +10,6 @@ class RandomChoosingCombinedModel
   %End
 public:
   void add_model(Model* model);
-  void set_experiment_environment(ExperimentEnvironment* experiment_environment);
   bool self_test();
   void add(RecDat* rec_dat);
   double prediction(RecDat* rec_dat);

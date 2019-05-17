@@ -36,7 +36,6 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
       }
       write_eval_statistics(rec_dat);
     }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override { experiment_environment_=experiment_environment; }
     void set_pop_container(PopContainer* pop_container){ pop_container_ = pop_container; }
     void set_model(TransitionProbabilityModel* model){ model_ = model; }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_ = train_matrix; }
@@ -65,7 +64,6 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
     int last_period_num_ = 0;
     //other
     ofstream timeline_file_;
-    ExperimentEnvironment* experiment_environment_ = NULL;
     TransitionProbabilityModel* model_ = NULL;
     const PopContainer* pop_container_ = NULL;
     const SpMatrix* train_matrix_ = NULL;

@@ -60,9 +60,6 @@ class MemoryRankingLogger
     void set_top_pop_container(TopPopContainer* popularity_sorted_container){
       rank_computer_.set_top_pop_container(popularity_sorted_container);
     }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
-      rank_computer_.set_experiment_environment(experiment_environment);
-    }
 
     void run(RecDat* rec_dat){
       if(rec_dat->time >= min_time_ && rec_dat->eval==1){
@@ -95,6 +92,7 @@ class MemoryRankingLogger
     }
   protected:
     bool autocalled_initialize() override {
+      rank_computer_.set_experiment_environment(experiment_environment_);
       return rank_computer_.initialize();
     }
   private:

@@ -33,7 +33,6 @@ class PeriodComputer : public Updater, public NeedsExperimentEnvironment, public
     PeriodComputer(PeriodComputerParameters* params);
     PeriodComputer();
     void set_parameters(PeriodComputerParameters* params);
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment);
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator);
     bool end_of_period() const; 
   %Docstring

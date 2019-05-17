@@ -10,7 +10,7 @@ void ExperimentEnvironment::set_parameters(OnlineExperimentParameters* params){
   initialize_all_ = params->initialize_all;
   max_user_ = params->max_user;
   max_item_ = params->max_item;
-  random_.set(params->random_seed);
+  random_->set(params->random_seed);
 }
 void ExperimentEnvironment::update(RecDat* rec_dat){
   int item = rec_dat->item;

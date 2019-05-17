@@ -25,9 +25,6 @@ class MemoryUsageLogger : public Logger, public Initializable, public NeedsExper
         cerr << "mem usage: " << usage.ru_maxrss << endl;
       }
     }
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment) override {
-      experiment_environment_=experiment_environment;
-    }
     void set_data_iterator(RecommenderDataIterator* recommender_data_iterator){
       recommender_data_iterator_ = recommender_data_iterator;
     }
@@ -47,7 +44,6 @@ class MemoryUsageLogger : public Logger, public Initializable, public NeedsExper
       return true;
     }
   private:
-    ExperimentEnvironment* experiment_environment_;
     const RecommenderDataIterator* recommender_data_iterator_;
     int frequency_;
     int size_;

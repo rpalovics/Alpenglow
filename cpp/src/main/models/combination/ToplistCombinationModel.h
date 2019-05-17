@@ -41,7 +41,6 @@ public:
   void add_model(Model* model){
     wms_.models_.push_back(model);
   }
-  void set_experiment_environment(ExperimentEnvironment* experiment_environment){ experiment_environment_ = experiment_environment; }
   bool self_test(){
     bool ok = Model::self_test();
     if(wms_.models_.size()==0) ok=false;
@@ -117,7 +116,6 @@ private:
   int last_id_ = -1;
   Random* random_ = NULL;
   int top_k_ = -1;
-  ExperimentEnvironment* experiment_environment_ = NULL;
   FRIEND_TEST(TestToplistCombinationModel, generate_random_values_for_toplists);
   FRIEND_TEST(TestToplistCombinationModel, compute_last_occ_of_models);
   FRIEND_TEST(TestToplistCombinationModel, test_top_k);

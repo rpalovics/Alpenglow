@@ -4,6 +4,7 @@ class NeedsExperimentEnvironment{
   #include "general_interfaces/NeedsExperimentEnvironment.h"
   %End
   public:
-    virtual void set_experiment_environment(ExperimentEnvironment*) = 0;
+    void set_experiment_environment(const ExperimentEnvironment* experiment_environment);
+
 };
 
