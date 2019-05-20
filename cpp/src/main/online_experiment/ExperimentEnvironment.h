@@ -2,6 +2,7 @@
 #define EXPERIMENT_ENVIRONMENT_H
 
 #include <vector>
+#include <memory>
 #include "../utils/SpMatrix.h"
 #include "../recommender_data/RecommenderDataIterator.h"
 #include "../recommender_data/macros.h"
@@ -13,7 +14,7 @@
 
 struct OnlineExperimentParameters;
 
-class ExperimentEnvironment{
+class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
   public:
     /**
       Class that stores, updates and serves common simulation data and
@@ -28,11 +29,34 @@ class ExperimentEnvironment{
       even if they have non-const access (exception: the common Random).
     */
     ExperimentEnvironment(){
-      random_ = new Random();
+      //random_ = new Random();
+      random_.reset(new Random());
     }
-    ~ExperimentEnvironment(){
-      delete random_;
-    }
+    //~ExperimentEnvironment() noexcept {
+    //  delete random_;
+    //}
+    //ExperimentEnvironment(const ExperimentEnvironment& other){
+    //  random_ = new Random(*other.random_);
+    //  top_k_ = other.top_k_;
+    //  min_time_ = other.min_time_;
+    //  max_time_ = other.max_time_;
+    //  exclude_known_ = other.exclude_known_;
+    //  initialize_all_ = other.initialize_all_;
+    //  max_user_ = other.max_user_;
+    //  max_item_ = other.max_item_;
+    //}
+    //ExperimentEnvironment& operator=(const ExperimentEnvironment& other){
+    //  delete random_;
+    //  random_ = new Random(*other.random_);
+    //  top_k_ = other.top_k_;
+    //  min_time_ = other.min_time_;
+    //  max_time_ = other.max_time_;
+    //  exclude_known_ = other.exclude_known_;
+    //  initialize_all_ = other.initialize_all_;
+    //  max_user_ = other.max_user_;
+    //  max_item_ = other.max_item_;
+    //  return *this;
+    //}
     void set_parameters(OnlineExperimentParameters* params);
     /**
         Sets the parameters of the experiment. Called by :py:class:`alpenglow.cpp.OnlineExperiment`.
@@ -103,7 +127,7 @@ class ExperimentEnvironment{
       RecommenderDataIterator*
           A pointer to the data iterator containing the time series of the experiment. 
     */
-    Random* get_random() const { return random_; } //TODO const function, non-const return val
+    Random* get_random() const { return random_.get(); }
     /**
       Returns
       -------
@@ -179,7 +203,8 @@ class ExperimentEnvironment{
     int max_item_;
 
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
-    Random* random_ = NULL;
+    //Random* random_ = NULL;
+    std::unique_ptr<Random> random_;
 
     //updatable components
     bool item_new_for_user_;

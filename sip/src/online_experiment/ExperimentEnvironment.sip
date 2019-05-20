@@ -1,5 +1,5 @@
 
-class ExperimentEnvironment{
+class ExperimentEnvironment /NoDefaultCtors/{
   %TypeHeaderCode
   #include "online_experiment/ExperimentEnvironment.h"
   %End
@@ -17,7 +17,7 @@ class ExperimentEnvironment{
       even if they have non-const access (exception: the common Random).
   %End
     ExperimentEnvironment();
-    ~ExperimentEnvironment();
+
     void set_parameters(OnlineExperimentParameters* params);
   %Docstring
         Sets the parameters of the experiment. Called by :py:class:`alpenglow.cpp.OnlineExperiment`.
