@@ -1,8 +1,6 @@
 Example usage
 --------------
 
-Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset
-
 .. code-block:: python
 
 	from alpenglow.experiments import FactorExperiment
@@ -12,7 +10,7 @@ Sample dataset: http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_da
 	matplotlib.use('Agg')
 	import matplotlib.pyplot as plt
 
-	data = pd.read_csv("/path/to/sample_dataset")
+	data = pd.read_csv("http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset")
 
 	factor_model_experiment = FactorExperiment(
 	    top_k=100,
