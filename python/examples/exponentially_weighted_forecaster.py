@@ -8,7 +8,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 data = pd.read_csv(
-    "/mnt/idms/recSys/data/30M_lastfm/recoded_online_id_artist_first_filtered",
+    "http://info.ilab.sztaki.hu/~fbobee/alpenglow/recoded_online_id_artist_first_filtered",
     sep=' ',
     header=None,
     names=['time', 'user', 'item', 'id', 'score', 'eval'],
