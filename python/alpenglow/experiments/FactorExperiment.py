@@ -30,7 +30,7 @@ class FactorExperiment(prs.OnlineExperiment):
     def _config(self, top_k, seed):
         #config = self.parameter_defaults(
         #    top_k=100,
-        #    min_time=0,
+        #    evaluation_start_time=0,
         #    seed=0,
         #    out_file=None,
         #    filters=[],

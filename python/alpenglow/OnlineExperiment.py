@@ -88,7 +88,7 @@ class OnlineExperiment(ParameterDefaults):
         """
         rs.collect()
         self.verbose = verbose
-        min_time = 0 #TODO: start eval at this time
+        evaluation_start_time = 0 #TODO: start eval at this time
 
         # reading data
         if not isinstance(data, str):
@@ -123,7 +123,7 @@ class OnlineExperiment(ParameterDefaults):
 
         online_experiment = rs.OnlineExperiment(
             random_seed=seed,
-            min_time=min_time,
+            evaluation_start_time=evaluation_start_time,
             max_time=max_time,
             top_k=top_k,
             exclude_known=exclude_known,
@@ -150,7 +150,7 @@ class OnlineExperiment(ParameterDefaults):
             proceeding_logger.set_data_iterator(recommender_data_iterator)
             online_experiment.add_logger(proceeding_logger)
 
-        ranking_logger = self._get_ranking_logger(top_k, min_time, self.parameter_default('out_file', out_file), memory_log)
+        ranking_logger = self._get_ranking_logger(top_k, evaluation_start_time, self.parameter_default('out_file', out_file), memory_log)
         ranking_logger.set_model(model)
         for f in filters:
             ranking_logger.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
@@ -239,7 +239,7 @@ class OnlineExperiment(ParameterDefaults):
         else:
             return None
 
-    def _get_ranking_logger(self, top_k, min_time, out_file, memory_log):
+    def _get_ranking_logger(self, top_k, evaluation_start_time, out_file, memory_log):
         if out_file is None:
             out_file = ""
         else:
@@ -247,7 +247,7 @@ class OnlineExperiment(ParameterDefaults):
         self.ranking_logs = rs.RankingLogs()
         self.ranking_logs.top_k = top_k
         self.ranking_logger = rs.MemoryRankingLogger(
-            min_time=min_time,
+            evaluation_start_time=evaluation_start_time,
             out_file=out_file,
             memory_log=memory_log,
             top_k=top_k,

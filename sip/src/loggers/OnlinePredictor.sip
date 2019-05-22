@@ -6,7 +6,7 @@ struct OnlinePredictorParameters {
   %Docstring
   Constructor parameter struct for :py:class:`alpenglow.cpp.OnlinePredictor`. See documentation there.
   %End
-  double min_time;
+  double evaluation_start_time;
   double time_frame;
   std::string file_name;
 };

@@ -9,7 +9,7 @@
 //SIP_AUTOCONVERT
 
 struct OnlinePredictorParameters {
-  double min_time = -1;
+  double evaluation_start_time = -1;
   double time_frame = -1;
   string file_name = "";
 };
@@ -31,14 +31,14 @@ class OnlinePredictor
    }
  protected:
    bool autocalled_initialize(){
-     if (min_time_<0) min_time_ = experiment_environment_->get_min_time();
+     if (evaluation_start_time_<0) evaluation_start_time_ = experiment_environment_->get_evaluation_start_time();
      return true;
    }
  private:
    void set_parameters(OnlinePredictorParameters* params);
    bool do_predict(RecDat* rec_dat);
    PredictionCreator* prediction_creator_;
-   double min_time_, time_frame_;
+   double evaluation_start_time_, time_frame_;
    int actual_time_frame_, past_time_frame_;
    ofstream ofs_;
    FRIEND_TEST(TestOnlinePredictor, test);

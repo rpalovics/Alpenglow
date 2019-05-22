@@ -28,7 +28,7 @@ namespace {
         predictionCreator = new DummyPredictionCreator(&params1);
 
         OnlinePredictorParameters params;
-        params.min_time = 10;
+        params.evaluation_start_time = 10;
         params.time_frame = 20;
         onlinePredictor = new OnlinePredictor(&params);
         onlinePredictor->set_prediction_creator(predictionCreator);
@@ -50,7 +50,7 @@ namespace {
 } //namespace
 
 TEST_F(TestOnlinePredictor, test) {
-  //min_time=10
+  //evaluation_start_time=10
   //time_frame=20
   //time_frame bounds: [10, 30), [30, 50), 70, 90 etc.
   EXPECT_EQ(0,predictionCreator->counter);

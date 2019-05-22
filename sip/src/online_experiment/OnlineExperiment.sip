@@ -7,7 +7,7 @@ struct OnlineExperimentParameters {
   Constructor parameter struct for :py:class:`alpenglow.cpp.OnlineExperiment`. See documentation there.
   %End
   int top_k;
-  int min_time;
+  int evaluation_start_time;
   int max_time;
   bool exclude_known;
   bool initialize_all;

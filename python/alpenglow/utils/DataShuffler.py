@@ -57,7 +57,7 @@ class DataShuffler(ParameterDefaults):
 
         data_shuffle_experiment = rs.OnlineExperiment(
             random_seed=self.parameters["seed"],
-            min_time=0,
+            evaluation_start_time=0,
             max_time=0,
             top_k=0,
             exclude_known=False,

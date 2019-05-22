@@ -23,7 +23,7 @@ struct MemoryRankingLoggerParameters{
   %TypeHeaderCode
   #include "cpp/src/main/loggers/MemoryRankingLogger.h"
   %End
-  double min_time;
+  double evaluation_start_time;
   std::string out_file;
   bool memory_log;
   int top_k;

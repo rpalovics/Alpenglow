@@ -23,7 +23,7 @@ struct RankingLogs{
 };
 
 struct MemoryRankingLoggerParameters{
-  double min_time = 0; //TODO ExpEnv
+  double evaluation_start_time = 0; //TODO ExpEnv
   string out_file="";
   bool memory_log = true;
   int top_k = 0; //TODO ExpEnv
@@ -37,7 +37,7 @@ class MemoryRankingLogger
   {
   public:
     MemoryRankingLogger(MemoryRankingLoggerParameters* params){
-      min_time_=params->min_time;
+      evaluation_start_time_=params->evaluation_start_time;
       if(params->out_file != ""){
         ofs.open(params->out_file.c_str());
       }
@@ -62,7 +62,7 @@ class MemoryRankingLogger
     }
 
     void run(RecDat* rec_dat){
-      if(rec_dat->time >= min_time_ && rec_dat->eval==1){
+      if(rec_dat->time >= evaluation_start_time_ && rec_dat->eval==1){
         RankingLog log;
         log.time = rec_dat->time;
         log.rank = rank_computer_.get_rank(rec_dat);
@@ -98,7 +98,7 @@ class MemoryRankingLogger
   private:
     ofstream ofs;
     RankingLogs* logs_ = NULL; //TODO local variable
-    double min_time_;
+    double evaluation_start_time_;
     Model* model_ = NULL;
     RankComputer rank_computer_;
     bool memory_log_;

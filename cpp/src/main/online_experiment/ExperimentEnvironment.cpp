@@ -4,7 +4,7 @@
 
 void ExperimentEnvironment::set_parameters(OnlineExperimentParameters* params){
   top_k_ = params->top_k;
-  min_time_ = params->min_time;
+  evaluation_start_time_ = params->evaluation_start_time;
   max_time_ = params->max_time;
   exclude_known_ = params->exclude_known;
   initialize_all_ = params->initialize_all;

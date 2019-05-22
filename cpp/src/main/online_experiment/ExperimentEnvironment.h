@@ -38,7 +38,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
     //ExperimentEnvironment(const ExperimentEnvironment& other){
     //  random_ = new Random(*other.random_);
     //  top_k_ = other.top_k_;
-    //  min_time_ = other.min_time_;
+    //  evaluation_start_time_ = other.evaluation_start_time_;
     //  max_time_ = other.max_time_;
     //  exclude_known_ = other.exclude_known_;
     //  initialize_all_ = other.initialize_all_;
@@ -49,7 +49,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
     //  delete random_;
     //  random_ = new Random(*other.random_);
     //  top_k_ = other.top_k_;
-    //  min_time_ = other.min_time_;
+    //  evaluation_start_time_ = other.evaluation_start_time_;
     //  max_time_ = other.max_time_;
     //  exclude_known_ = other.exclude_known_;
     //  initialize_all_ = other.initialize_all_;
@@ -76,7 +76,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       int
           The top list length in the current experiment. Note that not all classes consider this value.
     */
-    int get_min_time() const { return min_time_; }
+    int get_evaluation_start_time() const { return evaluation_start_time_; }
     /**
       Returns
       -------
@@ -195,7 +195,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
 
   private:
     int top_k_;
-    int min_time_;
+    int evaluation_start_time_;
     int max_time_;
     bool exclude_known_;
     bool initialize_all_;

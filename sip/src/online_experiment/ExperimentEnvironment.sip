@@ -34,7 +34,7 @@ class ExperimentEnvironment /NoDefaultCtors/{
       int
           The top list length in the current experiment. Note that not all classes consider this value.
   %End
-    int get_min_time() const;
+    int get_evaluation_start_time() const;
   %Docstring
       Returns
       -------
