@@ -6,7 +6,7 @@ In this tutorial we are going to learn the basic concepts of using Alpenglow by 
 The data
 --------
 
-You can find the dataset at http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset. This is a processed version of the  [30M dataset](http://info.ilab.sztaki.hu/~fbobee/alpenglow/recoded_online_id_artist_first_filtered), where we
+We will use the dataset at http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset. This is a processed version of the  `30M dataset <http://info.ilab.sztaki.hu/~fbobee/alpenglow/recoded_online_id_artist_first_filtered>`, where we
 
 - only keep users above a certain activity threshold
 - only keep the first events of listening sessions
@@ -25,7 +25,7 @@ Let's start by importing standard packages and Alpenglow; and then reading the c
 	import matplotlib.pyplot as plt
 	import alpenglow as ag
 
-	data = pd.read_csv('data', nrows=200000)
+	data = pd.read_csv('http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset', nrows=200000)
 	print(data.columns)
 
 Output::
@@ -109,7 +109,7 @@ Putting it all together:
 	from alpenglow.evaluation import DcgScore
 	from alpenglow.experiments import PopularityExperiment
 
-	data = pd.read_csv('data', nrows=200000)
+	data = pd.read_csv('http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset', nrows=200000)
 
 	pop_experiment = PopularityExperiment(
 	    top_k=100,
