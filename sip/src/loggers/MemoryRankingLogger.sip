@@ -1,6 +1,6 @@
 struct RankingLog{
   %TypeHeaderCode
-  #include "python/cpp_bridge/MemoryRankingLogger.h"
+  #include "cpp/src/main/loggers/MemoryRankingLogger.h"
   %End
   double time;
   int id;
@@ -13,7 +13,7 @@ struct RankingLog{
 
 struct RankingLogs{
   %TypeHeaderCode
-  #include "python/cpp_bridge/MemoryRankingLogger.h"
+  #include "cpp/src/main/loggers/MemoryRankingLogger.h"
   %End
   int top_k;
   std::vector<RankingLog> logs;
@@ -21,7 +21,7 @@ struct RankingLogs{
 
 struct MemoryRankingLoggerParameters{
   %TypeHeaderCode
-  #include "python/cpp_bridge/MemoryRankingLogger.h"
+  #include "cpp/src/main/loggers/MemoryRankingLogger.h"
   %End
   double min_time;
   std::string out_file;
@@ -35,7 +35,7 @@ class MemoryRankingLogger : public Logger
   , public Initializable /NoDefaultCtors/
   {
   %TypeHeaderCode
-  #include "python/cpp_bridge/MemoryRankingLogger.h"
+  #include "cpp/src/main/loggers/MemoryRankingLogger.h"
   %End
   public:
     MemoryRankingLogger(MemoryRankingLoggerParameters* params);
