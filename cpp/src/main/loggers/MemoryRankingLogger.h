@@ -104,4 +104,4 @@ class MemoryRankingLogger
     bool memory_log_;
 };
 
-#endif
+#endif /* MEMORY_RANKING_LOGGER_H */
