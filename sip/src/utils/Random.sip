@@ -140,5 +140,6 @@ class Random{
     int operator()(int max);
 //    void write(ofstream& file);
 //    void read(ifstream& file);
+    bool self_test();
 };
 

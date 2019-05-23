@@ -161,6 +161,15 @@ TEST_F(TestRandom, get_discrete_inaccurate){ //sum is less than 1
   }
 }
 
+TEST_F(TestRandom, selftest){
+  Random random1(1234);
+  EXPECT_TRUE(random1.self_test());
+  Random random2(0);
+  EXPECT_FALSE(random2.self_test()); //all "random" output would be 0
+  Random random3(-1234);
+  EXPECT_TRUE(random3.self_test());
+}
+
 
 TEST_F(TestRandom, zero){
   Random random(0);

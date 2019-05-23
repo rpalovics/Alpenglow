@@ -183,6 +183,11 @@ class Random{
     int operator()(int max){return get(max);}
     void write(ofstream& file){file.write(reinterpret_cast<char*>(&state), sizeof state);}
     void read(ifstream& file){file.read(reinterpret_cast<char*>(&state), sizeof state);}
+    bool self_test(){
+      bool ok = true;
+      if (state==0) ok = false;
+      return ok;
+    }
     template<class RandomIt >
     void random_shuffle( RandomIt first, RandomIt last ){
       typename std::iterator_traits<RandomIt>::difference_type i, n;
