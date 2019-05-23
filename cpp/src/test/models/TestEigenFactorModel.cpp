@@ -168,8 +168,7 @@ TEST_F(TestEigenFactorModel, testOfflineEigenFactorModelALSLearner){
   int num = USERS*ITEMPERU;
   coefs.reserve(num);
 
-  std::random_device rd;
-  std::mt19937 rng(rd());
+  std::mt19937 rng(234235);
   std::uniform_int_distribution<int> randuser(0,USERS-1);
   std::uniform_int_distribution<int> randitem(0,ITEMS-1);
   std::uniform_int_distribution<int> randscore(1,5);

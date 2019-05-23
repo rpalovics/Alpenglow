@@ -117,8 +117,7 @@ TEST_F(TestLempContainer, update){
   }
   EXPECT_EQ(itemlimit, num);
 
-  std::random_device rd;
-  std::mt19937 eng(rd());
+  std::mt19937 eng(324623412);
   std::uniform_int_distribution<> distr(0, itemlimit-1);
   for(int i=0; i<trials; i++){
     int index = distr(eng);
@@ -160,8 +159,7 @@ TEST_F(TestLempContainer, scheduled_update){
   EXPECT_NE(1, container.buckets_.size());
   EXPECT_EQ(itemlimit, container.item_buckets_.size());
 
-  std::random_device rd;
-  std::mt19937 eng(rd());
+  std::mt19937 eng(29384239);
   std::uniform_int_distribution<> distr(0, itemlimit-1);
   for(int i=0; i<trials; i++){
     int index = distr(eng);

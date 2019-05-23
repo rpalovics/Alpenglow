@@ -33,8 +33,7 @@ TEST_F(TestFactorModelRankingScoreIterator, test){
 
   FactorsLempContainer container(&factors, bucketsize);
 
-  std::random_device rd;
-  std::mt19937 eng(rd());
+  std::mt19937 eng(2867682743);
   std::uniform_int_distribution<> distr(0, itemlimit-1);
   for(int i=0; i<1000; i++){
     int index = distr(eng);
@@ -86,8 +85,7 @@ TEST_F(TestFactorModelRankingScoreIterator, test2){
 
   FactorsLempContainer container(&factors, bucketsize);
 
-  std::random_device rd;
-  std::mt19937 eng(rd());
+  std::mt19937 eng(234283723);
   std::uniform_int_distribution<> distr(0, itemlimit-1);
   for(int i=0; i<10000; i++){
     int index = distr(eng);
