@@ -6,7 +6,7 @@ void RandomChoosingCombinedModel::add(RecDat* rec_dat){
 }
 double RandomChoosingCombinedModel::prediction(RecDat* rec_dat){
   if(rec_dat->id != last_id_ or rec_dat->user!=last_user_ or rec_dat->time !=last_timestamp_){
-    active_model_id_ = random_->get_discrete(wms_.distribution_);
+    active_model_id_ = random_.get_discrete(wms_.distribution_);
     active_model_ = wms_.models_[active_model_id_];
     last_id_ = rec_dat->id;
     last_user_ = rec_dat->user;

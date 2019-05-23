@@ -89,11 +89,12 @@ class TestRandomChoosingCombinedModelExpertUpdater : public ::testing::Test {
 } //namespace
 
 TEST_F(TestRandomChoosingCombinedModelExpertUpdater, abs_err){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   RandomChoosingCombinedModelExpertUpdaterParameters updater_params;
   updater_params.eta=0.1;
   updater_params.loss_type="abs";
@@ -120,11 +121,12 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, abs_err){
   EXPECT_GT(predictions[1],predictions[3]);
 }
 TEST_F(TestRandomChoosingCombinedModelExpertUpdater, dcg_err){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   RandomChoosingCombinedModelExpertUpdaterParameters updater_params;
   updater_params.eta=0.1;
   updater_params.loss_type="dcg";
@@ -157,11 +159,12 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, dcg_err){
 
 }
 TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   RandomChoosingCombinedModelExpertUpdaterParameters updater_params;
   updater_params.eta=0.1;
   updater_params.loss_type="other";
@@ -195,20 +198,20 @@ TEST_F(TestRandomChoosingCombinedModelExpertUpdater, weights){
 }
 
 TEST_F(TestRandomChoosingCombinedModel, rsi){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(model.self_test());
   model.prediction(create_rec_dat(10,10,10.0,1));
   EXPECT_EQ(NULL,model.get_ranking_score_iterator(10));
 
-  RandomChoosingCombinedModel model2;
+  RandomChoosingCombinedModel model2(&params);
   TransitionProbabilityModel trans_model;
   model2.add_model(&trans_model);
-  model2.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model2.initialize());
   EXPECT_TRUE(model2.self_test());
   model2.prediction(create_rec_dat(10,10,10.0,1));
@@ -216,11 +219,12 @@ TEST_F(TestRandomChoosingCombinedModel, rsi){
 }
 
 TEST_F(TestRandomChoosingCombinedModel, add){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(model.self_test());
   model.add(create_rec_dat(1,2,10.0,1));
@@ -237,11 +241,12 @@ TEST_F(TestRandomChoosingCombinedModel, add){
   EXPECT_EQ(3,model3.add_counter_);
 }
 TEST_F(TestRandomChoosingCombinedModel, prediction_id_change){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(model.self_test());
   //initial distribution: 0.33 0.33 0.33
@@ -258,11 +263,12 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_id_change){
 }
 
 TEST_F(TestRandomChoosingCombinedModel, prediction_user_change){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(model.self_test());
   //initial distribution: 0.33 0.33 0.33
@@ -281,11 +287,12 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_user_change){
 }
 
 TEST_F(TestRandomChoosingCombinedModel, prediction_item_change){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(model.self_test());
   //initial distribution: 0.33 0.33 0.33
@@ -308,11 +315,12 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_item_change){
 }
 
 TEST_F(TestRandomChoosingCombinedModel, prediction_distribution){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(model.self_test());
   int all = 10000;
@@ -348,11 +356,12 @@ TEST_F(TestRandomChoosingCombinedModel, prediction_distribution){
   
 }
 TEST_F(TestRandomChoosingCombinedModel, read_write){
-  RandomChoosingCombinedModel model;
+  RandomChoosingCombinedModelParameters params;
+  params.seed=231234;
+  RandomChoosingCombinedModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
-  model.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(model.initialize());
   EXPECT_TRUE(model.self_test());
   stringstream ss;
