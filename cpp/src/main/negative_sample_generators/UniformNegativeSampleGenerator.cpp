@@ -14,7 +14,7 @@ vector<int>* UniformNegativeSampleGenerator::generate(RecDat* rec_dat){
     }  
     return &samples;
   } else { //no repeating items in the negative sample set
-    for(int i=indices_.size();i<items_->size();i++){
+    for(uint i=indices_.size();i<items_->size();i++){
       indices_.push_back(i);
     }
     int number_of_generated = 0;
