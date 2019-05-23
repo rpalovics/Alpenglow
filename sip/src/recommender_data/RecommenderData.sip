@@ -69,7 +69,7 @@ struct LegacyRecommenderDataParameters{
   %End
   std::string file_name;
   std::string type;
-  int max_time;
+  int experiment_termination_time;
 };
 
 class LegacyRecommenderData : public RecommenderData {

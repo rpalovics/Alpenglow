@@ -42,7 +42,7 @@ class DataShuffler(ParameterDefaults):
         recommender_data = rs.LegacyRecommenderData(
             file_name=self.parameters['input_file'],
             type=self.parameters["data_format"],
-            max_time=0
+            experiment_termination_time=0
         )
         self.used_parameters.add("input_file")
         recommender_data_iterator = None
@@ -58,7 +58,7 @@ class DataShuffler(ParameterDefaults):
         data_shuffle_experiment = rs.OnlineExperiment(
             random_seed=self.parameters["seed"],
             evaluation_start_time=0,
-            max_time=0,
+            experiment_termination_time=0,
             top_k=0,
             exclude_known=False,
             initialize_all=False,

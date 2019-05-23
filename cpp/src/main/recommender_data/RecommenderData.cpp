@@ -65,7 +65,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
   if (type == "online") {
     id = 0;
     while (ifs >> t >> user >> item >> score >> eval) {
-      if (t>=max_time_ && max_time_>0) break;
+      if (t>=experiment_termination_time_ && experiment_termination_time_>0) break;
       RecDat rec_dat;
       rec_dat.user = user;
       rec_dat.item = item;
@@ -80,7 +80,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
   }
   if (type == "online_id") {
     while (ifs >> t >> user >> item >> id >> score >> eval) {
-      if (t>=max_time_ && max_time_>0) break;
+      if (t>=experiment_termination_time_ && experiment_termination_time_>0) break;
       RecDat rec_dat;
       rec_dat.user = user;
       rec_dat.item = item;
@@ -94,7 +94,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
   }
   if (type == "online_id_noeval") {
     while (ifs >> t >> user >> item >> id >> score) {
-      if (t>=max_time_ && max_time_>0) break;
+      if (t>=experiment_termination_time_ && experiment_termination_time_>0) break;
       RecDat rec_dat;
       rec_dat.user = user;
       rec_dat.item = item;
@@ -109,7 +109,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
   if (type == "online_attribute") {
     id = 0;
     while (ifs >> t >> user >> item >> score >> eval) {
-      if (t>=max_time_ && max_time_>0) break;
+      if (t>=experiment_termination_time_ && experiment_termination_time_>0) break;
       RecDat rec_dat;
       rec_dat.user = user;
       rec_dat.item = item;
@@ -163,7 +163,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
   //  std::string buff;
   //  getline(ifs, buff);
   //  while( ifs >> t >> user >> item >> score >> eval >>  location) {
-  //    if (t>=max_time_ && max_time_>0) break;
+  //    if (t>=experiment_termination_time_ && experiment_termination_time_>0) break;
   //    RecDat rec_dat;
   //    rec_dat.user = user;
   //    rec_dat.time = t;
@@ -179,7 +179,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
   //  id = 0;
   //  std::cout << "reading, type location_xyz" << std::endl;
   //  while (ifs >> t >> user >> item >> score >> eval >> location >> x >> y >> z) {
-  //    if (t>=max_time_ && max_time_>0) break;
+  //    if (t>=experiment_termination_time_ && experiment_termination_time_>0) break;
   //    RecDat rec_dat;
   //    rec_dat.user = user;
   //    rec_dat.item = item;
@@ -197,7 +197,7 @@ void LegacyRecommenderData::read_from_file_core(istream& ifs, string type){
   if (type == "category") {
     id = 0;
     while (ifs >> t >> user >> item >> score >> eval >> category ) {
-      if (t>=max_time_ && max_time_>0) break;
+      if (t>=experiment_termination_time_ && experiment_termination_time_>0) break;
       RecDat rec_dat;
       rec_dat.user = user;
       rec_dat.item = item;

@@ -52,7 +52,7 @@ class OnlineExperiment(ParameterDefaults):
         exclude_known=False,
         initialize_all=False,
         calculate_toplists=False,
-        max_time=0,
+        experiment_termination_time=0,
         memory_log=True,
         shuffle_same_time=True
         ):
@@ -73,7 +73,7 @@ class OnlineExperiment(ParameterDefaults):
             If set to True, a user's previosly seen items are excluded from the toplist evaluation. The :code:`eval` columns of the input data should be set accordingly.
         calculate_toplists: bool or list
             Whether to actually compute the toplists or just the ranks (the latter is faster). It can be specified on a record-by-record basis, by giving a list of booleans as parameter. The calculated toplists can be acquired after the experiment's end by using :code:`get_predictions`. Setting this to non-False implies shuffle_same_time=False
-        max_time : int
+        experiment_termination_time : int
             Stop the experiment at this timestamp.
         memory_log : bool
             Whether to log the results to memory (to be used optionally with out_file)
@@ -97,7 +97,7 @@ class OnlineExperiment(ParameterDefaults):
             recommender_data = rs.LegacyRecommenderData(
                 file_name=data,
                 type=experimentType,
-                max_time=max_time
+                experiment_termination_time=experiment_termination_time
             )
         recommender_data.initialize() #read in data -> can find max user, max item
         max_user = recommender_data.get_max_user_id()
@@ -124,7 +124,7 @@ class OnlineExperiment(ParameterDefaults):
         online_experiment = rs.OnlineExperiment(
             random_seed=seed,
             evaluation_start_time=evaluation_start_time,
-            max_time=max_time,
+            experiment_termination_time=experiment_termination_time,
             top_k=top_k,
             exclude_known=exclude_known,
             initialize_all=initialize_all,

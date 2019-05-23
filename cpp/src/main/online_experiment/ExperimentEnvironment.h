@@ -39,7 +39,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
     //  random_ = new Random(*other.random_);
     //  top_k_ = other.top_k_;
     //  evaluation_start_time_ = other.evaluation_start_time_;
-    //  max_time_ = other.max_time_;
+    //  experiment_termination_time_ = other.experiment_termination_time_;
     //  exclude_known_ = other.exclude_known_;
     //  initialize_all_ = other.initialize_all_;
     //  max_user_ = other.max_user_;
@@ -50,7 +50,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
     //  random_ = new Random(*other.random_);
     //  top_k_ = other.top_k_;
     //  evaluation_start_time_ = other.evaluation_start_time_;
-    //  max_time_ = other.max_time_;
+    //  experiment_termination_time_ = other.experiment_termination_time_;
     //  exclude_known_ = other.exclude_known_;
     //  initialize_all_ = other.initialize_all_;
     //  max_user_ = other.max_user_;
@@ -83,7 +83,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       int
           The beginning timestamp of evaluation. Elements in the time series before that timestamp will not be evaluated. Note that not all evaluator classes consider this value.
     */
-    int get_max_time() const { return max_time_; }
+    int get_experiment_termination_time() const { return experiment_termination_time_; }
     /**
       Returns
       -------
@@ -196,7 +196,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
   private:
     int top_k_;
     int evaluation_start_time_;
-    int max_time_;
+    int experiment_termination_time_;
     bool exclude_known_;
     bool initialize_all_;
     int max_user_;

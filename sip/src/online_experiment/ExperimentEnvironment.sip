@@ -41,7 +41,7 @@ class ExperimentEnvironment /NoDefaultCtors/{
       int
           The beginning timestamp of evaluation. Elements in the time series before that timestamp will not be evaluated. Note that not all evaluator classes consider this value.
   %End
-    int get_max_time() const;
+    int get_experiment_termination_time() const;
   %Docstring
       Returns
       -------

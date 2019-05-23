@@ -8,7 +8,7 @@ struct OnlineExperimentParameters {
   %End
   int top_k;
   int evaluation_start_time;
-  int max_time;
+  int experiment_termination_time;
   bool exclude_known;
   bool initialize_all;
   int max_user;
