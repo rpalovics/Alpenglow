@@ -65,7 +65,7 @@ TEST_F(TestSamplingDataGenerator, uniform) {
 
 TEST_F(TestSamplingDataGenerator, linear) {
   params.distribution = "linear";
-  params.number_of_samples = 900;
+  params.number_of_samples = 3000;
   SamplingDataGenerator data_generator(&params);
   data_generator.set_experiment_environment(&experiment_environment);
   EXPECT_TRUE(data_generator.initialize());
@@ -73,7 +73,7 @@ TEST_F(TestSamplingDataGenerator, linear) {
   RecDat* rec_dat = recommender_data_iterator.next();
   //cerr << "actual: " << *rec_dat << endl;
   RecommenderData* local_recommender_data = data_generator.generate_recommender_data(rec_dat);
-  EXPECT_EQ(900,local_recommender_data->size());
+  EXPECT_EQ(3000,local_recommender_data->size());
   vector<int> ids(20);
   for(int i=0;i<local_recommender_data->size();i++){
     RecDat* local_rec_dat = local_recommender_data->get(i);

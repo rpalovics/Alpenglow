@@ -10,6 +10,7 @@ struct SamplingDataGeneratorParameters {
   int number_of_samples;
   double y; 
   double geometric_param; 
+  int seed;
 };
 class SamplingDataGenerator : public DataGenerator, public Initializable, public NeedsExperimentEnvironment {
   %TypeHeaderCode
