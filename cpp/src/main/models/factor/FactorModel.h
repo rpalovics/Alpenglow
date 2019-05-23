@@ -27,7 +27,7 @@ struct FactorModelParameters {
   int initialize_all = -1;
   int max_item = -1;
   int max_user = -1;
-  int seed=67439852;
+  int seed=745578;
   int lemp_bucket_size = 64;
 };
 

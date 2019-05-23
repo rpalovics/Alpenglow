@@ -9,7 +9,7 @@ struct GlobalPositiveAndNegativeSampleGeneratorParameters {
     double positive_rate,negative_rate,decay;
     bool initialize_all;
     int max_item;
-    int seed; 
+    int seed = 745578; 
     int threshold;
     string decay_type;
 };

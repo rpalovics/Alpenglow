@@ -11,7 +11,7 @@ struct UniformPositiveAndNegativeSampleGeneratorParameters {
     bool initialize_all;
     int max_item;
     string distribution;
-    int seed;
+    int seed = 745578;
     bool generate_user,generate_item,sample;
     string sample_num_type;
 };

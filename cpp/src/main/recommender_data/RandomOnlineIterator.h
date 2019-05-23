@@ -10,7 +10,7 @@
 #include "../utils/Random.h"
 
 struct RandomOnlineIteratorParameters {
-  int seed;
+  int seed = 745578;
 };
 class RandomOnlineIterator : public RecommenderDataIterator {
 /**

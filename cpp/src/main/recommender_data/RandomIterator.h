@@ -10,7 +10,7 @@
 #include "../utils/Random.h"
 
 struct RandomIteratorParameters {
-  int seed;
+  int seed = 745578;
   string shuffle_mode = "auto_shuffle";
 };
 class RandomIterator : public RecommenderDataIterator {

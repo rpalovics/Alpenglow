@@ -7,7 +7,7 @@
 
 struct PopularityNegativeSampleGeneratorParameters {
   int negative_rate;
-  int seed;
+  int seed = 745578;
 };
 
 class PopularityNegativeSampleGenerator: public NegativeSampleGenerator{

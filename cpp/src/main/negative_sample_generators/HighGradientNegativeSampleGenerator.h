@@ -8,19 +8,14 @@ struct HighGradientNegativeSampleGeneratorParameters {
   int full_negative_rate;
   bool initialize_all;
   int max_item;
-  int seed;
+  int seed = 744478;
 };
 class HighGradientNegativeSampleGenerator : public NegativeSampleGenerator {
   public:
     HighGradientNegativeSampleGenerator(HighGradientNegativeSampleGeneratorParameters* params){
       negative_rate_=params->negative_rate;
       full_negative_rate_=params->full_negative_rate;
-      if(params->seed==-1){
-        cerr << "HighGradientNegativeSampleGenerator has no random seed, we use 1537498." << endl;
-        random_.set(1537498);
-      } else {
-        random_.set(params->seed);
-      }
+      random_.set(params->seed);
       model_=NULL;
       train_matrix_=NULL;
       initialize_all_ = params->initialize_all;

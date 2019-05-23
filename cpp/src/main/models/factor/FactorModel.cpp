@@ -5,9 +5,9 @@ void FactorModel::set_parameters(FactorModelParameters* parameters){
   factors_parameters.begin_min=begin_min_;
   factors_parameters.begin_max=begin_max_;
   factors_parameters.dimension=dimension_;
-  factors_parameters.seed=parameters->seed;
+  factors_parameters.seed=parameters->seed+1; //subobject seed: own seed+1
   user_factors_.set_parameters(factors_parameters);
-  factors_parameters.seed+=67439852;
+  factors_parameters.seed=parameters->seed+2; //second subobject: own seed+2
   item_factors_.set_parameters(factors_parameters);
 
   user_recency_ = NULL; item_recency_ = NULL;
