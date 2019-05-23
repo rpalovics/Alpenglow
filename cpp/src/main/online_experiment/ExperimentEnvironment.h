@@ -28,35 +28,6 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       objects are not allowed to modify this class or the statistic containers,
       even if they have non-const access (exception: the common Random).
     */
-    ExperimentEnvironment(){
-      //random_ = new Random();
-      random_.reset(new Random());
-    }
-    //~ExperimentEnvironment() noexcept {
-    //  delete random_;
-    //}
-    //ExperimentEnvironment(const ExperimentEnvironment& other){
-    //  random_ = new Random(*other.random_);
-    //  top_k_ = other.top_k_;
-    //  evaluation_start_time_ = other.evaluation_start_time_;
-    //  experiment_termination_time_ = other.experiment_termination_time_;
-    //  exclude_known_ = other.exclude_known_;
-    //  initialize_all_ = other.initialize_all_;
-    //  max_user_ = other.max_user_;
-    //  max_item_ = other.max_item_;
-    //}
-    //ExperimentEnvironment& operator=(const ExperimentEnvironment& other){
-    //  delete random_;
-    //  random_ = new Random(*other.random_);
-    //  top_k_ = other.top_k_;
-    //  evaluation_start_time_ = other.evaluation_start_time_;
-    //  experiment_termination_time_ = other.experiment_termination_time_;
-    //  exclude_known_ = other.exclude_known_;
-    //  initialize_all_ = other.initialize_all_;
-    //  max_user_ = other.max_user_;
-    //  max_item_ = other.max_item_;
-    //  return *this;
-    //}
     void set_parameters(OnlineExperimentParameters* params);
     /**
         Sets the parameters of the experiment. Called by :py:class:`alpenglow.cpp.OnlineExperiment`.
@@ -127,13 +98,6 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       RecommenderDataIterator*
           A pointer to the data iterator containing the time series of the experiment. 
     */
-    Random* get_random() const { return random_.get(); }
-    /**
-      Returns
-      -------
-      Random*
-          A pointer to the common random generator.
-    */
 
     //common statistics
     bool is_item_new_for_user() const { return item_new_for_user_; }
@@ -203,8 +167,6 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
     int max_item_;
 
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
-    //Random* random_ = NULL;
-    std::unique_ptr<Random> random_;
 
     //updatable components
     bool item_new_for_user_;

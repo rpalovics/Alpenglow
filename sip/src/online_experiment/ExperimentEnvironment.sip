@@ -16,8 +16,6 @@ class ExperimentEnvironment /NoDefaultCtors/{
       objects are not allowed to modify this class or the statistic containers,
       even if they have non-const access (exception: the common Random).
   %End
-    ExperimentEnvironment();
-
     void set_parameters(OnlineExperimentParameters* params);
   %Docstring
         Sets the parameters of the experiment. Called by :py:class:`alpenglow.cpp.OnlineExperiment`.
@@ -83,13 +81,6 @@ class ExperimentEnvironment /NoDefaultCtors/{
       -------
       RecommenderDataIterator*
           A pointer to the data iterator containing the time series of the experiment. 
-  %End
-    Random* get_random() const;
-  %Docstring
-      Returns
-      -------
-      Random*
-          A pointer to the common random generator.
   %End
 
     bool is_item_new_for_user() const;
