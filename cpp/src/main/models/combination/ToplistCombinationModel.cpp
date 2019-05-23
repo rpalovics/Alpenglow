@@ -42,7 +42,7 @@ void ToplistCombinationModel::read(istream& file){
 void ToplistCombinationModel::generate_random_values_for_toplists(){
   random_model_indices_.clear();
   for(int i=0;i<experiment_environment_->get_top_k();i++){
-    random_model_indices_.push_back(random_->get_discrete(wms_.distribution_));
+    random_model_indices_.push_back(random_.get_discrete(wms_.distribution_));
   }
 }
 void ToplistCombinationModel::compute_score_map(){

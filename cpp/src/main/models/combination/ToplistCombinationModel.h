@@ -31,6 +31,9 @@ private:
   int counter_;
 };
 
+struct ToplistCombinationModelParameters{
+  int seed = 745578;
+};
 class ToplistCombinationModel
  : public Model,
    virtual public RankingScoreIteratorProvider,
@@ -38,6 +41,10 @@ class ToplistCombinationModel
    public NeedsExperimentEnvironment
 {
 public:
+  ToplistCombinationModel(ToplistCombinationModelParameters* params){
+    random_.set(params->seed);
+    seed_ = params->seed;
+  }
   void add_model(Model* model){
     wms_.models_.push_back(model);
   }
@@ -61,7 +68,6 @@ public:
   void inject_wms_into(WMSUpdater* object){ object->set_wms(&wms_); }
 protected:
   bool autocalled_initialize() override {
-    random_=experiment_environment_->get_random();
     top_k_=experiment_environment_->get_top_k();
     wms_.distribution_.clear(); //should not be called twice, but...
     wms_.distribution_.resize(wms_.models_.size(),1.0/wms_.models_.size());
@@ -71,7 +77,7 @@ protected:
     for(auto model : wms_.models_){
       RankComputerParameters rank_computer_params;
       rank_computer_params.top_k=top_k_;
-      rank_computer_params.random_seed=19263435; //TODO get rid of random seed here, RankComputer should use the common random object
+      rank_computer_params.random_seed=seed_+1;
       RankComputer* rank_computer = new RankComputer(&rank_computer_params);
       rank_computers_.push_back(rank_computer);
       rank_computer->set_experiment_environment(experiment_environment_);
@@ -114,7 +120,8 @@ private:
   double last_timestamp_ = -1;
   int last_user_ = -1;
   int last_id_ = -1;
-  Random* random_ = NULL;
+  Random random_;
+  int seed_ = -1;
   int top_k_ = -1;
   FRIEND_TEST(TestToplistCombinationModel, generate_random_values_for_toplists);
   FRIEND_TEST(TestToplistCombinationModel, compute_last_occ_of_models);

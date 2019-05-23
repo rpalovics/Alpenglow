@@ -105,7 +105,9 @@ class TestToplistCombinationModel : public ::testing::Test {
 } //namespace
 
 TEST_F(TestToplistCombinationModel, prediction){
-  ToplistCombinationModel model;
+  ToplistCombinationModelParameters params;
+  params.seed = 1234;
+  ToplistCombinationModel model(&params);
   model.add_model(&model11);
   model.add_model(&model12);
   model.add_model(&model13);
@@ -135,7 +137,9 @@ TEST_F(TestToplistCombinationModel, prediction){
 }
 
 TEST_F(TestToplistCombinationModel, merge_toplists){
-  ToplistCombinationModel model;
+  ToplistCombinationModelParameters params;
+  params.seed = 1234;
+  ToplistCombinationModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -200,7 +204,9 @@ TEST_F(TestToplistCombinationModel, merge_toplists){
 }
 
 TEST_F(TestToplistCombinationModel, compute_toplists){
-  ToplistCombinationModel model;
+  ToplistCombinationModelParameters params;
+  params.seed = 1234;
+  ToplistCombinationModel model(&params);
   model.add_model(&model11);
   model.add_model(&model12);
   model.add_model(&model13);
@@ -261,7 +267,9 @@ TEST_F(TestToplistCombinationModel, compute_toplists){
 
 }
 TEST_F(TestToplistCombinationModel, test_top_k){
-  ToplistCombinationModel model;
+  ToplistCombinationModelParameters params;
+  params.seed = 1234;
+  ToplistCombinationModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -299,7 +307,9 @@ TEST_F(TestToplistCombinationModel, test_top_k){
   EXPECT_FALSE(model.test_top_k(&rec_dat));
 }
 TEST_F(TestToplistCombinationModel, compute_last_occ_of_models){
-  ToplistCombinationModel model;
+  ToplistCombinationModelParameters params;
+  params.seed = 1234;
+  ToplistCombinationModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -330,7 +340,9 @@ TEST_F(TestToplistCombinationModel, compute_last_occ_of_models){
 
 }
 TEST_F(TestToplistCombinationModel, generate_random_values_for_toplists){
-  ToplistCombinationModel model;
+  ToplistCombinationModelParameters params;
+  params.seed = 1234;
+  ToplistCombinationModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -462,7 +474,9 @@ TEST_F(TestToplistCombinationModel, generate_random_values_for_toplists){
 //}
 
 TEST_F(TestToplistCombinationModel, add){
-  ToplistCombinationModel model;
+  ToplistCombinationModelParameters params;
+  params.seed = 1234;
+  ToplistCombinationModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
@@ -524,7 +538,9 @@ TEST_F(TestToplistCombinationModel, add){
 //  
 //}
 TEST_F(TestToplistCombinationModel, read_write){
-  ToplistCombinationModel model;
+  ToplistCombinationModelParameters params;
+  params.seed = 1234;
+  ToplistCombinationModel model(&params);
   model.add_model(&model1);
   model.add_model(&model2);
   model.add_model(&model3);
