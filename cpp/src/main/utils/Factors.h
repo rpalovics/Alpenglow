@@ -25,7 +25,7 @@ struct FactorsParameters {
 class Factors{
   public:
     Factors(){};
-    Factors(FactorsParameters parameters) : rnd(parameters.seed){
+    Factors(FactorsParameters parameters) : random_(parameters.seed){
       set_parameters(parameters);
     };
     ~Factors(){
@@ -74,7 +74,7 @@ class Factors{
     }
     friend class FactorModelReader;
   private:
-    Random rnd;
+    Random random_;
     vector <vector<double>*> factors;
     double begin_min = -0.1, begin_max = 0.1;
     int dimension = 0;

@@ -4,7 +4,7 @@ void EigenFactors::reinitialize_factors(int dimension, int users, double begin_m
   factors = MatrixXdRM::Constant(users,dimension,0);
   for(int j=0; j<dimension; j++){
     for(int i=0; i<users; i++){
-      factors(i,j)=rnd.get()*(begin_max-begin_min)+begin_min;
+      factors(i,j)=random_.get()*(begin_max-begin_min)+begin_min;
     }
   }
 }
@@ -21,7 +21,7 @@ void EigenFactors::resize(int dimension, int users, double begin_min, double beg
 
   for(int j=0; j<dimension; j++){
     for(int i=(j>=old_cols)?0:old_rows; i<users; i++){
-      factors(i,j)=rnd.get()*(begin_max-begin_min)+begin_min;
+      factors(i,j)=random_.get()*(begin_max-begin_min)+begin_min;
     }
   }
 }

@@ -23,7 +23,7 @@ vector<int>* PopularityNegativeSampleGenerator::generate(RecDat* rec_dat){
   //generate negative samples
   int num_of_chosen = 0;
   for(num_of_chosen=0;num_of_chosen<negative_rate && sum_of_popularity>0;num_of_chosen++){
-    int rand_index = random(sum_of_popularity); //index negative sample in the virtual popularity weighted item array, the index of the first element is 1
+    int rand_index = random_(sum_of_popularity); //index negative sample in the virtual popularity weighted item array, the index of the first element is 1
     rand_index++;
     int item_index=-1; //index of actual item in items
     int item; //items[item_index]

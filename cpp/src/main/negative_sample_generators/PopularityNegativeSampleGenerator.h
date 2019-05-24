@@ -14,7 +14,7 @@ class PopularityNegativeSampleGenerator: public NegativeSampleGenerator{
   public:
     PopularityNegativeSampleGenerator(PopularityNegativeSampleGeneratorParameters* params){
       negative_rate = params->negative_rate; 
-      random.set(params->seed);
+      random_.set(params->seed);
     }
     vector<int>* generate(RecDat* rec_dat);
     void set_pop_container(PopContainer* pop_container_){pop_container = pop_container_;}
@@ -26,7 +26,7 @@ class PopularityNegativeSampleGenerator: public NegativeSampleGenerator{
     vector<int>* items;
     SpMatrix* train_matrix;
     RecommenderDataIterator* recommender_data_iterator;
-    Random random;
+    Random random_;
     int negative_rate;
 };
 

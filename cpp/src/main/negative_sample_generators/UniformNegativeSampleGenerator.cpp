@@ -6,7 +6,7 @@ vector<int>* UniformNegativeSampleGenerator::generate(RecDat* rec_dat){
     samples.clear();
     int user_activity = train_matrix_->row_size(rec_dat->user);
     while(learnt < negative_rate_ && learnt<(int)items_->size()-user_activity){
-      int item = items_->at((int)(rnd_.get()*(items_->size())));
+      int item = items_->at((int)(random_.get()*(items_->size())));
       if(!train_matrix_->has_value(rec_dat->user,item)){
         learnt++;
         samples.push_back(item);
@@ -21,7 +21,7 @@ vector<int>* UniformNegativeSampleGenerator::generate(RecDat* rec_dat){
     int available = items_->size(); //==indices_.size()
     samples.clear();
     while(number_of_generated < negative_rate_ && available>0){
-      int idx_idx = ((int)(rnd_.get()*available));
+      int idx_idx = ((int)(random_.get()*available));
       int idx = indices_[idx_idx];
       int item = items_->at(idx);
       if(!train_matrix_->has_value(rec_dat->user,item)){

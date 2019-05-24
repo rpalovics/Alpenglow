@@ -7,7 +7,7 @@ void Factors::set_parameters(FactorsParameters parameters){
   begin_min=parameters.begin_min;
   begin_max=parameters.begin_max;
   dimension=parameters.dimension;
-  rnd.set(parameters.seed);
+  random_.set(parameters.seed);
 }
 
 void Factors::resize(int idx){
@@ -25,7 +25,7 @@ void Factors::set_rand(int idx){
   if(factors[idx]!=NULL) delete factors[idx];
   factors[idx] = new vector <double> (dimension,0);
   for(int ii=0; ii<dimension; ii++){
-    (*factors[idx])[ii] = rnd.get()*(begin_max-begin_min)+begin_min;
+    (*factors[idx])[ii] = random_.get()*(begin_max-begin_min)+begin_min;
   } 
 }
 void Factors::init(int idx){

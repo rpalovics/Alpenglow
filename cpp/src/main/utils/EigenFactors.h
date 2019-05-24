@@ -31,15 +31,15 @@ class EigenFactors{
     void write(ostream& file);
     void read(istream& file);
     void set_parameters(EigenFactorsParameters *parameters){
-      seed = parameters->seed;
-      rnd = Random(seed);
+      seed_ = parameters->seed;
+      random_ = Random(seed_);
     }
     void reinitialize_factors(int dimension, int users, double begin_min_, double begin_max_);
     void resize(int dimension, int users, double begin_min_, double begin_max_);
     MatrixXdRM factors;
     vector<bool> seen;
   private:
-    Random rnd;
-    int seed;
+    Random random_;
+    int seed_;
 };
 #endif /* EIGEN_FACTORS_H */

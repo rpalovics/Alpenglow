@@ -21,7 +21,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
       filter_repeats_(parameters->filter_repeats),
       initialize_all_(parameters->initialize_all),
       max_item_(parameters->max_item),
-      rnd_(parameters->seed)
+      random_(parameters->seed)
     {}
     ~UniformNegativeSampleGenerator(){
       if(local_items_!=NULL) delete local_items_;
@@ -77,7 +77,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     vector<int> indices_;
     vector<int>* local_items_ = NULL;
     const SpMatrix* train_matrix_ = NULL; 
-    Random rnd_;
+    Random random_;
     const double negative_rate_;
     const bool filter_repeats_;
     int initialize_all_;
