@@ -33,7 +33,7 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
     vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample);
     void update(RecDat* rec_dat);
     bool self_test(){
-      bool ok = NegativeSampleGenerator::self_test();
+      bool ok = NegativeSampleGenerator::self_test() && random_.self_test();
       if(positive_rate < 0){
         ok=false;
         cerr << "UniformPositiveAndNegativeSampleGeneratorParameters::positive_rate is negative." << endl;

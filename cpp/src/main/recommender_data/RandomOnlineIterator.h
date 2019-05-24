@@ -50,6 +50,9 @@ public:
   /**
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_following_timestamp()`
   */
+  bool self_test(){
+    return RecommenderDataIterator::self_test() && random_.self_test();
+  }
 private:
   Random random_;
   vector<RecDat*> shuffled_data_; //RecDat* for const correctness argh.

@@ -30,7 +30,7 @@ public:
     rsip_models_.push_back(dynamic_cast<RankingScoreIteratorProvider*>(model));
   }
   bool self_test(){
-    bool ok = Model::self_test();
+    bool ok = Model::self_test() && random_.self_test();
     ok&=random_.self_test();
     if(wms_.models_.size()==0) ok=false;
     return ok;

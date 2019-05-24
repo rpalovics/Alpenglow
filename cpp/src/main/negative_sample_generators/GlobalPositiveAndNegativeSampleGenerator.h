@@ -26,6 +26,9 @@ class GlobalPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator 
     void generate_positive(RecDat * rec_dat);
     vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample);
     void update(RecDat* rec_dat);
+    bool self_test(){
+      return NegativeSampleGenerator::self_test() && random_.self_test();
+    }
   protected:
     int select(int user);
     vector <int> * items;

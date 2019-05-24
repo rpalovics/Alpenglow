@@ -72,6 +72,9 @@ class Factors{
        }
        return output;            
     }
+    bool self_test(){
+      return random_.self_test();
+    }
     friend class FactorModelReader;
   private:
     Random random_;

@@ -37,7 +37,7 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
       items_ = items;
     }
     bool self_test(){
-      bool ok=true;
+      bool ok=random_.self_test();
       if (experiment_environment_==NULL){cerr << "RankComputer:experiment_environment is NULL." << endl; }
       if(top_k_<0){ok=false;cerr<<"RankComputer::top_k is not set properly." << endl;}
       if(model_==NULL){ok=false;cerr<<"RankComputer::model is not set." << endl;}

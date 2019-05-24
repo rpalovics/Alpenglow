@@ -31,7 +31,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
       
     vector<int>* generate(RecDat* rec_dat);
     bool self_test(){
-      bool ok = NegativeSampleGenerator::self_test();
+      bool ok = NegativeSampleGenerator::self_test() && random_.self_test();
       if(negative_rate_ < 0){
         ok=false;
         cerr << "UniformNegativeSampleGeneratorParameters::negative_rate is negative." << endl;

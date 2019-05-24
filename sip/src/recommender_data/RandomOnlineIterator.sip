@@ -43,6 +43,7 @@ public:
   %Docstring
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_following_timestamp()`
   %End
+  bool self_test();
   private:
   bool autocalled_initialize();
 };

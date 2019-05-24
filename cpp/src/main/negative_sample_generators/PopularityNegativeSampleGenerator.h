@@ -21,6 +21,9 @@ class PopularityNegativeSampleGenerator: public NegativeSampleGenerator{
     void set_train_matrix(SpMatrix* train_matrix_){train_matrix=train_matrix_;}
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator_){recommender_data_iterator=recommender_data_iterator_;}
     void set_items(vector<int>* items_){items=items_;}
+    bool self_test(){
+      return NegativeSampleGenerator::self_test() && random_.self_test();
+    }
   private:
     const PopContainer *pop_container;
     vector<int>* items;

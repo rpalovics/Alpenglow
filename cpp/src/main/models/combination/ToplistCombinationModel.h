@@ -49,7 +49,7 @@ public:
     wms_.models_.push_back(model);
   }
   bool self_test(){
-    bool ok = Model::self_test();
+    bool ok = Model::self_test() && random_.self_test();
     if(wms_.models_.size()==0) ok=false;
     for(auto rank_computer : rank_computers_) ok &= rank_computer->self_test();
     for(auto toplist_creator : toplist_creators_) ok &= toplist_creator->self_test(); 
