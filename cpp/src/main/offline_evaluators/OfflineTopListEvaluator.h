@@ -16,18 +16,8 @@ class OfflineTopListEvaluator : public OfflineEvaluator {
       prediction_creator_ = NULL;
     }
     void set_prediction_creator(PredictionCreator* prediction_creator){ prediction_creator_ = prediction_creator; }
-    void evaluate(){
-  RecDat rec_dat;
-  vector<RecDat>* top_predictions = prediction_creator_->run(&rec_dat);
-  for(uint ii=0; ii<top_predictions->size(); ii++){
-    ofs << top_predictions->at(ii).user << " " << top_predictions->at(ii).item << " " << top_predictions->at(ii).score <<  endl; 
-  } 
-};
-    bool self_test(){
-      bool OK = OfflineEvaluator::self_test();
-      if(prediction_creator_==NULL){ OK=false; cerr << "OfflineTopListEvaluator::prediction_creator is not set." << endl; }
-      return OK;
-    }
+    void evaluate() override;
+    bool self_test();
   private:
     PredictionCreator* prediction_creator_;
     ofstream  ofs;
