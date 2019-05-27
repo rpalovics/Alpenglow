@@ -51,7 +51,6 @@ public:
     See :py:meth:`alpenglow.cpp.RecommenderDataIterator.get_actual()`
   */
   bool self_test(){
-    return true; //TODO
     bool ok = RecommenderDataIterator::self_test();
     if (seed_==0) ok=false;
     return ok;

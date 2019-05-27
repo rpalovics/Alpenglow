@@ -21,11 +21,11 @@ class TestThreadedParameterSearch(unittest.TestCase):
         )
         c = ParameterSearch(model, alpenglow.evaluation.DcgScore)
         c.set_parameter_values('top_k', [100, 50])
-        c.set_parameter_values('seed', [254938879, 0])
+        c.set_parameter_values('seed', [254938879, 123456])
 
         d = ThreadedParameterSearch(model, alpenglow.evaluation.DcgScore)
         d.set_parameter_values('top_k', [100, 50])
-        d.set_parameter_values('seed', [254938879, 0])
+        d.set_parameter_values('seed', [254938879, 123456])
 
         r1 = c.run(data)
         r2 = d.run(data)

@@ -55,7 +55,7 @@ class TestParameterSearch(unittest.TestCase):
         )
         c = ParameterSearch(model, alpenglow.evaluation.DcgScore)
         c.set_parameter_values('top_k', [100, 50])
-        c.set_parameter_values('seed', [254938879, 0])
+        c.set_parameter_values('seed', [254938879, 123456])
         r = c.run(data, exclude_known=True)
         assert len(r) == 4
 
