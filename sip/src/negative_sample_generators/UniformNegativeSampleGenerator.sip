@@ -1,29 +1,32 @@
-struct UniformNegativeSampleGeneratorParameters{
-    %TypeHeaderCode
-    #include "negative_sample_generators/UniformNegativeSampleGenerator.h"
-    %End
+
+struct UniformNegativeSampleGeneratorParameters {
+  %TypeHeaderCode
+  #include "negative_sample_generators/UniformNegativeSampleGenerator.h"
+  %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.UniformNegativeSampleGenerator`. See documentation there.
+  %End
     double negative_rate; 
-    bool initialize_all;
-    int max_item;
     bool filter_repeats;
     int seed;
 };
 
-class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public NeedsExperimentEnvironment{
-    %TypeHeaderCode
-    #include "negative_sample_generators/UniformNegativeSampleGenerator.h"
-    %End
+class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public Initializable, public NeedsExperimentEnvironment {
+  %TypeHeaderCode
+  #include "negative_sample_generators/UniformNegativeSampleGenerator.h"
+  %End
   public:
-    UniformNegativeSampleGenerator(UniformNegativeSampleGeneratorParameters* params);
+    UniformNegativeSampleGenerator(UniformNegativeSampleGeneratorParameters* parameters);
     void set_train_matrix(SpMatrix* train_matrix);
     void set_items(std::vector<int>* items);
     void set_items(VectorInt);
     %MethodCode
         sipCpp->set_items(&(a0->vec));
     %End
-    void set_experiment_environment(ExperimentEnvironment* ee);
+
+    std::vector<int>* generate(RecDat* rec_dat);
     bool self_test();
-    //vector<int>* generate(RecDat * rec_dat);
   protected:
     bool autocalled_initialize();
 };
+

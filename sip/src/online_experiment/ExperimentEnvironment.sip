@@ -65,14 +65,14 @@ class ExperimentEnvironment /NoDefaultCtors/{
        Returns
        -------
        int
-          The maximal user id int the whole experiment.  Use together with initialize_all=true.
+          The maximal user id int the whole experiment.
   %End
     int get_max_item_id() const;
   %Docstring
        Returns
        -------
        int
-          The maximal item id int the whole experiment.  Use together with initialize_all=true.
+          The maximal item id int the whole experiment.
   %End
 
     const RecommenderDataIterator* get_recommender_data_iterator() const;
@@ -89,6 +89,48 @@ class ExperimentEnvironment /NoDefaultCtors/{
       -------
       bool
           Whether the current item is new for the current user, i.e., this is the first occurrence of this user-item pair in the time series. Note that the value is updated only when the loggers had been called already.
+  %End
+    bool is_item_existing(int item) const;
+  %Docstring
+      Returns
+      -------
+      bool
+          Whether the item exists.  If ``initialize_all==True``, returns constant true value for items<=max_item_id, because all items exsist from the begininning of the experiment.  Note that new items come into existence after te call to loggers, before the call to updaters.
+  %End
+    bool is_new_item() const;
+  %Docstring
+      Returns
+      -------
+      bool
+          Whether the current item is new, i.e. come to existence with the current sample.  If ``initialize_all==True``, returns constant false value, because all items exsist from the begininning of the experiment.  Note that new items come into existence after te call to loggers, before the call to updaters.
+  %End
+    bool is_first_occurrence_of_item() const;
+  %Docstring
+      Returns
+      -------
+      bool
+          Whether the current item is mentioned for the first time in the current sample.  If  ``initialize_all==False``, equals to :py:meth:`is_new_item()`.
+  %End
+    bool is_user_existing(int user) const;
+  %Docstring
+      Returns
+      -------
+      bool
+          Whether the user exists.  If ``initialize_all==True``, returns constant true value for users<=max_user_id, because all users exsist from the begininning of the experiment.  Note that new users come into existence after te call to loggers, before the call to updaters.
+  %End
+    bool is_new_user() const;
+  %Docstring
+      Returns
+      -------
+      bool
+          Whether the current user is new, i.e. come to existence with the current sample.  If ``initialize_all==True``, returns constant false value, because all users exsist from the begininning of the experiment.  Note that new users come into existence after te call to loggers, before the call to updaters.
+  %End
+    bool is_first_occurrence_of_user() const;
+  %Docstring
+      Returns
+      -------
+      bool
+          Whether the current user is mentioned for the first time in the current sample.  If  ``initialize_all==False``, equals to :py:meth:`is_new_user()`.
   %End
     const std::vector<int>* get_items() const;
   %Docstring
@@ -138,6 +180,7 @@ class ExperimentEnvironment /NoDefaultCtors/{
          The newest available sample of the experiment.
 
   %End
+    bool self_test();
 
 };
 

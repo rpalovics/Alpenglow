@@ -6,6 +6,7 @@
 #include "../general_interfaces/Initializable.h"
 #include "../utils/Random.h"
 
+//SIP_AUTOCONVERT
 struct UniformNegativeSampleGeneratorParameters {
     double negative_rate = -1; 
     bool filter_repeats = false;
@@ -21,6 +22,12 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     {}
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_=train_matrix; }
     void set_items(vector<int>* items){ items_=items; }
+    /* SIP_CODE
+    void set_items(VectorInt);
+    %MethodCode
+        sipCpp->set_items(&(a0->vec));
+    %End
+    */
       
     vector<int>* generate(RecDat* rec_dat);
     bool self_test(){
