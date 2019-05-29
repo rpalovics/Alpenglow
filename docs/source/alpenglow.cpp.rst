@@ -825,6 +825,12 @@ This is the models/combination header file.
 
 
 
+.. autoclass:: alpenglow.cpp.ToplistCombinationModelParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.ToplistCombinationModel
     :members:
     :undoc-members:
@@ -838,6 +844,12 @@ This is the models/combination header file.
 
 
 .. autoclass:: alpenglow.cpp.WMSUpdater
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.RandomChoosingCombinedModelParameters
     :members:
     :undoc-members:
     :show-inheritance:
