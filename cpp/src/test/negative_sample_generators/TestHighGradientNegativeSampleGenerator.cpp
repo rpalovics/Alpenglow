@@ -24,13 +24,14 @@ class TestHighGradientNegativeSampleGenerator : public ::testing::Test {
 TEST_F(TestHighGradientNegativeSampleGenerator,general) {
   HighGradientNegativeSampleGeneratorParameters parameters;
   parameters.negative_rate = 3;
-  parameters.initialize_all = true;
   parameters.full_negative_rate = 13;
-  parameters.max_item = 13;
   parameters.seed = 12345678;
   HighGradientNegativeSampleGenerator generator(&parameters);
   generator.set_model(&model);
   generator.set_train_matrix(&train_matrix);
+  vector<int> items;
+  for(int i=0;i<14;i++) items.push_back(i);
+  generator.set_items(&items);
   ASSERT_TRUE(generator.self_test());
 }
 
@@ -38,12 +39,13 @@ TEST_F(TestHighGradientNegativeSampleGenerator,general1) {
   HighGradientNegativeSampleGeneratorParameters parameters;
   parameters.negative_rate = 3;
   parameters.full_negative_rate = 3;
-  parameters.initialize_all = true;
-  parameters.max_item = 15;
   parameters.seed = 12345678;
   HighGradientNegativeSampleGenerator generator(&parameters);
   generator.set_model(&model);
   generator.set_train_matrix(&train_matrix);
+  vector<int> items;
+  for(int i=0;i<16;i++) items.push_back(i);
+  generator.set_items(&items);
   ASSERT_TRUE(generator.self_test());
 
   train_matrix.insert(1,2,1.0);
@@ -81,12 +83,13 @@ TEST_F(TestHighGradientNegativeSampleGenerator,general2) {
   HighGradientNegativeSampleGeneratorParameters parameters;
   parameters.negative_rate = 4;
   parameters.full_negative_rate = 15;
-  parameters.initialize_all = true;
-  parameters.max_item = 15;
   parameters.seed = 12345678;
   HighGradientNegativeSampleGenerator generator(&parameters);
   generator.set_model(&model);
   generator.set_train_matrix(&train_matrix);
+  vector<int> items;
+  for(int i=0;i<16;i++) items.push_back(i);
+  generator.set_items(&items);
   ASSERT_TRUE(generator.self_test());
 
   train_matrix.insert(1,2,1.0);

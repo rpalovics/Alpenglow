@@ -1,16 +1,5 @@
 #include "HighGradientNegativeSampleGenerator.h"
 
-void HighGradientNegativeSampleGenerator::generate_item_vector(){
-  if(max_item_<0) {
-    cerr << "Error: HighGradientNegativeSampleGenerator::max_item_<0" << endl;
-    exit(1);
-  }
-  items_=new vector<int>;
-  for(int item=0; item<max_item_; item++){
-    items_->push_back(item);
-  }
-}
-
 vector<int>* HighGradientNegativeSampleGenerator::generate(RecDat* rec_dat){
   samples.clear();
   positive_sample_ = *rec_dat;

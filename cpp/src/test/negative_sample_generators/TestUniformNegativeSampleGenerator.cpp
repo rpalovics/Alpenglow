@@ -35,7 +35,6 @@ TEST_F(TestUniformNegativeSampleGenerator,test) { //TODO: test the without-repla
   parameters.negative_rate = 5;
   parameters.filter_repeats = false;
   parameters.seed=17339854;
-  parameters.initialize_all=false;
   UniformNegativeSampleGenerator neg_sample_generator(&parameters);
   neg_sample_generator.set_train_matrix(&train_matrix);
   neg_sample_generator.set_items(&items);

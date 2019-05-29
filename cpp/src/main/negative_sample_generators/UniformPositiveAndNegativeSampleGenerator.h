@@ -8,8 +8,6 @@
 
 struct UniformPositiveAndNegativeSampleGeneratorParameters { 
     double positive_rate,negative_rate,decay;
-    bool initialize_all;
-    int max_item;
     string distribution;
     int seed = 745578;
     bool generate_user,generate_item,sample;
@@ -26,7 +24,7 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
       train_matrix=train_matrix_;
     }
     void set_items(vector<int>* items_){
-      if(!initialize_all) items=items_;
+      items=items_;
     }
     vector<int>* generate(RecDat* rec_dat);
     vector<int>* generate_positive(RecDat* rec_dat, string type);
@@ -37,10 +35,6 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
       if(positive_rate < 0){
         ok=false;
         cerr << "UniformPositiveAndNegativeSampleGeneratorParameters::positive_rate is negative." << endl;
-      }
-      if(initialize_all && max_item<0){
-        ok = false;
-        cerr << "UniformPositiveAndNegativeSampleGeneratorParameters::max_item is negative but initialize_all is set." << endl;
       }
       if(items==NULL){
         ok = false;
@@ -69,8 +63,6 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
     SpMatrix* train_matrix;
     vector<vector<int>*> item_histories_, user_histories_;
     double positive_rate,negative_rate;
-    bool initialize_all;
-    int max_item;
     double decay;
     string distribution_;
     int seed_;

@@ -5,17 +5,11 @@ void UniformPositiveAndNegativeSampleGenerator::set_parameters(UniformPositiveAn
   train_matrix = NULL;
   positive_rate = parameters->positive_rate;
   negative_rate = parameters->negative_rate;
-  initialize_all=parameters->initialize_all;
   decay = parameters->decay;
   generate_user_ = parameters->generate_user;
   generate_item_ = parameters->generate_item;
   sample_ = parameters->sample;
   sample_num_type_ = parameters->sample_num_type;
-  if(initialize_all){
-    max_item=parameters->max_item;
-    items=new vector<int>(max_item+1);
-    for(uint i=0;i<items->size();i++){items->at(i)=i;}
-  }
   distribution_ = parameters->distribution;
   if(distribution_==""){
     distribution_ = "uniform";
