@@ -28,8 +28,8 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
     void set_items(vector<int>* items_){
       if(!initialize_all) items=items_;
     }
-    vector <int> * generate(RecDat * rec_dat);
-    vector <int> * generate_positive(RecDat * rec_dat, string type);
+    vector<int>* generate(RecDat* rec_dat);
+    vector<int>* generate_positive(RecDat* rec_dat, string type);
     vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample);
     void update(RecDat* rec_dat);
     bool self_test(){
@@ -63,10 +63,10 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
       else if(sample_num_type_ == "pow") return positive_rate / ((double) history_size);
       else return positive_rate / ((double) log(2)/log(history_size + 1));
     }
-    vector <int> * items;
-    vector <int> user_positive_samples, user_positive_relevances;
-    vector <int> item_positive_samples, item_positive_relevances;
-    SpMatrix * train_matrix;
+    vector<int>* items;
+    vector<int> user_positive_samples, user_positive_relevances;
+    vector<int> item_positive_samples, item_positive_relevances;
+    SpMatrix* train_matrix;
     vector<vector<int>*> item_histories_, user_histories_;
     double positive_rate,negative_rate;
     bool initialize_all;
