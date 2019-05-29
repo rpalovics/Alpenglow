@@ -107,19 +107,47 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       bool
           Whether the current item is new for the current user, i.e., this is the first occurrence of this user-item pair in the time series. Note that the value is updated only when the loggers had been called already.
     */
-    bool is_new_item() const { return new_item_; }
+    bool is_item_existing(int item) const { return !initialize_all_ && GET_VECTORMAP(item_map_,item,false); }
     /**
       Returns
       -------
       bool
-          Whether the current user is new, i.e. it is mentioned for the first time in the current sample.
+          Whether the item exists.  If ``initialize_all==True``, returns constant true value for items<=max_item_id, because all items exsist from the begininning of the experiment.  Note that new items come into existence after te call to loggers, before the call to updaters.
     */
-    bool is_new_user() const { return new_user_; }
+    bool is_new_item() const { return !initialize_all_ && first_occurrence_of_item_; }
     /**
       Returns
       -------
       bool
-          Whether the current user is new, i.e. it is mentioned for the first time in the current sample.
+          Whether the current item is new, i.e. come to existence with the current sample.  If ``initialize_all==True``, returns constant false value, because all items exsist from the begininning of the experiment.  Note that new items come into existence after te call to loggers, before the call to updaters.
+    */
+    bool is_first_occurrence_of_item() const { return first_occurrence_of_item_; }
+    /**
+      Returns
+      -------
+      bool
+          Whether the current item is mentioned for the first time in the current sample.  If  ``initialize_all==False``, equals to :py:meth:`is_new_item()`.
+    */
+    bool is_user_existing(int user) const { return !initialize_all_ && GET_VECTORMAP(user_map_,user,false); }
+    /**
+      Returns
+      -------
+      bool
+          Whether the user exists.  If ``initialize_all==True``, returns constant true value for users<=max_user_id, because all users exsist from the begininning of the experiment.  Note that new users come into existence after te call to loggers, before the call to updaters.
+    */
+    bool is_new_user() const { return !initialize_all_ && first_occurrence_of_user_; }
+    /**
+      Returns
+      -------
+      bool
+          Whether the current user is new, i.e. come to existence with the current sample.  If ``initialize_all==True``, returns constant false value, because all users exsist from the begininning of the experiment.  Note that new users come into existence after te call to loggers, before the call to updaters.
+    */
+    bool is_first_occurrence_of_user() const { return first_occurrence_of_user_; }
+    /**
+      Returns
+      -------
+      bool
+          Whether the current user is mentioned for the first time in the current sample.  If  ``initialize_all==False``, equals to :py:meth:`is_new_user()`.
     */
     const vector<int>* get_items() const { return &items_; }
     /**
@@ -193,8 +221,8 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
 
     //updatable components
     bool item_new_for_user_ = true;
-    bool new_item_ = true;
-    bool new_user_ = true;
+    bool first_occurrence_of_item_ = true;
+    bool first_occurrence_of_user_ = true;
     vector<int> item_map_;
     vector<int> items_;
     vector<int> user_map_;
