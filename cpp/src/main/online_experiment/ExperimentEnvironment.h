@@ -80,14 +80,14 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
        Returns
        -------
        int
-          The maximal user id int the whole experiment.  Use together with initialize_all=true.
+          The maximal user id int the whole experiment.
     */
     int get_max_item_id() const { return max_item_; }
     /**
        Returns
        -------
        int
-          The maximal item id int the whole experiment.  Use together with initialize_all=true.
+          The maximal item id int the whole experiment.
     */
 
     //common objects
@@ -107,7 +107,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       bool
           Whether the current item is new for the current user, i.e., this is the first occurrence of this user-item pair in the time series. Note that the value is updated only when the loggers had been called already.
     */
-    bool is_item_existing(int item) const { return !initialize_all_ && GET_VECTORMAP(item_map_,item,false); }
+    bool is_item_existing(int item) const { return (initialize_all_ && item<=max_item_) || GET_VECTORMAP(item_map_,item,false); }
     /**
       Returns
       -------
@@ -128,7 +128,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       bool
           Whether the current item is mentioned for the first time in the current sample.  If  ``initialize_all==False``, equals to :py:meth:`is_new_item()`.
     */
-    bool is_user_existing(int user) const { return !initialize_all_ && GET_VECTORMAP(user_map_,user,false); }
+    bool is_user_existing(int user) const { return (initialize_all_ && user<=max_user_) || GET_VECTORMAP(user_map_,user,false); }
     /**
       Returns
       -------
