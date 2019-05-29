@@ -13,14 +13,14 @@ class ExperimentEnvironment;
 class NeedsExperimentEnvironment;
 
 struct OnlineExperimentParameters {
-  int top_k;
-  int evaluation_start_time;
-  int experiment_termination_time;
-  bool exclude_known;
-  bool initialize_all;
-  int max_user;
-  int max_item;
-  int random_seed;
+  int top_k = 100;
+  int evaluation_start_time = 0;
+  int experiment_termination_time = 0;
+  bool exclude_known = true;
+  bool initialize_all = false;
+  int max_user = -1;
+  int max_item = -1;
+  int random_seed = 7992364;
 };
 
 class OnlineExperiment{

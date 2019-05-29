@@ -107,6 +107,20 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       bool
           Whether the current item is new for the current user, i.e., this is the first occurrence of this user-item pair in the time series. Note that the value is updated only when the loggers had been called already.
     */
+    bool is_new_item() const { return new_item_; }
+    /**
+      Returns
+      -------
+      bool
+          Whether the current user is new, i.e. it is mentioned for the first time in the current sample.
+    */
+    bool is_new_user() const { return new_user_; }
+    /**
+      Returns
+      -------
+      bool
+          Whether the current user is new, i.e. it is mentioned for the first time in the current sample.
+    */
     const vector<int>* get_items() const { return &items_; }
     /**
       Returns
@@ -156,20 +170,31 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
          The newest available sample of the experiment.
 
     */
+    bool self_test(){
+      bool ok = true;
+      if (top_k_<0) ok=false;
+      if (evaluation_start_time_!=0 && experiment_termination_time_!=0
+          && evaluation_start_time_>=experiment_termination_time_) ok=false;
+      if (initialize_all_ && (max_user_<0 || max_item_<0)) ok=false;
+      if (recommender_data_iterator_==NULL) ok=false;
+      return ok;
+    }
 
   private:
-    int top_k_;
-    int evaluation_start_time_;
-    int experiment_termination_time_;
-    bool exclude_known_;
-    bool initialize_all_;
-    int max_user_;
-    int max_item_;
+    int top_k_ = -1;
+    int evaluation_start_time_ = -1;
+    int experiment_termination_time_ = -1;
+    bool exclude_known_ = true;
+    bool initialize_all_ = false;
+    int max_user_ = -1;
+    int max_item_ = -1;
 
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
 
     //updatable components
-    bool item_new_for_user_;
+    bool item_new_for_user_ = true;
+    bool new_item_ = true;
+    bool new_user_ = true;
     vector<int> item_map_;
     vector<int> items_;
     vector<int> user_map_;

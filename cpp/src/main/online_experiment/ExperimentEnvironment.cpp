@@ -17,12 +17,18 @@ void ExperimentEnvironment::update(RecDat* rec_dat){
   double score = rec_dat->score; 
 
   if (!GET_VECTORMAP(item_map_,item,false)){
+    new_item_=true;
     PUT_VECTORMAP(item_map_,item,true);
     items_.push_back(item);
+  } else {
+    new_item_=false;
   }
   if (!GET_VECTORMAP(user_map_,user,false)){
+    new_user_=true;
     PUT_VECTORMAP(user_map_,user,true);
     users_.push_back(user);
+  } else {
+    new_user_=false;
   }
   if(train_matrix_.get(user,item)==0){
     item_new_for_user_=true;
