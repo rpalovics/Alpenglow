@@ -50,6 +50,22 @@ void TopPopContainer::increase(int item) {
     popularity_boundaries_[popularity]=idx;
   }
 }
+void TopPopContainer::create(int item){
+  //create with 0 pop if doesnt exist
+  if ((int)idxs_.size()<item+1) {
+    idxs_.resize(item+1,-1);
+  }
+  if (-1 == idxs_[item]) {
+    int popularity = 0;
+    top_list_.push_back(item);
+    popularities_.push_back(popularity);
+    int idx = top_list_.size()-1;
+    idxs_[item] = idx;
+    if (popularity_boundaries_.find(popularity)==popularity_boundaries_.end()){ //no items yet with 0 popularity
+      popularity_boundaries_[popularity]=idx;
+    }
+  } 
+}
 
 pair <int,double> TopPopContainer::get(int idx) const {
   pair <int,double> p;

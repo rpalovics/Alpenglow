@@ -93,6 +93,11 @@ class TopPopContainer{
       increase(int item)
       Increases the popularity of the item.
 */
+    void create(int item);
+/**
+      create(int item)
+      Adds an item to the container. The item will have 0 popularity, but will be counted in :py:meth:`size`.
+*/
     pair<int,double> get(int idx) const;
 ///**
 //      get(int index)
@@ -125,7 +130,7 @@ class TopPopContainer{
 */
     int size() const {return top_list_.size();} 
 /**
-      Returns the length of the complete toplist, i.e. the number of items having at least a popularity of 1.
+      Returns the length of the complete toplist, i.e. the number of items having at least a popularity of 1 or that were added through :py:meth:`create`.
 
 
       Returns

@@ -11,10 +11,13 @@ void ExperimentEnvironment::set_parameters(OnlineExperimentParameters* params){
   max_user_ = params->max_user;
   max_item_ = params->max_item;
   if (initialize_all_ && max_user_>0){
-    for(int i=0;i<=max_user_;i++) users_.push_back(i);
+    for(int user=0;user<=max_user_;user++) users_.push_back(user);
   }
   if (initialize_all_ && max_item_>0){
-    for(int i=0;i<=max_item_;i++) items_.push_back(i);
+    for(int item=0;item<=max_item_;item++){
+      items_.push_back(item);
+      popularity_sorted_container_.create(item);
+    }
   }
 }
 void ExperimentEnvironment::update(RecDat* rec_dat){
