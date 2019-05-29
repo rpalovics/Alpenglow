@@ -33,10 +33,10 @@ public:
     params.top_k = 123;
     params.evaluation_start_time = 0;
     params.experiment_termination_time = 0;
-    //params.exclude_known = true;
-    //params.initialize_all = false;
-    //params.max_user = -1;
-    //params.max_item = -1;
+    params.exclude_known = true;
+    params.initialize_all = false;
+    params.max_user = -1;
+    params.max_item = -1;
     params.random_seed = 54321;
   }
   virtual void TearDown(){
@@ -149,6 +149,9 @@ TEST_F(TestExperimentEnvironment, new_user_item) {
   //id=8 t=8 u=2 i=2 s=1
   //id=9 t=9 u=2 i=3 s=1
 
+  params.initialize_all = false;
+  params.max_user = -1;
+  params.max_item = -1;
   ExperimentEnvironment expenv;
   expenv.set_parameters(&params);
   expenv.set_recommender_data_iterator(&rdi);
@@ -156,27 +159,94 @@ TEST_F(TestExperimentEnvironment, new_user_item) {
 
   expenv.update(rdi.next());
   EXPECT_TRUE(expenv.is_new_item());
+  EXPECT_TRUE(expenv.is_first_occurrence_of_item());
   EXPECT_TRUE(expenv.is_new_user());
+  EXPECT_TRUE(expenv.is_first_occurrence_of_user());
   EXPECT_TRUE(expenv.is_item_new_for_user());
 
   expenv.update(rdi.next());
   EXPECT_FALSE(expenv.is_new_item());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_item());
   EXPECT_FALSE(expenv.is_new_user());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_user());
   EXPECT_FALSE(expenv.is_item_new_for_user());
 
   expenv.update(rdi.next());
   EXPECT_FALSE(expenv.is_new_item());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_item());
   EXPECT_FALSE(expenv.is_new_user());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_user());
   EXPECT_FALSE(expenv.is_item_new_for_user());
 
   expenv.update(rdi.next());
   EXPECT_TRUE(expenv.is_new_item());
+  EXPECT_TRUE(expenv.is_first_occurrence_of_item());
   EXPECT_FALSE(expenv.is_new_user());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_user());
   EXPECT_TRUE(expenv.is_item_new_for_user());
 
   expenv.update(rdi.next());
   EXPECT_FALSE(expenv.is_new_item());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_item());
   EXPECT_TRUE(expenv.is_new_user());
+  EXPECT_TRUE(expenv.is_first_occurrence_of_user());
+  EXPECT_TRUE(expenv.is_item_new_for_user());
+}
+
+TEST_F(TestExperimentEnvironment, new_user_item_initall) {
+  //data:
+  //id=0 t=0 u=0 i=0 s=1
+  //id=1 t=1 u=0 i=0 s=1
+  //id=2 t=2 u=0 i=0 s=1
+  //id=3 t=3 u=0 i=1 s=1
+  //id=4 t=4 u=1 i=1 s=1
+  //id=5 t=5 u=1 i=1 s=1
+  //id=6 t=6 u=1 i=2 s=1
+  //id=7 t=7 u=1 i=2 s=1
+  //id=8 t=8 u=2 i=2 s=1
+  //id=9 t=9 u=2 i=3 s=1
+
+  params.initialize_all = true;
+  params.max_user = 2;
+  params.max_item = 3;
+  ExperimentEnvironment expenv;
+  expenv.set_parameters(&params);
+  expenv.set_recommender_data_iterator(&rdi);
+  EXPECT_TRUE(expenv.self_test());
+
+  expenv.update(rdi.next());
+  EXPECT_FALSE(expenv.is_new_item());
+  EXPECT_TRUE(expenv.is_first_occurrence_of_item());
+  EXPECT_FALSE(expenv.is_new_user());
+  EXPECT_TRUE(expenv.is_first_occurrence_of_user());
+  EXPECT_TRUE(expenv.is_item_new_for_user());
+
+  expenv.update(rdi.next());
+  EXPECT_FALSE(expenv.is_new_item());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_item());
+  EXPECT_FALSE(expenv.is_new_user());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_user());
+  EXPECT_FALSE(expenv.is_item_new_for_user());
+
+  expenv.update(rdi.next());
+  EXPECT_FALSE(expenv.is_new_item());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_item());
+  EXPECT_FALSE(expenv.is_new_user());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_user());
+  EXPECT_FALSE(expenv.is_item_new_for_user());
+
+  expenv.update(rdi.next());
+  EXPECT_FALSE(expenv.is_new_item());
+  EXPECT_TRUE(expenv.is_first_occurrence_of_item());
+  EXPECT_FALSE(expenv.is_new_user());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_user());
+  EXPECT_TRUE(expenv.is_item_new_for_user());
+
+  expenv.update(rdi.next());
+  EXPECT_FALSE(expenv.is_new_item());
+  EXPECT_FALSE(expenv.is_first_occurrence_of_item());
+  EXPECT_FALSE(expenv.is_new_user());
+  EXPECT_TRUE(expenv.is_first_occurrence_of_user());
   EXPECT_TRUE(expenv.is_item_new_for_user());
 }
 
