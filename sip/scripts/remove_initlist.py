@@ -24,6 +24,8 @@ if __name__ == "__main__":
         if state == "constr_decl" :
           if char==":" :
             state = "del"
+          elif char=="\n" :
+            pass
           elif char=="{" or char==";":
             state = "keep_further"
             in_constr = False

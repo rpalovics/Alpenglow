@@ -105,6 +105,9 @@ do
   | sed -r "s/([([:space:]])string/\1std::string/g" \
   | sed -r "s/([([:space:]])vector</\1std::vector</g" \
   | sed -r "s|^(.*RankingScoreIterator)|//\1|" \
+  | sed -r "s|^(.*ToplistFromRankingScoreRecommender)|//\1|" \
+  | sed -r "s|^(.*EigenFactors)|//\1|" \
+  | sed -r "s|^(.*MatrixXdRM)|//\1|" \
   | sed -r "s|^(.*UpdaterMessage)|//\1|" \
   | sed -r "s|^(.*stream)|//\1|" \
   | sed -r "s|^(.*pair<)|//\1|" \
