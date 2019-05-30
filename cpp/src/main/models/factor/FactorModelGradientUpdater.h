@@ -7,18 +7,12 @@
 using namespace std;
 
 struct FactorModelGradientUpdaterParameters {
-  bool turn_off_user_factor_updates;
-  bool turn_off_item_factor_updates;
-  bool turn_off_user_bias_updates;
-  bool turn_off_item_bias_updates;
-  double learning_rate, regularization_rate;
-  double learning_rate_bias, regularization_rate_bias;
-  FactorModelGradientUpdaterParameters(){ //setting all to jinjactor default value
-    turn_off_user_factor_updates=false;turn_off_item_factor_updates=false;
-    turn_off_user_bias_updates=false;turn_off_item_bias_updates=false;
-    learning_rate=-1;regularization_rate=-1;
-    learning_rate_bias=-1;regularization_rate_bias=-1;
-  }
+  bool turn_off_user_factor_updates = false;
+  bool turn_off_item_factor_updates = false;
+  bool turn_off_user_bias_updates = false;
+  bool turn_off_item_bias_updates = false;
+  double learning_rate = -1, regularization_rate = -1;
+  double learning_rate_bias = -1, regularization_rate_bias = -1;
 };
 
 class FactorModelGradientUpdater : public ModelGradientUpdater{
@@ -33,9 +27,7 @@ class FactorModelGradientUpdater : public ModelGradientUpdater{
       regularization_rate_(parameters->regularization_rate),//should not set to -1 even if missing
       regularization_rate_bias_(parameters->regularization_rate_bias)
     {
-      model_ = NULL;
     }
-    ~FactorModelGradientUpdater(){};
     virtual void update(RecDat *rec_dat, double gradient) override;
     void set_model(FactorModel* model){ model_ = model; }
     bool self_test(){
@@ -58,7 +50,7 @@ class FactorModelGradientUpdater : public ModelGradientUpdater{
     const bool turn_off_user_bias_updates_;
     const bool turn_off_item_bias_updates_;
     //components
-    FactorModel* model_;
+    FactorModel* model_ = NULL;
     //other
     void update_factors(RecDat* rec_dat, double gradient);
     void update_biases(RecDat* rec_dat, double gradient);

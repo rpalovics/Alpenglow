@@ -15,24 +15,15 @@ using namespace std;
 /// SVD++ algorithm
 
 struct SvdppModelParameters {
-  int dimension;
-  double begin_min, begin_max;
-  bool initialize_all, use_sigmoid;
-  int max_item, max_user;
-  double user_vector_weight;
-  double history_weight;
-  string norm_type;
-  double gamma;
+  int dimension = -1;
+  double begin_min = -1, begin_max = -1;
+  bool initialize_all = false, use_sigmoid = false;
+  int max_item = -1, max_user = -1;
+  double user_vector_weight = -1;
+  double history_weight = -1;
+  string norm_type = "";
+  double gamma = -1;
   int seed=928357823;
-  SvdppModelParameters(){
-    dimension=-1;
-    begin_min=-1;begin_max=-1;
-    initialize_all=false;use_sigmoid=false;
-    max_item=-1;max_user=-1;
-    user_vector_weight=-1;history_weight=-1;
-    norm_type="";
-    gamma=-1;
-  }
 };
 
 class SvdppModel : public Model {
@@ -65,7 +56,6 @@ class SvdppModel : public Model {
     //double get_history_weight(int num);
     //double compute_user_bias(RecDat * rec_dat);
     //double compute_item_bias(RecDat * rec_dat);
-    virtual ~SvdppModel(){}
     bool self_test(){
       bool ok=Model::self_test();
       if(initialize_all_ and (max_item_==-1 or max_user_ ==-1)){

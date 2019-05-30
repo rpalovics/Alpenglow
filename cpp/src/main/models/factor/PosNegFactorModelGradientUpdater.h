@@ -7,27 +7,18 @@
 using namespace std;
 
 struct PosNegFactorModelGradientUpdaterParameters {
-  bool turn_off_user_factor_updates; //turns off user vector updates at all
-  bool turn_off_item_factor_updates;
-  bool turn_off_user_bias_updates; //turns off user bias updates at all
-  bool turn_off_item_bias_updates;
-  double learning_rate, regularization_rate;
-  double learning_rate_bias, regularization_rate_bias;
+  bool turn_off_user_factor_updates = false; //turns off user vector updates at all
+  bool turn_off_item_factor_updates = false;
+  bool turn_off_user_bias_updates = false; //turns off user bias updates at all
+  bool turn_off_item_bias_updates = false;
+  double learning_rate = -1, regularization_rate = -1;
+  double learning_rate_bias = -1, regularization_rate_bias = -1;
   //posneg
-  double learning_rate_decrease; //multiplies lr when updating extra samples
-  bool turn_on_user_posneg_factor_updates;
-  bool turn_on_item_posneg_factor_updates;
-  bool turn_on_user_posneg_bias_updates;
-  bool turn_on_item_posneg_bias_updates;
-  PosNegFactorModelGradientUpdaterParameters(){ //setting all to jinjactor default value
-    turn_off_user_factor_updates=false;turn_off_item_factor_updates=false;
-    turn_off_user_bias_updates=false;turn_off_item_bias_updates=false;
-    learning_rate-=1;regularization_rate=-1;
-    learning_rate_bias=-1;regularization_rate_bias=-1;
-    learning_rate_decrease=-1;
-    turn_on_user_posneg_factor_updates=false;turn_on_item_posneg_factor_updates=false;
-    turn_on_user_posneg_bias_updates=false;turn_on_item_posneg_bias_updates=false;
-  }
+  double learning_rate_decrease = -1; //multiplies lr when updating extra samples
+  bool turn_on_user_posneg_factor_updates = false;
+  bool turn_on_item_posneg_factor_updates = false;
+  bool turn_on_user_posneg_bias_updates = false;
+  bool turn_on_item_posneg_bias_updates = false;
 };
 
 class PosNegFactorModelGradientUpdater : public ModelGradientUpdater{
@@ -46,9 +37,7 @@ class PosNegFactorModelGradientUpdater : public ModelGradientUpdater{
       turn_on_item_posneg_factor_updates_(parameters->turn_on_item_posneg_factor_updates),
       turn_on_user_posneg_bias_updates_(parameters->turn_on_user_posneg_bias_updates),
       turn_on_item_posneg_bias_updates_(parameters->turn_on_item_posneg_bias_updates)
-    {
-      model_ = NULL;
-    };
+    {};
     virtual void update(RecDat *rec_dat, double gradient) override;
     void set_model(FactorModel* model){ model_ = model; }
     bool self_test(){
@@ -77,7 +66,7 @@ class PosNegFactorModelGradientUpdater : public ModelGradientUpdater{
     bool turn_on_user_posneg_bias_updates_;
     bool turn_on_item_posneg_bias_updates_;
     //components
-    FactorModel* model_;
+    FactorModel* model_ = NULL;
     //other
     void update_factors(RecDat* rec_dat, double gradient);
     void update_biases(RecDat* rec_dat, double gradient);

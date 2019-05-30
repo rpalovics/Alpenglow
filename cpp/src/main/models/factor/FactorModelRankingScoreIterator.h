@@ -26,7 +26,7 @@ public:
 protected:
   double user_factor_norm_;
   vector<double> user_factor_;
-  LempContainer *container_;
+  LempContainer *container_ = NULL;
   multiset<LempBucket*>::iterator next_bucket_;
   vector<pair<int,double>> current_scores_;
 };

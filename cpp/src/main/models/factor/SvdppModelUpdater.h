@@ -6,7 +6,6 @@
 
 class SvdppModelUpdater : public Updater{
   public:
-    SvdppModelUpdater(){ model_ = NULL; }
     void update(RecDat* rec_dat) override {
       model_->user_history_container_.update(rec_dat);
       model_->invalidate_user_factor_=true;
@@ -19,7 +18,7 @@ class SvdppModelUpdater : public Updater{
       return ok;
     }
   private:
-    SvdppModel* model_;
+    SvdppModel* model_ = NULL;
 };
 
 #endif /* SVDPP_MODEL_UPDATER_H */

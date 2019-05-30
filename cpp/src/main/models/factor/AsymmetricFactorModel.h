@@ -13,21 +13,16 @@ using namespace std;
 
 
 struct AsymmetricFactorModelParameters {
-  int dimension;
-  double begin_min, begin_max;
-  bool initialize_all, use_sigmoid;
-  int max_item;
-  string norm_type; //disabled, constant, recency, exponential, youngest
-  double gamma;
+  //TODO use sane default values
+  int dimension = -1;
+  double begin_min = -1, begin_max = -1;
+  bool use_sigmoid = false;
+  string norm_type = ""; //disabled, constant, recency, exponential, youngest
+  double gamma = -1;
   int seed=928357823;
-  AsymmetricFactorModelParameters(){
-    dimension=-1;
-    begin_min=-1; begin_max=-1;
-    initialize_all=false; use_sigmoid=false;
-    max_item=-1;
-    norm_type="";
-    gamma=-1;
-  }
+  //TODO keep default values at -1, meaning unset -> NeedsExpEnv
+  int initialize_all=-1;
+  int max_item = -1;
 };
 
 class AsymmetricFactorModel : public Model{
@@ -48,8 +43,7 @@ class AsymmetricFactorModel : public Model{
     void write(ostream& file) override;
     void read(istream& file) override;
     void clear() override;
-    virtual ~AsymmetricFactorModel() {}
-    bool self_test(){
+    bool self_test(){ //TODO test random
       bool ok = Model::self_test();
       if(initialize_all_ and max_item_==-1){
         ok = false;

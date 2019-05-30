@@ -56,6 +56,7 @@ TEST_F(TestAsymmetricFactorModel, test){
   model_params.begin_max=0.1;
   model_params.norm_type="exponential";
   model_params.gamma=0.8;
+  model_params.initialize_all=false;
   AsymmetricFactorModel model(&model_params);
   AsymmetricFactorModelUpdater simple_updater;
   AsymmetricFactorModelGradientUpdaterParameters grad_upd_params;
@@ -97,6 +98,7 @@ TEST_F(TestAsymmetricFactorModel, test2){
   model_params.begin_max=0.1;
   model_params.norm_type="exponential";
   model_params.gamma=0;
+  model_params.initialize_all=false;
   AsymmetricFactorModel model(&model_params);
   AsymmetricFactorModelUpdater simple_updater;
   AsymmetricFactorModelGradientUpdaterParameters grad_upd_params;
@@ -138,6 +140,7 @@ TEST_F(TestAsymmetricFactorModel, test3){
   model_params.begin_max=0.1;
   model_params.norm_type="exponential";
   model_params.gamma=-0.8;
+  model_params.initialize_all=false;
   AsymmetricFactorModel model(&model_params);
   AsymmetricFactorModelUpdater simple_updater;
   AsymmetricFactorModelGradientUpdaterParameters grad_upd_params;
@@ -179,6 +182,7 @@ TEST_F(TestAsymmetricFactorModel, test_weights){
   model_params.begin_max=0.1;
   model_params.norm_type="exponential";
   model_params.gamma=0.8;
+  model_params.initialize_all=false;
   AsymmetricFactorModel model(&model_params);
   AsymmetricFactorModelUpdater simple_updater;
   AsymmetricFactorModelGradientUpdaterParameters grad_upd_params;

@@ -37,7 +37,8 @@ class AsymmetricFactorExperiment(prs.OnlineExperiment):
             dimension=10,
             use_sigmoid=False,
             norm_type="exponential",
-            gamma=0.8
+            gamma=0.8,
+            initialize_all=False
         ))
 
         gradient_updater = rs.AsymmetricFactorModelGradientUpdater(**self.parameter_defaults(

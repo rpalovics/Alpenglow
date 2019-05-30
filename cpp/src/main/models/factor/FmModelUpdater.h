@@ -16,7 +16,7 @@ class FmModelUpdater : public Updater{
     void update(RecDat* rec_dat) override;
     void set_model(FmModel* model){model_ = model;};
     bool self_test(){
-      bool OK = true;
+      bool OK = Updater::self_test();
       if(model_ == NULL){
         OK = false;
         cerr << "FmModelUpdater model_ not set." << endl;

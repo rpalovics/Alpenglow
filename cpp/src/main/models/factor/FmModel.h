@@ -68,7 +68,7 @@ class FmModel : public Model, public Initializable
 
     //state
     Factors user_factors_, item_factors_;
-    SparseAttributeContainer *user_attributes_, *item_attributes_;
+    SparseAttributeContainer *user_attributes_ = NULL, *item_attributes_ = NULL;
     unordered_map<int, double> indentity_;
     vector<bool> seen_users_;
     vector<bool> seen_items_;

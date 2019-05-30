@@ -31,7 +31,8 @@ class AsymmetricFactorModel(alpenglow.offline.OfflineModel):
             dimension=self.parameter_default("dimension", 10),
             use_sigmoid=False,
             norm_type="constant",
-            gamma=1
+            gamma=1,
+            initialize_all=False
         )
 
         updater = rs.AsymmetricFactorModelGradientUpdater(**self.parameter_defaults(
