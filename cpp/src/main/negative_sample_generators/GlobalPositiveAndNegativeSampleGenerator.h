@@ -7,8 +7,6 @@
 
 struct GlobalPositiveAndNegativeSampleGeneratorParameters { 
     double positive_rate,negative_rate,decay;
-    bool initialize_all;
-    int max_item;
     int seed = 745578; 
     int threshold;
     string decay_type;
@@ -21,7 +19,7 @@ class GlobalPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator 
     };
     void set_parameters (GlobalPositiveAndNegativeSampleGeneratorParameters * parameters);
     void set_train_matrix(SpMatrix* train_matrix_){train_matrix=train_matrix_;}
-    void set_items(vector<int>* items_){ if(!initialize_all) items=items_;}
+    void set_items(vector<int>* items_){items=items_;}
     vector<int>* generate(RecDat* rec_dat);
     void generate_positive(RecDat* rec_dat);
     vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample);
@@ -37,8 +35,6 @@ class GlobalPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator 
     SpMatrix* train_matrix;
     vector<RecDat*> history;
     double positive_rate,negative_rate;
-    bool initialize_all;
-    int max_item;
     double decay; 
     int seed_;
     Random random_;

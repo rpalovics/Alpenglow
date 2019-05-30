@@ -5,14 +5,8 @@ void GlobalPositiveAndNegativeSampleGenerator::set_parameters(GlobalPositiveAndN
   train_matrix = NULL;
   positive_rate = parameters->positive_rate;
   negative_rate = parameters->negative_rate;
-  initialize_all=parameters->initialize_all;
   decay = parameters->decay;
   threshold = parameters->threshold;
-  if(initialize_all){
-    max_item=parameters->max_item;
-    items=new vector<int>(max_item+1);
-    for(uint i=0;i<items->size();i++){items->at(i)=i;}
-  }
   decay_type = parameters->decay_type;
   if(decay_type=="") decay_type = "uniform"; 
   seed_ = parameters->seed;
