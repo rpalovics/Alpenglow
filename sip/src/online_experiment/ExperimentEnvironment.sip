@@ -137,14 +137,14 @@ class ExperimentEnvironment /NoDefaultCtors/{
       Returns
       -------
       std::vector<int>*
-          A pointer to the list of known items. In the online experiment, the list is updated by this class for each sample after the call of the loggers and before the call to the updaters.
+          A pointer to the list of known items. In the online experiment, the list is updated by this class for each sample after the call of the loggers and before the call to the updaters.  If ``initialize_all==True``, the list is filled with items at the beginning of the experiment.
   %End
     const std::vector<int>* get_users() const;
   %Docstring
       Returns
       -------
       std::vector<int>*
-          A pointer to the list of known users.
+          A pointer to the list of known users.  In the online experiment, the list is updated by this class for each sample after the call of the loggers and before the call to the updaters.  If ``initialize_all==True``, the list is filled with users at the beginning of the experiment.
   %End
     const SpMatrix* get_train_matrix() const;
   %Docstring
@@ -165,7 +165,7 @@ class ExperimentEnvironment /NoDefaultCtors/{
       Returns
       -------
       TopPopContainer*
-          A pointer to a container containing the popularity statistics of known items.  The items can be acquired in popularity order.
+          A pointer to a container containing the popularity statistics of known items.  The items can be acquired in popularity order.  The container contains all known items.
   %End
 
     void update(RecDat* rec_dat);

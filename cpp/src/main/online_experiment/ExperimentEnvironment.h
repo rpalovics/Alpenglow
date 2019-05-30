@@ -154,14 +154,14 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       Returns
       -------
       vector<int>*
-          A pointer to the list of known items. In the online experiment, the list is updated by this class for each sample after the call of the loggers and before the call to the updaters.
+          A pointer to the list of known items. In the online experiment, the list is updated by this class for each sample after the call of the loggers and before the call to the updaters.  If ``initialize_all==True``, the list is filled with items at the beginning of the experiment.
     */
     const vector<int>* get_users() const { return &users_; }
     /**
       Returns
       -------
       vector<int>*
-          A pointer to the list of known users.
+          A pointer to the list of known users.  In the online experiment, the list is updated by this class for each sample after the call of the loggers and before the call to the updaters.  If ``initialize_all==True``, the list is filled with users at the beginning of the experiment.
     */
     const SpMatrix* get_train_matrix() const { return &train_matrix_; }
     /**
@@ -182,7 +182,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       Returns
       -------
       TopPopContainer*
-          A pointer to a container containing the popularity statistics of known items.  The items can be acquired in popularity order.
+          A pointer to a container containing the popularity statistics of known items.  The items can be acquired in popularity order.  The container contains all known items.
     */
 
     //update
