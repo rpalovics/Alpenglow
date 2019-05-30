@@ -6,6 +6,8 @@
 #include "../../utils/Factors.h"
 #include "../../utils/Util.h"
 #include "../../utils/UserHistory.h"
+#include "../../general_interfaces/NeedsExperimentEnvironment.h"
+#include "../../general_interfaces/Initializable.h"
 #include "../Model.h"
 #include <gtest/gtest_prod.h>
 
@@ -30,7 +32,11 @@ struct SvdppModelParameters {
   int max_user = -1;
 };
 
-class SvdppModel : public Model {
+class SvdppModel
+: public Model
+, public NeedsExperimentEnvironment
+, public Initializable
+{
   public:
     SvdppModel(SvdppModelParameters *parameters):
       dimension_(parameters->dimension),
@@ -86,9 +92,10 @@ class SvdppModel : public Model {
     //parameters
     const int dimension_;
     const double begin_min_, begin_max_;
-    const bool initialize_all_, use_sigmoid_;
-    const int max_user_;
-    const int max_item_;
+    const bool use_sigmoid_;
+    int initialize_all_;
+    int max_user_;
+    int max_item_;
     const double user_vector_weight_;
     const double history_weight_;
     const string norm_type_;
@@ -109,6 +116,22 @@ class SvdppModel : public Model {
     //vector<vector<int>*> user_history_;
 
     //other
+    bool autocalled_initialize(){
+      if (-1==initialize_all_){
+        if (NULL==experiment_environment_) return false;
+        initialize_all_ = experiment_environment_->get_initialize_all();
+      }
+      if(initialize_all_ && max_item_==-1){
+        if (NULL==experiment_environment_) return false;
+        max_item_ = experiment_environment_->get_max_item_id();
+      }
+      if(initialize_all_ && max_user_==-1){
+        if (NULL==experiment_environment_) return false;
+        max_user_ = experiment_environment_->get_max_user_id();
+      }
+      clear();
+      return true;
+    }
     void set_parameters(SvdppModelParameters* parameters);
     void compute_user_factor(RecDat* rec_dat);
     double compute_norm(int user_activity_size);

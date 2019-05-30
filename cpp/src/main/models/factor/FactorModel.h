@@ -7,6 +7,7 @@
 #include "../../utils/Bias.h"
 #include "../../utils/Recency.h"
 #include "../../general_interfaces/NeedsExperimentEnvironment.h"
+#include "../../general_interfaces/Initializable.h"
 #include "../Model.h"
 #include "../SimilarityModel.h"
 #include "../RankingScoreIterator.h"
@@ -102,14 +103,18 @@ class FactorModel
     FactorModelRankingScoreIterator ranking_score_iterator_;
 
     //other
-    bool autocalled_initialize() override {
-      if (initialize_all_==-1) { //not set -> get common value from expenv
-        if (experiment_environment_==NULL) return false; //no common container
-        initialize_all_=experiment_environment_->get_initialize_all();
-        if (initialize_all_){
-          if (max_user_==-1) max_user_=experiment_environment_->get_max_user_id();
-          if (max_item_==-1) max_item_=experiment_environment_->get_max_item_id();
-        }
+    bool autocalled_initialize(){
+      if (-1==initialize_all_){
+        if (NULL==experiment_environment_) return false;
+        initialize_all_ = experiment_environment_->get_initialize_all();
+      }
+      if(initialize_all_ && max_item_==-1){
+        if (NULL==experiment_environment_) return false;
+        max_item_ = experiment_environment_->get_max_item_id();
+      }
+      if(initialize_all_ && max_user_==-1){
+        if (NULL==experiment_environment_) return false;
+        max_user_ = experiment_environment_->get_max_user_id();
       }
       clear();
       return true;
