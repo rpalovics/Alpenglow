@@ -11,10 +11,12 @@
 
 using namespace std;
 
+//SIP_AUTOCONVERT
 
 struct AsymmetricFactorModelParameters {
   int dimension = 10;
-  double begin_min = -0.1, begin_max = 0.1;
+  double begin_min = -0.1;
+  double begin_max = 0.1;
   bool use_sigmoid = false;
   string norm_type = "constant"; //disabled, constant, recency, exponential, youngest
   double gamma = 0.8;
@@ -23,7 +25,7 @@ struct AsymmetricFactorModelParameters {
   int max_item = -1;
 };
 
-class AsymmetricFactorModel : public Model{ //TODO NeedsExpEnv
+class AsymmetricFactorModel : public Model { //TODO NeedsExpEnv
   public:
     AsymmetricFactorModel(AsymmetricFactorModelParameters *parameters)
       :norm_type_(parameters->norm_type)

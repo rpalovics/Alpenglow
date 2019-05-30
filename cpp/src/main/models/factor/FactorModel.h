@@ -15,6 +15,8 @@
 #include "FactorModelRankingScoreIterator.h"
 #include <gtest/gtest_prod.h>
 
+//SIP_AUTOCONVERT
+
 using namespace std;
 
 struct FactorModelParameters {
@@ -31,13 +33,13 @@ struct FactorModelParameters {
   int max_user = -1;
 };
 
-class FactorModel 
+class FactorModel
   : public Model, 
     public SimilarityModel,
-    public Initializable,
     public NeedsExperimentEnvironment,
     virtual public RankingScoreIteratorProvider,
-    public ToplistFromRankingScoreRecommender
+    public ToplistFromRankingScoreRecommender,
+    public Initializable
 {
   public:
     FactorModel(FactorModelParameters *parameters):

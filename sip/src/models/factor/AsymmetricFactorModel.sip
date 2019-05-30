@@ -20,7 +20,7 @@ struct AsymmetricFactorModelParameters {
 class AsymmetricFactorModel : public Model {
   %TypeHeaderCode
   #include "models/factor/AsymmetricFactorModel.h"
-  %End
+  %End 
   public:
     AsymmetricFactorModel(AsymmetricFactorModelParameters *parameters);
     void add(RecDat* rec_dat);

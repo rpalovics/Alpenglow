@@ -19,7 +19,7 @@ struct FactorModelParameters {
   int max_user;
 };
 
-class FactorModel 
+class FactorModel
   : public Model, 
     public SimilarityModel,
     public NeedsExperimentEnvironment,

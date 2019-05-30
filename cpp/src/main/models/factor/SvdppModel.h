@@ -12,11 +12,13 @@
 using namespace std;
 
 
+//SIP_AUTOCONVERT
 /// SVD++ algorithm
 
 struct SvdppModelParameters {
   int dimension = 10;
-  double begin_min = -0.1, begin_max = 0.1;
+  double begin_min = -0.1;
+  double begin_max = 0.1;
   bool use_sigmoid = false;
   double user_vector_weight = 1;
   double history_weight = 1;
@@ -24,7 +26,8 @@ struct SvdppModelParameters {
   double gamma = 0.8;
   int seed=928357823;
   int initialize_all = false;
-  int max_item = -1, max_user = -1;
+  int max_item = -1;
+  int max_user = -1;
 };
 
 class SvdppModel : public Model {

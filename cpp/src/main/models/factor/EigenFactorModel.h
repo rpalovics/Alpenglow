@@ -11,6 +11,8 @@
 #include "../TopListRecommender.h"
 #include "lemp/EigenFactorsLempContainer.h"
 
+//SIP_AUTOCONVERT
+
 using namespace std;
 
 struct EigenFactorModelParameters {
@@ -23,9 +25,9 @@ struct EigenFactorModelParameters {
 
 class EigenFactorModel
 : public Model,
-  public Initializable,
   virtual public RankingScoreIteratorProvider,
-  public ToplistFromRankingScoreRecommender
+  public ToplistFromRankingScoreRecommender,
+  public Initializable
 {
   public:
     EigenFactorModel(EigenFactorModelParameters *parameters):

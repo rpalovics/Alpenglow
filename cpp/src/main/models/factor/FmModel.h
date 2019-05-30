@@ -7,11 +7,14 @@
 #include "../Model.h"
 #include "../SimilarityModel.h"
 
+//SIP_AUTOCONVERT
+
 using namespace std;
 
 struct FmModelParameters {
   int dimension=10;
-  double begin_min=-0.01, begin_max=0.01;
+  double begin_min=-0.01;
+  double begin_max=0.01;
   // bool use_item_bias, use_user_bias;
   int seed=67439852;
   SparseAttributeContainer *user_attributes = NULL;
