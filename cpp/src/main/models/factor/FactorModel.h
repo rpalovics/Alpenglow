@@ -24,11 +24,11 @@ struct FactorModelParameters {
   bool use_sigmoid = false;
   bool use_item_bias = false;
   bool use_user_bias = false;
+  int seed=745578;
+  int lemp_bucket_size = 64;
   int initialize_all = -1;
   int max_item = -1;
   int max_user = -1;
-  int seed=745578;
-  int lemp_bucket_size = 64;
 };
 
 class FactorModel 

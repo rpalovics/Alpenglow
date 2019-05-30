@@ -7,7 +7,7 @@
 using namespace std;
 
 struct FmModelUpdaterParameters {
-  double learning_rate;
+  double learning_rate = 0.1;
 };
 
 class FmModelUpdater : public Updater{

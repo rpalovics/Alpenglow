@@ -11,8 +11,8 @@ struct FactorModelGradientUpdaterParameters {
   bool turn_off_item_factor_updates = false;
   bool turn_off_user_bias_updates = false;
   bool turn_off_item_bias_updates = false;
-  double learning_rate = -1, regularization_rate = -1;
-  double learning_rate_bias = -1, regularization_rate_bias = -1;
+  double learning_rate = 0.1, regularization_rate = 0;
+  double learning_rate_bias = 0.1, regularization_rate_bias = 0;
 };
 
 class FactorModelGradientUpdater : public ModelGradientUpdater{

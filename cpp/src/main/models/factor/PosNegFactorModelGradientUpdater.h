@@ -11,10 +11,10 @@ struct PosNegFactorModelGradientUpdaterParameters {
   bool turn_off_item_factor_updates = false;
   bool turn_off_user_bias_updates = false; //turns off user bias updates at all
   bool turn_off_item_bias_updates = false;
-  double learning_rate = -1, regularization_rate = -1;
-  double learning_rate_bias = -1, regularization_rate_bias = -1;
+  double learning_rate = 0.1, regularization_rate = 0;
+  double learning_rate_bias = 0.1, regularization_rate_bias = 0;
   //posneg
-  double learning_rate_decrease = -1; //multiplies lr when updating extra samples
+  double learning_rate_decrease = 1; //multiplies lr when updating extra samples
   bool turn_on_user_posneg_factor_updates = false;
   bool turn_on_item_posneg_factor_updates = false;
   bool turn_on_user_posneg_bias_updates = false;

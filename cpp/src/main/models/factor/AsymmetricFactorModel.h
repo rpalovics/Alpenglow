@@ -13,19 +13,17 @@ using namespace std;
 
 
 struct AsymmetricFactorModelParameters {
-  //TODO use sane default values
-  int dimension = -1;
-  double begin_min = -1, begin_max = -1;
+  int dimension = 10;
+  double begin_min = -0.1, begin_max = 0.1;
   bool use_sigmoid = false;
-  string norm_type = ""; //disabled, constant, recency, exponential, youngest
-  double gamma = -1;
-  int seed=928357823;
-  //TODO keep default values at -1, meaning unset -> NeedsExpEnv
-  int initialize_all=-1;
+  string norm_type = "constant"; //disabled, constant, recency, exponential, youngest
+  double gamma = 0.8;
+  int seed = 928357823;
+  int initialize_all = -1;
   int max_item = -1;
 };
 
-class AsymmetricFactorModel : public Model{
+class AsymmetricFactorModel : public Model{ //TODO NeedsExpEnv
   public:
     AsymmetricFactorModel(AsymmetricFactorModelParameters *parameters)
       :norm_type_(parameters->norm_type)

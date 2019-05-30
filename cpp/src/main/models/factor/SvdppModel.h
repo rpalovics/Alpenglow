@@ -15,15 +15,16 @@ using namespace std;
 /// SVD++ algorithm
 
 struct SvdppModelParameters {
-  int dimension = -1;
-  double begin_min = -1, begin_max = -1;
-  bool initialize_all = false, use_sigmoid = false;
-  int max_item = -1, max_user = -1;
-  double user_vector_weight = -1;
-  double history_weight = -1;
-  string norm_type = "";
-  double gamma = -1;
+  int dimension = 10;
+  double begin_min = -0.1, begin_max = 0.1;
+  bool use_sigmoid = false;
+  double user_vector_weight = 1;
+  double history_weight = 1;
+  string norm_type = "constant";
+  double gamma = 0.8;
   int seed=928357823;
+  int initialize_all = false;
+  int max_item = -1, max_user = -1;
 };
 
 class SvdppModel : public Model {
