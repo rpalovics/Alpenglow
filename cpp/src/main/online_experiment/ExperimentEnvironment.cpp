@@ -28,14 +28,14 @@ void ExperimentEnvironment::update(RecDat* rec_dat){
   if (!GET_VECTORMAP(item_map_,item,false)){
     first_occurrence_of_item_=true;
     PUT_VECTORMAP(item_map_,item,true);
-    if (!initialize_all_) items_.push_back(item);
+    if (!initialize_all_ || item>max_item_) items_.push_back(item);
   } else {
     first_occurrence_of_item_=false;
   }
   if (!GET_VECTORMAP(user_map_,user,false)){
     first_occurrence_of_user_=true;
     PUT_VECTORMAP(user_map_,user,true);
-    if (!initialize_all_) users_.push_back(user);
+    if (!initialize_all_ || user>max_user_) users_.push_back(user);
   } else {
     first_occurrence_of_user_=false;
   }
