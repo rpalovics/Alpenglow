@@ -1,3 +1,4 @@
+
 struct FactorModelParameters {
   %TypeHeaderCode
   #include "models/factor/FactorModel.h"
@@ -11,20 +12,20 @@ struct FactorModelParameters {
   bool use_sigmoid;
   bool use_item_bias;
   bool use_user_bias;
+  int seed;
+  int lemp_bucket_size;
   int initialize_all;
   int max_item;
   int max_user;
-  int seed;
-  int lemp_bucket_size;
 };
 
 class FactorModel 
   : public Model, 
     public SimilarityModel,
-    public Initializable,
-    public NeedsExperimentEnvironment
+    public NeedsExperimentEnvironment,
 //    virtual public RankingScoreIteratorProvider,
-//    public ToplistFromRankingScoreRecommender
+//    public ToplistFromRankingScoreRecommender,
+    public Initializable
 {
   %TypeHeaderCode
   #include "models/factor/FactorModel.h"
@@ -41,7 +42,6 @@ class FactorModel
     void set_item_recency(Recency *recency);
 //    RankingScoreIterator* get_ranking_score_iterator(int u);
     bool self_test();
-    void set_experiment_environment(ExperimentEnvironment* experiment_environment);
 
   protected:
     bool autocalled_initialize();

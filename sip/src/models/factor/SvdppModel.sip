@@ -1,6 +1,10 @@
-struct SvdppModelParameters{
+
+struct SvdppModelParameters {
   %TypeHeaderCode
   #include "models/factor/SvdppModel.h"
+  %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.SvdppModel`. See documentation there.
   %End
   int dimension;
   double begin_min;
@@ -11,7 +15,9 @@ struct SvdppModelParameters{
   std::string norm_type;
   double gamma;
   int seed;
-  SvdppModelParameters();
+  int initialize_all;
+  int max_item;
+  int max_user;
 };
 
 class SvdppModel : public Model {
@@ -22,8 +28,10 @@ class SvdppModel : public Model {
     SvdppModel(SvdppModelParameters *parameters);
     void add(RecDat* rec_dat);
     double prediction(RecDat* rec_dat);
-    //void write(ofstream& file);
-    //void read(ifstream& file);
+//    void write(ostream& file);
+//    void read(istream& file);
     void clear();
+
     bool self_test();
 };
+
