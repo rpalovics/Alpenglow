@@ -16,7 +16,7 @@ struct FmModelParameters {
   double begin_min=-0.01;
   double begin_max=0.01;
   // bool use_item_bias, use_user_bias;
-  int seed=67439852;
+  int seed=745578;
   SparseAttributeContainer *user_attributes = NULL;
   SparseAttributeContainer *item_attributes = NULL;
 };
@@ -38,7 +38,7 @@ class FmModel : public Model, public Initializable
       factors_parameters.dimension=dimension_;
       factors_parameters.seed=parameters->seed;
       user_factors_.set_parameters(factors_parameters);
-      factors_parameters.seed+=67439852;
+      factors_parameters.seed+=1;
       item_factors_.set_parameters(factors_parameters);
     };
     void add(RecDat* rec_dat);

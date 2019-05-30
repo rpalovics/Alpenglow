@@ -22,7 +22,7 @@ struct AsymmetricFactorModelParameters {
   bool use_sigmoid = false;
   string norm_type = "constant"; //disabled, constant, recency, exponential, youngest
   double gamma = 0.8;
-  int seed = 928357823;
+  int seed = 745578;
   int initialize_all = -1;
   int max_item = -1;
 };

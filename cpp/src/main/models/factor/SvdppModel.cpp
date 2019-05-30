@@ -9,9 +9,9 @@ void SvdppModel::set_parameters(SvdppModelParameters* parameters){
   factors_parameters.dimension=parameters->dimension;
   factors_parameters.seed=parameters->seed;
   user_factors_.set_parameters(factors_parameters);
-  factors_parameters.seed+=67439852;
+  factors_parameters.seed+=1;
   item_factors_.set_parameters(factors_parameters);
-  factors_parameters.seed+=67439852;
+  factors_parameters.seed+=1;
   history_item_factors_.set_parameters(factors_parameters);
 }
 

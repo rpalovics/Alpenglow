@@ -19,7 +19,7 @@ struct EigenFactorModelParameters {
   int dimension=10;
   double begin_min=-0.01;
   double begin_max=0.01;
-  int seed=67439852;
+  int seed=745578;
   int lemp_bucket_size=64;
 };
 
@@ -41,7 +41,7 @@ class EigenFactorModel
       EigenFactorsParameters factors_parameters;
       factors_parameters.seed = seed_;
       user_factors_.set_parameters(&factors_parameters);
-      factors_parameters.seed += 67439852;
+      factors_parameters.seed += 1;
       item_factors_.set_parameters(&factors_parameters);
     };
     void add(RecDat* rec_dat) override{};

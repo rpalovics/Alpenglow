@@ -26,7 +26,7 @@ struct SvdppModelParameters {
   double history_weight = 1;
   string norm_type = "constant";
   double gamma = 0.8;
-  int seed=928357823;
+  int seed=745578;
   int initialize_all = false;
   int max_item = -1;
   int max_user = -1;

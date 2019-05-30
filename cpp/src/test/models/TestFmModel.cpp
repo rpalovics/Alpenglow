@@ -75,6 +75,7 @@ TEST_F(TestFmModel, test){
 TEST_F(TestFmModel, test_initialize){
     FmModelParameters par;
     par.dimension = 2;
+    par.seed = 1234543;
     model = new FmModel(&par);
 
     FmModelUpdaterParameters par2;
