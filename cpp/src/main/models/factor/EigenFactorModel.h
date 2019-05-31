@@ -49,7 +49,6 @@ class EigenFactorModel
     void write(ostream& file) override;
     void read(istream& file) override;
     void clear() override;
-    bool autocalled_initialize() override { clear(); return true;}
     bool self_test(){return true;}
     void resize(int users, int items);
 
@@ -60,6 +59,7 @@ class EigenFactorModel
 
     RankingScoreIterator* get_ranking_score_iterator(int u) override;
   protected:
+    bool autocalled_initialize() override { clear(); return true;}
     //parameters
     const int dimension_;
     const double begin_min_;

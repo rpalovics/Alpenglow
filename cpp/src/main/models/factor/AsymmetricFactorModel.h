@@ -66,7 +66,7 @@ class AsymmetricFactorModel
       return ok;
     }
   protected:
-    bool autocalled_initialize(){
+    bool autocalled_initialize() override {
       if (-1==initialize_all_){
         if (NULL==experiment_environment_) return false;
         initialize_all_ = experiment_environment_->get_initialize_all();
