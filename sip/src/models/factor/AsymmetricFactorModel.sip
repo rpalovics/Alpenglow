@@ -17,17 +17,23 @@ struct AsymmetricFactorModelParameters {
   int max_item;
 };
 
-class AsymmetricFactorModel : public Model {
+class AsymmetricFactorModel
+: public Model
+, public NeedsExperimentEnvironment
+, public Initializable
+{
   %TypeHeaderCode
   #include "models/factor/AsymmetricFactorModel.h"
-  %End 
+  %End
   public:
-    AsymmetricFactorModel(AsymmetricFactorModelParameters *parameters);
+    AsymmetricFactorModel(AsymmetricFactorModelParameters* parameters);
     void add(RecDat* rec_dat);
     double prediction(RecDat* rec_dat);
 //    void write(ostream& file);
 //    void read(istream& file);
     void clear();
     bool self_test();
+  protected:
+    bool autocalled_initialize();
 };
 

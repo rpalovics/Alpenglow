@@ -20,7 +20,11 @@ struct SvdppModelParameters {
   int max_user;
 };
 
-class SvdppModel : public Model {
+class SvdppModel
+: public Model
+, public NeedsExperimentEnvironment
+, public Initializable
+{
   %TypeHeaderCode
   #include "models/factor/SvdppModel.h"
   %End
@@ -33,5 +37,7 @@ class SvdppModel : public Model {
     void clear();
 
     bool self_test();
+  protected:
+    bool autocalled_initialize();
 };
 

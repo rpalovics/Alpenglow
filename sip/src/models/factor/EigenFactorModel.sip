@@ -29,7 +29,6 @@ class EigenFactorModel
 //    void write(ostream& file);
 //    void read(istream& file);
     void clear();
-    bool autocalled_initialize();
     bool self_test();
     void resize(int users, int items);
 
@@ -39,5 +38,7 @@ class EigenFactorModel
 //    void set_item_factors(const MatrixXdRM& factors, std::vector<bool> seen);
 
 //    RankingScoreIterator* get_ranking_score_iterator(int u);
+  protected:
+    bool autocalled_initialize();
 };
 
