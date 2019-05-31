@@ -31,7 +31,7 @@ class TestALSFactorModel(unittest.TestCase):
                 err += s**2
         err = (err/len(predictions))**(1/2)
 
-        self.assertAlmostEqual(0.11648491769644118, err)
+        self.assertAlmostEqual(0.11606286883676992, err)
 
     def test_explicit(self):
         data = pd.read_csv(
@@ -49,4 +49,4 @@ class TestALSFactorModel(unittest.TestCase):
         predictions = model.predict(data[['user','item']])
 
         err=((np.array(predictions)-1)**2).mean()**(1/2)
-        self.assertAlmostEqual(0.027536096794844537, err)
+        self.assertAlmostEqual(0.02937803875415082, err)
