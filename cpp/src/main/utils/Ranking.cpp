@@ -6,6 +6,10 @@ int RankComputer::get_rank(RecDat* rec_dat){
   // Model filters aren't handled yet.
   // If the model is an instance ToplistFromRankingScoreRecommender,
   // we evaluate it as RankingScoreIteratorProvider.
+  if ( experiment_environment_!=NULL
+       && !experiment_environment_->is_item_existing(rec_dat->item)){
+    return top_k_+5;
+  }
   ToplistFromRankingScoreRecommender* tfrsr_model = dynamic_cast<ToplistFromRankingScoreRecommender*>(model_);
   if(toplist_model_!=NULL && tfrsr_model==NULL && model_filter_==NULL){
     return get_rank_toplist_model(rec_dat);

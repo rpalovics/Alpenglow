@@ -26,7 +26,7 @@ class TestExternalModelExperiment:
             mode='write'
         )
         num = 5
-        experiment.run(data)
+        experiment.run(data, initialize_all=True) #initall=true->do not filter out very new items
         trains = [pd.read_csv('python/test_alpenglow/tmp/batch_%d_train.dat' % i) for i in range(1, num + 1)]
         tests = [pd.read_csv('python/test_alpenglow/tmp/batch_%d_test.dat' % i) for i in range(num)]
         last_ids = []
