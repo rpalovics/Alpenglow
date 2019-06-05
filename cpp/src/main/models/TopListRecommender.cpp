@@ -11,11 +11,11 @@ vector<pair<int,double>> ToplistFromRankingScoreRecommender::get_top_list(
   };
   priority_queue<pair<int,double>, vector<pair<int,double>>, decltype(comparator)> toplist(comparator);
 
-  const map<int,double> *exclude_items = exclude->get(user);
+  const map<int,double>* exclude_items = exclude->get(user);
   RankingScoreIterator* iterator = get_ranking_score_iterator(user);
   double limit = std::numeric_limits<double>::lowest();
   while(iterator->has_next(limit)){
-    auto pair = iterator->get_next();;
+    auto pair = iterator->get_next();
     if(exclude_items != NULL && exclude_items->find(pair.first) != exclude_items->end()){
       continue;
     }
