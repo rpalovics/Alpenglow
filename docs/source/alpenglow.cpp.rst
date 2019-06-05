@@ -629,6 +629,12 @@ This is the models/factor header file.
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.FactorModelUpdater
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.FmModelUpdaterParameters
     :members:
     :undoc-members:
