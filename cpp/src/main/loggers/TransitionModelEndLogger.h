@@ -61,7 +61,10 @@ class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironmen
     }
   protected:
     bool autocalled_initialize() override {
-      if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
+      if (pop_container_==NULL){ 
+        if (experiment_environment_ == NULL) return false;
+        pop_container_=experiment_environment_->get_popularity_container();
+      }
       return true;
     }
   private:

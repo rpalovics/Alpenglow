@@ -79,7 +79,10 @@ protected:
     }
     if(loss_type_=="dcg"){
       for(auto model:model_->models_){
-        if (top_k_<0) top_k_=experiment_environment_->get_top_k();
+        if (top_k_<0){
+          if (experiment_environment_==NULL) return false;
+          top_k_=experiment_environment_->get_top_k();
+        }
         DCGEvaluatorParameters params;
         params.top_k = top_k_;
         DCGEvaluator* evaluator = new DCGEvaluator(&params);

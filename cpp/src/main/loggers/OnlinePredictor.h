@@ -31,7 +31,10 @@ class OnlinePredictor
    }
  protected:
    bool autocalled_initialize(){
-     if (evaluation_start_time_<0) evaluation_start_time_ = experiment_environment_->get_evaluation_start_time();
+     if (evaluation_start_time_<0){
+        if (experiment_environment_ == NULL) return false;
+        evaluation_start_time_ = experiment_environment_->get_evaluation_start_time();
+     }
      return true;
    }
  private:

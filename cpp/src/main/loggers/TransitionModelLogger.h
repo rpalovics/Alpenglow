@@ -48,9 +48,18 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
     }
   protected:
     bool autocalled_initialize() override {
-      if (pop_container_==NULL) pop_container_=experiment_environment_->get_popularity_container();
-      if (train_matrix_==NULL) train_matrix_=experiment_environment_->get_train_matrix();
-      if (top_k_<0) top_k_=experiment_environment_->get_top_k();
+      if (pop_container_==NULL){
+        if (experiment_environment_ == NULL) return false;
+        pop_container_=experiment_environment_->get_popularity_container();
+      }
+      if (train_matrix_==NULL){
+        if (experiment_environment_ == NULL) return false;
+        train_matrix_=experiment_environment_->get_train_matrix();
+      }
+      if (top_k_<0){
+        if (experiment_environment_ == NULL) return false;
+        top_k_=experiment_environment_->get_top_k();
+      }
       timeline_file_.open(timeline_logfile_name_);
       return true;
     }

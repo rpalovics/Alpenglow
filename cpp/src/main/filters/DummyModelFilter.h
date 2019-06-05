@@ -11,8 +11,8 @@
 class DummyModelFilter : public ModelFilter, public NeedsExperimentEnvironment, public Initializable {
   public:
     void run(RecDat* rec_dat) override;
-    vector<pair<int,double> >* get_global_users() override;
-    vector<pair<int,double> >* get_global_items() override;
+    vector<pair<int,double>>* get_global_users() override;
+    vector<pair<int,double>>* get_global_items() override;
     void set_users(vector<int>* users){ users_ = users; }
     /* SIP_CODE
     void set_users(VectorInt);
@@ -35,8 +35,14 @@ class DummyModelFilter : public ModelFilter, public NeedsExperimentEnvironment, 
     }
   protected:
     bool autocalled_initialize() override {
-      if(items_==NULL) items_=experiment_environment_->get_items();
-      if(users_==NULL) users_=experiment_environment_->get_users();
+      if (items_==NULL) {
+        if (experiment_environment_==NULL) return false;
+        items_=experiment_environment_->get_items();
+      }
+      if (users_==NULL) {
+        if (experiment_environment_==NULL) return false;
+        users_=experiment_environment_->get_users();
+      }
       return true;
     }
   private:

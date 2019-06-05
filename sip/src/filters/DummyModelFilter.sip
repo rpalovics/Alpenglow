@@ -5,8 +5,8 @@ class DummyModelFilter : public ModelFilter, public NeedsExperimentEnvironment, 
   %End
   public:
     void run(RecDat* rec_dat);
-//    std::vector<pair<int,double> >* get_global_users();
-//    std::vector<pair<int,double> >* get_global_items();
+//    std::vector<pair<int,double>>* get_global_users();
+//    std::vector<pair<int,double>>* get_global_items();
     void set_users(std::vector<int>* users);
     void set_users(VectorInt);
     %MethodCode

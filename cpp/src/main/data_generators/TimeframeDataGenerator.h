@@ -26,7 +26,10 @@ class TimeframeDataGenerator : public DataGenerator, public NeedsExperimentEnvir
     }
   protected:
     bool autocalled_initialize() override {
-      if(recommender_data_iterator_==NULL){ recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator(); }
+      if(recommender_data_iterator_==NULL){
+        if (experiment_environment_==NULL) return false;
+        recommender_data_iterator_=experiment_environment_->get_recommender_data_iterator();
+      }
       return true;
     }
   private:

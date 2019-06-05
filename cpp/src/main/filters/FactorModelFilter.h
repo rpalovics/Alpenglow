@@ -77,8 +77,14 @@ class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment,
     }
  protected:
    bool autocalled_initialize() override {
-     if(items_==NULL) items_=experiment_environment_->get_items();
-     if(users_==NULL) users_=experiment_environment_->get_users();
+      if (items_==NULL) {
+        if (experiment_environment_==NULL) return false;
+        items_=experiment_environment_->get_items();
+      }
+      if (users_==NULL) {
+        if (experiment_environment_==NULL) return false;
+        users_=experiment_environment_->get_users();
+      }
      return true;
    }
  private:
