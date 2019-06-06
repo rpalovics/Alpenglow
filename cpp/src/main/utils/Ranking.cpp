@@ -10,8 +10,7 @@ int RankComputer::get_rank(RecDat* rec_dat){
        && !experiment_environment_->is_item_existing(rec_dat->item)){
     return top_k_+5;
   }
-  ToplistFromRankingScoreRecommender* tfrsr_model = dynamic_cast<ToplistFromRankingScoreRecommender*>(model_);
-  if(toplist_model_!=NULL && tfrsr_model==NULL && model_filter_==NULL){
+  if(toplist_model_!=NULL && tfrsr_model_==NULL && model_filter_==NULL){
     return get_rank_toplist_model(rec_dat);
   } else if(ranking_model_!=NULL && model_filter_==NULL){
     return get_rank_ranking_model(rec_dat);
