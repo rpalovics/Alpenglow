@@ -90,7 +90,7 @@ class ExperimentEnvironment /NoDefaultCtors/{
       bool
           Whether the current item is new for the current user, i.e., this is the first occurrence of this user-item pair in the time series. Note that the value is updated only when the loggers had been called already.
   %End
-    bool is_item_existing(int item) const;
+    bool is_item_existent(int item) const;
   %Docstring
       Returns
       -------

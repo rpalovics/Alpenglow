@@ -156,7 +156,7 @@ TEST_F(TestExperimentEnvironment, new_user_item) {
   expenv.set_recommender_data_iterator(&rdi);
   EXPECT_TRUE(expenv.self_test());
 
-  for (int i=0;i<10;i++) EXPECT_FALSE(expenv.is_item_existing(i));
+  for (int i=0;i<10;i++) EXPECT_FALSE(expenv.is_item_existent(i));
   for (int i=0;i<10;i++) EXPECT_FALSE(expenv.is_user_existing(i));
   expenv.update(rdi.next()); //id=0 t=0 u=0 i=0 s=1
   EXPECT_TRUE(expenv.is_new_item());
@@ -192,8 +192,8 @@ TEST_F(TestExperimentEnvironment, new_user_item) {
   EXPECT_TRUE(expenv.is_new_user());
   EXPECT_TRUE(expenv.is_first_occurrence_of_user());
   EXPECT_TRUE(expenv.is_item_new_for_user());
-  for (int i=0;i<2;i++) EXPECT_TRUE(expenv.is_item_existing(i));
-  for (int i=2;i<10;i++) EXPECT_FALSE(expenv.is_item_existing(i));
+  for (int i=0;i<2;i++) EXPECT_TRUE(expenv.is_item_existent(i));
+  for (int i=2;i<10;i++) EXPECT_FALSE(expenv.is_item_existent(i));
   for (int i=0;i<2;i++) EXPECT_TRUE(expenv.is_user_existing(i));
   for (int i=2;i<10;i++) EXPECT_FALSE(expenv.is_user_existing(i));
 
@@ -202,8 +202,8 @@ TEST_F(TestExperimentEnvironment, new_user_item) {
   expenv.update(rdi.next()); //id=7 t=7 u=1 i=2 s=1
   expenv.update(rdi.next()); //id=8 t=8 u=2 i=2 s=1
   expenv.update(rdi.next()); //id=9 t=9 u=2 i=3 s=1
-  for (int i=0;i<4;i++) EXPECT_TRUE(expenv.is_item_existing(i));
-  for (int i=4;i<10;i++) EXPECT_FALSE(expenv.is_item_existing(i));
+  for (int i=0;i<4;i++) EXPECT_TRUE(expenv.is_item_existent(i));
+  for (int i=4;i<10;i++) EXPECT_FALSE(expenv.is_item_existent(i));
   for (int i=0;i<3;i++) EXPECT_TRUE(expenv.is_user_existing(i));
   for (int i=3;i<10;i++) EXPECT_FALSE(expenv.is_user_existing(i));
 }
@@ -229,8 +229,8 @@ TEST_F(TestExperimentEnvironment, new_user_item_initall) {
   expenv.set_recommender_data_iterator(&rdi);
   EXPECT_TRUE(expenv.self_test());
 
-  for (int i=0;i<4;i++) EXPECT_TRUE(expenv.is_item_existing(i));
-  for (int i=4;i<10;i++) EXPECT_FALSE(expenv.is_item_existing(i));
+  for (int i=0;i<4;i++) EXPECT_TRUE(expenv.is_item_existent(i));
+  for (int i=4;i<10;i++) EXPECT_FALSE(expenv.is_item_existent(i));
   for (int i=0;i<3;i++) EXPECT_TRUE(expenv.is_user_existing(i));
   for (int i=3;i<10;i++) EXPECT_FALSE(expenv.is_user_existing(i));
 
@@ -269,8 +269,8 @@ TEST_F(TestExperimentEnvironment, new_user_item_initall) {
   EXPECT_TRUE(expenv.is_first_occurrence_of_user());
   EXPECT_TRUE(expenv.is_item_new_for_user());
 
-  for (int i=0;i<4;i++) EXPECT_TRUE(expenv.is_item_existing(i));
-  for (int i=4;i<10;i++) EXPECT_FALSE(expenv.is_item_existing(i));
+  for (int i=0;i<4;i++) EXPECT_TRUE(expenv.is_item_existent(i));
+  for (int i=4;i<10;i++) EXPECT_FALSE(expenv.is_item_existent(i));
   for (int i=0;i<3;i++) EXPECT_TRUE(expenv.is_user_existing(i));
   for (int i=3;i<10;i++) EXPECT_FALSE(expenv.is_user_existing(i));
 }

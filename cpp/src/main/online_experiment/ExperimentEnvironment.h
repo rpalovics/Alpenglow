@@ -107,7 +107,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
       bool
           Whether the current item is new for the current user, i.e., this is the first occurrence of this user-item pair in the time series. Note that the value is updated only when the loggers had been called already.
     */
-    bool is_item_existing(int item) const { return (initialize_all_ && item<=max_item_) || GET_VECTORMAP(item_map_,item,false); }
+    bool is_item_existent(int item) const { return (initialize_all_ && item<=max_item_) || GET_VECTORMAP(item_map_,item,false); }
     /**
       Returns
       -------
