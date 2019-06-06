@@ -4,7 +4,7 @@ Rank computation optimization
 How do we optimize rank and top list computation?
 -------------------------------------------------
 
-The recommender models implement different interfaces based on what type of output can they easily generate.  Examples: a popularity based model can easily generate a top list.  A matrix factorization based model provides a score for each user-item pair, but using a :py:class:`alpenglow.cpp.LempContainer`, it can roughly sort the items by score, that lets us optimize rank computation.
+The recommender models implement different interfaces based on what type of output can they easily generate.  Examples: a popularity based model can easily generate a top list.  A matrix factorization based model provides a score for each user-item pair. Using a :py:class:`alpenglow.cpp.LempContainer`, the same model can efficiently serve the items roughly sorted descending by score, that lets us optimize rank computation.
 
 Available interfaces and tools
 ------------------------------
@@ -20,7 +20,7 @@ Rank computation methods
 Using the interfaces listed above:
 
 1. get the toplist, find the active item.
-2. get the RankingScoreIterator, iterate on items score descending. Count items that have higher score than current one. Break computation if the score of remaining items is lower than the score of the current item.
+2. get the RankingScoreIterator, iterate on items score descending. Count items that have higher score than current one.  Break computation if the score of remaining items is lower than the score of the current item.
 3. like the previous one
 4. iterate on the items (sorted by popularity, that correlates with the score to some extent). Count items that have higher score than the current item.  Break cycle if found top_k items having higher score than the current item, because in that case the current item is not included in the top list.
 
