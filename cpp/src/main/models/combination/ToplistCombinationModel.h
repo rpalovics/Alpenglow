@@ -33,6 +33,7 @@ private:
 
 struct ToplistCombinationModelParameters{
   int seed = 745578;
+  int top_k = -1;
 };
 class ToplistCombinationModel
  : public Model,
@@ -68,7 +69,10 @@ public:
   void inject_wms_into(WMSUpdater* object){ object->set_wms(&wms_); }
 protected:
   bool autocalled_initialize() override {
-    top_k_=experiment_environment_->get_top_k();
+    if(top_k_==-1){
+      if(experiment_environment_==NULL) return false;
+      top_k_=experiment_environment_->get_top_k();
+    }
     wms_.distribution_.clear(); //should not be called twice, but...
     wms_.distribution_.resize(wms_.models_.size(),1.0/wms_.models_.size());
     dummy_model_filter_.set_experiment_environment(experiment_environment_);
