@@ -16,6 +16,7 @@ struct ToplistCombinationModelParameters{
   #include "models/combination/ToplistCombinationModel.h"
   %End
   int seed;
+  int top_k;
 };
 class ToplistCombinationModel
  : public Model,
