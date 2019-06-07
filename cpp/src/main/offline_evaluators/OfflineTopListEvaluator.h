@@ -13,14 +13,20 @@ class OfflineTopListEvaluator : public OfflineEvaluator {
   public:
     OfflineTopListEvaluator(OfflineTopListEvaluatorParameters* params){
       ofs.open(params->file_name.c_str());
-      prediction_creator_ = NULL;
     }
-    void set_prediction_creator(PredictionCreator* prediction_creator){ prediction_creator_ = prediction_creator; }
+    void set_prediction_creator(PredictionCreator* prediction_creator){
+      prediction_creator_ = prediction_creator;
+    }
     void evaluate() override;
-    bool self_test();
+    bool self_test(){
+      bool ok = OfflineEvaluator::self_test();
+      if(prediction_creator_==NULL) ok=false;
+      if(!ofs.is_open()) ok=false;
+      return ok;
+    }
   private:
-    PredictionCreator* prediction_creator_;
-    ofstream  ofs;
+    PredictionCreator* prediction_creator_ = NULL;
+    ofstream ofs;
 };
 
 #endif /* OFFLINE_TOP_LIST_EVALUATOR_H */

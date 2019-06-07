@@ -61,9 +61,9 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
     LegacyRecommenderData test_data_;
     RecommenderData* train_data_ = NULL;
     ModelFilter* model_filter_ = NULL;
-    FRIEND_TEST(TestPrecisionRecallEvaluator, general);
     vector<pair<int, double>>* train_items_;
     int compute_true_positive(int user);
+    FRIEND_TEST(TestPrecisionRecallEvaluator, general);
 };
 
 

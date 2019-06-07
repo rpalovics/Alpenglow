@@ -7,7 +7,7 @@
 #include "../utils/PredictionCreator.h"
 
 using namespace std;
-struct OfflineUserToplistEvaluatorParameters { //TODO jinjactor
+struct OfflineUserToplistEvaluatorParameters {
   string test_file_name;
   string test_file_type;
   string output_file_name;
@@ -18,7 +18,6 @@ class OfflineUserToplistEvaluator : public OfflineEvaluator{
       test_file_name_ = params->test_file_name;
       test_file_type_ = params->test_file_type;
       output_file_name_ = params->output_file_name;
-      toplist_creator_ = NULL;
     }
     virtual void evaluate();
     void set_toplist_creator(PredictionCreatorPersonalized* toplist_creator){ toplist_creator_ = toplist_creator; }
@@ -33,7 +32,7 @@ class OfflineUserToplistEvaluator : public OfflineEvaluator{
     string test_file_name_;
     string test_file_type_;
     string output_file_name_;
-    PredictionCreatorPersonalized* toplist_creator_;
+    PredictionCreatorPersonalized* toplist_creator_ = NULL;
 };
 
 

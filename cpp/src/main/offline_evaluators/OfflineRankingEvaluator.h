@@ -20,7 +20,6 @@ class OfflineRankingEvaluator : public OfflineEvaluator{
       test_file_type_ = params->test_file_type;
       output_file_name_ = params->output_file_name;
       top_k_ = params->top_k;
-      toplist_creator_ = NULL;
     }
     virtual void evaluate();
     void set_toplist_creator(PredictionCreatorPersonalized* toplist_creator){
@@ -38,7 +37,7 @@ class OfflineRankingEvaluator : public OfflineEvaluator{
     string test_file_type_;
     string output_file_name_;
     int top_k_;
-    PredictionCreatorPersonalized* toplist_creator_;
+    PredictionCreatorPersonalized* toplist_creator_ = NULL;
     vector<map<ITEM,pair<SCORE,RANK>>> user_toplist_maps_;
 };
 

@@ -4,6 +4,8 @@ void OfflineUserToplistEvaluator::evaluate(){
   test_data.read_from_file(test_file_name_, test_file_type_);
   vector<USER>* users = test_data.get_all_users();
   ofstream ofs(output_file_name_.c_str());
+  if(!ofs.is_open()) cerr << "OfflineUserToplistEvaluator: can't open file '"
+    << output_file_name_ << "'." << endl;
   RecDat rec_dat;
   for(auto user : *users){
     rec_dat.user=user;
