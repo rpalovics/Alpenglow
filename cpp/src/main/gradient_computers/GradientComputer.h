@@ -26,6 +26,7 @@ class GradientComputer : public Updater{ //SIP_ABSTRACT
     bool self_test(){
       bool ok=Updater::self_test();
       if(model_==NULL){ ok=false; cerr << "GradientComputer::model is not set." << endl; }
+      if(gradient_updaters_.size()==0){ cerr << "Warning: GradientComputer::gradient_updaters_.size()==0" << endl; }
       return ok;
     }
 
