@@ -19,13 +19,54 @@ They have to implement the appropriate interfaces, as depicted on the UML class 
 
 .. image:: class_diagram_common_color.png
 
-..
-  TODO popularity example here, with sequence diagram. A concrete example is better than abstract description.
+An example: time frame based popularity model experiment
+--------------------------------------------------------
+
+Consider a time frame based popularity model experiment for example.
+Below you can see the object diagram of this experiment.
+
+.. image:: class_diagram_poptf_color.png
+
+This experiment contains
+
+- a :py:class:`alpenglow.cpp.OnlineExperiment` that is the central class of the experiment,
+- a :py:class:`alpenglow.cpp.ShuffleIterator` that contains the time series of the data,
+- a :py:class:`alpenglow.cpp.ExperimentEnvironment` that contains common statistics etc.,
+- a :py:class:`alpenglow.cpp.PopularityModel` in the role of the recommender model,
+- a :py:class:`alpenglow.cpp.MemoryRankingLogger` in the role of the evaluator,
+- a :py:class:`alpenglow.cpp.ProceedingLogger` and a :py:class:`alpenglow.cpp.MemoryUsageLogger` that log some info about the state of the experiment,
+- a :py:class:`alpenglow.cpp.PopularityTimeFrameModelUpdater` in the role of an updater.
+
+The building and wiring of such experiment will be explained later.
+Now consider the function call sequence of :py:meth:`alpenglow.cpp.OnlineExperiment.run` that runs the experiment.
+Below you can see the sequence diagram of this function.
+
+.. image:: sequence_of_poptf_color.png
+
+The sequence diagram contains a huge loop on the timeline of the samples.
+Each sample is considered only once.
+
+There are two phases for each sample, the evaluation and the training phase.
+In the evaluation phase, we call the :py:meth:`alpenglow.cpp.Logger.run` function of the loggers.
+The function of the three loggers in this experiment:
+
+- :py:class:`alpenglow.cpp.MemoryRankingLogger` computes the rank of the correct item by querying the score of the known items (calling :py:meth:`alpenglow.cpp.PopularityModel.prediction`) and writes it into a file and/or into a container.  Note that while ``prediction`` is not a ``const`` function, it doesn't change the state of the model.  Doing so would ruin the correctness of the experiment.  Read more about rank computation in :doc:`/general/rank_computing_optimization`.
+- :py:class:`alpenglow.cpp.ProceedingLogger` logs the state of progress of the experiment to the screen, i.e. how many percents of the data is already processed.
+- :py:class:`alpenglow.cpp.MemoryUsageLogger` logs the current memory usage into a file.
+
+In the training phase, first the central class updates the common statistic container,:py:class:`alpenglow.cpp.ExperimentEnvironment`.
+After that, the updater of the model is called.
+The updater contains model-specific code and updates the model directly through friendship.
+
+In the next cycle, all of these is called with the next saple, and so on, until the last sample is processed.
+
+General call sequence
+---------------------
 
 .. image:: sequence_of_experiment_color.png
 
 The general function call sequence of :py:meth:`OnlineExperiment.run()` that runs the online experiment is depicted on the sequence diagram.
-The recommender model is not depicted here, although loggers and updaters may access it as necessary.
+The recommender model is not depicted here, although loggers and updaters may access it as necessary, see the popularity model above for an example.
 
 During the evaluation phase, ``online_exeriment`` passes the sample to each :py:class:`alpenglow.cpp.Logger` object that are added into it.
 Loggers can evaluate the model or log out some statistics as well.
@@ -35,7 +76,7 @@ During the second phase, when the sample becomes a training sample, ``online_exp
 First update is called to :py:class:`alpenglow.cpp.ExperimentEnvironment` that updates some common containers and statistics of the training data, e.g. the number of the users, the list of most popular items.
 
 Then the updaters of the recommender models are called also.
-Model updating algorithms are organised into a chain, or more precisely into a DAG_.
+In the general case, model updating algorithms are organised into a chain, or more precisely into a DAG_.
 You can add any number of :py:class:`alpenglow.cpp.Updater` objects into the experiment, and the system will pass the positive sample to each of them.
 Some :py:class:`alpenglow.cpp.Updater` implementations can accept further :py:class:`alpenglow.cpp.Updater` objects and passes them further the samples, possibly completed with extra information (e.g. gradient value) or mixed with generated samples (e.g. generated negative samples).
 Note that while the updating algorithms are allowed to retrain the model using the complete training data from the past, most of them uses only the newest sample or only a few more chosen from the past.
@@ -55,6 +96,8 @@ As these two are available for any objects in the experiment, we omit the connec
 
 Time-frame based popularity experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Recall the object diagram.
 
 .. image:: class_diagram_poptf_color.png
 
@@ -126,12 +169,17 @@ In most of the cases, one can use the pre-built experiments in :py:mod:`alpenglo
 Matrix factorization experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-See :py:class:`alpenglow.experiments.MatrixFactorizationExperiment`.
+In this experiment, we have multiple updaters, chained into eachother.
 
 .. image:: class_diagram_factor_color.png
+
+See :py:class:`alpenglow.experiments.MatrixFactorizationExperiment`.
 
 Combined model experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
+In this experiment, the DAG of updaters is more complex.
+
 .. image:: class_diagram_combined_color.png
 
+See :doc:`/general/combination/`.
