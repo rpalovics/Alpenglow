@@ -8,7 +8,7 @@ using namespace std;
 
 class ConditionalMetaLogger : public Logger{
   public:
-    virtual void run(RecDat* recDat){
+    void run(RecDat* recDat) override {
       if(should_run(recDat)){
         logger_->run(recDat);
       }
