@@ -24,5 +24,7 @@ class OnlinePredictor
    void run(RecDat* rec_dat);
    void set_prediction_creator(PredictionCreator* prediction_creator);
    bool self_test();
+  protected:
+   bool autocalled_initialize();
 };
 

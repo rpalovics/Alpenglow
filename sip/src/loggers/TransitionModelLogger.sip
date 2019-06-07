@@ -11,7 +11,11 @@ struct TransitionModelLoggerParameters {
   int period_length;
   int top_k;
 };
-class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, public Initializable /NoDefaultCtors/{
+class TransitionModelLogger
+  : public Logger
+  , public NeedsExperimentEnvironment
+  , public Initializable
+   /NoDefaultCtors/{
   %TypeHeaderCode
   #include "loggers/TransitionModelLogger.h"
   %End
