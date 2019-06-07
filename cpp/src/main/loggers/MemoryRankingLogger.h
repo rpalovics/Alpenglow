@@ -38,8 +38,9 @@ class MemoryRankingLogger
   public:
     MemoryRankingLogger(MemoryRankingLoggerParameters* params){
       evaluation_start_time_=params->evaluation_start_time;
-      if(params->out_file != ""){
-        ofs.open(params->out_file.c_str());
+      out_file_name_=params->out_file;
+      if(out_file_name_ != ""){
+        ofs.open(out_file_name_.c_str());
       }
       memory_log_ = params->memory_log;
       RankComputerParameters rank_computer_parameters;
@@ -63,6 +64,10 @@ class MemoryRankingLogger
 
     void run(RecDat* rec_dat) override;
     bool self_test(){
+      bool ok = Logger::self_test() && rank_computer_.self_test();
+      if (model_==NULL) ok=false;
+      if (memory_log_ && logs_==NULL) ok=false; //TODO create log locally
+      if (out_file_name_!="" && !ofs.is_open()) ok=false;
       return rank_computer_.self_test();
     }
   protected:
@@ -77,6 +82,7 @@ class MemoryRankingLogger
     Model* model_ = NULL;
     RankComputer rank_computer_;
     bool memory_log_;
+    string out_file_name_;
 };
 
 #endif /* MEMORY_RANKING_LOGGER_H */
