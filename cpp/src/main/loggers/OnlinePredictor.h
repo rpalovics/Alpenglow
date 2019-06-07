@@ -21,7 +21,7 @@ class OnlinePredictor
  , public Initializable
  { //SIP_NODEFAULTCTORS
  public:
-   OnlinePredictor(OnlinePredictorParameters* params){set_parameters(params);};
+   OnlinePredictor(OnlinePredictorParameters* params){set_parameters(params);}
    void run(RecDat* rec_dat) override;
    void set_prediction_creator(PredictionCreator* prediction_creator){prediction_creator_ = prediction_creator;}
    bool self_test(){
@@ -30,7 +30,7 @@ class OnlinePredictor
      return OK;
    }
  protected:
-   bool autocalled_initialize(){
+   bool autocalled_initialize() override {
      if (evaluation_start_time_<0){
         if (experiment_environment_ == NULL) return false;
         evaluation_start_time_ = experiment_environment_->get_evaluation_start_time();
@@ -40,9 +40,9 @@ class OnlinePredictor
  private:
    void set_parameters(OnlinePredictorParameters* params);
    bool do_predict(RecDat* rec_dat);
-   PredictionCreator* prediction_creator_;
+   PredictionCreator* prediction_creator_ = NULL;
    double evaluation_start_time_, time_frame_;
-   int actual_time_frame_, past_time_frame_;
+   int actual_time_frame_ = 0, past_time_frame_ = 0;
    ofstream ofs_;
    FRIEND_TEST(TestOnlinePredictor, test);
 };

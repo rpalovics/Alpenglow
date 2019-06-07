@@ -4,9 +4,6 @@ void OnlinePredictor::set_parameters(OnlinePredictorParameters* params){
   evaluation_start_time_ = params->evaluation_start_time;
   time_frame_ = params->time_frame;
   ofs_.open(params->file_name.c_str());
-  past_time_frame_ = 0;
-  actual_time_frame_ = 0;
-  prediction_creator_=NULL;
 }
 
 void OnlinePredictor::run(RecDat* rec_dat){
