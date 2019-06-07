@@ -23,11 +23,11 @@ struct RankingLogs{
 };
 
 struct MemoryRankingLoggerParameters{
-  double evaluation_start_time = 0; //TODO ExpEnv
   string out_file="";
   bool memory_log = true;
-  int top_k = 0; //TODO ExpEnv
-  int random_seed = 1; //TODO ExpEnv
+  double evaluation_start_time = -1;
+  int top_k = -1;
+  int random_seed = -1;
 };
 
 class MemoryRankingLogger
@@ -51,8 +51,8 @@ class MemoryRankingLogger
       model_ = model;
       rank_computer_.set_model(model);
     }
-    void set_ranking_logs(RankingLogs* logs){ logs_=logs; } //TODO
-    const RankingLogs* get_ranking_logs() const { return logs_; } //TODO
+    void set_ranking_logs(RankingLogs* logs){ logs_=logs; } //TODO create log locally
+    const RankingLogs* get_ranking_logs() const { return logs_; }
 
     void set_model_filter(ModelFilter* model_filter){ rank_computer_.set_model_filter(model_filter); }
     void set_train_matrix(SpMatrix* train_matrix){ rank_computer_.set_train_matrix(train_matrix); }
@@ -72,7 +72,7 @@ class MemoryRankingLogger
     }
   private:
     ofstream ofs;
-    RankingLogs* logs_ = NULL; //TODO local variable
+    RankingLogs* logs_ = NULL; //TODO create log locally
     double evaluation_start_time_;
     Model* model_ = NULL;
     RankComputer rank_computer_;
