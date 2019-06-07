@@ -2,7 +2,7 @@
 #define PREDICTION_LOGGER_H
 #include <gtest/gtest_prod.h>
 #include "Logger.h"
-#include "../utils/PredictionCreator.h"
+#include "../utils/ToplistCreator.h"
 
 //SIP_OVERWRITE
 
@@ -18,7 +18,7 @@ struct OnlinePredictions{
 class PredictionLogger : public Logger{ //SIP_NODEFAULTCTORS
   public:
     void run(RecDat* recDat);
-    void set_prediction_creator(PredictionCreator* prediction_creator_){prediction_creator = prediction_creator_;}
+    void set_prediction_creator(ToplistCreator* prediction_creator_){prediction_creator = prediction_creator_;}
     bool self_test(){
       bool ok = Logger::self_test();
       if(prediction_creator == NULL){
@@ -32,7 +32,7 @@ class PredictionLogger : public Logger{ //SIP_NODEFAULTCTORS
     }
   private:
     OnlinePredictions predictions_;
-    PredictionCreator* prediction_creator=NULL;
+    ToplistCreator* prediction_creator=NULL;
     FRIEND_TEST(TestPredictionLogger, test);
 };
 

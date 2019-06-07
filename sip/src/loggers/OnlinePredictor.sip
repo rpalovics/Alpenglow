@@ -22,7 +22,7 @@ class OnlinePredictor
  public:
    OnlinePredictor(OnlinePredictorParameters* params);
    void run(RecDat* rec_dat);
-   void set_prediction_creator(PredictionCreator* prediction_creator);
+   void set_prediction_creator(ToplistCreator* prediction_creator);
    bool self_test();
   protected:
    bool autocalled_initialize();

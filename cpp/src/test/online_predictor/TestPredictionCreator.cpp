@@ -1,6 +1,6 @@
 #include <vector>
 #include <gtest/gtest.h>
-#include "../../main/utils/PredictionCreator.h"
+#include "../../main/utils/ToplistCreator.h"
 
 namespace {
 
@@ -32,20 +32,20 @@ namespace {
       vector<pair<int,double> > itemBounds;
   };
 
-  class TestPredictionCreatorGlobal : public ::testing::Test  {
+  class TestToplistCreatorGlobal : public ::testing::Test  {
     public:
-      PredictionCreatorGlobal* predictionCreator;
+      ToplistCreatorGlobal* predictionCreator;
       DummyModel model;
       DummyFilter filter;
 
-      TestPredictionCreatorGlobal() {}
-      virtual ~TestPredictionCreatorGlobal(){}
+      TestToplistCreatorGlobal() {}
+      virtual ~TestToplistCreatorGlobal(){}
       virtual void SetUp(){
-        PredictionCreatorGlobalParameters params;
+        ToplistCreatorGlobalParameters params;
         params.top_k = 3;
         params.initial_threshold = 0;
         params.exclude_known = 0;
-        predictionCreator = new PredictionCreatorGlobal(&params);
+        predictionCreator = new ToplistCreatorGlobal(&params);
         predictionCreator->set_model(&model);
         predictionCreator->set_filter(&filter);
         filter.userBounds.push_back(make_pair(2,9.0));
@@ -79,7 +79,7 @@ namespace {
   };
 } //namespace
 
-TEST_F(TestPredictionCreatorGlobal, global) {
+TEST_F(TestToplistCreatorGlobal, global) {
   ASSERT_TRUE(predictionCreator->self_test());
   //tesztek:
   //jo toplistat ad
@@ -118,7 +118,7 @@ TEST_F(TestPredictionCreatorGlobal, global) {
     }
   }
 }
-TEST_F(TestPredictionCreatorGlobal, global2) {
+TEST_F(TestToplistCreatorGlobal, global2) {
   predictionCreator->initial_threshold_=2;
   ASSERT_TRUE(predictionCreator->self_test());
   //tesztek:
@@ -159,7 +159,7 @@ TEST_F(TestPredictionCreatorGlobal, global2) {
   }
 }
 
-TEST_F(TestPredictionCreatorGlobal, process_line){
+TEST_F(TestToplistCreatorGlobal, process_line){
   ASSERT_TRUE(predictionCreator->self_test());
   //tests if process_line processes the proper recDats
   RecDat _recDat;
@@ -174,7 +174,7 @@ TEST_F(TestPredictionCreatorGlobal, process_line){
   EXPECT_EQ(1,model.preds[2].user);
 }
 
-TEST_F(TestPredictionCreatorGlobal, process_line2){
+TEST_F(TestToplistCreatorGlobal, process_line2){
   ASSERT_TRUE(predictionCreator->self_test());
   //tests if process_line processes the proper recDats
   RecDat _recDat;
@@ -187,7 +187,7 @@ TEST_F(TestPredictionCreatorGlobal, process_line2){
   EXPECT_EQ(2,model.preds[1].user);
 }
 
-TEST_F(TestPredictionCreatorGlobal, process_square){
+TEST_F(TestToplistCreatorGlobal, process_square){
   ASSERT_TRUE(predictionCreator->self_test());
   RecDat _recDat;
   predictionCreator->process_rectangle(&filter.userBounds,&filter.itemBounds,2,3,3,4,&_recDat);
@@ -196,7 +196,7 @@ TEST_F(TestPredictionCreatorGlobal, process_square){
   EXPECT_EQ(0,model.preds[0].user);
 }
 
-TEST_F(TestPredictionCreatorGlobal, exclude_known){
+TEST_F(TestToplistCreatorGlobal, exclude_known){
   predictionCreator->initial_threshold_=1;
   predictionCreator->exclude_known_ = 1;
   SpMatrix matrix;

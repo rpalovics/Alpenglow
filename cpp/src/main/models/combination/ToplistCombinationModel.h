@@ -13,7 +13,7 @@
 #include "../../general_interfaces/Initializable.h"
 #include "../../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../../utils/Ranking.h"
-#include "../../utils/PredictionCreator.h"
+#include "../../utils/ToplistCreator.h"
 #include "../../filters/DummyModelFilter.h"
 
 using namespace std;
@@ -87,8 +87,8 @@ protected:
       rank_computer->set_experiment_environment(experiment_environment_);
       rank_computer->set_model(model);
       ok &= rank_computer->initialize();
-      PredictionCreatorPersonalizedParameters toplist_computer_params;
-      PredictionCreatorPersonalized* toplist_creator = new PredictionCreatorPersonalized(&toplist_computer_params);
+      ToplistCreatorPersonalizedParameters toplist_computer_params;
+      ToplistCreatorPersonalized* toplist_creator = new ToplistCreatorPersonalized(&toplist_computer_params);
       toplist_creators_.push_back(toplist_creator);
       toplist_creator->set_experiment_environment(experiment_environment_);
       toplist_creator->set_model(model);
@@ -117,7 +117,7 @@ private:
 
   //vector<Model*> models_;
   vector<RankComputer*> rank_computers_;
-  vector<PredictionCreatorPersonalized*> toplist_creators_;
+  vector<ToplistCreatorPersonalized*> toplist_creators_;
   DummyModelFilter dummy_model_filter_;
   //vector<double> distribution_;
   //cache

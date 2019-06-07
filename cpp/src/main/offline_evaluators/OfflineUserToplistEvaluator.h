@@ -4,7 +4,7 @@
 #include "OfflineEvaluator.h"
 #include "../recommender_data/macros.h"
 #include "../recommender_data/RecommenderData.h"
-#include "../utils/PredictionCreator.h"
+#include "../utils/ToplistCreator.h"
 
 using namespace std;
 struct OfflineUserToplistEvaluatorParameters {
@@ -20,7 +20,7 @@ class OfflineUserToplistEvaluator : public OfflineEvaluator{
       output_file_name_ = params->output_file_name;
     }
     virtual void evaluate();
-    void set_toplist_creator(PredictionCreatorPersonalized* toplist_creator){ toplist_creator_ = toplist_creator; }
+    void set_toplist_creator(ToplistCreatorPersonalized* toplist_creator){ toplist_creator_ = toplist_creator; }
     bool self_test(){
       bool OK = OfflineEvaluator::self_test();
       if(toplist_creator_ == NULL){
@@ -32,7 +32,7 @@ class OfflineUserToplistEvaluator : public OfflineEvaluator{
     string test_file_name_;
     string test_file_type_;
     string output_file_name_;
-    PredictionCreatorPersonalized* toplist_creator_ = NULL;
+    ToplistCreatorPersonalized* toplist_creator_ = NULL;
 };
 
 

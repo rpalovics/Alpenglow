@@ -13,17 +13,17 @@
 
 using namespace std;
 
-struct PredictionCreatorParameters {
+struct ToplistCreatorParameters {
   int top_k = -1;
   int exclude_known = -1;
 };
-class PredictionCreator : public NeedsExperimentEnvironment, public Initializable {
+class ToplistCreator : public NeedsExperimentEnvironment, public Initializable {
  public:
-   PredictionCreator(PredictionCreatorParameters* params){
+   ToplistCreator(ToplistCreatorParameters* params){
      top_k_ = params->top_k;
      exclude_known_ = params->exclude_known;
    }
-   virtual ~PredictionCreator(){}
+   virtual ~ToplistCreator(){}
    virtual vector<RecDat>* run(RecDat* rec_dat)=0; 
    void set_model(Model* model){model_=model;}
    void set_filter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
@@ -32,19 +32,19 @@ class PredictionCreator : public NeedsExperimentEnvironment, public Initializabl
      bool OK = true;
      if(model_==NULL){
        OK = false;
-       cerr << "Not set: Model of PredictionCreator." << endl;
+       cerr << "Not set: Model of ToplistCreator." << endl;
      }
      if(filter_==NULL){
        OK = false;
-       cerr << "Not set: Filter of PredictionCreator." << endl;
+       cerr << "Not set: Filter of ToplistCreator." << endl;
      }
      if(top_k_<=0){
        OK = false;
-       cerr << "Invalid value top_k_==" << top_k_ << " is set in PredictionCreator." << endl;
+       cerr << "Invalid value top_k_==" << top_k_ << " is set in ToplistCreator." << endl;
      }
      if(exclude_known_==1 and train_matrix_==NULL){
        OK = false;
-       cerr << "Not set: train_matrix of PredictionCreator." << endl;
+       cerr << "Not set: train_matrix of ToplistCreator." << endl;
      }
      return OK;
    }
@@ -73,23 +73,23 @@ class PredictionCreator : public NeedsExperimentEnvironment, public Initializabl
    int exclude_known_;
 };
 
-struct PredictionCreatorGlobalParameters : public PredictionCreatorParameters {
+struct ToplistCreatorGlobalParameters : public ToplistCreatorParameters {
   int initial_threshold; //TODO initial_threshold
 };
 
-class PredictionCreatorGlobal: public PredictionCreator{
+class ToplistCreatorGlobal: public ToplistCreator{
   public:
-    PredictionCreatorGlobal(PredictionCreatorGlobalParameters* params):PredictionCreator(params){
+    ToplistCreatorGlobal(ToplistCreatorGlobalParameters* params):ToplistCreator(params){
       initial_threshold_ = (uint)params->initial_threshold;
       min_heap_.set_max_length(params->top_k);
     };
-    virtual ~PredictionCreatorGlobal(){}
+    virtual ~ToplistCreatorGlobal(){}
     vector<RecDat>* run(RecDat* rec_dat);
     bool self_test(){
-      bool OK = PredictionCreator::self_test() && min_heap_.self_test(); 
+      bool OK = ToplistCreator::self_test() && min_heap_.self_test(); 
       if(initial_threshold_ < 0){
         OK = false;
-        cerr << "Invalid value initial_threshold=" << initial_threshold_ << " is set in PredictionCreatorGlobal." << endl;
+        cerr << "Invalid value initial_threshold=" << initial_threshold_ << " is set in ToplistCreatorGlobal." << endl;
       }
       return OK;
     }
@@ -106,27 +106,27 @@ class PredictionCreatorGlobal: public PredictionCreator{
 
     void process_line(vector<pair<int,double> >* sorted_as,uint begin_a_index, uint end_a_index, int* _rec_dat_a, RecDat* _rec_dat);
     void process_rectangle(vector<pair<int,double> >* sorted_users, vector<pair<int,double> >* sorted_items, uint begin_user_index, uint begin_item_index, uint end_user_index, uint end_item_index, RecDat* _rec_dat);
-    FRIEND_TEST(TestPredictionCreatorGlobal, global);
-    FRIEND_TEST(TestPredictionCreatorGlobal, global2);
-    FRIEND_TEST(TestPredictionCreatorGlobal, process_line);
-    FRIEND_TEST(TestPredictionCreatorGlobal, process_line2);
-    FRIEND_TEST(TestPredictionCreatorGlobal, process_square);
-    FRIEND_TEST(TestPredictionCreatorGlobal, exclude_known);
+    FRIEND_TEST(TestToplistCreatorGlobal, global);
+    FRIEND_TEST(TestToplistCreatorGlobal, global2);
+    FRIEND_TEST(TestToplistCreatorGlobal, process_line);
+    FRIEND_TEST(TestToplistCreatorGlobal, process_line2);
+    FRIEND_TEST(TestToplistCreatorGlobal, process_square);
+    FRIEND_TEST(TestToplistCreatorGlobal, exclude_known);
 };
 
-struct PredictionCreatorPersonalizedParameters : public PredictionCreatorParameters {
+struct ToplistCreatorPersonalizedParameters : public ToplistCreatorParameters {
 };
-class PredictionCreatorPersonalized: public PredictionCreator{
+class ToplistCreatorPersonalized: public ToplistCreator{
   public:
-    PredictionCreatorPersonalized(PredictionCreatorParameters * params):PredictionCreator(params){
+    ToplistCreatorPersonalized(ToplistCreatorParameters * params):ToplistCreator(params){
       min_heap_.set_max_length(top_k_);
     };
     vector<RecDat>* run(RecDat* rec_dat);
-    bool self_test(){ return PredictionCreator::self_test() && min_heap_.self_test(); }
+    bool self_test(){ return ToplistCreator::self_test() && min_heap_.self_test(); }
   protected:
     bool autocalled_initialize() override {
       if (!parent_is_initialized_){
-        parent_is_initialized_ = PredictionCreator::autocalled_initialize();
+        parent_is_initialized_ = ToplistCreator::autocalled_initialize();
         if (!parent_is_initialized_) return false;
       }
       TopListRecommender* ranking_model = dynamic_cast<TopListRecommender*>(model_);

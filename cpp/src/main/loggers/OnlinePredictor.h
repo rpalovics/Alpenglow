@@ -2,7 +2,7 @@
 #define ONLINE_PREDICTOR_H
 #include <gtest/gtest_prod.h>
 #include "Logger.h"
-#include "../utils/PredictionCreator.h"
+#include "../utils/ToplistCreator.h"
 #include "../general_interfaces/Initializable.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
 
@@ -23,7 +23,7 @@ class OnlinePredictor
  public:
    OnlinePredictor(OnlinePredictorParameters* params){set_parameters(params);}
    void run(RecDat* rec_dat) override;
-   void set_prediction_creator(PredictionCreator* prediction_creator){prediction_creator_ = prediction_creator;}
+   void set_prediction_creator(ToplistCreator* prediction_creator){prediction_creator_ = prediction_creator;}
    bool self_test(){
      bool OK = Logger::self_test();
      if(prediction_creator_==NULL){ OK=false; }
@@ -42,7 +42,7 @@ class OnlinePredictor
  private:
    void set_parameters(OnlinePredictorParameters* params);
    bool do_predict(RecDat* rec_dat);
-   PredictionCreator* prediction_creator_ = NULL;
+   ToplistCreator* prediction_creator_ = NULL;
    double evaluation_start_time_, time_frame_;
    int actual_time_frame_ = 0, past_time_frame_ = 0;
    ofstream ofs_;

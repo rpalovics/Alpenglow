@@ -1,6 +1,6 @@
-#include "PredictionCreator.h"
+#include "ToplistCreator.h"
 
-vector<RecDat>* PredictionCreatorGlobal::run(RecDat* rec_dat){
+vector<RecDat>* ToplistCreatorGlobal::run(RecDat* rec_dat){
   filter_->run(rec_dat);
   vector<pair<int,double>>* sorted_users = filter_->get_global_users();
   vector<pair<int,double>>* sorted_items = filter_->get_global_items();
@@ -19,7 +19,7 @@ vector<RecDat>* PredictionCreatorGlobal::run(RecDat* rec_dat){
   return &top_predictions_;
 }
 
-void PredictionCreatorGlobal::process_rectangle(vector<pair<int,double> >* sorted_users, vector<pair<int,double> >* sorted_items, uint begin_user_index, uint begin_item_index, uint end_user_index, uint end_item_index, RecDat* fake_rec_dat){
+void ToplistCreatorGlobal::process_rectangle(vector<pair<int,double> >* sorted_users, vector<pair<int,double> >* sorted_items, uint begin_user_index, uint begin_item_index, uint end_user_index, uint end_item_index, RecDat* fake_rec_dat){
   uint user_index = begin_user_index;
   uint item_index = begin_item_index;
   while(user_index<sorted_users->size() and item_index<sorted_items->size() and user_index<end_user_index and item_index<end_item_index){
@@ -39,7 +39,7 @@ void PredictionCreatorGlobal::process_rectangle(vector<pair<int,double> >* sorte
     }
   }
 }
-void PredictionCreatorGlobal::process_line(vector<pair<int,double> >* sorted_as,uint begin_a_index, uint end_a_index, int* fake_rec_dat_a, RecDat* fake_rec_dat){
+void ToplistCreatorGlobal::process_line(vector<pair<int,double> >* sorted_as,uint begin_a_index, uint end_a_index, int* fake_rec_dat_a, RecDat* fake_rec_dat){
   for(uint a_index=begin_a_index;a_index<min(end_a_index,(uint)sorted_as->size());a_index++){
     double a_bound = (*sorted_as)[a_index].second;
     if(min_heap_.size()==top_k_ and a_bound<=min_heap_.get_min().score){break;}
@@ -52,7 +52,7 @@ void PredictionCreatorGlobal::process_line(vector<pair<int,double> >* sorted_as,
 }
 
 
-vector<RecDat>* PredictionCreatorPersonalized::run(RecDat* rec_dat){
+vector<RecDat>* ToplistCreatorPersonalized::run(RecDat* rec_dat){
   if(ranking_model_ != NULL && filter_ == NULL){
     return run_ranking_model(rec_dat);
   } else {
@@ -60,7 +60,7 @@ vector<RecDat>* PredictionCreatorPersonalized::run(RecDat* rec_dat){
   }
 }
 
-vector<RecDat>* PredictionCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ //TODO test
+vector<RecDat>* ToplistCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ //TODO test
   filter_->run(rec_dat);
   RecDat fake_rec_dat = *rec_dat; //TODO lehet NULL
   vector<pair<int,double>>* sorted_items = filter_->get_personalized_items(rec_dat->user);
@@ -80,7 +80,7 @@ vector<RecDat>* PredictionCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ 
   return &top_predictions_;
 }
 
-vector<RecDat>* PredictionCreatorPersonalized::run_ranking_model(RecDat* rec_dat){
+vector<RecDat>* ToplistCreatorPersonalized::run_ranking_model(RecDat* rec_dat){
   const SpMatrix *matrix = train_matrix_;
   if(!exclude_known_){
     matrix = &dummy_train_matrix_;

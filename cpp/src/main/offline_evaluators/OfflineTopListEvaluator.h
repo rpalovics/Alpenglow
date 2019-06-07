@@ -2,7 +2,7 @@
 #define OFFLINE_TOP_LIST_EVALUATOR_H
 #include <gtest/gtest_prod.h>
 #include "OfflineEvaluator.h"
-#include "../utils/PredictionCreator.h"
+#include "../utils/ToplistCreator.h"
 //TODO rename global toplist evaluator
 
 struct OfflineTopListEvaluatorParameters {
@@ -14,7 +14,7 @@ class OfflineTopListEvaluator : public OfflineEvaluator {
     OfflineTopListEvaluator(OfflineTopListEvaluatorParameters* params){
       ofs.open(params->file_name.c_str());
     }
-    void set_prediction_creator(PredictionCreator* prediction_creator){
+    void set_prediction_creator(ToplistCreator* prediction_creator){
       prediction_creator_ = prediction_creator;
     }
     void evaluate() override;
@@ -25,7 +25,7 @@ class OfflineTopListEvaluator : public OfflineEvaluator {
       return ok;
     }
   private:
-    PredictionCreator* prediction_creator_ = NULL;
+    ToplistCreator* prediction_creator_ = NULL;
     ofstream ofs;
 };
 

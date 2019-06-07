@@ -167,7 +167,7 @@ class OnlineExperiment(ParameterDefaults):
                 dummy_model_filter = rs.DummyModelFilter()
                 model_filter = dummy_model_filter
 
-            pred_creator = rs.PredictionCreatorPersonalized(
+            pred_creator = rs.ToplistCreatorPersonalized(
                 top_k=top_k,
                 exclude_known=exclude_known
             )

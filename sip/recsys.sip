@@ -107,7 +107,7 @@ std::string __stdlib;
 %Include src/utils/PopContainers.sip
 %Include src/utils/Recency.sip
 %Include src/utils/Bias.sip
-%Include src/utils/PredictionCreator.sip
+%Include src/utils/ToplistCreator.sip
 %Include src/utils/Random.sip
 %Include src/utils/PeriodComputer.sip
 %Include src/utils/SparseAttributeContainer.sip

@@ -1,7 +1,7 @@
 #ifndef OFFLINE_RANKING_COMPUTER_H
 #define OFFLINE_RANKING_COMPUTER_H
 
-#include "../utils/PredictionCreator.h"
+#include "../utils/ToplistCreator.h"
 
 struct OfflineRankingComputerParameters {
   int top_k;
@@ -18,7 +18,7 @@ class OfflineRankingComputer{
     OfflineRankingComputer(OfflineRankingComputerParameters* params){
       top_k_ = params->top_k;
     }
-    void set_toplist_creator(PredictionCreatorPersonalized* toplist_creator){
+    void set_toplist_creator(ToplistCreatorPersonalized* toplist_creator){
       toplist_creator_ = toplist_creator;
     }
     void set_items(vector<int>* items){items_ = items;}
@@ -29,7 +29,7 @@ class OfflineRankingComputer{
     int top_k_;
     vector<int> *items_ = NULL;
     vector<int> *users_ = NULL;
-    PredictionCreatorPersonalized* toplist_creator_ = NULL;
+    ToplistCreatorPersonalized* toplist_creator_ = NULL;
 };
 
 #endif /* OFFLINE_RANKING_COMPUTER_H */

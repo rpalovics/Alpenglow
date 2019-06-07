@@ -4,7 +4,7 @@
 #include "../offline_evaluators/OfflineEvaluator.h"
 #include "../recommender_data/macros.h"
 #include "../recommender_data/RecommenderData.h"
-#include "../utils/PredictionCreator.h"
+#include "../utils/ToplistCreator.h"
 
 using namespace std;
 struct OfflineRankingEvaluatorParameters {
@@ -22,7 +22,7 @@ class OfflineRankingEvaluator : public OfflineEvaluator{
       top_k_ = params->top_k;
     }
     virtual void evaluate();
-    void set_toplist_creator(PredictionCreatorPersonalized* toplist_creator){
+    void set_toplist_creator(ToplistCreatorPersonalized* toplist_creator){
       toplist_creator_ = toplist_creator;
     }
     bool self_test(){
@@ -37,7 +37,7 @@ class OfflineRankingEvaluator : public OfflineEvaluator{
     string test_file_type_;
     string output_file_name_;
     int top_k_;
-    PredictionCreatorPersonalized* toplist_creator_ = NULL;
+    ToplistCreatorPersonalized* toplist_creator_ = NULL;
     vector<map<ITEM,pair<SCORE,RANK>>> user_toplist_maps_;
 };
 

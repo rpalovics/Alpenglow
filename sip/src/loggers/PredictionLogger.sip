@@ -18,7 +18,7 @@ class PredictionLogger : public Logger /NoDefaultCtors/{
     PredictionLogger();
     ~PredictionLogger();
     void run(RecDat * recDat);
-    void set_prediction_creator(PredictionCreator* predictionCreator_);
+    void set_prediction_creator(ToplistCreator* predictionCreator_);
     bool self_test();
     OnlinePredictions* get_predictions();
 };

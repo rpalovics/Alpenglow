@@ -124,7 +124,7 @@ class OfflineModel(ParameterDefaults):
         dummy_model_filter.set_items(self.items)
         dummy_model_filter.set_users(self.users)
 
-        pred_creator = rs.PredictionCreatorPersonalized(
+        pred_creator = rs.ToplistCreatorPersonalized(
             top_k=k,
             exclude_known=1 if exclude_known else 0
         )

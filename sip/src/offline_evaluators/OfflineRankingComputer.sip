@@ -21,7 +21,7 @@ class OfflineRankingComputer{
   public:
     OfflineRankingComputer(OfflineRankingComputerParameters *params);
 
-    void set_toplist_creator(PredictionCreatorPersonalized* toplist_creator);
+    void set_toplist_creator(ToplistCreatorPersonalized* toplist_creator);
 
     void set_items(std::vector<int> *items);
     void set_items(VectorInt);
