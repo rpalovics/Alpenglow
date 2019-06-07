@@ -18,7 +18,7 @@ class GradientComputer : public Updater{ //SIP_ABSTRACT
     void add_gradient_updater(ModelGradientUpdater* gradient_updater){ 
       gradient_updaters_.push_back(gradient_updater);
     }
-    void message(UpdaterMessage message){
+    void message(UpdaterMessage message) override {
       for(auto updater:gradient_updaters_){
         updater->message(message);
       }
@@ -39,7 +39,7 @@ class GradientComputerPointWise : public GradientComputer{
     void set_objective(ObjectivePointWise* objective){
       objective_ = objective;
     }
-    void update(RecDat* rec_dat){
+    void update(RecDat* rec_dat) override {
       model_->add(rec_dat);
       double gradient=get_gradient(rec_dat);
       for(auto updater:gradient_updaters_) updater->update(rec_dat,gradient); 
