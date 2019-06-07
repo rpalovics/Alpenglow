@@ -19,6 +19,8 @@ They have to implement the appropriate interfaces, as depicted on the UML class 
 
 .. image:: class_diagram_common_color.png
 
+Read more about the interfaces in :doc:`/general/cpp_api`.
+
 An example: time frame based popularity model experiment
 --------------------------------------------------------
 
