@@ -5,5 +5,6 @@ class DataGenerator {
   %End
   public:
     virtual RecommenderData* generate_recommender_data(RecDat*)=0;
+    bool self_test();
 };
 
