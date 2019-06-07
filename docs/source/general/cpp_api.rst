@@ -97,14 +97,38 @@ The gradient updater computes the model-dependent part of the gradient and updat
 General interfaces
 ------------------
 
-Initializable
-^^^^^^^^^^^^^
+These are administrative things, nothing to do with the recommender algorithm.  These make some administrative things, solved in a centralized way:
+
+- injecting the common ``ExperimentEnvironment`` object into classes that require it (only in the online experiments),
+- notify the classes about the end of the wiring phase,
+- run self-checks to find wiring errors and faulty parameters.
+
+In the preconfigured experiments (:py:mod:`alpenglow.experiments`, :py:mod:`alpenglow.offline`) these administration tasks are automatically performed.
 
 NeedsExperimentEnvironment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Interface: :py:class:`alpenglow.cpp.NeedsExperimentEnvironment`.
+
+In the online experiment, the common data, centrally updated statistics and common simulation features are available to all objects through :py:class:`alpenglow.cpp.ExperimentEnvironment`.  The system can automatically inject this dependency to the objects using :py:meth:`alpenglow.Getter.MetaGetter.set_experiment_environment`.
+
+In the offline experiments, ``ExperimentEnvironment`` is not available.  The common objects and parameters that would be available through it need to be set locally.
+
+Initializable
+^^^^^^^^^^^^^
+
+Interface: :py:class:`alpenglow.cpp.Initializable`
+
+The C++ objects are instantiated in python and then wired together using ``set_xxx()`` and ``add_xxx()`` functions.  When the wiring is finished, some object require a notification to make some initial tasks that depend on the final configuration (e.g. depend on the number of subobjects that were added).
+
+Use :py:meth:`alpenglow.Getter.MetaGetter.initialize_all` to notify objects by calling :py:meth:`alpenglow.cpp.Initializable.initialize` when wiring is finished.
+
 self_test() function
 ^^^^^^^^^^^^^^^^^^^^
+
+Example: :py:meth:`alpenglow.cpp.FactorModel.self_test`
+
+The wiring of the experiment is very error-prone.  Wiring errors may lead to segmentation faults and undefined behaviour.  To mitigate this problem, most of the classes can test themselves for missing subcomponents and contradictory parameters.  Use :py:meth:`alpenglow.Getter.MetaGetter.run_self_test` to call ``self_test`` for each object that implements this function.
 
 Offline experiments
 -------------------
