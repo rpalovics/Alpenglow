@@ -1,13 +1,13 @@
 struct RankComputerParameters{
   %TypeHeaderCode
-  #include "utils/Ranking.h"
+  #include "utils/RankComputer.h"
   %End
   int top_k;
   int random_seed;
 };
 class RankComputer : public NeedsExperimentEnvironment, public Initializable {
   %TypeHeaderCode
-  #include "utils/Ranking.h"
+  #include "utils/RankComputer.h"
   %End
   public:
     RankComputer(RankComputerParameters * parameters);

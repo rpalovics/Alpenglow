@@ -1,6 +1,6 @@
 #include <vector>
 #include <gtest/gtest.h>
-#include "../../main/utils/Ranking.h"
+#include "../../main/utils/RankComputer.h"
 
 class DummyModel : public Model {
   public:

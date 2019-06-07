@@ -5,7 +5,7 @@
 #include "Evaluator.h"
 #include "../../general_interfaces/Initializable.h"
 #include "../../general_interfaces/NeedsExperimentEnvironment.h"
-#include "../../utils/Ranking.h"
+#include "../../utils/RankComputer.h"
 
 
 //TODO should be compatible with the offline environment

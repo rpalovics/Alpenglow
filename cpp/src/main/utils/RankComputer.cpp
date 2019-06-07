@@ -1,4 +1,4 @@
-#include "Ranking.h"
+#include "RankComputer.h"
 
 #include <utility>
 
