@@ -67,11 +67,32 @@ Use the parameter ``shuffle_same_time`` in the preconfigured experiments to choo
 Components for gradient based learning algorithms
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Updating gradient based recommenders require some common tasks independetly from the acutal algorithm.  These are described below together with the interfaces that are used to carry them out.
+
 Negative sample generators
 """"""""""""""""""""""""""
 
+Interface: :py:class:`alpenglow.cpp.NegativeSampleGenerator`
+
+In implicit datasets, normally all samples are positive samples.  Training gradient based recommenders using only positive samples would result in doubtful outcome.  To avoid this problem, we generate negative samples.  We treat all user-item pairs that are not present in the dataset as a negative sample.  The negative sample generators select from the set of these "missing" pairs using different strategies.
+
+The simplest strategy is choosing uniformly randomly a fixed size set of items for the current user from the set of items that this user have not yet iteracted with.  This strategy is implemented in :py:class:`alpenglow.cpp.UniformNegativeSampleGenerator`.
+
+In the implementation, the negative sample generators are present in the chain of the updaters.  They get the positive sample, generate negative ones and call to the next updater(s) for the original positive sample and for each negative one.  See :py:doc:`/general/anatomy_of_experiment` to learn more about the chain of the updaters.
+
 Gradient computers and objectives
 """""""""""""""""""""""""""""""""
+
+Interface: :py:class:`alpenglow.cpp.GradientComputer`, :py:class:`alpenglow.cpp.ObjectivePointWise`
+
+In the alpenglow framework, the objective-dependent and model-dependent part of the gradient computation is separated, as much as this is (mathematically) possible.  The objective-depentent part is implemented in the gradient computer class, that passes the update call providing the gradient value to gradient updaters (see next section).
+
+Gradient updaters
+"""""""""""""""""
+
+Interface: :py:class:`alpenglow.cpp.ModelGradientUpdater`
+
+The gradient updater computes the model-dependent part of the gradient and updates the model.
 
 General interfaces
 ------------------
