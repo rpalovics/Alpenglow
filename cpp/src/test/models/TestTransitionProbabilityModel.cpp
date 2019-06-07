@@ -294,6 +294,7 @@ TEST_F(TestTransitionEndLogger, test){
   EXPECT_TRUE(updater.self_test());
   TransitionModelEndLoggerParameters logger_params;
   logger_params.max_length=5;
+  logger_params.log_file_name="transition_end_logger_temp_file";
   TransitionModelEndLogger logger(&logger_params);
   logger.set_model(&model);
   PopContainer pop_container;

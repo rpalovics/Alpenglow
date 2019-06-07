@@ -34,6 +34,7 @@ vector<pair<int,int>> TransitionModelLogger::compute_toplist(map<int,int>* actua
 void TransitionModelLogger::write_toplist_lengths(RecDat* rec_dat){
   string filename=toplist_length_logfile_basename_+"_"+to_string(last_period_num_);
   ofstream ofs(filename.c_str());
+  if(!ofs.is_open()) cerr << "Error: TransitionModelLogger can't open file '" << filename << "'." << endl;
   for(uint item=0;item<model_->transition_frequencies_.size();item++){
     int out_degree = model_->transition_frequencies_[item].size();
     //int popularity = pop_container_->get(item);

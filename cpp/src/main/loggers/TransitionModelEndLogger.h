@@ -32,6 +32,7 @@ class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironmen
       bool OK = Logger::self_test();
       if(model_==NULL){ OK=false; cerr << "TransitionModelEndLogger::model is not set." << endl; }
       if(pop_container_==NULL){ OK=false; cerr << "TransitionModelEndLogger::pop_container is not set." << endl; }
+      if(log_file_name_==""){ OK=false; cerr << "TransitionModelEndLogger::log_file_name is not set." << endl; }
       return OK;
     }
   protected:
