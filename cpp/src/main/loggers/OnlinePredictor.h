@@ -25,8 +25,10 @@ class OnlinePredictor
    void run(RecDat* rec_dat) override;
    void set_prediction_creator(PredictionCreator* prediction_creator){prediction_creator_ = prediction_creator;}
    bool self_test(){
-     bool OK = true;
+     bool OK = Logger::self_test();
      if(prediction_creator_==NULL){ OK=false; }
+     if(time_frame_<=0){ OK=false; }
+     if(!ofs_.is_open()){ OK=false; }
      return OK;
    }
  protected:
