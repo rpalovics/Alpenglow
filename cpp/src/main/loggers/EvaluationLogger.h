@@ -28,8 +28,6 @@ class EvaluationLogger : public Logger, public NeedsExperimentEnvironment, publi
       timeframe_ = params->timeframe;
       mode_ = params->mode;
       error_type_ = params->error_type;
-      model_ = NULL;
-      recommender_data_iterator_ = NULL;
     }
     void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator){
       recommender_data_iterator_ = recommender_data_iterator;
@@ -66,8 +64,8 @@ class EvaluationLogger : public Logger, public NeedsExperimentEnvironment, publi
     string mode_;
     string error_type_;
     ofstream output_file_; 
-    Model* model_;
-    const RecommenderDataIterator* recommender_data_iterator_;
+    Model* model_ = NULL;
+    const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     //state
     int end_of_timeframe_;
     int beginning_of_timeframe_;
