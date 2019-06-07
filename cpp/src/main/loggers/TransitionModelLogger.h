@@ -15,10 +15,14 @@ using namespace std;
 struct TransitionModelLoggerParameters {
   string toplist_length_logfile_basename = ""; //output format: track toplist_len
   string timeline_logfile_name = "";
-  int period_length = -1;
+  int period_length = 86400;
   int top_k = -1;
 };
-class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, public Initializable{ //SIP_NODEFAULTCTORS
+class TransitionModelLogger
+  : public Logger
+  , public NeedsExperimentEnvironment
+  , public Initializable
+  { //SIP_NODEFAULTCTORS
   public:
     TransitionModelLogger(TransitionModelLoggerParameters* params):
       period_length_(params->period_length)
@@ -26,7 +30,6 @@ class TransitionModelLogger : public Logger, public NeedsExperimentEnvironment, 
       toplist_length_logfile_basename_=params->toplist_length_logfile_basename;
       timeline_logfile_name_=params->timeline_logfile_name;
       top_k_=params->top_k;
-      last_period_num_=0;
     }
     void run(RecDat* rec_dat) override {
       int period_num = (int)rec_dat->time/period_length_;

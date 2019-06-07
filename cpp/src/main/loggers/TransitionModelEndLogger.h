@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <gtest/gtest_prod.h>
 #include "Logger.h"
 #include "../models/baseline/TransitionProbabilityModel.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
@@ -10,18 +11,16 @@
 using namespace std;
 
 struct TransitionModelEndLoggerParameters {
-  string log_file_name; //output format: track len_of_list popularity track1 track2 ... track_max_length
-  int max_length;
-  TransitionModelEndLoggerParameters(){
-    log_file_name="";
-    max_length=-1;
-  }
+  string log_file_name = ""; //output format: track len_of_list popularity track1 track2 ... track_max_length
+  int max_length = 10;
 };
-class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironment, public Initializable{
+class TransitionModelEndLogger
+  : public Logger
+  , public NeedsExperimentEnvironment
+  , public Initializable
+  {
   public:
     TransitionModelEndLogger(TransitionModelEndLoggerParameters* params){
-      model_=NULL;
-      pop_container_=NULL;
       log_file_name_=params->log_file_name;
       max_length_=params->max_length;
     }
@@ -49,6 +48,7 @@ class TransitionModelEndLogger : public Logger, public NeedsExperimentEnvironmen
     const PopContainer* pop_container_ = NULL;
     string log_file_name_;
     int max_length_;
+  FRIEND_TEST(TestTransitionEndLogger, test);
 };
 
 
