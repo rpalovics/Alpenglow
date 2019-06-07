@@ -32,7 +32,7 @@ class DummyToplistModel : public Model, public TopListRecommender {
       return 0;
     }
     void add(RecDat* recDat){}
-    vector<pair<int,double>> get_top_list(int user, int k, const SpMatrix *exclude) override {
+    vector<pair<int,double>> get_top_list(int user, int k, const map<int,double> *exclude) override {
       if(user == 1){
         return {{1,0},{2,0},{3,0},{4,0},{5,0}};
       } else if(user == 2){

@@ -25,7 +25,7 @@ class ExternalModel : public Model, public TopListRecommender{
     }
     void read_predictions(string file_name);
     void write_requested_users(string file_name);
-    vector<pair<int,double>> get_top_list(int user, int k, const SpMatrix *exclude) override;
+    vector<pair<int,double>> get_top_list(int user, int k, const map<int,double> *exclude) override;
 
   protected:
     const string mode_;
