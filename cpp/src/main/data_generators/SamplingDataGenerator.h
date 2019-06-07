@@ -9,7 +9,7 @@
 
 struct SamplingDataGeneratorParameters {
   string distribution = "uniform";
-  int number_of_samples = 0;
+  int number_of_samples = 1000;
   double y = 10; //parameter of arctg random
   double geometric_param = 0.5; //parameter of geometric random
   int seed = 745578;
@@ -28,7 +28,7 @@ class SamplingDataGenerator : public DataGenerator, public Initializable, public
      recommender_data_iterator_ = recommender_data_iterator;
     }
     bool self_test(){
-      bool ok=true;
+      bool ok=DataGenerator::self_test();
       if(!random_.self_test()) ok=false;
       if(recommender_data_iterator_==NULL) ok=false;
       if(number_of_samples_<0) ok=false;
@@ -48,10 +48,10 @@ class SamplingDataGenerator : public DataGenerator, public Initializable, public
       return true;
     }
   private:
-    string distribution_ = "uniform";
-    int number_of_samples_ = 0;
-    double y_ = 10;
-    double geometric_param_ = 0.5;
+    string distribution_;
+    int number_of_samples_;
+    double y_;
+    double geometric_param_;
     const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     RecommenderData local_recommender_data_;
     Random random_;

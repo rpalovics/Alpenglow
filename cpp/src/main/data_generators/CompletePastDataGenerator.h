@@ -14,7 +14,7 @@ class CompletePastDataGenerator : public DataGenerator, public NeedsExperimentEn
      recommender_data_iterator_ = recommender_data_iterator;
     }
     bool self_test(){
-      bool ok=true;
+      bool ok=DataGenerator::self_test();
       if(recommender_data_iterator_==NULL) ok=false;
       return ok;
     }
