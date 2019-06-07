@@ -15,11 +15,11 @@ Welcome to Alpenglow's documentation!
    :caption: General information:
 
    general/anatomy_of_experiment
+   general/cpp_api
    general/simulation_attributes
    general/combination
       
 ..    general/python_api
-..    general/cpp_api
 ..    general/memory_management
 ..    general/future_work
 
