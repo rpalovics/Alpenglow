@@ -17,12 +17,10 @@ struct OnlinePredictions{
 
 class PredictionLogger : public Logger{ //SIP_NODEFAULTCTORS
   public:
-    PredictionLogger(){}
-    ~PredictionLogger(){}
-    void run(RecDat * recDat);
+    void run(RecDat* recDat);
     void set_prediction_creator(PredictionCreator* prediction_creator_){prediction_creator = prediction_creator_;}
     bool self_test(){
-      bool ok = true;
+      bool ok = Logger::self_test();
       if(prediction_creator == NULL){
         cerr << "PredictionLogger: prediction_creator not set!";
         ok = false;
@@ -34,8 +32,7 @@ class PredictionLogger : public Logger{ //SIP_NODEFAULTCTORS
     }
   private:
     OnlinePredictions predictions_;
-    PredictionCreator * prediction_creator=NULL;
-    ofstream  ofs;
+    PredictionCreator* prediction_creator=NULL;
     FRIEND_TEST(TestPredictionLogger, test);
 };
 
