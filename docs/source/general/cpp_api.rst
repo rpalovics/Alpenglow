@@ -87,3 +87,7 @@ self_test() function
 
 Offline experiments
 -------------------
+
+The batch style experiments that have a fixed train-test split need some separate classes.  See :py:class:`alpenglow.cpp.OfflineLearner` and :py:class:`alpenglow.cpp.OfflineEvaluator`.
+
+The models that are trained in batch style can be embedded in the online framework.  See :py:class:`alpenglow.experiments.ALSOnlineFactorExperiment` and :py:class:`alpenglow.experiments.BatchFactorExperiment`.  The embedding works in the other direction, see :py:class:`alpenglow.offline.models.PopularityModel`.
