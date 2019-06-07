@@ -13,10 +13,6 @@ using namespace std;
 
 class MemoryUsageLogger : public Logger, public Initializable, public NeedsExperimentEnvironment{
   public:
-    MemoryUsageLogger(){
-      recommender_data_iterator_=NULL;
-    }
-    virtual ~MemoryUsageLogger(){}
     void run(RecDat* rec_dat) override {
       int counter = recommender_data_iterator_->get_counter();
       if(counter % frequency_ == 0 or counter == size_-1){
@@ -47,7 +43,7 @@ class MemoryUsageLogger : public Logger, public Initializable, public NeedsExper
       return true;
     }
   private:
-    const RecommenderDataIterator* recommender_data_iterator_;
+    const RecommenderDataIterator* recommender_data_iterator_ = NULL;
     int frequency_;
     int size_;
 };
