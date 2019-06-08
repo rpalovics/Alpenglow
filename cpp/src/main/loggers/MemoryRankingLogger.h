@@ -68,7 +68,7 @@ class MemoryRankingLogger
       if (model_==NULL) ok=false;
       if (memory_log_ && logs_==NULL) ok=false; //TODO create log locally
       if (out_file_name_!="" && !ofs.is_open()) ok=false;
-      return rank_computer_.self_test();
+      return ok;
     }
   protected:
     bool autocalled_initialize() override {
