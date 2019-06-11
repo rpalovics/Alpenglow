@@ -14,7 +14,7 @@ env = Environment(
         '-fPIC',
         '-Wno-deprecated',
         '-Wno-reorder',
-        '-Wsuggest-override',
+        #'-Wsuggest-override',
         '-mfpmath=sse,387',
         '-funroll-loops',
         '-fomit-frame-pointer',
