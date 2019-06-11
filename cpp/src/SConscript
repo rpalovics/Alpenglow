@@ -43,6 +43,8 @@ env = Environment(
 #available modes: coverage, debug (default), optimized
 mode = ARGUMENTS.get('mode', 'debug')
 
+if mode!="travis":
+  env.Append(CCFLAGS = '-Wsuggest-override')
 if mode=="debug":
   env.Append(CCFLAGS = '-ggdb')
 if mode=="optimized":

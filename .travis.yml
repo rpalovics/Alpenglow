@@ -25,7 +25,7 @@ jobs:
         - ar -rv libgtest.a gtest-all.o
         - popd
         - cd cpp/src
-      install: scons -j10
+      install: scons -j10 -Q mode=travis
       script: ./run_tests.sh
     - name: "python integration tests"
       language: python
