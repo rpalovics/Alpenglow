@@ -141,12 +141,6 @@ class SvdppModel
 
     friend class SvdppModelGradientUpdater;
     friend class SvdppModelUpdater;
-    //friend class SvdppModelFilter;
-    //friend class TestSvdppModel;
-    //FRIEND_TEST(TestSvdppModel, test);
-    //FRIEND_TEST(TestSvdppModel, similarity);
-    //FRIEND_TEST(TestSvdppModelFilter, test_basic);
-    //FRIEND_TEST(TestSvdppModelFilter, test_all);
 };
 
 #endif /* SVDPP_MODEL_H */
