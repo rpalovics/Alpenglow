@@ -46,32 +46,6 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
       }
       return ok;
     }
-    virtual void message(UpdaterMessage message) override {
-      switch(message){
-        case UpdaterMessage::start_of_offline_update:
-          cout << "start_of_offline_update" << endl;
-          break;
-        case UpdaterMessage::end_of_offline_update:
-          cout << "end_of_offline_update" << endl;
-          break;
-        case UpdaterMessage::start_of_offline_iterations:
-          cout << "start_of_offline_iterations" << endl;
-          break;
-        case UpdaterMessage::end_of_offline_iterations:
-          cout << "end_of_offline_iterations" << endl;
-          break;
-        case UpdaterMessage::start_of_implicit_update_cycle:
-          cout << "start_of_implicit_update_cycle" << endl;
-          break;
-        case UpdaterMessage::end_of_implicit_update_cycle:
-          cout << "end_of_implicit_update_cycle" << endl;
-          break;
-      }
-      if(message == UpdaterMessage::start_of_offline_iterations){
-        cout << "items size: " << items_->size() << endl;
-        cout << "trainmat size: " << train_matrix_->size() << endl;
-      }
-    }
   protected:
     bool autocalled_initialize() override {
       if(experiment_environment_==NULL && (

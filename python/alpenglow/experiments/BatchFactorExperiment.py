@@ -39,7 +39,6 @@ class BatchFactorExperiment(prs.OnlineExperiment):
             begin_max=0.01,
             dimension=10,
             initialize_all=False,
-            seed=254938879,
         ))
 
         updater = rs.FactorModelGradientUpdater(**self.parameter_defaults(
