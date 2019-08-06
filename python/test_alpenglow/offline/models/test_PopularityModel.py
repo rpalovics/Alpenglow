@@ -58,6 +58,6 @@ class TestPopularityModel(unittest.TestCase):
         preds = exp.recommend(exclude_known=True)
         joined_preds = preds.join(
             data.set_index(['user', 'item']),
-            on=['user','item'], how='inner'
+            on=['user','item'], how='inner', rsuffix="_right"
         )
         assert len(joined_preds) == 0

@@ -12,7 +12,6 @@ void FactorModel::set_parameters(FactorModelParameters* parameters){
 }
 
 void FactorModel::clear(){
-  cout << "clearing" << endl;
   user_factors_.clear();
   item_factors_.clear();
   if(use_user_bias_){

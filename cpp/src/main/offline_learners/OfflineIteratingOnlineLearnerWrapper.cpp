@@ -1,7 +1,6 @@
 #include "OfflineIteratingOnlineLearnerWrapper.h"
 
 void OfflineIteratingOnlineLearnerWrapper::fit(RecommenderData* recommender_data) {
-  cout << "fitting to size " << recommender_data->size() << endl;
   RandomIterator random_iterator(recommender_data, seed_, "manual_shuffle"); //TODO is it ok to use the same seed?
   if(early_updaters_.size()>0){
     for(uint ui = 0; ui<early_updaters_.size(); ui++){
@@ -22,9 +21,7 @@ void OfflineIteratingOnlineLearnerWrapper::fit(RecommenderData* recommender_data
       iterate_updaters_[ui]->message(UpdaterMessage::start_of_offline_iterations);
     }
     int counter = number_of_iterations_+1;
-    cout << "iterating " << counter << endl;
     while (--counter) {
-      //cerr << "Beginning of " << number_of_iterations_+1-counter << "th iteration." << endl;
       if (shuffle_) random_iterator.shuffle();
       random_iterator.restart();
       while ( random_iterator.has_next() ) {
@@ -33,7 +30,6 @@ void OfflineIteratingOnlineLearnerWrapper::fit(RecommenderData* recommender_data
           iterate_updaters_[ui]->update(rec_dat);
         }
       }
-      //cerr << "End of " << number_of_iterations_+1-counter << "th iteration." << endl;
     }
     for(uint ui = 0; ui<iterate_updaters_.size(); ui++) {
       iterate_updaters_[ui]->message(UpdaterMessage::end_of_offline_iterations);
