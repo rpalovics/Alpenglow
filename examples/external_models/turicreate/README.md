@@ -4,7 +4,6 @@
 
 ## How to run
 ```bash
-mkdir batches
 python prepare_data.py
 python run_turicreate.py
 ```

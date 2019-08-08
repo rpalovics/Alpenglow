@@ -5,7 +5,7 @@ import pathlib
 
 pathlib.Path("./batches").mkdir(parents=True, exist_ok=True)
 
-data = pd.read_csv('/home/kd/sztaki/workspace/bench/tutorial_data/data.csv', header=None, names=['time', 'user', 'item'])
+data = pd.read_csv('/mnt/idms/kdomokos/data/tutorial_data/data.csv', header=None, names=['time', 'user', 'item'])
 
 exp = ExternalModelExperiment(
     period_length=60 * 60 * 24 * 7 * 4,

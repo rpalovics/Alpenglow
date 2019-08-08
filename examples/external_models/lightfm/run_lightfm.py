@@ -60,4 +60,4 @@ for i in range(1, 14):
     ranklists_j_new['pos'] = 1
     ranklists_j_new['pos'] = ranklists_j_new.groupby('user').pos.transform(np.cumsum)
 
-    ranklists_j_new[ranklists_j_new.pos <= 100][['user', 'item', 'pos']].to_csv('batches/batch_%d_predictions.dat' % i, sep=' ', header=False, index=False)
+    ranklists_j_new[ranklists_j_new.pos <= 100][['user', 'item', 'pos']].sort_values(['user','pos']).to_csv('batches/batch_%d_predictions.dat' % i, sep=' ', header=False, index=False)

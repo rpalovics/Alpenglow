@@ -6,7 +6,6 @@
 ```bash
 git clone https://github.com/fabiopetroni/libfm_with_BPR.git
 pushd libfm_with_BPR; make all; popd
-mkdir batches
 python prepare_data.py
 python prepare_libfm.py
 ./run_libfm.py

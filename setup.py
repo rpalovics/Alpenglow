@@ -144,6 +144,8 @@ if conda_executable_name[-len("bin/python"):] == "bin/python":
     conda_include_dirs.append(conda_executable_name[:-len("bin/python")]+"include")
 elif conda_executable_name[-len("python.exe"):] == "python.exe":
     conda_include_dirs.append(conda_executable_name[:-len("python.exe")]+"Library/include")
+if 'CONDA_PREFIX' in os.environ:
+    conda_include_dirs.append(os.environ['CONDA_PREFIX']+"/include")
 
 setup(
     name='alpenglow',
