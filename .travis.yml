@@ -3,6 +3,9 @@ jobs:
     - name: "cpp unit tests"
       language: cpp
       before_install:
+        #scons
+        - sudo apt-get install -y scons
+        #dependencies
         - pushd cpp/dep
         #eigen
         - wget http://bitbucket.org/eigen/eigen/get/3.3.5.tar.gz
