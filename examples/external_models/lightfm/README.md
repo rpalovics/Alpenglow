@@ -12,7 +12,7 @@ At this point, you can open the notebook `evaluate.ipynb` to evaluate the result
 
 ## Implementation details
 
-The simplest way of evaluating external batch models with Alpenglow is through the [ExternalModelExperiment](...) interface of Alpenglow's API. This experiment has two modes of operation -- one is "write", which writes the training data to disk, and the other is "read", which reads the predictions made by the external model and evaluates them.
+The simplest way of evaluating external batch models with Alpenglow is through the [ExternalModelExperiment](https://alpenglow.readthedocs.io/en/latest/alpenglow.experiments.html#alpenglow.experiments.ExternalModelExperiment.ExternalModelExperiment) interface of Alpenglow's API. This experiment has two modes of operation -- one is "write", which writes the training data to disk, and the other is "read", which reads the predictions made by the external model and evaluates them.
 
 This experiment runs in 3 phases:
 - The first one, `prepare_data.py` prepares the experiment by running `ExternalModelExperiment` in write mode. This writes train files and the list of corresponding test users who need toplists in the next time period.
