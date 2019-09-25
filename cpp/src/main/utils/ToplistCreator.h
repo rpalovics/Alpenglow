@@ -1,5 +1,5 @@
-#ifndef PREDICTION_CREATOR_H
-#define PREDICTION_CREATOR_H
+#ifndef TOPLIST_CREATOR_H
+#define TOPLIST_CREATOR_H
 //TODO rename to toplistcreator/globaltoplistcreator/usertoplistcreator
 #include <climits>
 #include <iostream>
@@ -147,4 +147,4 @@ class ToplistCreatorPersonalized: public ToplistCreator{
     bool parent_is_initialized_ = false;
 };
 
-#endif /* PREDICTION_CREATOR_H */
+#endif /* TOPLIST_CREATOR_H */
