@@ -1,3 +1,4 @@
+
 struct OnlinePredictions{
   %TypeHeaderCode
   #include "loggers/PredictionLogger.h"
@@ -10,15 +11,14 @@ struct OnlinePredictions{
   std::vector<double> scores;
 };
 
-class PredictionLogger : public Logger /NoDefaultCtors/{
+class PredictionLogger : public Logger{
   %TypeHeaderCode
   #include "loggers/PredictionLogger.h"
   %End
   public:
-    PredictionLogger();
-    ~PredictionLogger();
-    void run(RecDat * recDat);
-    void set_prediction_creator(ToplistCreator* predictionCreator_);
+    void run(RecDat* recDat);
+    void set_prediction_creator(ToplistCreator* prediction_creator_);
     bool self_test();
     OnlinePredictions* get_predictions();
 };
+

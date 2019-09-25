@@ -4,7 +4,7 @@
 #include "Logger.h"
 #include "../utils/ToplistCreator.h"
 
-//SIP_OVERWRITE
+//SIP_AUTOCONVERT
 
 struct OnlinePredictions{
   vector<int> ids;
@@ -15,10 +15,12 @@ struct OnlinePredictions{
   vector<double> scores;
 };
 
-class PredictionLogger : public Logger{ //SIP_NODEFAULTCTORS
+class PredictionLogger : public Logger{
   public:
-    void run(RecDat* recDat);
-    void set_prediction_creator(ToplistCreator* prediction_creator_){prediction_creator = prediction_creator_;}
+    void run(RecDat* recDat) override;
+    void set_prediction_creator(ToplistCreator* prediction_creator_){
+      prediction_creator = prediction_creator_;
+    }
     bool self_test(){
       bool ok = Logger::self_test();
       if(prediction_creator == NULL){
