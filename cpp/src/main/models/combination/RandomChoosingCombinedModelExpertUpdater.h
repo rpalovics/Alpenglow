@@ -43,8 +43,8 @@ public:
     }
     evaluators_ = evaluators;
   }
-  void set_wms(WeightedModelStructure* model){model_ = model; }
-  void update(RecDat* rec_dat);
+  void set_wms(WeightedModelStructure* model) override {model_ = model; } //TODO override???
+  void update(RecDat* rec_dat) override;
   bool self_test(){
     bool ok = dcg_eval_self_test_result_;
     if(model_==NULL){
@@ -65,7 +65,7 @@ public:
   }
 
 protected:
-  bool autocalled_initialize(){
+  bool autocalled_initialize() override {
     if(!model_->is_initialized()) return false;
     for(auto& weight:model_->distribution_){
       weight=1.0;
