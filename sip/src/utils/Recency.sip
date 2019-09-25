@@ -4,8 +4,7 @@ class Recency{
   #include "utils/Recency.h"
   %End
   public:
-    Recency();
-    ~Recency();
+    virtual ~Recency();
     virtual double get(int entity, double actual_time) = 0;
     virtual void update(int entity, double actual_time) = 0;
 };
@@ -26,8 +25,7 @@ class PowerLawRecency : public Recency{
   #include "utils/Recency.h"
   %End
   public:
-    PowerLawRecency(PowerLawRecencyParameters * params);
-    ~PowerLawRecency();
+    PowerLawRecency(PowerLawRecencyParameters* params);
     double get(int entity, double actual_time);
     void update(int entity, double actual_time);
 };
