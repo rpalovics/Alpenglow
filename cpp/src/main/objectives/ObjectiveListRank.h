@@ -8,7 +8,7 @@ using namespace std;
 
 class ObjectiveListRank : public ObjectiveListWise{
   public:
-    vector<double> get_gradient(vector<RecPred>* predictions);
+    vector<double> get_gradient(vector<RecPred>* predictions) override;
   private:
     void clear();
     void compute_norms();

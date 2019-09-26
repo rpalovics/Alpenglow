@@ -8,7 +8,7 @@
 
 class ObjectiveMSE : public ObjectivePointWise{
   public:
-    double get_gradient(RecPred* rec_pred);
+    double get_gradient(RecPred* rec_pred) override;
 };
 
 #endif /* OBJECTIVE_M_S_E_H */

@@ -6,7 +6,7 @@
 
 class ObjectiveSigmoidMSE : public ObjectivePointWise {
 public:
-  double get_gradient(RecPred* rec_pred);
+  double get_gradient(RecPred* rec_pred) override;
 };
 
 

@@ -7,7 +7,7 @@ using namespace std;
 
 class ObjectiveBPR : public ObjectivePairWise{
   public:
-    pair <double,double> get_gradient(RecPred* rec_pred1, RecPred* rec_pred2);
+    pair <double,double> get_gradient(RecPred* rec_pred1, RecPred* rec_pred2) override;
 };
 
 #endif /* OBJECTIVE_B_P_R_H */
