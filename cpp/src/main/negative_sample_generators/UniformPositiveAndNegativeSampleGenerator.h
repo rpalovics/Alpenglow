@@ -16,17 +16,17 @@ struct UniformPositiveAndNegativeSampleGeneratorParameters {
 
 class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator {
   public: 
-    UniformPositiveAndNegativeSampleGenerator(UniformPositiveAndNegativeSampleGeneratorParameters * parameters){
+    UniformPositiveAndNegativeSampleGenerator(UniformPositiveAndNegativeSampleGeneratorParameters* parameters){
       set_parameters(parameters);
     };
-    void set_parameters (UniformPositiveAndNegativeSampleGeneratorParameters * parameters);
+    void set_parameters (UniformPositiveAndNegativeSampleGeneratorParameters* parameters);
     void set_train_matrix(SpMatrix* train_matrix_){
       train_matrix=train_matrix_;
     }
     void set_items(vector<int>* items_){
       items=items_;
     }
-    vector<int>* generate(RecDat* rec_dat);
+    vector<int>* generate(RecDat* rec_dat) override;
     vector<int>* generate_positive(RecDat* rec_dat, string type);
     vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample);
     void update(RecDat* rec_dat);
