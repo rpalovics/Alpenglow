@@ -1,6 +1,6 @@
-#include "HighGradientNegativeSampleGenerator.h"
+#include "HighPredictionNegativeSampleGenerator.h"
 
-vector<int>* HighGradientNegativeSampleGenerator::generate(RecDat* rec_dat){
+vector<int>* HighPredictionNegativeSampleGenerator::generate(RecDat* rec_dat){
   samples.clear();
   positive_sample_ = *rec_dat;
   user_ = rec_dat->user;
@@ -10,7 +10,7 @@ vector<int>* HighGradientNegativeSampleGenerator::generate(RecDat* rec_dat){
   return &samples;
 }
 
-void HighGradientNegativeSampleGenerator::generate_all(){
+void HighPredictionNegativeSampleGenerator::generate_all(){
   //generate full_negative_rate_ samples
   local_samples_.clear();
   int learnt = 0, available = items_->size();
@@ -28,7 +28,7 @@ void HighGradientNegativeSampleGenerator::generate_all(){
     available--;
   }
 }
-void HighGradientNegativeSampleGenerator::choose_best(){
+void HighPredictionNegativeSampleGenerator::choose_best(){
   sort(local_samples_.begin(),local_samples_.end(),sort_pair_descending_by_second<int>);
   for(int i=0;i<negative_rate_ && i<(int)local_samples_.size();i++){
     samples.push_back(local_samples_[i].first);

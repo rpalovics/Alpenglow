@@ -1,16 +1,16 @@
-#ifndef HIGH_GRADIENT_NEGATIVE_SAMPLE_GENERATOR_H
-#define HIGH_GRADIENT_NEGATIVE_SAMPLE_GENERATOR_H
+#ifndef HIGH_PREDICTION_NEGATIVE_SAMPLE_GENERATOR_H
+#define HIGH_PREDICTION_NEGATIVE_SAMPLE_GENERATOR_H
 
 #include "NegativeSampleGenerator.h"
 #include "../utils/SortPairDescendingBySecond.h"
-struct HighGradientNegativeSampleGeneratorParameters {
+struct HighPredictionNegativeSampleGeneratorParameters {
   int negative_rate;
   int full_negative_rate;
   int seed = 744478;
 };
-class HighGradientNegativeSampleGenerator : public NegativeSampleGenerator {
+class HighPredictionNegativeSampleGenerator : public NegativeSampleGenerator {
   public:
-    HighGradientNegativeSampleGenerator(HighGradientNegativeSampleGeneratorParameters* params){
+    HighPredictionNegativeSampleGenerator(HighPredictionNegativeSampleGeneratorParameters* params){
       negative_rate_=params->negative_rate;
       full_negative_rate_=params->full_negative_rate;
       random_.set(params->seed);
@@ -19,27 +19,27 @@ class HighGradientNegativeSampleGenerator : public NegativeSampleGenerator {
       bool ok=NegativeSampleGenerator::self_test() && random_.self_test();
       if(negative_rate_==-1){
         ok=false;
-        cerr << "error: HighGradientNegativeSampleGenerator::negative_rate==-1" << endl;
+        cerr << "error: HighPredictionNegativeSampleGenerator::negative_rate==-1" << endl;
       }
       if(full_negative_rate_==-1){
         ok=false;
-        cerr << "error: HighGradientNegativeSampleGenerator::full_negative_rate==-1" << endl;
+        cerr << "error: HighPredictionNegativeSampleGenerator::full_negative_rate==-1" << endl;
       }
       if(negative_rate_>full_negative_rate_){
         ok=false;
-        cerr << "error: HighGradientNegativeSampleGenerator::negative_rate<full_negative_rate" << endl;
+        cerr << "error: HighPredictionNegativeSampleGenerator::negative_rate<full_negative_rate" << endl;
       }
       if(model_==NULL){
         ok=false;
-        cerr << "error: HighGradientNegativeSampleGenerator::model is not set." << endl;
+        cerr << "error: HighPredictionNegativeSampleGenerator::model is not set." << endl;
       }
       if(train_matrix_==NULL){
         ok=false;
-        cerr << "error: HighGradientNegativeSampleGenerator::train_matrix is not set." << endl;
+        cerr << "error: HighPredictionNegativeSampleGenerator::train_matrix is not set." << endl;
       }
       if(items_==NULL){
         ok=false;
-        cerr << "error: HighGradientNegativeSampleGenerator::items_ is not set." << endl;
+        cerr << "error: HighPredictionNegativeSampleGenerator::items_ is not set." << endl;
       }
       return ok;
     }
@@ -72,4 +72,4 @@ class HighGradientNegativeSampleGenerator : public NegativeSampleGenerator {
 
 
 
-#endif /* HIGH_GRADIENT_NEGATIVE_SAMPLE_GENERATOR_H */
+#endif /* HIGH_PREDICTION_NEGATIVE_SAMPLE_GENERATOR_H */

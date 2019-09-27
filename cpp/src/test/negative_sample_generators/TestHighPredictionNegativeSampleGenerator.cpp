@@ -1,6 +1,6 @@
 #include <vector>
 #include <gtest/gtest.h>
-#include "../../main/negative_sample_generators/HighGradientNegativeSampleGenerator.h"
+#include "../../main/negative_sample_generators/HighPredictionNegativeSampleGenerator.h"
 
 namespace {
 class DummyModel : public Model{
@@ -8,7 +8,7 @@ class DummyModel : public Model{
   void add(RecDat* recDat){}
 };
 
-class TestHighGradientNegativeSampleGenerator : public ::testing::Test {
+class TestHighPredictionNegativeSampleGenerator : public ::testing::Test {
   public:
     SpMatrix train_matrix;
     DummyModel model;
@@ -21,12 +21,12 @@ class TestHighGradientNegativeSampleGenerator : public ::testing::Test {
 
 }
 
-TEST_F(TestHighGradientNegativeSampleGenerator,general) {
-  HighGradientNegativeSampleGeneratorParameters parameters;
+TEST_F(TestHighPredictionNegativeSampleGenerator,general) {
+  HighPredictionNegativeSampleGeneratorParameters parameters;
   parameters.negative_rate = 3;
   parameters.full_negative_rate = 13;
   parameters.seed = 12345678;
-  HighGradientNegativeSampleGenerator generator(&parameters);
+  HighPredictionNegativeSampleGenerator generator(&parameters);
   generator.set_model(&model);
   generator.set_train_matrix(&train_matrix);
   vector<int> items;
@@ -35,12 +35,12 @@ TEST_F(TestHighGradientNegativeSampleGenerator,general) {
   ASSERT_TRUE(generator.self_test());
 }
 
-TEST_F(TestHighGradientNegativeSampleGenerator,general1) {
-  HighGradientNegativeSampleGeneratorParameters parameters;
+TEST_F(TestHighPredictionNegativeSampleGenerator,general1) {
+  HighPredictionNegativeSampleGeneratorParameters parameters;
   parameters.negative_rate = 3;
   parameters.full_negative_rate = 3;
   parameters.seed = 12345678;
-  HighGradientNegativeSampleGenerator generator(&parameters);
+  HighPredictionNegativeSampleGenerator generator(&parameters);
   generator.set_model(&model);
   generator.set_train_matrix(&train_matrix);
   vector<int> items;
@@ -79,12 +79,12 @@ TEST_F(TestHighGradientNegativeSampleGenerator,general1) {
     EXPECT_GT(item_map[i],9000);
   }
 }
-TEST_F(TestHighGradientNegativeSampleGenerator,general2) {
-  HighGradientNegativeSampleGeneratorParameters parameters;
+TEST_F(TestHighPredictionNegativeSampleGenerator,general2) {
+  HighPredictionNegativeSampleGeneratorParameters parameters;
   parameters.negative_rate = 4;
   parameters.full_negative_rate = 15;
   parameters.seed = 12345678;
-  HighGradientNegativeSampleGenerator generator(&parameters);
+  HighPredictionNegativeSampleGenerator generator(&parameters);
   generator.set_model(&model);
   generator.set_train_matrix(&train_matrix);
   vector<int> items;
