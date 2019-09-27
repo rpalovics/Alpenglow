@@ -17,13 +17,10 @@ class GlobalPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator 
     GlobalPositiveAndNegativeSampleGenerator(GlobalPositiveAndNegativeSampleGeneratorParameters* parameters){
       set_parameters(parameters);
     };
-    void set_parameters (GlobalPositiveAndNegativeSampleGeneratorParameters * parameters);
+    void set_parameters (GlobalPositiveAndNegativeSampleGeneratorParameters* parameters);
     void set_train_matrix(SpMatrix* train_matrix_){train_matrix=train_matrix_;}
     void set_items(vector<int>* items_){items=items_;}
-    vector<int>* generate(RecDat* rec_dat);
-    void generate_positive(RecDat* rec_dat);
-    vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample);
-    void update(RecDat* rec_dat);
+    void update(RecDat* rec_dat) override;
     bool self_test(){
       return NegativeSampleGenerator::self_test() && random_.self_test();
     }
@@ -40,6 +37,10 @@ class GlobalPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator 
     Random random_;
     int threshold;
     string decay_type;
+  private:
+    void generate_positive(RecDat* rec_dat);
+    vector<int>* generate(RecDat* rec_dat) override;
+    vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample) override;
 };
 
 #endif /* GLOBAL_POSITIVE_AND_NEGATIVE_SAMPLE_GENERATOR_H */
