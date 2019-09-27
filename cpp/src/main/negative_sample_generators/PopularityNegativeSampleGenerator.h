@@ -16,11 +16,11 @@ class PopularityNegativeSampleGenerator: public NegativeSampleGenerator{
       negative_rate = params->negative_rate; 
       random_.set(params->seed);
     }
-    vector<int>* generate(RecDat* rec_dat);
-    void set_pop_container(PopContainer* pop_container_){pop_container = pop_container_;}
-    void set_train_matrix(SpMatrix* train_matrix_){train_matrix=train_matrix_;}
-    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator_){recommender_data_iterator=recommender_data_iterator_;}
-    void set_items(vector<int>* items_){items=items_;}
+    vector<int>* generate(RecDat* rec_dat) override;
+    void set_pop_container(PopContainer* pop_container_){pop_container = pop_container_;} //TODO take from environment
+    void set_train_matrix(SpMatrix* train_matrix_){train_matrix=train_matrix_;} //TODO take from environment
+    void set_recommender_data_iterator(RecommenderDataIterator* recommender_data_iterator_){recommender_data_iterator=recommender_data_iterator_;} //TODO take from environment
+    void set_items(vector<int>* items_){items=items_;} //TODO take from environment
     bool self_test(){
       return NegativeSampleGenerator::self_test() && random_.self_test();
     }
