@@ -19,12 +19,12 @@
 
 class NegativeSampleGenerator : public Updater{
   public:
-    void update(RecDat* rec_dat);
+    void update(RecDat* rec_dat) override;
     bool self_test(){
       return Updater::self_test();
     }
 
-    void message(UpdaterMessage message){ for(auto updater:updaters_) updater->message(message); } //TODO move to abstract class
+    void message(UpdaterMessage message) override { for(auto updater:updaters_) updater->message(message); } //TODO move to abstract class
     void add_updater(Updater* updater){ updaters_.push_back(updater); } //TODO move to abstract class
     
     virtual vector<RecDat>* get_implicit_train_data(RecDat* positive_sample); //TODO should not be virtual, should be private
@@ -32,7 +32,7 @@ class NegativeSampleGenerator : public Updater{
     vector<int> samples; //TODO rename samples_
     vector<RecDat> implicit_train_data_;
   private:
-    virtual vector<int>* generate(RecDat* rec_dat)=0; //deprecated, should not be called from other classes
+    virtual vector<int>* generate(RecDat* rec_dat)=0; 
     vector<Updater*> updaters_; //TODO move to abstract class
 };
 
