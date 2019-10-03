@@ -52,7 +52,7 @@ class HighPredictionNegativeSampleGenerator : public NegativeSampleGenerator {
     void set_items(vector<int>* items){
       items_=items;
     }
-    vector<int>* generate(RecDat* rec_dat);
+    vector<int>* generate(RecDat* rec_dat) override;
   private:
     //config parameters
     int negative_rate_;

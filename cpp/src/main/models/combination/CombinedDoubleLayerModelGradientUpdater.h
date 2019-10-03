@@ -28,7 +28,7 @@ class CombinedDoubleLayerModelGradientUpdater : public ModelGradientUpdater {
       start_combination_learning_time = params->start_combination_learning_time;
     }
     void set_model(CombinedModel* model_){ model = model_; }
-    void update(RecDat* rec_dat, double gradient);
+    void update(RecDat* rec_dat, double gradient) override;
     bool self_test(){
       bool ok = ModelGradientUpdater::self_test();
       if (model == NULL) ok=false;

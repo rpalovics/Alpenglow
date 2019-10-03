@@ -62,7 +62,7 @@ class PeriodComputer : public Updater, public NeedsExperimentEnvironment, public
           True if the current sample is the last in the current period.
 
     */
-    void update(RecDat*);
+    void update(RecDat*) override;
     /**
       update(RecDat*)
       Notifies the class that time has changed.

@@ -28,8 +28,8 @@ class CombinedModel : public Model {
       global_weights.clear();
       global_weights.resize(model_num,1/(double)model_num);
     }
-    double prediction(RecDat* rec_dat);
-    void add(RecDat* rec_dat);
+    double prediction(RecDat* rec_dat) override;
+    void add(RecDat* rec_dat) override;
   private:
     vector <Model*>  models;
     vector <vector<double>*> user_weights;

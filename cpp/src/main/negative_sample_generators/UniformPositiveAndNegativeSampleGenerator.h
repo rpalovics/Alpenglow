@@ -28,8 +28,8 @@ class UniformPositiveAndNegativeSampleGenerator : public NegativeSampleGenerator
     }
     vector<int>* generate(RecDat* rec_dat) override;
     vector<int>* generate_positive(RecDat* rec_dat, string type);
-    vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample);
-    void update(RecDat* rec_dat);
+    vector<RecDat>*  get_implicit_train_data(RecDat* positive_sample) override;
+    void update(RecDat* rec_dat) override;
     bool self_test(){
       bool ok = NegativeSampleGenerator::self_test() && random_.self_test();
       if(positive_rate < 0){

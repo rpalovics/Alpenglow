@@ -84,7 +84,7 @@ class ToplistCreatorGlobal: public ToplistCreator{
       min_heap_.set_max_length(params->top_k);
     };
     virtual ~ToplistCreatorGlobal(){}
-    vector<RecDat>* run(RecDat* rec_dat);
+    vector<RecDat>* run(RecDat* rec_dat) override;
     bool self_test(){
       bool OK = ToplistCreator::self_test() && min_heap_.self_test(); 
       if(initial_threshold_ < 0){
@@ -121,7 +121,7 @@ class ToplistCreatorPersonalized: public ToplistCreator{
     ToplistCreatorPersonalized(ToplistCreatorParameters * params):ToplistCreator(params){
       min_heap_.set_max_length(top_k_);
     };
-    vector<RecDat>* run(RecDat* rec_dat);
+    vector<RecDat>* run(RecDat* rec_dat) override;
     bool self_test(){ return ToplistCreator::self_test() && min_heap_.self_test(); }
   protected:
     bool autocalled_initialize() override {

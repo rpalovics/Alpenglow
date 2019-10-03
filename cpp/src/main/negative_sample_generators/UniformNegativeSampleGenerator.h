@@ -29,7 +29,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     %End
     */
       
-    vector<int>* generate(RecDat* rec_dat);
+    vector<int>* generate(RecDat* rec_dat) override;
     bool self_test(){
       bool ok = NegativeSampleGenerator::self_test() && random_.self_test();
       if(negative_rate_ < 0){
