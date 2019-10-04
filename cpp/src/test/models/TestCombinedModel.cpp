@@ -20,7 +20,7 @@ class TestCombinedModel : public ::testing::Test {
 
     TestCombinedModel(){}
     virtual ~TestCombinedModel(){}
-    virtual void SetUp(){
+    virtual void SetUp() override {
       CombinedModelParameters combinedModelParams;
       combinedModelParams.log_file_name = "";
       combinedModelParams.log_frequency = 0;
@@ -55,7 +55,7 @@ class TestCombinedModel : public ::testing::Test {
       timeFrameModel->add(recDat);
       timeFrameUpdater->update(recDat);
     }
-    virtual void TearDown(){
+    virtual void TearDown() override {
       for (vector<RecDat*>::iterator it = recDats.begin();it!=recDats.end();it++){
         delete *it;
       }

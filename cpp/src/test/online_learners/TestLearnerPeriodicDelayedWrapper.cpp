@@ -21,9 +21,9 @@ namespace {
       vector<RecDat*> rec_dats;
       TestLearnerPeriodicDelayedWrapper(){}
       virtual ~TestLearnerPeriodicDelayedWrapper(){}
-      virtual void SetUp(){
+      virtual void SetUp() override {
       }
-      virtual void TearDown(){
+      virtual void TearDown() override {
         for(auto r : rec_dats)
           delete r;
       }

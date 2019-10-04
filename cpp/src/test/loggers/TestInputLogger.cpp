@@ -12,8 +12,8 @@ public:
   virtual ~TestInputLogger() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){}
-  virtual void TearDown(){}
+  virtual void SetUp() override {}
+  virtual void TearDown() override {}
 };
 
 }

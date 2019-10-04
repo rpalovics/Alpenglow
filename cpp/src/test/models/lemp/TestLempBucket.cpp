@@ -15,8 +15,8 @@ class TestLempBucket : public ::testing::Test  {
 public:
   TestLempBucket() {}
   virtual ~TestLempBucket() {}
-  virtual void SetUp(){}
-  virtual void TearDown(){}
+  virtual void SetUp() override {}
+  virtual void TearDown() override {}
 };
 
 TEST_F(TestLempBucket, insert_remove){

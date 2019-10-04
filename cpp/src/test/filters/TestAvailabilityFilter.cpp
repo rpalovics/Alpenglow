@@ -7,8 +7,8 @@ namespace {
 	  public:
 	    TestAvailabilityFilter(){}
 	    virtual ~TestAvailabilityFilter(){}
-	    virtual void SetUp(){} 
-	    virtual void TearDown(){}
+	    virtual void SetUp() override {} 
+	    virtual void TearDown() override {}
 	};
 }
 

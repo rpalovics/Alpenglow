@@ -17,9 +17,9 @@ public:
   virtual ~TestPopularityNegativeSampleGenerator() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){
+  virtual void SetUp() override {
   }
-  virtual void TearDown(){
+  virtual void TearDown() override {
   }
   vector<RecDat*> recDats;
   RecDat createRecDat(int user, int item, double score){

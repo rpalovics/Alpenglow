@@ -16,8 +16,8 @@ public:
   virtual ~TestPopContainer() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){}
-  virtual void TearDown(){}
+  virtual void SetUp() override {}
+  virtual void TearDown() override {}
 };
 
 class TestTopPopContainer : public ::testing::Test  {
@@ -27,8 +27,8 @@ public:
   virtual ~TestTopPopContainer() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){}
-  virtual void TearDown(){}
+  virtual void SetUp() override {}
+  virtual void TearDown() override {}
 };
 
 }

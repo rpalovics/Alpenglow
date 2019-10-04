@@ -15,10 +15,10 @@ public:
   virtual ~TestToplist() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){
+  virtual void SetUp() override {
     random_.set(3324451);
   }
-  virtual void TearDown(){}
+  virtual void TearDown() override {}
 };
 
 }

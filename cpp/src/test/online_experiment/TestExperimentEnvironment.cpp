@@ -17,7 +17,7 @@ public:
   virtual ~TestExperimentEnvironment() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){
+  virtual void SetUp() override {
     rec_dats.resize(10);
     for(uint i=0;i<rec_dats.size();i++){
       rec_dats[i].time = i;
@@ -38,7 +38,7 @@ public:
     params.max_item = -1;
     params.random_seed = 54321;
   }
-  virtual void TearDown(){
+  virtual void TearDown() override {
   }
 };
 

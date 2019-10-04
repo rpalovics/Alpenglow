@@ -7,13 +7,13 @@ class TestLabelFilter : public ::testing::Test {
   public:
     TestLabelFilter(){}
     virtual ~TestLabelFilter(){}
-    virtual void SetUp(){
+    virtual void SetUp() override {
       users.push_back(0); users.push_back(1); users.push_back(2);
       users.push_back(5); users.push_back(4);
 
       items.push_back(2); items.push_back(3); items.push_back(4);
     } 
-    virtual void TearDown(){}
+    virtual void TearDown() override {}
     bool contains_element(vector<pair<int,double>>* container, pair<int,double> element){
       return (std::find(container->begin(), container->end(), element) != container->end());
     }

@@ -16,7 +16,7 @@ public:
   TestFmModel(){}
   virtual ~TestFmModel(){
   }
-  virtual void SetUp(){
+  virtual void SetUp() override {
     fp.dimension = 4;
     fp.begin_min = -0.01;
     fp.begin_max = 0.01;
@@ -54,7 +54,7 @@ public:
     par.dimension = 4;
     model = new FmModel(&par);
   }
-  virtual void TearDown(){
+  virtual void TearDown() override {
     // delete model;
     // delete fsac;
   }

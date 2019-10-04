@@ -21,7 +21,7 @@ namespace {
 
       TestOnlinePredictor() {}
       virtual ~TestOnlinePredictor(){}
-      virtual void SetUp(){
+      virtual void SetUp() override {
         ToplistCreatorParameters params1;
         params1.top_k=0;
         params1.exclude_known=0;
@@ -33,7 +33,7 @@ namespace {
         onlinePredictor = new OnlinePredictor(&params);
         onlinePredictor->set_prediction_creator(predictionCreator);
       }
-      virtual void TearDown(){
+      virtual void TearDown() override {
         delete predictionCreator;
         delete onlinePredictor;
       }

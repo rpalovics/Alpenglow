@@ -13,9 +13,9 @@ class TestHighPredictionNegativeSampleGenerator : public ::testing::Test {
     SpMatrix train_matrix;
     DummyModel model;
     vector<RecDat*> recDats;
-    void SetUp(){
+    void SetUp() override {
     }
-    void TearDown(){
+    void TearDown() override {
     }
 };
 

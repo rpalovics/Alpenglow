@@ -13,8 +13,8 @@ public:
   virtual ~TestLabelContainer() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){}
-  virtual void TearDown(){}
+  virtual void SetUp() override {}
+  virtual void TearDown() override {}
   bool contains_element(vector<int> container, int element){
     return (std::find(container.begin(), container.end(), element) != container.end());
   }

@@ -40,7 +40,7 @@ class TestToplistCombinationModel : public ::testing::Test {
     OnlineExperimentParameters experiment_parameters;
     TestToplistCombinationModel(){}
     virtual ~TestToplistCombinationModel(){}
-    virtual void SetUp(){
+    virtual void SetUp() override {
       experiment_parameters.random_seed = 231243;
       experiment_parameters.top_k = 10;
       experiment_environment.set_parameters(&experiment_parameters);
@@ -56,7 +56,7 @@ class TestToplistCombinationModel : public ::testing::Test {
       rec_dats.push_back(rec_dat);
       return rec_dat;
     }
-    virtual void TearDown(){
+    virtual void TearDown() override {
       for (vector<RecDat*>::iterator it = rec_dats.begin();it!=rec_dats.end();it++){
         delete *it;
       }
@@ -76,7 +76,7 @@ class TestToplistCombinationModel : public ::testing::Test {
 //    OnlineExperimentParameters experiment_parameters;
 //    TestToplistCombinationModelExpertUpdater(){}
 //    virtual ~TestToplistCombinationModelExpertUpdater(){}
-//    virtual void SetUp(){
+//    virtual void SetUp() override {
 //      model1.my_prediction_ = 1;
 //      model2.my_prediction_ = 2;
 //      model3.my_prediction_ = 3;
@@ -94,7 +94,7 @@ class TestToplistCombinationModel : public ::testing::Test {
 //      rec_dats.push_back(rec_dat);
 //      return rec_dat;
 //    }
-//    virtual void TearDown(){
+//    virtual void TearDown() override {
 //      for (vector<RecDat*>::iterator it = rec_dats.begin();it!=rec_dats.end();it++){
 //        delete *it;
 //      }

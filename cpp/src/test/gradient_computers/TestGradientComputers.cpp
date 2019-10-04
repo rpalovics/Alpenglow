@@ -62,14 +62,14 @@ namespace {
       virtual ~TestGradientComputer() {
         // You can do clean-up work that doesn't throw exceptions here.
       }
-      virtual void SetUp(){
+      virtual void SetUp() override {
         updater.set_model(&model);
         gradient_computer.add_gradient_updater(&updater);
         gradient_computer.set_objective(&objective);
         gradient_computer.set_model(&model);
         gradient_computer.set_objective(&objective);
       }
-      virtual void TearDown(){
+      virtual void TearDown() override {
         for (vector<RecDat*>::iterator it = recDats.begin();it!=recDats.end();it++){
           delete *it;
         }

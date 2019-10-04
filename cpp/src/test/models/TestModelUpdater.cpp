@@ -19,8 +19,8 @@ class TestModelUpdater : public ::testing::Test {
 
     TestModelUpdater(){}
     virtual ~TestModelUpdater(){}
-    virtual void SetUp(){}
-    virtual void TearDown(){}
+    virtual void SetUp() override {}
+    virtual void TearDown() override {}
     RecDat create_rec_dat(int user, int item, double time){
       RecDat rec_dat;
       rec_dat.user = user;

@@ -16,9 +16,9 @@ class TestAbsoluteErrorEvaluator : public ::testing::Test {
     vector<RecDat*> rec_dats;
     TestAbsoluteErrorEvaluator(){}
     virtual ~TestAbsoluteErrorEvaluator(){}
-    virtual void SetUp(){
+    virtual void SetUp() override {
     }
-    virtual void TearDown(){
+    virtual void TearDown() override {
       for (vector<RecDat*>::iterator it = rec_dats.begin();it!=rec_dats.end();it++){
         delete *it;
       }
@@ -50,14 +50,14 @@ class TestDCGEvaluator : public ::testing::Test {
     vector<int> items;
     TestDCGEvaluator(){}
     virtual ~TestDCGEvaluator(){}
-    virtual void SetUp(){
+    virtual void SetUp() override {
       model.my_predictions_.push_back(0);
       for(int i=1;i<10;i++){
         model.my_predictions_.push_back(1.0/i);
         items.push_back(i);
       }
     }
-    virtual void TearDown(){
+    virtual void TearDown() override {
       for (vector<RecDat*>::iterator it = rec_dats.begin();it!=rec_dats.end();it++){
         delete *it;
       }

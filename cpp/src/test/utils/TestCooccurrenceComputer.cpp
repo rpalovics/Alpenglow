@@ -11,8 +11,8 @@ public:
   virtual ~TestCooccurrenceComputer() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){}
-  virtual void TearDown(){}
+  virtual void SetUp() override {}
+  virtual void TearDown() override {}
   bool contains(set<ITEM>& my_set, ITEM i){
     auto it = my_set.find(i);
     return (it!=my_set.end());

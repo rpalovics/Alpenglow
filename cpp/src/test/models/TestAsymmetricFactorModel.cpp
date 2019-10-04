@@ -13,7 +13,7 @@ class TestAsymmetricFactorModel : public ::testing::Test {
 
     TestAsymmetricFactorModel(){}
     virtual ~TestAsymmetricFactorModel(){}
-    virtual void SetUp(){
+    virtual void SetUp() override {
     }
     //void initFactors(Factors* factors){
     //  for(int i=0;i<10;i++){
@@ -40,7 +40,7 @@ class TestAsymmetricFactorModel : public ::testing::Test {
       recDats.push_back(recDat);
       return recDat;
     }
-    virtual void TearDown(){
+    virtual void TearDown() override {
       for (vector<RecDat*>::iterator it = recDats.begin();it!=recDats.end();it++){
         delete *it;
       }

@@ -50,7 +50,7 @@ public:
   virtual ~TestPeriodicOfflineLearnerWrapper() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp(){
+  virtual void SetUp() override {
     rec_data.resize(20);
     for(uint i=0;i<rec_data.size();i++){
       rec_data[i].time = i;
@@ -71,7 +71,7 @@ public:
     offline_learner2.expected_recommender_data=&data_generator.recommender_data_;
     offline_learner3.expected_recommender_data=&data_generator.recommender_data_;
   }
-  virtual void TearDown(){}
+  virtual void TearDown() override {}
 };
 
 }

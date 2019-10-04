@@ -24,7 +24,7 @@ class TestRandomChoosingCombinedModel : public ::testing::Test {
     OnlineExperimentParameters experiment_parameters;
     TestRandomChoosingCombinedModel(){}
     virtual ~TestRandomChoosingCombinedModel(){}
-    virtual void SetUp(){
+    virtual void SetUp() override {
       model1.my_prediction_ = 1;
       model2.my_prediction_ = 2;
       model3.my_prediction_ = 3;
@@ -42,7 +42,7 @@ class TestRandomChoosingCombinedModel : public ::testing::Test {
       rec_dats.push_back(rec_dat);
       return rec_dat;
     }
-    virtual void TearDown(){
+    virtual void TearDown() override {
       for (vector<RecDat*>::iterator it = rec_dats.begin();it!=rec_dats.end();it++){
         delete *it;
       }
@@ -61,7 +61,7 @@ class TestRandomChoosingCombinedModelExpertUpdater : public ::testing::Test {
     OnlineExperimentParameters experiment_parameters;
     TestRandomChoosingCombinedModelExpertUpdater(){}
     virtual ~TestRandomChoosingCombinedModelExpertUpdater(){}
-    virtual void SetUp(){
+    virtual void SetUp() override {
       model1.my_prediction_ = 1;
       model2.my_prediction_ = 2;
       model3.my_prediction_ = 3;
@@ -79,7 +79,7 @@ class TestRandomChoosingCombinedModelExpertUpdater : public ::testing::Test {
       rec_dats.push_back(rec_dat);
       return rec_dat;
     }
-    virtual void TearDown(){
+    virtual void TearDown() override {
       for (vector<RecDat*>::iterator it = rec_dats.begin();it!=rec_dats.end();it++){
         delete *it;
       }
