@@ -11,14 +11,6 @@
 
 class FactorFilter{
   public:
-    FactorFilter(){
-      factors_ = NULL;
-      other_factors_ = NULL;
-      entities_ = NULL;
-      other_entities_ = NULL;
-      upper_bounds_ = NULL;
-    };
-    ~FactorFilter(){};
     void set_factors(Factors* factors, Factors* other_factors);
     void set_entities(const vector<int>* entities, const vector<int>* other_entities);
     void set_upper_vector(vector<pair<int,double>>* upper_bounds){upper_bounds_=upper_bounds;}
@@ -42,11 +34,11 @@ class FactorFilter{
     void analyze_bounds(vector<double>* factor);
     void compute_upper_bounds();
     void compute_upper_bound(int entity);
-    Factors *factors_, *other_factors_;
+    Factors *factors_ = NULL, *other_factors_ = NULL;
     vector<double> upper_, lower_;
-    const vector<int>* entities_;
-    const vector<int>* other_entities_;
-    vector<pair<int,double>>* upper_bounds_;   
+    const vector<int>* entities_ = NULL;
+    const vector<int>* other_entities_ = NULL;
+    vector<pair<int,double>>* upper_bounds_ = NULL;   
 };
 
 class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment, public Initializable {
