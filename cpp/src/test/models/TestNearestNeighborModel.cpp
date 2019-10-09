@@ -8,9 +8,9 @@ class TestNearestNeighborModel : public ::testing::Test {
   public:
     TestNearestNeighborModel(){}
     virtual ~TestNearestNeighborModel(){}
-    virtual void SetUp() override {
+    void SetUp() override {
     }
-    virtual void TearDown() override {
+    void TearDown() override {
       for(uint i=0;i<rec_dat_ps.size();i++){
         delete rec_dat_ps[i];
       }

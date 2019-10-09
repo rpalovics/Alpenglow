@@ -13,9 +13,9 @@ public:
   virtual ~TestSimpleIterator() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp() override {
+  void SetUp() override {
   }
-  virtual void TearDown() override {
+  void TearDown() override {
   }
   RecDat createRecDat(int user, int item, double time, double score){
     RecDat recDat;

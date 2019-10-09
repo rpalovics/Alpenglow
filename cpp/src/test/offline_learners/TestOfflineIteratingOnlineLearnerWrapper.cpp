@@ -22,7 +22,7 @@ class TestOfflineIteratingOnlineLearnerWrapper : public ::testing::Test {
     OfflineIteratingOnlineLearnerWrapperParameters params_;
     TestOfflineIteratingOnlineLearnerWrapper(){}
     virtual ~TestOfflineIteratingOnlineLearnerWrapper(){}
-    virtual void SetUp() override {
+    void SetUp() override {
       rec_data_.resize(3);
       rec_data_[0].user=0;
       rec_data_[1].user=1;
@@ -33,7 +33,7 @@ class TestOfflineIteratingOnlineLearnerWrapper : public ::testing::Test {
       recommender_data_.set_rec_data(rec_data_);
       EXPECT_TRUE(recommender_data_.initialize());
     }
-    virtual void TearDown() override {
+    void TearDown() override {
     }
 };
 }

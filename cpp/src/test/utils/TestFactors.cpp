@@ -15,14 +15,14 @@ public:
   virtual ~TestFactors() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp() override {
+  void SetUp() override {
     FactorsParameters parameters;
     parameters.dimension = 2;
     parameters.begin_min = -1;
     parameters.begin_max = 1;
     factors.set_parameters(parameters);
   }
-  virtual void TearDown() override {
+  void TearDown() override {
   }
 };
 

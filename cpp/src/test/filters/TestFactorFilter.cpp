@@ -17,8 +17,8 @@ class TestFactorFilter : public ::testing::Test {
   public:
     TestFactorFilter(){}
     virtual ~TestFactorFilter(){}
-    virtual void SetUp() override {} 
-    virtual void TearDown() override {}
+    void SetUp() override {} 
+    void TearDown() override {}
 };
 }
 

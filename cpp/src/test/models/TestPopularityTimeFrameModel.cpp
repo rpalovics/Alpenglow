@@ -10,8 +10,8 @@ class TestPopularityTimeFrameModel : public ::testing::Test {
 
     TestPopularityTimeFrameModel(){}
     virtual ~TestPopularityTimeFrameModel(){}
-    virtual void SetUp() override {}
-    virtual void TearDown() override {
+    void SetUp() override {}
+    void TearDown() override {
       for (RecDat* rec_dat : rec_dats){
         delete rec_dat;
       }

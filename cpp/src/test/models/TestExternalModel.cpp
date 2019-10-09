@@ -12,7 +12,7 @@ class TestExternalModel : public ::testing::Test {
 
     TestExternalModel(){}
     virtual ~TestExternalModel(){}
-    virtual void SetUp() override {
+    void SetUp() override {
     }
     RecDat* createRecDat(int user, int item, double time, double score){
       RecDat* recDat = new RecDat;
@@ -24,7 +24,7 @@ class TestExternalModel : public ::testing::Test {
       recDats.push_back(recDat);
       return recDat;
     }
-    virtual void TearDown() override {
+    void TearDown() override {
       for (vector<RecDat*>::iterator it = recDats.begin();it!=recDats.end();it++){
         delete *it;
       }

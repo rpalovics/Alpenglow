@@ -15,7 +15,7 @@ class TestLempContainer : public ::testing::Test  {
 public:
   TestLempContainer() {}
   virtual ~TestLempContainer() {}
-  virtual void SetUp() override {
+  void SetUp() override {
     FactorsParameters parameters;
     parameters.begin_min = -1;
     parameters.begin_max = 1;
@@ -23,7 +23,7 @@ public:
     parameters.seed = 12345;
     factors = Factors(parameters);
   }
-  virtual void TearDown() override {}
+  void TearDown() override {}
   Factors factors;
 };
 }

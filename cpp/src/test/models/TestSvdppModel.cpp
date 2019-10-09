@@ -13,7 +13,7 @@ class TestSvdppModel : public ::testing::Test {
     
     TestSvdppModel(){}
     virtual ~TestSvdppModel(){}
-    virtual void SetUp() override {
+    void SetUp() override {
     }
     RecDat* create_rec_dat(int user, int item, double time, double score){
       RecDat* recDat = new RecDat;
@@ -24,7 +24,7 @@ class TestSvdppModel : public ::testing::Test {
       rec_dats.push_back(recDat);
       return recDat;
     }
-    virtual void TearDown() override {
+    void TearDown() override {
       for (vector<RecDat*>::iterator it = rec_dats.begin();it!=rec_dats.end();it++){
         delete *it;
       }

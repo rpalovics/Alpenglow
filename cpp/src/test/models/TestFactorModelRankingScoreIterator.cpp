@@ -7,7 +7,7 @@ class TestFactorModelRankingScoreIterator : public ::testing::Test {
   public:
     TestFactorModelRankingScoreIterator(){}
     virtual ~TestFactorModelRankingScoreIterator(){}
-    virtual void SetUp() override {
+    void SetUp() override {
       FactorsParameters parameters;
       parameters.begin_min = -1;
       parameters.begin_max = 1;
@@ -15,7 +15,7 @@ class TestFactorModelRankingScoreIterator : public ::testing::Test {
       parameters.seed = 12345;
       factors = Factors(parameters);
     }
-    virtual void TearDown() override {}
+    void TearDown() override {}
     Factors factors;
 };
 }

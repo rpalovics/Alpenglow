@@ -18,11 +18,11 @@ class TestFactorModelFilter : public ::testing::Test {
   public:
     TestFactorModelFilter(){}
     virtual ~TestFactorModelFilter(){}
-    virtual void SetUp() override {
+    void SetUp() override {
       users.push_back(0); users.push_back(1); users.push_back(2);
       items.push_back(2); items.push_back(3); items.push_back(4);
     } 
-    virtual void TearDown() override {}
+    void TearDown() override {}
     vector<int> users; 
     vector<int> items; 
 };

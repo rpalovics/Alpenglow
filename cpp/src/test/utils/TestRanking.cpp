@@ -61,7 +61,7 @@ public:
   virtual ~TestRankComputer() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp() override {
+  void SetUp() override {
     RankComputerParameters parameters;
     parameters.top_k = 6;
     parameters.random_seed = 1231232;
@@ -81,7 +81,7 @@ public:
     learn(createRecDat(2,8,0.0));
     learn(createRecDat(2,9,0.0));
   }
-  virtual void TearDown() override {
+  void TearDown() override {
     delete rankComputer;
   }
   RecDat* createRecDat(int user, int item, double score){

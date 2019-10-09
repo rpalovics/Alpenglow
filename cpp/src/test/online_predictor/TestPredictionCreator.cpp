@@ -40,7 +40,7 @@ namespace {
 
       TestToplistCreatorGlobal() {}
       virtual ~TestToplistCreatorGlobal(){}
-      virtual void SetUp() override {
+      void SetUp() override {
         ToplistCreatorGlobalParameters params;
         params.top_k = 3;
         params.initial_threshold = 0;
@@ -73,7 +73,7 @@ namespace {
           model.predCount[i].resize(4,0);
         }
       }
-      virtual void TearDown() override {
+      void TearDown() override {
         remove("predictionCreatorTestFile");
       }
   };

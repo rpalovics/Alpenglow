@@ -13,9 +13,9 @@ public:
   virtual ~TestObjectiveMSE() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp() override {
+  void SetUp() override {
   }
-  virtual void TearDown() override {
+  void TearDown() override {
   }
 };
 

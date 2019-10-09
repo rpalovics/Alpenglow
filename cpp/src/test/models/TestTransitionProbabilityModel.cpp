@@ -10,9 +10,9 @@ class TestTransitionProbabilityModel : public ::testing::Test {
   public:
     TestTransitionProbabilityModel(){}
     virtual ~TestTransitionProbabilityModel(){}
-    virtual void SetUp() override {
+    void SetUp() override {
     }
-    virtual void TearDown() override {
+    void TearDown() override {
     }
     RecDat create_recdat(int time,int user,int item,int score){
       RecDat rec_dat;
@@ -27,9 +27,9 @@ class TestTransitionEndLogger : public ::testing::Test {
   public:
     TestTransitionEndLogger(){}
     virtual ~TestTransitionEndLogger(){}
-    virtual void SetUp() override {
+    void SetUp() override {
     }
-    virtual void TearDown() override {
+    void TearDown() override {
       for(uint i=0;i<rec_dat_container_.size();i++){
         delete rec_dat_container_[i];
       }

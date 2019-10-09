@@ -15,7 +15,7 @@ class TestFactorModel : public ::testing::Test {
 
     TestFactorModel(){}
     virtual ~TestFactorModel(){}
-    virtual void SetUp() override {
+    void SetUp() override {
       FactorModelParameters params;
       params.dimension = DIMENSION;
       params.begin_min = -0.001;
@@ -57,7 +57,7 @@ class TestFactorModel : public ::testing::Test {
       recDats.push_back(recDat);
       return recDat;
     }
-    virtual void TearDown() override {
+    void TearDown() override {
       for (vector<RecDat*>::iterator it = recDats.begin();it!=recDats.end();it++){
         delete *it;
       }
@@ -72,7 +72,7 @@ class TestFactorModel2 : public ::testing::Test { //test initialize all function
 
     TestFactorModel2(){}
     virtual ~TestFactorModel2(){}
-    virtual void SetUp() override {
+    void SetUp() override {
       FactorModelParameters params;
       params.dimension = DIMENSION;
       params.begin_min = -0.01;
@@ -83,7 +83,7 @@ class TestFactorModel2 : public ::testing::Test { //test initialize all function
       model = new FactorModel(&params);
       ASSERT_TRUE(model->initialize());
     }
-    virtual void TearDown() override {
+    void TearDown() override {
       delete model;
     }
 };

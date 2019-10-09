@@ -15,9 +15,9 @@ public:
   virtual ~TestUniformNegativeSampleGenerator() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp() override {
+  void SetUp() override {
   }
-  virtual void TearDown() override {
+  void TearDown() override {
   }
   RecDat* create_rec_dat(int user, int item, double score){
       RecDat* rec_dat = new RecDat;

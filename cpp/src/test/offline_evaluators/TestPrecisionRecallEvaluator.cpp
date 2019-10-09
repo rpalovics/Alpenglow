@@ -28,7 +28,7 @@ class TestPrecisionRecallEvaluator : public ::testing::Test {
 
     TestPrecisionRecallEvaluator(){}
     virtual ~TestPrecisionRecallEvaluator(){}
-    virtual void SetUp() override {
+    void SetUp() override {
       vector<RecDat> rec_dats;
       rec_dats.resize(6);
       rec_dats[0].user=0;
@@ -54,7 +54,7 @@ class TestPrecisionRecallEvaluator : public ::testing::Test {
       filter_.items_.push_back(make_pair(5,std::numeric_limits<double>::infinity()));
 
     }
-    virtual void TearDown() override {
+    void TearDown() override {
     }
     //RecDat* createRecDat(int user, int item, double time){
     //  RecDat recDat;

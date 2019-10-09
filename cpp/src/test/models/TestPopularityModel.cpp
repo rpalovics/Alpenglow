@@ -11,10 +11,10 @@ class TestPopularityModel : public ::testing::Test {
 
     TestPopularityModel(){}
     virtual ~TestPopularityModel(){}
-    virtual void SetUp() override {
+    void SetUp() override {
       updater.set_model(&model);
     }
-    virtual void TearDown() override {
+    void TearDown() override {
       for (RecDat* rec_dat : rec_dats){
         delete rec_dat;
       }

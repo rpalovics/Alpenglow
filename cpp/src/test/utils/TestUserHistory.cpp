@@ -10,8 +10,8 @@ public:
   virtual ~TestUserHistory() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp() override {}
-  virtual void TearDown() override {}
+  void SetUp() override {}
+  void TearDown() override {}
 };
 
 }

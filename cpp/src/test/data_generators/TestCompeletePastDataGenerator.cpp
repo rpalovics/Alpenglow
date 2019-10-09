@@ -16,7 +16,7 @@ public:
   virtual ~TestCompletePastDataGenerator() {
     // You can do clean-up work that doesn't throw exceptions here.
   }
-  virtual void SetUp() override {
+  void SetUp() override {
     rec_data.resize(20);
     for(uint i=0;i<rec_data.size();i++){
       rec_data[i].time = 2.36*i+(i*i)%3+3;
@@ -30,7 +30,7 @@ public:
     EXPECT_TRUE(recommender_data_iterator.initialize());
     experiment_environment.set_recommender_data_iterator(&recommender_data_iterator);
   }
-  virtual void TearDown() override {}
+  void TearDown() override {}
 };
 
 }
