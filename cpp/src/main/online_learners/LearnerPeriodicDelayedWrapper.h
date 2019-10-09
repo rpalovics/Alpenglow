@@ -23,7 +23,7 @@ class LearnerPeriodicDelayedWrapper : public Updater{
     virtual ~LearnerPeriodicDelayedWrapper(){}
 
     void set_wrapped_learner(Updater* learner);
-    virtual void update(RecDat* rec_dat) override;
+    void update(RecDat* rec_dat) override;
 
     bool self_test(){
       bool ok = Updater::self_test();

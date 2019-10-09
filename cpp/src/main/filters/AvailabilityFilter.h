@@ -33,7 +33,7 @@ class AvailabilityFilter : public ModelFilter {
       f.add_availability(10,1,10) #item 1 is available in the time interval (10,20)
 */
 public:
-  virtual void run(RecDat* rec_dat) override;
+  void run(RecDat* rec_dat) override;
 /**
       run(rec_dat)
       Summary line.
@@ -52,8 +52,8 @@ public:
       bool
           Description of return value
 */
-  virtual vector<pair<int,double>>* get_global_items() override;
-  virtual bool active(RecDat*) override;
+  vector<pair<int,double>>* get_global_items() override;
+  bool active(RecDat*) override;
   bool self_test(){
     bool OK = ModelFilter::self_test();
     return OK;

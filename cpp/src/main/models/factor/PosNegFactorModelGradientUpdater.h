@@ -38,7 +38,7 @@ class PosNegFactorModelGradientUpdater : public ModelGradientUpdater{
       turn_on_user_posneg_bias_updates_(parameters->turn_on_user_posneg_bias_updates),
       turn_on_item_posneg_bias_updates_(parameters->turn_on_item_posneg_bias_updates)
     {};
-    virtual void update(RecDat *rec_dat, double gradient) override;
+    void update(RecDat *rec_dat, double gradient) override;
     void set_model(FactorModel* model){ model_ = model; }
     bool self_test(){
       bool ok = ModelGradientUpdater::self_test();

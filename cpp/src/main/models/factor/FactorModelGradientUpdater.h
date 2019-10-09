@@ -28,7 +28,7 @@ class FactorModelGradientUpdater : public ModelGradientUpdater{
       regularization_rate_bias_(parameters->regularization_rate_bias)
     {
     }
-    virtual void update(RecDat *rec_dat, double gradient) override;
+    void update(RecDat *rec_dat, double gradient) override;
     void set_model(FactorModel* model){ model_ = model; }
     bool self_test(){
       bool ok = ModelGradientUpdater::self_test();

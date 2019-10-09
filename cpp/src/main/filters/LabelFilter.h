@@ -21,7 +21,7 @@ class LabelFilter : public ModelFilter, public Updater {
     void update(RecDat* rec_dat) override;
     void run(RecDat* rec_dat) override { update(rec_dat); }
     vector<pair<int,double>>* get_personalized_items(int user) override;
-    virtual bool active(RecDat*) override;
+    bool active(RecDat*) override;
     bool self_test(){
       bool OK = ModelFilter::self_test();
       return OK;

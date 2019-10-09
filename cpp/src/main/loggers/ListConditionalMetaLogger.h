@@ -17,7 +17,7 @@ class ListConditionalMetaLogger : public ConditionalMetaLogger{
     ListConditionalMetaLogger(ListConditionalMetaLoggerParameters* parameters){
       should_run_vector_ = parameters->should_run_vector;
     }
-    virtual bool should_run(RecDat* recDat) override;
+    bool should_run(RecDat* recDat) override;
   protected:
     vector<int> should_run_vector_;
     int position=0;
