@@ -19,10 +19,10 @@ public:
 
   FactorModelRankingScoreIterator(){};
 
-  virtual bool has_next(double upper_bound);
+  bool has_next(double upper_bound) override;
   using RankingScoreIterator::has_next;
-  virtual pair<int, double> get_next();
-  virtual int unique_items_num();
+  pair<int, double> get_next() override;
+  int unique_items_num() override;
 protected:
   double user_factor_norm_;
   vector<double> user_factor_;
