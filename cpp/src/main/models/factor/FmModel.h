@@ -41,7 +41,7 @@ class FmModel : public Model, public Initializable
       factors_parameters.seed+=1;
       item_factors_.set_parameters(factors_parameters);
     };
-    void add(RecDat* rec_dat);
+    void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
     void clear() override;
     bool self_test(){

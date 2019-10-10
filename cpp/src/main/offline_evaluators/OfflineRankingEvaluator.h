@@ -21,7 +21,7 @@ class OfflineRankingEvaluator : public OfflineEvaluator{
       output_file_name_ = params->output_file_name;
       top_k_ = params->top_k;
     }
-    virtual void evaluate();
+    void evaluate() override;
     void set_toplist_creator(ToplistCreatorPersonalized* toplist_creator){
       toplist_creator_ = toplist_creator;
     }

@@ -29,7 +29,7 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
     void set_model(Model* model){ model_ = model; }
     void set_train_data(RecommenderData* recommender_data){ train_data_ = recommender_data; }
     void set_model_filter(ModelFilter* model_filter){ model_filter_ = model_filter; }
-    virtual void evaluate();
+    void evaluate() override;
     bool self_test(){
       bool OK = OfflineEvaluator::self_test();
       if (cutoff_ < 0){

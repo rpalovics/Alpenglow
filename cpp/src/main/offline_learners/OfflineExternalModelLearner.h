@@ -19,7 +19,7 @@ class OfflineExternalModelLearner : public OfflineLearner{
     OfflineExternalModelLearner(OfflineExternalModelLearnerParameters* parameters)
     : out_name_base_(parameters->out_name_base), in_name_base_(parameters->in_name_base), mode_(parameters->mode){}
     ~OfflineExternalModelLearner(){};
-    void fit(RecommenderData* recommender_data);
+    void fit(RecommenderData* recommender_data) override;
     void set_model(ExternalModel* model){
       model_=model;
     }

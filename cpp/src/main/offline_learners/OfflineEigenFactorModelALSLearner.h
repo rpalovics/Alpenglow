@@ -27,7 +27,7 @@ class OfflineEigenFactorModelALSLearner : public OfflineLearner{
     {}
     ~OfflineEigenFactorModelALSLearner(){};
     virtual void iterate(){};
-    void fit(RecommenderData* recommender_data);
+    void fit(RecommenderData* recommender_data) override;
     void set_model(EigenFactorModel* model){ model_ = model; }
     void set_copy_from_model(FactorModel* model){ copy_from_model_ = model; }
     void set_copy_to_model(FactorModel* model){ copy_to_model_ = model; }

@@ -19,7 +19,7 @@ class OfflineUserToplistEvaluator : public OfflineEvaluator{
       test_file_type_ = params->test_file_type;
       output_file_name_ = params->output_file_name;
     }
-    virtual void evaluate();
+    void evaluate() override;
     void set_toplist_creator(ToplistCreatorPersonalized* toplist_creator){ toplist_creator_ = toplist_creator; }
     bool self_test(){
       bool OK = OfflineEvaluator::self_test();
