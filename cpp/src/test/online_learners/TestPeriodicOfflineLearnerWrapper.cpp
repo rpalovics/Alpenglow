@@ -17,7 +17,7 @@ class DummyModel: public Model{
   int add_counter = 0;
 };
 class DummyOfflineLearner : public OfflineLearner {
-  void iterate(){ EXPECT_TRUE(false); }
+  void iterate() { EXPECT_TRUE(false); }
   void fit(RecommenderData* recommender_data) override {
     if(no_more_fit) EXPECT_TRUE(false);
     EXPECT_TRUE(recommender_data == expected_recommender_data);

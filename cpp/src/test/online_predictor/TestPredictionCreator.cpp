@@ -28,8 +28,8 @@ namespace {
       vector<pair<int,double> >* get_global_items() override {
         return &itemBounds;
       }
-      vector<pair<int,double> > userBounds;
-      vector<pair<int,double> > itemBounds;
+      vector<pair<int,double>> userBounds;
+      vector<pair<int,double>> itemBounds;
   };
 
   class TestToplistCreatorGlobal : public ::testing::Test  {

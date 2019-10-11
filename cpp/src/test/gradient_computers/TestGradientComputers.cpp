@@ -13,7 +13,7 @@ namespace {
         for(int i=1; i<=5; i++){predictions.push_back(0.1*i);}
         predictVal = predictions.begin();
       }
-      void update(){
+      void update() {
         predictVal++;
         if(predictVal==predictions.end()) predictVal=predictions.begin();
       }
