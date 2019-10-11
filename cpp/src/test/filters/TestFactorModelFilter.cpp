@@ -10,8 +10,8 @@ namespace {
 class DummyRecency : public Recency{
   public:
     DummyRecency(int number){number_ = number;}
-    double get(int entity, double){ return 1.0/(1.0+entity+number_); }
-    void update(int,double){};
+    double get(int entity, double) override { return 1.0/(1.0+entity+number_); }
+    void update(int,double) override {};
     int number_;
 };
 class TestFactorModelFilter : public ::testing::Test { 

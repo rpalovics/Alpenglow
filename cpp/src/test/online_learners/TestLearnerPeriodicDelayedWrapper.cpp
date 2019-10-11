@@ -7,10 +7,10 @@ namespace {
     public:
       DummyLearner(){}
       ~DummyLearner(){}
-      void learn(RecDat* recdat){
+      void learn(RecDat* recdat) {
         learned_recdats.push_back(recdat);
       }
-      void update(RecDat* recdat){
+      void update(RecDat* recdat) override {
         learn(recdat);
       }
       vector<RecDat*> learned_recdats;

@@ -7,14 +7,14 @@
 namespace {
 class DummyModel : public Model {
   public:
-    void add(RecDat*){ add_counter_++; }
+    void add(RecDat*) override { add_counter_++; }
     int add_counter_ = 0;
-    void read(istream&){ read_counter_++; }
+    void read(istream&) override { read_counter_++; }
     int read_counter_ = 0;
-    void write(ostream&){ write_counter_++; }
+    void write(ostream&) override { write_counter_++; }
     int write_counter_ = 0;
     int valid_item_rank = 0;
-    double prediction(RecDat* rec_dat){
+    double prediction(RecDat* rec_dat) override {
       //toplist: 1, 2, 3, ..., valid_item_rank, 0, valid_item_rank+2, ...
       //scores: 1, 0.5, 0.333, ..., 1/n, 1/(n+1), 1/(n+2), ...
       //cerr << "item " << rec_dat->item << " valid item " << valid_item_rank << endl;
@@ -25,7 +25,7 @@ class DummyModel : public Model {
 };
 class DummyModel2 : public Model {
   public:
-    double prediction(RecDat* rec_dat){
+    double prediction(RecDat* rec_dat) override {
       if (rec_dat->item>=(int)predictions.size()) return 0;
       return predictions[rec_dat->item];
     }

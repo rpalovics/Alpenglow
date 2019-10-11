@@ -21,7 +21,7 @@ class DummyModel : public Model {
     double prediction(RecDat* rec_dat) override {
       return scores[rec_dat->item];
     }
-    void add(RecDat* recDat){
+    void add(RecDat* recDat) override {
     }
 };
 
@@ -31,7 +31,7 @@ class DummyToplistModel : public Model, public TopListRecommender {
     double prediction(RecDat* rec_dat) override {
       return 0;
     }
-    void add(RecDat* recDat){}
+    void add(RecDat* recDat) override {}
     vector<pair<int,double>> get_top_list(int user, int k, const map<int,double> *exclude) override {
       if(user == 1){
         return {{1,0},{2,0},{3,0},{4,0},{5,0}};

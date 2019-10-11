@@ -6,11 +6,11 @@
 namespace {
 class DummyModel: public Model{
   public:
-  void add(RecDat* recDat){ add_counter++;}
-  double prediction(RecDat* recDat){ return 0; }
-  void write(ostream& file){write_counter++;}
-  void read(istream& file){read_counter++;}
-  void clear(){clear_counter++;}
+  void add(RecDat* recDat) override { add_counter++;}
+  double prediction(RecDat* recDat) override { return 0; }
+  void write(ostream& file) override {write_counter++;}
+  void read(istream& file) override {read_counter++;}
+  void clear() override {clear_counter++;}
   int write_counter = 0;
   int read_counter = 0;
   int clear_counter = 0;

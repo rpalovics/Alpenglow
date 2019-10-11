@@ -7,8 +7,8 @@ namespace {
   class DummyModel : public Model {
     public:
       DummyModel(){}
-      void add(RecDat* recDat){}
-      virtual double prediction(RecDat * recDat){
+      void add(RecDat* recDat) override {}
+      double prediction(RecDat* recDat) override {
         //cerr << "prediction user " << recDat->user << " item " << recDat->item << endl;
         predCount[recDat->user][recDat->item]++;
         preds.push_back(*recDat);
@@ -21,11 +21,11 @@ namespace {
 
   class DummyFilter : public ModelFilter {
     public:
-      void run(double time){}
-      vector<pair<int,double> >* get_global_users() override {
+      void run(double time) override {}
+      vector<pair<int,double>>* get_global_users() override {
         return &userBounds; 
       }
-      vector<pair<int,double> >* get_global_items() override {
+      vector<pair<int,double>>* get_global_items() override {
         return &itemBounds;
       }
       vector<pair<int,double>> userBounds;

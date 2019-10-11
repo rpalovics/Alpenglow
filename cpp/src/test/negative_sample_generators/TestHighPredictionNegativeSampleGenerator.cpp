@@ -4,8 +4,8 @@
 
 namespace {
 class DummyModel : public Model{
-  double prediction(RecDat* recDat){ return recDat->item%7; }
-  void add(RecDat* recDat){}
+  double prediction(RecDat* recDat) override { return recDat->item%7; }
+  void add(RecDat* recDat) override {}
 };
 
 class TestHighPredictionNegativeSampleGenerator : public ::testing::Test {

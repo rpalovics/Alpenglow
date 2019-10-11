@@ -9,7 +9,7 @@ namespace {
   class DummyToplistCreator : public ToplistCreator{
     public:
       DummyToplistCreator(ToplistCreatorParameters* params):ToplistCreator(params){counter=0;}
-      vector<RecDat>* run(RecDat*){counter++;return &topPredictions;}    
+      vector<RecDat>* run(RecDat*) override {counter++;return &topPredictions;}    
       vector<RecDat> topPredictions;
       int counter;
   };

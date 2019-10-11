@@ -5,16 +5,16 @@ namespace {
 class DummyModel : public Model{
  public:
   DummyModel(){}
-  void add(RecDat* rec_dat){
+  void add(RecDat* rec_dat) override {
   }
-  double prediction(RecDat* rec_dat){
+  double prediction(RecDat* rec_dat) override {
     return rec_dat->item%3+0.1*rec_dat->item;
   }
 };
 
 class DummyFilter : public ModelFilter{
   public:
-    void run(double){}
+    void run(double) override {}
     vector<pair<int,double>>* get_global_items() override { return &items_; }
     vector<pair<int,double>> items_;
 };

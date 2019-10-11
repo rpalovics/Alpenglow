@@ -7,13 +7,13 @@
 namespace {
 class DummyModel : public Model {
   public:
-    void add(RecDat*){ add_counter_++; }
+    void add(RecDat*) override { add_counter_++; }
     int add_counter_ = 0;
-    double prediction(RecDat*){ return my_prediction_; }
+    double prediction(RecDat*) override { return my_prediction_; }
     double my_prediction_ = 0.5;
-    void read(istream&){ read_counter_++; }
+    void read(istream&) override { read_counter_++; }
     int read_counter_ = 0;
-    void write(ostream&){ write_counter_++; }
+    void write(ostream&) override { write_counter_++; }
     int write_counter_ = 0;
 };
 class TestRandomChoosingCombinedModel : public ::testing::Test { 

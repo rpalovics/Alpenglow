@@ -4,12 +4,12 @@
 namespace {
 class DummyModelGradientUpdater : public ModelGradientUpdater {
   public:
-    virtual void update(RecDat* rec_dat, double gradient){}
+    void update(RecDat* rec_dat, double gradient) override {}
 };
 
 class DummyModelMultiUpdater : public ModelMultiUpdater {
   public:
-    virtual void update(vector<RecDat>* rec_dats){}
+    void update(vector<RecDat>* rec_dats) override {}
     //bool self_test(){}
 };
 class TestModelUpdater : public ::testing::Test { 

@@ -7,7 +7,7 @@ class DummyUpdater : public Updater{
   void update(RecDat* rec_dat) override {
     counter_++;
   }
-  void message(UpdaterMessage message){
+  void message(UpdaterMessage message) override {
     messages_[static_cast<int>(message)]++;
   }
   int counter_;

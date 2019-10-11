@@ -17,10 +17,10 @@ namespace {
         predictVal++;
         if(predictVal==predictions.end()) predictVal=predictions.begin();
       }
-      void add(RecDat* rec_dat){
+      void add(RecDat* rec_dat) override {
         add_calls.push_back(make_pair(prediction_calls.size(),rec_dat));
       }
-      virtual double prediction(RecDat* rec_dat){
+      virtual double prediction(RecDat* rec_dat) override {
         prediction_calls.push_back(rec_dat);
         return (*predictVal)*(rec_dat->item);
       }
@@ -32,11 +32,11 @@ namespace {
 
   class DummyModelGradientUpdater : public ModelGradientUpdater {
     public:
-      void update(RecDat* recDat, double gradient){
+      void update(RecDat* recDat, double gradient) override {
         model->update();
         gradientData.push_back(make_pair(recDat,gradient));
       }
-      void message(UpdaterMessage message){
+      void message(UpdaterMessage message) override {
         message_calls.push_back(message);
       }
       vector<pair<RecDat*,double>> gradientData;
@@ -46,7 +46,7 @@ namespace {
   };
 
   class DummyObjective : public ObjectivePointWise {
-    double get_gradient(RecPred *rec_pred){ return rec_pred->score+rec_pred->prediction; }
+    double get_gradient(RecPred *rec_pred) override { return rec_pred->score+rec_pred->prediction; }
   };
 
   class TestGradientComputer : public ::testing::Test  {

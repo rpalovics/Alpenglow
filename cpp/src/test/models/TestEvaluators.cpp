@@ -6,7 +6,7 @@ namespace {
 
 class DummyModel : public Model {
   public:
-    double prediction(RecDat*){ return my_prediction_; }
+    double prediction(RecDat*) override { return my_prediction_; }
     double my_prediction_ = 0.5;
 };
 class TestAbsoluteErrorEvaluator : public ::testing::Test { 
@@ -35,7 +35,7 @@ class TestAbsoluteErrorEvaluator : public ::testing::Test {
 };
 class DummyModel2 : public Model {
   public:
-    double prediction(RecDat* rec_dat){
+    double prediction(RecDat* rec_dat) override {
       int item=rec_dat->item;
       if(item>=(int)my_predictions_.size()) return 0;
       return my_predictions_[item];
