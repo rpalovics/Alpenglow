@@ -25,7 +25,7 @@ class AvailabilityFilter : public ModelFilter {
       f.add_availability(10,1,10) #item 1 is available in the time interval (10,20)
   %End
 public:
-  virtual void run(RecDat* rec_dat);
+  void run(RecDat* rec_dat);
   %Docstring
       run(rec_dat)
       Summary line.
@@ -44,8 +44,8 @@ public:
       bool
           Description of return value
   %End
-//  virtual std::vector<pair<int,double>>* get_global_items();
-  virtual bool active(RecDat*);
+//  std::vector<pair<int,double>>* get_global_items();
+  bool active(RecDat*);
   bool self_test();
   void add_availability(double time, int id, int duration);
 };

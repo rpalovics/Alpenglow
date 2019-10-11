@@ -15,6 +15,6 @@ class ListConditionalMetaLogger : public ConditionalMetaLogger{
   %End
   public:
     ListConditionalMetaLogger(ListConditionalMetaLoggerParameters* parameters);
-    virtual bool should_run(RecDat* recDat);
+    bool should_run(RecDat* recDat);
 };
 

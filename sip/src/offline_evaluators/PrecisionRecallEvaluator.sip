@@ -21,7 +21,7 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
     void set_model(Model* model);
     void set_train_data(RecommenderData* recommender_data);
     void set_model_filter(ModelFilter* model_filter);
-    virtual void evaluate();
+    void evaluate();
     bool self_test();
 };
 
