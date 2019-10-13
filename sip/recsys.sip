@@ -116,6 +116,7 @@ std::string __stdlib;
 %Include src/utils/PeriodComputer.sip
 %Include src/utils/SparseAttributeContainer.sip
 %Include src/utils/RankComputer.sip
+%Include src/filters/WhiteListFilter.sip
 %Include src/filters/ModelFilter.sip
 %Include src/filters/AvailabilityFilter.sip
 %Include src/filters/FactorModelFilter.sip
