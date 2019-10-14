@@ -116,6 +116,7 @@ std::string __stdlib;
 %Include src/filters/WhiteListFilter2ModelAdapter.sip
 %Include src/filters/ModelFilter.sip
 %Include src/filters/AvailabilityFilter.sip
+%Include src/filters/LabelFilter.sip
 %Include src/filters/FactorModelFilter.sip
 %Include src/filters/DummyModelFilter.sip
 
