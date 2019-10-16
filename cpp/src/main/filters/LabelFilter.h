@@ -29,7 +29,7 @@ class LabelFilter
       label_container_.read_from_file(file);
     }
     bool active(RecDat*) override;
-    vector<int> get_white_list(int user) override;
+    vector<int> get_whitelist(int user) override;
     void update(RecDat* rec_dat) override;
     bool self_test(){
       bool ok = true;

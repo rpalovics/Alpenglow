@@ -17,22 +17,22 @@ public:
     current_sample_.score = 1;
   }
   bool has_next(double lower_bound) override {
-    return counter_<white_list_.size();
+    return counter_<whitelist_.size();
   }
   pair<int,double> get_next() override {
     pair<int,double> next;
-    int item = white_list_.at(counter_);
+    int item = whitelist_.at(counter_);
     next.first = item;
     current_sample_.item = item;
     next.second = model_->prediction(&current_sample_);
     counter_++;
     return next;
   }
-  int unique_items_num() override { return white_list_.size(); }
-  void reset(int user, vector<int> white_list){
+  int unique_items_num() override { return whitelist_.size(); }
+  void reset(int user, vector<int> whitelist){
     counter_ = 0;
     current_sample_.user = user;
-    white_list_ = white_list;
+    whitelist_ = whitelist;
   }
   void set_model(Model* model){ model_ = model; }
   bool self_test(){
@@ -43,7 +43,7 @@ public:
 private:
   int counter_ = 0;
   RecDat current_sample_; //TODO RSIP:get_rsi(RecDat*)
-  vector<int> white_list_;
+  vector<int> whitelist_;
   Model* model_ = NULL;
 };
 
@@ -53,19 +53,19 @@ class WhitelistFilter2ModelAdapter
 {
 public:
   double prediction(RecDat* rec_dat) override {
-    if (white_list_filter_->active(rec_dat)){
+    if (whitelist_filter_->active(rec_dat)){
       return model_->prediction(rec_dat);
     } else {
       return 0;
     }
   }
   RankingScoreIterator* get_ranking_score_iterator(int user) override {
-    vector<int> white_list = white_list_filter_->get_white_list(user);
-    rsi_.reset(user,white_list);
+    vector<int> whitelist = whitelist_filter_->get_whitelist(user);
+    rsi_.reset(user,whitelist);
     return &rsi_;
   }
-  void set_white_list_filter(WhitelistFilter* white_list_filter){
-    white_list_filter_ = white_list_filter;
+  void set_whitelist_filter(WhitelistFilter* whitelist_filter){
+    whitelist_filter_ = whitelist_filter;
   }
   void set_model(Model* model){
     model_ = model;
@@ -77,7 +77,7 @@ public:
     return ok;
   }
 private:
-  WhitelistFilter* white_list_filter_ = NULL;
+  WhitelistFilter* whitelist_filter_ = NULL;
   Model* model_ = NULL;
   WhitelistFilterRankingScoreIterator rsi_;
 };

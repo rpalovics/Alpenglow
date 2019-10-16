@@ -7,7 +7,7 @@ bool LabelFilter::active(RecDat* rec_dat){
   return (actual_label == last_label_of_active_user);
 }
 
-vector<int> LabelFilter::get_white_list(int user){
+vector<int> LabelFilter::get_whitelist(int user){
   resize_last_labels(user);
   int last_label = last_labels_[user];
   vector<int> active_items = label_container_.get_entities(last_label);

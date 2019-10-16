@@ -34,8 +34,8 @@ TEST_F(TestAvailabilityFilter, test){
   ASSERT_EQ(1,filter.availability_ends_.size());
   EXPECT_EQ(110,get<0>(filter.availability_ends_.top()));
   EXPECT_EQ(1,get<1>(filter.availability_ends_.top()));
-  ASSERT_EQ(1, filter.get_white_list(user).size());
-  EXPECT_EQ(1, filter.get_white_list(user)[0]);
+  ASSERT_EQ(1, filter.get_whitelist(user).size());
+  EXPECT_EQ(1, filter.get_whitelist(user)[0]);
   d.item = 1;
   EXPECT_TRUE(filter.active(&d));
   d.item = 2;
@@ -45,8 +45,8 @@ TEST_F(TestAvailabilityFilter, test){
 
   d.time = 20;
   filter.update(&d);
-  EXPECT_EQ(3, filter.get_white_list(user).size());
-  /*auto items =*/ filter.get_white_list(user);
+  EXPECT_EQ(3, filter.get_whitelist(user).size());
+  /*auto items =*/ filter.get_whitelist(user);
   auto expected_set = set<int>({1,2,4});
   EXPECT_TRUE(expected_set == filter.available_items_set_);
   d.item = 1;

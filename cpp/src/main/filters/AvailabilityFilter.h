@@ -30,7 +30,7 @@ class AvailabilityFilter
 */
 public:
   bool active(RecDat*) override;
-  vector<int> get_white_list(int user) override;
+  vector<int> get_whitelist(int user) override;
   void run(RecDat* rec_dat) override; //DEPRECATED
   vector<pair<int,double>>* get_global_items() override; //DEPRECATED
   bool self_test(){

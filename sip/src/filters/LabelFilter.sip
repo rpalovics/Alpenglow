@@ -23,7 +23,7 @@ class LabelFilter
   public:
     LabelFilter(LabelFilterParameters* params);
     bool active(RecDat*);
-    std::vector<int> get_white_list(int user);
+    std::vector<int> get_whitelist(int user);
     void update(RecDat* rec_dat);
     bool self_test();
 };

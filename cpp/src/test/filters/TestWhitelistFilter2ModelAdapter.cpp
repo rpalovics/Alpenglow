@@ -11,7 +11,7 @@ namespace {
   };
   class DummyWhitelistFilter : public WhitelistFilter {
     public:
-      vector<int> get_white_list(int user) override {
+      vector<int> get_whitelist(int user) override {
         if (user%2) {
           return vector<int>{0,2,4,6,8};
         } else {
@@ -32,7 +32,7 @@ namespace {
       virtual ~TestWhitelistFilter2ModelAdapter(){}
       void SetUp() override {
         adapter.set_model(&model);
-        adapter.set_white_list_filter(&filter);
+        adapter.set_whitelist_filter(&filter);
         EXPECT_TRUE(adapter.self_test());
       } 
       void TearDown() override {}

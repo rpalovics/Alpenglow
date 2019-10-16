@@ -5,7 +5,7 @@ bool AvailabilityFilter::active(RecDat* r){
   return available != available_items_set_.end();
 }
 
-vector<int> AvailabilityFilter::get_white_list(int user){
+vector<int> AvailabilityFilter::get_whitelist(int user){
   return available_items_;
 }
 
