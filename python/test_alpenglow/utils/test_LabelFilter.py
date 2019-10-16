@@ -12,7 +12,7 @@ class LabelExperiment(prs.OnlineExperiment):
         label_filter = ag.LabelFilter(**self.parameter_defaults(
             label_file_name = ""
         ))
-        adapter = ag.WhiteListFilter2ModelAdapter()
+        adapter = ag.WhitelistFilter2ModelAdapter()
         adapter.set_model(model)
         adapter.set_white_list_filter(label_filter)
 

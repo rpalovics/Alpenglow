@@ -1,10 +1,10 @@
 
-// class WhiteListFilterRankingScoreIterator : public RankingScoreIterator {
+// class WhitelistFilterRankingScoreIterator : public RankingScoreIterator {
 //  %TypeHeaderCode
-//  #include "filters/WhiteListFilter2ModelAdapter.h"
+//  #include "filters/WhitelistFilter2ModelAdapter.h"
 //  %End
 //public:
-//  WhiteListFilterRankingScoreIterator();
+//  WhitelistFilterRankingScoreIterator();
 //  bool has_next(double lower_bound);
 //  pair<int,double> get_next();
 //  int unique_items_num();
@@ -13,17 +13,17 @@
 //  bool self_test();
 //};
 
-class WhiteListFilter2ModelAdapter
+class WhitelistFilter2ModelAdapter
   : public Model
 //  , public RankingScoreIteratorProvider
 {
   %TypeHeaderCode
-  #include "filters/WhiteListFilter2ModelAdapter.h"
+  #include "filters/WhitelistFilter2ModelAdapter.h"
   %End
 public:
   double prediction(RecDat* rec_dat);
 //  RankingScoreIterator* get_ranking_score_iterator(int user);
-  void set_white_list_filter(WhiteListFilter* white_list_filter);
+  void set_white_list_filter(WhitelistFilter* white_list_filter);
   void set_model(Model* model);
   bool self_test();
 };

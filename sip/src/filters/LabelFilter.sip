@@ -10,7 +10,7 @@ struct LabelFilterParameters {
 };
 
 class LabelFilter
-: public WhiteListFilter
+: public WhitelistFilter
 , public Updater
 {
   %TypeHeaderCode
