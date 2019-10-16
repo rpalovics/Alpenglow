@@ -5,13 +5,13 @@
 #include "../recommender_data/RecommenderData.h"
 #include "../models/Model.h"
 #include "../models/RankingScoreIterator.h"
-#include "WhiteListFilter.h"
+#include "WhitelistFilter.h"
 
 //SIP_AUTOCONVERT
 
-class WhiteListFilterRankingScoreIterator : public RankingScoreIterator {
+class WhitelistFilterRankingScoreIterator : public RankingScoreIterator {
 public:
-  WhiteListFilterRankingScoreIterator(){
+  WhitelistFilterRankingScoreIterator(){
     current_sample_.id = -1;
     current_sample_.time = 0;
     current_sample_.score = 1;
@@ -47,7 +47,7 @@ private:
   Model* model_ = NULL;
 };
 
-class WhiteListFilter2ModelAdapter
+class WhitelistFilter2ModelAdapter
   : public Model
   , public RankingScoreIteratorProvider
 {
@@ -64,7 +64,7 @@ public:
     rsi_.reset(user,white_list);
     return &rsi_;
   }
-  void set_white_list_filter(WhiteListFilter* white_list_filter){
+  void set_white_list_filter(WhitelistFilter* white_list_filter){
     white_list_filter_ = white_list_filter;
   }
   void set_model(Model* model){
@@ -77,9 +77,9 @@ public:
     return ok;
   }
 private:
-  WhiteListFilter* white_list_filter_ = NULL;
+  WhitelistFilter* white_list_filter_ = NULL;
   Model* model_ = NULL;
-  WhiteListFilterRankingScoreIterator rsi_;
+  WhitelistFilterRankingScoreIterator rsi_;
 };
 
 #endif /* WHITE_LIST_FILTER_2_MODEL_ADAPTER_H */

@@ -9,11 +9,11 @@
 #include <gtest/gtest_prod.h>
 #include <tuple>
 #include <functional>
-#include "WhiteListFilter.h"
+#include "WhitelistFilter.h"
 #include "../general_interfaces/Updater.h"
 
 class AvailabilityFilter
-: public WhiteListFilter
+: public WhitelistFilter
 , public ModelFilter //DEPRECATED
 {
 /**

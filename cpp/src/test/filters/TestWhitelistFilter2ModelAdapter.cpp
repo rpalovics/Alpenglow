@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "../../main/filters/WhiteListFilter2ModelAdapter.h"
+#include "../../main/filters/WhitelistFilter2ModelAdapter.h"
 
 
 namespace {
@@ -9,7 +9,7 @@ namespace {
         return rec_dat->time+rec_dat->user+rec_dat->item;
       }
   };
-  class DummyWhiteListFilter : public WhiteListFilter {
+  class DummyWhitelistFilter : public WhitelistFilter {
     public:
       vector<int> get_white_list(int user) override {
         if (user%2) {
@@ -23,13 +23,13 @@ namespace {
         return (rec_dat->item+rec_dat->user) % 2;
       }
   };
-  class TestWhiteListFilter2ModelAdapter : public ::testing::Test { 
+  class TestWhitelistFilter2ModelAdapter : public ::testing::Test { 
     public:
       DummyModel model;
-      DummyWhiteListFilter filter;
-      WhiteListFilter2ModelAdapter adapter;
-      TestWhiteListFilter2ModelAdapter(){}
-      virtual ~TestWhiteListFilter2ModelAdapter(){}
+      DummyWhitelistFilter filter;
+      WhitelistFilter2ModelAdapter adapter;
+      TestWhitelistFilter2ModelAdapter(){}
+      virtual ~TestWhitelistFilter2ModelAdapter(){}
       void SetUp() override {
         adapter.set_model(&model);
         adapter.set_white_list_filter(&filter);
@@ -39,7 +39,7 @@ namespace {
   };
 }
 
-TEST_F(TestWhiteListFilter2ModelAdapter, prediction){
+TEST_F(TestWhitelistFilter2ModelAdapter, prediction){
   RecDat rec_dat;
   rec_dat.time = 10;
   rec_dat.score = 1;
@@ -56,7 +56,7 @@ TEST_F(TestWhiteListFilter2ModelAdapter, prediction){
   EXPECT_EQ(0,adapter_prediction);
 }
 
-TEST_F(TestWhiteListFilter2ModelAdapter, iterator){
+TEST_F(TestWhitelistFilter2ModelAdapter, iterator){
   int user = 3;
   RankingScoreIterator* rsi = adapter.get_ranking_score_iterator(user);
   ASSERT_NE(rsi,nullptr);

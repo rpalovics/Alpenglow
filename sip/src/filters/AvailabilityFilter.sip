@@ -1,6 +1,6 @@
 
 class AvailabilityFilter
-: public WhiteListFilter
+: public WhitelistFilter
 , public ModelFilter 
 {
   %TypeHeaderCode

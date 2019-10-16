@@ -1,7 +1,7 @@
 #ifndef LABEL_FILTER_H
 #define LABEL_FILTER_H
 
-#include "WhiteListFilter.h"
+#include "WhitelistFilter.h"
 #include "../utils/LabelContainer.h"
 #include "../models/ModelUpdater.h"
 #include <gtest/gtest_prod.h>
@@ -13,7 +13,7 @@ struct LabelFilterParameters {
 };
 
 class LabelFilter
-: public WhiteListFilter
+: public WhitelistFilter
 , public Updater
 {
 /**
