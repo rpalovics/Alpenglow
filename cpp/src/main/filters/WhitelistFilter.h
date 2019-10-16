@@ -22,7 +22,7 @@ public:
     bool
        Whether the item is available for the user.
   */
-  virtual vector<int> get_white_list(int user) = 0;
+  virtual vector<int> get_whitelist(int user) = 0;
   /**
     Parameters
     ----------

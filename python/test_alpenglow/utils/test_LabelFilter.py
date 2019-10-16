@@ -14,7 +14,7 @@ class LabelExperiment(prs.OnlineExperiment):
         ))
         adapter = ag.WhitelistFilter2ModelAdapter()
         adapter.set_model(model)
-        adapter.set_white_list_filter(label_filter)
+        adapter.set_whitelist_filter(label_filter)
 
         return (adapter, [updater, label_filter], [], []) #note: do not forget to add filter as an updater
 

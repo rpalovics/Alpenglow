@@ -39,8 +39,8 @@ TEST_F(TestLabelFilter, test){
       rec_dat.item = item;
       EXPECT_FALSE(filter.active(&rec_dat));
     }
-    vector<int> white_list = filter.get_white_list(user);
-    EXPECT_EQ(0,white_list.size());
+    vector<int> whitelist = filter.get_whitelist(user);
+    EXPECT_EQ(0,whitelist.size());
   }
 
   //after the first update item 2,5,8 are active for user 3 and none to others
@@ -58,11 +58,11 @@ TEST_F(TestLabelFilter, test){
     rec_dat.item = item;
     EXPECT_FALSE(filter.active(&rec_dat));
   }
-  vector<int> white_list = filter.get_white_list(user);
-  EXPECT_EQ(3,white_list.size());
-  EXPECT_TRUE(contains_element(white_list,2));
-  EXPECT_TRUE(contains_element(white_list,5));
-  EXPECT_TRUE(contains_element(white_list,8));
+  vector<int> whitelist = filter.get_whitelist(user);
+  EXPECT_EQ(3,whitelist.size());
+  EXPECT_TRUE(contains_element(whitelist,2));
+  EXPECT_TRUE(contains_element(whitelist,5));
+  EXPECT_TRUE(contains_element(whitelist,8));
 
   //user 1,2
   for( auto user : vector<int>{1,2} ){
@@ -70,8 +70,8 @@ TEST_F(TestLabelFilter, test){
     for( auto item : items ){
       rec_dat.item = item;
       EXPECT_FALSE(filter.active(&rec_dat));
-      vector<int> white_list = filter.get_white_list(user);
-      EXPECT_EQ(0,white_list.size());
+      vector<int> whitelist = filter.get_whitelist(user);
+      EXPECT_EQ(0,whitelist.size());
     }
   }
 
@@ -90,11 +90,11 @@ TEST_F(TestLabelFilter, test){
     rec_dat.item = item;
     EXPECT_FALSE(filter.active(&rec_dat));
   }
-  white_list = filter.get_white_list(user);
-  EXPECT_EQ(3,white_list.size());
-  EXPECT_TRUE(contains_element(white_list,1));
-  EXPECT_TRUE(contains_element(white_list,4));
-  EXPECT_TRUE(contains_element(white_list,7));
+  whitelist = filter.get_whitelist(user);
+  EXPECT_EQ(3,whitelist.size());
+  EXPECT_TRUE(contains_element(whitelist,1));
+  EXPECT_TRUE(contains_element(whitelist,4));
+  EXPECT_TRUE(contains_element(whitelist,7));
 
   //user 1,2
   for( auto user : vector<int>{1,2} ){
@@ -102,8 +102,8 @@ TEST_F(TestLabelFilter, test){
     for( auto item : items ){
       rec_dat.item = item;
       EXPECT_FALSE(filter.active(&rec_dat));
-      vector<int> white_list = filter.get_white_list(user);
-      EXPECT_EQ(0,white_list.size());
+      vector<int> whitelist = filter.get_whitelist(user);
+      EXPECT_EQ(0,whitelist.size());
     }
   }
 }

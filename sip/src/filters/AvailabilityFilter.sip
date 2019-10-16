@@ -20,7 +20,7 @@ class AvailabilityFilter
   %End
 public:
   bool active(RecDat*);
-  std::vector<int> get_white_list(int user);
+  std::vector<int> get_whitelist(int user);
   void run(RecDat* rec_dat); 
 //  std::vector<pair<int,double>>* get_global_items(); 
   bool self_test();

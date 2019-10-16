@@ -18,7 +18,7 @@ public:
     bool
        Whether the item is available for the user.
   %End
-  virtual std::vector<int> get_white_list(int user) = 0;
+  virtual std::vector<int> get_whitelist(int user) = 0;
   %Docstring
     Parameters
     ----------
