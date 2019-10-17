@@ -16,24 +16,11 @@ public:
     current_sample_.time = 0;
     current_sample_.score = 1;
   }
-  bool has_next(double lower_bound) override {
-    return counter_<whitelist_.size();
-  }
-  pair<int,double> get_next() override {
-    pair<int,double> next;
-    int item = whitelist_.at(counter_);
-    next.first = item;
-    current_sample_.item = item;
-    next.second = model_->prediction(&current_sample_);
-    counter_++;
-    return next;
-  }
-  int unique_items_num() override { return whitelist_.size(); }
-  void reset(int user, vector<int> whitelist){
-    counter_ = 0;
-    current_sample_.user = user;
-    whitelist_ = whitelist;
-  }
+  bool has_next(double lower_bound) override;
+  pair<int,double> get_next() override;
+  int unique_items_num() override;
+  void reset(int user, vector<int> whitelist);
+
   void set_model(Model* model){ model_ = model; }
   bool self_test(){
     bool ok = true; // RankingScoreIterator::self_test();
@@ -52,18 +39,9 @@ class WhitelistFilter2ModelAdapter
   , public RankingScoreIteratorProvider
 {
 public:
-  double prediction(RecDat* rec_dat) override {
-    if (whitelist_filter_->active(rec_dat)){
-      return model_->prediction(rec_dat);
-    } else {
-      return 0;
-    }
-  }
-  RankingScoreIterator* get_ranking_score_iterator(int user) override {
-    vector<int> whitelist = whitelist_filter_->get_whitelist(user);
-    rsi_.reset(user,whitelist);
-    return &rsi_;
-  }
+  double prediction(RecDat* rec_dat) override;
+  RankingScoreIterator* get_ranking_score_iterator(int user) override;
+
   void set_whitelist_filter(WhitelistFilter* whitelist_filter){
     whitelist_filter_ = whitelist_filter;
   }
