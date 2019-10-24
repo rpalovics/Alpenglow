@@ -25,6 +25,8 @@ class ExperimentEnvironment /NoDefaultCtors/{
         Sets the dataset (the time series) of the experiment. Called by :py:class:`alpenglow.cpp.OnlineExperiment`.
   %End
 
+    double get_time() const;
+
     int get_top_k() const;
   %Docstring
       Returns

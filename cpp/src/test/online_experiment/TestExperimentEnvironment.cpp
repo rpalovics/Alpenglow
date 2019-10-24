@@ -439,6 +439,32 @@ TEST_F(TestExperimentEnvironment, rdi) {
   const RecommenderDataIterator* rdi2 = expenv.get_recommender_data_iterator();
   EXPECT_EQ(&rdi,rdi2);
 }
+TEST_F(TestExperimentEnvironment, time) {
+  //data:
+  //id=0 t=0 u=0 i=0 s=1
+  //id=1 t=1 u=0 i=0 s=1
+  //id=2 t=2 u=0 i=0 s=1
+  //id=3 t=3 u=0 i=1 s=1
+  //id=4 t=4 u=1 i=1 s=1
+  //id=5 t=5 u=1 i=1 s=1
+  //id=6 t=6 u=1 i=2 s=1
+  //id=7 t=7 u=1 i=2 s=1
+  //id=8 t=8 u=2 i=2 s=1
+  //id=9 t=9 u=2 i=3 s=1
+
+  params.initialize_all = false;
+  params.max_user = 2;
+  params.max_item = 3;
+  ExperimentEnvironment expenv;
+  expenv.set_parameters(&params);
+  expenv.set_recommender_data_iterator(&rdi);
+  EXPECT_TRUE(expenv.self_test());
+  for(int i=0;i<10;i++){
+    RecDat* rec_dat = rdi.next();
+    expenv.update(rec_dat);
+    EXPECT_EQ(i,expenv.get_time());
+  }
+}
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
