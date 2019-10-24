@@ -1,22 +1,29 @@
 #include "AvailabilityFilter.h"
 
 bool AvailabilityFilter::active(RecDat* r){
+  if(experiment_environment_->get_time()!=time_) update();
   auto available = available_items_set_.find(r->item);
   return available != available_items_set_.end();
 }
 
 vector<int> AvailabilityFilter::get_whitelist(int user){
+  //NOTE: the set of available items does not depend on the user
+  if(experiment_environment_->get_time()!=time_) update();
   return available_items_;
 }
 
-void AvailabilityFilter::update(RecDat* rec_dat){
-  double time = rec_dat->time;
-  while(availability_ends_.size() != 0 && get<0>(availability_ends_.top()) <= time){
+void AvailabilityFilter::add_availability(double time, int id, int duration){
+  availabilites_.push(tuple<double, int, int>(time, id, duration));
+}
+
+void AvailabilityFilter::update(){
+  time_=experiment_environment_->get_time();
+  while(availability_ends_.size() != 0 && get<0>(availability_ends_.top()) <= time_){
     auto item = availability_ends_.top();
     availability_ends_.pop();
     available_items_set_.erase(get<1>(item));
   }
-  while(availabilites_.size() != 0 && get<0>(availabilites_.top()) <= time){
+  while(availabilites_.size() != 0 && get<0>(availabilites_.top()) <= time_){
     auto item = availabilites_.top();
     availabilites_.pop();
     available_items_set_.insert(get<1>(item));
@@ -24,17 +31,3 @@ void AvailabilityFilter::update(RecDat* rec_dat){
   }
   available_items_ = vector<int>(available_items_set_.begin(), available_items_set_.end());
 }
-
-void AvailabilityFilter::add_availability(double time, int id, int duration){
-  availabilites_.push(tuple<double, int, int>(time, id, duration));
-}
-
-//DEPRECATED functions
-void AvailabilityFilter::run(RecDat* rec_dat){
-  update(rec_dat);
-}
-
-vector<pair<int,double>>* AvailabilityFilter::get_global_items(){
-  return NULL; //&available_items_;
-}
-

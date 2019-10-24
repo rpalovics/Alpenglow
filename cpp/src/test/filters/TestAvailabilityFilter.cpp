@@ -5,6 +5,7 @@
 namespace {
   class TestAvailabilityFilter : public ::testing::Test { 
     public:
+      ExperimentEnvironment expenv;
       TestAvailabilityFilter(){}
       virtual ~TestAvailabilityFilter(){}
       void SetUp() override {} 
@@ -15,6 +16,7 @@ namespace {
 TEST_F(TestAvailabilityFilter, test){
   int user = 0;
   AvailabilityFilter filter;
+  filter.set_experiment_environment(&expenv);
   EXPECT_EQ(0,filter.availabilites_.size());
   filter.add_availability(10, 1, 100);
   EXPECT_EQ(1,filter.availabilites_.size());
@@ -27,7 +29,8 @@ TEST_F(TestAvailabilityFilter, test){
 
   RecDat d;
   d.time = 10;
-  filter.update(&d);
+  expenv.update(&d);
+  filter.active(&d); //to initiate filter.update()
 
   EXPECT_EQ(1,filter.available_items_set_.size());
   EXPECT_EQ(5,filter.availabilites_.size());
@@ -44,8 +47,8 @@ TEST_F(TestAvailabilityFilter, test){
   EXPECT_FALSE(filter.active(&d));
 
   d.time = 20;
-  filter.update(&d);
-  EXPECT_EQ(3, filter.get_whitelist(user).size());
+  expenv.update(&d);
+  EXPECT_EQ(3, filter.get_whitelist(user).size()); //get_whitelist initiates filter.update() if necessary
   /*auto items =*/ filter.get_whitelist(user);
   auto expected_set = set<int>({1,2,4});
   EXPECT_TRUE(expected_set == filter.available_items_set_);
@@ -59,7 +62,8 @@ TEST_F(TestAvailabilityFilter, test){
   EXPECT_TRUE(filter.active(&d));
 
   d.time = 120;
-  filter.update(&d);
+  expenv.update(&d);
+  filter.active(&d); //to initiate filter.update()
   expected_set = set<int>({3,5});
   EXPECT_TRUE(expected_set == filter.available_items_set_);
 

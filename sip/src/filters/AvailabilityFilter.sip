@@ -1,7 +1,7 @@
 
 class AvailabilityFilter
 : public WhitelistFilter
-, public ModelFilter 
+, public NeedsExperimentEnvironment
 {
   %TypeHeaderCode
   #include "filters/AvailabilityFilter.h"
@@ -21,8 +21,6 @@ class AvailabilityFilter
 public:
   bool active(RecDat*);
   std::vector<int> get_whitelist(int user);
-  void run(RecDat* rec_dat); 
-//  std::vector<pair<int,double>>* get_global_items(); 
   bool self_test();
   void add_availability(double time, int id, int duration);
 };

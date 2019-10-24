@@ -7,7 +7,7 @@ import pandas as pd
 class TestAvailabilityFilter:
     def test_init(self):
         df = pd.DataFrame({'time': [30, 20, 10], 'item': [3, 2, 1], 'duration': [10, 10, 10]})
-        a = AvailabilityFilter(df)
+        a = AvailabilityFilter(df) #todo: needs experiment environment
         r = rs.RecDat()
         r.time = 21
-        a.run(r)
+        #a.run(r) #no run function, updates itself automatically

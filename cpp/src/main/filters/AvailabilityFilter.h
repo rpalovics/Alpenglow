@@ -3,18 +3,17 @@
 
 //SIP_AUTOCONVERT
 
-#include "ModelFilter.h"
 #include <queue>
 #include <set>
 #include <gtest/gtest_prod.h>
 #include <tuple>
 #include <functional>
 #include "WhitelistFilter.h"
-#include "../general_interfaces/Updater.h"
+#include "../general_interfaces/NeedsExperimentEnvironment.h"
 
 class AvailabilityFilter
 : public WhitelistFilter
-, public ModelFilter //DEPRECATED
+, public NeedsExperimentEnvironment
 {
 /**
     This filter filters the set of available items based on
@@ -31,10 +30,8 @@ class AvailabilityFilter
 public:
   bool active(RecDat*) override;
   vector<int> get_whitelist(int user) override;
-  void run(RecDat* rec_dat) override; //DEPRECATED
-  vector<pair<int,double>>* get_global_items() override; //DEPRECATED
   bool self_test(){
-    bool OK = ModelFilter::self_test(); //TODO remove
+    bool OK = true;
     return OK;
   }
   void add_availability(double time, int id, int duration);
@@ -48,7 +45,8 @@ protected:
   set<int> available_items_set_;
   vector<int> available_items_;
 private:
-  void update(RecDat* rec_dat);
+  double time_ = -1;
+  void update();
   FRIEND_TEST(TestAvailabilityFilter, test);
 };
 
