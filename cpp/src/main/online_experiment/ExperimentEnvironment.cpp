@@ -21,6 +21,7 @@ void ExperimentEnvironment::set_parameters(OnlineExperimentParameters* params){
   }
 }
 void ExperimentEnvironment::update(RecDat* rec_dat){
+  time_ = rec_dat->time;
   int item = rec_dat->item;
   int user = rec_dat->user;
   double score = rec_dat->score; 

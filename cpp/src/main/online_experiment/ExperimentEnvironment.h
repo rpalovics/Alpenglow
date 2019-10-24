@@ -39,6 +39,11 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
         Sets the dataset (the time series) of the experiment. Called by :py:class:`alpenglow.cpp.OnlineExperiment`.
     */
 
+    //global state
+    double get_time() const {
+      return time_;
+      //NOTE: alternative implementation could take the current sample from recommender data iterator and return its time field.  In a standard experiment, these two are equal.
+    }
     //global parameters
     int get_top_k() const { return top_k_; }
     /**
@@ -220,6 +225,7 @@ class ExperimentEnvironment{ //SIP_NODEFAULTCTORS
     RecommenderDataIterator* recommender_data_iterator_ = NULL;
 
     //updatable components
+    double time_ = -1;
     bool item_new_for_user_ = true;
     bool first_occurrence_of_item_ = true;
     bool first_occurrence_of_user_ = true;
