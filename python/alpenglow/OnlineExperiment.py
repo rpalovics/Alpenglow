@@ -136,7 +136,7 @@ class OnlineExperiment(ParameterDefaults):
         online_experiment.set_recommender_data_iterator(recommender_data_iterator)
 
         #get components
-        (model, learner, filters, loggers) = self._config(top_k, seed)
+        (model, learner, filters, loggers) = self._config(top_k, seed) #filters kept for toplist creator only
 
         #set loggers
         for l in loggers:
@@ -152,8 +152,6 @@ class OnlineExperiment(ParameterDefaults):
 
         ranking_logger = self._get_ranking_logger(top_k, evaluation_start_time, self.parameter_default('out_file', out_file), memory_log)
         ranking_logger.set_model(model)
-        for f in filters:
-            ranking_logger.set_model_filter(f)  # FIXME rank_computer treats only ONE filter
         online_experiment.add_logger(ranking_logger)
 
         if type(calculate_toplists) is not bool or calculate_toplists:
