@@ -1,6 +1,10 @@
-struct ToplistCreatorParameters{
+
+struct ToplistCreatorParameters {
   %TypeHeaderCode
   #include "utils/ToplistCreator.h"
+  %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.ToplistCreator`. See documentation there.
   %End
   int top_k;
   int exclude_known;
@@ -9,24 +13,26 @@ class ToplistCreator : public NeedsExperimentEnvironment, public Initializable {
   %TypeHeaderCode
   #include "utils/ToplistCreator.h"
   %End
-  public:
-    ToplistCreator(ToplistCreatorParameters * params);
-    virtual ~ToplistCreator();
-    virtual std::vector<RecDat>* run(RecDat * rec_dat)=0; 
-    void set_model(Model* model_);
-    void set_filter(ModelFilter* filter_);
-    void set_train_matrix(SpMatrix *train_matrix_);
-    void set_experiment_environment(ExperimentEnvironment*);
-    bool self_test();
+ public:
+   ToplistCreator(ToplistCreatorParameters* params);
+   virtual ~ToplistCreator();
+   virtual std::vector<RecDat>* run(RecDat* rec_dat)=0; 
+   void set_model(Model* model);
+   void set_filter(ModelFilter* filter);
+   void set_train_matrix(SpMatrix *train_matrix);
+   bool self_test();
   protected:
-    bool autocalled_initialize();
+   bool autocalled_initialize();
 };
 
-struct ToplistCreatorGlobalParameters : public ToplistCreatorParameters{
+struct ToplistCreatorGlobalParameters : public ToplistCreatorParameters {
   %TypeHeaderCode
   #include "utils/ToplistCreator.h"
   %End
-  int initial_threshold;
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.ToplistCreatorGlobalParameters : public ToplistCreator`. See documentation there.
+  %End
+  int initial_threshold; 
 };
 
 class ToplistCreatorGlobal: public ToplistCreator{
@@ -38,11 +44,15 @@ class ToplistCreatorGlobal: public ToplistCreator{
     virtual ~ToplistCreatorGlobal();
     std::vector<RecDat>* run(RecDat* rec_dat);
     bool self_test();
+
 };
 
-struct ToplistCreatorPersonalizedParameters : public ToplistCreatorParameters{
+struct ToplistCreatorPersonalizedParameters : public ToplistCreatorParameters {
   %TypeHeaderCode
   #include "utils/ToplistCreator.h"
+  %End
+  %Docstring
+  Constructor parameter struct for :py:class:`alpenglow.cpp.ToplistCreatorPersonalizedParameters : public ToplistCreator`. See documentation there.
   %End
 };
 class ToplistCreatorPersonalized: public ToplistCreator{
@@ -50,9 +60,8 @@ class ToplistCreatorPersonalized: public ToplistCreator{
   #include "utils/ToplistCreator.h"
   %End
   public:
-    ToplistCreatorPersonalized(ToplistCreatorParameters * params);
-    virtual ~ToplistCreatorPersonalized();
-    std::vector<RecDat>* run(RecDat * rec_dat);
+    ToplistCreatorPersonalized(ToplistCreatorParameters* params);
+    std::vector<RecDat>* run(RecDat* rec_dat);
     bool self_test();
   protected:
     bool autocalled_initialize();

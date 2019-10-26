@@ -5,6 +5,7 @@ import pandas as pd
 
 
 class LabelExperiment(prs.OnlineExperiment):
+    'Sample experiment illustrating the usage of LabelFilter. The experiment contains a PopularityModel and a LabelFilter.'
     def _config(self, top_k, seed):
         model = ag.PopularityModel()
         updater = ag.PopularityModelUpdater()
@@ -20,6 +21,7 @@ class LabelExperiment(prs.OnlineExperiment):
 
 class TestLabelFilter:
     def test_init(self):
+        #Creatin label filter input data file.  The label of the items equals to their parity.
         label_filter_df = pd.DataFrame({'items' : range(10)})
         label_filter_df['label'] = label_filter_df['items'] % 2 #label==parity
         label_filter_df.to_csv(

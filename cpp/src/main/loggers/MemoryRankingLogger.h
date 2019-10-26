@@ -55,7 +55,7 @@ class MemoryRankingLogger
     void set_ranking_logs(RankingLogs* logs){ logs_=logs; } //TODO create log locally
     const RankingLogs* get_ranking_logs() const { return logs_; }
 
-    void set_model_filter(ModelFilter* model_filter){ rank_computer_.set_model_filter(model_filter); }
+    //void set_model_filter(ModelFilter* model_filter){ rank_computer_.set_model_filter(model_filter); }
     void set_train_matrix(SpMatrix* train_matrix){ rank_computer_.set_train_matrix(train_matrix); }
     void set_items(vector<int> *items){ rank_computer_.set_items(items); }
     void set_top_pop_container(TopPopContainer* popularity_sorted_container){
