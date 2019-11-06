@@ -14,7 +14,7 @@ class LearnerPeriodicDelayedWrapper : Updater{
     LearnerPeriodicDelayedWrapper(LearnerPeriodicDelayedWrapperParameters* params);
     virtual ~LearnerPeriodicDelayedWrapper();
 
-    virtual void set_wrapped_learner(Updater* learner);
+    void set_wrapped_learner(Updater* learner);
 
     virtual void update(RecDat* rec_dat);
 
