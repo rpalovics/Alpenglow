@@ -1,25 +1,30 @@
 #ifndef MEMORY_USAGE_LOGGER_H
 #define MEMORY_USAGE_LOGGER_H
 
-//SIP_AUTOCONVERT
-
-#include <sys/resource.h>
-#include <iostream>
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../recommender_data/RecommenderDataIterator.h"
 #include "Logger.h"
+#include <iostream>
+
+#ifndef _MSC_VER
+#include <sys/resource.h>}
+#endif /* _MSC_VER */
 
 using namespace std;
 
 class MemoryUsageLogger : public Logger, public Initializable, public NeedsExperimentEnvironment{
   public:
     void run(RecDat* rec_dat) override {
+#ifndef _MSC_VER
       int counter = recommender_data_iterator_->get_counter();
       if(counter % frequency_ == 0 or counter == size_-1){
         struct rusage usage;
         getrusage(RUSAGE_SELF, &usage);
         cerr << "mem usage: " << usage.ru_maxrss << endl;
       }
+#else
+	  cerr << "MemoryUsageLogger not supported on Windows" << endl;
+#endif /* _MSC_VER */
     }
     void set_data_iterator(RecommenderDataIterator* recommender_data_iterator){
       recommender_data_iterator_ = recommender_data_iterator;
@@ -47,5 +52,4 @@ class MemoryUsageLogger : public Logger, public Initializable, public NeedsExper
     int frequency_;
     int size_;
 };
-
 #endif /* MEMORY_USAGE_LOGGER_H */
