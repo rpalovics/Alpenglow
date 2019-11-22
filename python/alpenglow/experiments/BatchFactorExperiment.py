@@ -95,4 +95,4 @@ class BatchFactorExperiment(prs.OnlineExperiment):
         online_learner.set_period_computer(period_computer)
 
 
-        return (model, online_learner, [], [])
+        return (model, online_learner, [])

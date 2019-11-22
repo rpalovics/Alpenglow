@@ -132,4 +132,4 @@ class BatchAndOnlineFactorExperiment(prs.OnlineExperiment):
 
         learner = [batch_online_learner, online_negative_sample_generator]
 
-        return (model, learner, [], [])
+        return (model, learner, [])

@@ -136,7 +136,7 @@ class OnlineExperiment(ParameterDefaults):
         online_experiment.set_recommender_data_iterator(recommender_data_iterator)
 
         #get components
-        (model, learner, filters, loggers) = self._config(top_k, seed) #filters kept for toplist creator only
+        (model, learner, loggers) = self._config(top_k, seed)
 
         #set loggers
         for l in loggers:
@@ -156,8 +156,6 @@ class OnlineExperiment(ParameterDefaults):
 
         if type(calculate_toplists) is not bool or calculate_toplists:
             print('logging predictions') if self.verbose else None
-            if len(filters) != 0:
-                print("warning: Ignoring ModelFilter. Use WhitelistFilter and WhitelistFilter2ModelAdapter.  See python/test_alpenglow/test_LabelFilter.py for an example.")
 
             pred_creator = rs.ToplistCreatorPersonalized(
                 top_k=top_k,
