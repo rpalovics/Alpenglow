@@ -1,12 +1,10 @@
+#include <limits>
 #include "PrecisionRecallEvaluator.h"
 void PrecisionRecallEvaluator::evaluate(){
   vector<int>* users = test_data_.get_all_users();
   double precision_sum = 0;
   double recall_sum = 0;
-  RecDat zero_time_rd;
-  zero_time_rd.time = 0;
-  model_filter_->run(&zero_time_rd);
-  train_items_ = model_filter_-> get_global_items();
+  train_items_ = train_data_->get_all_items();
   for(uint i=0;i<users->size();i++){
     int user = users->at(i);
     int true_positive = compute_true_positive(user);
@@ -30,16 +28,30 @@ int PrecisionRecallEvaluator::compute_true_positive(int user){
   rec_dat.user = user;
   rec_dat.time = time_;
   Toplist<RecDat,::compare_rec_dat> top_list(cutoff_);
-  for(uint i=0;i<train_items_->size();i++){
-    pair<int, double> value = train_items_->at(i);
-    if(top_list.size()==cutoff_ and value.second < top_list.get_min().score){
-      break;
+  if(ranking_score_iterator_provider_!=NULL){
+    RankingScoreIterator* rsi = ranking_score_iterator_provider_->get_ranking_score_iterator(user);
+    if(rsi!=NULL){
+      double top_list_min = -1 * std::numeric_limits<double>::infinity();
+      while(rsi->has_next(top_list_min) || top_list.size()<cutoff_){
+        tie(rec_dat.item, rec_dat.score) = rsi->get_next();
+	top_list.insert(rec_dat);
+	top_list_min = top_list.get_min().score;
+      }
+    } else {
+      for(uint i=0;i<train_items_->size();i++){
+        rec_dat.item = train_items_->at(i);
+        rec_dat.score = model_->prediction(&rec_dat);
+        top_list.insert(rec_dat);
+      }
     }
-    rec_dat.item = value.first;
-    double prediction = model_->prediction(&rec_dat);
-    rec_dat.score = prediction;
-    top_list.insert(rec_dat);
+  } else {
+    for(uint i=0;i<train_items_->size();i++){
+      rec_dat.item = train_items_->at(i);
+      rec_dat.score = model_->prediction(&rec_dat);
+      top_list.insert(rec_dat);
+    }
   }
+
   int true_positive = 0;
   const map<int, double>* positive = test_data_.get_full_matrix()->get(user);
   for(;top_list.size()>0;top_list.delete_min()){
