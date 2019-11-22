@@ -6,7 +6,7 @@
 #include <string>
 #include <gtest/gtest_prod.h>
 #include "../models/Model.h"
-#include "../filters/ModelFilter.h"
+#include "../models/RankingScoreIterator.h"
 #include "../utils/Toplist.h"
 #include "OfflineEvaluator.h"
 
@@ -26,9 +26,11 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
       test_data_.read_from_file(params->test_file_name, params->test_file_type);
       time_ = params->time;
     }
-    void set_model(Model* model){ model_ = model; }
+    void set_model(Model* model){
+      model_ = model;
+      ranking_score_iterator_provider_ = dynamic_cast<RankingScoreIteratorProvider*>(model);
+    }
     void set_train_data(RecommenderData* recommender_data){ train_data_ = recommender_data; }
-    void set_model_filter(ModelFilter* model_filter){ model_filter_ = model_filter; }
     void evaluate() override;
     bool self_test(){
       bool OK = OfflineEvaluator::self_test();
@@ -48,20 +50,16 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
         OK = false;
         cerr << "PrecisionRecallEvaluator::test_data size is zero." << endl;
       }
-      if(model_filter_ == NULL){
-        OK = false;
-        cerr << "PrecisionRecallEvaluator::model_filter is not set." << endl;
-      }
       return OK;
     }
   private:
     int cutoff_;
     int time_;
     Model* model_ = NULL;
+    RankingScoreIteratorProvider* ranking_score_iterator_provider_ = NULL;
     LegacyRecommenderData test_data_;
     RecommenderData* train_data_ = NULL;
-    ModelFilter* model_filter_ = NULL;
-    vector<pair<int, double>>* train_items_;
+    vector<int>* train_items_ = NULL;
     int compute_true_positive(int user);
     FRIEND_TEST(TestPrecisionRecallEvaluator, general);
 };
