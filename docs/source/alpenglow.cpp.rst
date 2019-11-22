@@ -11,12 +11,6 @@ This is the filters header file.
 
 
 
-.. autoclass:: alpenglow.cpp.DummyModelFilter
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
 .. autoclass:: alpenglow.cpp.FactorModelFilter
     :members:
     :undoc-members:
