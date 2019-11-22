@@ -53,7 +53,7 @@ void ToplistCreatorGlobal::process_line(vector<pair<int,double> >* sorted_as,uin
 
 
 vector<RecDat>* ToplistCreatorPersonalized::run(RecDat* rec_dat){
-  if(ranking_model_ != NULL && filter_ == NULL){
+  if(ranking_model_ != NULL){
     return run_ranking_model(rec_dat);
   } else {
     return run_bruteforce(rec_dat);
@@ -61,13 +61,12 @@ vector<RecDat>* ToplistCreatorPersonalized::run(RecDat* rec_dat){
 }
 
 vector<RecDat>* ToplistCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ //TODO test
-  filter_->run(rec_dat);
-  RecDat fake_rec_dat = *rec_dat; //TODO lehet NULL
-  vector<pair<int,double>>* sorted_items = filter_->get_personalized_items(rec_dat->user);
-  for(auto item_bound: *sorted_items){
-    if(min_heap_.size()==top_k_ and item_bound.second!=-1 and item_bound.second<min_heap_.get_min().score){ break; } //all consecutive items have lower prediction
-    if(exclude_known_==1 and train_matrix_->get(rec_dat->user, item_bound.first)!=0){ continue; } //invalid item, not new for the user
-    fake_rec_dat.item = item_bound.first;
+  int user = rec_dat->user;
+  RecDat fake_rec_dat = *rec_dat;
+  for(int index=0;index<items_->size();index++){
+    int item = items_->at(index);
+    if(exclude_known_==1 and train_matrix_->get(rec_dat->user, item)!=0){ continue; } //invalid item, not new for the user
+    fake_rec_dat.item = item;
     fake_rec_dat.score = model_->prediction(&fake_rec_dat);
     min_heap_.insert(fake_rec_dat);
   }

@@ -19,6 +19,11 @@ class ToplistCreator : public NeedsExperimentEnvironment, public Initializable {
    virtual std::vector<RecDat>* run(RecDat* rec_dat)=0; 
    void set_model(Model* model);
    void set_filter(ModelFilter* filter);
+   void set_items(std::vector<int>* items);
+   void set_items(VectorInt);
+   %MethodCode
+       sipCpp->set_items(&(a0->vec));
+   %End
    void set_train_matrix(SpMatrix *train_matrix);
    bool self_test();
   protected:

@@ -120,16 +120,13 @@ class OfflineModel(ParameterDefaults):
         """
 
         rs.collect()
-        dummy_model_filter = rs.DummyModelFilter()
-        dummy_model_filter.set_items(self.items)
-        dummy_model_filter.set_users(self.users)
 
         pred_creator = rs.ToplistCreatorPersonalized(
             top_k=k,
             exclude_known=1 if exclude_known else 0
         )
 
-        pred_creator.set_filter(dummy_model_filter)
+        pred_creator.set_items(self.items)
         pred_creator.set_train_matrix(self.matrix)
         pred_creator.set_model(self.model)
 

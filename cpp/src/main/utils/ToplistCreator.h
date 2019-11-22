@@ -26,17 +26,18 @@ class ToplistCreator : public NeedsExperimentEnvironment, public Initializable {
    virtual ~ToplistCreator(){}
    virtual vector<RecDat>* run(RecDat* rec_dat)=0; 
    void set_model(Model* model){model_=model;}
-   void set_filter(ModelFilter* filter){filter_=filter;} //TODO alternative: items or popsortedcont
+   void set_filter(ModelFilter* filter){ filter_=filter; } //TODO alternative: items or popsortedcont
    void set_train_matrix(SpMatrix *train_matrix){train_matrix_ = train_matrix; }
+   void set_items(vector<int>* items){ items_ = items; }
    bool self_test(){
      bool OK = true;
      if(model_==NULL){
        OK = false;
        cerr << "Not set: Model of ToplistCreator." << endl;
      }
-     if(filter_==NULL){
+     if(filter_==NULL && items_==NULL){ //todo if the model is rsi-capable, we do not need these
        OK = false;
-       cerr << "Not set: Filter of ToplistCreator." << endl;
+       cerr << "Not set: Filter and items of ToplistCreator." << endl;
      }
      if(top_k_<=0){
        OK = false;
@@ -62,12 +63,17 @@ class ToplistCreator : public NeedsExperimentEnvironment, public Initializable {
        if (experiment_environment_ == NULL) return false; 
        exclude_known_=experiment_environment_->get_exclude_known();
      }
+     if(items_==NULL){
+       if(experiment_environment_==NULL) return false;
+       items_=experiment_environment_->get_items();
+     }
      return true;
    }
    vector<RecDat> top_predictions_;
    Model* model_ = NULL;
    ModelFilter* filter_ = NULL;
    const SpMatrix* train_matrix_ = NULL;
+   const vector<int>* items_ = NULL;
    SpMatrix dummy_train_matrix_;
    int top_k_;
    int exclude_known_;
@@ -118,11 +124,18 @@ struct ToplistCreatorPersonalizedParameters : public ToplistCreatorParameters {
 };
 class ToplistCreatorPersonalized: public ToplistCreator{
   public:
-    ToplistCreatorPersonalized(ToplistCreatorParameters * params):ToplistCreator(params){
+    ToplistCreatorPersonalized(ToplistCreatorParameters* params):ToplistCreator(params){
       min_heap_.set_max_length(top_k_);
     };
     vector<RecDat>* run(RecDat* rec_dat) override;
-    bool self_test(){ return ToplistCreator::self_test() && min_heap_.self_test(); }
+    bool self_test(){
+      bool ok = ToplistCreator::self_test() && min_heap_.self_test();
+      if (filter_!=NULL) {
+	ok=false;
+        cerr << "ToplistCreatorPersonalized::filter_ should be NULL, use WhiteListFilter2ModelAdapter." << endl;
+      }
+      return ok;
+    }
   protected:
     bool autocalled_initialize() override {
       if (!parent_is_initialized_){
