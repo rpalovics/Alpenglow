@@ -14,7 +14,7 @@
 #include "../../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../../utils/RankComputer.h"
 #include "../../utils/ToplistCreator.h"
-#include "../../filters/DummyModelFilter.h"
+//#include "../../filters/DummyModelFilter.h"
 
 using namespace std;
 
@@ -75,9 +75,9 @@ protected:
     }
     wms_.distribution_.clear(); //should not be called twice, but...
     wms_.distribution_.resize(wms_.models_.size(),1.0/wms_.models_.size());
-    dummy_model_filter_.set_experiment_environment(experiment_environment_);
+    //dummy_model_filter_.set_experiment_environment(experiment_environment_);
     bool ok = true;
-    ok &= dummy_model_filter_.initialize();
+    //ok &= dummy_model_filter_.initialize();
     for(auto model : wms_.models_){
       RankComputerParameters rank_computer_params;
       rank_computer_params.top_k=top_k_;
@@ -92,7 +92,7 @@ protected:
       toplist_creators_.push_back(toplist_creator);
       toplist_creator->set_experiment_environment(experiment_environment_);
       toplist_creator->set_model(model);
-      toplist_creator->set_filter(&dummy_model_filter_);
+      //toplist_creator->set_filter(&dummy_model_filter_);
       ok &= toplist_creator->initialize();
     }
     wms_.initialized_=true;
@@ -118,7 +118,7 @@ private:
   //vector<Model*> models_;
   vector<RankComputer*> rank_computers_;
   vector<ToplistCreatorPersonalized*> toplist_creators_;
-  DummyModelFilter dummy_model_filter_;
+  //DummyModelFilter dummy_model_filter_;
   //vector<double> distribution_;
   //cache
   double last_timestamp_ = -1;

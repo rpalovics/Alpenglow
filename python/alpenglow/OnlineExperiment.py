@@ -156,21 +156,13 @@ class OnlineExperiment(ParameterDefaults):
 
         if type(calculate_toplists) is not bool or calculate_toplists:
             print('logging predictions') if self.verbose else None
-            model_filter = None
             if len(filters) != 0:
-                model_filter = filters[0]
-                if(len(filters) > 1):
-                    print("Warning: predictionCreator accepts only one model_filter")
-            else:
-                dummy_model_filter = rs.DummyModelFilter()
-                model_filter = dummy_model_filter
+                print("warning: Ignoring ModelFilter. Use WhitelistFilter and WhitelistFilter2ModelAdapter.  See python/test_alpenglow/test_LabelFilter.py for an example.")
 
             pred_creator = rs.ToplistCreatorPersonalized(
                 top_k=top_k,
                 exclude_known=exclude_known
             )
-            pred_creator.set_filter(model_filter)
-
             pred_creator.set_model(model)
             pred_logger = rs.PredictionLogger()
             pred_logger.set_prediction_creator(pred_creator)
