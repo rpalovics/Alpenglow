@@ -75,4 +75,4 @@ class FmExperiment(prs.OnlineExperiment):
         ))
         negative_sample_generator.add_updater(updater)
 
-        return (model, [negative_sample_generator], [], [])
+        return (model, [negative_sample_generator], [])

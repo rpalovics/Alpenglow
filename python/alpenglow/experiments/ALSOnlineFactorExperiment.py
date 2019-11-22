@@ -121,4 +121,4 @@ class ALSOnlineFactorExperiment(alpenglow.OnlineExperiment):
         ))
         online_negative_sample_generator.add_updater(online_gradient_computer)
 
-        return (model, [als_online_learner, online_negative_sample_generator], [], [])
+        return (model, [als_online_learner, online_negative_sample_generator], [])

@@ -58,4 +58,4 @@ class OldFactorExperiment(prs.OnlineExperiment):
         gradient_computer.set_model(model)
         learner.set_gradient_computer(gradient_computer)
 
-        return (model, learner, [], [])
+        return (model, learner, [])

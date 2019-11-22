@@ -17,7 +17,7 @@ class LabelExperiment(prs.OnlineExperiment):
         adapter.set_model(model)
         adapter.set_whitelist_filter(label_filter)
 
-        return (adapter, [updater, label_filter], [], []) #note: do not forget to add filter as an updater
+        return (adapter, [updater, label_filter], []) #note: do not forget to add filter as an updater
 
 class TestLabelFilter:
     def test_init(self):

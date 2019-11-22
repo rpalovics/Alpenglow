@@ -65,4 +65,4 @@ class SvdppExperiment(prs.OnlineExperiment):
         ))
         negative_sample_generator.add_updater(gradient_computer)
 
-        return (model, [negative_sample_generator, simple_updater], [], [])
+        return (model, [negative_sample_generator, simple_updater], [])

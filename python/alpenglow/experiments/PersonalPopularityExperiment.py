@@ -13,4 +13,4 @@ class PersonalPopularityExperiment(prs.OnlineExperiment):
         updater = rs.PersonalPopularityModelUpdater()
         updater.set_model(model)
 
-        return (model, updater, [], [])
+        return (model, updater, [])
