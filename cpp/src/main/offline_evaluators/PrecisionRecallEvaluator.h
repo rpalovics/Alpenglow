@@ -62,6 +62,8 @@ class PrecisionRecallEvaluator : public OfflineEvaluator{
     vector<int>* train_items_ = NULL;
     int compute_true_positive(int user);
     FRIEND_TEST(TestPrecisionRecallEvaluator, general);
+    FRIEND_TEST(TestPrecisionRecallEvaluator, rsi_notnull);
+    FRIEND_TEST(TestPrecisionRecallEvaluator, rsi_null);
 };
 
 
