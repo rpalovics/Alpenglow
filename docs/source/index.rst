@@ -18,6 +18,7 @@ Welcome to Alpenglow's documentation!
    general/cpp_api
    general/simulation_attributes
    general/combination
+   general/serialization
       
 ..    general/python_api
 ..    general/memory_management

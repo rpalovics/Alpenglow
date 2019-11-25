@@ -218,42 +218,6 @@ This is the utils header file.
     :show-inheritance:
 
 
-.. autoclass:: alpenglow.cpp.PredictionCreatorParameters
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PredictionCreator
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PredictionCreatorGlobalParameters
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PredictionCreatorGlobal
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PredictionCreatorPersonalizedParameters
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.PredictionCreatorPersonalized
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
 .. autoclass:: alpenglow.cpp.Random
     :members:
     :undoc-members:
@@ -321,6 +285,42 @@ This is the utils header file.
 
 
 .. autoclass:: alpenglow.cpp.TopPopContainer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.ToplistCreatorParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.ToplistCreator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.ToplistCreatorGlobalParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.ToplistCreatorGlobal
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.ToplistCreatorPersonalizedParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.ToplistCreatorPersonalized
     :members:
     :undoc-members:
     :show-inheritance:

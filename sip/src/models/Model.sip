@@ -6,8 +6,8 @@ class Model{
     Model();
     virtual void add(RecDat * rec_dat);
     virtual double prediction(RecDat * rec_dat) = 0;
-    // virtual void write(std::ofstream& file);
-    // virtual void read(std::ifstream& file);
+    //virtual void write(ostream& file);
+    //virtual void read(istream& file);
     void write(std::string file_name);
     void read(std::string file_name);
     virtual void clear();
