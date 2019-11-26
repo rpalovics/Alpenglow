@@ -933,6 +933,24 @@ This is the models/combination header file.
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.MyNewModelUpdater
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.MyNewModelParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.MyNewModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.SimilarityModel
     :members:
     :undoc-members:
