@@ -624,6 +624,9 @@ Normally `self_test()` is implemented in the header:
      return ok;
    }
 
+Regenerate the sip file and reinstall the python package to make the new
+functions available in python and visible for the online experiment framework.
+
 Access common data
 ------------------
 
@@ -636,10 +639,100 @@ framework will set the `ExperimentEnvironment` object.
 Typically such classes also implement :py:class:`Initializable`, asking the
 framework to call their `autocalled_initialize()` function when the experiment
 is already built (after the `set_xxx()` calls), and in that function, they copy
-the pointers to the common objects.
+the pointers to the common objects.  See the example below.
 
-TODO
-autocalled_initialize
+.. code-block:: cpp
+
+  #include "../general_interfaces/NeedsExperimentEnvironment.h"
+  #include "../general_interfaces/Initializable.h"
+  // ...
+  class MyNewModel
+    : public Model
+    , public NeedsExperimentEnvironment
+    , public Initializable
+  {
+    public:
+      // ...
+      void set_items(const vector<int>* items){ items_ = items; }
+      bool self_test() {
+        bool ok = Model::self_test();
+        if (fading_factor_<0) ok = false;
+        if (items_==NULL) ok=false;
+        return ok;
+      }
+    private:
+      bool autocalled_initialize(){
+        if (items_ == NULL) { //items_ is not set
+          if (experiment_environment_!=NULL){ //exp_env is available
+            items_ = experiment_environment_->get_items();
+          } else {
+            return false; //can't set items
+          }
+        }
+        return true;
+      }
+      const std::vector<int>* items_ = NULL;
+      // ...
+  };
+
+We also need to update the unit test:
+
+.. code-block:: cpp
+
+  class TestMyNewModel : public ::testing::Test {
+    public:
+      vector<int> items;
+      // ...
+  };
+  
+  TEST_F(TestMyNewModel, test){
+    // ...
+    MyNewModel model(&model_params);
+    model.set_items(&items);
+    // ...
+    items.push_back(2);
+    updater.update(&rec_dat);
+    // ...
+  }
+
+
+.. code-block:: cpp
+  :emphasize-lines: 5,10,15,18-27
+
+  TEST_F(TestMyNewModel, self_test){
+    MyNewModelParameters model_params;
+    model_params.fading_factor = 0.5;
+    MyNewModel model(&model_params);
+    model.set_items(&items);
+    EXPECT_TRUE(model.self_test());
+  
+    model_params.fading_factor = 0;
+    MyNewModel model2(&model_params);
+    model2.set_items(&items);
+    EXPECT_TRUE(model2.self_test());
+  
+    model_params.fading_factor = -0.2;
+    MyNewModel model3(&model_params);
+    model3.set_items(&items);
+    EXPECT_FALSE(model3.self_test());
+  
+    model_params.fading_factor = 0.5;
+    MyNewModel model4(&model_params);
+    EXPECT_FALSE(model4.self_test());
+  
+    model_params.fading_factor = 0.5;
+    MyNewModel model5(&model_params);
+    ExperimentEnvironment expenv;
+    model5.set_experiment_environment(&expenv);
+    EXPECT_TRUE(model5.initialize());
+    EXPECT_TRUE(model5.self_test());
+  }
+
+However, changing the test of `MyNewExperiment` is not necessary as the
+framework automatically sets `experiment_environment_` and calls
+`autocalled_initialize()`.  The alternative setting method, `set_items()` is
+necessary for offline experiments where `exp_env` is not available and might be
+useful in unit tests.
 
 Make evaluation faster
 ----------------------
