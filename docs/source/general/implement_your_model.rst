@@ -324,7 +324,7 @@ We implement a fading popularity model, that computes item popularity discountin
       EXPECT_DOUBLE_EQ(1+0.5,model.prediction(&rec_dat));
     }
 
-Now this test fails naturally. We implement the model:
+Now this test naturally fails. We implement the model:
 
 .. code-block:: cpp
 
@@ -368,9 +368,14 @@ After recompiling with `scons`, the test passes.  These modifications are irrele
 Creating an experiment using the new model
 ------------------------------------------
 
-To create a preconfigured experiment using the new class, inherit from :py:class:`alpenglow.OnlineExperiment` and implement `_config()`.  Create file `python/alpenglow/experiments/MyNewExperiment.py`:
+To create a preconfigured experiment using the new class, inherit from
+:py:class:`alpenglow.OnlineExperiment` and implement `_config()`.  Calling
+`run()` for the new class will run the experiment, i.e. for each sample,
+compute rank and then call the updater to update the model.  Create file
+`python/alpenglow/experiments/MyNewExperiment.py`:
 
 .. code-block:: python
+
     import alpenglow.Getter as rs
     import alpenglow as prs
     
@@ -397,6 +402,7 @@ Append the new class to `python/alpenglow/experiments/__init__.py`:
 Create the corresponding integration test in `python/test_alpenglow/experiments/test_MyNewExperiment.py`:
 
 .. code-block:: python
+
     import alpenglow as prs
     import alpenglow.Getter as rs
     import alpenglow.experiments
@@ -431,30 +437,198 @@ test using the following command:
     pytest python/test_alpenglow/experiments/test_MyNewExperiment.py
 
 The test will fail, but it will print the ranks produced by the model.  It
-would be very time consuming to check whether all values are valid, but simple
-errors (e.g. all values are 101 if the `set_model()` call is missing) might be
-obvious.  If all seems to be fine, then copy the actual output to the expected
-output field.  This way the test will catch unintentional modifications of the
-logic of the model.
+would be very time consuming to check whether all values are correct, but
+simple errors (e.g. all values are 101 because the `set_model()` call is
+missing) might be obvious.  If all seems to be fine, then copy the actual
+output to the expected output field.  This way the test will catch
+unintentional modifications of the logic of the model.
 
 Now the new experiment is available in python, using similar code to the test.
 
 Document your model
 -------------------
 
-TODO
+To document the C++ clasees, use java-style documentation comments in the
+header files.  Note that the comment describing the class is after the opening
+bracelet of the class delcaration, and the comment that belongs to the function
+is after the function declaration.
+
+.. code-block:: cpp
+  :emphasize-lines: 4-7,13-28
+
+  class MyNewModel
+    : public Model
+  {
+  /**
+    Item popularity based model.  The popularity of the items fades
+    in time exponentially.
+  */
+    public:
+      MyNewModel(MyNewModelParameters* params){
+        fading_factor_ = params->fading_factor;
+      }
+      double prediction(RecDat* rec_dat) override;
+      /** 
+        prediction(RecDat)
+  
+        Computes prediction score for the sample.  Uses only the time
+        and item fields, the user is ignored.
+  
+        Parameters
+        ----------
+        rec_dat : RecDat*
+            The sample.
+  
+        Returns
+        -------
+        double
+            The prediction score.
+     */
+     // ...
+  }
+
+Then transform the comments by the header->sip converter, reinstall the python
+package and regenerate the documentation.  The reinstallation step is
+necessary, the documentation generator acquires the documentation from the
+installed alpenglow package.
+
+.. code-block:: bash
+
+    sip/scripts/header2sip cpp/src/main/models/MyNewModel.h overwrite
+    pip install --upgrade --force-reinstall --no-deps .
+    cd docs
+    make dirhtml
+
+The process is similar for the updater.  To document an experiment, add a
+docstring (already shown in the example above).
+
+Implement further functions of the Model interface
+--------------------------------------------------
+
+The `Model` interface provides 4 more functions to override, and the framework provides one:
+
+.. code-block:: cpp
+
+   //void add(RecDat* rec_dat) override; //not applicable in our case
+   void write(ostream& file) override;
+   void read(istream& file) override;
+   void clear() override;
+   bool self_test();
+
+Function `add()` is called before gradient updates.  It notifies the model
+about the existance of a user and an item, and its responsibility is the
+(random) initialization of the model w.r.t. the item and user in the parameter.
+As an example, consider the random initialization of factors in case of a
+factor model.
+
+Functions `write()` and `read()` implement serialization.  While serialization
+possibilities are not complete in the framework, it is possible to write out
+and read back models in `alpenglow.experiment.BatchFactorExperiment` and
+`alpenglow.experiment.BatchAndOnlineExperiment`.  For details, see
+:doc:`serialization`.
+
+Function `clear()` must clear and reinitialize the model.
+
+Function `self_test()` must check whether all components are properly set, the
+parameters are sane etc.  The main goal is to prevent hard-to-debug
+segmentation faults caused by missing `set_xxx()` calls. Note that
+`self_test()` is not virtual, it is called by the framework for the appropriate
+type and it is the functions responsibility to call `self_test()` of its
+anchestors.
+
+Here are the expanded testcases:
+
+.. code-block:: cpp
+
+    TEST_F(TestMyNewModel, test){
+      // ...
+
+      //read, write
+      std::stringstream ss;
+      model.write(ss);
+      model.write(ss);
+    
+      MyNewModel model2(&model_params);
+      model2.read(ss);
+      EXPECT_DOUBLE_EQ(model.prediction(&rec_dat), model2.prediction(&rec_dat));
+      MyNewModel model3(&model_params);
+      model3.read(ss);
+      EXPECT_DOUBLE_EQ(model.prediction(&rec_dat), model3.prediction(&rec_dat));
+    
+      //clear
+      model.clear();
+      
+      for(int item : {0,1,2,3,4,5}){
+        rec_dat.item=item;
+        EXPECT_EQ(0,model.prediction(&rec_dat));
+      }
+    }
+
+.. code-block:: cpp
+    
+    TEST_F(TestMyNewModel, self_test){
+      MyNewModelParameters model_params;
+      model_params.fading_factor = 0.5;
+      MyNewModel model(&model_params);
+      EXPECT_TRUE(model.self_test());
+    
+      model_params.fading_factor = 0;
+      MyNewModel model2(&model_params);
+      EXPECT_TRUE(model2.self_test());
+    
+      model_params.fading_factor = -0.2;
+      MyNewModel model3(&model_params);
+      EXPECT_FALSE(model3.self_test());
+    }
+
+And the implementations:
+
+.. code-block:: cpp
+
+    void MyNewModel::write(ostream& file){
+      file << scores_.size() << " ";
+      for (double score : scores_){
+        file << score << " ";
+      }
+      file << times_.size() << " ";
+      for (double time : times_){
+        file << time << " ";
+      }
+    }
+    void MyNewModel::read(istream& file){
+      int scores_size;
+      file >> scores_size;
+      scores_.resize(scores_size);
+      for (uint i=0;i<scores_.size();i++){
+        file >> scores_[i];
+      }
+      int times_size;
+      file >> times_size;
+      times_.resize(times_size);
+      for (uint i=0;i<times_.size();i++){
+        file >> times_[i];
+      }
+    }
+    void MyNewModel::clear(){
+      scores_.clear();
+      times_.clear();
+    }
+
+Normally `self_test()` is implemented in the header:
+
+.. code-block:: cpp
+
+   bool self_test() {
+     bool ok = Model::self_test();
+     if (fading_factor_<0) ok = false;
+     return ok;
+   }
 
 Pull common data
 ----------------
 
 TODO
 autocalled_initialize
-
-Implement further functions of the Model interface
---------------------------------------------------
-
-TODO
-Serialization, self_test, add.
 
 Make evaluation faster
 ----------------------
