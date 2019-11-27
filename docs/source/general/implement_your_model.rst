@@ -624,8 +624,19 @@ Normally `self_test()` is implemented in the header:
      return ok;
    }
 
-Pull common data
-----------------
+Access common data
+------------------
+
+In the online experiment, the framework provides some common parameters and
+statistics through class :py:class:`alpenglow.cpp.ExperimentEnvironment` (see
+details there).  To access them, the class needs to implement interface
+:py:class:`alpenglow.cpp.NeedsExperimentEnvironment`, so the online experiment
+framework will set the `ExperimentEnvironment` object.
+
+Typically such classes also implement :py:class:`Initializable`, asking the
+framework to call their `autocalled_initialize()` function when the experiment
+is already built (after the `set_xxx()` calls), and in that function, they copy
+the pointers to the common objects.
 
 TODO
 autocalled_initialize
