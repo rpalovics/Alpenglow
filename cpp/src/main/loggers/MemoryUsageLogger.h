@@ -7,7 +7,7 @@
 #include <iostream>
 
 #ifndef _MSC_VER
-#include <sys/resource.h>}
+#include <sys/resource.h>
 #endif /* _MSC_VER */
 
 using namespace std;
