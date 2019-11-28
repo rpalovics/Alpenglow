@@ -737,5 +737,13 @@ useful in unit tests.
 Make evaluation faster
 ----------------------
 
-TODO
-RSI.
+In the online experiment, the rank of the relevant item is computed by default
+by comparing its score to the score of the other items one-by-one.  The
+computation can halt when we already found more better items, than the rank
+threshold, or when all items were compared to the relevant.  By processing the
+items first that has higher score, we make the process faster.  This is the
+goal of the interface :py:class:`alpenglow.cpp.RankingScoreIterator`. In
+addition, in case of some model implementation, keeping an up-to-date toplist
+is computationally easy. For these models, we can query the rank directly.
+Such models should implement the interface
+:py:class:`alpenglow.cpp.ToplistRecommender`.
