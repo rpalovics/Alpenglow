@@ -118,7 +118,7 @@ std::string __stdlib;
 %Include src/utils/RankComputer.sip
 %Include src/filters/WhitelistFilter.sip
 %Include src/filters/WhitelistFilter2ModelAdapter.sip
-%Include src/filters/GlobalRankingScoreIterator.sip
+%Include src/models/GlobalRankingScoreIterator.sip
 %Include src/filters/AvailabilityFilter.sip
 %Include src/filters/LabelFilter.sip
 %Include src/filters/FactorModelGlobalRankingScoreIterator.sip
