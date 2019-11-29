@@ -2,11 +2,11 @@
 #define FACTOR_FILTER_H
 
 #include <algorithm>
-#include "../models/GlobalRankingScoreIterator.h"
-#include "../models/factor/FactorModel.h"
-#include "../utils/Factors.h"
-#include "../general_interfaces/NeedsExperimentEnvironment.h"
-#include "../general_interfaces/Initializable.h"
+#include "../GlobalRankingScoreIterator.h"
+#include "FactorModel.h"
+#include "../../utils/Factors.h"
+#include "../../general_interfaces/NeedsExperimentEnvironment.h"
+#include "../../general_interfaces/Initializable.h"
 
 
 class FactorFilter{

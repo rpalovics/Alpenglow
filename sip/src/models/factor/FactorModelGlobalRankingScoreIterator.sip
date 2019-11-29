@@ -1,6 +1,6 @@
 class FactorModelGlobalRankingScoreIterator : public GlobalRankingScoreIterator, public NeedsExperimentEnvironment{
   %TypeHeaderCode
-  #include "filters/FactorModelGlobalRankingScoreIterator.h"
+  #include "models/factor/FactorModelGlobalRankingScoreIterator.h"
   %End
   public:
     FactorModelGlobalRankingScoreIterator();
