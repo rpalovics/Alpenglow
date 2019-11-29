@@ -1,7 +1,12 @@
 alpenglow.cpp package
 =====================
 
-The classes in this module are usually not used directly, but instead through the :py:class:`alpenglow.Getter` class. For more info, read TODO: named parameters, memory management and self_test().
+The classes in this module are usually not used directly, but instead through the :py:class:`alpenglow.Getter` class. For more info, read
+
+- :doc:`/general/implement_your_model`
+- :doc:`/general/cpp_api`
+- :doc:`/general/simulation_attributes`
+- :doc:`/general/memory_management`
 
 
 
@@ -946,12 +951,15 @@ This is the models/combination header file.
 
 
 .. autoclass:: alpenglow.cpp.SimilarityModel
+<<<<<<< 1e0db6ce70aa7833feb7cd66e5fdb75a7bb46a7e
     :members:
     :undoc-members:
     :show-inheritance:
 
 
 .. autoclass:: alpenglow.cpp.ModelGradientUpdater
+=======
+>>>>>>> add content to cpp autodoc header
     :members:
     :undoc-members:
     :show-inheritance:
