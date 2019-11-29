@@ -18,7 +18,6 @@ class ToplistCreator : public NeedsExperimentEnvironment, public Initializable {
    virtual ~ToplistCreator();
    virtual std::vector<RecDat>* run(RecDat* rec_dat)=0; 
    void set_model(Model* model);
-   void set_filter(ModelFilter* filter);
    void set_items(std::vector<int>* items);
    void set_items(VectorInt);
    %MethodCode
@@ -46,6 +45,7 @@ class ToplistCreatorGlobal: public ToplistCreator{
   %End
   public:
     ToplistCreatorGlobal(ToplistCreatorGlobalParameters* params);
+    void set_filter(ModelFilter* filter);
     virtual ~ToplistCreatorGlobal();
     std::vector<RecDat>* run(RecDat* rec_dat);
     bool self_test();
