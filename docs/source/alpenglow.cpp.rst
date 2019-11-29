@@ -11,19 +11,31 @@ This is the filters header file.
 
 
 
-.. autoclass:: alpenglow.cpp.FactorModelFilter
+.. autoclass:: alpenglow.cpp.WhitelistFilter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.WhitelistFilter2ModelAdapter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.LabelFilterParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.LabelFilter
     :members:
     :undoc-members:
     :show-inheritance:
 
 
 .. autoclass:: alpenglow.cpp.AvailabilityFilter
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-
-.. autoclass:: alpenglow.cpp.ModelFilter
     :members:
     :undoc-members:
     :show-inheritance:
@@ -701,6 +713,12 @@ This is the models/factor header file.
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.FactorModelGlobalRankingScoreIterator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.SvdppModelParameters
     :members:
     :undoc-members:
@@ -958,6 +976,12 @@ This is the models/combination header file.
 
 
 .. autoclass:: alpenglow.cpp.ModelMultiUpdater
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.GlobalRankingScoreIterator
     :members:
     :undoc-members:
     :show-inheritance:
