@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <cstdio>
 #include <fstream>
-#include "../../main/filters/FactorModelFilter.h"
+#include "../../main/filters/FactorModelGlobalRankingScoreIterator.h"
 #include "../../main/utils/Factors.h"
 #define DIMENSION 3
 

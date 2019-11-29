@@ -1,7 +1,7 @@
 
-class ModelFilter {
+class GlobalRankingScoreIterator {
   %TypeHeaderCode
-  #include "filters/ModelFilter.h"
+  #include "filters/GlobalRankingScoreIterator.h"
   %End
 public:
   virtual void run(RecDat* rec_dat);
@@ -11,7 +11,7 @@ public:
 //  virtual std::vector<pair<int,double>>* get_personalized_items(int user);
 //  virtual std::vector<pair<int,double>>* get_personalized_users(int item);
   virtual bool active(RecDat*);
-  virtual ~ModelFilter();
+  virtual ~GlobalRankingScoreIterator();
   bool self_test();
 };
 

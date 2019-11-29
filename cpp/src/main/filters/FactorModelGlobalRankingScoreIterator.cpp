@@ -1,13 +1,13 @@
-#include "FactorModelFilter.h"
+#include "FactorModelGlobalRankingScoreIterator.h"
 
 
-void FactorModelFilter::set_model(FactorModel* model){
+void FactorModelGlobalRankingScoreIterator::set_model(FactorModel* model){
   model_ = model;
   user_factor_filter_.set_factors(&model_->user_factors_,&model_->item_factors_);
   item_factor_filter_.set_factors(&model_->item_factors_,&model_->user_factors_);
 }
 
-void FactorModelFilter::set_users(const vector<int>* users){
+void FactorModelGlobalRankingScoreIterator::set_users(const vector<int>* users){
   users_ = users;
   if(items_!=NULL){
     user_factor_filter_.set_entities(users_,items_);
@@ -15,14 +15,14 @@ void FactorModelFilter::set_users(const vector<int>* users){
   }
 }
 
-void FactorModelFilter::set_items(const vector<int>* items){
+void FactorModelGlobalRankingScoreIterator::set_items(const vector<int>* items){
   items_ = items;
   if(users_!=NULL){
     user_factor_filter_.set_entities(users_,items_);
     item_factor_filter_.set_entities(items_,users_);
   }
 }
-void FactorModelFilter::run(RecDat* rd){
+void FactorModelGlobalRankingScoreIterator::run(RecDat* rd){
   double time=rd->time;
   user_factor_filter_.run();
   item_factor_filter_.run();
@@ -35,7 +35,7 @@ void FactorModelFilter::run(RecDat* rd){
       [](pair<int,double> a, pair<int,double> b) -> bool { return (a.second) > (b.second); });
 }
 
-void FactorModelFilter::compute_biases(){
+void FactorModelGlobalRankingScoreIterator::compute_biases(){
   if(model_->use_user_bias_){
     compute_bias(&user_upper_bounds_, model_->user_bias_, users_, &item_upper_bounds_);
   }
@@ -44,7 +44,7 @@ void FactorModelFilter::compute_biases(){
   }
 }
 
-void FactorModelFilter::compute_bias(vector<pair<int,double> >* bounds, Bias& biases, const vector<int>* entities, vector<pair<int,double> >* other_bounds){
+void FactorModelGlobalRankingScoreIterator::compute_bias(vector<pair<int,double> >* bounds, Bias& biases, const vector<int>* entities, vector<pair<int,double> >* other_bounds){
     for(uint ii=0;ii<bounds->size();ii++){
       bounds->at(ii).second+=biases.get(bounds->at(ii).first);
     }
@@ -59,7 +59,7 @@ void FactorModelFilter::compute_bias(vector<pair<int,double> >* bounds, Bias& bi
     }
 }
 
-void FactorModelFilter::compute_recencies(double time){
+void FactorModelGlobalRankingScoreIterator::compute_recencies(double time){
   if(model_->user_recency_!=NULL){
     compute_recency(&user_upper_bounds_,model_->user_recency_,time);
   }
@@ -68,19 +68,19 @@ void FactorModelFilter::compute_recencies(double time){
   }
 }
 
-void FactorModelFilter::compute_recency(vector<pair<int,double> >* bounds, Recency* recency, double time){
+void FactorModelGlobalRankingScoreIterator::compute_recency(vector<pair<int,double> >* bounds, Recency* recency, double time){
     for(uint ii=0;ii<bounds->size();ii++){
       bounds->at(ii).second*=recency->get(bounds->at(ii).first,time);
     }
 }
 
-void FactorModelFilter::compute_sigmoids(){
+void FactorModelGlobalRankingScoreIterator::compute_sigmoids(){
   if(model_->use_sigmoid_){
     compute_sigmoid(&user_upper_bounds_);
     compute_sigmoid(&item_upper_bounds_);
   } 
 }
-void FactorModelFilter::compute_sigmoid(vector<pair<int,double> >* bounds){
+void FactorModelGlobalRankingScoreIterator::compute_sigmoid(vector<pair<int,double> >* bounds){
   for(uint ii=0;ii<bounds->size();ii++){
     bounds->at(ii).second=Util::sigmoid_function(bounds->at(ii).second);
   }
