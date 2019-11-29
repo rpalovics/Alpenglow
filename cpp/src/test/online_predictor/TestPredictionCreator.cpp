@@ -19,7 +19,7 @@ namespace {
       vector<vector<double> > data;
   };
 
-  class DummyFilter : public ModelFilter {
+  class DummyFilter : public GlobalRankingScoreIterator {
     public:
       void run(double time) override {}
       vector<pair<int,double>>* get_global_users() override {

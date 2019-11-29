@@ -18,7 +18,7 @@
 //ha egy recdatra a szuro hamisat ad vissza, akkor a kiertekelesnek a modell predikciojat a tenyleges erteket felulbiralva 0-nak kell tekinteni
 //hasznalat: ha a modell updatelve lett, a run fuggveny hasznalando a frissiteshez
 
-class ModelFilter {
+class GlobalRankingScoreIterator {
 public:
   virtual void run(RecDat* rec_dat){} //run_global es run_personalized?
   virtual void run(double time){RecDat rd; rd.time=time; this->run(&rd);}
@@ -31,7 +31,7 @@ public:
     return get_global_users();
   }
   virtual bool active(RecDat*){ return true; }
-  virtual ~ModelFilter(){}
+  virtual ~GlobalRankingScoreIterator(){}
   bool self_test(){
     bool OK = true;
     return OK;

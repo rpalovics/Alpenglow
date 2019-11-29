@@ -1,10 +1,10 @@
-class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment{
+class FactorModelGlobalRankingScoreIterator : public GlobalRankingScoreIterator, public NeedsExperimentEnvironment{
   %TypeHeaderCode
-  #include "filters/FactorModelFilter.h"
+  #include "filters/FactorModelGlobalRankingScoreIterator.h"
   %End
   public:
-    FactorModelFilter();
-    ~FactorModelFilter();
+    FactorModelGlobalRankingScoreIterator();
+    ~FactorModelGlobalRankingScoreIterator();
     bool self_test();
     void run(RecDat* rd);
     std::vector<std::pair<int,double>>* get_global_users();

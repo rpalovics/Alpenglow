@@ -45,7 +45,7 @@ class ToplistCreatorGlobal: public ToplistCreator{
   %End
   public:
     ToplistCreatorGlobal(ToplistCreatorGlobalParameters* params);
-    void set_filter(ModelFilter* filter);
+    void set_filter(GlobalRankingScoreIterator* filter);
     virtual ~ToplistCreatorGlobal();
     std::vector<RecDat>* run(RecDat* rec_dat);
     bool self_test();

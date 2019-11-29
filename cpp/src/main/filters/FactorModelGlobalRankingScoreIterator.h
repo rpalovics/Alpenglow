@@ -2,7 +2,7 @@
 #define FACTOR_FILTER_H
 
 #include <algorithm>
-#include "ModelFilter.h"
+#include "GlobalRankingScoreIterator.h"
 #include "../models/factor/FactorModel.h"
 #include "../utils/Factors.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
@@ -41,16 +41,16 @@ class FactorFilter{
     vector<pair<int,double>>* upper_bounds_ = NULL;   
 };
 
-class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment, public Initializable {
+class FactorModelGlobalRankingScoreIterator : public GlobalRankingScoreIterator, public NeedsExperimentEnvironment, public Initializable {
  public:
-   FactorModelFilter(){
+   FactorModelGlobalRankingScoreIterator(){
      user_factor_filter_.set_upper_vector(&user_upper_bounds_);
      item_factor_filter_.set_upper_vector(&item_upper_bounds_);
      model_ = NULL;
      users_ = NULL;
      items_ = NULL;
    }
-   using ModelFilter::run; //inherit run(double time)
+   using GlobalRankingScoreIterator::run; //inherit run(double time)
    void run(RecDat* rd) override;
    vector<pair<int,double>>* get_global_users() override {return &user_upper_bounds_;}
    vector<pair<int,double>>* get_global_items() override {return &item_upper_bounds_;}
@@ -58,13 +58,13 @@ class FactorModelFilter : public ModelFilter, public NeedsExperimentEnvironment,
    void set_items(const vector<int>* items);
    void set_model(FactorModel* model);
    bool self_test(){
-      bool OK = ModelFilter::self_test();
+      bool OK = GlobalRankingScoreIterator::self_test();
       if(!user_factor_filter_.self_test()){ OK=false; }
       if(!item_factor_filter_.self_test()){ OK=false; }
       if(model_==NULL){ OK=false; }
       if(users_==NULL){ OK=false; }
       if(items_==NULL){ OK=false; }
-      if(!OK) cerr << "FactorModelFilter is not OK." << endl;
+      if(!OK) cerr << "FactorModelGlobalRankingScoreIterator is not OK." << endl;
       return OK;
     }
  protected:

@@ -128,16 +128,16 @@ class FactorModel
     friend class FactorModelGradientUpdater;
     friend class PosNegFactorModelGradientUpdater;
     friend class FactorModelUpdater;
-    friend class FactorModelFilter;
+    friend class FactorModelGlobalRankingScoreIterator;
     friend class FactorToAMFAdapter;
     friend class OfflineEigenFactorModelALSLearner;
     FRIEND_TEST(TestFactorModel, test);
     FRIEND_TEST(TestFactorModel, similarity);
-    FRIEND_TEST(TestFactorModelFilter, test_basic);
-    FRIEND_TEST(TestFactorModelFilter, test_recency);
-    FRIEND_TEST(TestFactorModelFilter, test_bias);
-    FRIEND_TEST(TestFactorModelFilter, test_sigmoid);
-    FRIEND_TEST(TestFactorModelFilter, test_all);
+    FRIEND_TEST(TestFactorModelGlobalRankingScoreIterator, test_basic);
+    FRIEND_TEST(TestFactorModelGlobalRankingScoreIterator, test_recency);
+    FRIEND_TEST(TestFactorModelGlobalRankingScoreIterator, test_bias);
+    FRIEND_TEST(TestFactorModelGlobalRankingScoreIterator, test_sigmoid);
+    FRIEND_TEST(TestFactorModelGlobalRankingScoreIterator, test_all);
 };
 
 #endif /* FACTOR_MODEL_H */

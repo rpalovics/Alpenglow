@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <cstdio>
 #include <fstream>
-#include "../../main/filters/FactorModelFilter.h"
+#include "../../main/filters/FactorModelGlobalRankingScoreIterator.h"
 #include "../../main/utils/Factors.h"
 #include "../../main/utils/Recency.h"
 #define DIMENSION 3
@@ -14,10 +14,10 @@ class DummyRecency : public Recency{
     void update(int,double) override {};
     int number_;
 };
-class TestFactorModelFilter : public ::testing::Test { 
+class TestFactorModelGlobalRankingScoreIterator : public ::testing::Test { 
   public:
-    TestFactorModelFilter(){}
-    virtual ~TestFactorModelFilter(){}
+    TestFactorModelGlobalRankingScoreIterator(){}
+    virtual ~TestFactorModelGlobalRankingScoreIterator(){}
     void SetUp() override {
       users.push_back(0); users.push_back(1); users.push_back(2);
       items.push_back(2); items.push_back(3); items.push_back(4);
@@ -28,7 +28,7 @@ class TestFactorModelFilter : public ::testing::Test {
 };
 }
 
-TEST_F(TestFactorModelFilter, test_basic){
+TEST_F(TestFactorModelGlobalRankingScoreIterator, test_basic){
   FactorModelParameters factorModelParameters;
   factorModelParameters.dimension = DIMENSION;
   factorModelParameters.initialize_all = false;
@@ -45,7 +45,7 @@ TEST_F(TestFactorModelFilter, test_basic){
   factor[0]=0;factor[1]=1;factor[2]=0;model.item_factors_.set(3,&factor);
   factor[0]=-2;factor[1]=0;factor[2]=3;model.item_factors_.set(4,&factor);
 
-  FactorModelFilter filter;
+  FactorModelGlobalRankingScoreIterator filter;
   filter.set_model(&model);
   filter.set_items(&items);
   filter.set_users(&users);
@@ -69,7 +69,7 @@ TEST_F(TestFactorModelFilter, test_basic){
   EXPECT_EQ(2, itemToplist->at(2).second);
 }
 
-TEST_F(TestFactorModelFilter, test_recency){
+TEST_F(TestFactorModelGlobalRankingScoreIterator, test_recency){
   FactorModelParameters factorModelParameters;
   factorModelParameters.dimension = DIMENSION;
   factorModelParameters.initialize_all = false;
@@ -89,7 +89,7 @@ TEST_F(TestFactorModelFilter, test_recency){
   factor[0]=0;factor[1]=1;factor[2]=0;model.item_factors_.set(3,&factor);
   factor[0]=-2;factor[1]=0;factor[2]=3;model.item_factors_.set(4,&factor);
 
-  FactorModelFilter filter;
+  FactorModelGlobalRankingScoreIterator filter;
   filter.set_model(&model);
   filter.set_items(&items);
   filter.set_users(&users);
@@ -113,7 +113,7 @@ TEST_F(TestFactorModelFilter, test_recency){
   EXPECT_DOUBLE_EQ(2/5., itemToplist->at(2).second);
 }
 
-TEST_F(TestFactorModelFilter, test_bias){
+TEST_F(TestFactorModelGlobalRankingScoreIterator, test_bias){
   FactorModelParameters factorModelParameters;
   factorModelParameters.dimension = DIMENSION;
   factorModelParameters.initialize_all = false;
@@ -137,7 +137,7 @@ TEST_F(TestFactorModelFilter, test_bias){
   factor[0]=0;factor[1]=1;factor[2]=0;model.item_factors_.set(3,&factor);
   factor[0]=-2;factor[1]=0;factor[2]=3;model.item_factors_.set(4,&factor);
 
-  FactorModelFilter filter;
+  FactorModelGlobalRankingScoreIterator filter;
   filter.set_model(&model);
   filter.set_items(&items);
   filter.set_users(&users);
@@ -160,7 +160,7 @@ TEST_F(TestFactorModelFilter, test_bias){
   EXPECT_EQ(3, itemToplist->at(2).first);
   EXPECT_EQ(2+3-4, itemToplist->at(2).second);
 }
-TEST_F(TestFactorModelFilter, test_sigmoid){
+TEST_F(TestFactorModelGlobalRankingScoreIterator, test_sigmoid){
   FactorModelParameters factorModelParameters;
   factorModelParameters.dimension = DIMENSION;
   factorModelParameters.initialize_all = false;
@@ -177,7 +177,7 @@ TEST_F(TestFactorModelFilter, test_sigmoid){
   factor[0]=0;factor[1]=1;factor[2]=0;model.item_factors_.set(3,&factor);
   factor[0]=-2;factor[1]=0;factor[2]=3;model.item_factors_.set(4,&factor);
 
-  FactorModelFilter filter;
+  FactorModelGlobalRankingScoreIterator filter;
   filter.set_model(&model);
   filter.set_items(&items);
   filter.set_users(&users);
@@ -200,7 +200,7 @@ TEST_F(TestFactorModelFilter, test_sigmoid){
   EXPECT_DOUBLE_EQ(3, itemToplist->at(2).first);
   EXPECT_DOUBLE_EQ(Util::sigmoid_function(2), itemToplist->at(2).second);
 }
-TEST_F(TestFactorModelFilter, test_all){
+TEST_F(TestFactorModelGlobalRankingScoreIterator, test_all){
   FactorModelParameters factorModelParameters;
   factorModelParameters.dimension = DIMENSION;
   factorModelParameters.initialize_all = false;
@@ -228,7 +228,7 @@ TEST_F(TestFactorModelFilter, test_all){
   factor[0]=0;factor[1]=1;factor[2]=0;model.item_factors_.set(3,&factor);
   factor[0]=-2;factor[1]=0;factor[2]=3;model.item_factors_.set(4,&factor);
 
-  FactorModelFilter filter;
+  FactorModelGlobalRankingScoreIterator filter;
   filter.set_model(&model);
   filter.set_items(&items);
   filter.set_users(&users);

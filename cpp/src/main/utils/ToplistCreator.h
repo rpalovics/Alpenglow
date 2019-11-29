@@ -6,7 +6,7 @@
 #include <gtest/gtest_prod.h>
 #include "../utils/Toplist.h"
 #include "../models/Model.h"
-#include "../filters/ModelFilter.h"
+#include "../filters/GlobalRankingScoreIterator.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 #include "../models/TopListRecommender.h"
@@ -85,7 +85,7 @@ class ToplistCreatorGlobal: public ToplistCreator{
     };
     virtual ~ToplistCreatorGlobal(){}
     vector<RecDat>* run(RecDat* rec_dat) override;
-    void set_filter(ModelFilter* filter){ filter_=filter; } //TODO alternative: items or popsortedcont
+    void set_filter(GlobalRankingScoreIterator* filter){ filter_=filter; } //TODO alternative: items or popsortedcont
     bool self_test(){
       bool OK = ToplistCreator::self_test() && min_heap_.self_test(); 
       if(initial_threshold_ < 0){
@@ -104,7 +104,7 @@ class ToplistCreatorGlobal: public ToplistCreator{
       return a.score > b.score;
     }
     Toplist<RecDat,compare_rec_dat> min_heap_;
-    ModelFilter* filter_ = NULL;
+    GlobalRankingScoreIterator* filter_ = NULL;
     uint initial_threshold_;
     //void process_row(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);
     //void process_column(vector<pair<int,double> >* sorted_entities_a,uint start_index_a,int index_b,RecDat* rec_dat,uint threshold);

@@ -14,7 +14,7 @@
 #include "../../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../../utils/RankComputer.h"
 #include "../../utils/ToplistCreator.h"
-//#include "../../filters/DummyModelFilter.h"
+//#include "../../filters/DummyGlobalRankingScoreIterator.h"
 
 using namespace std;
 
@@ -118,7 +118,7 @@ private:
   //vector<Model*> models_;
   vector<RankComputer*> rank_computers_;
   vector<ToplistCreatorPersonalized*> toplist_creators_;
-  //DummyModelFilter dummy_model_filter_;
+  //DummyGlobalRankingScoreIterator dummy_model_filter_;
   //vector<double> distribution_;
   //cache
   double last_timestamp_ = -1;
