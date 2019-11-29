@@ -1,7 +1,7 @@
 
 class GlobalRankingScoreIterator {
   %TypeHeaderCode
-  #include "filters/GlobalRankingScoreIterator.h"
+  #include "models/GlobalRankingScoreIterator.h"
   %End
 public:
   virtual void run(RecDat* rec_dat);

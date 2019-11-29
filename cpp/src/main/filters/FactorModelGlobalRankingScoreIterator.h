@@ -2,7 +2,7 @@
 #define FACTOR_FILTER_H
 
 #include <algorithm>
-#include "GlobalRankingScoreIterator.h"
+#include "../models/GlobalRankingScoreIterator.h"
 #include "../models/factor/FactorModel.h"
 #include "../utils/Factors.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"

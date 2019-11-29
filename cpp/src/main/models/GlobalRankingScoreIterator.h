@@ -4,7 +4,7 @@
 //SIP_AUTOCONVERT
 
 #include "../recommender_data/RecommenderData.h"
-#include "../models/Model.h"
+#include "Model.h"
 
 //dokumentacio LASD a TWIKIN is!
 //egyik funkcio: predikcio korlatok a kiertekeles gyorsitasara

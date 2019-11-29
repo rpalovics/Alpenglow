@@ -6,7 +6,7 @@
 #include <gtest/gtest_prod.h>
 #include "../utils/Toplist.h"
 #include "../models/Model.h"
-#include "../filters/GlobalRankingScoreIterator.h"
+#include "../models/GlobalRankingScoreIterator.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
 #include "../general_interfaces/Initializable.h"
 #include "../models/TopListRecommender.h"
