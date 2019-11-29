@@ -121,7 +121,7 @@ std::string __stdlib;
 %Include src/models/GlobalRankingScoreIterator.sip
 %Include src/filters/AvailabilityFilter.sip
 %Include src/filters/LabelFilter.sip
-%Include src/filters/FactorModelGlobalRankingScoreIterator.sip
+%Include src/models/factor/FactorModelGlobalRankingScoreIterator.sip
 
 
 %Include src/offline_evaluators/OfflineEvaluator.sip
