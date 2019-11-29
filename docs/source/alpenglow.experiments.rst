@@ -68,14 +68,6 @@ alpenglow.experiments.FmExperiment module
     :undoc-members:
     :show-inheritance:
 
-alpenglow.experiments.MyNewExperiment module
---------------------------------------------
-
-.. automodule:: alpenglow.experiments.MyNewExperiment
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 alpenglow.experiments.NearestNeighborExperiment module
 ------------------------------------------------------
 
