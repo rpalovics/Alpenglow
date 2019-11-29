@@ -4,7 +4,6 @@
 
 #include "../utils/SpMatrix.h"
 #include "../utils/PopContainers.h"
-//#include "../filters/ModelFilter.h"
 #include "../models/Model.h"
 #include "../recommender_data/RecommenderData.h"
 #include "../general_interfaces/NeedsExperimentEnvironment.h"
@@ -33,7 +32,6 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
     }
     virtual ~RankComputer(){}
     void set_model(Model* model){ model_ = model;} 
-    //void set_model_filter(ModelFilter* model_filter){ model_filter_ = model_filter; }
     void set_train_matrix(SpMatrix* train_matrix){ train_matrix_ = train_matrix; }
     void set_top_pop_container(TopPopContainer* popularity_sorted_container){ popularity_sorted_container_ = popularity_sorted_container; }
     void set_items(const vector<int> *items){ items_ = items; }
@@ -106,7 +104,6 @@ class RankComputer : public NeedsExperimentEnvironment, public Initializable {
     const SpMatrix* train_matrix_ = NULL;
     SpMatrix empty_matrix_;
     const TopPopContainer* popularity_sorted_container_ = NULL;
-    //ModelFilter* model_filter_ = NULL;
     Random random_;
     int top_k_ = -1;
     int exclude_known_ = -1;
