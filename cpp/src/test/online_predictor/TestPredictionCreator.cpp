@@ -21,7 +21,7 @@ namespace {
 
   class DummyFilter : public GlobalRankingScoreIterator {
     public:
-      void run(double time) override {}
+      //void run(RecDat rec_dat) override {}
       vector<pair<int,double>>* get_global_users() override {
         return &userBounds; 
       }

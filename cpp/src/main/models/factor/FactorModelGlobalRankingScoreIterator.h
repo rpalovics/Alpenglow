@@ -41,16 +41,16 @@ class FactorFilter{
     vector<pair<int,double>>* upper_bounds_ = NULL;   
 };
 
-class FactorModelGlobalRankingScoreIterator : public GlobalRankingScoreIterator, public NeedsExperimentEnvironment, public Initializable {
+class FactorModelGlobalRankingScoreIterator
+: public GlobalRankingScoreIterator
+, public NeedsExperimentEnvironment
+, public Initializable
+{
  public:
    FactorModelGlobalRankingScoreIterator(){
      user_factor_filter_.set_upper_vector(&user_upper_bounds_);
      item_factor_filter_.set_upper_vector(&item_upper_bounds_);
-     model_ = NULL;
-     users_ = NULL;
-     items_ = NULL;
    }
-   using GlobalRankingScoreIterator::run; //inherit run(double time)
    void run(RecDat* rd) override;
    vector<pair<int,double>>* get_global_users() override {return &user_upper_bounds_;}
    vector<pair<int,double>>* get_global_items() override {return &item_upper_bounds_;}
@@ -81,14 +81,17 @@ class FactorModelGlobalRankingScoreIterator : public GlobalRankingScoreIterator,
    }
  private:
    void compute_biases();
-   void compute_bias(vector<pair<int,double> >* bounds, Bias& biases, const vector<int>* entities, vector<pair<int,double> >* other_bounds);
+   void compute_bias(vector<pair<int,double>>* bounds,
+                     Bias& biases,
+                     const vector<int>* entities,
+                     vector<pair<int,double>>* other_bounds);
    void compute_recencies(double time);
-   void compute_recency(vector<pair<int,double> >*, Recency*, double);
+   void compute_recency(vector<pair<int,double>>*, Recency*, double);
    void compute_sigmoids();
-   void compute_sigmoid(vector<pair<int,double> >*);
-   FactorModel* model_;
-   const vector<int>* users_;
-   const vector<int>* items_;
+   void compute_sigmoid(vector<pair<int,double>>*);
+   FactorModel* model_ = NULL;
+   const vector<int>* users_ = NULL;
+   const vector<int>* items_ = NULL;
    FactorFilter user_factor_filter_, item_factor_filter_;
    vector<pair<int,double>> user_upper_bounds_;   
    vector<pair<int,double>> item_upper_bounds_;   

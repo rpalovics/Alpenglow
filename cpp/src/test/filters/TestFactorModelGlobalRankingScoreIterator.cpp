@@ -50,7 +50,9 @@ TEST_F(TestFactorModelGlobalRankingScoreIterator, test_basic){
   filter.set_items(&items);
   filter.set_users(&users);
   ASSERT_TRUE(filter.self_test());
-  filter.run(0.0);
+  RecDat null_rec_dat;
+  null_rec_dat.time = 0.0;
+  filter.run(&null_rec_dat);
   vector<pair<int,double>>* userToplist = filter.get_global_users();
   ASSERT_EQ(3, userToplist->size());
   EXPECT_EQ(2, userToplist->at(0).first);
@@ -94,7 +96,9 @@ TEST_F(TestFactorModelGlobalRankingScoreIterator, test_recency){
   filter.set_items(&items);
   filter.set_users(&users);
   ASSERT_TRUE(filter.self_test());
-  filter.run(0.0);
+  RecDat null_rec_dat;
+  null_rec_dat.time = 0.0;
+  filter.run(&null_rec_dat);
   vector<pair<int,double>>* userToplist = filter.get_global_users();
   ASSERT_EQ(3, userToplist->size());
   EXPECT_DOUBLE_EQ(2, userToplist->at(0).first);
@@ -142,7 +146,9 @@ TEST_F(TestFactorModelGlobalRankingScoreIterator, test_bias){
   filter.set_items(&items);
   filter.set_users(&users);
   ASSERT_TRUE(filter.self_test());
-  filter.run(0.0);
+  RecDat null_rec_dat;
+  null_rec_dat.time = 0.0;
+  filter.run(&null_rec_dat);
   vector<pair<int,double>>* userToplist = filter.get_global_users();
   ASSERT_EQ(3, userToplist->size());
   EXPECT_EQ(2, userToplist->at(0).first);
@@ -182,7 +188,9 @@ TEST_F(TestFactorModelGlobalRankingScoreIterator, test_sigmoid){
   filter.set_items(&items);
   filter.set_users(&users);
   ASSERT_TRUE(filter.self_test());
-  filter.run(0.0);
+  RecDat null_rec_dat;
+  null_rec_dat.time = 0.0;
+  filter.run(&null_rec_dat);
   vector<pair<int,double>>* userToplist = filter.get_global_users();
   ASSERT_EQ(3, userToplist->size());
   EXPECT_DOUBLE_EQ(2, userToplist->at(0).first);
@@ -233,7 +241,9 @@ TEST_F(TestFactorModelGlobalRankingScoreIterator, test_all){
   filter.set_items(&items);
   filter.set_users(&users);
   ASSERT_TRUE(filter.self_test());
-  filter.run(0.0);
+  RecDat null_rec_dat;
+  null_rec_dat.time = 0.0;
+  filter.run(&null_rec_dat);
   vector<pair<int,double>>* userToplist = filter.get_global_users();
   ASSERT_EQ(3, userToplist->size());
   EXPECT_DOUBLE_EQ(2, userToplist->at(0).first);
