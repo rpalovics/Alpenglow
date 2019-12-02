@@ -6,9 +6,9 @@ Implementing a new model in Python
 
 While the core of the framework runs in C++, the fact that Alpenglow uses `SIP <https://www.riverbankcomputing.com/static/Docs/sip/>`_ for its Python bindings allows us to implement models in Python, inheriting from the necessary C++ classes. Please note though that this feature is still experimental and may be a little rough arond the edges.
 
-Let's use a very stimple example for demonstration: the empirical transition probability model. This model records how often items follow each other, and always recommenders that empirically most likely next item based on this log. Note that even though the name implies that our model should output probabilities, in fact outputting raw counts is the same from an evaluation perspectivel, since the empirical probability is monotonic as a function of counts.
+Let's use a very simple example for demonstration: the empirical transition probability model. This model records how often items follow each other, and always recommenders the empirically most likely next item based on this log. Note that even though the name implies that our model should output probabilities, in fact outputting raw counts is the same from an evaluation perspective, since the empirical probability is monotonic as a function of counts.
 
-The following code demonstrates a very simple version implementation of this:
+The following code demonstrates a very simple implementation of this:
 
 
 .. code-block:: python
@@ -48,11 +48,11 @@ The following code demonstrates a very simple version implementation of this:
     averages = rankings['dcg'].groupby((rankings['time']-rankings['time'].min())//86400).mean()
     print(averages)
 
-We import the neccessary packages, load the data, define the model and define the experiment. The model definition is done by subclassing :py:class:`alpenglow.SelfUpdatingModel`. Note, that this itself is not a C++ class, but a Python class that handles a few neccessary steps for us. It is possible to go deeper tough and implement the model and its updater separately for example. For this and other, more fine-grained possibilities, please refer to the source of :py:class:`alpenglow.SelfUpdatingModel` and the page :ref:`cpp_api`.
+We import the neccessary packages, load the data, define the model and define the experiment. The model definition is done by subclassing :py:class:`alpenglow.SelfUpdatingModel`. Note, that this itself is not a C++ class, but a Python class that handles a few neccessary steps for us. It is possible to go deeper and implement the model and its updater separately for example. For this and other, more fine-grained possibilities, please refer to the source of :py:class:`alpenglow.SelfUpdatingModel` and the page :ref:`cpp_api`.
 
 We define three functions for the model: initialization, update and prediction. Initialization is self-explanatory. Update is called after each evaluation step, and receives the training sample as parameter. For the definition of the type of rec_dat, please refer to :py:class:`alpenglow.cpp.RecDat`. Prediction is called for scoring positive samples, as well as to determine the ranking of items during evaluation.
 
-The implemented logic is quite simple: we store two dictionaries, one contains the last visited items of each user, the other counts the number of occurrences of items after each other. The prediction is simply the latter number.
+The implemented logic in the above example is quite simple: we store two dictionaries - one contains the last visited items of each user, the other counts the number of occurrences of items after each other. The prediction is simply the latter number.
 
 Let's run the experiment:
 
@@ -94,7 +94,7 @@ We can see that the score is nicely improving from week to week: the model is ab
 
 There are two things to note here. First, the scores are slightly worse. The reason for this is that our implementation implicitly handles cold-start user cases to some degree: we predict the score for the nonexistent previous item with id -1, which basically learns to predict based on item popularity. The builtin model doesn't do this - but this effect is only significant in the very beginning of usual data timelines (and is achievable via model combination using builtin models).
 
-The second thing to note is speed: the builtin experiments runs about 35x faster. This is in part due to the fact that it's implemented in C++ rather than Python - but also due to the fact that it implements something called a *ranking score iterator*. We'll learn more about this in the next section.
+The second thing to note is speed: the builtin experiment runs about 35x faster. This is in part due to the fact that it's implemented in C++ rather than Python - but also due to the fact that it implements something called a *ranking score iterator*. We'll learn more about this in the next section.
 
 .. Note::
     The first time an item is seen in the timeline, it is always because a user just interacted with it for the first time, thus we know that it is in fact a positive sample. If the model for some reason gives higher scores for new items, this could lead to misleading results. In our experience, unfortunately, this happens sometimes unintentionally. To avoid it, the first time an item is seen, the system always returns zero for the ranking. It is thus not possible right now to evaluate completely cold-start item situations. An optional flag is planned for future versions of Alpenglow to selectively re-allow evaluating these records.
@@ -105,9 +105,9 @@ Speeding up the evaluation: ranking iterators
 
 One way to learn about ranking iterators is to read :ref:`ranking_optimization`. However, let's do a quick recap here as well.
 
-When Alpenglow evaluates a record in the timeline, first it asks the model for a prediction on the given (user, item) pair. Then, to determine the rank of the positive item, it starts asking the model for predictions for other items and counts larger, smaller and equal scores. When the number of larger scores is more than the given top K value we are evaluation for, this process stops: the positive item is not on the toplist. This method has the advantage that it is usually much faster than evaluating on all items.
+When Alpenglow evaluates a record in the timeline, first it asks the model for a prediction for the given (user, item) pair. Then, to determine the rank of the positive item, it starts asking the model for predictions for other items and counts larger, smaller and equal scores. When the number of larger scores is more than the given top K value we are evaluation for, this process stops: the positive item is not on the toplist. This method has the advantage that it is usually much faster than evaluating on all items.
 
-However, it can be made even faster: the model may be able to give hints about items with larger scores, such that the evaluation may stop faster. This can be done in Python models as well, by defining a *prediction_iterator* method. Let's see an example of this:
+However, it can be made even faster: the model may be able to give hints about items with larger scores, so that the evaluation might stop faster. This can be done in Python models as well, by defining a *prediction_iterator* method. Let's see an example of this:
 
 
 .. code-block:: python
@@ -142,7 +142,7 @@ However, it can be made even faster: the model may be able to give hints about i
 
 The main difference from the previous one is the fact that our model now has an additional method, which is actually a generator. This iterates over all of the items that the model is aware of and produces item-score tuples. However, the items with nonzero scores are listed first.
 
-Additionally, there's one more very important part: the bound parameter of the method. This receives a function that always returns the score under which we are no longer interested in listing the items. I.e. if the bound is 1.0 and somehow we can guarantee that all the remaining items have a score below 1.0, we can stop iterating. When simply running an experiment this stays constant - the score of the positive item. However, in other cases, such as when the toplists are actually calculated, it will change based on the progress of the calculation.
+There's one more very important part: the bound parameter of the method. This receives a function that always returns the score under which we are no longer interested in listing the items. I.e. if the bound is 1.0 and somehow we can guarantee that all the remaining items have a score below 1.0, we can stop iterating. When simply running an experiment this stays constant - the score of the positive item. However, in other cases, such as when the toplists are actually calculated, it may change based on the progress of the calculation.
 
 We could further optimize this function by first sorting the nonzero transitions, but the above implementation already achieves a significant speedup:
 
@@ -170,7 +170,7 @@ That's a nice improvement! Of course, being able to impement an iterator can be 
     Sometimes the results of an experiment can slightly differ after implementing a ranking iterator. This happens because after the number of larger, smaller and equal items is calculated, the evaluator randomly chooses each equally scored item to be either under or above the positive item in the toplist. The randomness for this is consistent across runs based on the seed, but it's unfortunately not consistent between evaluation methods yet.
 
 .. Warning::
-    Not listing all the items in the iterator (or erronously stopping too soon based on the bound) could incorrectly produce higher results than it should. Please take extra care when implementing ranking iterators and try to corss-check against the unoptimized version of the same model.
+    Not listing all the items in the iterator (or erronously stopping too soon based on the bound) could incorrectly produce higher results than it should. Please take extra care when implementing ranking iterators and try to cross-check against the unoptimized version of the same model.
 
 
 Speeding up the evaluation: toplists

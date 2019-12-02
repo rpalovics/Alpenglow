@@ -450,7 +450,7 @@ Document your model
 
 To document the C++ clasees, use java-style documentation comments in the
 header files.  Note that the comment describing the class is after the opening
-bracelet of the class delcaration, and the comment that belongs to the function
+bracket of the class declaration, and the comment that belongs to the function
 is after the function declaration.
 
 .. code-block:: cpp
@@ -489,7 +489,7 @@ is after the function declaration.
 
 Then transform the comments by the header->sip converter, reinstall the python
 package and regenerate the documentation.  The reinstallation step is
-necessary, the documentation generator acquires the documentation from the
+necessary, as the documentation generator acquires the documentation from the
 installed alpenglow package.
 
 .. code-block:: bash
@@ -534,7 +534,7 @@ parameters are sane etc.  The main goal is to prevent hard-to-debug
 segmentation faults caused by missing `set_xxx()` calls. Note that
 `self_test()` is not virtual, it is called by the framework for the appropriate
 type and it is the functions responsibility to call `self_test()` of its
-anchestors.
+ancestors.
 
 Here are the expanded testcases:
 
