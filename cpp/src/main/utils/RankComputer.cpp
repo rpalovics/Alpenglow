@@ -61,7 +61,7 @@ int RankComputer::get_rank_ranking_model(RecDat* rec_dat){
         better_items_num += 1;
       }
     }
-    }
+  }
 
   while(iterator->has_next(score)){
     double item_score;

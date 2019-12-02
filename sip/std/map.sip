@@ -273,3 +273,86 @@ template<T2>
   return pyDict;
 %End
 };
+
+
+%MappedType std::map<int, double> /TypeHint="dict-of-int-double"/{
+  %TypeHeaderCode
+    #include <map>
+  %End
+
+  %ConvertToTypeCode
+    PyObject *key = NULL;
+    PyObject *val = NULL;
+    Py_ssize_t pos = 0;
+
+    if (sipIsErr == NULL) {
+      if (!PyDict_Check(sipPy)) {
+        return 0;
+      }
+      while (PyDict_Next(sipPy, &pos, &key, &val)) {
+        bool ok = PyLong_Check(key);
+        ok = ok && PyFloat_Check(val);
+        if (!ok) {
+          return 0;
+        }
+      }
+      return 1;
+    }
+
+    std::map <int, double> *map = new std::map<int, double>();
+    
+    while (PyDict_Next(sipPy, &pos, &key, &val)) {
+      int t2State = 0;
+      
+      int t1 = PyLong_AsLong(key);
+      double t2 = PyFloat_AsDouble(val);
+  
+      if (*sipIsErr) {
+        delete map;   
+        return 0;
+      }
+      
+      (*map)[t1] = t2;
+    }
+    
+    *sipCppPtr = map;
+    return sipGetState(sipTransferObj);
+  %End
+
+  %ConvertFromTypeCode
+    PyObject *pyDict = NULL;
+    pyDict = PyDict_New();
+    if (pyDict == NULL) {
+      return NULL;
+    }
+    
+    for (std::map<int, double>::const_iterator it = sipCpp->begin(); it != sipCpp->end(); ++it) {
+      PyObject *key = NULL;
+      PyObject *val = NULL;
+      int cppKey = it->first;
+      double cppVal = it->second;
+      
+      key = PyLong_FromLong(cppKey);
+      val = PyFloat_FromDouble(cppVal);
+      
+      if (key == NULL || val == NULL || PyDict_SetItem(pyDict, key, val) < 0) {
+        Py_DECREF(pyDict);
+        
+        if (key) {
+          Py_DECREF(key);
+        } 
+        
+        if (val != NULL) {
+          Py_DECREF(val);
+        }
+        
+        return NULL;
+      }
+      
+      Py_DECREF(key);
+      Py_DECREF(val);
+    }
+    
+    return pyDict;
+  %End
+};

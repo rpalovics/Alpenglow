@@ -49,6 +49,9 @@ std::string __stdlib;
 %Include src/models/SimilarityModel.sip
 %Include src/models/MassPredictor.sip
 %Include src/models/ExternalModel.sip
+%Include src/models/RankingScoreIterator.sip
+%Include src/models/TopListRecommender.sip
+%Include src/models/PythonModel.sip
 %Include src/models/factor/FactorModel.sip
 %Include src/models/factor/FactorModelGradientUpdater.sip
 %Include src/models/factor/AsymmetricFactorModel.sip
