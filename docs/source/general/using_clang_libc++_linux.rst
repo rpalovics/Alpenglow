@@ -14,6 +14,7 @@ First, you need to set the CC environment variable to "clang++" by using the com
 
     '-stdlib=libc++',
     '-mfpmath=sse',
+
 and remove
 
 .. code-block:: python
@@ -35,7 +36,7 @@ and remove
         '-lgcc',
     ],
 
-Now reinstall using :bash:`pip install --force-reinstall --no-deps --upgrade . `.
+Now reinstall using :bash:`pip install --force-reinstall --no-deps --upgrade .`.
 You can check if you were successful by running the following code:
 
 .. code-block:: python

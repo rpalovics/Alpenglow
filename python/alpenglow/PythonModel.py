@@ -19,7 +19,7 @@ class SubToplistModel(PythonToplistModel):
         return self.parent.prediction(rec_dat)
 
     def get_top_list(self, u, k, exclude):
-        return self.parent.get_top_list(u, k, exclude)
+        return [(int(i), float(v)) for i, v in self.parent.get_top_list(u, k, exclude if exclude is not None else dict())]
 
 
 class SubRankingIteratorModel(PythonRankingIteratorModel):
@@ -66,7 +66,7 @@ class SelfUpdatingModel:
         self._updater = SubUpdater(self)
         if hasattr(self, 'get_top_list') and callable(getattr(self, 'get_top_list', None)):
             self._model = SubToplistModel(self)
-        if hasattr(self, 'prediction_iterator') and callable(getattr(self, 'prediction_iterator', None)):
+        elif hasattr(self, 'prediction_iterator') and callable(getattr(self, 'prediction_iterator', None)):
             self._model = SubRankingIteratorModel(self)
         else:
             self._model = SubModel(self)

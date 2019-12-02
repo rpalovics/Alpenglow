@@ -1,3 +1,5 @@
+.. _ranking_optimization:
+
 Rank computation optimization
 =============================
 
