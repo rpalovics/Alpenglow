@@ -29,7 +29,7 @@ class SubRankingIteratorModel(PythonRankingIteratorModel):
 
         self.bound_getter = lambda: self.bound
     
-        self.actual_user = None
+        self.actual_id = None
         self.bound = None
         self.actual_iterator = None
         self.next_value = None
@@ -37,11 +37,11 @@ class SubRankingIteratorModel(PythonRankingIteratorModel):
     def prediction(self, rec_dat):
         return self.parent.prediction(rec_dat)
 
-    def iterator_has_next_(self, user, upper_bound):
+    def iterator_has_next_(self, id_, user, upper_bound):
         self.bound = upper_bound
-        if user != self.actual_user:
+        if id_ != self.actual_id:
             self.actual_iterator = self.parent.prediction_iterator(user, self.bound_getter)
-            self.actual_user = user
+            self.actual_id = id_
             self.next_value = None
         try:
             (item, score) = next(self.actual_iterator)
@@ -50,7 +50,7 @@ class SubRankingIteratorModel(PythonRankingIteratorModel):
         except StopIteration:
             return False
 
-    def iterator_get_next_(self, user):
+    def iterator_get_next_(self, id, user):
         return self.next_value
 
 class SubUpdater(Updater):

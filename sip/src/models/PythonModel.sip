@@ -15,6 +15,6 @@ class PythonRankingIteratorModel : public PythonModel, public RankingScoreIterat
   #include "models/PythonModel.h"
   %End
   public:
-    virtual bool iterator_has_next_(int user, double upper_bound)=0;
-    virtual std::pair<int, double> iterator_get_next_(int user)=0;
+    virtual bool iterator_has_next_(int id, int user, double upper_bound)=0;
+    virtual std::pair<int, double> iterator_get_next_(int id, int user)=0;
 };
