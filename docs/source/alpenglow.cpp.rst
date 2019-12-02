@@ -8,12 +8,33 @@ The classes in this module are usually not used directly, but instead through th
 - :doc:`/general/simulation_attributes`
 - :doc:`/general/memory_management`
 
-
+Note that there are some C++ classes that have no python interface.  These are not documented here.
 
 Filters
 -------
-This is the filters header file.
 
+The function of the filter interface is limiting the available set of items.  Current filters are whitelist-type filters, implementing :py:class:`alpenglow.cpp.WhitelistFilter`.
+
+To use a filter in an experiment, wrap the model into the filter using :py:class:`alpenglow.cpp.WhitelistFilter2ModelAdapter`.
+
+Example:
+
+.. code-block:: python
+  :emphasize-lines: 8-13
+
+  class LabelExperiment(prs.OnlineExperiment):
+      '''Sample experiment illustrating the usage of LabelFilter. The
+      experiment contains a PopularityModel and a LabelFilter.'''
+      def _config(self, top_k, seed):
+          model = ag.PopularityModel()
+          updater = ag.PopularityModelUpdater()
+          updater.set_model(model)
+          label_filter = ag.LabelFilter(**self.parameter_defaults(
+              label_file_name = ""
+          ))
+          adapter = ag.WhitelistFilter2ModelAdapter()
+          adapter.set_model(model)
+          adapter.set_whitelist_filter(label_filter)
 
 
 .. autoclass:: alpenglow.cpp.WhitelistFilter
@@ -47,7 +68,10 @@ This is the filters header file.
 
 Offline evaluators
 ------------------
-This is the offline_evaluators header file.
+
+Use offline evaluators in traditional, fixed train/test split style learning.
+Check the code of :py:class:`alpenglow.offline.OfflineModel.OfflineModel`
+descendants for usage examples.
 
 
 
@@ -88,7 +112,20 @@ This is the offline_evaluators header file.
 
 Recommender data
 ----------------
-This is the recommender_data header file.
+
+This module contains the classes that are responsible for reading in the
+dataset and serving it to other classes of the experiment.
+
+Interface :py:class:`alpenglow.cpp.RecommenderData` is the anchestor for
+classes that read in the dataset.  The two most frequently used implementations
+are :py:class:`alpenglow.cpp.DataframeData` and
+:py:class:`alpenglow.cpp.LegacyRecommenderData`.
+
+Interface :py:class:`alpenglow.cpp.RecommenderDataIterator` is the anchestor
+for classes that serve the data to the classes in the online experiment.  See
+:doc:`/general/anatomy_of_experiment` for general information.  The most
+frequently used implementations are :py:class:`alpenglow.cpp.ShuffleIterator`
+and :py:class:`alpenglow.cpp.SimpleIterator`.
 
 
 
@@ -207,7 +244,8 @@ This is the recommender_data header file.
 
 Utils
 -----
-This is the utils header file.
+
+This module contains miscellaneous helper classes.
 
 
 
@@ -338,7 +376,10 @@ This is the utils header file.
 
 Gradient computers
 ------------------
-This is the gradient_computers header file.
+
+This module contains the gradient computer classes that implement gradient
+computation necessary in gradient methods.  See
+:py:class:`alpenglow.experiments.FactorExperiment` for an example.
 
 
 
@@ -355,7 +396,10 @@ This is the gradient_computers header file.
 
 Objectives
 ----------
-This is the objectives header file.
+
+This module contains the implementation of objective functions that are
+necessary for gradient computation in gradient learning methods.  See
+:py:class:`alpenglow.experiments.FactorExperiment` for a usage example.
 
 
 
@@ -384,7 +428,9 @@ This is the objectives header file.
 
 General interfaces
 ------------------
-This is the general_interfaces header file.
+
+This module contains the general interfaces that are implemented by classes
+belonging to different modules.
 
 
 
@@ -407,7 +453,13 @@ This is the general_interfaces header file.
 
 Negative sample generators
 --------------------------
-This is the negative_sample_generators header file.
+
+All the samples in an implicit dataset are positive samples.  To make gradient
+methods work, we need to provide negative samples too.  This module contains
+classes that implement different negative sample generation algorithms.  These
+classes implement :py:class:`alpenglow.cpp.NegativeSampleGenerator`.  The most
+frequently used implementation is
+:py:class:`alpenglow.cpp.UniformNegativeSampleGenerator`.
 
 
 
@@ -430,7 +482,10 @@ This is the negative_sample_generators header file.
 
 Offline learners
 ----------------
-This is the offline_learners header file.
+
+Use offline learners in traditional, fixed train/test split style learning.
+Check the code of :py:class:`alpenglow.offline.OfflineModel.OfflineModel`
+descendants for usage examples.
 
 
 
@@ -477,7 +532,10 @@ This is the offline_learners header file.
 
 Loggers
 -------
-This is the loggers header file.
+
+Loggers implement evaluators, statistics etc. in the online experiment.  These
+classes implement interface :py:class:`alpenglow.cpp.Logger`.  See
+:doc:`/general/anatomy_of_experiment` for a general view.
 
 
 
@@ -596,7 +654,8 @@ This is the loggers header file.
 
 Online experiment
 -----------------
-This is the online_experiment header file.
+
+The central classes of the online experiments.
 
 
 
@@ -619,12 +678,16 @@ This is the online_experiment header file.
 
 Models
 ------
-This is the models header file.
+
+The prediction models in the experiments.  The model interface is
+:py:class:`alpenglow.cpp.Model`.  See
+:doc:`/general/rank_computing_optimization` about different evaluation methods.
 
 
-Models.factor
+Factor models
 -------------
-This is the models/factor header file.
+
+This module contains the matrix factorization based models.
 
 
 
@@ -759,10 +822,10 @@ This is the models/factor header file.
     :undoc-members:
     :show-inheritance:
 
-Models.baseline
+Baseline models
 ---------------
-This is the models/baseline header file.
 
+This submodule contains the simple baseline models like nearest neighbor or most popular.
 
 
 .. autoclass:: alpenglow.cpp.TransitionProbabilityModel
@@ -842,9 +905,12 @@ This is the models/baseline header file.
     :undoc-members:
     :show-inheritance:
 
-Models.combination
-------------------
-This is the models/combination header file.
+Model combination
+-----------------
+
+This module contains the models that combine other models.  The most frequently
+used class is :py:class:`alpenglow.cpp.CombinedModel`.  See
+:doc:`/general/combination` for a usage example.
 
 
 
@@ -978,7 +1044,11 @@ This is the models/combination header file.
 
 Data generators
 ---------------
-This is the data_generators header file.
+
+The classes in this module are responsible for generating data subsets from the
+past.  This is necessary for embedding offline models into the online
+framework, that needs to be updated in a batch.  See
+:py:class:`alpenglow.experiments.BatchFactorExperiment` for a usage example.
 
 
 
@@ -1019,8 +1089,9 @@ This is the data_generators header file.
 
 Online learners
 ---------------
-This is the online_learners header file.
 
+This module contains classes that modifiy the learning process, e.g. delay the
+samples or feed them in a batch into offline learning methods.
 
 
 .. autoclass:: alpenglow.cpp.LearnerPeriodicDelayedWrapperParameters
@@ -1045,8 +1116,3 @@ This is the online_learners header file.
     :members:
     :undoc-members:
     :show-inheritance:
-
-Ranking
--------
-This is the ranking header file.
-

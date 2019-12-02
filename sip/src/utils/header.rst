@@ -1,4 +1,5 @@
 Utils
 -----
-This is the utils header file.
+
+This module contains miscellaneous helper classes.
 

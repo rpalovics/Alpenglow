@@ -1,4 +1,5 @@
-Models.factor
+Factor models
 -------------
-This is the models/factor header file.
+
+This module contains the matrix factorization based models.
 

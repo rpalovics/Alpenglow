@@ -8,4 +8,4 @@ The classes in this module are usually not used directly, but instead through th
 - :doc:`/general/simulation_attributes`
 - :doc:`/general/memory_management`
 
-
+Note that there are some C++ classes that have no python interface.  These are not documented here.

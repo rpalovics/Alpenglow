@@ -1,4 +1,5 @@
 Online learners
 ---------------
-This is the online_learners header file.
 
+This module contains classes that modifiy the learning process, e.g. delay the
+samples or feed them in a batch into offline learning methods.

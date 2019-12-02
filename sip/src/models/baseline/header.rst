@@ -1,4 +1,4 @@
-Models.baseline
+Baseline models
 ---------------
-This is the models/baseline header file.
 
+This submodule contains the simple baseline models like nearest neighbor or most popular.

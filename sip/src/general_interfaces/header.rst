@@ -1,4 +1,6 @@
 General interfaces
 ------------------
-This is the general_interfaces header file.
+
+This module contains the general interfaces that are implemented by classes
+belonging to different modules.
 
