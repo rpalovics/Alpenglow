@@ -53,6 +53,7 @@ std::string __stdlib;
 %Include src/models/TopListRecommender.sip
 %Include src/models/PythonModel.sip
 %Include src/models/factor/FactorModel.sip
+%Include src/models/factor/FactorModelUpdater.sip
 %Include src/models/factor/FactorModelGradientUpdater.sip
 %Include src/models/factor/AsymmetricFactorModel.sip
 %Include src/models/factor/AsymmetricFactorModelUpdater.sip

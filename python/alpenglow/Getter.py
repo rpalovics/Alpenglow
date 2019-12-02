@@ -13,6 +13,8 @@ class MetaGetter(type):
         self.items = defaultdict(lambda: [])
 
     def __getattr__(self, name):
+        if(name.startswith('__')):
+            return type.__getattr(self, name)
         def objectfactory(*args, **kwargs):
             tid = threading.get_ident()
             retval = None

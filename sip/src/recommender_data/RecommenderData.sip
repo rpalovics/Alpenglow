@@ -12,6 +12,24 @@ struct RecDat{
   %TypeHeaderCode
   #include "recommender_data/RecommenderData.h"
   %End
+%Docstring
+  Struct representing a training instance.
+
+  #:id
+    index of row in DataFrame; 0 based index if missing
+  #:score
+    value of score column; 1 if column missing
+  #:time
+    value of time column; 0 based index if missing
+  #:user
+    user id
+  #:item
+    item id
+  #:eval
+    whether this record is to be used for evaluation
+  #:category
+    model specific, mostly deprecated
+%End
   int id;
   double score;
   double time;
@@ -19,7 +37,6 @@ struct RecDat{
   int item;
   int eval;
   int category;
-//  Location location;
 };
 
 
