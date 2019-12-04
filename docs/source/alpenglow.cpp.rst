@@ -992,6 +992,12 @@ used class is :py:class:`alpenglow.cpp.CombinedModel`.  See
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.TopListRecommender
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.MassPredictor
     :members:
     :undoc-members:
@@ -1016,22 +1022,43 @@ used class is :py:class:`alpenglow.cpp.CombinedModel`.  See
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.PythonModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.PythonToplistModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.PythonRankingIteratorModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.SimilarityModel
-<<<<<<< 1e0db6ce70aa7833feb7cd66e5fdb75a7bb46a7e
     :members:
     :undoc-members:
     :show-inheritance:
 
 
 .. autoclass:: alpenglow.cpp.ModelGradientUpdater
-=======
->>>>>>> add content to cpp autodoc header
     :members:
     :undoc-members:
     :show-inheritance:
 
 
 .. autoclass:: alpenglow.cpp.ModelMultiUpdater
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.RankingScoreIteratorProvider
     :members:
     :undoc-members:
     :show-inheritance:

@@ -38,6 +38,14 @@ alpenglow.ParameterDefaults module
     :undoc-members:
     :show-inheritance:
 
+alpenglow.PythonModel module
+----------------------------
+
+.. automodule:: alpenglow.PythonModel
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
