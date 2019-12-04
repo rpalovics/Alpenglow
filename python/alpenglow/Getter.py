@@ -5,7 +5,7 @@ from collections import defaultdict
 class MetaGetter(type):
     """Metaclass of :py:class:`alpenglow.Getter.Getter`. Provides utilities for
     creating and managing cpp objects in the :py:mod:`alpenglow.cpp` package. For more
-    information, see :doc:`/general/memory_management`.
+    information, see :doc:`/general/python_api`.
     """
     def __init__(self, a, b, c):
         tid = threading.get_ident()
