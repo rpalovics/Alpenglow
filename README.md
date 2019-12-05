@@ -10,7 +10,7 @@
 - Besides batch training and evaluation, Alpenglow supports *online training* of recommendation models capable of adapting to concept drift in non-stationary environments.
 
 ### Requirements
-- Anaconda + Python 3.5 or 3.6 environment
+- Anaconda + Python 3.5+
 ### Conda package:
 [![Conda Version](https://img.shields.io/conda/vn/conda-forge/alpenglow.svg)](https://anaconda.org/conda-forge/alpenglow) [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/alpenglow.svg)](https://anaconda.org/conda-forge/alpenglow) [![Linux](https://img.shields.io/circleci/project/github/conda-forge/alpenglow-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/alpenglow-feedstock)
 [![OSX](https://img.shields.io/travis/conda-forge/alpenglow-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/alpenglow-feedstock)
