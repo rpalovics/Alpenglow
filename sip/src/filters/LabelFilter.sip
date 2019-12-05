@@ -19,6 +19,8 @@ class LabelFilter
   %Docstring
   White list filter class that allows items having the same label (e.g. artist)
   as the item that was previously interacted by the user.  Requires updates.
+
+  See python/test_alpenglow/utils/test_label_filter.py for a usage example.
   %End
   public:
     LabelFilter(LabelFilterParameters* params);

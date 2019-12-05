@@ -15,16 +15,16 @@ Welcome to Alpenglow's documentation!
    :caption: General information:
 
    general/anatomy_of_experiment
+   general/simulation_attributes
+   general/rank_computing_optimization
    general/cpp_api
    general/python_api
-   general/simulation_attributes
-   general/combination
-   general/serialization
    general/implement_your_model
    general/implement_python_model
    general/evaluate_external_model
+   general/combination
+   general/serialization
    general/using_clang_libc++_linux
-   general/rank_computing_optimization
       
 ..    general/python_api
 ..    general/memory_management

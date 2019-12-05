@@ -24,6 +24,10 @@ from typing import Any, Callable, Dict, Iterator, List, Sequence, Set, Tuple, Un
 
 from sphinx.ext.autodoc import AttributeDocumenter, ClassDocumenter
 from sphinx.util.docstrings import prepare_docstring
+try:
+    import sphinx_rtd_theme
+except ModuleNotFoundError as e:
+    raise ModuleNotFoundError("!!! install the theme using ``pip install sphinx-rtd-theme`` !!!")
 
 # -- General configuration ------------------------------------------------
 
@@ -34,14 +38,18 @@ from sphinx.util.docstrings import prepare_docstring
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc',
+
+extensions = [
+    'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.imgmath',
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
-    ]
-    # Napoleon settings
+    "sphinx_rtd_theme",
+]
+
+html_theme = "sphinx_rtd_theme"
 
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
@@ -197,7 +205,13 @@ epub_copyright = copyright
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
 
+html_static_path = ['html']
 
+# These paths are either relative to html_static_path
+# or fully qualified paths (eg. https://...)
+html_css_files = [
+    'style.css',
+]
 
 
 # import sys

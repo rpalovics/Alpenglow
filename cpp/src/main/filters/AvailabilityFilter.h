@@ -21,11 +21,13 @@ class AvailabilityFilter
     this filter.
 
     Sample code
-    .. code-block:: python
-      :linenos:
 
-      f = rs.AvailabilityFilter()
-      f.add_availability(20,1,10) #item 1 is available in the time interval (20,30)
+    .. code-block:: python
+        :linenos:
+
+        f = rs.AvailabilityFilter()
+        f.add_availability(20,1,10) #item 1 is available in the time interval (20,30)
+
 */
 public:
   bool active(RecDat*) override;
