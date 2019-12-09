@@ -58,7 +58,7 @@ When creating an instance of the experiment, we can provide various configuratio
 	    seed=12345, # for reproducibility, we provide a random seed
 	)
 
-You can see the list available options of online experiments in the documentation of :py:class:`alpenglow.OnlineExperiment` and the parameters of this particular experiment in the documentation of the specific implementation (in this case :py:class:`alpenglow.experiments.PopularityExperiment`) or, failing that, in the source code of the given class.
+You can see the list of the available options of online experiments in the documentation of :py:class:`alpenglow.OnlineExperiment` and the parameters of this particular experiment in the documentation of the specific implementation (in this case :py:class:`alpenglow.experiments.PopularityExperiment`) or, failing that, in the source code of the given class.
 
 Running the experiment on the data is as simple as calling :python:`run(data)`. Multiple options can be provided at this point, for a full list, refer to the documentation of :py:meth:`alpenglow.OnlineExperiment.OnlineExperiment.run`.
 
