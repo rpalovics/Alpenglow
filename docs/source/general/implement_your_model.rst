@@ -1,4 +1,4 @@
-Implementing your own C++ model
+Implementing a new model in C++
 ===============================
 
 Creating C++ model class and google tests
