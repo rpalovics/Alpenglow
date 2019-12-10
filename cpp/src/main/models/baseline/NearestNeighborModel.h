@@ -33,6 +33,11 @@ class NearestNeighborModel
   : public Model
   , virtual public RankingScoreIteratorProvider
 {
+/**
+Item similarity based model.
+
+See source of :py:class:`alpenglow.experiments.NearestNeighborExperiment` for a usage example.
+*/
 public:
   NearestNeighborModel(NearestNeighborModelParameters* params):
     gamma_(params->gamma),
@@ -42,6 +47,11 @@ public:
     direction_(params->direction==""?"forward":params->direction)
   {}
   double prediction(RecDat* rec_dat) override;
+  /**
+  prediction(RecDat* rec_dat)
+
+  Implements :py:meth:`alpenglow.cpp.Model.prediction`.
+  */
   RankingScoreIterator* get_ranking_score_iterator(int user) override;
   bool self_test(){
     bool ok = Model::self_test();
@@ -53,7 +63,14 @@ public:
     if(!(direction_=="forward" or direction_=="both")){ ok = false; cerr << "NearestNeighborModel::direction is not set properly." << endl; }
     return ok;
   }
-  //vector<pair<int,double>>* get_personalized_items(int user) override; //deprecated
+  /**
+  Tests whether the model is assembled appropriately.
+
+  Returns
+  -------
+  bool
+    Whether the model is assembled appropriately.
+  */
 private:
   //params
   const double gamma_;

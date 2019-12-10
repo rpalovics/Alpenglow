@@ -13,6 +13,10 @@ class WhitelistFilter { //SIP_ABSTRACT
 public:
   virtual bool active(RecDat* rec_dat) = 0;
   /**
+    active(RecDat* rec_dat)
+
+    Returns whether the item is active for the user.
+
     Parameters
     ----------
     rec_dat : RecDat*
@@ -24,6 +28,10 @@ public:
   */
   virtual vector<int> get_whitelist(int user) = 0;
   /**
+    get_whitelist(int user)
+
+    Returns the set of active items for the user.
+
     Parameters
     ----------
     user : int

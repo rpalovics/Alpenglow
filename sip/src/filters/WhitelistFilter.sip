@@ -9,6 +9,10 @@ class WhitelistFilter  /Abstract/{
 public:
   virtual bool active(RecDat* rec_dat) = 0;
   %Docstring
+    active(RecDat* rec_dat)
+
+    Returns whether the item is active for the user.
+
     Parameters
     ----------
     rec_dat : RecDat*
@@ -20,6 +24,10 @@ public:
   %End
   virtual std::vector<int> get_whitelist(int user) = 0;
   %Docstring
+    get_whitelist(int user)
+
+    Returns the set of active items for the user.
+
     Parameters
     ----------
     user : int

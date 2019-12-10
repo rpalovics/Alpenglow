@@ -30,11 +30,28 @@ class NearestNeighborModel
   %TypeHeaderCode
   #include "models/baseline/NearestNeighborModel.h"
   %End
+  %Docstring
+Item similarity based model.
+
+See source of :py:class:`alpenglow.experiments.NearestNeighborExperiment` for a usage example.
+  %End
 public:
   NearestNeighborModel(NearestNeighborModelParameters* params);
   double prediction(RecDat* rec_dat);
+  %Docstring
+  prediction(RecDat* rec_dat)
+
+  Implements :py:meth:`alpenglow.cpp.Model.prediction`.
+  %End
 //  RankingScoreIterator* get_ranking_score_iterator(int user);
   bool self_test();
+  %Docstring
+  Tests whether the model is assembled appropriately.
 
+  Returns
+  -------
+  bool
+    Whether the model is assembled appropriately.
+  %End
 };
 
