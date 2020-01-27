@@ -20,12 +20,14 @@
 
 using namespace std;
 
-struct RecDat{
-  int id;
-  double score;
-  double time;
-  int user,item,eval;
-  int category;
+struct RecDat {
+  int id = 0;
+  double score = 0;
+  double time = 0;
+  int user = 0;
+  int item = 0;
+  int eval = 0;
+  int category = 0;
   // std::vector<std::vector<int>> *attributes;
   //bool operator<(const RecDat& rec_dat) const { return score < rec_dat.score; }
   //bool operator>(const RecDat& rec_dat) const { return score > rec_dat.score; }
@@ -34,7 +36,7 @@ struct RecDat{
      return output;            
   }
 };
-typedef vector <RecDat> RecDats;
+typedef vector<RecDat> RecDats;
 
 struct RecPred{
   double score;
