@@ -88,7 +88,7 @@ class OnlineExperiment{
       bool
          Whether the tests were successful. 
   %End
-    void run() throw (PythonKeyboardInterruptException) /ReleaseGIL/;
+    void run() throw (PythonKeyboardInterruptException);
   %Docstring
       Runs the experiment.
   %End
@@ -103,4 +103,3 @@ class OnlineExperiment{
       :py:class:`alpenglow.OnlineExperiment.OnlineExperiment` for details.
   %End
 };
-
