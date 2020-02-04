@@ -16,7 +16,12 @@
 [![OSX](https://img.shields.io/travis/conda-forge/alpenglow-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/alpenglow-feedstock)
 [![Windows](https://img.shields.io/appveyor/ci/conda-forge/alpenglow-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/alpenglow-feedstock/branch/master)
 ### Installation from conda repositories
-- `conda install -c conda-forge alpenglow`
+- `conda install -c conda-forge alpenglow`  
+
+In case you also intend to run sample code and tutorials, you should install matplotlib as well:  
+`conda install matplotlib`
+
+If you encounter any conflict or error, try installing Alpenglow in a clean conda environment.  
 
 ### Installation from source (linux only at the moment)
 - `cd Alpenglow`
