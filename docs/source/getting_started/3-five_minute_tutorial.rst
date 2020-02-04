@@ -85,14 +85,14 @@ The easiest way interpret the results is by using a predefined evaluator, for ex
 .. code-block:: python
 
 	from alpenglow.evaluation import DcgScore
-	results['dcg'] = DcgScore(results)
+	result['dcg'] = DcgScore(result)
 
 The :py:class:`DcgScore` class calculates the NDCG values for the given ranks and returns a :py:class:`pandas.Series` object. This can be averaged and plotted easily to visualize the performance of the recommender model.
 
 
 .. code-block:: python
 
-	daily_avg_dcg = results['dcg'].groupby((results['time']-results['time'].min())//86400).mean()
+	daily_avg_dcg = result['dcg'].groupby((result['time']-result['time'].min())//86400).mean()
 	plt.plot(daily_avg_dcg,"o-", label="popularity")
 	plt.title('popularity model performance')
 	plt.legend()

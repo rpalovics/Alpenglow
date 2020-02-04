@@ -19,6 +19,14 @@ Installing
 
 	conda install -c conda-forge alpenglow
 
+In case you also intend to run sample code and tutorials, you should install matplotlib as well:  
+
+.. code-block:: bash
+
+	conda install matplotlib
+
+If you encounter any conflict or error, try installing Alpenglow in a clean conda environment.  
+
 Installing from source on Linux
 -------------------------------
 
