@@ -14,3 +14,4 @@ cpp/dep/*
 !cpp/dep/empty
 python/test_alpenglow/tmp/*
 .pytest_cache
+sip_build

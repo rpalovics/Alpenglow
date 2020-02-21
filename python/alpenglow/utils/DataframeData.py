@@ -1,6 +1,6 @@
 import alpenglow.cpp as rs
 import numpy as np
-import sip
+import alpenglow.sip as sip
 
 
 class DataframeData(rs.DataframeData):

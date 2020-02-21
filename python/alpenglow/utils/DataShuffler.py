@@ -2,7 +2,7 @@ from alpenglow.Getter import Getter as rs
 from .DataframeData import DataframeData
 from alpenglow.ParameterDefaults import ParameterDefaults
 import pandas as pd
-import sip
+import alpenglow.sip as sip
 
 
 class DataShuffler(ParameterDefaults):

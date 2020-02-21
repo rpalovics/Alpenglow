@@ -24,8 +24,11 @@ In case you also intend to run sample code and tutorials, you should install mat
 If you encounter any conflict or error, try installing Alpenglow in a clean conda environment.  
 
 ### Installation from source (linux only at the moment)
+
 - `cd Alpenglow`
-- `conda install libgcc sip`
+- `conda activate [your_cond_env_name]`
+- `./install_alpenglow_sip.sh`
+- `conda install libgcc`
 - `conda install -c conda-forge eigen`
 - `pip install .`
 

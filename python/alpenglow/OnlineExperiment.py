@@ -2,7 +2,7 @@ from .Getter import Getter as rs
 from .utils.DataframeData import DataframeData
 from .ParameterDefaults import ParameterDefaults
 import pandas as pd
-import sip
+import alpenglow.sip as sip
 
 
 class OnlineExperiment(ParameterDefaults):

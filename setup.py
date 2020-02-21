@@ -15,6 +15,7 @@ from distutils.errors import *
 from distutils.sysconfig import get_config_vars
 import distutils.ccompiler
 import re
+import glob
 
 # recursively adds .sip files to dependencies
 class custom_build_ext(sipdistutils.build_ext):
@@ -163,7 +164,7 @@ setup(
                 'cpp/src',
                 'cpp/src/main',
                 'cpp/dep/gtest/include',
-            ]+conda_include_dirs,
+            ] + conda_include_dirs,
             extra_compile_args=[
                 '-std=c++11',
                 '-O2',
@@ -178,7 +179,8 @@ setup(
                 # if you want to eigen to use blas/lapack:
                 # 'lapack',
                 # 'blas',
-            ]
+            ],
+            library_dirs=glob.glob('sip_build/sip-*/siplib')
         ),
     ],
     packages=[
