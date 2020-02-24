@@ -55,4 +55,4 @@ protected:
   PythonModelRankingScoreIterator iterator_;
 };
 
-#endif
+#endif /* PYTHON_MODEL_H */

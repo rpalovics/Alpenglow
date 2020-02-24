@@ -1,5 +1,5 @@
-#ifndef MODEL_FILTER_H
-#define MODEL_FILTER_H
+#ifndef GLOBAL_RANKING_SCORE_ITERATOR_H
+#define GLOBAL_RANKING_SCORE_ITERATOR_H
 
 #include "../recommender_data/RecommenderData.h"
 #include "Model.h"
@@ -16,4 +16,4 @@ public:
   }
 };
 
-#endif /* MODEL_FILTER_H */
+#endif /* GLOBAL_RANKING_SCORE_ITERATOR_H */

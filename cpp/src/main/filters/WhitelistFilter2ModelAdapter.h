@@ -1,5 +1,5 @@
-#ifndef WHITE_LIST_FILTER_2_MODEL_ADAPTER
-#define WHITE_LIST_FILTER_2_MODEL_ADAPTER
+#ifndef WHITELIST_FILTER_RANKING_SCORE_ITERATOR_H
+#define WHITELIST_FILTER_RANKING_SCORE_ITERATOR_H
 
 #include <vector>
 #include "../recommender_data/RecommenderData.h"
@@ -113,4 +113,4 @@ private:
   WhitelistFilterRankingScoreIterator rsi_;
 };
 
-#endif /* WHITE_LIST_FILTER_2_MODEL_ADAPTER_H */
+#endif /* WHITELIST_FILTER_RANKING_SCORE_ITERATOR_H */

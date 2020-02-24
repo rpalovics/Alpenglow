@@ -1,5 +1,5 @@
-#ifndef WHITE_LIST_FILTER
-#define WHITE_LIST_FILTER
+#ifndef WHITELIST_FILTER_H
+#define WHITELIST_FILTER_H
 
 #include <vector>
 #include "../recommender_data/RecommenderData.h"
@@ -44,4 +44,4 @@ public:
   virtual ~WhitelistFilter(){}
 };
 
-#endif //WHITE_LIST_FILTER_H
+#endif /* WHITELIST_FILTER_H */
