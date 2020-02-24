@@ -5,7 +5,6 @@ void ExternalModel::read_predictions(string file_name){
     ifstream file(file_name);
     unordered_map<int, map<int, int>> lists;
     int user, item, pos;
-    double score;
     while (file >> user >> item >> pos) {
       lists[user][pos]=item;
     }

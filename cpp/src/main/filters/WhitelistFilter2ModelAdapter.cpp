@@ -2,7 +2,7 @@
 
 //WhitelistFilterRankingScoreIterator
 bool WhitelistFilterRankingScoreIterator::has_next(double lower_bound) {
-  return counter_<whitelist_.size();
+  return counter_<(int)whitelist_.size();
 }
 pair<int,double> WhitelistFilterRankingScoreIterator::get_next() {
   pair<int,double> next;

@@ -50,7 +50,7 @@ class TestRandomChoosingCombinedModel : public ::testing::Test {
 };
 class DummyEvaluator : public Evaluator {
   public:
-    double get_loss(RecDat*){ return my_loss_; }
+    double get_loss(RecDat*) override { return my_loss_; }
     double my_loss_ = 0.5;
 };
 class TestRandomChoosingCombinedModelExpertUpdater : public ::testing::Test { 

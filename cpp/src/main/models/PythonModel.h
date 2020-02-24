@@ -43,7 +43,7 @@ class PythonRankingIteratorModel : public PythonModel, public RankingScoreIterat
  {
 public:
   PythonRankingIteratorModel() : iterator_(this, -1, -1), id_(0) {}
-  virtual RankingScoreIterator* get_ranking_score_iterator(int user){
+  RankingScoreIterator* get_ranking_score_iterator(int user) override {
     id_++;
     iterator_ = PythonModelRankingScoreIterator(this, id_, user);
     return &iterator_;

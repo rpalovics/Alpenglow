@@ -63,9 +63,9 @@ vector<RecDat>* ToplistCreatorPersonalized::run(RecDat* rec_dat){
 vector<RecDat>* ToplistCreatorPersonalized::run_bruteforce(RecDat* rec_dat){ //TODO test
   int user = rec_dat->user;
   RecDat fake_rec_dat = *rec_dat;
-  for(int index=0;index<items_->size();index++){
+  for(uint index=0;index<items_->size();index++){
     int item = items_->at(index);
-    if(exclude_known_==1 and train_matrix_->get(rec_dat->user, item)!=0){ continue; } //invalid item, not new for the user
+    if(exclude_known_==1 and train_matrix_->get(user, item)!=0){ continue; } //invalid item, not new for the user
     fake_rec_dat.item = item;
     fake_rec_dat.score = model_->prediction(&fake_rec_dat);
     min_heap_.insert(fake_rec_dat);
