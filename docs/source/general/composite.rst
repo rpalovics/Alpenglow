@@ -207,6 +207,7 @@ Replacing dependent parts:
 Multiple names for the same object to make automatic wiring between composites possible:
 
 .. code-block:: python
+
     recommender = alpenglow.FactorModelComposite()
     recommender.build()
 
