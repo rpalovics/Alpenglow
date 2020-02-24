@@ -3,11 +3,16 @@ try:
 except:
     from distutils.core import setup, Extension
 
+import glob
+import sys
+import os
+
+if 'SRC_DIR' in os.environ:
+    sys.path = glob.glob(os.path.join(os.environ['SRC_DIR'], 'sip', 'sipdest_install')) + sys.path
+
 import sipdistutils
 import pkg_resources
-import os
 import os.path
-import sys
 from sys import platform
 
 from distutils.dep_util import newer_group
@@ -15,7 +20,7 @@ from distutils.errors import *
 from distutils.sysconfig import get_config_vars
 import distutils.ccompiler
 import re
-import glob
+
 
 # recursively adds .sip files to dependencies
 class custom_build_ext(sipdistutils.build_ext):
@@ -142,11 +147,11 @@ elif platform == "win32":
 conda_executable_name = sys.executable
 conda_include_dirs = []
 if conda_executable_name[-len("bin/python"):] == "bin/python":
-    conda_include_dirs.append(conda_executable_name[:-len("bin/python")]+"include")
+    conda_include_dirs.append(conda_executable_name[:-len("bin/python")] + "include")
 elif conda_executable_name[-len("python.exe"):] == "python.exe":
-    conda_include_dirs.append(conda_executable_name[:-len("python.exe")]+"Library/include")
+    conda_include_dirs.append(conda_executable_name[:-len("python.exe")] + "Library/include")
 if 'CONDA_PREFIX' in os.environ:
-    conda_include_dirs.append(os.environ['CONDA_PREFIX']+"/include")
+    conda_include_dirs.append(os.environ['CONDA_PREFIX'] + "/include")
 
 setup(
     name='alpenglow',
@@ -164,7 +169,10 @@ setup(
                 'cpp/src',
                 'cpp/src/main',
                 'cpp/dep/gtest/include',
-            ] + conda_include_dirs,
+            ] +
+            conda_include_dirs +
+            glob.glob('../sip/siph_install') +
+            glob.glob('sip_build/sip-*/siplib'),
             extra_compile_args=[
                 '-std=c++11',
                 '-O2',
