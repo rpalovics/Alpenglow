@@ -20,7 +20,7 @@ namespace {
       void add(RecDat* rec_dat) override {
         add_calls.push_back(make_pair(prediction_calls.size(),rec_dat));
       }
-      virtual double prediction(RecDat* rec_dat) override {
+      double prediction(RecDat* rec_dat) override {
         prediction_calls.push_back(rec_dat);
         return (*predictVal)*(rec_dat->item);
       }

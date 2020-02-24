@@ -7,9 +7,9 @@
 
 class PythonModel : public Model {
   public:
-    virtual void write(ostream& file) override {};
-    virtual void read(istream& file) override {};
-    virtual void clear() override {};
+    void write(ostream& file) override {};
+    void read(istream& file) override {};
+    void clear() override {};
 };
 
 
