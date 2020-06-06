@@ -68,6 +68,11 @@ TEST_F(TestAvailabilityFilter, test){
   EXPECT_TRUE(expected_set == filter.available_items_set_);
 
 }
+TEST_F(TestAvailabilityFilter, test2){
+  AvailabilityFilter* pfilter;
+  pfilter = new AvailabilityFilter;
+  delete pfilter; //this covers _ZN18AvailabilityFilterD0Ev in order to get complete function coverage
+}
 
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
