@@ -77,6 +77,11 @@ TEST_F(TestLabelContainer, dummy) {
   EXPECT_EQ(2,container.get_label(3));
   EXPECT_EQ(3,container.get_label(4));
   EXPECT_EQ(3,container.get_label(6));
+
+  //out of range
+  EXPECT_EQ(-1,container.get_label(-1));
+  entities = container.get_entities(-1);
+  EXPECT_EQ(0,entities.size());
 }
 
 int main (int argc, char **argv) {

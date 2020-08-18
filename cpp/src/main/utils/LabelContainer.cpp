@@ -21,11 +21,13 @@ void LabelContainer::read_from_file(istream& file){
 }
 
 vector<ENTITY> LabelContainer::get_entities(LABEL label){
-  if((int) labels.size() <= label) return vector<int>();
+  bool out_of_range = (int) labels.size() <= label or label < 0;
+  if (out_of_range) return vector<int>();
   else return labels[label];
 }
 
 LABEL LabelContainer::get_label(ENTITY entity){
-  if((int) entities.size() <= entity) return -1;
+  bool out_of_range = (int) entities.size() <= entity or entity < 0;
+  if (out_of_range) return -1;
   else return entities[entity];
 }
