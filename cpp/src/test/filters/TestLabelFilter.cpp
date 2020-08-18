@@ -108,6 +108,14 @@ TEST_F(TestLabelFilter, test){
   }
 }
 
+TEST_F(TestLabelFilter, test2){
+  LabelFilterParameters params;
+  params.label_file_name = "";
+  LabelFilter* pfilter;
+  pfilter = new LabelFilter(&params);
+  delete pfilter; //this covers _ZN11LabelFilterD0Ev in order to get complete function coverage
+}
+
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
