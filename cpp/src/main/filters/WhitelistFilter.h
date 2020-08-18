@@ -41,7 +41,7 @@ public:
     vector<int,double>
        The list of allowed items for the given user. The second element of the pair is an upper bound for the score of the item for the given user (or the score itself).
   */
-  virtual ~WhitelistFilter(){}
+  virtual ~WhitelistFilter() = default;
 };
 
 #endif /* WHITELIST_FILTER_H */

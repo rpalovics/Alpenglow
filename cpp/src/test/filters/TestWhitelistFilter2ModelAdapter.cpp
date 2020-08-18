@@ -94,6 +94,15 @@ TEST_F(TestWhitelistFilter2ModelAdapter, iterator){
   }
 }
 
+TEST_F(TestWhitelistFilter2ModelAdapter, destructor){
+  WhitelistFilter* pfilter;
+  pfilter = new DummyWhitelistFilter;
+  delete pfilter;
+  WhitelistFilter2ModelAdapter* padapter;
+  padapter = new WhitelistFilter2ModelAdapter;
+  delete padapter;
+}
+
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
