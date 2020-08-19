@@ -8,11 +8,11 @@ jobs:
         #dependencies
         - pushd cpp/dep
         #eigen
-        - wget http://bitbucket.org/eigen/eigen/get/3.3.5.tar.gz
-        - tar -xzf 3.3.5.tar.gz
-        - rm 3.3.5.tar.gz
+        - wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.gz
+        - tar -xzf eigen-3.3.7.tar.gz
+        - rm eigen-3.3.7.tar.gz
         - mkdir eigen
-        - mv eigen-eigen-b3f3d4950030 eigen/eigen3
+        - mv eigen-3.3.7 eigen/eigen3
         - export CPATH="$CPATH:$(pwd)/eigen"
         #gtest
         - wget https://github.com/google/googletest/archive/release-1.7.0.zip
