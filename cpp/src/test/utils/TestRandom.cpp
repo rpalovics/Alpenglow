@@ -15,6 +15,7 @@ TEST_F(TestRandom, max){
   EXPECT_LT(random.get(5),5);
   EXPECT_EQ(random.get(1),0);
 }
+
 TEST_F(TestRandom, seed){
   Random random1(123456);
   Random random2(123456);
@@ -65,11 +66,36 @@ TEST_F(TestRandom, distribution){
   }
 }
 
-TEST_F(TestRandom, get_linear){
+TEST_F(TestRandom, get_boolean){
+  Random random(3423452);
+  int round_count = 20000000;
+  for (double p=0.0; p<1.0; p+=0.3){
+    int true_count = 0;
+    for(int i=0;i<round_count;i++){
+      if (random.get_boolean(p)) true_count++;
+    }
+    EXPECT_LT(round_count*p*0.9-1, true_count);
+    EXPECT_GT(round_count*p*1.1+1, true_count);
+  }
+}
+
+TEST_F(TestRandom, get_linear_max){
   Random random(3423452);
   vector<int> distrib(20);
   for(int i=0;i<20000000;i++){
     distrib[random.get_linear(distrib.size())]++;
+  }
+  for(uint i=0;i<distrib.size();i++){
+    EXPECT_LT(2*i+0.8, distrib[i]/(double)distrib[0]);
+    EXPECT_GT(2*i+1.2, distrib[i]/(double)distrib[0]);
+  }
+}
+
+TEST_F(TestRandom, get_linear){
+  Random random(3423452);
+  vector<int> distrib(20);
+  for(int i=0;i<20000000;i++){
+    distrib[random.get_linear()*distrib.size()]++;
   }
   for(uint i=0;i<distrib.size();i++){
     EXPECT_LT(2*i+0.8, distrib[i]/(double)distrib[0]);
