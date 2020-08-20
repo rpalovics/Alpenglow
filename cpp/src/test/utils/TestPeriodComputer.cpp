@@ -106,6 +106,13 @@ TEST_F(TestPeriodComputer, environment_time) {
   EXPECT_FALSE(period_computer.end_of_period()); //should not cause repeating end
 }
 
+TEST_F(TestPeriodComputer, destructor) {
+  PeriodComputer* period_computer;
+  PeriodComputerParameters params;
+  period_computer = new PeriodComputer(&params);
+  delete period_computer;
+}
+
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
