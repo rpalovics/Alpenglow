@@ -123,6 +123,24 @@ TEST_F(TestHighPredictionNegativeSampleGenerator,general2) {
   EXPECT_EQ(10,item_map[12]);
   EXPECT_EQ(10,item_map[13]);
 }
+TEST_F(TestHighPredictionNegativeSampleGenerator,self_test){ //test coverage for failing lines of self_test
+  HighPredictionNegativeSampleGeneratorParameters parameters;
+  HighPredictionNegativeSampleGenerator generator1(&parameters);
+  EXPECT_FALSE(generator1.self_test());
+
+  parameters.negative_rate = 10;
+  parameters.full_negative_rate = 5;
+  parameters.seed = 12345678;
+  HighPredictionNegativeSampleGenerator generator2(&parameters);
+  EXPECT_FALSE(generator2.self_test());
+}
+TEST_F(TestHighPredictionNegativeSampleGenerator,destructor){ //test coverage for D0 destructor
+  HighPredictionNegativeSampleGeneratorParameters parameters;
+  HighPredictionNegativeSampleGenerator* generator
+      = new HighPredictionNegativeSampleGenerator(&parameters);
+  delete generator;
+}
+  
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
