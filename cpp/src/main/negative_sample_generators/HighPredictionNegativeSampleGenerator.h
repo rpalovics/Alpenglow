@@ -4,8 +4,8 @@
 #include "NegativeSampleGenerator.h"
 #include "../utils/SortPairDescendingBySecond.h"
 struct HighPredictionNegativeSampleGeneratorParameters {
-  int negative_rate;
-  int full_negative_rate;
+  int negative_rate = -1;
+  int full_negative_rate = -1;
   int seed = 744478;
 };
 class HighPredictionNegativeSampleGenerator : public NegativeSampleGenerator {
