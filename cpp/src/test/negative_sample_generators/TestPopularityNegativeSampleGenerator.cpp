@@ -103,6 +103,13 @@ TEST_F(TestPopularityNegativeSampleGenerator,general) {
   EXPECT_LT(300,counter);
   EXPECT_GT(400,counter);
 }
+TEST_F(TestPopularityNegativeSampleGenerator,destructor) { //covers D0 destructor
+  PopularityNegativeSampleGeneratorParameters params;
+  PopularityNegativeSampleGenerator* generator =
+     new PopularityNegativeSampleGenerator(&params);
+  delete generator;
+}
+
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
