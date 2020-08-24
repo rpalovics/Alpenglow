@@ -15,4 +15,6 @@ class OfflineExternalModelLearner : public OfflineLearner{
     ~OfflineExternalModelLearner();
     void fit(RecommenderData* recommender_data);
     void set_model(ExternalModel* model);
+  private:
+    OfflineExternalModelLearner& operator=(const OfflineExternalModelLearner&);
 };

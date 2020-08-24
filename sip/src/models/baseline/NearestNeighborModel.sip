@@ -53,5 +53,7 @@ public:
   bool
     Whether the model is assembled appropriately.
   %End
+  private:
+    NearestNeighborModelUpdater& operator=(const NearestNeighborModelUpdater&);
 };
 

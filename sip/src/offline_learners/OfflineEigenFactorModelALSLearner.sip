@@ -22,4 +22,6 @@ class OfflineEigenFactorModelALSLearner : public OfflineLearner{
     void set_copy_from_model(FactorModel* model);
     void set_copy_to_model(FactorModel* model);
     bool self_test();
+  private:
+    OfflineEigenFactorModelALSLearner& operator=(const OfflineEigenFactorModelALSLearner&);
 };

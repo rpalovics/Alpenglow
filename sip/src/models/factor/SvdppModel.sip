@@ -39,5 +39,7 @@ class SvdppModel
     bool self_test();
   protected:
     bool autocalled_initialize();
+  private:
+    SvdppModel& operator=(const SvdppModel&);
 };
 

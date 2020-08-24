@@ -45,5 +45,7 @@ class FactorModel
 
   protected:
     bool autocalled_initialize();
+  private:
+    FactorModel& operator=(const FactorModel&);
 };
 

@@ -17,4 +17,6 @@ class ExternalModel : Model{
     ~ExternalModel();
     bool self_test();
     void read_predictions(std::string file_name);
+  private:
+    ExternalModel& operator=(const ExternalModel&);
 };

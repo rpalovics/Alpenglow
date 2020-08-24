@@ -18,4 +18,6 @@ class AsymmetricFactorModelGradientUpdater : public ModelGradientUpdater{
     void end_of_updating_cycle(RecDat*);
     void set_model(AsymmetricFactorModel* model);
     bool self_test();
+  private:
+    AsymmetricFactorModelGradientUpdater& operator=(const AsymmetricFactorModelGradientUpdater&);
 };

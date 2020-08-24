@@ -28,5 +28,7 @@ class FmModel : public Model, public Initializable
     bool self_test();
   protected:
     bool autocalled_initialize();
+  private:
+    FmModel& operator=(const FmModel&);
 };
 

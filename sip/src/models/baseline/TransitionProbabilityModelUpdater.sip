@@ -21,5 +21,7 @@ class TransitionProbabilityModelUpdater: public Updater{
     void update(RecDat* rec_dat);
     void set_model(TransitionProbabilityModel* model);
     bool self_test();
+  private:
+    TransitionProbabilityModelUpdater& operator=(const TransitionProbabilityModelUpdater&);
 };
 

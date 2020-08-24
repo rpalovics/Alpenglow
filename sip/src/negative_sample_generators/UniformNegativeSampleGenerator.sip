@@ -28,5 +28,7 @@ class UniformNegativeSampleGenerator : public NegativeSampleGenerator, public In
     bool self_test();
   protected:
     bool autocalled_initialize();
+  private:
+    UniformNegativeSampleGenerator& operator=(const UniformNegativeSampleGenerator&);
 };
 

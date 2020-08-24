@@ -35,5 +35,7 @@ class AsymmetricFactorModel
     bool self_test();
   protected:
     bool autocalled_initialize();
+  private:
+    AsymmetricFactorModelGradientUpdater& operator=(const AsymmetricFactorModelGradientUpdater&);
 };
 

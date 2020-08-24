@@ -20,5 +20,7 @@ public:
 //  void message(UpdaterMessage message);
   void set_model(NearestNeighborModel* model);
   bool self_test();
+private:
+  NearestNeighborModelUpdater& operator=(const NearestNeighborModelUpdater&);
 };
 

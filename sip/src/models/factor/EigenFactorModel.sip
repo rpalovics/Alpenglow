@@ -40,5 +40,7 @@ class EigenFactorModel
 //    RankingScoreIterator* get_ranking_score_iterator(int u);
   protected:
     bool autocalled_initialize();
+  private:
+    EigenFactorModel& operator=(const EigenFactorModel&);
 };
 
