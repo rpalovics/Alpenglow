@@ -1,4 +1,4 @@
-export VER=4.19.20
+export VER=4.19.24
 mkdir -p sip_build
 pushd sip_build
 wget https://www.riverbankcomputing.com/static/Downloads/sip/${VER}/sip-${VER}.tar.gz
