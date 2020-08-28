@@ -52,10 +52,8 @@ mode = mode_raw if mode_raw is not None else "debug"
 
 #documentation: compile in coverage mode using
 #scons [-j30] --mode=coverage
-#available modes: coverage, debug (default), optimized, travis
+#available modes: coverage, debug (default), optimized
 
-if mode!="travis": #Travis uses or used some old g++ compiler, that did not know this option
-  env.Append(CCFLAGS = '-Wsuggest-override')
 if mode=="debug":
   env.Append(CCFLAGS = '-ggdb')
 if mode=="optimized":
