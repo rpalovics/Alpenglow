@@ -24,6 +24,7 @@ class InputLogger : public Logger, public Initializable { //SIP_NODEFAULTCTORS
     bool self_test(){
       bool ok = Logger::self_test();
       if (output_stream_==NULL) ok=false;
+      else if (output_stream_->fail()) ok=false;
       return ok;
     }
   protected:

@@ -59,7 +59,20 @@ TEST_F(TestInputLogger, test) {
   EXPECT_EQ("0 1 2 0 1\n1 1 2 2 1\n1 1 2 3 1\n1390214039 1 2 3 1\n", out_string);
 }
 
+TEST_F(TestInputLogger, init_test) {
+  InputLoggerParameters params;
+  params.output_file = "";
+  InputLogger logger(&params);
+  EXPECT_TRUE(logger.initialize());
+  EXPECT_FALSE(logger.self_test());
+}
 
+TEST_F(TestInputLogger, destructor) {
+  InputLoggerParameters params;
+  params.output_file = "";
+  InputLogger* logger = new InputLogger(&params);
+  delete logger;
+}
 
 
 int main (int argc, char **argv) {
