@@ -38,12 +38,23 @@ env = Environment(
     ]
 )
 
-#documentation: compile in coverage mode using
-#scons [-j30] -Q mode=coverage
-#available modes: coverage, debug (default), optimized
-mode = ARGUMENTS.get('mode', 'debug')
+AddOption('--mode',
+          dest='mode',
+          type='string',
+          nargs=1,
+          default='debug',
+          action='store',
+          metavar='DIR',
+          help='modifies compile flags, possible values: debug (default), optimized, coverage')
 
-if mode!="travis":
+mode_raw = GetOption('mode')
+mode = mode_raw if mode_raw is not None else "debug"
+
+#documentation: compile in coverage mode using
+#scons [-j30] --mode=coverage
+#available modes: coverage, debug (default), optimized, travis
+
+if mode!="travis": #Travis uses or used some old g++ compiler, that did not know this option
   env.Append(CCFLAGS = '-Wsuggest-override')
 if mode=="debug":
   env.Append(CCFLAGS = '-ggdb')

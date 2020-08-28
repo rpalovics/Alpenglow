@@ -7,7 +7,7 @@ pushd ../cpp/src
 rm -r ../bin
  
 # Step 2: Re-compile whole project, including tests
-scons -j20 -Q "mode=coverage"
+scons -j20 --mode=coverage
  
 # Step 3: Generate initial coverage information
 lcov --no-external -b . -c -i -d ../bin/ -o .coverage.wtest.base
