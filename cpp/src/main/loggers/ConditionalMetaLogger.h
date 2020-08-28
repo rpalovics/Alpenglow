@@ -26,7 +26,7 @@ class ConditionalMetaLogger : public Logger{
       return OK;
     }
   private:
-    Logger *logger_;
+    Logger *logger_ = NULL;
 };
 
 #endif /* CONDITIONAL_META_LOGGER_H */

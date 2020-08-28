@@ -12,6 +12,9 @@ struct ListConditionalMetaLoggerParameters {
   vector<int> should_run_vector;
 };
 
+/**
+  Note that this class uses the run() fuction as an update function.
+*/
 class ListConditionalMetaLogger : public ConditionalMetaLogger{
   public:
     ListConditionalMetaLogger(ListConditionalMetaLoggerParameters* parameters){
