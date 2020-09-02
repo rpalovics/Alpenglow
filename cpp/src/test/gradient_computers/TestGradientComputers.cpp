@@ -120,6 +120,11 @@ TEST_F(TestGradientComputer, update) {
   ASSERT_EQ(2,updater.gradientData.size());
   EXPECT_DOUBLE_EQ(2*0.2+1.0,updater.gradientData[1].second);
 }
+TEST_F(TestGradientComputer, destructor) {
+  GradientComputerPointWise* gradient_computer =
+      new GradientComputerPointWise;
+  delete gradient_computer;
+}
 
 // TEST_F(TestGradientComputer, pairwise) {
 //   gradient_computer = new GradientComputerImplicitPairWise(&objectiveBPR);
