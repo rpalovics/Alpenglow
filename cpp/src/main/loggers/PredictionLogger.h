@@ -15,6 +15,10 @@ struct OnlinePredictions{
   vector<double> scores;
 };
 
+/**
+  Collects toplist in the memory.
+  See also: :py:class:`alpenglow.cpp.OnlinePredictor`
+*/
 class PredictionLogger : public Logger{
   public:
     void run(RecDat* recDat) override;
@@ -24,7 +28,7 @@ class PredictionLogger : public Logger{
     bool self_test(){
       bool ok = Logger::self_test();
       if(prediction_creator == NULL){
-        cerr << "PredictionLogger: prediction_creator not set!";
+        cerr << "PredictionLogger: prediction_creator not set!" << endl;
         ok = false;
       }
       return ok;
