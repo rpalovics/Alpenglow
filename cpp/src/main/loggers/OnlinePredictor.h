@@ -14,7 +14,16 @@ struct OnlinePredictorParameters {
   string file_name = "";
 };
 
+/**
+  Periodically queries a toplist from a plugged-in toplist creator class and
+  writes it into a file.
 
+  Output line format:
+
+  time_frame_id user item score
+
+  See also: :py:class:`alpenglow.cpp.PredictionLogger` .
+*/
 class OnlinePredictor
  : public Logger
  , public NeedsExperimentEnvironment
