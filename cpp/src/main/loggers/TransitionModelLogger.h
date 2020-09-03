@@ -47,7 +47,7 @@ class TransitionModelLogger
       if(model_==NULL){ OK=false; cerr << "TransitionModelLogger::model is not set." << endl; }
       if(pop_container_==NULL){ OK=false; cerr << "TransitionModelLogger::pop_container is not set." << endl; }
       if(train_matrix_==NULL){ OK=false; cerr << "TransitionModelLogger::train_matrix is not set." << endl; }
-      if(!timeline_file_.is_open()){ OK=false; }
+      if(!timeline_file_.is_open()){ OK=false; cerr << "TransitionModelLogger:timeline_file_ is bad." << endl; }
       return OK;
     }
   protected:

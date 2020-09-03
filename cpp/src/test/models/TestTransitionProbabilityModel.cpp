@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "../../main/models/baseline/TransitionProbabilityModel.h"
 #include "../../main/models/baseline/TransitionProbabilityModelUpdater.h"
+#include "../../main/loggers/TransitionModelLogger.h"
 #include "../../main/loggers/TransitionModelEndLogger.h"
 
 
@@ -392,6 +393,81 @@ TEST_F(TestTransitionLogger, end_destructor){
   logger_params.max_length=5;
   logger_params.log_file_name="transition_end_logger_temp_file";
   TransitionModelEndLogger* logger = new TransitionModelEndLogger(&logger_params);
+  delete logger;
+}
+TEST_F(TestTransitionLogger, test){
+  //this tests TransitionModelLogger
+  TransitionModelLoggerParameters logger_params;
+  logger_params.toplist_length_logfile_basename = "";
+  logger_params.timeline_logfile_name = "";
+  logger_params.period_length = 10;
+  logger_params.top_k = 5;
+  TransitionModelLogger logger(&logger_params);
+  ExperimentEnvironment exp_env;
+  logger.set_experiment_environment(&exp_env);
+  TransitionProbabilityModel model;
+  logger.set_model(&model);
+  EXPECT_TRUE(logger.initialize());
+
+  RecDat rec_dat;
+  rec_dat.time = 20;
+  rec_dat.eval = 1;
+  logger.run(&rec_dat);
+
+  TransitionProbabilityModelUpdaterParameters params;
+  TransitionProbabilityModelUpdater updater(&params);
+  updater.set_model(&model);
+
+  rec_dat.user = 1;
+  rec_dat.item = 1;
+  updater.update(&rec_dat);
+  rec_dat.item = 2;
+  updater.update(&rec_dat);
+  rec_dat.item = 1;
+  updater.update(&rec_dat);
+  rec_dat.item = 3;
+  updater.update(&rec_dat);
+
+  rec_dat.user = 2;
+  rec_dat.item = 1;
+  updater.update(&rec_dat);
+  rec_dat.item = 2;
+  rec_dat.time = 40;
+  logger.run(&rec_dat);
+}
+TEST_F(TestTransitionLogger, expenv){
+  //this tests TransitionModelLogger
+  TransitionModelLoggerParameters logger_params;
+  logger_params.toplist_length_logfile_basename = "transition_logger_temp_file1";
+  logger_params.timeline_logfile_name = "transition_logger_temp_file2";
+  logger_params.period_length = 10;
+  logger_params.top_k = -1;
+  TransitionModelLogger logger(&logger_params);
+  ExperimentEnvironment exp_env;
+  logger.set_experiment_environment(&exp_env);
+  EXPECT_TRUE(logger.initialize());
+  EXPECT_FALSE(logger.self_test()); //no model
+}
+TEST_F(TestTransitionLogger, set){
+  //this tests TransitionModelLogger
+  TransitionModelLoggerParameters logger_params;
+  logger_params.toplist_length_logfile_basename = "transition_logger_temp_file1";
+  logger_params.timeline_logfile_name = "transition_logger_temp_file2";
+  logger_params.period_length = 10;
+  logger_params.top_k = 5;
+  TransitionModelLogger logger(&logger_params);
+  PopContainer pop_container;
+  logger.set_pop_container(&pop_container);
+  TransitionProbabilityModel model;
+  logger.set_model(&model);
+  SpMatrix train_matrix;
+  logger.set_train_matrix(&train_matrix);
+  EXPECT_TRUE(logger.initialize());
+  EXPECT_TRUE(logger.self_test());
+}
+TEST_F(TestTransitionLogger, destructor){
+  TransitionModelLoggerParameters logger_params;
+  TransitionModelLogger* logger = new TransitionModelLogger(&logger_params);
   delete logger;
 }
 
