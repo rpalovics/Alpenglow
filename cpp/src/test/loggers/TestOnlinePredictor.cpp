@@ -4,14 +4,12 @@
 #include "../../main/loggers/OnlinePredictor.h"
 
 namespace {
-
-
   class DummyToplistCreator : public ToplistCreator{
     public:
-      DummyToplistCreator(ToplistCreatorParameters* params):ToplistCreator(params){counter=0;}
+      DummyToplistCreator(ToplistCreatorParameters* params):ToplistCreator(params){}
       vector<RecDat>* run(RecDat*) override {counter++;return &topPredictions;}    
       vector<RecDat> topPredictions;
-      int counter;
+      int counter = 0;
   };
   class TestOnlinePredictor : public ::testing::Test  {
     public:
@@ -26,6 +24,9 @@ namespace {
         params1.top_k=0;
         params1.exclude_known=0;
         predictionCreator = new DummyToplistCreator(&params1);
+        predictionCreator->topPredictions.push_back(
+          *createRecDat(1,2,0.0,100) //the RecDat will be copied there
+        );
 
         OnlinePredictorParameters params;
         params.evaluation_start_time = 10;
@@ -91,6 +92,18 @@ TEST_F(TestOnlinePredictor, test) {
   EXPECT_EQ(3,predictionCreator->counter);
   EXPECT_EQ(4,onlinePredictor->actual_time_frame_);
   EXPECT_EQ(4,onlinePredictor->past_time_frame_);
+}
+TEST_F(TestOnlinePredictor, init) {
+  OnlinePredictorParameters params;
+  params.evaluation_start_time = -1;
+  params.time_frame = 20;
+  OnlinePredictor online_predictor(&params);
+  online_predictor.set_prediction_creator(predictionCreator);
+
+  ExperimentEnvironment exp_env;
+  online_predictor.set_experiment_environment(&exp_env);
+
+  EXPECT_TRUE(online_predictor.initialize());
 }
 
 int main (int argc, char **argv) {
