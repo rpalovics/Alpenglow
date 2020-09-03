@@ -362,6 +362,39 @@ TEST_F(TestTransitionEndLogger, test){
   //cerr << ss.str() << endl;
 }
 
+TEST_F(TestTransitionEndLogger, fileerror){
+  TransitionProbabilityModel model;
+  EXPECT_TRUE(model.self_test());
+  TransitionModelEndLoggerParameters logger_params;
+  logger_params.max_length=5;
+  logger_params.log_file_name="";
+  TransitionModelEndLogger logger(&logger_params);
+  logger.set_model(&model);
+  PopContainer pop_container;
+  logger.set_pop_container(&pop_container);
+  EXPECT_FALSE(logger.self_test());
+  RecDat rec_dat;
+  logger.run(&rec_dat); //tries to open file named '', fails, writes error message
+}
+
+TEST_F(TestTransitionEndLogger, init){
+  TransitionModelEndLoggerParameters logger_params;
+  logger_params.max_length=5;
+  logger_params.log_file_name="transition_end_logger_temp_file";
+  TransitionModelEndLogger logger(&logger_params);
+  ExperimentEnvironment exp_env;
+  logger.set_experiment_environment(&exp_env);
+  EXPECT_TRUE(logger.initialize());
+}
+
+TEST_F(TestTransitionEndLogger, destructor){
+  TransitionModelEndLoggerParameters logger_params;
+  logger_params.max_length=5;
+  logger_params.log_file_name="transition_end_logger_temp_file";
+  TransitionModelEndLogger* logger = new TransitionModelEndLogger(&logger_params);
+  delete logger;
+}
+
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
