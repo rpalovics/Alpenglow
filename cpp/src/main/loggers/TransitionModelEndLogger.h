@@ -48,7 +48,7 @@ class TransitionModelEndLogger
     const PopContainer* pop_container_ = NULL;
     string log_file_name_;
     int max_length_;
-  FRIEND_TEST(TestTransitionEndLogger, test);
+  FRIEND_TEST(TestTransitionLogger, end_test);
 };
 
 

@@ -23,10 +23,10 @@ class TestTransitionProbabilityModel : public ::testing::Test {
       return rec_dat;
     }
 };
-class TestTransitionEndLogger : public ::testing::Test {
+class TestTransitionLogger : public ::testing::Test {
   public:
-    TestTransitionEndLogger(){}
-    virtual ~TestTransitionEndLogger(){}
+    TestTransitionLogger(){}
+    virtual ~TestTransitionLogger(){}
     void SetUp() override {
     }
     void TearDown() override {
@@ -283,7 +283,7 @@ TEST_F(TestTransitionProbabilityModel, test_rsi){
 
 }
 
-TEST_F(TestTransitionEndLogger, test){
+TEST_F(TestTransitionLogger, end_test){
   vector<RecDat> timeline;
   TransitionProbabilityModel model;
   TransitionProbabilityModelUpdaterParameters params;
@@ -362,7 +362,7 @@ TEST_F(TestTransitionEndLogger, test){
   //cerr << ss.str() << endl;
 }
 
-TEST_F(TestTransitionEndLogger, fileerror){
+TEST_F(TestTransitionLogger, fileerror){
   TransitionProbabilityModel model;
   EXPECT_TRUE(model.self_test());
   TransitionModelEndLoggerParameters logger_params;
@@ -377,7 +377,7 @@ TEST_F(TestTransitionEndLogger, fileerror){
   logger.run(&rec_dat); //tries to open file named '', fails, writes error message
 }
 
-TEST_F(TestTransitionEndLogger, init){
+TEST_F(TestTransitionLogger, end_init){
   TransitionModelEndLoggerParameters logger_params;
   logger_params.max_length=5;
   logger_params.log_file_name="transition_end_logger_temp_file";
@@ -387,7 +387,7 @@ TEST_F(TestTransitionEndLogger, init){
   EXPECT_TRUE(logger.initialize());
 }
 
-TEST_F(TestTransitionEndLogger, destructor){
+TEST_F(TestTransitionLogger, end_destructor){
   TransitionModelEndLoggerParameters logger_params;
   logger_params.max_length=5;
   logger_params.log_file_name="transition_end_logger_temp_file";
