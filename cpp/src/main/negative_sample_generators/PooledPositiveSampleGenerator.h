@@ -45,6 +45,7 @@ class PooledPositiveSampleGenerator : public NegativeSampleGenerator {
     vector<RecDat*> pool_;
     Random random_;
   FRIEND_TEST(TestPooledPositiveSampleGenerator,test);
+  FRIEND_TEST(TestPooledPositiveSampleGenerator,generate);
 };
 
 #endif /* POOLED_POSITIVE_SAMPLE_GENERATOR_H */
