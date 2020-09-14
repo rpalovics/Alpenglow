@@ -475,6 +475,18 @@ frequently used implementation is
     :show-inheritance:
 
 
+.. autoclass:: alpenglow.cpp.PooledPositiveSampleGeneratorParameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+.. autoclass:: alpenglow.cpp.PooledPositiveSampleGenerator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 .. autoclass:: alpenglow.cpp.NegativeSampleGenerator
     :members:
     :undoc-members:

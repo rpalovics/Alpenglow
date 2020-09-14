@@ -1,4 +1,5 @@
 from .FactorExperiment import *
+from .PosSamplingFactorExperiment import *
 from .AsymmetricFactorExperiment import *
 from .SvdppExperiment import *
 from .PersonalPopularityExperiment import *

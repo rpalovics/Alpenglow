@@ -108,6 +108,14 @@ alpenglow.experiments.PopularityTimeframeExperiment module
     :undoc-members:
     :show-inheritance:
 
+alpenglow.experiments.PosSamplingFactorExperiment module
+--------------------------------------------------------
+
+.. automodule:: alpenglow.experiments.PosSamplingFactorExperiment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alpenglow.experiments.SvdppExperiment module
 --------------------------------------------
 
