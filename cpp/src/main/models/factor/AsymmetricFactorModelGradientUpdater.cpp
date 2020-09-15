@@ -36,10 +36,12 @@ void AsymmetricFactorModelGradientUpdater::end_of_updating_cycle(RecDat* rec_dat
 void AsymmetricFactorModelGradientUpdater::update_item_factors(RecDat* rec_dat, double gradient){
   //assumption: prediction was called and cached_user_factor is valid
   //assumption2: update_history_item_factors does not recompute p_u after changing q'_j-s, so we don't have to cache user vector
+  if (!model_->cache_is_valid(rec_dat)) model_->prediction(rec_dat);
   model_->item_factors_.lin_combine(rec_dat->item,-gradient*learning_rate_, &model_->cached_user_factor_);
 }
 void AsymmetricFactorModelGradientUpdater::update_history_item_factors(RecDat* rec_dat,double gradient,vector<double>* item_vector){
   //assumption: prediction was called and cached_weights is valid
+  if (!model_->cache_is_valid(rec_dat)) model_->prediction(rec_dat);
   const vector<const RecDat*>* user_history = model_->user_history_container_.get_user_history(rec_dat->user);
   if(user_history != NULL){
     auto history_iterator = user_history->rbegin();

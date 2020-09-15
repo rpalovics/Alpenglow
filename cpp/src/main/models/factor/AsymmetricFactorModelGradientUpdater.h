@@ -20,7 +20,7 @@ class AsymmetricFactorModelGradientUpdater : public ModelGradientUpdater{
       ,cumulative_item_updates_(parameters->cumulative_item_updates)
     { }
     void update(RecDat* rec_dat, double gradient) override;
-    void message(UpdaterMessage message) override;
+    void message(UpdaterMessage message) override; //TODO move to ModelGradientUpdater
     void beginning_of_updating_cycle(RecDat*) override; //TODO private
     void end_of_updating_cycle(RecDat*) override; //TODO private
     void set_model(AsymmetricFactorModel* model){

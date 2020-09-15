@@ -48,6 +48,7 @@ double AsymmetricFactorModel::prediction(RecDat* rec_dat){
 
 void AsymmetricFactorModel::compute_user_factor(RecDat* rec_dat){
   if( cache_is_valid(rec_dat) ) return; //do not recompute user vector during evaluation
+  update_cache_labels(rec_dat);
   auto user_history = user_history_container_.get_user_history(rec_dat->user);
   bool user_has_history = user_history!=NULL && user_history->size()!=0; //TODO should not happen that uh size == 0
   if(user_has_history){
@@ -59,16 +60,18 @@ void AsymmetricFactorModel::compute_user_factor(RecDat* rec_dat){
   }
 }
 
-bool AsymmetricFactorModel::cache_is_valid(RecDat* rec_dat){ //TODO split to valid/update_cache_flags
+bool AsymmetricFactorModel::cache_is_valid(RecDat* rec_dat) const {
   bool sample_differs = last_user_!=rec_dat->user
       || last_time_!=rec_dat->time
       || last_id_!=rec_dat->id;
-  if(!cache_marked_invalid_ && !sample_differs) return true;
+  return (!cache_marked_invalid_ && !sample_differs);
+}
+
+void AsymmetricFactorModel::update_cache_labels(RecDat* rec_dat){
   cache_marked_invalid_=false;
   last_user_ = rec_dat->user;
   last_time_ = rec_dat->time;
   last_id_ = rec_dat->id;
-  return false;
 }
 
 double AsymmetricFactorModel::compute_norm(int user_activity_size){
