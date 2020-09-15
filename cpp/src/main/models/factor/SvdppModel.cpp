@@ -19,7 +19,7 @@ void SvdppModel::clear(){
   last_user_=-1;
   last_time_=-1;
   last_id_=-1;
-  invalidate_user_factor_=true;
+  cache_marked_invalid_=true;
 
   user_factors_.clear();
   history_item_factors_.clear();
@@ -64,10 +64,10 @@ void SvdppModel::compute_user_factor(RecDat* rec_dat){
 
 bool SvdppModel::cache_is_valid(RecDat* rec_dat){
   //assumption: if we test cache, and it is not valid, we will immediately recompute it
-  if(!invalidate_user_factor_ && last_user_==rec_dat->user && last_time_==rec_dat->time && last_id_==rec_dat->id){
+  if(!cache_marked_invalid_ && last_user_==rec_dat->user && last_time_==rec_dat->time && last_id_==rec_dat->id){
     return true;
   } else {
-    invalidate_user_factor_=false;
+    cache_marked_invalid_=false;
     last_user_ = rec_dat->user;
     last_time_ = rec_dat->time;
     last_id_ = rec_dat->id;
