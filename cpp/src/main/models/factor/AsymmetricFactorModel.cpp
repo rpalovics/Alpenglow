@@ -39,16 +39,15 @@ void AsymmetricFactorModel::add(RecDat* rec_dat){
 }
 
 double AsymmetricFactorModel::prediction(RecDat* rec_dat){
-  compute_user_factor(rec_dat);
+  vector<double>* user_factor = compute_user_factor(rec_dat);
   vector<double>* item_factor = item_factors_.get(rec_dat->item);
-  double val = Util::scalar_product(&cached_user_factor_,item_factor);
+  double val = Util::scalar_product(user_factor,item_factor);
   if(use_sigmoid_) return Util::sigmoid_function(val);
   else return val;
 }
 
-void AsymmetricFactorModel::compute_user_factor(RecDat* rec_dat){
-  if( cache_is_valid(rec_dat) ) return; //do not recompute user vector during evaluation
-  update_cache_labels(rec_dat);
+vector<double>* AsymmetricFactorModel::compute_user_factor(RecDat* rec_dat){
+  if( cache_is_valid(rec_dat) ) return &cached_user_factor_; //do not recompute user vector during evaluation
   auto user_history = user_history_container_.get_user_history(rec_dat->user);
   bool user_has_history = user_history!=NULL && user_history->size()!=0; //TODO should not happen that uh size == 0
   if(user_has_history){
@@ -58,6 +57,8 @@ void AsymmetricFactorModel::compute_user_factor(RecDat* rec_dat){
   } else {
     Util::zero_out_vector(&cached_user_factor_);
   }
+  set_cache_id(rec_dat);
+  return &cached_user_factor_;
 }
 
 bool AsymmetricFactorModel::cache_is_valid(RecDat* rec_dat) const {
@@ -67,7 +68,7 @@ bool AsymmetricFactorModel::cache_is_valid(RecDat* rec_dat) const {
   return (!cache_marked_invalid_ && !sample_differs);
 }
 
-void AsymmetricFactorModel::update_cache_labels(RecDat* rec_dat){
+void AsymmetricFactorModel::set_cache_id(RecDat* rec_dat){
   cache_marked_invalid_=false;
   last_user_ = rec_dat->user;
   last_time_ = rec_dat->time;
