@@ -59,16 +59,16 @@ void AsymmetricFactorModel::compute_user_factor(RecDat* rec_dat){
   }
 }
 
-bool AsymmetricFactorModel::cache_is_valid(RecDat* rec_dat){
-  if(!cache_marked_invalid_ && last_user_==rec_dat->user && last_time_==rec_dat->time && last_id_==rec_dat->id){
-    return true;
-  } else {
-    cache_marked_invalid_=false;
-    last_user_ = rec_dat->user;
-    last_time_ = rec_dat->time;
-    last_id_ = rec_dat->id;
-    return false;
-  }
+bool AsymmetricFactorModel::cache_is_valid(RecDat* rec_dat){ //TODO split to valid/update_cache_flags
+  bool sample_differs = last_user_!=rec_dat->user
+      || last_time_!=rec_dat->time
+      || last_id_!=rec_dat->id;
+  if(!cache_marked_invalid_ && !sample_differs) return true;
+  cache_marked_invalid_=false;
+  last_user_ = rec_dat->user;
+  last_time_ = rec_dat->time;
+  last_id_ = rec_dat->id;
+  return false;
 }
 
 double AsymmetricFactorModel::compute_norm(int user_activity_size){
