@@ -38,6 +38,9 @@ class AsymmetricFactorModel
       , gamma_(parameters->gamma)
       , use_sigmoid_(parameters->use_sigmoid)
       , dimension_(parameters->dimension)
+      , begin_min_(parameters->begin_min)
+      , begin_max_(parameters->begin_max)
+      , seed_(parameters->seed)
       , initialize_all_(parameters->initialize_all)
       , max_item_(parameters->max_item)
     {
@@ -54,7 +57,7 @@ class AsymmetricFactorModel
         ok = false;
         cerr << "AsymmetricFactorModel::initialize_all_ is not used properly." << endl;
       }
-      if(factors_parameters_.begin_min == factors_parameters_.begin_max){
+      if(begin_min_ == begin_max_){
         ok = false;
         cerr << "AsymmetricFactorModel::begin_min_ and FactorModel::begin_max_ is not set properly." << endl;
       }
@@ -86,12 +89,13 @@ class AsymmetricFactorModel
 
     //parameters
     const int dimension_;
+    const double begin_min_, begin_max_;
     const bool use_sigmoid_;
     int initialize_all_;
     int max_item_;
     const string norm_type_;
     const double gamma_;
-    FactorsParameters factors_parameters_, history_item_factors_parameters_;
+    const int seed_;
 
     //state
     Factors history_item_factors_, item_factors_;
