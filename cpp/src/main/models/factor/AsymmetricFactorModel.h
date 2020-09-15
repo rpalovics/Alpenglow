@@ -103,7 +103,7 @@ class AsymmetricFactorModel
     vector<double> cached_weights_;
     double cached_norm_;
     int last_user_, last_time_, last_id_;
-    bool invalidate_user_factor_;
+    bool cache_marked_invalid_;
     UserHistory user_history_container_;
 
     friend class AsymmetricFactorModelGradientUpdater;

@@ -30,9 +30,8 @@ void AsymmetricFactorModel::clear(){
   last_user_=-1;
   last_time_=-1;
   last_id_=-1;
-  invalidate_user_factor_=true;
+  cache_marked_invalid_=true;
 }
-
 
 void AsymmetricFactorModel::add(RecDat* rec_dat){
   history_item_factors_.init(rec_dat->item);
@@ -41,16 +40,17 @@ void AsymmetricFactorModel::add(RecDat* rec_dat){
 
 double AsymmetricFactorModel::prediction(RecDat* rec_dat){
   compute_user_factor(rec_dat);
-  double val = Util::scalar_product(&cached_user_factor_,
-      item_factors_.get(rec_dat->item));
+  vector<double>* item_factor = item_factors_.get(rec_dat->item);
+  double val = Util::scalar_product(&cached_user_factor_,item_factor);
   if(use_sigmoid_) return Util::sigmoid_function(val);
   else return val;
 }
 
-void AsymmetricFactorModel::compute_user_factor(RecDat * rec_dat){
-  if(cache_is_valid(rec_dat)) return; //do not recompute user vector during evaluation
+void AsymmetricFactorModel::compute_user_factor(RecDat* rec_dat){
+  if( cache_is_valid(rec_dat) ) return; //do not recompute user vector during evaluation
   auto user_history = user_history_container_.get_user_history(rec_dat->user);
-  if(user_history!=NULL && user_history->size()!=0){ //TODO should not happen that uh size == 0
+  bool user_has_history = user_history!=NULL && user_history->size()!=0; //TODO should not happen that uh size == 0
+  if(user_has_history){
     double norm = compute_norm(user_history->size());
     cached_user_factor_ = compute_histvector_sum(rec_dat,user_history); 
     Util::multiply_vector(norm,&cached_user_factor_);
@@ -60,10 +60,10 @@ void AsymmetricFactorModel::compute_user_factor(RecDat * rec_dat){
 }
 
 bool AsymmetricFactorModel::cache_is_valid(RecDat* rec_dat){
-  if(!invalidate_user_factor_ && last_user_==rec_dat->user && last_time_==rec_dat->time && last_id_==rec_dat->id){
+  if(!cache_marked_invalid_ && last_user_==rec_dat->user && last_time_==rec_dat->time && last_id_==rec_dat->id){
     return true;
   } else {
-    invalidate_user_factor_=false;
+    cache_marked_invalid_=false;
     last_user_ = rec_dat->user;
     last_time_ = rec_dat->time;
     last_id_ = rec_dat->id;
@@ -100,7 +100,7 @@ vector<double> AsymmetricFactorModel::compute_histvector_sum(RecDat* rec_dat, co
        weight=0;
      }
    }
-   return sum_vector; //ha lassu, akkor ellenorizni kell, hogy itt masol, vagy kioptimalizalja
+   return sum_vector;
 }
 
 void AsymmetricFactorModel::write(ostream& file){
@@ -110,6 +110,7 @@ void AsymmetricFactorModel::write(ostream& file){
 }
 
 void AsymmetricFactorModel::read(istream& file){
+  //TODO invalidate model here
   user_history_container_.read(file);
   history_item_factors_.read(file);
   item_factors_.read(file);

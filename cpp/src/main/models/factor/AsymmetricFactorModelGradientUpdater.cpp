@@ -22,14 +22,14 @@ void AsymmetricFactorModelGradientUpdater::update(RecDat* rec_dat, double gradie
     Util::sum_update_with(&cumulated_histvector_updates_,item_vector,gradient);
   } else {
     update_history_item_factors(rec_dat,gradient,item_vector);
-    model_->invalidate_user_factor_ = true;
+    model_->cache_marked_invalid_ = true;
   }
   update_item_factors(rec_dat,gradient);
 }
 void AsymmetricFactorModelGradientUpdater::end_of_updating_cycle(RecDat* rec_dat){
   if(cumulative_item_updates_){
     update_history_item_factors(rec_dat,1,&cumulated_histvector_updates_);
-    model_->invalidate_user_factor_ = true;
+    model_->cache_marked_invalid_ = true;
   }
 }
 
