@@ -86,7 +86,7 @@ class AsymmetricFactorModel
     double compute_norm(int user_activity_size);
     bool cache_is_valid(RecDat* rec_dat) const;
     void set_cache_id(RecDat* rec_dat);
-    vector<double> compute_histvector_sum(RecDat* rec_dat, const vector<const RecDat*>* user_history);
+    vector<double> sum_user_history(RecDat* rec_dat, const vector<const RecDat*>* user_history);
 
     //parameters
     const int dimension_;
@@ -102,7 +102,7 @@ class AsymmetricFactorModel
     Factors history_item_factors_, item_factors_;
     UserHistory user_history_container_;
 
-    //cache
+    //user cache
     vector<double> cached_user_factor_;
     vector<double> cached_weights_;
     double cached_norm_;
