@@ -110,14 +110,14 @@ vector<double> AsymmetricFactorModel::sum_user_history(RecDat* rec_dat,
 }
 
 void AsymmetricFactorModel::write(ostream& file){
-  user_history_container_.write(file);
+  user_history_container_.write(file); //not implemented, throws exception
   history_item_factors_.write(file);
   item_factors_.write(file);
 }
 
 void AsymmetricFactorModel::read(istream& file){
   //TODO invalidate model here
-  user_history_container_.read(file);
+  user_history_container_.read(file); //not implemented, throws exception
   history_item_factors_.read(file);
   item_factors_.read(file);
 }
