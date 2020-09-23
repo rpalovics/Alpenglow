@@ -43,6 +43,7 @@ class AsymmetricFactorModelGradientUpdater : public ModelGradientUpdater{
 
     //state
     vector<double> cumulated_histvector_updates_;
+    RecDat* first_sample_ = NULL;
 };
 
 #endif /* ASYMMETRIC_FACTOR_MODEL_GRADIENT_UPDATER_H */
