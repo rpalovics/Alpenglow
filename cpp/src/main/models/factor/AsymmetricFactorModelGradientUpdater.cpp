@@ -12,9 +12,9 @@ void AsymmetricFactorModelGradientUpdater::update(RecDat* rec_dat,
     Util::sum_update_with(&cumulated_histvector_updates_,item_vector,gradient);
   } else {
     update_history_item_factors(rec_dat,gradient,item_vector);
-    model_->cache_marked_invalid_ = true;
   }
   update_item_factors(rec_dat,gradient);
+  if (!cumulative_item_updates_) model_->cache_marked_invalid_ = true;
 }
 void AsymmetricFactorModelGradientUpdater::update_item_factors(RecDat* rec_dat,
     double gradient){
