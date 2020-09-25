@@ -40,17 +40,17 @@ TEST_F(TestSvdppModel, test){
   for(uint i=0;i<user_vector_weights.size();i++){
     double user_vector_weight=user_vector_weights[i];
     double history_weight=history_weights[i];
-    SvdppModelParameters model_parameters;
-    model_parameters.dimension=10;
-    model_parameters.begin_min=-0.1;
-    model_parameters.begin_max=0.1;
-    model_parameters.initialize_all=false;
-    model_parameters.use_sigmoid=false;
-    model_parameters.user_vector_weight=user_vector_weight;
-    model_parameters.history_weight=history_weight;
-    model_parameters.norm_type="exponential";
-    model_parameters.gamma=0.8;
-    SvdppModel model(&model_parameters);
+    SvdppModelParameters model_params;
+    model_params.dimension=10;
+    model_params.begin_min=-0.1;
+    model_params.begin_max=0.1;
+    model_params.initialize_all=false;
+    model_params.use_sigmoid=false;
+    model_params.user_vector_weight=user_vector_weight;
+    model_params.history_weight=history_weight;
+    model_params.norm_type="exponential";
+    model_params.gamma=0.8;
+    SvdppModel model(&model_params);
     SvdppModelGradientUpdaterParameters grad_upd_parameters;
     grad_upd_parameters.learning_rate=0.1;
     grad_upd_parameters.cumulative_item_updates=false;
@@ -186,10 +186,50 @@ TEST_F(TestSvdppModel, self_test){
   model_params.initialize_all=true;
   model_params.max_item=-1;
   model_params.max_user=-1;
+  model_params.user_vector_weight=1;
+  model_params.history_weight=1;
   SvdppModel model(&model_params);
   EXPECT_FALSE(model.self_test());
 
   //TODO self_test of gradient updater
+}
+
+TEST_F(TestSvdppModel, expenv){
+  SvdppModelParameters model_params;
+  model_params.dimension=DIMENSION;
+  model_params.begin_min=-0.1;
+  model_params.begin_max=0.1;
+  model_params.norm_type="exponential";
+  model_params.gamma=0.8;
+  model_params.initialize_all=-1;
+  model_params.user_vector_weight=1;
+  model_params.history_weight=1;
+  SvdppModel model(&model_params);
+  EXPECT_FALSE(model.initialize());
+
+  ExperimentEnvironment exp_env;
+  model.set_experiment_environment(&exp_env);
+  EXPECT_TRUE(model.initialize());
+}
+
+TEST_F(TestSvdppModel, expenv2){
+  SvdppModelParameters model_params;
+  model_params.dimension=DIMENSION;
+  model_params.begin_min=-0.1;
+  model_params.begin_max=0.1;
+  model_params.norm_type="exponential";
+  model_params.gamma=0.8;
+  model_params.initialize_all=true;
+  model_params.max_item=-1;
+  model_params.max_user=-1;
+  model_params.user_vector_weight=1;
+  model_params.history_weight=1;
+  SvdppModel model(&model_params);
+  EXPECT_FALSE(model.initialize());
+
+  ExperimentEnvironment exp_env;
+  model.set_experiment_environment(&exp_env);
+  EXPECT_TRUE(model.initialize());
 }
 
 TEST_F(TestSvdppModel, readwrite){
