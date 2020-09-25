@@ -24,10 +24,10 @@ struct SvdppModelParameters {
   bool use_sigmoid = false;
   double user_vector_weight = 1;
   double history_weight = 1;
-  string norm_type = "constant";
+  string norm_type = "constant"; //disabled, constant, recency, exponential, youngest
   double gamma = 0.8;
   int seed=745578;
-  int initialize_all = false;
+  int initialize_all = -1;
   int max_item = -1;
   int max_user = -1;
 };
@@ -38,22 +38,23 @@ class SvdppModel
 , public Initializable
 {
   public:
-    SvdppModel(SvdppModelParameters *parameters):
-      dimension_(parameters->dimension),
-      begin_min_(parameters->begin_min),
-      begin_max_(parameters->begin_max),
-      initialize_all_(parameters->initialize_all),
-      max_user_(parameters->max_user),
-      max_item_(parameters->max_item),
-      use_sigmoid_(parameters->use_sigmoid),
-      user_vector_weight_(parameters->user_vector_weight),
-      history_weight_(parameters->history_weight),
-      norm_type_(parameters->norm_type),
-      gamma_(parameters->gamma)
+    SvdppModel(SvdppModelParameters* parameters)
+      : dimension_(parameters->dimension)
+      , begin_min_(parameters->begin_min)
+      , begin_max_(parameters->begin_max)
+      , seed_(parameters->seed)
+      , initialize_all_(parameters->initialize_all)
+      , max_user_(parameters->max_user)
+      , max_item_(parameters->max_item)
+      , use_sigmoid_(parameters->use_sigmoid)
+      , user_vector_weight_(parameters->user_vector_weight)
+      , history_weight_(parameters->history_weight)
+      , norm_type_(parameters->norm_type)
+      , gamma_(parameters->gamma)
     {
       set_parameters(parameters);
       clear();
-    };
+    }
     void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
     void write(ostream& file) override;
@@ -62,10 +63,10 @@ class SvdppModel
     //double user_factor_mean();
     //double item_factor_mean();
     //void to_call_outside(RecDat*, int, std::vector<double>*);
-    //double compute_product(RecDat * rec_dat);
+    //double compute_product(RecDat* rec_dat);
     //double get_history_weight(int num);
-    //double compute_user_bias(RecDat * rec_dat);
-    //double compute_item_bias(RecDat * rec_dat);
+    //double compute_user_bias(RecDat* rec_dat);
+    //double compute_item_bias(RecDat* rec_dat);
     bool self_test(){
       bool ok=Model::self_test();
       if(initialize_all_ and (max_item_==-1 or max_user_ ==-1)){
@@ -100,7 +101,7 @@ class SvdppModel
     const double history_weight_;
     const string norm_type_;
     const double gamma_;
-    FactorsParameters factors_parameters;
+    const int seed_;
 
     //state
     Factors user_factors_, item_factors_, history_item_factors_;

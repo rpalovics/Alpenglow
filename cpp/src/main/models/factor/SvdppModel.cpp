@@ -3,16 +3,21 @@
 #include <fstream>
 
 
-void SvdppModel::set_parameters(SvdppModelParameters* parameters){
-  factors_parameters.begin_min=parameters->begin_min;
-  factors_parameters.begin_max=parameters->begin_max;
-  factors_parameters.dimension=parameters->dimension;
-  factors_parameters.seed=parameters->seed;
+void SvdppModel::set_parameters(SvdppModelParameters*){
+  FactorsParameters factors_parameters;
+  factors_parameters.begin_min=begin_min_;
+  factors_parameters.begin_max=begin_max_;
+  factors_parameters.dimension=dimension_;
+  factors_parameters.seed=seed_;
   user_factors_.set_parameters(factors_parameters);
+
   factors_parameters.seed+=1;
   item_factors_.set_parameters(factors_parameters);
+
   factors_parameters.seed+=1;
   history_item_factors_.set_parameters(factors_parameters);
+
+  cached_user_factor_.resize(dimension_,0);
 }
 
 void SvdppModel::clear(){
