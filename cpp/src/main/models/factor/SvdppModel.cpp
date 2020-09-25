@@ -57,16 +57,21 @@ double SvdppModel::prediction(RecDat *rec_dat){
 
 vector<double>* SvdppModel::compute_user_factor(RecDat* rec_dat){
   if( cache_is_valid(rec_dat) ) return &cached_user_factor_; //caching to improve efficiency
+
+  //user history part
   auto user_history = user_history_container_.get_user_history(rec_dat->user);
-  if(user_history!=NULL && user_history->size()!=0){ //TODO assert: should not happen that uh size == 0
-    cached_user_factor_ = compute_histvector_sum(rec_dat,user_history); 
+  bool user_has_history = user_history!=NULL && user_history->size()!=0; //TODO should not happen that uh size == 0
+  if(user_has_history){
     double norm = compute_norm(user_history->size());
+    cached_user_factor_ = sum_user_history(rec_dat,user_history); 
     Util::multiply_vector(norm*history_weight_,&cached_user_factor_);
   } else {
     Util::zero_out_vector(&cached_user_factor_);
   }
+  //user part
   vector<double>* user_vector=user_factors_.get(rec_dat->user);
   Util::sum_update_with(&cached_user_factor_,user_vector,user_vector_weight_);
+
   return &cached_user_factor_;
 }
 
@@ -93,7 +98,7 @@ double SvdppModel::compute_norm(int user_activity_size){
   return norm;
 }
 
-vector<double> SvdppModel::compute_histvector_sum(RecDat* rec_dat, const vector<const RecDat*>* user_history){
+vector<double> SvdppModel::sum_user_history(RecDat* rec_dat, const vector<const RecDat*>* user_history){
    vector<double> sum_vector(dimension_,0);
    double weight = 1.0; //"constant" or "disabled"
    cached_weights_.clear();
