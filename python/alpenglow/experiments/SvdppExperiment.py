@@ -41,7 +41,8 @@ class SvdppExperiment(prs.OnlineExperiment):
             norm_type="exponential",
             gamma=0.8,
             user_vector_weight=0.5,
-            history_weight=0.5
+            history_weight=0.5,
+            initialize_all=False
         ))
 
         gradient_updater = rs.SvdppModelGradientUpdater(**self.parameter_defaults(

@@ -34,7 +34,8 @@ class SvdppModel(alpenglow.offline.OfflineModel):
             norm_type="constant",
             gamma=1,
             user_vector_weight=0.5,
-            history_weight=0.5
+            history_weight=0.5,
+            initialize_all=False
         ))
 
         gradient_updater = rs.SvdppModelGradientUpdater(**self.parameter_defaults(
