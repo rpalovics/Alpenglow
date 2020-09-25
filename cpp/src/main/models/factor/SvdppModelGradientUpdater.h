@@ -45,6 +45,7 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
     //state
     SvdppModel* model_ = NULL;
     vector<double> cumulated_histvector_updates_;
+    RecDat* first_sample_ = NULL;
 };
 
 #endif /* SVDPP_MODEL_GRADIENT_UPDATER_H */

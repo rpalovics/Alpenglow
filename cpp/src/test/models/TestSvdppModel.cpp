@@ -128,6 +128,61 @@ TEST_F(TestSvdppModel, test_norm_types){
   }
 }
 
+TEST_F(TestSvdppModel, cumulative){
+  vector<string> norm_types = {"disabled", "constant", "youngest", "recency"};
+  for (auto norm_type : norm_types){
+    SvdppModelParameters model_params;
+    model_params.dimension=DIMENSION;
+    model_params.begin_min=-0.1;
+    model_params.begin_max=0.1;
+    model_params.norm_type=norm_type;
+    model_params.gamma=-1;
+    model_params.initialize_all=false;
+    SvdppModel model(&model_params);
+    SvdppModelUpdater simple_updater;
+    simple_updater.set_model(&model);
+    SvdppModelGradientUpdaterParameters grad_upd_params;
+    grad_upd_params.learning_rate=0.14;
+    grad_upd_params.cumulative_item_updates=true;
+    SvdppModelGradientUpdater gradient_updater(&grad_upd_params);
+    gradient_updater.set_model(&model);
+
+    EXPECT_TRUE(model.self_test());
+    EXPECT_TRUE(simple_updater.self_test());
+    EXPECT_TRUE(gradient_updater.self_test());
+
+    for(int i=0;i<10;i++){
+      RecDat* rec_dat = create_rec_dat(1,i,1,1);
+      simple_updater.update(rec_dat);
+      model.add(rec_dat);
+    }
+    vector<RecDat*> negative_samples;
+    vector<RecDat*> other_user_samples;
+    for(int j=20;j<25;j++){
+      RecDat* negative_sample = create_rec_dat(1,j,1,0);
+      model.add(negative_sample);
+      negative_sample->score = model.prediction(negative_sample); //the model does not use the score field, we store there the original prediction
+      negative_samples.push_back(negative_sample);
+    }
+    for(int i=10;i<20;i++){
+      gradient_updater.message(UpdaterMessage::start_of_implicit_update_cycle);
+      RecDat* positive_sample = create_rec_dat(1,i,1,1);
+      model.add(positive_sample);
+      double orig_prediction = model.prediction(positive_sample);
+      gradient_updater.update(positive_sample, -0.1);
+      for(auto negative_sample : negative_samples){
+        gradient_updater.update(negative_sample, 0.1);
+      }
+
+      gradient_updater.message(UpdaterMessage::end_of_implicit_update_cycle);
+      EXPECT_LT(orig_prediction, model.prediction(positive_sample));
+      for(auto negative_sample : negative_samples){
+        EXPECT_GT(negative_sample->score,model.prediction(negative_sample));
+      }
+    }
+  }
+}
+
 TEST_F(TestSvdppModel, sigmoid){
   for(int i=0;i<100;i++){
     create_rec_dat(i%MAXUSER,i%MAXITEM,i,1);

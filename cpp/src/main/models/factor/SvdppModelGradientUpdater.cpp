@@ -1,6 +1,7 @@
 #include "SvdppModelGradientUpdater.h"
 
 void SvdppModelGradientUpdater::update(RecDat* rec_dat, double gradient){ 
+  if (cumulative_item_updates_ && first_sample_==NULL) first_sample_=rec_dat;
   if(model_->use_sigmoid_){
     double pred = model_->prediction(rec_dat);
     gradient = gradient * Util::sigmoid_derivative_function(pred);
@@ -63,11 +64,13 @@ void SvdppModelGradientUpdater::message(UpdaterMessage message){
 void SvdppModelGradientUpdater::beginning_of_updating_cycle(RecDat* rec_dat){
   if(cumulative_item_updates_){
     Util::zero_out_vector(&cumulated_histvector_updates_);
+    first_sample_ = NULL;
   }
 }
 void SvdppModelGradientUpdater::end_of_updating_cycle(RecDat* rec_dat){
-  if(cumulative_item_updates_){
-    update_history_item_factors(rec_dat,1,&cumulated_histvector_updates_);
+  if(cumulative_item_updates_ && first_sample_!=NULL){
+    update_history_item_factors(first_sample_,1,&cumulated_histvector_updates_);
     model_->cache_marked_invalid_ = true;
+    first_sample_=NULL;
   }
 }
