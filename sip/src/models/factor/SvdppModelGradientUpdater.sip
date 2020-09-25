@@ -17,4 +17,6 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
     void beginning_of_updating_cycle(RecDat*);
     void end_of_updating_cycle(RecDat*);
     bool self_test();
+  private:
+    SvdppModelGradientUpdater& operator=(const SvdppModelGradientUpdater&);
 };
