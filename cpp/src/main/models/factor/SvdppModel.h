@@ -53,7 +53,6 @@ class SvdppModel
       , gamma_(parameters->gamma)
     {
       set_parameters(parameters);
-      clear();
     }
     void add(RecDat* rec_dat) override;
     double prediction(RecDat* rec_dat) override;
