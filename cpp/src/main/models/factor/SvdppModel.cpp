@@ -21,11 +21,6 @@ void SvdppModel::set_parameters(SvdppModelParameters*){
 }
 
 void SvdppModel::clear(){
-  last_user_=-1;
-  last_time_=-1;
-  last_id_=-1;
-  cache_marked_invalid_=true;
-
   user_factors_.clear();
   history_item_factors_.clear();
   item_factors_.clear();
@@ -37,6 +32,13 @@ void SvdppModel::clear(){
       history_item_factors_.init(item);
     }
   }
+  Util::zero_out_vector(&cached_user_factor_);
+  cached_weights_.clear();
+  cached_norm_=1;
+  last_user_=-1;
+  last_time_=-1;
+  last_id_=-1;
+  cache_marked_invalid_=true;
 }
 
 void SvdppModel::add(RecDat *rec_dat){
