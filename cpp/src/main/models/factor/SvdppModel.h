@@ -90,33 +90,6 @@ class SvdppModel
       return ok;
     }
   protected:
-    //parameters
-    const int dimension_;
-    const double begin_min_, begin_max_;
-    const bool use_sigmoid_;
-    int initialize_all_;
-    int max_user_;
-    int max_item_;
-    const double user_vector_weight_;
-    const double history_weight_;
-    const string norm_type_;
-    const double gamma_;
-    const int seed_;
-
-    //state
-    Factors user_factors_, item_factors_, history_item_factors_;
-    UserHistory user_history_container_;
-    vector<double> cached_user_factor_;
-    vector<double> cached_weights_;
-    double cached_norm_;
-    int last_user_, last_time_, last_id_;
-    bool cache_marked_invalid_;
-    //double cached_norm_, last_timestamp_;
-    //vector<double> user_vector_cache_;
-    //int last_user_, last_recdat_id_;
-    //vector<vector<int>*> user_history_;
-
-    //other
     bool autocalled_initialize() override {
       if (-1==initialize_all_){
         if (NULL==experiment_environment_) return false;
@@ -140,6 +113,29 @@ class SvdppModel
     void set_cache_id(RecDat* rec_dat);
     vector<double> sum_user_history(RecDat* rec_dat, const vector<const RecDat*>* user_history);
 
+    //parameters
+    const int dimension_;
+    const double begin_min_, begin_max_;
+    const bool use_sigmoid_;
+    int initialize_all_;
+    int max_user_;
+    int max_item_;
+    const double user_vector_weight_;
+    const double history_weight_;
+    const string norm_type_;
+    const double gamma_;
+    const int seed_;
+
+    //state
+    Factors user_factors_, item_factors_, history_item_factors_;
+    UserHistory user_history_container_;
+
+    //cache
+    vector<double> cached_user_factor_;
+    vector<double> cached_weights_;
+    double cached_norm_;
+    int last_user_, last_time_, last_id_;
+    bool cache_marked_invalid_;
 
     friend class SvdppModelGradientUpdater;
     friend class SvdppModelUpdater;

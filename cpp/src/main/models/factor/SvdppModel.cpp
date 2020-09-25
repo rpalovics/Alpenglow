@@ -101,39 +101,41 @@ double SvdppModel::compute_norm(int user_activity_size){
 }
 
 vector<double> SvdppModel::sum_user_history(RecDat* rec_dat, const vector<const RecDat*>* user_history){
-   vector<double> sum_vector(dimension_,0);
-   double weight = 1.0; //"constant" or "disabled"
-   cached_weights_.clear();
-   for(auto it = user_history->rbegin(); it!=user_history->rend(); it++){ 
-     if(norm_type_=="recency"){
-       double time_diff = rec_dat->time - (*it)->time;
-       weight = 604800.0 / (604800.0 + time_diff);
-       if(weight > 1) throw runtime_error("timediff should be nonnegative");
-       if(weight < 0.01) break; //do not add small components
-     }
-     cached_weights_.push_back(weight); //for the gradient updater
-     Util::sum_update_with(&sum_vector,history_item_factors_.get((*it)->item),weight);
-     if(norm_type_=="exponential"){
-       weight*=gamma_;
-     }
-     if(norm_type_=="youngest"){
-       weight=0;
-     }
-   }
-   return sum_vector; //ha lassu, akkor ellenorizni kell, hogy itt masol, vagy kioptimalizalja
+  vector<double> sum_vector(dimension_,0);
+  //copied from AsymmetricFactorModel
+  double weight = 1.0; //"constant" or "disabled"
+  cached_weights_.clear();
+  for(auto it = user_history->rbegin(); it!=user_history->rend(); it++){ 
+    if(norm_type_=="recency"){
+      double time_diff = rec_dat->time - (*it)->time;
+      weight = 604800.0 / (604800.0 + time_diff); //TODO remove magic constant
+      if(weight > 1) throw runtime_error("timediff should be nonnegative");
+      if(weight < 0.01) break; //do not add small components
+      //TODO remove magic constant
+    }
+    cached_weights_.push_back(weight); //for the gradient updater
+    Util::sum_update_with(&sum_vector,history_item_factors_.get((*it)->item),weight);
+    if(norm_type_=="exponential"){
+      weight*=gamma_;
+    }
+    if(norm_type_=="youngest"){
+      weight=0;
+    }
+  }
+  return sum_vector;
 }
-
 
 void SvdppModel::write(ostream& file){
   user_factors_.write(file);
   item_factors_.write(file);
-  history_item_factors_.write(file);
+  history_item_factors_.write(file); //not implemented, throws exception
 }
 
 void SvdppModel::read(istream& file){
+  //TODO invalidate model here
   user_factors_.read(file);
   item_factors_.read(file);  
-  history_item_factors_.read(file);
+  history_item_factors_.read(file); //not implemented, throws exception
 }
 
 
