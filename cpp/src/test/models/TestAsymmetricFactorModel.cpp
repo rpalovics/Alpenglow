@@ -216,6 +216,51 @@ TEST_F(TestAsymmetricFactorModel, sigmoid){
   }
 }
 
+TEST_F(TestAsymmetricFactorModel, clear){
+  for(int i=0;i<100;i++){
+    create_rec_dat(i%MAXUSER,i%MAXITEM,i,1);
+  }
+
+  AsymmetricFactorModelParameters model_params;
+  model_params.use_sigmoid=false;
+  model_params.dimension=DIMENSION;
+  model_params.begin_min=-0.1;
+  model_params.begin_max=0.1;
+  model_params.norm_type="constant";
+  model_params.gamma=-1;
+  model_params.initialize_all=true;
+  model_params.max_item=MAXITEM;
+
+  AsymmetricFactorModel model(&model_params);
+  AsymmetricFactorModelUpdater simple_updater;
+  simple_updater.set_model(&model);
+
+  EXPECT_TRUE(model.self_test());
+  EXPECT_TRUE(simple_updater.self_test());
+
+  for(uint i=0;i<rec_dats.size();i++){
+    EXPECT_DOUBLE_EQ(0,model.prediction(rec_dats[i]));
+  }
+  for(uint i=0;i<rec_dats.size();i++){
+    simple_updater.update(rec_dats[i]);
+  }
+  for(uint i=0;i<rec_dats.size();i++){
+    double pred = model.prediction(rec_dats[i]);
+    EXPECT_NE(0,pred); //tests initall
+  }
+  model.clear();
+  for(uint i=0;i<rec_dats.size();i++){
+    EXPECT_DOUBLE_EQ(0,model.prediction(rec_dats[i])); //tests clear
+  }
+  for(uint i=0;i<rec_dats.size();i++){
+    simple_updater.update(rec_dats[i]);
+  }
+  for(uint i=0;i<rec_dats.size();i++){
+    double pred = model.prediction(rec_dats[i]);
+    EXPECT_NE(0,pred); //tests if factors are initialized again after clear
+  }
+}
+
 TEST_F(TestAsymmetricFactorModel, self_test){
   AsymmetricFactorModelParameters model_params;
   model_params.dimension=0;
