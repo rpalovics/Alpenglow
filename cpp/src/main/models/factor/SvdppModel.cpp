@@ -72,20 +72,22 @@ vector<double>* SvdppModel::compute_user_factor(RecDat* rec_dat){
   vector<double>* user_vector=user_factors_.get(rec_dat->user);
   Util::sum_update_with(&cached_user_factor_,user_vector,user_vector_weight_);
 
+  set_cache_id(rec_dat);
   return &cached_user_factor_;
 }
 
-bool SvdppModel::cache_is_valid(RecDat* rec_dat){
-  //assumption: if we test cache, and it is not valid, we will immediately recompute it
-  if(!cache_marked_invalid_ && last_user_==rec_dat->user && last_time_==rec_dat->time && last_id_==rec_dat->id){
-    return true;
-  } else {
-    cache_marked_invalid_=false;
-    last_user_ = rec_dat->user;
-    last_time_ = rec_dat->time;
-    last_id_ = rec_dat->id;
-    return false;
-  }
+bool SvdppModel::cache_is_valid(RecDat* rec_dat) const {
+  bool sample_differs = last_user_!=rec_dat->user
+      || last_time_!=rec_dat->time
+      || last_id_!=rec_dat->id;
+  return (!cache_marked_invalid_ && !sample_differs);
+}
+
+void SvdppModel::set_cache_id(RecDat* rec_dat){
+  cache_marked_invalid_=false;
+  last_user_ = rec_dat->user;
+  last_time_ = rec_dat->time;
+  last_id_ = rec_dat->id;
 }
 
 double SvdppModel::compute_norm(int user_activity_size){
