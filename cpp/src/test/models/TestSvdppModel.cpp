@@ -16,13 +16,15 @@ class TestSvdppModel : public ::testing::Test {
     void SetUp() override {
     }
     RecDat* create_rec_dat(int user, int item, double time, double score){
-      RecDat* recDat = new RecDat;
-      recDat -> user = user;
-      recDat -> item = item;
-      recDat -> time = time;
-      recDat -> score = score;
-      rec_dats.push_back(recDat);
-      return recDat;
+      RecDat* rec_dat = new RecDat;
+      rec_dat->user = user;
+      rec_dat->item = item;
+      rec_dat->time = time;
+      rec_dat->id = rec_dats.size();
+      rec_dat->category = 0;
+      rec_dat->score = score;
+      rec_dats.push_back(rec_dat);
+      return rec_dat;
     }
     void TearDown() override {
       for (vector<RecDat*>::iterator it = rec_dats.begin();it!=rec_dats.end();it++){
@@ -56,9 +58,11 @@ TEST_F(TestSvdppModel, test){
     SvdppModelUpdater simple_updater;
     gradient_updater.set_model(&model);
     simple_updater.set_model(&model);
+
     EXPECT_TRUE(model.self_test());
     EXPECT_TRUE(gradient_updater.self_test());
     EXPECT_TRUE(simple_updater.self_test());
+     
     for(int i=0;i<100;i++){
       create_rec_dat(i%MAXUSER,i%MAXITEM,i,1);
     }
@@ -67,16 +71,62 @@ TEST_F(TestSvdppModel, test){
       simple_updater.update(rec_dats[i]);
     }
     for(uint i=0;i<rec_dats.size();i++){
-    //for(uint i=0;i<5;i++){
       double orig_pred = model.prediction(rec_dats[i]);
       double gradient = orig_pred - 1;
       gradient_updater.update(rec_dats[i],gradient);
       double new_pred = model.prediction(rec_dats[i]);
-      if(orig_pred<1){
+      if(gradient<0){
         EXPECT_GT(new_pred,orig_pred);
       }
-      //cerr << "orig pred=" << orig_pred << " new pred=" << new_pred << endl;
     }
+  }
+}
+
+TEST_F(TestSvdppModel, clear){
+  for(int i=0;i<100;i++){
+    create_rec_dat(i%MAXUSER,i%MAXITEM,i,1);
+  }
+
+  SvdppModelParameters model_params;
+  model_params.use_sigmoid=false;
+  model_params.dimension=DIMENSION;
+  model_params.begin_min=-0.1;
+  model_params.begin_max=0.1;
+  model_params.norm_type="constant";
+  model_params.gamma=-1;
+  model_params.initialize_all=true;
+  model_params.max_item=MAXITEM;
+  model_params.max_user=MAXUSER;
+  model_params.user_vector_weight=0;
+  model_params.history_weight=1;
+
+  SvdppModel model(&model_params);
+  SvdppModelUpdater simple_updater;
+  simple_updater.set_model(&model);
+
+  EXPECT_TRUE(model.self_test());
+  EXPECT_TRUE(simple_updater.self_test());
+
+  for(uint i=0;i<rec_dats.size();i++){
+    EXPECT_DOUBLE_EQ(0,model.prediction(rec_dats[i])); //user_vector_weight=0-->no history, 0 pred
+  }
+  for(uint i=0;i<rec_dats.size();i++){
+    simple_updater.update(rec_dats[i]); //adding history
+  }
+  for(uint i=0;i<rec_dats.size();i++){
+    double pred = model.prediction(rec_dats[i]);
+    EXPECT_NE(0,pred); //tests initall
+  }
+  model.clear();
+  for(uint i=0;i<rec_dats.size();i++){
+    EXPECT_DOUBLE_EQ(0,model.prediction(rec_dats[i])); //tests clear
+  }
+  for(uint i=0;i<rec_dats.size();i++){
+    simple_updater.update(rec_dats[i]);
+  }
+  for(uint i=0;i<rec_dats.size();i++){
+    double pred = model.prediction(rec_dats[i]);
+    EXPECT_NE(0,pred); //tests if factors are initialized again after clear
   }
 }
 
