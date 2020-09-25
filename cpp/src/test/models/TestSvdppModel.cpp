@@ -82,6 +82,52 @@ TEST_F(TestSvdppModel, test){
   }
 }
 
+TEST_F(TestSvdppModel, test_norm_types){
+  for(int i=0;i<100;i++){
+    create_rec_dat(i%MAXUSER,i%MAXITEM,i,1);
+  }
+
+  vector<string> norm_types = {"disabled", "constant", "youngest", "recency"};
+  for (auto norm_type : norm_types){
+    SvdppModelParameters model_params;
+    model_params.dimension=DIMENSION;
+    model_params.begin_min=-0.1;
+    model_params.begin_max=0.1;
+    model_params.norm_type=norm_type;
+    model_params.gamma=-1;
+    model_params.initialize_all=false;
+    model_params.user_vector_weight=1;
+    model_params.history_weight=1;
+    SvdppModel model(&model_params);
+    SvdppModelUpdater simple_updater;
+    simple_updater.set_model(&model);
+    SvdppModelGradientUpdaterParameters grad_upd_params;
+    grad_upd_params.learning_rate=0.14;
+    grad_upd_params.cumulative_item_updates=false;
+    SvdppModelGradientUpdater gradient_updater(&grad_upd_params);
+    gradient_updater.set_model(&model);
+
+    EXPECT_TRUE(model.self_test());
+    EXPECT_TRUE(simple_updater.self_test());
+    EXPECT_TRUE(gradient_updater.self_test());
+
+    for(uint i=0;i<rec_dats.size();i++){
+      EXPECT_EQ(0,model.prediction(rec_dats[i]));
+    }
+    for(uint i=0;i<rec_dats.size();i++){
+      simple_updater.update(rec_dats[i]);
+      model.add(rec_dats[i]);
+      double orig_pred = model.prediction(rec_dats[i]);
+      double gradient = orig_pred - 1;
+      gradient_updater.update(rec_dats[i],gradient);
+      double new_pred = model.prediction(rec_dats[i]);
+      if(gradient<0){
+        EXPECT_GT(new_pred,orig_pred);
+      }
+    }
+  }
+}
+
 TEST_F(TestSvdppModel, clear){
   for(int i=0;i<100;i++){
     create_rec_dat(i%MAXUSER,i%MAXITEM,i,1);
