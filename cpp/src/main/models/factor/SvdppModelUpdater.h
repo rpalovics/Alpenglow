@@ -7,9 +7,9 @@
 class SvdppModelUpdater : public Updater{
   public:
     void update(RecDat* rec_dat) override {
+      model_->add(rec_dat);
       model_->user_history_container_.update(rec_dat);
       model_->cache_marked_invalid_=true;
-      model_->add(rec_dat);
     }
     void set_model(SvdppModel* model){model_=model;}
     bool self_test(){
