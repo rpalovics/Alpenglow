@@ -134,7 +134,7 @@ class SvdppModel
       return true;
     }
     void set_parameters(SvdppModelParameters* parameters);
-    void compute_user_factor(RecDat* rec_dat);
+    vector<double>* compute_user_factor(RecDat* rec_dat);
     double compute_norm(int user_activity_size);
     bool cache_is_valid(RecDat* rec_dat);
     vector<double> compute_histvector_sum(RecDat* rec_dat, const vector<const RecDat*>* user_history);

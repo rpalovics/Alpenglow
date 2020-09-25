@@ -48,15 +48,15 @@ void SvdppModel::add(RecDat *rec_dat){
 }
 
 double SvdppModel::prediction(RecDat *rec_dat){
-  compute_user_factor(rec_dat);
-  double val = Util::scalar_product(&cached_user_factor_,item_factors_.get(rec_dat->item));
-  if(use_sigmoid_)
-    return Util::sigmoid_function(val);
+  vector<double>* user_factor = compute_user_factor(rec_dat);
+  vector<double>* item_factor = item_factors_.get(rec_dat->item);
+  double val = Util::scalar_product(user_factor,item_factor);
+  if(use_sigmoid_) return Util::sigmoid_function(val);
   else return val;
 }
 
-void SvdppModel::compute_user_factor(RecDat* rec_dat){
-  if(cache_is_valid(rec_dat)) return; //do not recompute user vector during evaluation
+vector<double>* SvdppModel::compute_user_factor(RecDat* rec_dat){
+  if( cache_is_valid(rec_dat) ) return &cached_user_factor_; //caching to improve efficiency
   auto user_history = user_history_container_.get_user_history(rec_dat->user);
   if(user_history!=NULL && user_history->size()!=0){ //TODO assert: should not happen that uh size == 0
     cached_user_factor_ = compute_histvector_sum(rec_dat,user_history); 
@@ -67,6 +67,7 @@ void SvdppModel::compute_user_factor(RecDat* rec_dat){
   }
   vector<double>* user_vector=user_factors_.get(rec_dat->user);
   Util::sum_update_with(&cached_user_factor_,user_vector,user_vector_weight_);
+  return &cached_user_factor_;
 }
 
 bool SvdppModel::cache_is_valid(RecDat* rec_dat){
