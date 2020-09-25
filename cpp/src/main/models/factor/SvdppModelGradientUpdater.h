@@ -14,10 +14,10 @@ struct SvdppModelGradientUpdaterParameters {
 
 class SvdppModelGradientUpdater : public ModelGradientUpdater {
   public:
-    SvdppModelGradientUpdater(SvdppModelGradientUpdaterParameters *parameters){
-      learning_rate_ = parameters->learning_rate;
-      cumulative_item_updates_ = parameters->cumulative_item_updates;
-    };
+    SvdppModelGradientUpdater(SvdppModelGradientUpdaterParameters* parameters)
+      :learning_rate_(parameters->learning_rate)
+      ,cumulative_item_updates_(parameters->cumulative_item_updates)
+    { }
     void set_model(SvdppModel* model){
       model_ = model;
       cumulated_histvector_updates_.resize(model_->dimension_,0);
@@ -33,16 +33,17 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
       return ok;
     }
   private:
-    void update_history_item_factors(RecDat* rec_dat, double gradient, vector<double>* item_vector);
+    void update_history_item_factors(RecDat* rec_dat, double gradient,
+        vector<double>* item_vector);
     void update_item_factors(RecDat* rec_dat, double gradient);
     void update_user_factors(RecDat* rec_dat, double gradient);
 
     //parameters
-    double learning_rate_;
-    bool cumulative_item_updates_;
+    const double learning_rate_;
+    const bool cumulative_item_updates_;
 
     //state
-    SvdppModel *model_ = NULL;
+    SvdppModel* model_ = NULL;
     vector<double> cumulated_histvector_updates_;
 };
 
