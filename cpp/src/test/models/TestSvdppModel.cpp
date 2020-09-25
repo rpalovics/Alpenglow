@@ -42,7 +42,7 @@ TEST_F(TestSvdppModel, test){
     double history_weight=history_weights[i];
     SvdppModelParameters model_parameters;
     model_parameters.dimension=10;
-    model_parameters.begin_min=0.1;
+    model_parameters.begin_min=-0.1;
     model_parameters.begin_max=0.1;
     model_parameters.initialize_all=false;
     model_parameters.use_sigmoid=false;
@@ -174,6 +174,22 @@ TEST_F(TestSvdppModel, clear){
     double pred = model.prediction(rec_dats[i]);
     EXPECT_NE(0,pred); //tests if factors are initialized again after clear
   }
+}
+
+TEST_F(TestSvdppModel, self_test){
+  SvdppModelParameters model_params;
+  model_params.dimension=0;
+  model_params.begin_min=3;
+  model_params.begin_max=3;
+  model_params.norm_type="asdf";
+  model_params.gamma=-1;
+  model_params.initialize_all=true;
+  model_params.max_item=-1;
+  model_params.max_user=-1;
+  SvdppModel model(&model_params);
+  EXPECT_FALSE(model.self_test());
+
+  //TODO self_test of gradient updater
 }
 
 TEST_F(TestSvdppModel, readwrite){

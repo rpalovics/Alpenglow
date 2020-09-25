@@ -72,7 +72,7 @@ class SvdppModel
         ok = false;
         cerr << "SvdppModel::initialize_all_ is not used properly." << endl;
       }
-      if(begin_min_ == -1 or begin_max_ == -1){
+      if(begin_min_ == begin_max_){
         ok = false;
         cerr << "SvdppModel::begin_min_ and SvdppModel::begin_max_ is not set properly." << endl;
       }
