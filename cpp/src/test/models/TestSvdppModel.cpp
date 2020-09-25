@@ -247,6 +247,19 @@ TEST_F(TestSvdppModel, readwrite){
   EXPECT_ANY_THROW(model.read(ss)); //UserHistoryContainer::read is not implemented
 }
 
+TEST_F(TestSvdppModel, destructors){
+  SvdppModelParameters model_params;
+  SvdppModel* model = new SvdppModel(&model_params);
+  delete model;
+
+  SvdppModelUpdater* simple_updater = new SvdppModelUpdater;
+  delete simple_updater;
+
+  SvdppModelGradientUpdaterParameters grad_upd_params;
+  SvdppModelGradientUpdater* gradient_updater = new SvdppModelGradientUpdater(&grad_upd_params);
+  delete gradient_updater;
+}
+
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
