@@ -128,14 +128,16 @@ vector<double> SvdppModel::sum_user_history(RecDat* rec_dat, const vector<const 
 void SvdppModel::write(ostream& file){
   user_factors_.write(file);
   item_factors_.write(file);
-  history_item_factors_.write(file); //not implemented, throws exception
+  history_item_factors_.write(file);
+  user_history_container_.write(file); //not implemented, throws exception
 }
 
 void SvdppModel::read(istream& file){
-  //TODO invalidate model here
+  //TODO invalidate cache here
   user_factors_.read(file);
   item_factors_.read(file);  
-  history_item_factors_.read(file); //not implemented, throws exception
+  history_item_factors_.read(file);
+  user_history_container_.read(file); //not implemented, throws exception
 }
 
 

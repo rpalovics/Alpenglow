@@ -176,6 +176,21 @@ TEST_F(TestSvdppModel, clear){
   }
 }
 
+TEST_F(TestSvdppModel, readwrite){
+  SvdppModelParameters model_params;
+  model_params.dimension=DIMENSION;
+  model_params.begin_min=-0.1;
+  model_params.begin_max=0.1;
+  model_params.norm_type="exponential";
+  model_params.gamma=0.8;
+  model_params.initialize_all=-1;
+  SvdppModel model(&model_params);
+
+  stringstream ss;
+  EXPECT_ANY_THROW(model.write(ss)); //UserHistoryContainer::write is not implemented
+  EXPECT_ANY_THROW(model.read(ss)); //UserHistoryContainer::read is not implemented
+}
+
 int main (int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
