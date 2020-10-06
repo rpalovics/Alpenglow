@@ -13,7 +13,6 @@ class Recency{
     virtual ~Recency(){}
     virtual double get(int entity, double actual_time) = 0;
     virtual void update(int entity, double actual_time) = 0;
-  private:
 };
 
 struct PowerLawRecencyParameters {
