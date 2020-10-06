@@ -72,7 +72,7 @@ class FactorModel
         ok = false;
         cerr << "FactorModel::initialize_all_ is not used properly." << endl;
       }
-      if(begin_min_ == -1 and begin_max_ == -1){
+      if(begin_min_ == begin_max_){
         ok = false;
         cerr << "FactorModel::begin_min_ and FactorModel::begin_max_ is not set properly." << endl;
       }
