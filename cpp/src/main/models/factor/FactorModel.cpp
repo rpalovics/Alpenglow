@@ -85,16 +85,18 @@ double FactorModel::compute_product(RecDat *rec_dat){
 }
 
 void FactorModel::write(ostream& file){
+  if (use_user_bias_ or use_item_bias_ or user_recency_!=NULL
+    or item_recency_!=NULL) throw logic_error("Not implemented.");
   user_factors_.write(file);
   item_factors_.write(file);
-  //TODO bias, recency
 }
 
 void FactorModel::read(istream& file){
+  if (use_user_bias_ or use_item_bias_ or user_recency_!=NULL
+    or item_recency_!=NULL) throw logic_error("Not implemented.");
   user_factors_.read(file);
   item_factors_.read(file);
   lemp_container_.reinitialize(&item_factors_);
-  //TODO bias, recency
 }
 
 RankingScoreIterator* FactorModel::get_ranking_score_iterator(int u){
