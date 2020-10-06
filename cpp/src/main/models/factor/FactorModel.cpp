@@ -53,7 +53,7 @@ double FactorModel::prediction(RecDat *rec_dat){
   if(item_recency_!=NULL){
     double item_recency_val = item_recency_->get(rec_dat->item,rec_dat->time);
     item_bias_val*=item_recency_val;
-    scalar_product+=item_recency_val;
+    scalar_product*=item_recency_val;
   }
   double prediction = scalar_product+user_bias_val+item_bias_val;
   if(use_sigmoid_){
