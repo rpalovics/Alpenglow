@@ -43,26 +43,16 @@ void AsymmetricFactorModelGradientUpdater::update_history_item_factors(
   }
 }
 
-void AsymmetricFactorModelGradientUpdater::message(UpdaterMessage message){
-  if (message==UpdaterMessage::start_of_implicit_update_cycle){
-    beginning_of_updating_cycle(NULL);
-  }
-  if (message==UpdaterMessage::end_of_implicit_update_cycle){
-    end_of_updating_cycle(NULL);
-  }
-}
-void AsymmetricFactorModelGradientUpdater::beginning_of_updating_cycle(
-    RecDat* rec_dat){
+void AsymmetricFactorModelGradientUpdater::beginning_of_updating_cycle(){
   if (cumulative_item_updates_){
     Util::zero_out_vector(&cumulated_histvector_updates_);
     first_sample_ = NULL;
   }
 }
-void AsymmetricFactorModelGradientUpdater::end_of_updating_cycle(
-    RecDat* rec_dat){
+void AsymmetricFactorModelGradientUpdater::end_of_updating_cycle(){
   if (cumulative_item_updates_ && first_sample_!=NULL ){
     update_history_item_factors(first_sample_,1,&cumulated_histvector_updates_);
     model_->cache_marked_invalid_ = true;
-    first_sample_=NULL;
+    first_sample_ = NULL;
   }
 }

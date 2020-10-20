@@ -19,9 +19,6 @@ class AsymmetricFactorModelGradientUpdater : public ModelGradientUpdater{
       ,cumulative_item_updates_(parameters->cumulative_item_updates)
     { }
     void update(RecDat* rec_dat, double gradient) override;
-    void message(UpdaterMessage message) override; //TODO move to ModelGradientUpdater
-    void beginning_of_updating_cycle(RecDat*) override; //TODO private
-    void end_of_updating_cycle(RecDat*) override; //TODO private
     void set_model(AsymmetricFactorModel* model){
       model_ = model;
       cumulated_histvector_updates_.resize(model_->dimension_,0);
@@ -33,6 +30,8 @@ class AsymmetricFactorModelGradientUpdater : public ModelGradientUpdater{
       return ok;
     }
   private:
+    void beginning_of_updating_cycle() override;
+    void end_of_updating_cycle() override;
     void update_history_item_factors(RecDat* rec_dat, double gradient, vector<double>* item_vector);
     void update_item_factors(RecDat* rec_dat, double gradient);
 

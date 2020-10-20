@@ -18,14 +18,11 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
       :learning_rate_(parameters->learning_rate)
       ,cumulative_item_updates_(parameters->cumulative_item_updates)
     { }
+    void update(RecDat* rec_dat, double gradient) override;
     void set_model(SvdppModel* model){
       model_ = model;
       cumulated_histvector_updates_.resize(model_->dimension_,0);
     }
-    void message(UpdaterMessage message) override;
-    void update(RecDat* rec_dat, double gradient) override;
-    void beginning_of_updating_cycle(RecDat*) override;
-    void end_of_updating_cycle(RecDat*) override;
     bool self_test(){
       bool ok = ModelGradientUpdater::self_test();
       if(model_==NULL){ ok=false; cerr << "SvdppModelGradientUpdater::model is not set." << endl; }
@@ -33,6 +30,8 @@ class SvdppModelGradientUpdater : public ModelGradientUpdater {
       return ok;
     }
   private:
+    void beginning_of_updating_cycle() override;
+    void end_of_updating_cycle() override;
     void update_history_item_factors(RecDat* rec_dat, double gradient,
         vector<double>* item_vector);
     void update_item_factors(RecDat* rec_dat, double gradient);

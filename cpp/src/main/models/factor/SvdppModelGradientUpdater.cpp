@@ -52,22 +52,13 @@ void SvdppModelGradientUpdater::update_history_item_factors(RecDat* rec_dat,
   }
 }
 
-void SvdppModelGradientUpdater::message(UpdaterMessage message){
-  if(message==UpdaterMessage::start_of_implicit_update_cycle){
-    beginning_of_updating_cycle(NULL);
-  }
-  if(message==UpdaterMessage::end_of_implicit_update_cycle){
-    end_of_updating_cycle(NULL);
-  }
-}
-
-void SvdppModelGradientUpdater::beginning_of_updating_cycle(RecDat* rec_dat){
+void SvdppModelGradientUpdater::beginning_of_updating_cycle(){
   if(cumulative_item_updates_){
     Util::zero_out_vector(&cumulated_histvector_updates_);
     first_sample_ = NULL;
   }
 }
-void SvdppModelGradientUpdater::end_of_updating_cycle(RecDat* rec_dat){
+void SvdppModelGradientUpdater::end_of_updating_cycle(){
   if(cumulative_item_updates_ && first_sample_!=NULL){
     update_history_item_factors(first_sample_,1,&cumulated_histvector_updates_);
     model_->cache_marked_invalid_ = true;

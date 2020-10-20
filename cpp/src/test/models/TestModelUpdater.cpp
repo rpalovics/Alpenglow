@@ -5,6 +5,15 @@ namespace {
 class DummyModelGradientUpdater : public ModelGradientUpdater {
   public:
     void update(RecDat* rec_dat, double gradient) override {}
+    void beginning_of_updating_cycle() override { begin_counter_++; }
+    void end_of_updating_cycle() override { end_counter_++; }
+    int begin_counter_ = 0;
+    int end_counter_ = 0;
+};
+
+class DummyModelGradientUpdater2 : public ModelGradientUpdater {
+  public:
+    void update(RecDat* rec_dat, double gradient) override {}
 };
 
 class DummyModelMultiUpdater : public ModelMultiUpdater {
@@ -14,8 +23,6 @@ class DummyModelMultiUpdater : public ModelMultiUpdater {
 };
 class TestModelUpdater : public ::testing::Test { 
   public:
-    DummyModelGradientUpdater gradient_updater;
-    DummyModelMultiUpdater multi_updater;
 
     TestModelUpdater(){}
     virtual ~TestModelUpdater(){}
@@ -33,15 +40,29 @@ class TestModelUpdater : public ::testing::Test {
 } //namespace
 
 TEST_F(TestModelUpdater, gradient){
+  DummyModelGradientUpdater gradient_updater;
   EXPECT_TRUE(gradient_updater.self_test());
-  UpdaterMessage message = UpdaterMessage::start_of_offline_update;
+  UpdaterMessage message = UpdaterMessage::start_of_implicit_update_cycle;
   gradient_updater.message(message);
-  RecDat rec_dat = create_rec_dat(10,10,10);
-  gradient_updater.beginning_of_updating_cycle(&rec_dat);
-  gradient_updater.end_of_updating_cycle(&rec_dat);
+  EXPECT_EQ(1,gradient_updater.begin_counter_);
+  EXPECT_EQ(0,gradient_updater.end_counter_);
+  message = UpdaterMessage::end_of_implicit_update_cycle;
+  gradient_updater.message(message);
+  EXPECT_EQ(1,gradient_updater.begin_counter_);
+  EXPECT_EQ(1,gradient_updater.end_counter_);
+}
+
+TEST_F(TestModelUpdater, gradient2){
+  DummyModelGradientUpdater2 gradient_updater;
+  EXPECT_TRUE(gradient_updater.self_test());
+  UpdaterMessage message = UpdaterMessage::start_of_implicit_update_cycle;
+  gradient_updater.message(message);
+  message = UpdaterMessage::end_of_implicit_update_cycle;
+  gradient_updater.message(message);
 }
 
 TEST_F(TestModelUpdater, multi){
+  DummyModelMultiUpdater multi_updater;
   EXPECT_TRUE(multi_updater.self_test());
   vector<RecDat> rec_dats;
   multi_updater.update(&rec_dats);

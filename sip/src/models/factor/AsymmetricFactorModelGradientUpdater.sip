@@ -14,8 +14,6 @@ class AsymmetricFactorModelGradientUpdater : public ModelGradientUpdater{
   public:
     AsymmetricFactorModelGradientUpdater(AsymmetricFactorModelGradientUpdaterParameters* parameters);
     void update(RecDat* rec_dat, double gradient);
-    void beginning_of_updating_cycle(RecDat*);
-    void end_of_updating_cycle(RecDat*);
     void set_model(AsymmetricFactorModel* model);
     bool self_test();
   private:
