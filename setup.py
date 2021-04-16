@@ -138,7 +138,7 @@ elif platform == "win32":
     platform_specific_flags = [
         '-Dand=&&',
         '-Dor=||',
-        '-Duint="unsigned int"',
+        '-FIpython/cpp_bridge/msvc_vars.h',
         '-DMEMORY_USAGE_LOGGER',
         '-O2',
         '-fp=strict'
