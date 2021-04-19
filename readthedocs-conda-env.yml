@@ -1,31 +1,40 @@
-name: py3-alpenglow-reference
+name: rdt
 channels:
-- conda-forge
-- defaults
+  - conda-forge
+  - defaults
 dependencies:
-- blas=1.1=openblas
-- ca-certificates=2018.4.16=0
-- certifi=2018.4.16=py36_0
-- eigen=3.3.5=0
-- ncurses=5.9=10
-- numpy=1.14.5
-- openblas=0.2.20=8
-- openssl=1.0.2o=0
-- pandas=0.23.3=py36_0
-- pip=18.0=py36_0
-- python=3.6.5=1
-- python-dateutil=2.7.3=py_0
-- pytz=2018.5=py_0
-- readline=7.0=0
-- setuptools=40.0.0=py36_0
-- sip=4.19.8=py36_0
-- six=1.11.0=py36_1
-- sqlite=3.20.1=2
-- tk=8.6.8=0
-- wheel=0.31.1=py36_0
-- xz=5.2.3=0
-- zlib=1.2.11=h470a237_3
-- libgcc=7.2.0=h69d50b8_2
-- libgcc-ng=7.2.0=hdf63c60_3
-- libgfortran=3.0.0=1
-- libstdcxx-ng=7.2.0=hdf63c60_3
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=1_gnu
+  - ca-certificates=2020.12.5=ha878542_0
+  - certifi=2020.12.5=py38h578d9bd_1
+  - eigen=3.3.9=h4bd325d_1
+  - ld_impl_linux-64=2.35.1=hea4e1c9_2
+  - libblas=3.9.0=8_openblas
+  - libcblas=3.9.0=8_openblas
+  - libffi=3.3=h58526e2_2
+  - libgcc=7.2.0=h69d50b8_2
+  - libgcc-ng=9.3.0=h2828fa1_19
+  - libgfortran-ng=9.3.0=hff62375_19
+  - libgfortran5=9.3.0=hff62375_19
+  - libgomp=9.3.0=h2828fa1_19
+  - liblapack=3.9.0=8_openblas
+  - libopenblas=0.3.12=pthreads_h4812303_1
+  - libstdcxx-ng=9.3.0=h6de172a_19
+  - ncurses=6.2=h58526e2_4
+  - numpy=1.20.2=py38h9894fe3_0
+  - openssl=1.1.1k=h7f98852_0
+  - pandas=1.2.4=py38h1abd341_0
+  - pip=21.0.1=pyhd8ed1ab_0
+  - python=3.8.8=hffdb5ce_0_cpython
+  - python-dateutil=2.8.1=py_0
+  - python_abi=3.8=1_cp38
+  - pytz=2021.1=pyhd8ed1ab_0
+  - readline=8.0=he28a2e2_2
+  - setuptools=49.6.0=py38h578d9bd_3
+  - sip=4.19.25=py38h709712a_0
+  - six=1.15.0=pyh9f0ad1d_0
+  - sqlite=3.35.4=h74cdb3f_0
+  - tk=8.6.10=h21135ba_1
+  - wheel=0.36.2=pyhd3deb0d_0
+  - xz=5.2.5=h516909a_1
+  - zlib=1.2.11=h516909a_1010
