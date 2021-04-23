@@ -23,7 +23,7 @@ In case you also intend to run sample code and tutorials, you should install mat
 
 If you encounter any conflict or error, try installing Alpenglow in a clean conda environment.  
 
-### Installation from source (linux only at the moment)
+### Installation from source on Linux
 
 - `cd Alpenglow`
 - `conda activate [your_cond_env_name]`
@@ -32,6 +32,7 @@ If you encounter any conflict or error, try installing Alpenglow in a clean cond
 - `conda install -c conda-forge eigen`
 - `pip install .`
 
+It is also possible on other plaforms to compile from source similarly, however we don't maintain exact instructions here. For reference on how the official binaries are built, please see the corresponding [feedstock](https://github.com/conda-forge/alpenglow-feedstock).
 
 ### Getting Started
 
