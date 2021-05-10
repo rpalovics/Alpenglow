@@ -1,4 +1,4 @@
-import alpenglow.Getter as rs
+import alpenglow.components.PopularityComponent
 import alpenglow as prs
 
 
@@ -7,8 +7,9 @@ class PopularityExperiment(prs.OnlineExperiment):
     """
 
     def _config(self, top_k, seed):
-        model = rs.PopularityModel()
-        updater = rs.PopularityModelUpdater()
-        updater.set_model(model)
+        component = alpenglow.components.PopularityComponent()
+        component.build()
+        model = component.get_object("model")
+        updater= component.get_object("updater")
 
         return (model, updater, [])
