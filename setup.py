@@ -194,6 +194,7 @@ setup(
     packages=[
         'alpenglow',
         'alpenglow.experiments',
+        'alpenglow.components',
         'alpenglow.evaluation',
         'alpenglow.offline',
         'alpenglow.offline.models',
