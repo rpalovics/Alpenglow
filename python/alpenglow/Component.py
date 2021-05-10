@@ -31,7 +31,7 @@ class Component(ParameterDefaults):
         """
         Creates the missing objects from the catalog and wires them.
         """
-        #TODO add functions, aliases, renamed parameters
+        #TODO aliases, renamed parameters
         for name,description in self._catalog.items():
           object_type=description["type"]
           object_class=getattr(Getter,object_type)
@@ -39,7 +39,7 @@ class Component(ParameterDefaults):
           description["object"]=my_object
 
         for name,description in self._catalog.items():
-          for function_name,parameter in description["connections"].items():
+          for function_name,parameter in description["connections"]:
             function=getattr(my_object, function_name)
             parameter_object=self._catalog[parameter]["object"]
             function(parameter_object)

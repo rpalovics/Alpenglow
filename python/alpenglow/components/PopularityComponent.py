@@ -10,15 +10,15 @@ class PopularityComponent(prs.Component):
             "type" : "PopularityModel",
             "object" : None,
             "parameters" : {},
-            "connections" : {}
+            "connections" : []
           },
           "updater" : {
             "type" : "PopularityModelUpdater",
             "object" : None,
             "parameters" : {},
-            "connections" : {
-              "set_model" : "model"
-            }
+            "connections" : [
+              ("set_model", "model")
+            ]
           }
         }
         return catalog
