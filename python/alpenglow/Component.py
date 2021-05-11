@@ -35,7 +35,7 @@ class Component(ParameterDefaults):
         for name,description in self._catalog.items():
           object_type=description["type"]
           object_class=getattr(Getter,object_type)
-          my_object=object_class(**description["parameters"])
+          my_object=object_class(**self.parameter_defaults(**description["parameters"]))
           description["object"]=my_object
 
         for name,description in self._catalog.items():
