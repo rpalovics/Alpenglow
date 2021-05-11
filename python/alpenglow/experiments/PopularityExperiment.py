@@ -10,6 +10,6 @@ class PopularityExperiment(prs.OnlineExperiment):
         component = alpenglow.components.PopularityComponent()
         component.build()
         model = component.get_object("model")
-        updater= component.get_object("updater")
+        updater = component.get_object("updater")
 
-        return (model, updater, [])
+        return (model, [updater], [])
