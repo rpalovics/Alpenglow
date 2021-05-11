@@ -39,6 +39,7 @@ class Component(ParameterDefaults):
           description["object"]=my_object
 
         for name,description in self._catalog.items():
+          my_object=description["object"]
           for function_name,parameter in description["connections"]:
             function=getattr(my_object, function_name)
             parameter_object=self._catalog[parameter]["object"]
