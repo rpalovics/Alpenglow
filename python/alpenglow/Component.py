@@ -33,10 +33,11 @@ class Component(ParameterDefaults):
         """
         #TODO aliases, renamed parameters
         for name,description in self._catalog.items():
-          object_type=description["type"]
-          object_class=getattr(Getter,object_type)
-          my_object=object_class(**self.parameter_defaults(**description["parameters"]))
-          description["object"]=my_object
+          if description["object"]==None:
+            object_type=description["type"]
+            object_class=getattr(Getter,object_type)
+            my_object=object_class(**self.parameter_defaults(**description["parameters"]))
+            description["object"]=my_object
 
         for name,description in self._catalog.items():
           my_object=description["object"]
