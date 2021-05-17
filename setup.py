@@ -6,6 +6,7 @@ except:
 import glob
 import sys
 import os
+import subprocess
 
 if 'SRC_DIR' in os.environ:
     sys.path = glob.glob(os.path.join(os.environ['SRC_DIR'], 'sip', 'sipdest_install')) + sys.path
@@ -20,7 +21,6 @@ from distutils.errors import *
 from distutils.sysconfig import get_config_vars
 import distutils.ccompiler
 import re
-
 
 # recursively adds .sip files to dependencies
 class custom_build_ext(sipdistutils.build_ext):
@@ -60,6 +60,8 @@ class custom_build_ext(sipdistutils.build_ext):
             ext.depends += list(depends) + sources
 
     def build_extension(self, ext):
+        if('READTHEDOCS' in os.environ):
+            subprocess.call(os.environ['SHELL'], 'install_alpenglow_sip.sh')
         self._add_ext_extra_depends(ext)
         ext.include_dirs.append(pkg_resources.resource_filename('numpy', 'core/include'))
         return sipdistutils.build_ext.build_extension(self, ext)
@@ -204,6 +206,6 @@ setup(
         'alpenglow': 'python/alpenglow',
     },
     cmdclass={
-        'build_ext': custom_build_ext
+        'build_ext': custom_build_ext,
     }
 )
