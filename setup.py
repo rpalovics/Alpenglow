@@ -61,7 +61,7 @@ class custom_build_ext(sipdistutils.build_ext):
 
     def build_extension(self, ext):
         if('READTHEDOCS' in os.environ):
-            subprocess.call('/bin/bash', 'install_alpenglow_sip.sh')
+            subprocess.call(['/bin/bash', 'install_alpenglow_sip.sh'])
         self._add_ext_extra_depends(ext)
         ext.include_dirs.append(pkg_resources.resource_filename('numpy', 'core/include'))
         return sipdistutils.build_ext.build_extension(self, ext)
