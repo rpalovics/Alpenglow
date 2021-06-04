@@ -20,7 +20,7 @@
 import os
 import sys
 from types import ModuleType
-from typing import Any, Callable, Dict, Iterator, List, Sequence, Set, Tuple, Union
+from typing import Any, Callable, Dict, Iterator, List, Sequence, Set, Tuple, Union, Optional
 
 from sphinx.ext.autodoc import AttributeDocumenter, ClassDocumenter
 from sphinx.util.docstrings import prepare_docstring
@@ -227,17 +227,17 @@ html_css_files = [
 
 class CustomClassDocumenter(ClassDocumenter):  # type: ignore
     priority = -9
-    def get_doc(self, encoding: str = None, ignore: int = 1) -> List[List[str]]:
+    def get_doc(self, ignore: int = None) -> Optional[List[List[str]]]:
         if(getattr(self.object, '__doc__', None) is not None):
             splits = self.object.__doc__.split('#:', 1)
             self.object.__doc__ = splits[0]
             if len(splits) != 1:
                 self.object.__attrdoc__ = splits[1]
-        return super().get_doc(encoding, ignore)
+        return super().get_doc(ignore)
 
 class CustomAttributeDocumenter(AttributeDocumenter):  # type: ignore
     priority = 11
-    def get_doc(self, encoding: str = None, ignore: int = 1) -> List[List[str]]:
+    def get_doc(self, ignore: int = None) -> Optional[List[List[str]]]:
         if(getattr(self.parent, '__attrdoc__', None) is not None):
             docs = {n:v for k in self.parent.__attrdoc__.split('#:') for n,v in [k.split('\n', 1)]}
             name = self.fullname.split('.')[-1]
