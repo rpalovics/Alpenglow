@@ -61,7 +61,9 @@ class custom_build_ext(sipdistutils.build_ext):
 
     def build_extension(self, ext):
         if('READTHEDOCS' in os.environ):
-            subprocess.call(['/bin/bash', 'install_alpenglow_sip.sh'])
+            my_env = os.environ.copy()
+            my_env["CONDA_PREFIX"] = sys.base_prefix
+            subprocess.call(['/bin/bash', 'install_alpenglow_sip.sh'], env=my_env)
         self._add_ext_extra_depends(ext)
         ext.include_dirs.append(pkg_resources.resource_filename('numpy', 'core/include'))
         return sipdistutils.build_ext.build_extension(self, ext)
