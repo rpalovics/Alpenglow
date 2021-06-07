@@ -63,6 +63,6 @@ class Component(ParameterDefaults):
         return obj
 
     def _get_catalog(self):
-        """Returns the dictionary describing the object structure of this component."""
-        return {}
+        """Needs to be implemented by subclasses. Returns the dictionary describing the object structure of this component."""
+        pass
 

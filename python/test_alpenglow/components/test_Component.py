@@ -2,7 +2,17 @@ import alpenglow
 
 class TestComponent:
     def test_component(self):
-        c = alpenglow.Component()
+        class DummyComponent(alpenglow.Component):
+          def _get_catalog(self):
+            catalog = {
+              "model" : {
+                "type" : "PopularityModel",
+                "object" : None,
+                "parameters" : {},
+                "connections" : []
+              }
+            }
+            return catalog
+        c = DummyComponent()
         c.show()
         c.build()
-
