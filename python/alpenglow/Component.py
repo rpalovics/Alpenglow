@@ -9,10 +9,10 @@ class Component(ParameterDefaults):
 
     def show(self):
         """
-        Lists nodes and connections.
+        Displays nodes and connections.
         """
-        self.print_catalog()
-        #TODO
+        print(self._catalog)
+        #TODO print in a ascii graph form, like Graph::Easy in Perl
 
     def set_object(self, name, obj):
         """
@@ -36,15 +36,16 @@ class Component(ParameterDefaults):
           if description["object"]==None:
             object_type=description["type"]
             object_class=getattr(Getter,object_type)
-            my_object=object_class(**self.parameter_defaults(**description["parameters"]))
-            description["object"]=my_object
+            default_parameters=description["parameters"]
+            parameters=self.parameter_defaults(**default_parameters)
+            description["object"]=object_class(**parameters)
 
         for name,description in self._catalog.items():
-          my_object=description["object"]
+          instance=description["object"]
           for function_name,parameter in description["connections"]:
-            function=getattr(my_object, function_name)
-            parameter_object=self._catalog[parameter]["object"]
-            function(parameter_object)
+            function=getattr(instance, function_name)
+            parameter_instance=self._catalog[parameter]["object"]
+            function(parameter_instance)
 
         self._built = True
 
@@ -60,10 +61,6 @@ class Component(ParameterDefaults):
         if obj == None :
           raise RuntimeError("This object does not exist yet. Run build() to create all objects.")
         return obj
-
-    def print_catalog(self):
-        """Prints the catalog for debug purposes. Will be removed later."""
-        print(self._catalog)
 
     def _get_catalog(self):
         """Returns the dictionary describing the object structure of this component."""
