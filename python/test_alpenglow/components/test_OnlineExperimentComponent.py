@@ -18,7 +18,8 @@ class TestOnlineExperimentComponent:
             seed = 254938879,
         )
         experiment.set_model(model)
-        experiment.set_updater(poptf_updater)
+        experiment.add_updater(poptf_updater)
+        #experiment.add_logger(logger)
         experiment.build()
 
         data = pd.read_csv(
