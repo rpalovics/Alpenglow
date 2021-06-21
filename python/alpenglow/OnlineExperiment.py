@@ -37,7 +37,7 @@ class OnlineExperiment(ParameterDefaults):
 
     def __init__(self, **parameters):
         super().__init__(**parameters)
-        self.used_parameters = set(['seed', 'top_k'])
+        self.used_parameters = set(['seed', 'top_k', 'network_mode'])
         if("seed" not in self.parameters):
             self.parameters["seed"] = 254938879
         if("top_k" not in self.parameters):
@@ -54,7 +54,7 @@ class OnlineExperiment(ParameterDefaults):
         calculate_toplists=False,
         experiment_termination_time=0,
         memory_log=True,
-        shuffle_same_time=True
+        shuffle_same_time=True,
         ):
         """
         Parameters
@@ -79,6 +79,8 @@ class OnlineExperiment(ParameterDefaults):
             Whether to log the results to memory (to be used optionally with out_file)
         shuffle_same_time : bool
             Whether to shuffle records with the same timestamp randomly.
+        network_mode : bool
+            Instructs the experiment to treat :code:`data` as a directed graph, with :code:`source` and :code:`target` columns instead of :code:`user` and :code:`item`.
 
         Returns
         -------
@@ -92,6 +94,8 @@ class OnlineExperiment(ParameterDefaults):
 
         # reading data
         if not isinstance(data, str):
+            if self.parameters['network_mode']:
+                data = data.rename(columns={'source':'user', 'target':'item'})
             recommender_data = DataframeData(data, columns=columns)
         else:
             recommender_data = rs.LegacyRecommenderData(
@@ -195,6 +199,8 @@ class OnlineExperiment(ParameterDefaults):
         print("running experiment...") if self.verbose else None
         online_experiment.run()
         results = self._finished()
+        if self.parameters['network_mode']:
+            results = results.rename(columns={'user':'source', 'item':'target'})
         return results
 
     def get_predictions(self):
