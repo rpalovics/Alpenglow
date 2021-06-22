@@ -65,4 +65,4 @@ plt.plot(averages)
 - For faster recompilation, use `export CC="ccache cc"`
 - E.g. to enable compilation on 4 threads, use `echo 4 > .parallel`
 - Reinstall modified version using `pip install --upgrade --force-reinstall --no-deps .`
-- To build and use in the current folder, use `pip install --upgrade --force-reinstall --no-deps -e .` and `export PYTHONPATH="$(pwd)/python:$PYTHONPATH"`
+- To build and use in the current folder, use `pip install --upgrade --force-reinstall --no-deps -e .` and `export PYTHONPATH="$(pwd)/python:$PYTHONPATH"`. You will also need to install the local sip module to this directory: `./install_alpenglow_sip.sh --destdir $(pwd)/python`
