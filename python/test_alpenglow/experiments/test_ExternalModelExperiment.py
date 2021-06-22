@@ -26,7 +26,7 @@ class TestExternalModelExperiment:
             mode='write'
         )
         num = 5
-        experiment.run(data, initialize_all=True) #initall=true->do not filter out very new items
+        experiment.run(data, initialize_all=True, recode=False) #initall=true->do not filter out very new items
         trains = [pd.read_csv('python/test_alpenglow/tmp/batch_%d_train.dat' % i) for i in range(1, num + 1)]
         tests = [pd.read_csv('python/test_alpenglow/tmp/batch_%d_test.dat' % i) for i in range(num)]
         last_ids = []
@@ -56,6 +56,6 @@ class TestExternalModelExperiment:
             in_name_base="python/test_alpenglow/tmp/batch",
             mode='read'
         )
-        res = experiment.run(data, exclude_known=True)
+        res = experiment.run(data, exclude_known=True, recode=False)
         print(res['rank'].isnull().value_counts())
         assert (~res['rank'].isnull()).astype(np.int64).sum() == 1

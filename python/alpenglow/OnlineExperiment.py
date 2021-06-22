@@ -58,6 +58,7 @@ class OnlineExperiment(ParameterDefaults):
         experiment_termination_time=0,
         memory_log=True,
         shuffle_same_time=True,
+        recode=True
         ):
         """
         Parameters
@@ -82,6 +83,8 @@ class OnlineExperiment(ParameterDefaults):
             Whether to log the results to memory (to be used optionally with out_file)
         shuffle_same_time : bool
             Whether to shuffle records with the same timestamp randomly.
+        recode : bool
+            Whether to automatically recode the entity columns so that they are indexed from 1 to n. If :code:`False`, the recoding needs to be handled before passing the DataFrame to the :code:`run` method.
         Returns
         -------
         DataFrame
@@ -99,10 +102,21 @@ class OnlineExperiment(ParameterDefaults):
             r_rename_dict = columns
         rename_dict = {v: k for k, v in r_rename_dict.items()}
 
+        self.user_codes = None
+        self.item_codes = None
+
         # reading data
         if not isinstance(data, str):
             data = data.rename(columns=rename_dict)
+
+            if recode:
+                self.user_codes = dict(zip(data['user'].unique(), range(len(data))))
+                self.item_codes = dict(zip(data['item'].unique(), range(len(data))))
+                data['user'] = data['user'].map(self.user_codes)
+                data['item'] = data['item'].map(self.item_codes)
+
             recommender_data = DataframeData(data)
+
         else:
             recommender_data = rs.LegacyRecommenderData(
                 file_name=data,
@@ -204,7 +218,14 @@ class OnlineExperiment(ParameterDefaults):
 
         print("running experiment...") if self.verbose else None
         online_experiment.run()
-        results = self._finished(column_remap=r_rename_dict)
+
+        results = self._finished()
+        if self.user_codes is not None and self.item_codes is not None:
+            results['user'] = results['user'].map({v:k for k, v in self.user_codes.items()})
+            results['item'] = results['item'].map({v:k for k, v in self.item_codes.items()})
+        results = results.rename(columns=r_rename_dict)
+        results.top_k = top_k
+
         return results
 
     def get_predictions(self):
@@ -233,6 +254,9 @@ class OnlineExperiment(ParameterDefaults):
                 'rank': preds.ranks,
                 'prediction': preds.scores,
             }).sort_values(['record_id'])[['record_id', 'time', 'user', 'item', 'rank', 'prediction']]
+            if self.user_codes is not None and self.item_codes is not None:
+                preds_df['user'] = preds_df['user'].map({v:k for k, v in self.user_codes.items()})
+                preds_df['item'] = preds_df['item'].map({v:k for k, v in self.item_codes.items()})
             return preds_df
         else:
             return None
@@ -254,7 +278,7 @@ class OnlineExperiment(ParameterDefaults):
         self.ranking_logger.set_ranking_logs(self.ranking_logs)
         return self.ranking_logger
 
-    def _finished(self, column_remap={}):
+    def _finished(self):
         logs = self.ranking_logs.logs
         top_k = self.ranking_logs.top_k
         df = pd.DataFrame.from_records(
@@ -270,8 +294,6 @@ class OnlineExperiment(ParameterDefaults):
             columns=["id", "time", "score", "user", "item", "prediction", "rank"]
         ).set_index("id")
         df['rank']=df['rank'].astype(float)
-        df = df.rename(columns=column_remap)
-        df.top_k = top_k
         return df
 
     def _config(self, top_k, seed):
