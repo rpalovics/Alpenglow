@@ -33,6 +33,9 @@ class OnlineExperiment(ParameterDefaults):
         The seed to initialize RNG-s. Should not be 0.
     top_k : int
         The length of the toplists.
+    network_mode : bool
+        Instructs the experiment to treat :code:`data` as a directed graph, with :code:`source` and :code:`target` columns instead of :code:`user` and :code:`item`.
+
     """
 
     def __init__(self, **parameters):
@@ -79,9 +82,6 @@ class OnlineExperiment(ParameterDefaults):
             Whether to log the results to memory (to be used optionally with out_file)
         shuffle_same_time : bool
             Whether to shuffle records with the same timestamp randomly.
-        network_mode : bool
-            Instructs the experiment to treat :code:`data` as a directed graph, with :code:`source` and :code:`target` columns instead of :code:`user` and :code:`item`.
-
         Returns
         -------
         DataFrame
@@ -92,11 +92,17 @@ class OnlineExperiment(ParameterDefaults):
         self.verbose = verbose
         evaluation_start_time = 0 #TODO: start eval at this time
 
+        colmap = {'user':'source', 'item':'target'}
+        if self.parameter_default('network_mode', False):
+            r_rename_dict = {k: columns[v] if v in columns else v for k, v in colmap.items()}
+        else:
+            r_rename_dict = columns
+        rename_dict = {v: k for k, v in r_rename_dict.items()}
+
         # reading data
         if not isinstance(data, str):
-            if self.parameters['network_mode']:
-                data = data.rename(columns={'source':'user', 'target':'item'})
-            recommender_data = DataframeData(data, columns=columns)
+            data = data.rename(columns=rename_dict)
+            recommender_data = DataframeData(data)
         else:
             recommender_data = rs.LegacyRecommenderData(
                 file_name=data,
@@ -198,9 +204,7 @@ class OnlineExperiment(ParameterDefaults):
 
         print("running experiment...") if self.verbose else None
         online_experiment.run()
-        results = self._finished()
-        if self.parameters['network_mode']:
-            results = results.rename(columns={'user':'source', 'item':'target'})
+        results = self._finished(column_remap=r_rename_dict)
         return results
 
     def get_predictions(self):
@@ -250,7 +254,7 @@ class OnlineExperiment(ParameterDefaults):
         self.ranking_logger.set_ranking_logs(self.ranking_logs)
         return self.ranking_logger
 
-    def _finished(self):
+    def _finished(self, column_remap={}):
         logs = self.ranking_logs.logs
         top_k = self.ranking_logs.top_k
         df = pd.DataFrame.from_records(
@@ -266,6 +270,7 @@ class OnlineExperiment(ParameterDefaults):
             columns=["id", "time", "score", "user", "item", "prediction", "rank"]
         ).set_index("id")
         df['rank']=df['rank'].astype(float)
+        df = df.rename(columns=column_remap)
         df.top_k = top_k
         return df
 
