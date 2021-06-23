@@ -40,7 +40,7 @@ The following code demonstrates a very simple implementation of this:
     class TransitionProbabilityExperiment(OnlineExperiment):
         def _config(self, top_k, seed):
             model = TransitionProbabilityModel()
-            return (model._model, model._updater, [], [])
+            return (model._model, model._updater, [])
 
     experiment = TransitionProbabilityExperiment(top_k=5)
     rankings = experiment.run(data.head(100000))
