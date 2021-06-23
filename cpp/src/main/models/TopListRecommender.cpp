@@ -8,7 +8,8 @@ vector<pair<int,double>> TopListRecommender::get_top_list(
   return get_top_list(user,k,exclude->get(user));
 }
 vector<pair<int,double>> ToplistFromRankingScoreRecommender::get_top_list(
-    int user, int k, const map<int,double> *exclude_items){
+    int user, int k, const map<int,double> *exclude_items
+){
   //reverse toplist as a heap
   auto comparator = [](pair<int,double> const &t1, pair<int,double> const &t2) {
     return get<1>(t1) > get<1>(t2);
@@ -16,6 +17,10 @@ vector<pair<int,double>> ToplistFromRankingScoreRecommender::get_top_list(
   priority_queue<pair<int,double>, vector<pair<int,double>>, decltype(comparator)> toplist(comparator);
 
   RankingScoreIterator* iterator = get_ranking_score_iterator(user);
+  if(iterator == NULL){
+    return vector<pair<int,double>>(0);
+  }
+
   double limit = std::numeric_limits<double>::lowest();
   while(iterator->has_next(limit)){
     auto pair = iterator->get_next();

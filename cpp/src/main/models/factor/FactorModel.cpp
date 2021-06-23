@@ -100,10 +100,11 @@ void FactorModel::read(istream& file){
 }
 
 RankingScoreIterator* FactorModel::get_ranking_score_iterator(int u){
-  if(use_item_bias_ || use_user_bias_){
+  auto uf = user_factors_.get(u);
+  if(uf == NULL || use_item_bias_ || use_user_bias_){
     return NULL;
   } else {
-    ranking_score_iterator_ = FactorModelRankingScoreIterator(*user_factors_.get(u), &lemp_container_);
+    ranking_score_iterator_ = FactorModelRankingScoreIterator(*uf, &lemp_container_);;
     return &ranking_score_iterator_;
   }
 }
