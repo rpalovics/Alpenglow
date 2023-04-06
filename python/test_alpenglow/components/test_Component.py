@@ -16,3 +16,6 @@ class TestComponent:
         c = DummyComponent()
         c.show()
         c.build()
+        parameter_container = c.get_parameter_container()
+
+        

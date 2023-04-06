@@ -7,6 +7,9 @@ class Component():
         self._catalog = self._get_catalog()
         self._built = {}
 
+    def get_parameter_container(self):
+        return self.parameter_container
+
     def show(self):
         """
         Displays nodes and connections.
