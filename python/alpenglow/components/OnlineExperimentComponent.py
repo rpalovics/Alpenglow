@@ -7,7 +7,7 @@ class OnlineExperimentComponent(prs.Component):
 
     def __init__(self, **parameters):
         super().__init__(**parameters)
-        self.used_parameters = set(['seed', 'top_k'])
+        self.parameter_container.used_parameters = set(['seed', 'top_k'])
         self.model = None
         self.updaters = []
         self.loggers = []
@@ -91,7 +91,7 @@ class OnlineExperimentComponent(prs.Component):
         if not shuffle_same_time or calculate_toplists is not False:
             recommender_data_iterator = rs.SimpleIterator()
         else:
-            recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
+            recommender_data_iterator = rs.ShuffleIterator(seed=self.parameter_container.parameters["seed"])
         recommender_data_iterator.set_recommender_data(recommender_data)
         # string attribute_container_name = getPot("set_attribute_container", "");
         # if(attribute_container_name.length()==0) cerr << "WARNING: no attribute container was set into RecommenderData." << endl;
@@ -102,8 +102,8 @@ class OnlineExperimentComponent(prs.Component):
         # data reading finished
 
         #create experiment
-        top_k = self.parameters['top_k']
-        seed = self.parameters['seed']
+        top_k = self.parameter_container.parameters['top_k']
+        seed = self.parameter_container.parameters['seed']
 
 
         online_experiment = rs.OnlineExperiment(
@@ -132,7 +132,7 @@ class OnlineExperimentComponent(prs.Component):
             proceeding_logger.set_data_iterator(recommender_data_iterator)
             online_experiment.add_logger(proceeding_logger)
 
-        ranking_logger = self._get_ranking_logger(top_k, evaluation_start_time, self.parameter_default('out_file', out_file), memory_log)
+        ranking_logger = self._get_ranking_logger(top_k, evaluation_start_time, self.parameter_container.parameter_default('out_file', out_file), memory_log)
         ranking_logger.set_model(model)
         online_experiment.add_logger(ranking_logger)
 
@@ -172,7 +172,7 @@ class OnlineExperimentComponent(prs.Component):
         rs.initialize_all(created_objects)
         for i in created_objects:
             rs.run_self_test(i)
-        self.check_unused_parameters()
+        self.parameter_container.check_unused_parameters()
 
         print("running experiment...") if self.verbose else None
         online_experiment.run()

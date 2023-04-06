@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    alpenglow.components
     alpenglow.evaluation
     alpenglow.experiments
     alpenglow.offline
@@ -13,6 +14,14 @@ Subpackages
 
 Submodules
 ----------
+
+alpenglow.Component module
+--------------------------
+
+.. automodule:: alpenglow.Component
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 alpenglow.Getter module
 -----------------------

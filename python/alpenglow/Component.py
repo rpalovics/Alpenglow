@@ -1,9 +1,9 @@
 from .Getter import Getter
 from .ParameterDefaults import ParameterDefaults
 
-class Component(ParameterDefaults):
+class Component():
     def __init__(self, **parameters):
-        super().__init__(**parameters)
+        self.parameter_container = ParameterDefaults(**parameters)
         self._catalog = self._get_catalog()
         self._built = {}
 
@@ -37,7 +37,7 @@ class Component(ParameterDefaults):
             object_type=description["type"]
             object_class=getattr(Getter,object_type)
             default_parameters=description["parameters"]
-            parameters=self.parameter_defaults(**default_parameters)
+            parameters=self.parameter_container.parameter_defaults(**default_parameters)
             description["object"]=object_class(**parameters)
 
         for name,description in self._catalog.items():
