@@ -18,4 +18,4 @@ class TestComponent:
         c.build()
         parameter_container = c.get_parameter_container()
 
-        
+        c2 = DummyComponent(parameter_container)

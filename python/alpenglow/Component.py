@@ -2,8 +2,11 @@ from .Getter import Getter
 from .ParameterDefaults import ParameterDefaults
 
 class Component():
-    def __init__(self, **parameters):
-        self.parameter_container = ParameterDefaults(**parameters)
+    def __init__(self, *posargs, **parameters):
+        if len(posargs) == 1 and isinstance(posargs[0],ParameterDefaults) :
+          self.parameter_container = posargs[0]
+        else :
+          self.parameter_container = ParameterDefaults(**parameters)
         self._catalog = self._get_catalog()
         self._built = {}
 
