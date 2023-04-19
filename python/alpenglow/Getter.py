@@ -36,7 +36,6 @@ class MetaGetter(type):
     def collect(self):
         tid = threading.get_ident()
         self.collect_[tid] = True
-        self.items[tid] = []
 
     def get_and_clean(self):
         tid = threading.get_ident()
