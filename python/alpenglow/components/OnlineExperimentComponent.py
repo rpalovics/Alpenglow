@@ -5,8 +5,8 @@ import pandas as pd
 
 class OnlineExperimentComponent(prs.Component):
 
-    def __init__(self, **parameters):
-        super().__init__(**parameters)
+    def __init__(self, *posargs, **parameters):
+        super().__init__(*posargs, **parameters)
         self.parameter_container.used_parameters = set(['seed', 'top_k'])
         self.model = None
         self.updaters = []
@@ -71,10 +71,10 @@ class OnlineExperimentComponent(prs.Component):
         learner = self.updaters
         loggers = self.loggers 
 
-        rs.collect()
         self.verbose = verbose
         evaluation_start_time = 0 #TODO: start eval at this time
 
+        rs.collect()
         # reading data
         if not isinstance(data, str):
             recommender_data = DataframeData(data, columns=columns)

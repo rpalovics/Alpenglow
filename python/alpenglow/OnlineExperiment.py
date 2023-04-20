@@ -3,6 +3,7 @@ from .utils.DataframeData import DataframeData
 from .ParameterDefaults import ParameterDefaults
 import pandas as pd
 import alpenglow.sip as sip
+import alpenglow as prs
 
 
 class OnlineExperiment(ParameterDefaults):
@@ -43,19 +44,7 @@ class OnlineExperiment(ParameterDefaults):
         if("top_k" not in self.parameters):
             self.parameters["top_k"] = 100
 
-    def run(self,
-        data,
-        experimentType=None,
-        columns={},
-        verbose=True,
-        out_file=None,
-        exclude_known=False,
-        initialize_all=False,
-        calculate_toplists=False,
-        experiment_termination_time=0,
-        memory_log=True,
-        shuffle_same_time=True
-        ):
+    def run(self,data,**parameters):
         """
         Parameters
         ----------
@@ -86,115 +75,23 @@ class OnlineExperiment(ParameterDefaults):
           Results DataFrame if memory_log=True, empty DataFrame otherwise
 
         """
-        rs.collect()
-        self.verbose = verbose
-        evaluation_start_time = 0 #TODO: start eval at this time
-
-        # reading data
-        if not isinstance(data, str):
-            recommender_data = DataframeData(data, columns=columns)
-        else:
-            recommender_data = rs.LegacyRecommenderData(
-                file_name=data,
-                type=experimentType,
-                experiment_termination_time=experiment_termination_time
-            )
-        recommender_data.initialize() #read in data -> can find max user, max item
-        max_user = recommender_data.get_max_user_id()
-        max_item = recommender_data.get_max_item_id()
-        recommender_data_iterator = None
-        if not shuffle_same_time or calculate_toplists is not False:
-            recommender_data_iterator = rs.SimpleIterator()
-        else:
-            recommender_data_iterator = rs.ShuffleIterator(seed=self.parameters["seed"])
-        recommender_data_iterator.set_recommender_data(recommender_data)
-        # string attribute_container_name = getPot("set_attribute_container", "");
-        # if(attribute_container_name.length()==0) cerr << "WARNING: no attribute container was set into RecommenderData." << endl;
-        # else {
-        #   InlineAttributeReader* attribute_container = jinja.get<InlineAttributeReader>(attribute_container_name);
-        #   recommender_data->set_attribute_container(attribute_container);
-        # }
-        # data reading finished
-
-        #create experiment
+        online_experiment_component = prs.components.OnlineExperimentComponent(self) #TODO passing self is not nice, but self is ParameterContainer
+        #get components
         top_k = self.parameters['top_k']
         seed = self.parameters['seed']
-
-
-        online_experiment = rs.OnlineExperiment(
-            random_seed=seed,
-            evaluation_start_time=evaluation_start_time,
-            experiment_termination_time=experiment_termination_time,
-            top_k=top_k,
-            exclude_known=exclude_known,
-            initialize_all=initialize_all,
-            max_item=max_item,
-            max_user=max_user
-        )
-
-        #set data
-        online_experiment.set_recommender_data_iterator(recommender_data_iterator)
-
-        #get components
+        rs.collect()
         (model, learner, loggers) = self._config(top_k, seed)
-
-        #set loggers
-        for l in loggers:
-            online_experiment.add_logger(l)
-
-        interrupt_logger = rs.InterruptLogger()
-        online_experiment.add_logger(interrupt_logger)
-
-        if(verbose):
-            proceeding_logger = rs.ProceedingLogger()
-            proceeding_logger.set_data_iterator(recommender_data_iterator)
-            online_experiment.add_logger(proceeding_logger)
-
-        ranking_logger = self._get_ranking_logger(top_k, evaluation_start_time, self.parameter_default('out_file', out_file), memory_log)
-        ranking_logger.set_model(model)
-        online_experiment.add_logger(ranking_logger)
-
-        if type(calculate_toplists) is not bool or calculate_toplists:
-            print('logging predictions') if self.verbose else None
-
-            pred_creator = rs.ToplistCreatorPersonalized(
-                top_k=top_k,
-                exclude_known=exclude_known
-            )
-            pred_creator.set_model(model)
-            pred_logger = rs.PredictionLogger()
-            pred_logger.set_prediction_creator(pred_creator)
-
-            if type(calculate_toplists) is bool:
-                online_experiment.add_logger(pred_logger)
-            else:
-                conditional_meta_logger = rs.ListConditionalMetaLogger(
-                    should_run_vector=[int(i) for i in calculate_toplists]
-                )
-                conditional_meta_logger.set_logger(pred_logger)
-                online_experiment.add_logger(conditional_meta_logger)
-            self.predictions = pred_logger
-        else:
-            self.predictions = None
-
+        online_experiment_component.set_model(model)
         if type(learner) == list:
           for obj in learner:
-            online_experiment.add_updater(obj)
+            online_experiment_component.add_updater(obj)
         else:
-          online_experiment.add_updater(learner)
+          online_experiment_component.add_updater(learner)
+        for l in loggers:
+            online_experiment_component.add_logger(l)
 
-
-        #clean, initialize, test
-        created_objects = rs.get_and_clean()
-        rs.set_experiment_environment(online_experiment, created_objects)
-        rs.initialize_all(created_objects)
-        for i in created_objects:
-            rs.run_self_test(i)
-        self.check_unused_parameters()
-
-        print("running experiment...") if self.verbose else None
-        online_experiment.run()
-        results = self._finished()
+        results = online_experiment_component.run(data,**parameters)
+        self.predictions = online_experiment_component.predictions
         return results
 
     def get_predictions(self):
