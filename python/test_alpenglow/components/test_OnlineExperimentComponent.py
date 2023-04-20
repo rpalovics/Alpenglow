@@ -6,6 +6,7 @@ import pandas as pd
 class TestOnlineExperimentComponent:
     def test_experiment(self):
         recommender = alpenglow.components.PopularityComponent()
+        ag.collect()
         poptf_updater = ag.PopularityTimeFrameModelUpdater(
             tau = 600
         )

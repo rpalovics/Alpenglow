@@ -75,7 +75,7 @@ class OnlineExperiment(ParameterDefaults):
           Results DataFrame if memory_log=True, empty DataFrame otherwise
 
         """
-        online_experiment_component = prs.components.OnlineExperimentComponent(self) #TODO passing self is not nice, but self is ParameterContainer
+        online_experiment_component = prs.components.OnlineExperimentComponent(self) #TODO self is ParameterContainer
         #get components
         top_k = self.parameters['top_k']
         seed = self.parameters['seed']
@@ -90,8 +90,9 @@ class OnlineExperiment(ParameterDefaults):
         for l in loggers:
             online_experiment_component.add_logger(l)
 
+        online_experiment_component.build() #does nothing yet but might do something later
         results = online_experiment_component.run(data,**parameters)
-        self.predictions = online_experiment_component.predictions
+        self.predictions = online_experiment_component.get_predictions()
         return results
 
     def get_predictions(self):

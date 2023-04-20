@@ -155,9 +155,9 @@ class OnlineExperimentComponent(prs.Component):
                 )
                 conditional_meta_logger.set_logger(pred_logger)
                 online_experiment.add_logger(conditional_meta_logger)
-            self.predictions = pred_logger
+            self._predictions = pred_logger
         else:
-            self.predictions = None
+            self._predictions = None
 
         if type(learner) == list:
           for obj in learner:
@@ -178,6 +178,9 @@ class OnlineExperimentComponent(prs.Component):
         online_experiment.run()
         results = self._finished()
         return results
+
+    def get_predictions(self):
+        return self._predictions
 
     def _get_ranking_logger(self, top_k, evaluation_start_time, out_file, memory_log):
         if out_file is None:
