@@ -68,7 +68,7 @@ class OnlineExperimentComponent(prs.Component):
 
         """
         model = self.model
-        learner = self.updaters
+        updaters = self.updaters
         loggers = self.loggers 
 
         self.verbose = verbose
@@ -84,7 +84,7 @@ class OnlineExperimentComponent(prs.Component):
                 type=experimentType,
                 experiment_termination_time=experiment_termination_time
             )
-        recommender_data.initialize() #read in data -> can find max user, max item
+        recommender_data.initialize()
         max_user = recommender_data.get_max_user_id()
         max_item = recommender_data.get_max_item_id()
         recommender_data_iterator = None
@@ -93,12 +93,6 @@ class OnlineExperimentComponent(prs.Component):
         else:
             recommender_data_iterator = rs.ShuffleIterator(seed=self.parameter_container.parameters["seed"])
         recommender_data_iterator.set_recommender_data(recommender_data)
-        # string attribute_container_name = getPot("set_attribute_container", "");
-        # if(attribute_container_name.length()==0) cerr << "WARNING: no attribute container was set into RecommenderData." << endl;
-        # else {
-        #   InlineAttributeReader* attribute_container = jinja.get<InlineAttributeReader>(attribute_container_name);
-        #   recommender_data->set_attribute_container(attribute_container);
-        # }
         # data reading finished
 
         #create experiment
@@ -159,12 +153,8 @@ class OnlineExperimentComponent(prs.Component):
         else:
             self._predictions = None
 
-        if type(learner) == list:
-          for obj in learner:
-            online_experiment.add_updater(obj)
-        else:
-          online_experiment.add_updater(learner)
-
+        for updater in updaters:
+            online_experiment.add_updater(updater)
 
         #clean, initialize, test
         created_objects = rs.get_and_clean()
