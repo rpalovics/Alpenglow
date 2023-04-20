@@ -5,8 +5,8 @@ import pandas as pd
 
 class OnlineExperimentComponent(prs.Component):
 
-    def __init__(self, *posargs, **parameters):
-        super().__init__(*posargs, **parameters)
+    def __init__(self, **parameters):
+        super().__init__(**parameters)
         self.parameter_container.used_parameters = set(['seed', 'top_k'])
         self.model = None
         self.updaters = []

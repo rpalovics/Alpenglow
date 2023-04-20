@@ -75,7 +75,7 @@ class OnlineExperiment(ParameterDefaults):
           Results DataFrame if memory_log=True, empty DataFrame otherwise
 
         """
-        online_experiment_component = prs.components.OnlineExperimentComponent(self) #TODO self is ParameterContainer
+        online_experiment_component = prs.components.OnlineExperimentComponent(parameter_container=self)
         #get components
         top_k = self.parameters['top_k']
         seed = self.parameters['seed']

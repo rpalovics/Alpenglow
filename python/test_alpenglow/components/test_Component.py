@@ -16,6 +16,9 @@ class TestComponent:
         c = DummyComponent()
         c.show()
         c.build()
-        parameter_container = c.get_parameter_container()
+        parameter_container1 = c.get_parameter_container()
 
-        c2 = DummyComponent(parameter_container)
+        c2 = DummyComponent(parameter_container=parameter_container1)
+        parameter_container2 = c2.get_parameter_container()
+
+        assert parameter_container1==parameter_container2
