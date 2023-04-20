@@ -38,6 +38,7 @@ class Component():
         Creates the missing objects from the catalog and wires them.
         """
         #TODO aliases, renamed parameters
+        Getter.collect()
         for name,description in self._catalog.items():
           if description["object"]==None:
             object_type=description["type"]
