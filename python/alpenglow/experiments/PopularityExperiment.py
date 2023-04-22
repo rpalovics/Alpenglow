@@ -1,4 +1,3 @@
-import alpenglow.components.PopularityComponent
 import alpenglow as prs
 
 
@@ -7,7 +6,7 @@ class PopularityExperiment(prs.OnlineExperiment):
     """
 
     def _config(self, top_k, seed):
-        component = alpenglow.components.PopularityComponent()
+        component = prs.components.PopularityComponent()
         component.build()
         model = component.get_object("model")
         updater = component.get_object("updater")
