@@ -1,8 +1,8 @@
+import alpenglow.OnlineExperiment
 import alpenglow.components.FactorComponent
-import alpenglow as prs
 
 
-class FactorExperiment(prs.OnlineExperiment):
+class FactorExperiment(alpenglow.OnlineExperiment):
     """FactorExperiment(dimension=10,begin_min=-0.01,begin_max=0.01,learning_rate=0.05,regularization_rate=0.0,negative_rate=100)
 
     This class implements an online version of the well-known matrix factorization recommendation model [Koren2009]_
@@ -28,17 +28,9 @@ class FactorExperiment(prs.OnlineExperiment):
         The number of negative samples generated after each update. Useful for implicit recommendation.
     """
     def _config(self, top_k, seed):
-        component = alpenglow.components.FactorComponent(**self.parameter_defaults(
-            begin_min=-0.01,
-            begin_max=0.01,
-            dimension=10,
-            initialize_all=False,
-            learning_rate=0.05,
-            regularization_rate=0.0,
-            negative_rate=100,
-            seed=67439852,
-            filter_repeats=False
-        ))
+        component = alpenglow.components.FactorComponent(
+          parameter_container=self
+        )
         component.build()
         model = component.get_object("model")
         negative_sample_generator = component.get_object("negative_sample_generator")
