@@ -1,13 +1,13 @@
 import alpenglow.components.PopularityComponent
 import alpenglow.components.OnlineExperimentComponent
-import alpenglow.Getter as ag
+import alpenglow.Getter as cpp
 import pandas as pd
 
 class TestOnlineExperimentComponent:
     def test_experiment(self):
         recommender = alpenglow.components.PopularityComponent()
-        ag.collect()
-        poptf_updater = ag.PopularityTimeFrameModelUpdater(
+        cpp.collect()
+        poptf_updater = cpp.PopularityTimeFrameModelUpdater(
             tau = 600
         )
         recommender.set_object("updater",poptf_updater)
