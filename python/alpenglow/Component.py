@@ -25,21 +25,23 @@ class Component():
         Replaces a default object in the catalog to an already built one
         provided as a parameter.
         """
-        #TODO aliases
         if self._built :
           raise RuntimeError("Replacing objects is not possible after building the component.")
         if name not in self._catalog:
           raise RuntimeError("No object named "+name+" in this component.")
 
-        self._catalog[name]["object"] = obj
+        canonical_name = self.resolve_alias(name)
+        self._catalog[canonical_name]["object"] = obj
 
     def build(self):
         """
         Creates the missing objects from the catalog and wires them.
         """
-        #TODO aliases, renamed parameters
+        #TODO renamed parameters
         Getter.collect()
         for name,description in self._catalog.items():
+          if self.is_alias(name) :
+            continue
           if description["object"]==None:
             object_type=description["type"]
             object_class=getattr(Getter,object_type)
@@ -48,6 +50,8 @@ class Component():
             description["object"]=object_class(**parameters)
 
         for name,description in self._catalog.items():
+          if self.is_alias(name) :
+            continue
           instance=description["object"]
           for function_name,parameter in description["connections"]:
             function=getattr(instance, function_name)
@@ -60,14 +64,30 @@ class Component():
         """
         Returns the object named name.
         """
-        #TODO aliases
         if name not in self._catalog:
           raise RuntimeError("No object named "+name+" in this component.")
 
-        obj = self._catalog[name]["object"]
+        canonical_name = self.resolve_alias(name)
+        obj = self._catalog[canonical_name]["object"]
         if obj == None :
           raise RuntimeError("This object does not exist yet. Run build() to create all objects.")
         return obj
+
+    def resolve_alias(self, name):
+        if name not in self._catalog:
+          raise RuntimeError("No object named "+name+" in this component.")
+
+        description = self._catalog[name]
+        if "alias_for" in description.keys() :
+          name = description["alias_for"]
+        return name
+
+    def is_alias(self,name):
+        if name not in self._catalog:
+          raise RuntimeError("No object named "+name+" in this component.")
+
+        description = self._catalog[name]
+        return "alias_for" in description.keys()
 
     def _get_catalog(self):
         """Needs to be implemented by subclasses. Returns the dictionary describing the object structure of this component."""
