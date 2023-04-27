@@ -33,6 +33,6 @@ class FactorExperiment(alpenglow.OnlineExperiment):
         )
         component.build()
         model = component.get_object("model")
-        negative_sample_generator = component.get_object("negative_sample_generator")
+        updater = component.get_object("updater") #alias for negative sample generator
 
-        return (model, [negative_sample_generator], [])
+        return (model, [updater], [])

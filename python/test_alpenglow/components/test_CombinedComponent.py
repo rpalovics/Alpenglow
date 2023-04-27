@@ -39,7 +39,7 @@ class TestOnlineExperimentComponent:
         recommender.add_base_model(model2)
         recommender.build()
         model = recommender.get_object("model")
-        updater = recommender.get_object("negative_sample_generator")
+        updater = recommender.get_object("updater") #alias for negative sample generator
 
         #online_experiment
         experiment = alpenglow.components.OnlineExperimentComponent(

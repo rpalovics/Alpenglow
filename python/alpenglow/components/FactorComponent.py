@@ -79,5 +79,8 @@ class FactorComponent(prs.Component):
               ("add_updater", "point_wise_gradient_computer")
             ]
           },
+          "updater" : {
+            "alias_for" : "negative_sample_generator"
+          }
         }
         return catalog
