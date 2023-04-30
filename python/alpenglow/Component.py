@@ -2,7 +2,32 @@ from .Getter import Getter
 from .ParameterDefaults import ParameterDefaults
 
 class Component():
+    """
+    This is the base class of the modifiable Components in Alpenglow. A typical
+    Component contains a model with the training algorithm and the necessary
+    helper classes.
+
+    Usage
+    -----
+
+    Typical usage consists of creating a Component, optionally replacing some
+    parts then instantiating the classes by calling the :code:`build()` method.
+
+    Developer info
+    --------------
+    
+    Subclasses should implement the :code:`get_catalog()` method; for more information,
+    check the documentation of this method as well.
+
+    Components can use a common :code:`alpenglow.ParameterDefaults` object.
+    If it is not provided at construcion, a new one is created.
+    """
+
     def __init__(self, **parameters):
+        """
+        Parameters: named parameters of the experiment (passed further for the ParameterDefaults object that is created)
+        or a :code:`ParameterDefaults` object.
+        """
         if "parameter_container" in parameters.keys() :
           self.parameter_container = parameters["parameter_container"]
         else :
@@ -11,6 +36,12 @@ class Component():
         self._built = False
 
     def get_parameter_container(self):
+        """
+        Returns
+        -------
+        ParameterDefauls
+          The ParameterDefaults object acquired or created at initiation.
+        """
         return self.parameter_container
 
     def show(self):
@@ -23,7 +54,14 @@ class Component():
     def set_object(self, name, obj):
         """
         Replaces a default object in the catalog to an already built one
-        provided as a parameter.
+        provided as a parameter.  Use this function before calling :code:`build()`.
+
+        Parameters
+        ----------
+        name : str
+          The name of the object to be replaced.  See :code:`show()` for available names.
+        obj : object
+          The object to be inserted.
         """
         if self._built :
           raise RuntimeError("Replacing objects is not possible after building the component.")
