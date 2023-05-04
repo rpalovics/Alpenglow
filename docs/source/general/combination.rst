@@ -5,130 +5,102 @@ While some model combination methods are implemented in Alpenglow, there are no 
 Here is an example that contains the linear combination of three models.
 The combination weights are trained with SGD.
 
+The following figure shows the C++ classes in the sample experiment.
+
 .. image:: class_diagram_combined_color.png
 
+When instantiating the classes, we apply pre-wired components.
+Each purple box - the recommenders - are available as a component.
+The remaining classes are part of :code:`OnlineExperimentComponent` with a few exceptions.
+:code:`TransitionModelLogger` is not included in TransitionProbabilityComponent by default.
+We create it separately, set the appropriate model into it and add it to the experiment near to the end of the code.
+For the sake of the example, we build TimeFramePopularity recommender using PopularityComponent, replacing only the updating mechanism.
+
+.. code-block:: python
+
+    import alpenglow.components.TransitionProbabilityComponent
+    import alpenglow.components.FactorComponent
+    import alpenglow.components.PopularityComponent
+    import alpenglow.components.CombinedComponent
+    import alpenglow.components.OnlineExperimentComponent
+    import alpenglow.Getter as cpp
+    import pandas as pd
+
+    #base recommender 1: transition
+    recommender1 = alpenglow.components.TransitionProbabilityComponent(
+      mode="inverted"
+    )
+    recommender1.build()
+    model1 = recommender1.get_object("model")
+    updater1 = recommender1.get_object("updater")
+    transition_logger = cpp.TransitionModelLogger( #additional logger for transition probability model
+       toplist_length_logfile_basename = "test",
+       timeline_logfile_name = "log",
+       period_length = 100000
+    )
+    transition_logger.set_model(model1)
+
+    #base recommender 2: sgd matrix factorization
+    recommender2 = alpenglow.components.FactorComponent(
+      learning_rate = 0.1,
+      negative_rate = 10
+    )
+    recommender2.build()
+    model2 = recommender2.get_object("model")
+    updater2 = recommender2.get_object("updater")
+
+    #base recommender 3: poptf
+    recommender3 = alpenglow.components.PopularityComponent()
+    updater3 = cpp.PopularityTimeFrameModelUpdater(
+        tau = 600
+    )
+    recommender3.set_object("updater",updater3) #replacing the updater of the component
+    recommender3.build()
+    model3 = recommender3.get_object("model")
+
+    #recommender: combined model
+    recommender = alpenglow.components.CombinedComponent(
+        #model
+        log_frequency=0, #no logging
+        use_user_weights=False,
+        #negative sample generator
+        negative_rate = 10,
+        #gradient updater
+        learning_rate = 0.05,
+    )
+    recommender.add_base_model(model1)
+    recommender.add_base_model(model2)
+    recommender.add_base_model(model3)
+    recommender.build()
+    model = recommender.get_object("model")
+    updater = recommender.get_object("updater") #alias for negative sample generator
+
+    #online_experiment
+    experiment = alpenglow.components.OnlineExperimentComponent(
+        top_k = 100,
+        seed = 254938879,
+    )
+    experiment.set_model(model) #the evaluator queries the combined model
+    experiment.add_updater(updater) #first the combined model is updated
+    experiment.add_updater(updater1) #then all base models
+    experiment.add_updater(updater2)
+    experiment.add_updater(updater3)
+    experiment.add_logger(transition_logger) #adding the extra logger, ProceedingLogger and RankingLogger are included in OnlineExperimentComponent
+    experiment.build()
+
+    #data
+    data = pd.read_csv("http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset", nrows=2000)
+
+    #running the experiment
+    rankings = experiment.run(data, verbose=True, exclude_known=True)
+
 The code below is quite long and building experiments this way is error-prone, but currently no graphical building tool is implemented.
-The typical fault is to miss some :py:meth:`add_xxxx()` or :py:meth:`set_xxxx()`.
-Sometimes the result is blatantly invalid and catched by the :py:meth:`self_test()` call (see the last few lines).
+The typical fault is to miss some :py:meth:`add_xxxx()` or :py:meth:`set_xxxx()` functions.
+Sometimes the result is blatantly invalid and catched by the :py:meth:`self_test()` call (this method is automatically called by OnlineExperimentComponent).
 However, sometimes you can end up with hard-to-debug segfaults or invalid results.
+
+Take care to add each base model to the combined model, set the combined model to the online experiment and add each updater, starting with the combination updater.
 
 The order of :py:meth:`online_experiment.add_updater()` calls is important.
 In the updating phase, the order of :py:meth:`update()` calls is indentical to the order here.
 This way the combination weights are updated first, then the individual models.
-
-.. code-block:: python
-
-    from alpenglow.Getter import Getter as cpp
-    import alpenglow
-    import pandas as pd
-    
-    
-    cpp.collect() #see general/memory usage
-    
-    #data
-    data_python = pd.read_csv("http://info.ilab.sztaki.hu/~fbobee/alpenglow/alpenglow_sample_dataset", nrows=2000)
-    data_cpp_bridge = alpenglow.DataframeData(data_python)
-    data = cpp.ShuffleIterator(seed=12345)
-    data.set_recommender_data(data_cpp_bridge)
-    
-    #recommender1: model+updater
-    model1 = cpp.TransitionProbabilityModel()
-    updater1 = cpp.TransitionProbabilityModelUpdater(
-      mode="normal"
-    )
-    updater1.set_model(model1)
-    
-    #recommender3: model+updater
-    model3 = cpp.PopularityModel()
-    updater3 = cpp.PopularityTimeFrameModelUpdater(
-        tau = 86400
-    )
-    updater3.set_model(model3)
-    
-    #recommender2:
-    model2 = cpp.FactorModel(
-      dimension = 10,
-      begin_min = -0.1,
-      begin_max = 0.1
-    )
-    negative_sample_generator_f = cpp.UniformNegativeSampleGenerator(
-      negative_rate = 10
-    )
-    gradient_computer_f = cpp.GradientComputerPointWise()
-    gradient_computer_f.set_model(model2)
-    gradient_updater_f = cpp.FactorModelGradientUpdater(
-      learning_rate = 0.08,
-      regularization_rate = 0.0
-    )
-    gradient_updater_f.set_model(model2)
-    gradient_computer_f.add_gradient_updater(gradient_updater_f)
-    objective_f = cpp.ObjectiveMSE()
-    gradient_computer_f.set_objective(objective_f)
-    
-    #recommender: combined model
-    model = cpp.CombinedModel(
-      log_file_name="xxx",
-      log_frequency=1000000,
-      use_user_weights=False
-    )
-    model.add_model(model1)
-    model.add_model(model2)
-    model.add_model(model3)
-    objective_c = cpp.ObjectiveMSE()
-    negative_sample_generator_c = cpp.UniformNegativeSampleGenerator(
-      negative_rate = 10
-    )
-    gradient_computer_c = cpp.GradientComputerPointWise()
-    gradient_computer_c.set_model(model)
-    negative_sample_generator_c.add_updater(gradient_computer_c)
-    gradient_updater_c = cpp.CombinedDoubleLayerModelGradientUpdater(
-      learning_rate = 0.05
-    )
-    gradient_computer_c.add_gradient_updater(gradient_updater_c)
-    gradient_computer_c.set_objective(objective_c)
-    gradient_updater_c.set_model(model)
-    
-    #loggers: evaluation&statistics
-    logger1 = cpp.MemoryRankingLogger(
-        memory_log = True
-    )
-    logger1.set_model(model)
-    ranking_logs = cpp.RankingLogs()
-    ranking_logs.top_k = 100
-    logger1.set_ranking_logs(ranking_logs)
-    logger2 = cpp.TransitionModelLogger(
-        toplist_length_logfile_basename = "test",
-        timeline_logfile_name = "log",
-        period_length = 100000
-    )
-    logger2.set_model(model1)
-    logger3 = cpp.ProceedingLogger()
-    
-    #online_experiment
-    #Class experiment_environment is created inside.
-    online_experiment = cpp.OnlineExperiment(
-        random_seed=12345,
-        top_k=100,
-        exclude_known=True,
-        initialize_all=False
-    )
-    online_experiment.add_logger(logger1)
-    online_experiment.add_logger(logger2)
-    online_experiment.add_logger(logger3)
-    online_experiment.add_updater(negative_sample_generator_c) #this will be called first
-    online_experiment.add_updater(updater1)
-    online_experiment.add_updater(negative_sample_generator_f)
-    online_experiment.add_updater(updater3)
-    online_experiment.set_recommender_data_iterator(data)
-    
-    #clean, initialize, test (see general/cpp api)
-    objects = cpp.get_and_clean()
-    cpp.set_experiment_environment(online_experiment, objects)
-    cpp.initialize_all(objects)
-    for i in objects:
-        cpp.run_self_test(i)
-    
-    #run the experiment
-    online_experiment.run()
-    
-    result = logger1.get_ranking_logs()
