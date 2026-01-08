@@ -57,8 +57,19 @@ for i in range(1,14):
     test_users_ext = read_users(f"{ckpt_dir}/batch_{i}_test.dat")
 
     # Convert external -> internal (RecBole case study workflow)
+    # drop users who didn't appear in the training data,
+    # we can't generate a top list for them
     # token2id expects strings in many pipelines; to be safe:
-    test_users_int = dataset.token2id(uid_field, [str(u) for u in test_users_ext])
+    test_users_int = []
+    test_users_ext_filtered = []
+    for u_ext in test_users_ext:
+        try:
+            u_int = dataset.token2id(uid_field, str(u_ext))
+            test_users_int.append(u_int)
+            test_users_ext_filtered.append(u_ext)
+        except ValueError:
+            pass #we drop new users
+    test_users_ext = test_users_ext_filtered
 
     # Filter out unknown users (token2id may map unknown to 0/[PAD] depending on setup)
     mask_known = np.array(test_users_int) != 0
