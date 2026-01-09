@@ -13,11 +13,6 @@ def read_users(test_path: str):
     df = pd.read_csv(test_path)
     return df["user"].tolist()
 
-def read_train_pairs(train_path: str):
-    # assumes columns user,item (and maybe score)
-    df = pd.read_csv(train_path)
-    return df[["user:token", "item:token"]]
-
 def latest_model_file(checkpoint_dir: str, model_name: str) -> str:
     p = Path(checkpoint_dir)
     candidates = sorted(p.glob(f"{model_name}-*.pth"), key=lambda x: x.stat().st_mtime)
@@ -71,17 +66,12 @@ for i in range(1,14):
             pass #we drop new users
     test_users_ext = test_users_ext_filtered
 
-    # Filter out unknown users (token2id may map unknown to 0/[PAD] depending on setup)
-    mask_known = np.array(test_users_int) != 0
-    test_users_ext = list(np.array(test_users_ext)[mask_known])
-    test_users_int = list(np.array(test_users_int)[mask_known])
-
     if not test_users_int:
-        # no eligible users in this batch; still create empty file
-        open(f"{ckpt_dir}/batch_{i}_predictions.dat", "w").close()
+        # no eligible users in this batch, no top list file needed
         continue
 
     # --- full-sort scores ---
+    # following recbole.utils.case_study
     interaction = Interaction({uid_field: torch.tensor(test_users_int, dtype=torch.long)}).to(model.device)
     scores = model.full_sort_predict(interaction)  # 1D [n_users * item_num]
     scores = scores.view(len(test_users_int), dataset.item_num)  # reshape
@@ -89,20 +79,17 @@ for i in range(1,14):
     # mask [PAD] item (internal id 0)
     scores[:, 0] = -np.inf
 
-    # --- mask training history, TODO Alpenglow has a parameter for this, check whether it is set ---
-    train_pairs = read_train_pairs(f"{ckpt_dir}/batch_{i}.inter")
-    # Convert external tokens -> internal ids
-    u_int = dataset.token2id(uid_field, train_pairs["user:token"].astype(str).tolist())
-    it_int = dataset.token2id(iid_field, train_pairs["item:token"].astype(str).tolist())
-
+    # mask interactions already appeared in the training data
     # For each (u,i) seen in training, set score to -inf
     # We only need to mask for the users we are currently scoring.
     user_pos = {u: idx for idx, u in enumerate(test_users_int)}
+    training_data = dataset.inter_feat.interaction
+    u_int = training_data[uid_field]
+    it_int = training_data[iid_field]
     for uu, ii in zip(u_int, it_int):
         row = user_pos.get(uu)
         if row is not None and ii != 0:
             scores[row, ii] = -np.inf
-    #end of training history masking
 
     # --- topK ---
     topk_scores, topk_iids = torch.topk(scores, k=TOPK, dim=1)
