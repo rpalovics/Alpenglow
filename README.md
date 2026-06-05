@@ -29,7 +29,7 @@ If you encounter any conflict or error, try installing Alpenglow in a clean cond
 - `conda activate [your_cond_env_name]`
 - `./install_alpenglow_sip.sh`
 - `conda install libgcc`
-- `conda install -c conda-forge eigen`
+- `conda install -c conda-forge "eigen=3.3.7"`
 - `pip install .`
 
 It is also possible on other plaforms to compile from source similarly, however we don't maintain exact instructions here. For reference on how the official binaries are built, please see the corresponding [feedstock](https://github.com/conda-forge/alpenglow-feedstock).

@@ -160,8 +160,8 @@ if 'CONDA_PREFIX' in os.environ:
 setup(
     name='alpenglow',
     version='0.1.0',
-    install_requires=['numpy', 'pandas'] if not 'READTHEDOCS' in os.environ else [],
-    setup_requires=['numpy'] if not 'READTHEDOCS' in os.environ else [],
+    install_requires=['numpy<1.19', 'pandas'] if not 'READTHEDOCS' in os.environ else [],
+    setup_requires=['numpy<1.19'] if not 'READTHEDOCS' in os.environ else [],
     ext_modules=[
         Extension(
             "alpenglow.cpp",
