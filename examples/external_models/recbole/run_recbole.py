@@ -23,6 +23,7 @@ def latest_model_file(checkpoint_dir: str, model_name: str) -> str:
 parameter_dict = {
     'model': 'BPR',
     'data_path': 'batches',
+    'eval_batch_size': 26214400,
     'field_separator': ',',
     'USER_ID_FIELD': 'user',
     'ITEM_ID_FIELD': 'item',
