@@ -1,0 +1,7 @@
+To run the C++ level tests, you need to install gtest first. Use the script provided, starting it from this directory.
+
+To compile the tests, use scons. Activate your conda/mamba/etc. env that contains Eigen3 or provide the path for the include in the variable CPATH.
+
+Use the -j option to run the compilation on multiple threads, e.g., scons -j10 .
+
+Run all tests using run_tests.sh.
