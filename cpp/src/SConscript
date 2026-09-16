@@ -1,8 +1,16 @@
 import os
 
 extra_cpppath = []
+
 if 'CPATH' in os.environ:
-    extra_cpppath = [p for p in os.environ['CPATH'].split(os.pathsep) if p]
+    extra_cpppath.extend(
+        p for p in os.environ['CPATH'].split(os.pathsep) if p
+    )
+
+if 'CONDA_PREFIX' in os.environ:
+    extra_cpppath.append(
+        os.path.join(os.environ['CONDA_PREFIX'], 'include')
+    )
 
 env = Environment(
     CXX="g++",
