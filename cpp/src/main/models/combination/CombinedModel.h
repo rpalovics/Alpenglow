@@ -3,6 +3,7 @@
 
 //SIP_AUTOCONVERT
 
+#include <gtest/gtest_prod.h>
 #include <vector>
 #include "../Model.h"
 
@@ -40,6 +41,10 @@ class CombinedModel : public Model {
     bool use_user_weights;
     friend class CombinedDoubleLayerModelGradientUpdater; 
     friend class CombinedSingleLayerModelGradientUpdater;
+  FRIEND_TEST(TestCombinedModel, test_prediction);
+  FRIEND_TEST(TestCombinedModel, test_prediction_user_w);
+  FRIEND_TEST(TestCombinedModel, test_update_no_always);
+  FRIEND_TEST(TestCombinedModel, test_update_always);
 };
 
 #endif /* COMBINED_MODEL_H */
