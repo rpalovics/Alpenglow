@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <random>
 #include "../../main/models/factor/FactorModelRankingScoreIterator.h"
 #include "../../main/models/factor/lemp/FactorsLempContainer.h"
 
